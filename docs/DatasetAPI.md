@@ -172,7 +172,7 @@ import (
 
 func main() {
 	name := "signups" // string | Name is the dataset, from the path.
-	version := int32(1) // int32 | Version is the version to trace. Zero takes the newest published one. (optional)
+	version := int64(1) // int64 | Version is the version to trace. Zero takes the newest published one. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -202,7 +202,7 @@ Other parameters are passed through a pointer to a apiRiskDatasetLineageRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **version** | **int32** | Version is the version to trace. Zero takes the newest published one. | 
+ **version** | **int64** | Version is the version to trace. Zero takes the newest published one. | 
 
 ### Return type
 
@@ -375,10 +375,10 @@ import (
 
 func main() {
 	name := "signups" // string | Name is the dataset, from the path.
-	version := int32(1) // int32 | Version is the version to read. Zero takes the newest published one. (optional)
+	version := int64(1) // int64 | Version is the version to read. Zero takes the newest published one. (optional)
 	split := "train" // string | Split narrows to train, val or test. Empty reads every split. (optional)
-	offset := int32(56) // int32 | Offset is where the page starts, in the version's own row order (by id, which is derived from the row and therefore stable forever). (optional)
-	limit := int32(500) // int32 | Limit is how many rows to return. Zero and anything above the plane's bound take the bound. (optional)
+	offset := int64(789) // int64 | Offset is where the page starts, in the version's own row order (by id, which is derived from the row and therefore stable forever). (optional)
+	limit := int64(500) // int64 | Limit is how many rows to return. Zero and anything above the plane's bound take the bound. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -408,10 +408,10 @@ Other parameters are passed through a pointer to a apiRiskExportDatasetRequest s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **version** | **int32** | Version is the version to read. Zero takes the newest published one. | 
+ **version** | **int64** | Version is the version to read. Zero takes the newest published one. | 
  **split** | **string** | Split narrows to train, val or test. Empty reads every split. | 
- **offset** | **int32** | Offset is where the page starts, in the version&#39;s own row order (by id, which is derived from the row and therefore stable forever). | 
- **limit** | **int32** | Limit is how many rows to return. Zero and anything above the plane&#39;s bound take the bound. | 
+ **offset** | **int64** | Offset is where the page starts, in the version&#39;s own row order (by id, which is derived from the row and therefore stable forever). | 
+ **limit** | **int64** | Limit is how many rows to return. Zero and anything above the plane&#39;s bound take the bound. | 
 
 ### Return type
 

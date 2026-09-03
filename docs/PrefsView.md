@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Prefs** | Pointer to **interface{}** |  | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is when the document was last written, unix seconds. Absent when nothing has been saved. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is when the document was last written, unix seconds. Absent when nothing has been saved. | [optional] 
 
 ## Methods
 
@@ -63,20 +63,20 @@ HasPrefs returns a boolean if a field has been set.
 UnsetPrefs ensures that no value is present for Prefs, not even an explicit nil
 ### GetUpdatedAt
 
-`func (o *PrefsView) GetUpdatedAt() int32`
+`func (o *PrefsView) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *PrefsView) GetUpdatedAtOk() (*int32, bool)`
+`func (o *PrefsView) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *PrefsView) SetUpdatedAt(v int32)`
+`func (o *PrefsView) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **KycStatus** | Pointer to **string** | KYCStatus is the founder&#39;s unsettled status. | [optional] 
 **Name** | Pointer to **string** | Name is the proposed company name. | [optional] 
 **Org** | Pointer to **string** | Org is the tenant whose formation the founder belongs to. | [optional] 
-**Since** | Pointer to **int32** | Since is when the formation was last touched, as a unix second. | [optional] 
+**Since** | Pointer to **int64** | Since is when the formation was last touched, as a unix second. | [optional] 
 
 ## Methods
 
@@ -183,20 +183,20 @@ HasOrg returns a boolean if a field has been set.
 
 ### GetSince
 
-`func (o *Waiting) GetSince() int32`
+`func (o *Waiting) GetSince() int64`
 
 GetSince returns the Since field if non-nil, zero value otherwise.
 
 ### GetSinceOk
 
-`func (o *Waiting) GetSinceOk() (*int32, bool)`
+`func (o *Waiting) GetSinceOk() (*int64, bool)`
 
 GetSinceOk returns a tuple with the Since field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSince
 
-`func (o *Waiting) SetSince(v int32)`
+`func (o *Waiting) SetSince(v int64)`
 
 SetSince sets Since field to given value.
 

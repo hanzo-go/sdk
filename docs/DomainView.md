@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** | CreatedAt is the unix second the custom claim was made. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is the unix second the custom claim was made. | [optional] 
 **Detail** | Pointer to **string** | Detail says why a claim is still pending, in the resolver&#39;s own words. | [optional] 
 **Host** | Pointer to **string** | Host is the hostname itself. | [optional] 
 **Kind** | Pointer to **string** | Kind is &#x60;default&#x60;, &#x60;subtree&#x60; or &#x60;custom&#x60; — how the org came to own it. | [optional] 
@@ -35,20 +35,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreatedAt
 
-`func (o *DomainView) GetCreatedAt() int32`
+`func (o *DomainView) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *DomainView) GetCreatedAtOk() (*int32, bool)`
+`func (o *DomainView) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *DomainView) SetCreatedAt(v int32)`
+`func (o *DomainView) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 

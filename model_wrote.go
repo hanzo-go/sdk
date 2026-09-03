@@ -20,7 +20,7 @@ var _ MappedNullable = &Wrote{}
 // Wrote struct for Wrote
 type Wrote struct {
 	// Bytes is how many bytes the file now holds. A write REPLACES the file, so this is its whole length and not an amount appended, and 0 is a legitimate answer: a WriteIn with no Data truncates the file to nothing.
-	Bytes *int32 `json:"bytes,omitempty"`
+	Bytes *int64 `json:"bytes,omitempty"`
 	// Path is where the bytes actually landed: the caller's path resolved against the sandbox's working directory (Leased.Workdir), which is what a later read or a shell line inside the sandbox has to name.
 	Path *string `json:"path,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewWroteWithDefaults() *Wrote {
 }
 
 // GetBytes returns the Bytes field value if set, zero value otherwise.
-func (o *Wrote) GetBytes() int32 {
+func (o *Wrote) GetBytes() int64 {
 	if o == nil || IsNil(o.Bytes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Bytes
@@ -53,7 +53,7 @@ func (o *Wrote) GetBytes() int32 {
 
 // GetBytesOk returns a tuple with the Bytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Wrote) GetBytesOk() (*int32, bool) {
+func (o *Wrote) GetBytesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Bytes) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *Wrote) HasBytes() bool {
 	return false
 }
 
-// SetBytes gets a reference to the given int32 and assigns it to the Bytes field.
-func (o *Wrote) SetBytes(v int32) {
+// SetBytes gets a reference to the given int64 and assigns it to the Bytes field.
+func (o *Wrote) SetBytes(v int64) {
 	o.Bytes = &v
 }
 

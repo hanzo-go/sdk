@@ -22,7 +22,7 @@ type MCPServer struct {
 	// AuthHeader is the request header the KMS-held credential is injected into, e.g. \"Authorization\". Absent when the server needs no credential.
 	AuthHeader *string `json:"authHeader,omitempty"`
 	// CreatedAt is when the server was registered, Unix seconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// HasSecret is whether a credential is sealed in KMS for this server. The VALUE is never returned by any route.
 	HasSecret *bool `json:"hasSecret,omitempty"`
 	// ID is the server's id within the org. It also PREFIXES every tool name the server contributes, which is what keeps two servers' \"search\" apart.
@@ -89,9 +89,9 @@ func (o *MCPServer) SetAuthHeader(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *MCPServer) GetCreatedAt() int32 {
+func (o *MCPServer) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -99,7 +99,7 @@ func (o *MCPServer) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MCPServer) GetCreatedAtOk() (*int32, bool) {
+func (o *MCPServer) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -115,8 +115,8 @@ func (o *MCPServer) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *MCPServer) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *MCPServer) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 

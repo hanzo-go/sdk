@@ -20,15 +20,15 @@ var _ MappedNullable = &RiskSurface{}
 // RiskSurface struct for RiskSurface
 type RiskSurface struct {
 	// Folded is how many buckets of the tenant's own feature surface were folded into the model when it became resident.
-	Folded *int32 `json:"folded,omitempty"`
+	Folded *int64 `json:"folded,omitempty"`
 	// Gap says why the fold did not happen or did not complete, when that is the case. An empty surface and an unreachable warehouse are different facts and a model must not report them as the same one.
 	Gap *string `json:"gap,omitempty"`
 	// Refused is how many buckets of this organisation's own surface the fold could not fold, because a subject on them is longer than this plane's own field bound. It is history the model does not have, said out loud.
-	Refused *int32 `json:"refused,omitempty"`
+	Refused *int64 `json:"refused,omitempty"`
 	// Replayed is how many of this organisation's own recorded observations rebuilt its sliding aggregates when the model became resident. It is what says a rollout was a rebuild rather than a blindness: the aggregates are a projection of a durable record, so a restart costs a replay and not a control.
-	Replayed *int32 `json:"replayed,omitempty"`
+	Replayed *int64 `json:"replayed,omitempty"`
 	// Rolled is how many windows of this organisation's own source planes — product events, captured failures, metered inference — were rolled up into its feature surface before that fold. Zero with no gap means the surface was already current, which is a different fact from the rollup never running.
-	Rolled *int32 `json:"rolled,omitempty"`
+	Rolled *int64 `json:"rolled,omitempty"`
 	// Window is the lookback the fold covered.
 	Window *string `json:"window,omitempty"`
 }
@@ -51,9 +51,9 @@ func NewRiskSurfaceWithDefaults() *RiskSurface {
 }
 
 // GetFolded returns the Folded field value if set, zero value otherwise.
-func (o *RiskSurface) GetFolded() int32 {
+func (o *RiskSurface) GetFolded() int64 {
 	if o == nil || IsNil(o.Folded) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Folded
@@ -61,7 +61,7 @@ func (o *RiskSurface) GetFolded() int32 {
 
 // GetFoldedOk returns a tuple with the Folded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskSurface) GetFoldedOk() (*int32, bool) {
+func (o *RiskSurface) GetFoldedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Folded) {
 		return nil, false
 	}
@@ -77,8 +77,8 @@ func (o *RiskSurface) HasFolded() bool {
 	return false
 }
 
-// SetFolded gets a reference to the given int32 and assigns it to the Folded field.
-func (o *RiskSurface) SetFolded(v int32) {
+// SetFolded gets a reference to the given int64 and assigns it to the Folded field.
+func (o *RiskSurface) SetFolded(v int64) {
 	o.Folded = &v
 }
 
@@ -115,9 +115,9 @@ func (o *RiskSurface) SetGap(v string) {
 }
 
 // GetRefused returns the Refused field value if set, zero value otherwise.
-func (o *RiskSurface) GetRefused() int32 {
+func (o *RiskSurface) GetRefused() int64 {
 	if o == nil || IsNil(o.Refused) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Refused
@@ -125,7 +125,7 @@ func (o *RiskSurface) GetRefused() int32 {
 
 // GetRefusedOk returns a tuple with the Refused field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskSurface) GetRefusedOk() (*int32, bool) {
+func (o *RiskSurface) GetRefusedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Refused) {
 		return nil, false
 	}
@@ -141,15 +141,15 @@ func (o *RiskSurface) HasRefused() bool {
 	return false
 }
 
-// SetRefused gets a reference to the given int32 and assigns it to the Refused field.
-func (o *RiskSurface) SetRefused(v int32) {
+// SetRefused gets a reference to the given int64 and assigns it to the Refused field.
+func (o *RiskSurface) SetRefused(v int64) {
 	o.Refused = &v
 }
 
 // GetReplayed returns the Replayed field value if set, zero value otherwise.
-func (o *RiskSurface) GetReplayed() int32 {
+func (o *RiskSurface) GetReplayed() int64 {
 	if o == nil || IsNil(o.Replayed) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Replayed
@@ -157,7 +157,7 @@ func (o *RiskSurface) GetReplayed() int32 {
 
 // GetReplayedOk returns a tuple with the Replayed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskSurface) GetReplayedOk() (*int32, bool) {
+func (o *RiskSurface) GetReplayedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Replayed) {
 		return nil, false
 	}
@@ -173,15 +173,15 @@ func (o *RiskSurface) HasReplayed() bool {
 	return false
 }
 
-// SetReplayed gets a reference to the given int32 and assigns it to the Replayed field.
-func (o *RiskSurface) SetReplayed(v int32) {
+// SetReplayed gets a reference to the given int64 and assigns it to the Replayed field.
+func (o *RiskSurface) SetReplayed(v int64) {
 	o.Replayed = &v
 }
 
 // GetRolled returns the Rolled field value if set, zero value otherwise.
-func (o *RiskSurface) GetRolled() int32 {
+func (o *RiskSurface) GetRolled() int64 {
 	if o == nil || IsNil(o.Rolled) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Rolled
@@ -189,7 +189,7 @@ func (o *RiskSurface) GetRolled() int32 {
 
 // GetRolledOk returns a tuple with the Rolled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskSurface) GetRolledOk() (*int32, bool) {
+func (o *RiskSurface) GetRolledOk() (*int64, bool) {
 	if o == nil || IsNil(o.Rolled) {
 		return nil, false
 	}
@@ -205,8 +205,8 @@ func (o *RiskSurface) HasRolled() bool {
 	return false
 }
 
-// SetRolled gets a reference to the given int32 and assigns it to the Rolled field.
-func (o *RiskSurface) SetRolled(v int32) {
+// SetRolled gets a reference to the given int64 and assigns it to the Rolled field.
+func (o *RiskSurface) SetRolled(v int64) {
 	o.Rolled = &v
 }
 

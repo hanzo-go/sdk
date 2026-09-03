@@ -22,11 +22,11 @@ type LatencyStat struct {
 	// false when no GenAI spans carry timing; the percentiles are then null
 	Available *bool `json:"available,omitempty"`
 	// median latency over the window
-	P50Ms *float32 `json:"p50Ms,omitempty"`
+	P50Ms *float64 `json:"p50Ms,omitempty"`
 	// 95th-percentile latency
-	P95Ms *float32 `json:"p95Ms,omitempty"`
+	P95Ms *float64 `json:"p95Ms,omitempty"`
 	// 99th-percentile latency
-	P99Ms *float32 `json:"p99Ms,omitempty"`
+	P99Ms *float64 `json:"p99Ms,omitempty"`
 }
 
 // NewLatencyStat instantiates a new LatencyStat object
@@ -79,9 +79,9 @@ func (o *LatencyStat) SetAvailable(v bool) {
 }
 
 // GetP50Ms returns the P50Ms field value if set, zero value otherwise.
-func (o *LatencyStat) GetP50Ms() float32 {
+func (o *LatencyStat) GetP50Ms() float64 {
 	if o == nil || IsNil(o.P50Ms) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.P50Ms
@@ -89,7 +89,7 @@ func (o *LatencyStat) GetP50Ms() float32 {
 
 // GetP50MsOk returns a tuple with the P50Ms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LatencyStat) GetP50MsOk() (*float32, bool) {
+func (o *LatencyStat) GetP50MsOk() (*float64, bool) {
 	if o == nil || IsNil(o.P50Ms) {
 		return nil, false
 	}
@@ -105,15 +105,15 @@ func (o *LatencyStat) HasP50Ms() bool {
 	return false
 }
 
-// SetP50Ms gets a reference to the given float32 and assigns it to the P50Ms field.
-func (o *LatencyStat) SetP50Ms(v float32) {
+// SetP50Ms gets a reference to the given float64 and assigns it to the P50Ms field.
+func (o *LatencyStat) SetP50Ms(v float64) {
 	o.P50Ms = &v
 }
 
 // GetP95Ms returns the P95Ms field value if set, zero value otherwise.
-func (o *LatencyStat) GetP95Ms() float32 {
+func (o *LatencyStat) GetP95Ms() float64 {
 	if o == nil || IsNil(o.P95Ms) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.P95Ms
@@ -121,7 +121,7 @@ func (o *LatencyStat) GetP95Ms() float32 {
 
 // GetP95MsOk returns a tuple with the P95Ms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LatencyStat) GetP95MsOk() (*float32, bool) {
+func (o *LatencyStat) GetP95MsOk() (*float64, bool) {
 	if o == nil || IsNil(o.P95Ms) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *LatencyStat) HasP95Ms() bool {
 	return false
 }
 
-// SetP95Ms gets a reference to the given float32 and assigns it to the P95Ms field.
-func (o *LatencyStat) SetP95Ms(v float32) {
+// SetP95Ms gets a reference to the given float64 and assigns it to the P95Ms field.
+func (o *LatencyStat) SetP95Ms(v float64) {
 	o.P95Ms = &v
 }
 
 // GetP99Ms returns the P99Ms field value if set, zero value otherwise.
-func (o *LatencyStat) GetP99Ms() float32 {
+func (o *LatencyStat) GetP99Ms() float64 {
 	if o == nil || IsNil(o.P99Ms) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.P99Ms
@@ -153,7 +153,7 @@ func (o *LatencyStat) GetP99Ms() float32 {
 
 // GetP99MsOk returns a tuple with the P99Ms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LatencyStat) GetP99MsOk() (*float32, bool) {
+func (o *LatencyStat) GetP99MsOk() (*float64, bool) {
 	if o == nil || IsNil(o.P99Ms) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *LatencyStat) HasP99Ms() bool {
 	return false
 }
 
-// SetP99Ms gets a reference to the given float32 and assigns it to the P99Ms field.
-func (o *LatencyStat) SetP99Ms(v float32) {
+// SetP99Ms gets a reference to the given float64 and assigns it to the P99Ms field.
+func (o *LatencyStat) SetP99Ms(v float64) {
 	o.P99Ms = &v
 }
 

@@ -34,9 +34,9 @@ type EsignRecipient struct {
 	// SendStatus is NOT_SENT until the document goes out, then SENT. A CC recipient is SENT from the moment they are added.
 	SendStatus *string `json:"sendStatus,omitempty"`
 	// SignedAt is when they finished or declined, in unix milliseconds; null while neither has happened.
-	SignedAt *int32 `json:"signedAt,omitempty"`
+	SignedAt *int64 `json:"signedAt,omitempty"`
 	// SigningOrder is their position in a SEQUENTIAL document, null when they were added without one. A PARALLEL document ignores it.
-	SigningOrder *float32 `json:"signingOrder,omitempty"`
+	SigningOrder *float64 `json:"signingOrder,omitempty"`
 	// SigningStatus is NOT_SIGNED, SIGNED or REJECTED. A CC recipient is SIGNED from the moment they are added, because they are never asked.
 	SigningStatus *string `json:"signingStatus,omitempty"`
 }
@@ -283,9 +283,9 @@ func (o *EsignRecipient) SetSendStatus(v string) {
 }
 
 // GetSignedAt returns the SignedAt field value if set, zero value otherwise.
-func (o *EsignRecipient) GetSignedAt() int32 {
+func (o *EsignRecipient) GetSignedAt() int64 {
 	if o == nil || IsNil(o.SignedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SignedAt
@@ -293,7 +293,7 @@ func (o *EsignRecipient) GetSignedAt() int32 {
 
 // GetSignedAtOk returns a tuple with the SignedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsignRecipient) GetSignedAtOk() (*int32, bool) {
+func (o *EsignRecipient) GetSignedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.SignedAt) {
 		return nil, false
 	}
@@ -309,15 +309,15 @@ func (o *EsignRecipient) HasSignedAt() bool {
 	return false
 }
 
-// SetSignedAt gets a reference to the given int32 and assigns it to the SignedAt field.
-func (o *EsignRecipient) SetSignedAt(v int32) {
+// SetSignedAt gets a reference to the given int64 and assigns it to the SignedAt field.
+func (o *EsignRecipient) SetSignedAt(v int64) {
 	o.SignedAt = &v
 }
 
 // GetSigningOrder returns the SigningOrder field value if set, zero value otherwise.
-func (o *EsignRecipient) GetSigningOrder() float32 {
+func (o *EsignRecipient) GetSigningOrder() float64 {
 	if o == nil || IsNil(o.SigningOrder) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.SigningOrder
@@ -325,7 +325,7 @@ func (o *EsignRecipient) GetSigningOrder() float32 {
 
 // GetSigningOrderOk returns a tuple with the SigningOrder field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsignRecipient) GetSigningOrderOk() (*float32, bool) {
+func (o *EsignRecipient) GetSigningOrderOk() (*float64, bool) {
 	if o == nil || IsNil(o.SigningOrder) {
 		return nil, false
 	}
@@ -341,8 +341,8 @@ func (o *EsignRecipient) HasSigningOrder() bool {
 	return false
 }
 
-// SetSigningOrder gets a reference to the given float32 and assigns it to the SigningOrder field.
-func (o *EsignRecipient) SetSigningOrder(v float32) {
+// SetSigningOrder gets a reference to the given float64 and assigns it to the SigningOrder field.
+func (o *EsignRecipient) SetSigningOrder(v float64) {
 	o.SigningOrder = &v
 }
 

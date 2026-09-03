@@ -6,18 +6,18 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreatedAt** | Pointer to **string** | CreatedAt is when the cart was opened, RFC3339. | [optional] 
 **Currency** | Pointer to **string** | Currency is the ISO 4217 code every amount below is denominated in. | [optional] 
-**DiscountCents** | Pointer to **int32** | DiscountCents is what coupons and promotions took off, in whole cents. | [optional] 
+**DiscountCents** | Pointer to **int64** | DiscountCents is what coupons and promotions took off, in whole cents. | [optional] 
 **Email** | Pointer to **string** | Email is the shopper&#39;s address, when the cart carries one. | [optional] 
 **Id** | Pointer to **string** | ID is the cart&#39;s id — what every other cart op addresses it by, and what a storefront persists against the browser session. | [optional] 
 **Items** | Pointer to [**[]CartItem**](CartItem.md) | Items are the cart&#39;s lines, in the order they were added. | [optional] 
-**LineTotalCents** | Pointer to **int32** | LineTotalCents is the sum of the lines before any discount, in whole cents. | [optional] 
+**LineTotalCents** | Pointer to **int64** | LineTotalCents is the sum of the lines before any discount, in whole cents. | [optional] 
 **Order** | Pointer to **string** | Order is the order this cart became, once checkout completed it. Empty until then, and its presence is what makes a cart final. | [optional] 
-**ShippingCents** | Pointer to **int32** | ShippingCents is the shipping charge, in whole cents. It stays zero until a shipping option is priced at checkout. | [optional] 
+**ShippingCents** | Pointer to **int64** | ShippingCents is the shipping charge, in whole cents. It stays zero until a shipping option is priced at checkout. | [optional] 
 **Status** | Pointer to **string** | Status is \&quot;active\&quot; for a cart still being filled, \&quot;ordered\&quot; once checkout turned it into an order, and \&quot;discarded\&quot; when the shopper abandoned it. | [optional] 
 **Store** | Pointer to **string** | Store is the storefront the cart is being filled on. | [optional] 
-**SubtotalCents** | Pointer to **int32** | SubtotalCents is LineTotalCents less DiscountCents, in whole cents. | [optional] 
-**TaxCents** | Pointer to **int32** | TaxCents is the sales tax, in whole cents. It stays zero until checkout resolves the shopper&#39;s tax region. | [optional] 
-**TotalCents** | Pointer to **int32** | TotalCents is what the shopper pays: subtotal plus shipping plus tax, in whole cents. | [optional] 
+**SubtotalCents** | Pointer to **int64** | SubtotalCents is LineTotalCents less DiscountCents, in whole cents. | [optional] 
+**TaxCents** | Pointer to **int64** | TaxCents is the sales tax, in whole cents. It stays zero until checkout resolves the shopper&#39;s tax region. | [optional] 
+**TotalCents** | Pointer to **int64** | TotalCents is what the shopper pays: subtotal plus shipping plus tax, in whole cents. | [optional] 
 **UpdatedAt** | Pointer to **string** | UpdatedAt is when the cart was last amended, RFC3339. | [optional] 
 **User** | Pointer to **string** | User is the signed-in shopper this cart belongs to, empty for a guest cart. | [optional] 
 
@@ -92,20 +92,20 @@ HasCurrency returns a boolean if a field has been set.
 
 ### GetDiscountCents
 
-`func (o *Cart) GetDiscountCents() int32`
+`func (o *Cart) GetDiscountCents() int64`
 
 GetDiscountCents returns the DiscountCents field if non-nil, zero value otherwise.
 
 ### GetDiscountCentsOk
 
-`func (o *Cart) GetDiscountCentsOk() (*int32, bool)`
+`func (o *Cart) GetDiscountCentsOk() (*int64, bool)`
 
 GetDiscountCentsOk returns a tuple with the DiscountCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDiscountCents
 
-`func (o *Cart) SetDiscountCents(v int32)`
+`func (o *Cart) SetDiscountCents(v int64)`
 
 SetDiscountCents sets DiscountCents field to given value.
 
@@ -192,20 +192,20 @@ HasItems returns a boolean if a field has been set.
 
 ### GetLineTotalCents
 
-`func (o *Cart) GetLineTotalCents() int32`
+`func (o *Cart) GetLineTotalCents() int64`
 
 GetLineTotalCents returns the LineTotalCents field if non-nil, zero value otherwise.
 
 ### GetLineTotalCentsOk
 
-`func (o *Cart) GetLineTotalCentsOk() (*int32, bool)`
+`func (o *Cart) GetLineTotalCentsOk() (*int64, bool)`
 
 GetLineTotalCentsOk returns a tuple with the LineTotalCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLineTotalCents
 
-`func (o *Cart) SetLineTotalCents(v int32)`
+`func (o *Cart) SetLineTotalCents(v int64)`
 
 SetLineTotalCents sets LineTotalCents field to given value.
 
@@ -242,20 +242,20 @@ HasOrder returns a boolean if a field has been set.
 
 ### GetShippingCents
 
-`func (o *Cart) GetShippingCents() int32`
+`func (o *Cart) GetShippingCents() int64`
 
 GetShippingCents returns the ShippingCents field if non-nil, zero value otherwise.
 
 ### GetShippingCentsOk
 
-`func (o *Cart) GetShippingCentsOk() (*int32, bool)`
+`func (o *Cart) GetShippingCentsOk() (*int64, bool)`
 
 GetShippingCentsOk returns a tuple with the ShippingCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetShippingCents
 
-`func (o *Cart) SetShippingCents(v int32)`
+`func (o *Cart) SetShippingCents(v int64)`
 
 SetShippingCents sets ShippingCents field to given value.
 
@@ -317,20 +317,20 @@ HasStore returns a boolean if a field has been set.
 
 ### GetSubtotalCents
 
-`func (o *Cart) GetSubtotalCents() int32`
+`func (o *Cart) GetSubtotalCents() int64`
 
 GetSubtotalCents returns the SubtotalCents field if non-nil, zero value otherwise.
 
 ### GetSubtotalCentsOk
 
-`func (o *Cart) GetSubtotalCentsOk() (*int32, bool)`
+`func (o *Cart) GetSubtotalCentsOk() (*int64, bool)`
 
 GetSubtotalCentsOk returns a tuple with the SubtotalCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSubtotalCents
 
-`func (o *Cart) SetSubtotalCents(v int32)`
+`func (o *Cart) SetSubtotalCents(v int64)`
 
 SetSubtotalCents sets SubtotalCents field to given value.
 
@@ -342,20 +342,20 @@ HasSubtotalCents returns a boolean if a field has been set.
 
 ### GetTaxCents
 
-`func (o *Cart) GetTaxCents() int32`
+`func (o *Cart) GetTaxCents() int64`
 
 GetTaxCents returns the TaxCents field if non-nil, zero value otherwise.
 
 ### GetTaxCentsOk
 
-`func (o *Cart) GetTaxCentsOk() (*int32, bool)`
+`func (o *Cart) GetTaxCentsOk() (*int64, bool)`
 
 GetTaxCentsOk returns a tuple with the TaxCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTaxCents
 
-`func (o *Cart) SetTaxCents(v int32)`
+`func (o *Cart) SetTaxCents(v int64)`
 
 SetTaxCents sets TaxCents field to given value.
 
@@ -367,20 +367,20 @@ HasTaxCents returns a boolean if a field has been set.
 
 ### GetTotalCents
 
-`func (o *Cart) GetTotalCents() int32`
+`func (o *Cart) GetTotalCents() int64`
 
 GetTotalCents returns the TotalCents field if non-nil, zero value otherwise.
 
 ### GetTotalCentsOk
 
-`func (o *Cart) GetTotalCentsOk() (*int32, bool)`
+`func (o *Cart) GetTotalCentsOk() (*int64, bool)`
 
 GetTotalCentsOk returns a tuple with the TotalCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalCents
 
-`func (o *Cart) SetTotalCents(v int32)`
+`func (o *Cart) SetTotalCents(v int64)`
 
 SetTotalCents sets TotalCents field to given value.
 

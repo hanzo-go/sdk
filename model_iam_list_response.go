@@ -20,10 +20,10 @@ var _ MappedNullable = &IamListResponse{}
 // IamListResponse struct for IamListResponse
 type IamListResponse struct {
 	Resources    []map[string]interface{} `json:"Resources,omitempty"`
-	ItemsPerPage *int32                   `json:"itemsPerPage,omitempty"`
+	ItemsPerPage *int64                   `json:"itemsPerPage,omitempty"`
 	Schemas      []string                 `json:"schemas,omitempty"`
-	StartIndex   *int32                   `json:"startIndex,omitempty"`
-	TotalResults *int32                   `json:"totalResults,omitempty"`
+	StartIndex   *int64                   `json:"startIndex,omitempty"`
+	TotalResults *int64                   `json:"totalResults,omitempty"`
 }
 
 // NewIamListResponse instantiates a new IamListResponse object
@@ -76,9 +76,9 @@ func (o *IamListResponse) SetResources(v []map[string]interface{}) {
 }
 
 // GetItemsPerPage returns the ItemsPerPage field value if set, zero value otherwise.
-func (o *IamListResponse) GetItemsPerPage() int32 {
+func (o *IamListResponse) GetItemsPerPage() int64 {
 	if o == nil || IsNil(o.ItemsPerPage) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ItemsPerPage
@@ -86,7 +86,7 @@ func (o *IamListResponse) GetItemsPerPage() int32 {
 
 // GetItemsPerPageOk returns a tuple with the ItemsPerPage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamListResponse) GetItemsPerPageOk() (*int32, bool) {
+func (o *IamListResponse) GetItemsPerPageOk() (*int64, bool) {
 	if o == nil || IsNil(o.ItemsPerPage) {
 		return nil, false
 	}
@@ -102,8 +102,8 @@ func (o *IamListResponse) HasItemsPerPage() bool {
 	return false
 }
 
-// SetItemsPerPage gets a reference to the given int32 and assigns it to the ItemsPerPage field.
-func (o *IamListResponse) SetItemsPerPage(v int32) {
+// SetItemsPerPage gets a reference to the given int64 and assigns it to the ItemsPerPage field.
+func (o *IamListResponse) SetItemsPerPage(v int64) {
 	o.ItemsPerPage = &v
 }
 
@@ -140,9 +140,9 @@ func (o *IamListResponse) SetSchemas(v []string) {
 }
 
 // GetStartIndex returns the StartIndex field value if set, zero value otherwise.
-func (o *IamListResponse) GetStartIndex() int32 {
+func (o *IamListResponse) GetStartIndex() int64 {
 	if o == nil || IsNil(o.StartIndex) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.StartIndex
@@ -150,7 +150,7 @@ func (o *IamListResponse) GetStartIndex() int32 {
 
 // GetStartIndexOk returns a tuple with the StartIndex field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamListResponse) GetStartIndexOk() (*int32, bool) {
+func (o *IamListResponse) GetStartIndexOk() (*int64, bool) {
 	if o == nil || IsNil(o.StartIndex) {
 		return nil, false
 	}
@@ -166,15 +166,15 @@ func (o *IamListResponse) HasStartIndex() bool {
 	return false
 }
 
-// SetStartIndex gets a reference to the given int32 and assigns it to the StartIndex field.
-func (o *IamListResponse) SetStartIndex(v int32) {
+// SetStartIndex gets a reference to the given int64 and assigns it to the StartIndex field.
+func (o *IamListResponse) SetStartIndex(v int64) {
 	o.StartIndex = &v
 }
 
 // GetTotalResults returns the TotalResults field value if set, zero value otherwise.
-func (o *IamListResponse) GetTotalResults() int32 {
+func (o *IamListResponse) GetTotalResults() int64 {
 	if o == nil || IsNil(o.TotalResults) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalResults
@@ -182,7 +182,7 @@ func (o *IamListResponse) GetTotalResults() int32 {
 
 // GetTotalResultsOk returns a tuple with the TotalResults field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamListResponse) GetTotalResultsOk() (*int32, bool) {
+func (o *IamListResponse) GetTotalResultsOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalResults) {
 		return nil, false
 	}
@@ -198,8 +198,8 @@ func (o *IamListResponse) HasTotalResults() bool {
 	return false
 }
 
-// SetTotalResults gets a reference to the given int32 and assigns it to the TotalResults field.
-func (o *IamListResponse) SetTotalResults(v int32) {
+// SetTotalResults gets a reference to the given int64 and assigns it to the TotalResults field.
+func (o *IamListResponse) SetTotalResults(v int64) {
 	o.TotalResults = &v
 }
 

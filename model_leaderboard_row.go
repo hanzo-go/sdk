@@ -20,15 +20,15 @@ var _ MappedNullable = &LeaderboardRow{}
 // LeaderboardRow struct for LeaderboardRow
 type LeaderboardRow struct {
 	// AccruedCents is that affiliate's lifetime commission accrued, in cents, and what the board is ordered by. An aggregate: no per-customer figure is exposed.
-	AccruedCents *int32 `json:"accruedCents,omitempty"`
+	AccruedCents *int64 `json:"accruedCents,omitempty"`
 	// Handle is the affiliate's self-chosen display name — the only identity the board ever carries. The org behind it is never disclosed.
 	Handle *string `json:"handle,omitempty"`
 	// IsYou marks the caller's own row, so a client can highlight it without matching on a handle. Absent on every other row.
 	IsYou *bool `json:"isYou,omitempty"`
 	// Rank is the position in the GLOBAL approved set ordered by lifetime accrued commission, 1-based. Affiliates that set no handle still occupy their rank and are simply not listed, so the visible ranks have gaps and the board is not a complete roster. On the caller's own row the rank is computed over the whole set, so it is exact well outside the top page.
-	Rank *int32 `json:"rank,omitempty"`
+	Rank *int64 `json:"rank,omitempty"`
 	// ReferredCount is how many orgs that affiliate directly referred — a count only, never which orgs.
-	ReferredCount *int32 `json:"referredCount,omitempty"`
+	ReferredCount *int64 `json:"referredCount,omitempty"`
 }
 
 // NewLeaderboardRow instantiates a new LeaderboardRow object
@@ -49,9 +49,9 @@ func NewLeaderboardRowWithDefaults() *LeaderboardRow {
 }
 
 // GetAccruedCents returns the AccruedCents field value if set, zero value otherwise.
-func (o *LeaderboardRow) GetAccruedCents() int32 {
+func (o *LeaderboardRow) GetAccruedCents() int64 {
 	if o == nil || IsNil(o.AccruedCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AccruedCents
@@ -59,7 +59,7 @@ func (o *LeaderboardRow) GetAccruedCents() int32 {
 
 // GetAccruedCentsOk returns a tuple with the AccruedCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LeaderboardRow) GetAccruedCentsOk() (*int32, bool) {
+func (o *LeaderboardRow) GetAccruedCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AccruedCents) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *LeaderboardRow) HasAccruedCents() bool {
 	return false
 }
 
-// SetAccruedCents gets a reference to the given int32 and assigns it to the AccruedCents field.
-func (o *LeaderboardRow) SetAccruedCents(v int32) {
+// SetAccruedCents gets a reference to the given int64 and assigns it to the AccruedCents field.
+func (o *LeaderboardRow) SetAccruedCents(v int64) {
 	o.AccruedCents = &v
 }
 
@@ -145,9 +145,9 @@ func (o *LeaderboardRow) SetIsYou(v bool) {
 }
 
 // GetRank returns the Rank field value if set, zero value otherwise.
-func (o *LeaderboardRow) GetRank() int32 {
+func (o *LeaderboardRow) GetRank() int64 {
 	if o == nil || IsNil(o.Rank) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Rank
@@ -155,7 +155,7 @@ func (o *LeaderboardRow) GetRank() int32 {
 
 // GetRankOk returns a tuple with the Rank field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LeaderboardRow) GetRankOk() (*int32, bool) {
+func (o *LeaderboardRow) GetRankOk() (*int64, bool) {
 	if o == nil || IsNil(o.Rank) {
 		return nil, false
 	}
@@ -171,15 +171,15 @@ func (o *LeaderboardRow) HasRank() bool {
 	return false
 }
 
-// SetRank gets a reference to the given int32 and assigns it to the Rank field.
-func (o *LeaderboardRow) SetRank(v int32) {
+// SetRank gets a reference to the given int64 and assigns it to the Rank field.
+func (o *LeaderboardRow) SetRank(v int64) {
 	o.Rank = &v
 }
 
 // GetReferredCount returns the ReferredCount field value if set, zero value otherwise.
-func (o *LeaderboardRow) GetReferredCount() int32 {
+func (o *LeaderboardRow) GetReferredCount() int64 {
 	if o == nil || IsNil(o.ReferredCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ReferredCount
@@ -187,7 +187,7 @@ func (o *LeaderboardRow) GetReferredCount() int32 {
 
 // GetReferredCountOk returns a tuple with the ReferredCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LeaderboardRow) GetReferredCountOk() (*int32, bool) {
+func (o *LeaderboardRow) GetReferredCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.ReferredCount) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *LeaderboardRow) HasReferredCount() bool {
 	return false
 }
 
-// SetReferredCount gets a reference to the given int32 and assigns it to the ReferredCount field.
-func (o *LeaderboardRow) SetReferredCount(v int32) {
+// SetReferredCount gets a reference to the given int64 and assigns it to the ReferredCount field.
+func (o *LeaderboardRow) SetReferredCount(v int64) {
 	o.ReferredCount = &v
 }
 

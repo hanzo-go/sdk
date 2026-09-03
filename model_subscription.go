@@ -28,11 +28,11 @@ type Subscription struct {
 	EndedAt              *string `json:"endedAt,omitempty"`
 	Id                   *string `json:"id,omitempty"`
 	// MRRCents is what this subscription contributes per month — commerce's own figure, interval-normalized and multiplied by its seats, so no reader re-derives it from price and interval.
-	MrrCents     *int32            `json:"mrrCents,omitempty"`
+	MrrCents     *int64            `json:"mrrCents,omitempty"`
 	Plan         *SubscriptionPlan `json:"plan,omitempty"`
 	PlanId       *string           `json:"planId,omitempty"`
 	ProviderType *string           `json:"providerType,omitempty"`
-	Quantity     *int32            `json:"quantity,omitempty"`
+	Quantity     *int64            `json:"quantity,omitempty"`
 	Status       *string           `json:"status,omitempty"`
 	TrialEnd     *string           `json:"trialEnd,omitempty"`
 	TrialStart   *string           `json:"trialStart,omitempty"`
@@ -314,9 +314,9 @@ func (o *Subscription) SetId(v string) {
 }
 
 // GetMrrCents returns the MrrCents field value if set, zero value otherwise.
-func (o *Subscription) GetMrrCents() int32 {
+func (o *Subscription) GetMrrCents() int64 {
 	if o == nil || IsNil(o.MrrCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MrrCents
@@ -324,7 +324,7 @@ func (o *Subscription) GetMrrCents() int32 {
 
 // GetMrrCentsOk returns a tuple with the MrrCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Subscription) GetMrrCentsOk() (*int32, bool) {
+func (o *Subscription) GetMrrCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.MrrCents) {
 		return nil, false
 	}
@@ -340,8 +340,8 @@ func (o *Subscription) HasMrrCents() bool {
 	return false
 }
 
-// SetMrrCents gets a reference to the given int32 and assigns it to the MrrCents field.
-func (o *Subscription) SetMrrCents(v int32) {
+// SetMrrCents gets a reference to the given int64 and assigns it to the MrrCents field.
+func (o *Subscription) SetMrrCents(v int64) {
 	o.MrrCents = &v
 }
 
@@ -442,9 +442,9 @@ func (o *Subscription) SetProviderType(v string) {
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise.
-func (o *Subscription) GetQuantity() int32 {
+func (o *Subscription) GetQuantity() int64 {
 	if o == nil || IsNil(o.Quantity) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Quantity
@@ -452,7 +452,7 @@ func (o *Subscription) GetQuantity() int32 {
 
 // GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Subscription) GetQuantityOk() (*int32, bool) {
+func (o *Subscription) GetQuantityOk() (*int64, bool) {
 	if o == nil || IsNil(o.Quantity) {
 		return nil, false
 	}
@@ -468,8 +468,8 @@ func (o *Subscription) HasQuantity() bool {
 	return false
 }
 
-// SetQuantity gets a reference to the given int32 and assigns it to the Quantity field.
-func (o *Subscription) SetQuantity(v int32) {
+// SetQuantity gets a reference to the given int64 and assigns it to the Quantity field.
+func (o *Subscription) SetQuantity(v int64) {
 	o.Quantity = &v
 }
 

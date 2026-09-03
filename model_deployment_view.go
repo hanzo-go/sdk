@@ -26,7 +26,7 @@ type DeploymentView struct {
 	// Commit is the git ref this built — the commit a deploy or a push named, else the app's branch. Empty for an image deploy, which builds nothing.
 	Commit *string `json:"commit,omitempty"`
 	// CreatedAt is when the attempt was recorded, unix seconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// ID is the deployment's id (`dep_…`), minted when the attempt is recorded. The app's currentDeploymentId points at one of these.
 	Id *string `json:"id,omitempty"`
 	// Image is the full `repo:tag` this deployment put in the CR. For a git deploy it is the ref the in-cluster build pushes to, known before the build runs.
@@ -40,9 +40,9 @@ type DeploymentView struct {
 	// Status is where the attempt got to: `building` while its image is being built, `deploying` once its CR reached the cluster — which is the terminal success state, the app's own status is what turns `live` — `error` with the reason in Message, or `superseded` when a newer version went live first.
 	Status *string `json:"status,omitempty"`
 	// UpdatedAt is its last transition, unix seconds — so for a terminal deployment it is when it reached that state.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 	// Version counts this app's deployments, from 1 and monotonically. It is what ORDERS them: a deploy only goes live if no higher version already is, so a build that finishes late is superseded instead of overwriting a newer one.
-	Version *int32 `json:"version,omitempty"`
+	Version *int64 `json:"version,omitempty"`
 }
 
 // NewDeploymentView instantiates a new DeploymentView object
@@ -159,9 +159,9 @@ func (o *DeploymentView) SetCommit(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *DeploymentView) GetCreatedAt() int32 {
+func (o *DeploymentView) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -169,7 +169,7 @@ func (o *DeploymentView) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeploymentView) GetCreatedAtOk() (*int32, bool) {
+func (o *DeploymentView) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -185,8 +185,8 @@ func (o *DeploymentView) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *DeploymentView) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *DeploymentView) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -383,9 +383,9 @@ func (o *DeploymentView) SetStatus(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *DeploymentView) GetUpdatedAt() int32 {
+func (o *DeploymentView) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -393,7 +393,7 @@ func (o *DeploymentView) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeploymentView) GetUpdatedAtOk() (*int32, bool) {
+func (o *DeploymentView) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -409,15 +409,15 @@ func (o *DeploymentView) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *DeploymentView) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *DeploymentView) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 
 // GetVersion returns the Version field value if set, zero value otherwise.
-func (o *DeploymentView) GetVersion() int32 {
+func (o *DeploymentView) GetVersion() int64 {
 	if o == nil || IsNil(o.Version) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Version
@@ -425,7 +425,7 @@ func (o *DeploymentView) GetVersion() int32 {
 
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeploymentView) GetVersionOk() (*int32, bool) {
+func (o *DeploymentView) GetVersionOk() (*int64, bool) {
 	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
@@ -441,8 +441,8 @@ func (o *DeploymentView) HasVersion() bool {
 	return false
 }
 
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
-func (o *DeploymentView) SetVersion(v int32) {
+// SetVersion gets a reference to the given int64 and assigns it to the Version field.
+func (o *DeploymentView) SetVersion(v int64) {
 	o.Version = &v
 }
 

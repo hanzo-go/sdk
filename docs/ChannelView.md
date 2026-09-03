@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **DmPolicy** | Pointer to **string** | DMPolicy is how this org admits direct messages here: \&quot;pairing\&quot;, \&quot;allowlist\&quot; or \&quot;open\&quot;, defaulting to \&quot;pairing\&quot; when the org has never set one. | [optional] 
 **GroupPolicy** | Pointer to **string** | GroupPolicy is how this org admits group and thread rooms here: \&quot;open\&quot;, \&quot;allowlist\&quot; or \&quot;disabled\&quot;, defaulting to \&quot;open\&quot;. Both policy fields come back EMPTY — rather than the listing failing — when the policy cannot be read; GET /v1/channels/allowlist carries the same two with the entries they consult. | [optional] 
 **Id** | Pointer to **string** | ID is the fixed transport identifier — discord, slack, teams, telegram or whatsapp — and the value every route on this surface names a channel by, including the &#x60;:channel&#x60; segment of the send path. The listing is always in that order. | [optional] 
-**PendingPairing** | Pointer to **int32** | PendingPairing counts the org&#39;s UNEXPIRED pairing requests on this channel: exactly the rows GET /v1/channels/pairing returns for it, one per person waiting on an admin. It never exceeds three — the pending cap per (org, channel) — and expired requests are not counted. | [optional] 
+**PendingPairing** | Pointer to **int64** | PendingPairing counts the org&#39;s UNEXPIRED pairing requests on this channel: exactly the rows GET /v1/channels/pairing returns for it, one per person waiting on an admin. It never exceeds three — the pending cap per (org, channel) — and expired requests are not counted. | [optional] 
 
 ## Methods
 
@@ -209,20 +209,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetPendingPairing
 
-`func (o *ChannelView) GetPendingPairing() int32`
+`func (o *ChannelView) GetPendingPairing() int64`
 
 GetPendingPairing returns the PendingPairing field if non-nil, zero value otherwise.
 
 ### GetPendingPairingOk
 
-`func (o *ChannelView) GetPendingPairingOk() (*int32, bool)`
+`func (o *ChannelView) GetPendingPairingOk() (*int64, bool)`
 
 GetPendingPairingOk returns a tuple with the PendingPairing field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPendingPairing
 
-`func (o *ChannelView) SetPendingPairing(v int32)`
+`func (o *ChannelView) SetPendingPairing(v int64)`
 
 SetPendingPairing sets PendingPairing field to given value.
 

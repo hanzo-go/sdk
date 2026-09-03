@@ -22,13 +22,13 @@ type Endpoint struct {
 	// CreatedAt is when the endpoint was registered, RFC3339 in UTC — stored in that spelling because it sorts as a string.
 	Created *string `json:"created,omitempty"`
 	// Deliveries7d is how many deliveries SETTLED in the trailing 7 days — the attempts that ended ok or failed, so a delivery still retrying is in neither counter yet. It is counted from the log at read time rather than stored, and it is filled only on a list or a get; a create answers 0 because there is no history, which is why it is never omitted.
-	Deliveries7d *int32 `json:"deliveries7d,omitempty"`
+	Deliveries7d *int64 `json:"deliveries7d,omitempty"`
 	// Description is the operator's own label for the endpoint. Never sent anywhere.
 	Description *string `json:"description,omitempty"`
 	// Events are the subject patterns this endpoint subscribes to (\"commerce.order.>\"). An EMPTY list means every event, not none.
 	Events []string `json:"events,omitempty"`
 	// Failures7d is how many of those settled as failed — the subscriber never accepted it and no further attempt will be made. It is the numerator to Deliveries7d, over the same window.
-	Failures7d *int32 `json:"failures7d,omitempty"`
+	Failures7d *int64 `json:"failures7d,omitempty"`
 	// ID is the endpoint's handle, server-minted and stable for its life. It is what every other route here addresses.
 	Id *string `json:"id,omitempty"`
 	// Org is the tenant that owns the endpoint, taken from the validated principal rather than from any request field.
@@ -93,9 +93,9 @@ func (o *Endpoint) SetCreated(v string) {
 }
 
 // GetDeliveries7d returns the Deliveries7d field value if set, zero value otherwise.
-func (o *Endpoint) GetDeliveries7d() int32 {
+func (o *Endpoint) GetDeliveries7d() int64 {
 	if o == nil || IsNil(o.Deliveries7d) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Deliveries7d
@@ -103,7 +103,7 @@ func (o *Endpoint) GetDeliveries7d() int32 {
 
 // GetDeliveries7dOk returns a tuple with the Deliveries7d field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Endpoint) GetDeliveries7dOk() (*int32, bool) {
+func (o *Endpoint) GetDeliveries7dOk() (*int64, bool) {
 	if o == nil || IsNil(o.Deliveries7d) {
 		return nil, false
 	}
@@ -119,8 +119,8 @@ func (o *Endpoint) HasDeliveries7d() bool {
 	return false
 }
 
-// SetDeliveries7d gets a reference to the given int32 and assigns it to the Deliveries7d field.
-func (o *Endpoint) SetDeliveries7d(v int32) {
+// SetDeliveries7d gets a reference to the given int64 and assigns it to the Deliveries7d field.
+func (o *Endpoint) SetDeliveries7d(v int64) {
 	o.Deliveries7d = &v
 }
 
@@ -189,9 +189,9 @@ func (o *Endpoint) SetEvents(v []string) {
 }
 
 // GetFailures7d returns the Failures7d field value if set, zero value otherwise.
-func (o *Endpoint) GetFailures7d() int32 {
+func (o *Endpoint) GetFailures7d() int64 {
 	if o == nil || IsNil(o.Failures7d) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Failures7d
@@ -199,7 +199,7 @@ func (o *Endpoint) GetFailures7d() int32 {
 
 // GetFailures7dOk returns a tuple with the Failures7d field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Endpoint) GetFailures7dOk() (*int32, bool) {
+func (o *Endpoint) GetFailures7dOk() (*int64, bool) {
 	if o == nil || IsNil(o.Failures7d) {
 		return nil, false
 	}
@@ -215,8 +215,8 @@ func (o *Endpoint) HasFailures7d() bool {
 	return false
 }
 
-// SetFailures7d gets a reference to the given int32 and assigns it to the Failures7d field.
-func (o *Endpoint) SetFailures7d(v int32) {
+// SetFailures7d gets a reference to the given int64 and assigns it to the Failures7d field.
+func (o *Endpoint) SetFailures7d(v int64) {
 	o.Failures7d = &v
 }
 

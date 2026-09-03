@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **Remotes** | Pointer to [**[]MCPRemote**](MCPRemote.md) | Remotes are the hosted endpoints the publisher serves the server at. | [optional] 
 **Repo** | Pointer to **string** | Repo is the source repository URL, when the entry names one. | [optional] 
 **Site** | Pointer to **string** | Site is the project&#39;s homepage, when the entry names one. | [optional] 
-**Synced** | Pointer to **int32** | Synced is when this row was last confirmed against upstream, Unix seconds. | [optional] 
+**Synced** | Pointer to **int64** | Synced is when this row was last confirmed against upstream, Unix seconds. | [optional] 
 **Title** | Pointer to **string** | Title is the human-readable display name, when the entry carries one. | [optional] 
 **Transports** | Pointer to **[]string** | Transports are the distinct transports this server can be reached over, sorted: some of \&quot;stdio\&quot;, \&quot;streamable-http\&quot;, \&quot;sse\&quot;. A listing with \&quot;streamable-http\&quot; is one an org can enable here and now; a listing that is only \&quot;stdio\&quot; needs a process to run it. | [optional] 
 **Vendor** | Pointer to **string** | Vendor is the namespace half of Name — the publisher, e.g. \&quot;com.stripe\&quot;. | [optional] 
@@ -343,20 +343,20 @@ HasSite returns a boolean if a field has been set.
 
 ### GetSynced
 
-`func (o *MCPListing) GetSynced() int32`
+`func (o *MCPListing) GetSynced() int64`
 
 GetSynced returns the Synced field if non-nil, zero value otherwise.
 
 ### GetSyncedOk
 
-`func (o *MCPListing) GetSyncedOk() (*int32, bool)`
+`func (o *MCPListing) GetSyncedOk() (*int64, bool)`
 
 GetSyncedOk returns a tuple with the Synced field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSynced
 
-`func (o *MCPListing) SetSynced(v int32)`
+`func (o *MCPListing) SetSynced(v int64)`
 
 SetSynced sets Synced field to given value.
 

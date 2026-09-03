@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AppId** | Pointer to **string** | AppID is the brand this token runs under (\&quot;hanzo\&quot; | \&quot;lux\&quot; | \&quot;zoo\&quot;). The engine refuses a token whose app_id is not the one it was built for. | [optional] 
-**Exp** | Pointer to **int32** | Exp is the token&#39;s expiry, Unix seconds. | [optional] 
+**Exp** | Pointer to **int64** | Exp is the token&#39;s expiry, Unix seconds. | [optional] 
 **Features** | Pointer to **[]string** | Features are the capability grants copied verbatim from the plan the org bought. The engine enforces exactly these. | [optional] 
 **FingerprintBound** | Pointer to **bool** | Bound reports whether a device fingerprint was folded into the token. An unbound token runs on any machine; a bound one runs only on the machine it was bound to. | [optional] 
 **Holder** | Pointer to **string** | Holder is who the token was issued to. | [optional] 
@@ -58,20 +58,20 @@ HasAppId returns a boolean if a field has been set.
 
 ### GetExp
 
-`func (o *LicensingIssueResponse) GetExp() int32`
+`func (o *LicensingIssueResponse) GetExp() int64`
 
 GetExp returns the Exp field if non-nil, zero value otherwise.
 
 ### GetExpOk
 
-`func (o *LicensingIssueResponse) GetExpOk() (*int32, bool)`
+`func (o *LicensingIssueResponse) GetExpOk() (*int64, bool)`
 
 GetExpOk returns a tuple with the Exp field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExp
 
-`func (o *LicensingIssueResponse) SetExp(v int32)`
+`func (o *LicensingIssueResponse) SetExp(v int64)`
 
 SetExp sets Exp field to given value.
 

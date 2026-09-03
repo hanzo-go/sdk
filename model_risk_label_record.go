@@ -24,7 +24,7 @@ type RiskLabelRecord struct {
 	// By is the identity that asserted, stamped server-side at the write.
 	By *string `json:"by,omitempty"`
 	// Confidence is the filer's own confidence in [0,1] — 1 for a processor chargeback, less for an analyst's hunch. Zero is the ordinary value for a filer that stated none, and it means the weakest tie-break there is rather than \"unknown\". It breaks a tie only WITHIN one precedence rank and can never lift a weak source above a strong one.
-	Confidence *float32 `json:"confidence,omitempty"`
+	Confidence *float64 `json:"confidence,omitempty"`
 	// Disposition is what was concluded, from the closed set: `productive` — the event led somewhere, escalated, reported or charged back; `unproductive` — judged not suspicious; or the empty string for an explicit UNJUDGED, which is a real assertion (\"we looked and could not say\") and not the absence of one.
 	Disposition *string `json:"disposition,omitempty"`
 	// Evidence is the pointer to the record this conclusion came from: a dispute id, a case id, a decision id. At most 512 bytes, required at the write, and opaque to this plane — stored and returned verbatim, never resolved. It is what an adverse action is defended with, which is why an assertion carrying none is refused at the endpoint.
@@ -129,9 +129,9 @@ func (o *RiskLabelRecord) SetBy(v string) {
 }
 
 // GetConfidence returns the Confidence field value if set, zero value otherwise.
-func (o *RiskLabelRecord) GetConfidence() float32 {
+func (o *RiskLabelRecord) GetConfidence() float64 {
 	if o == nil || IsNil(o.Confidence) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Confidence
@@ -139,7 +139,7 @@ func (o *RiskLabelRecord) GetConfidence() float32 {
 
 // GetConfidenceOk returns a tuple with the Confidence field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLabelRecord) GetConfidenceOk() (*float32, bool) {
+func (o *RiskLabelRecord) GetConfidenceOk() (*float64, bool) {
 	if o == nil || IsNil(o.Confidence) {
 		return nil, false
 	}
@@ -155,8 +155,8 @@ func (o *RiskLabelRecord) HasConfidence() bool {
 	return false
 }
 
-// SetConfidence gets a reference to the given float32 and assigns it to the Confidence field.
-func (o *RiskLabelRecord) SetConfidence(v float32) {
+// SetConfidence gets a reference to the given float64 and assigns it to the Confidence field.
+func (o *RiskLabelRecord) SetConfidence(v float64) {
 	o.Confidence = &v
 }
 

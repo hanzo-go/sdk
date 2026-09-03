@@ -32,7 +32,7 @@ type Waiting struct {
 	// Org is the tenant whose formation the founder belongs to.
 	Org *string `json:"org,omitempty"`
 	// Since is when the formation was last touched, as a unix second.
-	Since *int32 `json:"since,omitempty"`
+	Since *int64 `json:"since,omitempty"`
 }
 
 // NewWaiting instantiates a new Waiting object
@@ -245,9 +245,9 @@ func (o *Waiting) SetOrg(v string) {
 }
 
 // GetSince returns the Since field value if set, zero value otherwise.
-func (o *Waiting) GetSince() int32 {
+func (o *Waiting) GetSince() int64 {
 	if o == nil || IsNil(o.Since) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Since
@@ -255,7 +255,7 @@ func (o *Waiting) GetSince() int32 {
 
 // GetSinceOk returns a tuple with the Since field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Waiting) GetSinceOk() (*int32, bool) {
+func (o *Waiting) GetSinceOk() (*int64, bool) {
 	if o == nil || IsNil(o.Since) {
 		return nil, false
 	}
@@ -271,8 +271,8 @@ func (o *Waiting) HasSince() bool {
 	return false
 }
 
-// SetSince gets a reference to the given int32 and assigns it to the Since field.
-func (o *Waiting) SetSince(v int32) {
+// SetSince gets a reference to the given int64 and assigns it to the Since field.
+func (o *Waiting) SetSince(v int64) {
 	o.Since = &v
 }
 

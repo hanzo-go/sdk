@@ -23,7 +23,7 @@ type State struct {
 	// Bytes is the total stored size.
 	Bytes *int32 `json:"bytes,omitempty"`
 	// Consumers is the number of consumers attached to this stream.
-	ConsumerCount *int32 `json:"consumer_count,omitempty"`
+	ConsumerCount *int64 `json:"consumer_count,omitempty"`
 	// FirstSeq is the sequence of the first stored message.
 	FirstSeq *int32 `json:"first_seq,omitempty"`
 	// FirstTS is the timestamp of the first stored message.
@@ -35,7 +35,7 @@ type State struct {
 	// Messages is the number of messages currently stored.
 	Messages *int32 `json:"messages,omitempty"`
 	// Deleted is the number of deleted messages (sequence gaps).
-	NumDeleted *int32 `json:"num_deleted,omitempty"`
+	NumDeleted *int64 `json:"num_deleted,omitempty"`
 	// Subjects is the number of distinct subjects stored.
 	NumSubjects *int32 `json:"num_subjects,omitempty"`
 }
@@ -90,9 +90,9 @@ func (o *State) SetBytes(v int32) {
 }
 
 // GetConsumerCount returns the ConsumerCount field value if set, zero value otherwise.
-func (o *State) GetConsumerCount() int32 {
+func (o *State) GetConsumerCount() int64 {
 	if o == nil || IsNil(o.ConsumerCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ConsumerCount
@@ -100,7 +100,7 @@ func (o *State) GetConsumerCount() int32 {
 
 // GetConsumerCountOk returns a tuple with the ConsumerCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *State) GetConsumerCountOk() (*int32, bool) {
+func (o *State) GetConsumerCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.ConsumerCount) {
 		return nil, false
 	}
@@ -116,8 +116,8 @@ func (o *State) HasConsumerCount() bool {
 	return false
 }
 
-// SetConsumerCount gets a reference to the given int32 and assigns it to the ConsumerCount field.
-func (o *State) SetConsumerCount(v int32) {
+// SetConsumerCount gets a reference to the given int64 and assigns it to the ConsumerCount field.
+func (o *State) SetConsumerCount(v int64) {
 	o.ConsumerCount = &v
 }
 
@@ -282,9 +282,9 @@ func (o *State) SetMessages(v int32) {
 }
 
 // GetNumDeleted returns the NumDeleted field value if set, zero value otherwise.
-func (o *State) GetNumDeleted() int32 {
+func (o *State) GetNumDeleted() int64 {
 	if o == nil || IsNil(o.NumDeleted) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NumDeleted
@@ -292,7 +292,7 @@ func (o *State) GetNumDeleted() int32 {
 
 // GetNumDeletedOk returns a tuple with the NumDeleted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *State) GetNumDeletedOk() (*int32, bool) {
+func (o *State) GetNumDeletedOk() (*int64, bool) {
 	if o == nil || IsNil(o.NumDeleted) {
 		return nil, false
 	}
@@ -308,8 +308,8 @@ func (o *State) HasNumDeleted() bool {
 	return false
 }
 
-// SetNumDeleted gets a reference to the given int32 and assigns it to the NumDeleted field.
-func (o *State) SetNumDeleted(v int32) {
+// SetNumDeleted gets a reference to the given int64 and assigns it to the NumDeleted field.
+func (o *State) SetNumDeleted(v int64) {
 	o.NumDeleted = &v
 }
 

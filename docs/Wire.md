@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **Result** | Pointer to **string** | Result is how the action ended: \&quot;success\&quot;, \&quot;deny\&quot; or \&quot;error\&quot;. A deny is a decision this binary made and is as much evidence as a success. | [optional] 
 **Seq** | Pointer to **int32** | Seq is the record&#39;s position in the chain, 0-based and gapless. The Recorder assigns it under its own lock, so it is a true total order: seq n+1 was written after seq n, and a missing number is a missing record. | [optional] 
 **SourceIp** | Pointer to **string** | SourceIP is the client address the edge resolved for the request, after the proxy chain — the address a responder would act on, not the socket peer. | [optional] 
-**Status** | Pointer to **int32** | Status is the HTTP status the caller received. It is the outcome as the client saw it, so a 200 carrying a domain refusal still reads 200 here. | [optional] 
+**Status** | Pointer to **int64** | Status is the HTTP status the caller received. It is the outcome as the client saw it, so a 200 carrying a domain refusal still reads 200 here. | [optional] 
 **Sub** | Pointer to **string** | Sub is the acting user (the IAM subject). Empty for a machine principal or an anonymous request, which is how a service action is told from a person&#39;s. | [optional] 
 **Time** | Pointer to **string** | Time is when the action happened, RFC3339Nano in UTC. The stored column has the same precision and sorts the same way, so a client can range and order on this string verbatim. | [optional] 
 **UserAgent** | Pointer to **string** | UserAgent is the client the request announced itself as. Client-supplied, so it is evidence about what claimed to act, not proof of it. | [optional] 
@@ -472,20 +472,20 @@ HasSourceIp returns a boolean if a field has been set.
 
 ### GetStatus
 
-`func (o *Wire) GetStatus() int32`
+`func (o *Wire) GetStatus() int64`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *Wire) GetStatusOk() (*int32, bool)`
+`func (o *Wire) GetStatusOk() (*int64, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *Wire) SetStatus(v int32)`
+`func (o *Wire) SetStatus(v int64)`
 
 SetStatus sets Status field to given value.
 

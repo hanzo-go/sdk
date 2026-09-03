@@ -20,17 +20,17 @@ var _ MappedNullable = &CodeView{}
 // CodeView struct for CodeView
 type CodeView struct {
 	// Clicks is how many pings this code has taken. The one STORED counter here and pure vanity: no accrual or payout reads it, pings are coalesced in memory and flushed in batches, and a dropped tally is accepted rather than contending with the money write path. Do not reconcile it against anything.
-	Clicks *int32 `json:"clicks,omitempty"`
+	Clicks *int64 `json:"clicks,omitempty"`
 	// Code is the link's slug — 3–32 chars of a–z, 0–9 and hyphen — unique across the WHOLE directory, so any affiliate's code resolves an attribution.
 	Code *string `json:"code,omitempty"`
 	// Conversions is how many of those signups have actually produced positive commission for the caller. Also derived, from the accrual rows, so it is ≤ signups and lags a referral until the first sweep after it spends.
-	Conversions *int32 `json:"conversions,omitempty"`
+	Conversions *int64 `json:"conversions,omitempty"`
 	// CreatedAt is when the link was minted, Unix seconds UTC.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Label is the caller's own note for the link (\"twitter\", \"newsletter\"). Cosmetic: trimmed, stripped of control characters, capped at 48 bytes, and never part of the code. \"primary\" on the link mirrored at approval.
 	Label *string `json:"label,omitempty"`
 	// Signups is how many orgs were attributed with this code — DERIVED by counting attribution edges, never stored, so it cannot drift from the ledger.
-	Signups *int32 `json:"signups,omitempty"`
+	Signups *int64 `json:"signups,omitempty"`
 	// URL is the full shareable link, the brand host plus ?aff=<code>. The host is the deployment's own brand, so a Lux or Zoo install never mints a hanzo.ai link.
 	Url *string `json:"url,omitempty"`
 }
@@ -53,9 +53,9 @@ func NewCodeViewWithDefaults() *CodeView {
 }
 
 // GetClicks returns the Clicks field value if set, zero value otherwise.
-func (o *CodeView) GetClicks() int32 {
+func (o *CodeView) GetClicks() int64 {
 	if o == nil || IsNil(o.Clicks) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Clicks
@@ -63,7 +63,7 @@ func (o *CodeView) GetClicks() int32 {
 
 // GetClicksOk returns a tuple with the Clicks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CodeView) GetClicksOk() (*int32, bool) {
+func (o *CodeView) GetClicksOk() (*int64, bool) {
 	if o == nil || IsNil(o.Clicks) {
 		return nil, false
 	}
@@ -79,8 +79,8 @@ func (o *CodeView) HasClicks() bool {
 	return false
 }
 
-// SetClicks gets a reference to the given int32 and assigns it to the Clicks field.
-func (o *CodeView) SetClicks(v int32) {
+// SetClicks gets a reference to the given int64 and assigns it to the Clicks field.
+func (o *CodeView) SetClicks(v int64) {
 	o.Clicks = &v
 }
 
@@ -117,9 +117,9 @@ func (o *CodeView) SetCode(v string) {
 }
 
 // GetConversions returns the Conversions field value if set, zero value otherwise.
-func (o *CodeView) GetConversions() int32 {
+func (o *CodeView) GetConversions() int64 {
 	if o == nil || IsNil(o.Conversions) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Conversions
@@ -127,7 +127,7 @@ func (o *CodeView) GetConversions() int32 {
 
 // GetConversionsOk returns a tuple with the Conversions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CodeView) GetConversionsOk() (*int32, bool) {
+func (o *CodeView) GetConversionsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Conversions) {
 		return nil, false
 	}
@@ -143,15 +143,15 @@ func (o *CodeView) HasConversions() bool {
 	return false
 }
 
-// SetConversions gets a reference to the given int32 and assigns it to the Conversions field.
-func (o *CodeView) SetConversions(v int32) {
+// SetConversions gets a reference to the given int64 and assigns it to the Conversions field.
+func (o *CodeView) SetConversions(v int64) {
 	o.Conversions = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *CodeView) GetCreatedAt() int32 {
+func (o *CodeView) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -159,7 +159,7 @@ func (o *CodeView) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CodeView) GetCreatedAtOk() (*int32, bool) {
+func (o *CodeView) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -175,8 +175,8 @@ func (o *CodeView) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *CodeView) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *CodeView) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -213,9 +213,9 @@ func (o *CodeView) SetLabel(v string) {
 }
 
 // GetSignups returns the Signups field value if set, zero value otherwise.
-func (o *CodeView) GetSignups() int32 {
+func (o *CodeView) GetSignups() int64 {
 	if o == nil || IsNil(o.Signups) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Signups
@@ -223,7 +223,7 @@ func (o *CodeView) GetSignups() int32 {
 
 // GetSignupsOk returns a tuple with the Signups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CodeView) GetSignupsOk() (*int32, bool) {
+func (o *CodeView) GetSignupsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Signups) {
 		return nil, false
 	}
@@ -239,8 +239,8 @@ func (o *CodeView) HasSignups() bool {
 	return false
 }
 
-// SetSignups gets a reference to the given int32 and assigns it to the Signups field.
-func (o *CodeView) SetSignups(v int32) {
+// SetSignups gets a reference to the given int64 and assigns it to the Signups field.
+func (o *CodeView) SetSignups(v int64) {
 	o.Signups = &v
 }
 

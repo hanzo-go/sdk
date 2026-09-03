@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Detail** | Pointer to **string** | Detail is the server&#39;s short elaboration, typically the type or signature. | [optional] 
-**Kind** | Pointer to **int32** | Kind is the LSP CompletionItemKind number (2 method, 3 function, 5 field, 6 variable, …), passed through as the protocol spells it. | [optional] 
+**Kind** | Pointer to **int64** | Kind is the LSP CompletionItemKind number (2 method, 3 function, 5 field, 6 variable, …), passed through as the protocol spells it. | [optional] 
 **Label** | Pointer to **string** | Label is the text a client would insert, and what an editor lists. | [optional] 
 
 ## Methods
@@ -54,20 +54,20 @@ HasDetail returns a boolean if a field has been set.
 
 ### GetKind
 
-`func (o *Completion) GetKind() int32`
+`func (o *Completion) GetKind() int64`
 
 GetKind returns the Kind field if non-nil, zero value otherwise.
 
 ### GetKindOk
 
-`func (o *Completion) GetKindOk() (*int32, bool)`
+`func (o *Completion) GetKindOk() (*int64, bool)`
 
 GetKindOk returns a tuple with the Kind field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetKind
 
-`func (o *Completion) SetKind(v int32)`
+`func (o *Completion) SetKind(v int64)`
 
 SetKind sets Kind field to given value.
 

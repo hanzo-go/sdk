@@ -20,9 +20,9 @@ var _ MappedNullable = &EsignDocument{}
 // EsignDocument struct for EsignDocument
 type EsignDocument struct {
 	// CompletedAt is when the document sealed, in unix milliseconds; null until it does.
-	CompletedAt *int32 `json:"completedAt,omitempty"`
+	CompletedAt *int64 `json:"completedAt,omitempty"`
 	// CreatedAt is when the document was uploaded, in unix milliseconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// ExternalID is the caller's own identifier for this document, echoed back as it was given; null when none was.
 	ExternalId *string `json:"externalId,omitempty"`
 	// Fields is every field on the document, ordered by page and then by when it was placed.
@@ -44,7 +44,7 @@ type EsignDocument struct {
 	// Title is the document's name, and the stem of the download filename.
 	Title *string `json:"title,omitempty"`
 	// UpdatedAt is when the document last changed, in unix milliseconds.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewEsignDocument instantiates a new EsignDocument object
@@ -65,9 +65,9 @@ func NewEsignDocumentWithDefaults() *EsignDocument {
 }
 
 // GetCompletedAt returns the CompletedAt field value if set, zero value otherwise.
-func (o *EsignDocument) GetCompletedAt() int32 {
+func (o *EsignDocument) GetCompletedAt() int64 {
 	if o == nil || IsNil(o.CompletedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CompletedAt
@@ -75,7 +75,7 @@ func (o *EsignDocument) GetCompletedAt() int32 {
 
 // GetCompletedAtOk returns a tuple with the CompletedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsignDocument) GetCompletedAtOk() (*int32, bool) {
+func (o *EsignDocument) GetCompletedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CompletedAt) {
 		return nil, false
 	}
@@ -91,15 +91,15 @@ func (o *EsignDocument) HasCompletedAt() bool {
 	return false
 }
 
-// SetCompletedAt gets a reference to the given int32 and assigns it to the CompletedAt field.
-func (o *EsignDocument) SetCompletedAt(v int32) {
+// SetCompletedAt gets a reference to the given int64 and assigns it to the CompletedAt field.
+func (o *EsignDocument) SetCompletedAt(v int64) {
 	o.CompletedAt = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *EsignDocument) GetCreatedAt() int32 {
+func (o *EsignDocument) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -107,7 +107,7 @@ func (o *EsignDocument) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsignDocument) GetCreatedAtOk() (*int32, bool) {
+func (o *EsignDocument) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -123,8 +123,8 @@ func (o *EsignDocument) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *EsignDocument) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *EsignDocument) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -449,9 +449,9 @@ func (o *EsignDocument) SetTitle(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *EsignDocument) GetUpdatedAt() int32 {
+func (o *EsignDocument) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -459,7 +459,7 @@ func (o *EsignDocument) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsignDocument) GetUpdatedAtOk() (*int32, bool) {
+func (o *EsignDocument) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -475,8 +475,8 @@ func (o *EsignDocument) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *EsignDocument) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *EsignDocument) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

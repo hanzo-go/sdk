@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Error** | Pointer to **int32** | invocations that ran and failed | [optional] 
-**Success** | Pointer to **int32** | invocations whose code ran and wrote nothing to stderr | [optional] 
-**Timeout** | Pointer to **int32** | invocations that hit their configured deadline | [optional] 
+**Error** | Pointer to **int64** | invocations that ran and failed | [optional] 
+**Success** | Pointer to **int64** | invocations whose code ran and wrote nothing to stderr | [optional] 
+**Timeout** | Pointer to **int64** | invocations that hit their configured deadline | [optional] 
 
 ## Methods
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetError
 
-`func (o *StatusBreakdown) GetError() int32`
+`func (o *StatusBreakdown) GetError() int64`
 
 GetError returns the Error field if non-nil, zero value otherwise.
 
 ### GetErrorOk
 
-`func (o *StatusBreakdown) GetErrorOk() (*int32, bool)`
+`func (o *StatusBreakdown) GetErrorOk() (*int64, bool)`
 
 GetErrorOk returns a tuple with the Error field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetError
 
-`func (o *StatusBreakdown) SetError(v int32)`
+`func (o *StatusBreakdown) SetError(v int64)`
 
 SetError sets Error field to given value.
 
@@ -54,20 +54,20 @@ HasError returns a boolean if a field has been set.
 
 ### GetSuccess
 
-`func (o *StatusBreakdown) GetSuccess() int32`
+`func (o *StatusBreakdown) GetSuccess() int64`
 
 GetSuccess returns the Success field if non-nil, zero value otherwise.
 
 ### GetSuccessOk
 
-`func (o *StatusBreakdown) GetSuccessOk() (*int32, bool)`
+`func (o *StatusBreakdown) GetSuccessOk() (*int64, bool)`
 
 GetSuccessOk returns a tuple with the Success field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSuccess
 
-`func (o *StatusBreakdown) SetSuccess(v int32)`
+`func (o *StatusBreakdown) SetSuccess(v int64)`
 
 SetSuccess sets Success field to given value.
 
@@ -79,20 +79,20 @@ HasSuccess returns a boolean if a field has been set.
 
 ### GetTimeout
 
-`func (o *StatusBreakdown) GetTimeout() int32`
+`func (o *StatusBreakdown) GetTimeout() int64`
 
 GetTimeout returns the Timeout field if non-nil, zero value otherwise.
 
 ### GetTimeoutOk
 
-`func (o *StatusBreakdown) GetTimeoutOk() (*int32, bool)`
+`func (o *StatusBreakdown) GetTimeoutOk() (*int64, bool)`
 
 GetTimeoutOk returns a tuple with the Timeout field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeout
 
-`func (o *StatusBreakdown) SetTimeout(v int32)`
+`func (o *StatusBreakdown) SetTimeout(v int64)`
 
 SetTimeout sets Timeout field to given value.
 

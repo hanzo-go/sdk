@@ -20,15 +20,15 @@ var _ MappedNullable = &CreditGrant{}
 // CreditGrant struct for CreditGrant
 type CreditGrant struct {
 	Active         *bool   `json:"active,omitempty"`
-	AmountCents    *int32  `json:"amountCents,omitempty"`
+	AmountCents    *int64  `json:"amountCents,omitempty"`
 	CreatedAt      *string `json:"createdAt,omitempty"`
 	Currency       *string `json:"currency,omitempty"`
 	EffectiveAt    *string `json:"effectiveAt,omitempty"`
 	ExpiresAt      *string `json:"expiresAt,omitempty"`
 	Id             *string `json:"id,omitempty"`
 	Name           *string `json:"name,omitempty"`
-	Priority       *int32  `json:"priority,omitempty"`
-	RemainingCents *int32  `json:"remainingCents,omitempty"`
+	Priority       *int64  `json:"priority,omitempty"`
+	RemainingCents *int64  `json:"remainingCents,omitempty"`
 	Tags           *string `json:"tags,omitempty"`
 	UserId         *string `json:"userId,omitempty"`
 	Voided         *bool   `json:"voided,omitempty"`
@@ -84,9 +84,9 @@ func (o *CreditGrant) SetActive(v bool) {
 }
 
 // GetAmountCents returns the AmountCents field value if set, zero value otherwise.
-func (o *CreditGrant) GetAmountCents() int32 {
+func (o *CreditGrant) GetAmountCents() int64 {
 	if o == nil || IsNil(o.AmountCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AmountCents
@@ -94,7 +94,7 @@ func (o *CreditGrant) GetAmountCents() int32 {
 
 // GetAmountCentsOk returns a tuple with the AmountCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreditGrant) GetAmountCentsOk() (*int32, bool) {
+func (o *CreditGrant) GetAmountCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AmountCents) {
 		return nil, false
 	}
@@ -110,8 +110,8 @@ func (o *CreditGrant) HasAmountCents() bool {
 	return false
 }
 
-// SetAmountCents gets a reference to the given int32 and assigns it to the AmountCents field.
-func (o *CreditGrant) SetAmountCents(v int32) {
+// SetAmountCents gets a reference to the given int64 and assigns it to the AmountCents field.
+func (o *CreditGrant) SetAmountCents(v int64) {
 	o.AmountCents = &v
 }
 
@@ -308,9 +308,9 @@ func (o *CreditGrant) SetName(v string) {
 }
 
 // GetPriority returns the Priority field value if set, zero value otherwise.
-func (o *CreditGrant) GetPriority() int32 {
+func (o *CreditGrant) GetPriority() int64 {
 	if o == nil || IsNil(o.Priority) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Priority
@@ -318,7 +318,7 @@ func (o *CreditGrant) GetPriority() int32 {
 
 // GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreditGrant) GetPriorityOk() (*int32, bool) {
+func (o *CreditGrant) GetPriorityOk() (*int64, bool) {
 	if o == nil || IsNil(o.Priority) {
 		return nil, false
 	}
@@ -334,15 +334,15 @@ func (o *CreditGrant) HasPriority() bool {
 	return false
 }
 
-// SetPriority gets a reference to the given int32 and assigns it to the Priority field.
-func (o *CreditGrant) SetPriority(v int32) {
+// SetPriority gets a reference to the given int64 and assigns it to the Priority field.
+func (o *CreditGrant) SetPriority(v int64) {
 	o.Priority = &v
 }
 
 // GetRemainingCents returns the RemainingCents field value if set, zero value otherwise.
-func (o *CreditGrant) GetRemainingCents() int32 {
+func (o *CreditGrant) GetRemainingCents() int64 {
 	if o == nil || IsNil(o.RemainingCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RemainingCents
@@ -350,7 +350,7 @@ func (o *CreditGrant) GetRemainingCents() int32 {
 
 // GetRemainingCentsOk returns a tuple with the RemainingCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreditGrant) GetRemainingCentsOk() (*int32, bool) {
+func (o *CreditGrant) GetRemainingCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.RemainingCents) {
 		return nil, false
 	}
@@ -366,8 +366,8 @@ func (o *CreditGrant) HasRemainingCents() bool {
 	return false
 }
 
-// SetRemainingCents gets a reference to the given int32 and assigns it to the RemainingCents field.
-func (o *CreditGrant) SetRemainingCents(v int32) {
+// SetRemainingCents gets a reference to the given int64 and assigns it to the RemainingCents field.
+func (o *CreditGrant) SetRemainingCents(v int64) {
 	o.RemainingCents = &v
 }
 

@@ -9,10 +9,10 @@ Name | Type | Description | Notes
 **Created** | Pointer to **time.Time** | Created is when the consumer was created. | [optional] 
 **Delivered** | Pointer to [**Sequences**](Sequences.md) | Delivered is the highest delivered sequence pair. | [optional] 
 **Name** | Pointer to **string** | Name is the consumer name. | [optional] 
-**NumAckPending** | Pointer to **int32** | AckPending is the number of delivered, not yet acknowledged messages. | [optional] 
+**NumAckPending** | Pointer to **int64** | AckPending is the number of delivered, not yet acknowledged messages. | [optional] 
 **NumPending** | Pointer to **int32** | Pending is the number of messages yet to be delivered. | [optional] 
-**NumRedelivered** | Pointer to **int32** | Redelivered is the number of messages currently being redelivered. | [optional] 
-**NumWaiting** | Pointer to **int32** | Waiting is the number of pull requests waiting for messages. | [optional] 
+**NumRedelivered** | Pointer to **int64** | Redelivered is the number of messages currently being redelivered. | [optional] 
+**NumWaiting** | Pointer to **int64** | Waiting is the number of pull requests waiting for messages. | [optional] 
 **StreamName** | Pointer to **string** | Stream is the stream this consumer reads. | [optional] 
 
 ## Methods
@@ -161,20 +161,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetNumAckPending
 
-`func (o *Consumer) GetNumAckPending() int32`
+`func (o *Consumer) GetNumAckPending() int64`
 
 GetNumAckPending returns the NumAckPending field if non-nil, zero value otherwise.
 
 ### GetNumAckPendingOk
 
-`func (o *Consumer) GetNumAckPendingOk() (*int32, bool)`
+`func (o *Consumer) GetNumAckPendingOk() (*int64, bool)`
 
 GetNumAckPendingOk returns a tuple with the NumAckPending field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumAckPending
 
-`func (o *Consumer) SetNumAckPending(v int32)`
+`func (o *Consumer) SetNumAckPending(v int64)`
 
 SetNumAckPending sets NumAckPending field to given value.
 
@@ -211,20 +211,20 @@ HasNumPending returns a boolean if a field has been set.
 
 ### GetNumRedelivered
 
-`func (o *Consumer) GetNumRedelivered() int32`
+`func (o *Consumer) GetNumRedelivered() int64`
 
 GetNumRedelivered returns the NumRedelivered field if non-nil, zero value otherwise.
 
 ### GetNumRedeliveredOk
 
-`func (o *Consumer) GetNumRedeliveredOk() (*int32, bool)`
+`func (o *Consumer) GetNumRedeliveredOk() (*int64, bool)`
 
 GetNumRedeliveredOk returns a tuple with the NumRedelivered field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumRedelivered
 
-`func (o *Consumer) SetNumRedelivered(v int32)`
+`func (o *Consumer) SetNumRedelivered(v int64)`
 
 SetNumRedelivered sets NumRedelivered field to given value.
 
@@ -236,20 +236,20 @@ HasNumRedelivered returns a boolean if a field has been set.
 
 ### GetNumWaiting
 
-`func (o *Consumer) GetNumWaiting() int32`
+`func (o *Consumer) GetNumWaiting() int64`
 
 GetNumWaiting returns the NumWaiting field if non-nil, zero value otherwise.
 
 ### GetNumWaitingOk
 
-`func (o *Consumer) GetNumWaitingOk() (*int32, bool)`
+`func (o *Consumer) GetNumWaitingOk() (*int64, bool)`
 
 GetNumWaitingOk returns a tuple with the NumWaiting field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumWaiting
 
-`func (o *Consumer) SetNumWaiting(v int32)`
+`func (o *Consumer) SetNumWaiting(v int64)`
 
 SetNumWaiting sets NumWaiting field to given value.
 

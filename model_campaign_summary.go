@@ -20,13 +20,13 @@ var _ MappedNullable = &CampaignSummary{}
 // CampaignSummary struct for CampaignSummary
 type CampaignSummary struct {
 	// Budget is the sum of every campaign's budget, in CENTS.
-	Budget *int32 `json:"budget,omitempty"`
+	Budget *int64 `json:"budget,omitempty"`
 	// Campaigns is how many campaigns the org has, in any state.
-	Campaigns *int32 `json:"campaigns,omitempty"`
+	Campaigns *int64 `json:"campaigns,omitempty"`
 	// Channels are the channel kinds this deployment has an executor wired for. A kind absent here is a kind a launch will honestly record as unavailable.
 	Channels []string `json:"channels,omitempty"`
 	// Live is how many of them are currently live.
-	Live *int32 `json:"live,omitempty"`
+	Live *int64 `json:"live,omitempty"`
 }
 
 // NewCampaignSummary instantiates a new CampaignSummary object
@@ -47,9 +47,9 @@ func NewCampaignSummaryWithDefaults() *CampaignSummary {
 }
 
 // GetBudget returns the Budget field value if set, zero value otherwise.
-func (o *CampaignSummary) GetBudget() int32 {
+func (o *CampaignSummary) GetBudget() int64 {
 	if o == nil || IsNil(o.Budget) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Budget
@@ -57,7 +57,7 @@ func (o *CampaignSummary) GetBudget() int32 {
 
 // GetBudgetOk returns a tuple with the Budget field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignSummary) GetBudgetOk() (*int32, bool) {
+func (o *CampaignSummary) GetBudgetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Budget) {
 		return nil, false
 	}
@@ -73,15 +73,15 @@ func (o *CampaignSummary) HasBudget() bool {
 	return false
 }
 
-// SetBudget gets a reference to the given int32 and assigns it to the Budget field.
-func (o *CampaignSummary) SetBudget(v int32) {
+// SetBudget gets a reference to the given int64 and assigns it to the Budget field.
+func (o *CampaignSummary) SetBudget(v int64) {
 	o.Budget = &v
 }
 
 // GetCampaigns returns the Campaigns field value if set, zero value otherwise.
-func (o *CampaignSummary) GetCampaigns() int32 {
+func (o *CampaignSummary) GetCampaigns() int64 {
 	if o == nil || IsNil(o.Campaigns) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Campaigns
@@ -89,7 +89,7 @@ func (o *CampaignSummary) GetCampaigns() int32 {
 
 // GetCampaignsOk returns a tuple with the Campaigns field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignSummary) GetCampaignsOk() (*int32, bool) {
+func (o *CampaignSummary) GetCampaignsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Campaigns) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *CampaignSummary) HasCampaigns() bool {
 	return false
 }
 
-// SetCampaigns gets a reference to the given int32 and assigns it to the Campaigns field.
-func (o *CampaignSummary) SetCampaigns(v int32) {
+// SetCampaigns gets a reference to the given int64 and assigns it to the Campaigns field.
+func (o *CampaignSummary) SetCampaigns(v int64) {
 	o.Campaigns = &v
 }
 
@@ -143,9 +143,9 @@ func (o *CampaignSummary) SetChannels(v []string) {
 }
 
 // GetLive returns the Live field value if set, zero value otherwise.
-func (o *CampaignSummary) GetLive() int32 {
+func (o *CampaignSummary) GetLive() int64 {
 	if o == nil || IsNil(o.Live) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Live
@@ -153,7 +153,7 @@ func (o *CampaignSummary) GetLive() int32 {
 
 // GetLiveOk returns a tuple with the Live field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignSummary) GetLiveOk() (*int32, bool) {
+func (o *CampaignSummary) GetLiveOk() (*int64, bool) {
 	if o == nil || IsNil(o.Live) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *CampaignSummary) HasLive() bool {
 	return false
 }
 
-// SetLive gets a reference to the given int32 and assigns it to the Live field.
-func (o *CampaignSummary) SetLive(v int32) {
+// SetLive gets a reference to the given int64 and assigns it to the Live field.
+func (o *CampaignSummary) SetLive(v int64) {
 	o.Live = &v
 }
 

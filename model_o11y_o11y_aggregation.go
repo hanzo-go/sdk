@@ -24,7 +24,7 @@ type O11yO11yAggregation struct {
 	// AnomalyScores are anomaly overlays.
 	AnomalyScores []O11yO11yMetricSeries `json:"anomalyScores,omitempty"`
 	// Index is the aggregation's position in the query.
-	Index *int32 `json:"index,omitempty"`
+	Index *int64 `json:"index,omitempty"`
 	// LowerBoundSeries are forecast lower bounds.
 	LowerBoundSeries []O11yO11yMetricSeries `json:"lowerBoundSeries,omitempty"`
 	// Meta describes the aggregation.
@@ -119,9 +119,9 @@ func (o *O11yO11yAggregation) SetAnomalyScores(v []O11yO11yMetricSeries) {
 }
 
 // GetIndex returns the Index field value if set, zero value otherwise.
-func (o *O11yO11yAggregation) GetIndex() int32 {
+func (o *O11yO11yAggregation) GetIndex() int64 {
 	if o == nil || IsNil(o.Index) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Index
@@ -129,7 +129,7 @@ func (o *O11yO11yAggregation) GetIndex() int32 {
 
 // GetIndexOk returns a tuple with the Index field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yAggregation) GetIndexOk() (*int32, bool) {
+func (o *O11yO11yAggregation) GetIndexOk() (*int64, bool) {
 	if o == nil || IsNil(o.Index) {
 		return nil, false
 	}
@@ -145,8 +145,8 @@ func (o *O11yO11yAggregation) HasIndex() bool {
 	return false
 }
 
-// SetIndex gets a reference to the given int32 and assigns it to the Index field.
-func (o *O11yO11yAggregation) SetIndex(v int32) {
+// SetIndex gets a reference to the given int64 and assigns it to the Index field.
+func (o *O11yO11yAggregation) SetIndex(v int64) {
 	o.Index = &v
 }
 

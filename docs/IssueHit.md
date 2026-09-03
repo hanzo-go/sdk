@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Assignee** | Pointer to **string** | Assignee is who holds the work. EMPTY MEANS UNHELD, which is what makes the issue claimable: claiming one already held by someone else is refused with 409 rather than quietly taken. | [optional] 
 **Kind** | Pointer to **string** | Kind is what the row IS: issue, pr or epic. | [optional] 
-**Number** | Pointer to **int32** | Number is the issue&#39;s number on that board, from 1 and monotonic there. Unique per board, never across the org — so it addresses an issue only together with Project. | [optional] 
+**Number** | Pointer to **int64** | Number is the issue&#39;s number on that board, from 1 and monotonic there. Unique per board, never across the org — so it addresses an issue only together with Project. | [optional] 
 **Priority** | Pointer to **string** | Priority is urgent, high, medium, low or none. Never empty — an unset priority is the value \&quot;none\&quot;. | [optional] 
 **Project** | Pointer to **string** | Project is the board key the issue is on. It and Number are the issue&#39;s address in every other route on this surface, which is why a hit carries it. | [optional] 
 **Repo** | Pointer to **string** | Repo is the git repository the issue is bound to, empty when it is not repo-bound. | [optional] 
@@ -87,20 +87,20 @@ HasKind returns a boolean if a field has been set.
 
 ### GetNumber
 
-`func (o *IssueHit) GetNumber() int32`
+`func (o *IssueHit) GetNumber() int64`
 
 GetNumber returns the Number field if non-nil, zero value otherwise.
 
 ### GetNumberOk
 
-`func (o *IssueHit) GetNumberOk() (*int32, bool)`
+`func (o *IssueHit) GetNumberOk() (*int64, bool)`
 
 GetNumberOk returns a tuple with the Number field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumber
 
-`func (o *IssueHit) SetNumber(v int32)`
+`func (o *IssueHit) SetNumber(v int64)`
 
 SetNumber sets Number field to given value.
 

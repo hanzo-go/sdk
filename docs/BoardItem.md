@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Project** | Pointer to **string** | Project is the brand/site sub-scope within the org. Absent for an item held at org level rather than under one brand. | [optional] 
 **Status** | Pointer to **string** | Status is the lifecycle state: draft, in_review, approved, queued, published or archived. It decides what a reader may see — the public site pulls exactly \&quot;published\&quot; and nothing else — so it is a visibility fact, not a workflow label. | [optional] 
 **Title** | Pointer to **string** | Title is the item&#39;s headline, read from its type&#39;s own title field. Empty for a document that has none. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is unix seconds of the document&#39;s last write, and the key the board sorts on, newest first. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is unix seconds of the document&#39;s last write, and the key the board sorts on, newest first. | [optional] 
 
 ## Methods
 
@@ -157,20 +157,20 @@ HasTitle returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *BoardItem) GetUpdatedAt() int32`
+`func (o *BoardItem) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *BoardItem) GetUpdatedAtOk() (*int32, bool)`
+`func (o *BoardItem) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *BoardItem) SetUpdatedAt(v int32)`
+`func (o *BoardItem) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

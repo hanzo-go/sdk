@@ -24,7 +24,7 @@ type Suppression struct {
 	// Channel is the surface opted out of: email, sms, social, meta, google or tiktok. Empty means email. Opting out of one leaves the others reachable.
 	Channel *string `json:"channel,omitempty"`
 	// CreatedAt is unix seconds, server-assigned.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Reason is a free-text note, capped at 1024 bytes. The public one-click endpoint records \"one-click unsubscribe\".
 	Reason *string `json:"reason,omitempty"`
 }
@@ -111,9 +111,9 @@ func (o *Suppression) SetChannel(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *Suppression) GetCreatedAt() int32 {
+func (o *Suppression) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -121,7 +121,7 @@ func (o *Suppression) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Suppression) GetCreatedAtOk() (*int32, bool) {
+func (o *Suppression) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -137,8 +137,8 @@ func (o *Suppression) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *Suppression) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *Suppression) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 

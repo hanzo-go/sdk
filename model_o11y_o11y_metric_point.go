@@ -22,11 +22,11 @@ type O11yO11yMetricPoint struct {
 	// Partial marks a point whose bucket the window only partly covers.
 	Partial *bool `json:"partial,omitempty"`
 	// Timestamp is the point's time as a Unix timestamp in milliseconds.
-	Timestamp *int32 `json:"timestamp,omitempty"`
+	Timestamp *int64 `json:"timestamp,omitempty"`
 	// Value is the point's value.
-	Value *float32 `json:"value,omitempty"`
+	Value *float64 `json:"value,omitempty"`
 	// Values carries the bucket values of a heatmap point.
-	Values []float32 `json:"values,omitempty"`
+	Values []float64 `json:"values,omitempty"`
 }
 
 // NewO11yO11yMetricPoint instantiates a new O11yO11yMetricPoint object
@@ -79,9 +79,9 @@ func (o *O11yO11yMetricPoint) SetPartial(v bool) {
 }
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
-func (o *O11yO11yMetricPoint) GetTimestamp() int32 {
+func (o *O11yO11yMetricPoint) GetTimestamp() int64 {
 	if o == nil || IsNil(o.Timestamp) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Timestamp
@@ -89,7 +89,7 @@ func (o *O11yO11yMetricPoint) GetTimestamp() int32 {
 
 // GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yMetricPoint) GetTimestampOk() (*int32, bool) {
+func (o *O11yO11yMetricPoint) GetTimestampOk() (*int64, bool) {
 	if o == nil || IsNil(o.Timestamp) {
 		return nil, false
 	}
@@ -105,15 +105,15 @@ func (o *O11yO11yMetricPoint) HasTimestamp() bool {
 	return false
 }
 
-// SetTimestamp gets a reference to the given int32 and assigns it to the Timestamp field.
-func (o *O11yO11yMetricPoint) SetTimestamp(v int32) {
+// SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
+func (o *O11yO11yMetricPoint) SetTimestamp(v int64) {
 	o.Timestamp = &v
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
-func (o *O11yO11yMetricPoint) GetValue() float32 {
+func (o *O11yO11yMetricPoint) GetValue() float64 {
 	if o == nil || IsNil(o.Value) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Value
@@ -121,7 +121,7 @@ func (o *O11yO11yMetricPoint) GetValue() float32 {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yMetricPoint) GetValueOk() (*float32, bool) {
+func (o *O11yO11yMetricPoint) GetValueOk() (*float64, bool) {
 	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *O11yO11yMetricPoint) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given float32 and assigns it to the Value field.
-func (o *O11yO11yMetricPoint) SetValue(v float32) {
+// SetValue gets a reference to the given float64 and assigns it to the Value field.
+func (o *O11yO11yMetricPoint) SetValue(v float64) {
 	o.Value = &v
 }
 
 // GetValues returns the Values field value if set, zero value otherwise.
-func (o *O11yO11yMetricPoint) GetValues() []float32 {
+func (o *O11yO11yMetricPoint) GetValues() []float64 {
 	if o == nil || IsNil(o.Values) {
-		var ret []float32
+		var ret []float64
 		return ret
 	}
 	return o.Values
@@ -153,7 +153,7 @@ func (o *O11yO11yMetricPoint) GetValues() []float32 {
 
 // GetValuesOk returns a tuple with the Values field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yMetricPoint) GetValuesOk() ([]float32, bool) {
+func (o *O11yO11yMetricPoint) GetValuesOk() ([]float64, bool) {
 	if o == nil || IsNil(o.Values) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *O11yO11yMetricPoint) HasValues() bool {
 	return false
 }
 
-// SetValues gets a reference to the given []float32 and assigns it to the Values field.
-func (o *O11yO11yMetricPoint) SetValues(v []float32) {
+// SetValues gets a reference to the given []float64 and assigns it to the Values field.
+func (o *O11yO11yMetricPoint) SetValues(v []float64) {
 	o.Values = v
 }
 

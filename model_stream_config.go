@@ -22,15 +22,15 @@ type StreamConfig struct {
 	// MaxAge caps message age, e.g. \"24h\" or \"7d\"; \"0\" (default) is unlimited.
 	MaxAge *string `json:"max_age,omitempty"`
 	// MaxBytes caps the stream's total stored bytes; -1 (default) is unlimited.
-	MaxBytes *int32 `json:"max_bytes,omitempty"`
+	MaxBytes *int64 `json:"max_bytes,omitempty"`
 	// MaxMsgSize caps one message's size in bytes; -1 (default) is the broker's limit.
 	MaxMsgSize *int32 `json:"max_msg_size,omitempty"`
 	// MaxMsgs caps the number of stored messages; -1 (default) is unlimited.
-	MaxMsgs *int32 `json:"max_msgs,omitempty"`
+	MaxMsgs *int64 `json:"max_msgs,omitempty"`
 	// Name is the stream name, unique within the org (alphanumeric, hyphens, underscores).
 	Name *string `json:"name,omitempty"`
 	// Replicas is the number of stream replicas (1–5); this plane runs 1.
-	NumReplicas *int32 `json:"num_replicas,omitempty"`
+	NumReplicas *int64 `json:"num_replicas,omitempty"`
 	// Retention is the retention policy: limits (default), interest, or workqueue.
 	Retention *string `json:"retention,omitempty"`
 	// Storage is the storage backend: file (default) or memory.
@@ -89,9 +89,9 @@ func (o *StreamConfig) SetMaxAge(v string) {
 }
 
 // GetMaxBytes returns the MaxBytes field value if set, zero value otherwise.
-func (o *StreamConfig) GetMaxBytes() int32 {
+func (o *StreamConfig) GetMaxBytes() int64 {
 	if o == nil || IsNil(o.MaxBytes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxBytes
@@ -99,7 +99,7 @@ func (o *StreamConfig) GetMaxBytes() int32 {
 
 // GetMaxBytesOk returns a tuple with the MaxBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StreamConfig) GetMaxBytesOk() (*int32, bool) {
+func (o *StreamConfig) GetMaxBytesOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxBytes) {
 		return nil, false
 	}
@@ -115,8 +115,8 @@ func (o *StreamConfig) HasMaxBytes() bool {
 	return false
 }
 
-// SetMaxBytes gets a reference to the given int32 and assigns it to the MaxBytes field.
-func (o *StreamConfig) SetMaxBytes(v int32) {
+// SetMaxBytes gets a reference to the given int64 and assigns it to the MaxBytes field.
+func (o *StreamConfig) SetMaxBytes(v int64) {
 	o.MaxBytes = &v
 }
 
@@ -153,9 +153,9 @@ func (o *StreamConfig) SetMaxMsgSize(v int32) {
 }
 
 // GetMaxMsgs returns the MaxMsgs field value if set, zero value otherwise.
-func (o *StreamConfig) GetMaxMsgs() int32 {
+func (o *StreamConfig) GetMaxMsgs() int64 {
 	if o == nil || IsNil(o.MaxMsgs) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxMsgs
@@ -163,7 +163,7 @@ func (o *StreamConfig) GetMaxMsgs() int32 {
 
 // GetMaxMsgsOk returns a tuple with the MaxMsgs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StreamConfig) GetMaxMsgsOk() (*int32, bool) {
+func (o *StreamConfig) GetMaxMsgsOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxMsgs) {
 		return nil, false
 	}
@@ -179,8 +179,8 @@ func (o *StreamConfig) HasMaxMsgs() bool {
 	return false
 }
 
-// SetMaxMsgs gets a reference to the given int32 and assigns it to the MaxMsgs field.
-func (o *StreamConfig) SetMaxMsgs(v int32) {
+// SetMaxMsgs gets a reference to the given int64 and assigns it to the MaxMsgs field.
+func (o *StreamConfig) SetMaxMsgs(v int64) {
 	o.MaxMsgs = &v
 }
 
@@ -217,9 +217,9 @@ func (o *StreamConfig) SetName(v string) {
 }
 
 // GetNumReplicas returns the NumReplicas field value if set, zero value otherwise.
-func (o *StreamConfig) GetNumReplicas() int32 {
+func (o *StreamConfig) GetNumReplicas() int64 {
 	if o == nil || IsNil(o.NumReplicas) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NumReplicas
@@ -227,7 +227,7 @@ func (o *StreamConfig) GetNumReplicas() int32 {
 
 // GetNumReplicasOk returns a tuple with the NumReplicas field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StreamConfig) GetNumReplicasOk() (*int32, bool) {
+func (o *StreamConfig) GetNumReplicasOk() (*int64, bool) {
 	if o == nil || IsNil(o.NumReplicas) {
 		return nil, false
 	}
@@ -243,8 +243,8 @@ func (o *StreamConfig) HasNumReplicas() bool {
 	return false
 }
 
-// SetNumReplicas gets a reference to the given int32 and assigns it to the NumReplicas field.
-func (o *StreamConfig) SetNumReplicas(v int32) {
+// SetNumReplicas gets a reference to the given int64 and assigns it to the NumReplicas field.
+func (o *StreamConfig) SetNumReplicas(v int64) {
 	o.NumReplicas = &v
 }
 

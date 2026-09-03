@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Count** | Pointer to **int32** | Count is how many rounds the company has recorded. | [optional] 
-**TotalRaised** | Pointer to **float32** | TotalRaised is the sum of every round&#39;s raised amount. | [optional] 
+**Count** | Pointer to **int64** | Count is how many rounds the company has recorded. | [optional] 
+**TotalRaised** | Pointer to **float64** | TotalRaised is the sum of every round&#39;s raised amount. | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCount
 
-`func (o *CaptableRoundTotals) GetCount() int32`
+`func (o *CaptableRoundTotals) GetCount() int64`
 
 GetCount returns the Count field if non-nil, zero value otherwise.
 
 ### GetCountOk
 
-`func (o *CaptableRoundTotals) GetCountOk() (*int32, bool)`
+`func (o *CaptableRoundTotals) GetCountOk() (*int64, bool)`
 
 GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCount
 
-`func (o *CaptableRoundTotals) SetCount(v int32)`
+`func (o *CaptableRoundTotals) SetCount(v int64)`
 
 SetCount sets Count field to given value.
 
@@ -53,20 +53,20 @@ HasCount returns a boolean if a field has been set.
 
 ### GetTotalRaised
 
-`func (o *CaptableRoundTotals) GetTotalRaised() float32`
+`func (o *CaptableRoundTotals) GetTotalRaised() float64`
 
 GetTotalRaised returns the TotalRaised field if non-nil, zero value otherwise.
 
 ### GetTotalRaisedOk
 
-`func (o *CaptableRoundTotals) GetTotalRaisedOk() (*float32, bool)`
+`func (o *CaptableRoundTotals) GetTotalRaisedOk() (*float64, bool)`
 
 GetTotalRaisedOk returns a tuple with the TotalRaised field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalRaised
 
-`func (o *CaptableRoundTotals) SetTotalRaised(v float32)`
+`func (o *CaptableRoundTotals) SetTotalRaised(v float64)`
 
 SetTotalRaised sets TotalRaised field to given value.
 

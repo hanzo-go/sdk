@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Mode** | Pointer to **string** | Mode is how cached tokens are counted — subtract (inside input_tokens, OpenAI-style), additive (reported separately, Anthropic-style) or unknown. | [optional] 
-**Read** | Pointer to **float32** | Read is the cost per unit of cache-read tokens. | [optional] 
-**Write** | Pointer to **float32** | Write is the cost per unit of cache-write tokens. | [optional] 
+**Read** | Pointer to **float64** | Read is the cost per unit of cache-read tokens. | [optional] 
+**Write** | Pointer to **float64** | Write is the cost per unit of cache-write tokens. | [optional] 
 
 ## Methods
 
@@ -54,20 +54,20 @@ HasMode returns a boolean if a field has been set.
 
 ### GetRead
 
-`func (o *O11yO11yLLMPricingCacheCosts) GetRead() float32`
+`func (o *O11yO11yLLMPricingCacheCosts) GetRead() float64`
 
 GetRead returns the Read field if non-nil, zero value otherwise.
 
 ### GetReadOk
 
-`func (o *O11yO11yLLMPricingCacheCosts) GetReadOk() (*float32, bool)`
+`func (o *O11yO11yLLMPricingCacheCosts) GetReadOk() (*float64, bool)`
 
 GetReadOk returns a tuple with the Read field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRead
 
-`func (o *O11yO11yLLMPricingCacheCosts) SetRead(v float32)`
+`func (o *O11yO11yLLMPricingCacheCosts) SetRead(v float64)`
 
 SetRead sets Read field to given value.
 
@@ -79,20 +79,20 @@ HasRead returns a boolean if a field has been set.
 
 ### GetWrite
 
-`func (o *O11yO11yLLMPricingCacheCosts) GetWrite() float32`
+`func (o *O11yO11yLLMPricingCacheCosts) GetWrite() float64`
 
 GetWrite returns the Write field if non-nil, zero value otherwise.
 
 ### GetWriteOk
 
-`func (o *O11yO11yLLMPricingCacheCosts) GetWriteOk() (*float32, bool)`
+`func (o *O11yO11yLLMPricingCacheCosts) GetWriteOk() (*float64, bool)`
 
 GetWriteOk returns a tuple with the Write field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWrite
 
-`func (o *O11yO11yLLMPricingCacheCosts) SetWrite(v float32)`
+`func (o *O11yO11yLLMPricingCacheCosts) SetWrite(v float64)`
 
 SetWrite sets Write field to given value.
 

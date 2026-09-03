@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Balance** | Pointer to [**RollupBalance**](RollupBalance.md) |  | [optional] 
-**ConsumedCents** | Pointer to **int32** |  | [optional] 
+**ConsumedCents** | Pointer to **int64** |  | [optional] 
 **Currency** | Pointer to **string** |  | [optional] 
 **Included** | Pointer to [**RollupAllotment**](RollupAllotment.md) |  | [optional] 
-**OverageCents** | Pointer to **int32** |  | [optional] 
+**OverageCents** | Pointer to **int64** |  | [optional] 
 **Period** | Pointer to **string** |  | [optional] 
 **Plan** | Pointer to **string** |  | [optional] 
 **User** | Pointer to **string** |  | [optional] 
@@ -60,20 +60,20 @@ HasBalance returns a boolean if a field has been set.
 
 ### GetConsumedCents
 
-`func (o *Rollup) GetConsumedCents() int32`
+`func (o *Rollup) GetConsumedCents() int64`
 
 GetConsumedCents returns the ConsumedCents field if non-nil, zero value otherwise.
 
 ### GetConsumedCentsOk
 
-`func (o *Rollup) GetConsumedCentsOk() (*int32, bool)`
+`func (o *Rollup) GetConsumedCentsOk() (*int64, bool)`
 
 GetConsumedCentsOk returns a tuple with the ConsumedCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConsumedCents
 
-`func (o *Rollup) SetConsumedCents(v int32)`
+`func (o *Rollup) SetConsumedCents(v int64)`
 
 SetConsumedCents sets ConsumedCents field to given value.
 
@@ -135,20 +135,20 @@ HasIncluded returns a boolean if a field has been set.
 
 ### GetOverageCents
 
-`func (o *Rollup) GetOverageCents() int32`
+`func (o *Rollup) GetOverageCents() int64`
 
 GetOverageCents returns the OverageCents field if non-nil, zero value otherwise.
 
 ### GetOverageCentsOk
 
-`func (o *Rollup) GetOverageCentsOk() (*int32, bool)`
+`func (o *Rollup) GetOverageCentsOk() (*int64, bool)`
 
 GetOverageCentsOk returns a tuple with the OverageCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOverageCents
 
-`func (o *Rollup) SetOverageCents(v int32)`
+`func (o *Rollup) SetOverageCents(v int64)`
 
 SetOverageCents sets OverageCents field to given value.
 

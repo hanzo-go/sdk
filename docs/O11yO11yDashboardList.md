@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Dashboards** | Pointer to [**[]O11yO11yDashboardListItem**](O11yO11yDashboardListItem.md) | Dashboards are the rows for this page. | [optional] 
 **Tags** | Pointer to [**[]O11yO11yDashboardTag**](O11yO11yDashboardTag.md) | Tags are all tags in use across the org&#39;s dashboards. | [optional] 
-**Total** | Pointer to **int32** | Total is the count across all pages. | [optional] 
+**Total** | Pointer to **int64** | Total is the count across all pages. | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasTags returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *O11yO11yDashboardList) GetTotal() int32`
+`func (o *O11yO11yDashboardList) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *O11yO11yDashboardList) GetTotalOk() (*int32, bool)`
+`func (o *O11yO11yDashboardList) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *O11yO11yDashboardList) SetTotal(v int32)`
+`func (o *O11yO11yDashboardList) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

@@ -20,7 +20,7 @@ var _ MappedNullable = &InboxPage{}
 // InboxPage struct for InboxPage
 type InboxPage struct {
 	// Cursor is the row id to pass back as `since` for the next page. It is the last message's id, or the requested cursor when the page is empty.
-	Cursor *int32 `json:"cursor,omitempty"`
+	Cursor *int64 `json:"cursor,omitempty"`
 	// Messages are the inbound messages, oldest first.
 	Messages []InboxView `json:"messages,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewInboxPageWithDefaults() *InboxPage {
 }
 
 // GetCursor returns the Cursor field value if set, zero value otherwise.
-func (o *InboxPage) GetCursor() int32 {
+func (o *InboxPage) GetCursor() int64 {
 	if o == nil || IsNil(o.Cursor) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Cursor
@@ -53,7 +53,7 @@ func (o *InboxPage) GetCursor() int32 {
 
 // GetCursorOk returns a tuple with the Cursor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InboxPage) GetCursorOk() (*int32, bool) {
+func (o *InboxPage) GetCursorOk() (*int64, bool) {
 	if o == nil || IsNil(o.Cursor) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *InboxPage) HasCursor() bool {
 	return false
 }
 
-// SetCursor gets a reference to the given int32 and assigns it to the Cursor field.
-func (o *InboxPage) SetCursor(v int32) {
+// SetCursor gets a reference to the given int64 and assigns it to the Cursor field.
+func (o *InboxPage) SetCursor(v int64) {
 	o.Cursor = &v
 }
 

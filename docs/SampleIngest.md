@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **GpuModel** | Pointer to **string** | GPUModel names the representative accelerator (\&quot;GB10\&quot;); GPUs carries how many. A heterogeneous host names its first card rather than inventing a summary. | [optional] 
-**GpuUtil** | Pointer to **float32** | GPUUtil is accelerator utilization as a fraction 0..1; the warehouse clamps anything outside that. | [optional] 
-**Gpus** | Pointer to **int32** | GPUs is how many accelerators this reading covers. | [optional] 
+**GpuUtil** | Pointer to **float64** | GPUUtil is accelerator utilization as a fraction 0..1; the warehouse clamps anything outside that. | [optional] 
+**Gpus** | Pointer to **int64** | GPUs is how many accelerators this reading covers. | [optional] 
 **Host** | Pointer to **string** | Host is the node&#39;s hostname, for display. | [optional] 
-**MemFree** | Pointer to **int32** | MemFree is host memory still available, in BYTES. | [optional] 
-**MemUsed** | Pointer to **int32** | MemUsed is host memory in use, in BYTES. | [optional] 
+**MemFree** | Pointer to **int64** | MemFree is host memory still available, in BYTES. | [optional] 
+**MemUsed** | Pointer to **int64** | MemUsed is host memory in use, in BYTES. | [optional] 
 **Unit** | Pointer to **string** | Unit is the reporting node&#39;s own id — the same id it registered under, and the key the board joins this series onto. Required. | [optional] 
 
 ## Methods
@@ -58,20 +58,20 @@ HasGpuModel returns a boolean if a field has been set.
 
 ### GetGpuUtil
 
-`func (o *SampleIngest) GetGpuUtil() float32`
+`func (o *SampleIngest) GetGpuUtil() float64`
 
 GetGpuUtil returns the GpuUtil field if non-nil, zero value otherwise.
 
 ### GetGpuUtilOk
 
-`func (o *SampleIngest) GetGpuUtilOk() (*float32, bool)`
+`func (o *SampleIngest) GetGpuUtilOk() (*float64, bool)`
 
 GetGpuUtilOk returns a tuple with the GpuUtil field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGpuUtil
 
-`func (o *SampleIngest) SetGpuUtil(v float32)`
+`func (o *SampleIngest) SetGpuUtil(v float64)`
 
 SetGpuUtil sets GpuUtil field to given value.
 
@@ -83,20 +83,20 @@ HasGpuUtil returns a boolean if a field has been set.
 
 ### GetGpus
 
-`func (o *SampleIngest) GetGpus() int32`
+`func (o *SampleIngest) GetGpus() int64`
 
 GetGpus returns the Gpus field if non-nil, zero value otherwise.
 
 ### GetGpusOk
 
-`func (o *SampleIngest) GetGpusOk() (*int32, bool)`
+`func (o *SampleIngest) GetGpusOk() (*int64, bool)`
 
 GetGpusOk returns a tuple with the Gpus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGpus
 
-`func (o *SampleIngest) SetGpus(v int32)`
+`func (o *SampleIngest) SetGpus(v int64)`
 
 SetGpus sets Gpus field to given value.
 
@@ -133,20 +133,20 @@ HasHost returns a boolean if a field has been set.
 
 ### GetMemFree
 
-`func (o *SampleIngest) GetMemFree() int32`
+`func (o *SampleIngest) GetMemFree() int64`
 
 GetMemFree returns the MemFree field if non-nil, zero value otherwise.
 
 ### GetMemFreeOk
 
-`func (o *SampleIngest) GetMemFreeOk() (*int32, bool)`
+`func (o *SampleIngest) GetMemFreeOk() (*int64, bool)`
 
 GetMemFreeOk returns a tuple with the MemFree field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMemFree
 
-`func (o *SampleIngest) SetMemFree(v int32)`
+`func (o *SampleIngest) SetMemFree(v int64)`
 
 SetMemFree sets MemFree field to given value.
 
@@ -158,20 +158,20 @@ HasMemFree returns a boolean if a field has been set.
 
 ### GetMemUsed
 
-`func (o *SampleIngest) GetMemUsed() int32`
+`func (o *SampleIngest) GetMemUsed() int64`
 
 GetMemUsed returns the MemUsed field if non-nil, zero value otherwise.
 
 ### GetMemUsedOk
 
-`func (o *SampleIngest) GetMemUsedOk() (*int32, bool)`
+`func (o *SampleIngest) GetMemUsedOk() (*int64, bool)`
 
 GetMemUsedOk returns a tuple with the MemUsed field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMemUsed
 
-`func (o *SampleIngest) SetMemUsed(v int32)`
+`func (o *SampleIngest) SetMemUsed(v int64)`
 
 SetMemUsed sets MemUsed field to given value.
 

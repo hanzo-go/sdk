@@ -20,7 +20,7 @@ var _ MappedNullable = &GraphVocabularyOut{}
 // GraphVocabularyOut struct for GraphVocabularyOut
 type GraphVocabularyOut struct {
 	// Bound is the ceiling on one walk.
-	Bound *int32 `json:"bound,omitempty"`
+	Bound *int64 `json:"bound,omitempty"`
 	// Relations is what this organization has actually asserted, which is the only vocabulary there is: this plane declares none of its own.
 	Relations []string `json:"relations,omitempty"`
 	// Rule names the terms of the precedence order, in the order they apply. A reader who is told a winner without the rule cannot check it.
@@ -45,9 +45,9 @@ func NewGraphVocabularyOutWithDefaults() *GraphVocabularyOut {
 }
 
 // GetBound returns the Bound field value if set, zero value otherwise.
-func (o *GraphVocabularyOut) GetBound() int32 {
+func (o *GraphVocabularyOut) GetBound() int64 {
 	if o == nil || IsNil(o.Bound) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Bound
@@ -55,7 +55,7 @@ func (o *GraphVocabularyOut) GetBound() int32 {
 
 // GetBoundOk returns a tuple with the Bound field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphVocabularyOut) GetBoundOk() (*int32, bool) {
+func (o *GraphVocabularyOut) GetBoundOk() (*int64, bool) {
 	if o == nil || IsNil(o.Bound) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *GraphVocabularyOut) HasBound() bool {
 	return false
 }
 
-// SetBound gets a reference to the given int32 and assigns it to the Bound field.
-func (o *GraphVocabularyOut) SetBound(v int32) {
+// SetBound gets a reference to the given int64 and assigns it to the Bound field.
+func (o *GraphVocabularyOut) SetBound(v int64) {
 	o.Bound = &v
 }
 

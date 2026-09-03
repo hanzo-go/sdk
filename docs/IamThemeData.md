@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BorderRadius** | Pointer to **int32** |  | [optional] 
+**BorderRadius** | Pointer to **int64** |  | [optional] 
 **ColorPrimary** | Pointer to **string** |  | [optional] 
 **IsCompact** | Pointer to **bool** |  | [optional] 
 **IsEnabled** | Pointer to **bool** |  | [optional] 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetBorderRadius
 
-`func (o *IamThemeData) GetBorderRadius() int32`
+`func (o *IamThemeData) GetBorderRadius() int64`
 
 GetBorderRadius returns the BorderRadius field if non-nil, zero value otherwise.
 
 ### GetBorderRadiusOk
 
-`func (o *IamThemeData) GetBorderRadiusOk() (*int32, bool)`
+`func (o *IamThemeData) GetBorderRadiusOk() (*int64, bool)`
 
 GetBorderRadiusOk returns a tuple with the BorderRadius field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBorderRadius
 
-`func (o *IamThemeData) SetBorderRadius(v int32)`
+`func (o *IamThemeData) SetBorderRadius(v int64)`
 
 SetBorderRadius sets BorderRadius field to given value.
 

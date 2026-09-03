@@ -23,7 +23,7 @@ type IamUpdateOrganizationInput struct {
 	AccountItems           []IamAccountItem `json:"accountItems,omitempty"`
 	AccountMenu            *string          `json:"accountMenu,omitempty"`
 	Avatar                 *string          `json:"avatar,omitempty"`
-	BalanceCredit          *float32         `json:"balanceCredit,omitempty"`
+	BalanceCredit          *float64         `json:"balanceCredit,omitempty"`
 	BalanceCurrency        *string          `json:"balanceCurrency,omitempty"`
 	CountryCodes           []string         `json:"countryCodes,omitempty"`
 	CreatedAt              *time.Time       `json:"createdAt,omitempty"`
@@ -38,13 +38,13 @@ type IamUpdateOrganizationInput struct {
 	Emoji                  *string          `json:"emoji,omitempty"`
 	EnableSoftDeletion     *bool            `json:"enableSoftDeletion,omitempty"`
 	EnableTour             *bool            `json:"enableTour,omitempty"`
-	FailedSigninFrozenTime *int32           `json:"failedSigninFrozenTime,omitempty"`
-	FailedSigninLimit      *int32           `json:"failedSigninLimit,omitempty"`
+	FailedSigninFrozenTime *int64           `json:"failedSigninFrozenTime,omitempty"`
+	FailedSigninLimit      *int64           `json:"failedSigninLimit,omitempty"`
 	Favicon                *string          `json:"favicon,omitempty"`
 	Founder                *string          `json:"founder,omitempty"`
 	HasPrivilegeConsent    *bool            `json:"hasPrivilegeConsent,omitempty"`
 	Id                     *string          `json:"id,omitempty"`
-	InitScore              *int32           `json:"initScore,omitempty"`
+	InitScore              *int64           `json:"initScore,omitempty"`
 	IpRestriction          *string          `json:"ipRestriction,omitempty"`
 	IpWhitelist            *string          `json:"ipWhitelist,omitempty"`
 	IsPersonal             *bool            `json:"isPersonal,omitempty"`
@@ -60,12 +60,12 @@ type IamUpdateOrganizationInput struct {
 	MasterPassword         *string          `json:"masterPassword,omitempty"`
 	MasterVerificationCode *string          `json:"masterVerificationCode,omitempty"`
 	MfaItems               []IamMfaItem     `json:"mfaItems,omitempty"`
-	MfaRememberInHours     *int32           `json:"mfaRememberInHours,omitempty"`
+	MfaRememberInHours     *int64           `json:"mfaRememberInHours,omitempty"`
 	Name                   *string          `json:"name,omitempty"`
 	NavItems               []string         `json:"navItems,omitempty"`
-	OrgBalance             *float32         `json:"orgBalance,omitempty"`
+	OrgBalance             *float64         `json:"orgBalance,omitempty"`
 	Owner                  *string          `json:"owner,omitempty"`
-	PasswordExpireDays     *int32           `json:"passwordExpireDays,omitempty"`
+	PasswordExpireDays     *int64           `json:"passwordExpireDays,omitempty"`
 	PasswordObfuscatorKey  *string          `json:"passwordObfuscatorKey,omitempty"`
 	PasswordObfuscatorType *string          `json:"passwordObfuscatorType,omitempty"`
 	PasswordOptions        []string         `json:"passwordOptions,omitempty"`
@@ -76,7 +76,7 @@ type IamUpdateOrganizationInput struct {
 	UpdatedAt              *time.Time       `json:"updatedAt,omitempty"`
 	UseEmailAsUsername     *bool            `json:"useEmailAsUsername,omitempty"`
 	UsePermanentAvatar     *bool            `json:"usePermanentAvatar,omitempty"`
-	UserBalance            *float32         `json:"userBalance,omitempty"`
+	UserBalance            *float64         `json:"userBalance,omitempty"`
 	UserNavItems           []string         `json:"userNavItems,omitempty"`
 	UserTypes              []string         `json:"userTypes,omitempty"`
 	WebsiteUrl             *string          `json:"websiteUrl,omitempty"`
@@ -197,9 +197,9 @@ func (o *IamUpdateOrganizationInput) SetAvatar(v string) {
 }
 
 // GetBalanceCredit returns the BalanceCredit field value if set, zero value otherwise.
-func (o *IamUpdateOrganizationInput) GetBalanceCredit() float32 {
+func (o *IamUpdateOrganizationInput) GetBalanceCredit() float64 {
 	if o == nil || IsNil(o.BalanceCredit) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.BalanceCredit
@@ -207,7 +207,7 @@ func (o *IamUpdateOrganizationInput) GetBalanceCredit() float32 {
 
 // GetBalanceCreditOk returns a tuple with the BalanceCredit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamUpdateOrganizationInput) GetBalanceCreditOk() (*float32, bool) {
+func (o *IamUpdateOrganizationInput) GetBalanceCreditOk() (*float64, bool) {
 	if o == nil || IsNil(o.BalanceCredit) {
 		return nil, false
 	}
@@ -223,8 +223,8 @@ func (o *IamUpdateOrganizationInput) HasBalanceCredit() bool {
 	return false
 }
 
-// SetBalanceCredit gets a reference to the given float32 and assigns it to the BalanceCredit field.
-func (o *IamUpdateOrganizationInput) SetBalanceCredit(v float32) {
+// SetBalanceCredit gets a reference to the given float64 and assigns it to the BalanceCredit field.
+func (o *IamUpdateOrganizationInput) SetBalanceCredit(v float64) {
 	o.BalanceCredit = &v
 }
 
@@ -677,9 +677,9 @@ func (o *IamUpdateOrganizationInput) SetEnableTour(v bool) {
 }
 
 // GetFailedSigninFrozenTime returns the FailedSigninFrozenTime field value if set, zero value otherwise.
-func (o *IamUpdateOrganizationInput) GetFailedSigninFrozenTime() int32 {
+func (o *IamUpdateOrganizationInput) GetFailedSigninFrozenTime() int64 {
 	if o == nil || IsNil(o.FailedSigninFrozenTime) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.FailedSigninFrozenTime
@@ -687,7 +687,7 @@ func (o *IamUpdateOrganizationInput) GetFailedSigninFrozenTime() int32 {
 
 // GetFailedSigninFrozenTimeOk returns a tuple with the FailedSigninFrozenTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamUpdateOrganizationInput) GetFailedSigninFrozenTimeOk() (*int32, bool) {
+func (o *IamUpdateOrganizationInput) GetFailedSigninFrozenTimeOk() (*int64, bool) {
 	if o == nil || IsNil(o.FailedSigninFrozenTime) {
 		return nil, false
 	}
@@ -703,15 +703,15 @@ func (o *IamUpdateOrganizationInput) HasFailedSigninFrozenTime() bool {
 	return false
 }
 
-// SetFailedSigninFrozenTime gets a reference to the given int32 and assigns it to the FailedSigninFrozenTime field.
-func (o *IamUpdateOrganizationInput) SetFailedSigninFrozenTime(v int32) {
+// SetFailedSigninFrozenTime gets a reference to the given int64 and assigns it to the FailedSigninFrozenTime field.
+func (o *IamUpdateOrganizationInput) SetFailedSigninFrozenTime(v int64) {
 	o.FailedSigninFrozenTime = &v
 }
 
 // GetFailedSigninLimit returns the FailedSigninLimit field value if set, zero value otherwise.
-func (o *IamUpdateOrganizationInput) GetFailedSigninLimit() int32 {
+func (o *IamUpdateOrganizationInput) GetFailedSigninLimit() int64 {
 	if o == nil || IsNil(o.FailedSigninLimit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.FailedSigninLimit
@@ -719,7 +719,7 @@ func (o *IamUpdateOrganizationInput) GetFailedSigninLimit() int32 {
 
 // GetFailedSigninLimitOk returns a tuple with the FailedSigninLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamUpdateOrganizationInput) GetFailedSigninLimitOk() (*int32, bool) {
+func (o *IamUpdateOrganizationInput) GetFailedSigninLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.FailedSigninLimit) {
 		return nil, false
 	}
@@ -735,8 +735,8 @@ func (o *IamUpdateOrganizationInput) HasFailedSigninLimit() bool {
 	return false
 }
 
-// SetFailedSigninLimit gets a reference to the given int32 and assigns it to the FailedSigninLimit field.
-func (o *IamUpdateOrganizationInput) SetFailedSigninLimit(v int32) {
+// SetFailedSigninLimit gets a reference to the given int64 and assigns it to the FailedSigninLimit field.
+func (o *IamUpdateOrganizationInput) SetFailedSigninLimit(v int64) {
 	o.FailedSigninLimit = &v
 }
 
@@ -869,9 +869,9 @@ func (o *IamUpdateOrganizationInput) SetId(v string) {
 }
 
 // GetInitScore returns the InitScore field value if set, zero value otherwise.
-func (o *IamUpdateOrganizationInput) GetInitScore() int32 {
+func (o *IamUpdateOrganizationInput) GetInitScore() int64 {
 	if o == nil || IsNil(o.InitScore) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.InitScore
@@ -879,7 +879,7 @@ func (o *IamUpdateOrganizationInput) GetInitScore() int32 {
 
 // GetInitScoreOk returns a tuple with the InitScore field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamUpdateOrganizationInput) GetInitScoreOk() (*int32, bool) {
+func (o *IamUpdateOrganizationInput) GetInitScoreOk() (*int64, bool) {
 	if o == nil || IsNil(o.InitScore) {
 		return nil, false
 	}
@@ -895,8 +895,8 @@ func (o *IamUpdateOrganizationInput) HasInitScore() bool {
 	return false
 }
 
-// SetInitScore gets a reference to the given int32 and assigns it to the InitScore field.
-func (o *IamUpdateOrganizationInput) SetInitScore(v int32) {
+// SetInitScore gets a reference to the given int64 and assigns it to the InitScore field.
+func (o *IamUpdateOrganizationInput) SetInitScore(v int64) {
 	o.InitScore = &v
 }
 
@@ -1381,9 +1381,9 @@ func (o *IamUpdateOrganizationInput) SetMfaItems(v []IamMfaItem) {
 }
 
 // GetMfaRememberInHours returns the MfaRememberInHours field value if set, zero value otherwise.
-func (o *IamUpdateOrganizationInput) GetMfaRememberInHours() int32 {
+func (o *IamUpdateOrganizationInput) GetMfaRememberInHours() int64 {
 	if o == nil || IsNil(o.MfaRememberInHours) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MfaRememberInHours
@@ -1391,7 +1391,7 @@ func (o *IamUpdateOrganizationInput) GetMfaRememberInHours() int32 {
 
 // GetMfaRememberInHoursOk returns a tuple with the MfaRememberInHours field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamUpdateOrganizationInput) GetMfaRememberInHoursOk() (*int32, bool) {
+func (o *IamUpdateOrganizationInput) GetMfaRememberInHoursOk() (*int64, bool) {
 	if o == nil || IsNil(o.MfaRememberInHours) {
 		return nil, false
 	}
@@ -1407,8 +1407,8 @@ func (o *IamUpdateOrganizationInput) HasMfaRememberInHours() bool {
 	return false
 }
 
-// SetMfaRememberInHours gets a reference to the given int32 and assigns it to the MfaRememberInHours field.
-func (o *IamUpdateOrganizationInput) SetMfaRememberInHours(v int32) {
+// SetMfaRememberInHours gets a reference to the given int64 and assigns it to the MfaRememberInHours field.
+func (o *IamUpdateOrganizationInput) SetMfaRememberInHours(v int64) {
 	o.MfaRememberInHours = &v
 }
 
@@ -1477,9 +1477,9 @@ func (o *IamUpdateOrganizationInput) SetNavItems(v []string) {
 }
 
 // GetOrgBalance returns the OrgBalance field value if set, zero value otherwise.
-func (o *IamUpdateOrganizationInput) GetOrgBalance() float32 {
+func (o *IamUpdateOrganizationInput) GetOrgBalance() float64 {
 	if o == nil || IsNil(o.OrgBalance) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.OrgBalance
@@ -1487,7 +1487,7 @@ func (o *IamUpdateOrganizationInput) GetOrgBalance() float32 {
 
 // GetOrgBalanceOk returns a tuple with the OrgBalance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamUpdateOrganizationInput) GetOrgBalanceOk() (*float32, bool) {
+func (o *IamUpdateOrganizationInput) GetOrgBalanceOk() (*float64, bool) {
 	if o == nil || IsNil(o.OrgBalance) {
 		return nil, false
 	}
@@ -1503,8 +1503,8 @@ func (o *IamUpdateOrganizationInput) HasOrgBalance() bool {
 	return false
 }
 
-// SetOrgBalance gets a reference to the given float32 and assigns it to the OrgBalance field.
-func (o *IamUpdateOrganizationInput) SetOrgBalance(v float32) {
+// SetOrgBalance gets a reference to the given float64 and assigns it to the OrgBalance field.
+func (o *IamUpdateOrganizationInput) SetOrgBalance(v float64) {
 	o.OrgBalance = &v
 }
 
@@ -1541,9 +1541,9 @@ func (o *IamUpdateOrganizationInput) SetOwner(v string) {
 }
 
 // GetPasswordExpireDays returns the PasswordExpireDays field value if set, zero value otherwise.
-func (o *IamUpdateOrganizationInput) GetPasswordExpireDays() int32 {
+func (o *IamUpdateOrganizationInput) GetPasswordExpireDays() int64 {
 	if o == nil || IsNil(o.PasswordExpireDays) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PasswordExpireDays
@@ -1551,7 +1551,7 @@ func (o *IamUpdateOrganizationInput) GetPasswordExpireDays() int32 {
 
 // GetPasswordExpireDaysOk returns a tuple with the PasswordExpireDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamUpdateOrganizationInput) GetPasswordExpireDaysOk() (*int32, bool) {
+func (o *IamUpdateOrganizationInput) GetPasswordExpireDaysOk() (*int64, bool) {
 	if o == nil || IsNil(o.PasswordExpireDays) {
 		return nil, false
 	}
@@ -1567,8 +1567,8 @@ func (o *IamUpdateOrganizationInput) HasPasswordExpireDays() bool {
 	return false
 }
 
-// SetPasswordExpireDays gets a reference to the given int32 and assigns it to the PasswordExpireDays field.
-func (o *IamUpdateOrganizationInput) SetPasswordExpireDays(v int32) {
+// SetPasswordExpireDays gets a reference to the given int64 and assigns it to the PasswordExpireDays field.
+func (o *IamUpdateOrganizationInput) SetPasswordExpireDays(v int64) {
 	o.PasswordExpireDays = &v
 }
 
@@ -1893,9 +1893,9 @@ func (o *IamUpdateOrganizationInput) SetUsePermanentAvatar(v bool) {
 }
 
 // GetUserBalance returns the UserBalance field value if set, zero value otherwise.
-func (o *IamUpdateOrganizationInput) GetUserBalance() float32 {
+func (o *IamUpdateOrganizationInput) GetUserBalance() float64 {
 	if o == nil || IsNil(o.UserBalance) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.UserBalance
@@ -1903,7 +1903,7 @@ func (o *IamUpdateOrganizationInput) GetUserBalance() float32 {
 
 // GetUserBalanceOk returns a tuple with the UserBalance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamUpdateOrganizationInput) GetUserBalanceOk() (*float32, bool) {
+func (o *IamUpdateOrganizationInput) GetUserBalanceOk() (*float64, bool) {
 	if o == nil || IsNil(o.UserBalance) {
 		return nil, false
 	}
@@ -1919,8 +1919,8 @@ func (o *IamUpdateOrganizationInput) HasUserBalance() bool {
 	return false
 }
 
-// SetUserBalance gets a reference to the given float32 and assigns it to the UserBalance field.
-func (o *IamUpdateOrganizationInput) SetUserBalance(v float32) {
+// SetUserBalance gets a reference to the given float64 and assigns it to the UserBalance field.
+func (o *IamUpdateOrganizationInput) SetUserBalance(v float64) {
 	o.UserBalance = &v
 }
 

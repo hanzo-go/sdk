@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Meta** | Pointer to **map[string]string** |  | [optional] 
-**PodAge** | Pointer to **int32** |  | [optional] 
-**PodCPU** | Pointer to **float32** |  | [optional] 
-**PodCPULimit** | Pointer to **float32** |  | [optional] 
-**PodCPURequest** | Pointer to **float32** |  | [optional] 
+**PodAge** | Pointer to **int64** |  | [optional] 
+**PodCPU** | Pointer to **float64** |  | [optional] 
+**PodCPULimit** | Pointer to **float64** |  | [optional] 
+**PodCPURequest** | Pointer to **float64** |  | [optional] 
 **PodCountsByPhase** | Pointer to [**O11yPodCountsByPhase**](O11yPodCountsByPhase.md) |  | [optional] 
-**PodMemory** | Pointer to **float32** |  | [optional] 
-**PodMemoryLimit** | Pointer to **float32** |  | [optional] 
-**PodMemoryRequest** | Pointer to **float32** |  | [optional] 
+**PodMemory** | Pointer to **float64** |  | [optional] 
+**PodMemoryLimit** | Pointer to **float64** |  | [optional] 
+**PodMemoryRequest** | Pointer to **float64** |  | [optional] 
 **PodPhase** | Pointer to **interface{}** |  | [optional] 
 **PodUID** | Pointer to **string** |  | [optional] 
 
@@ -62,20 +62,20 @@ HasMeta returns a boolean if a field has been set.
 
 ### GetPodAge
 
-`func (o *O11yPodRecord) GetPodAge() int32`
+`func (o *O11yPodRecord) GetPodAge() int64`
 
 GetPodAge returns the PodAge field if non-nil, zero value otherwise.
 
 ### GetPodAgeOk
 
-`func (o *O11yPodRecord) GetPodAgeOk() (*int32, bool)`
+`func (o *O11yPodRecord) GetPodAgeOk() (*int64, bool)`
 
 GetPodAgeOk returns a tuple with the PodAge field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPodAge
 
-`func (o *O11yPodRecord) SetPodAge(v int32)`
+`func (o *O11yPodRecord) SetPodAge(v int64)`
 
 SetPodAge sets PodAge field to given value.
 
@@ -87,20 +87,20 @@ HasPodAge returns a boolean if a field has been set.
 
 ### GetPodCPU
 
-`func (o *O11yPodRecord) GetPodCPU() float32`
+`func (o *O11yPodRecord) GetPodCPU() float64`
 
 GetPodCPU returns the PodCPU field if non-nil, zero value otherwise.
 
 ### GetPodCPUOk
 
-`func (o *O11yPodRecord) GetPodCPUOk() (*float32, bool)`
+`func (o *O11yPodRecord) GetPodCPUOk() (*float64, bool)`
 
 GetPodCPUOk returns a tuple with the PodCPU field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPodCPU
 
-`func (o *O11yPodRecord) SetPodCPU(v float32)`
+`func (o *O11yPodRecord) SetPodCPU(v float64)`
 
 SetPodCPU sets PodCPU field to given value.
 
@@ -112,20 +112,20 @@ HasPodCPU returns a boolean if a field has been set.
 
 ### GetPodCPULimit
 
-`func (o *O11yPodRecord) GetPodCPULimit() float32`
+`func (o *O11yPodRecord) GetPodCPULimit() float64`
 
 GetPodCPULimit returns the PodCPULimit field if non-nil, zero value otherwise.
 
 ### GetPodCPULimitOk
 
-`func (o *O11yPodRecord) GetPodCPULimitOk() (*float32, bool)`
+`func (o *O11yPodRecord) GetPodCPULimitOk() (*float64, bool)`
 
 GetPodCPULimitOk returns a tuple with the PodCPULimit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPodCPULimit
 
-`func (o *O11yPodRecord) SetPodCPULimit(v float32)`
+`func (o *O11yPodRecord) SetPodCPULimit(v float64)`
 
 SetPodCPULimit sets PodCPULimit field to given value.
 
@@ -137,20 +137,20 @@ HasPodCPULimit returns a boolean if a field has been set.
 
 ### GetPodCPURequest
 
-`func (o *O11yPodRecord) GetPodCPURequest() float32`
+`func (o *O11yPodRecord) GetPodCPURequest() float64`
 
 GetPodCPURequest returns the PodCPURequest field if non-nil, zero value otherwise.
 
 ### GetPodCPURequestOk
 
-`func (o *O11yPodRecord) GetPodCPURequestOk() (*float32, bool)`
+`func (o *O11yPodRecord) GetPodCPURequestOk() (*float64, bool)`
 
 GetPodCPURequestOk returns a tuple with the PodCPURequest field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPodCPURequest
 
-`func (o *O11yPodRecord) SetPodCPURequest(v float32)`
+`func (o *O11yPodRecord) SetPodCPURequest(v float64)`
 
 SetPodCPURequest sets PodCPURequest field to given value.
 
@@ -187,20 +187,20 @@ HasPodCountsByPhase returns a boolean if a field has been set.
 
 ### GetPodMemory
 
-`func (o *O11yPodRecord) GetPodMemory() float32`
+`func (o *O11yPodRecord) GetPodMemory() float64`
 
 GetPodMemory returns the PodMemory field if non-nil, zero value otherwise.
 
 ### GetPodMemoryOk
 
-`func (o *O11yPodRecord) GetPodMemoryOk() (*float32, bool)`
+`func (o *O11yPodRecord) GetPodMemoryOk() (*float64, bool)`
 
 GetPodMemoryOk returns a tuple with the PodMemory field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPodMemory
 
-`func (o *O11yPodRecord) SetPodMemory(v float32)`
+`func (o *O11yPodRecord) SetPodMemory(v float64)`
 
 SetPodMemory sets PodMemory field to given value.
 
@@ -212,20 +212,20 @@ HasPodMemory returns a boolean if a field has been set.
 
 ### GetPodMemoryLimit
 
-`func (o *O11yPodRecord) GetPodMemoryLimit() float32`
+`func (o *O11yPodRecord) GetPodMemoryLimit() float64`
 
 GetPodMemoryLimit returns the PodMemoryLimit field if non-nil, zero value otherwise.
 
 ### GetPodMemoryLimitOk
 
-`func (o *O11yPodRecord) GetPodMemoryLimitOk() (*float32, bool)`
+`func (o *O11yPodRecord) GetPodMemoryLimitOk() (*float64, bool)`
 
 GetPodMemoryLimitOk returns a tuple with the PodMemoryLimit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPodMemoryLimit
 
-`func (o *O11yPodRecord) SetPodMemoryLimit(v float32)`
+`func (o *O11yPodRecord) SetPodMemoryLimit(v float64)`
 
 SetPodMemoryLimit sets PodMemoryLimit field to given value.
 
@@ -237,20 +237,20 @@ HasPodMemoryLimit returns a boolean if a field has been set.
 
 ### GetPodMemoryRequest
 
-`func (o *O11yPodRecord) GetPodMemoryRequest() float32`
+`func (o *O11yPodRecord) GetPodMemoryRequest() float64`
 
 GetPodMemoryRequest returns the PodMemoryRequest field if non-nil, zero value otherwise.
 
 ### GetPodMemoryRequestOk
 
-`func (o *O11yPodRecord) GetPodMemoryRequestOk() (*float32, bool)`
+`func (o *O11yPodRecord) GetPodMemoryRequestOk() (*float64, bool)`
 
 GetPodMemoryRequestOk returns a tuple with the PodMemoryRequest field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPodMemoryRequest
 
-`func (o *O11yPodRecord) SetPodMemoryRequest(v float32)`
+`func (o *O11yPodRecord) SetPodMemoryRequest(v float64)`
 
 SetPodMemoryRequest sets PodMemoryRequest field to given value.
 

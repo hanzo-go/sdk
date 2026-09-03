@@ -26,7 +26,7 @@ type DestinationTest struct {
 	// OK is true when the platform accepted the synthetic event.
 	Ok *bool `json:"ok,omitempty"`
 	// Sent is how many events the platform accepted, present only on success.
-	Sent *int32 `json:"sent,omitempty"`
+	Sent *int64 `json:"sent,omitempty"`
 }
 
 // NewDestinationTest instantiates a new DestinationTest object
@@ -143,9 +143,9 @@ func (o *DestinationTest) SetOk(v bool) {
 }
 
 // GetSent returns the Sent field value if set, zero value otherwise.
-func (o *DestinationTest) GetSent() int32 {
+func (o *DestinationTest) GetSent() int64 {
 	if o == nil || IsNil(o.Sent) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Sent
@@ -153,7 +153,7 @@ func (o *DestinationTest) GetSent() int32 {
 
 // GetSentOk returns a tuple with the Sent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DestinationTest) GetSentOk() (*int32, bool) {
+func (o *DestinationTest) GetSentOk() (*int64, bool) {
 	if o == nil || IsNil(o.Sent) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *DestinationTest) HasSent() bool {
 	return false
 }
 
-// SetSent gets a reference to the given int32 and assigns it to the Sent field.
-func (o *DestinationTest) SetSent(v int32) {
+// SetSent gets a reference to the given int64 and assigns it to the Sent field.
+func (o *DestinationTest) SetSent(v int64) {
 	o.Sent = &v
 }
 

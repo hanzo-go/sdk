@@ -24,7 +24,7 @@ type AiMCPSurface struct {
 	// Names are this process's own tool names, present only when the query asked for them.
 	Names []string `json:"names,omitempty"`
 	// Tools is how many tools THIS PROCESS's MCP server carries: its own typed-op registry, projected. It is the only number a subsystem can state honestly — what the FLEET's server carries is a question only the host can ask, and it asks it by asking every subsystem (POST /v1/mcp, tools/list).
-	Tools *int32 `json:"tools,omitempty"`
+	Tools *int64 `json:"tools,omitempty"`
 }
 
 // NewAiMCPSurface instantiates a new AiMCPSurface object
@@ -109,9 +109,9 @@ func (o *AiMCPSurface) SetNames(v []string) {
 }
 
 // GetTools returns the Tools field value if set, zero value otherwise.
-func (o *AiMCPSurface) GetTools() int32 {
+func (o *AiMCPSurface) GetTools() int64 {
 	if o == nil || IsNil(o.Tools) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Tools
@@ -119,7 +119,7 @@ func (o *AiMCPSurface) GetTools() int32 {
 
 // GetToolsOk returns a tuple with the Tools field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AiMCPSurface) GetToolsOk() (*int32, bool) {
+func (o *AiMCPSurface) GetToolsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Tools) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *AiMCPSurface) HasTools() bool {
 	return false
 }
 
-// SetTools gets a reference to the given int32 and assigns it to the Tools field.
-func (o *AiMCPSurface) SetTools(v int32) {
+// SetTools gets a reference to the given int64 and assigns it to the Tools field.
+func (o *AiMCPSurface) SetTools(v int64) {
 	o.Tools = &v
 }
 

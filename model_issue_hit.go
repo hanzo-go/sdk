@@ -24,7 +24,7 @@ type IssueHit struct {
 	// Kind is what the row IS: issue, pr or epic.
 	Kind *string `json:"kind,omitempty"`
 	// Number is the issue's number on that board, from 1 and monotonic there. Unique per board, never across the org — so it addresses an issue only together with Project.
-	Number *int32 `json:"number,omitempty"`
+	Number *int64 `json:"number,omitempty"`
 	// Priority is urgent, high, medium, low or none. Never empty — an unset priority is the value \"none\".
 	Priority *string `json:"priority,omitempty"`
 	// Project is the board key the issue is on. It and Number are the issue's address in every other route on this surface, which is why a hit carries it.
@@ -125,9 +125,9 @@ func (o *IssueHit) SetKind(v string) {
 }
 
 // GetNumber returns the Number field value if set, zero value otherwise.
-func (o *IssueHit) GetNumber() int32 {
+func (o *IssueHit) GetNumber() int64 {
 	if o == nil || IsNil(o.Number) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Number
@@ -135,7 +135,7 @@ func (o *IssueHit) GetNumber() int32 {
 
 // GetNumberOk returns a tuple with the Number field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IssueHit) GetNumberOk() (*int32, bool) {
+func (o *IssueHit) GetNumberOk() (*int64, bool) {
 	if o == nil || IsNil(o.Number) {
 		return nil, false
 	}
@@ -151,8 +151,8 @@ func (o *IssueHit) HasNumber() bool {
 	return false
 }
 
-// SetNumber gets a reference to the given int32 and assigns it to the Number field.
-func (o *IssueHit) SetNumber(v int32) {
+// SetNumber gets a reference to the given int64 and assigns it to the Number field.
+func (o *IssueHit) SetNumber(v int64) {
 	o.Number = &v
 }
 

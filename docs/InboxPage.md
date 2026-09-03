@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Cursor** | Pointer to **int32** | Cursor is the row id to pass back as &#x60;since&#x60; for the next page. It is the last message&#39;s id, or the requested cursor when the page is empty. | [optional] 
+**Cursor** | Pointer to **int64** | Cursor is the row id to pass back as &#x60;since&#x60; for the next page. It is the last message&#39;s id, or the requested cursor when the page is empty. | [optional] 
 **Messages** | Pointer to [**[]InboxView**](InboxView.md) | Messages are the inbound messages, oldest first. | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCursor
 
-`func (o *InboxPage) GetCursor() int32`
+`func (o *InboxPage) GetCursor() int64`
 
 GetCursor returns the Cursor field if non-nil, zero value otherwise.
 
 ### GetCursorOk
 
-`func (o *InboxPage) GetCursorOk() (*int32, bool)`
+`func (o *InboxPage) GetCursorOk() (*int64, bool)`
 
 GetCursorOk returns a tuple with the Cursor field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCursor
 
-`func (o *InboxPage) SetCursor(v int32)`
+`func (o *InboxPage) SetCursor(v int64)`
 
 SetCursor sets Cursor field to given value.
 

@@ -34,7 +34,7 @@ type RoutedRunOut struct {
 	// SessionID is the live session opened at dispatch; the machine streams its turns into it.
 	SessionId *string `json:"sessionId,omitempty"`
 	// TimeoutSeconds bounds the run on the machine; 0 means the machine's own default.
-	TimeoutSeconds *int32 `json:"timeoutSeconds,omitempty"`
+	TimeoutSeconds *int64 `json:"timeoutSeconds,omitempty"`
 }
 
 // NewRoutedRunOut instantiates a new RoutedRunOut object
@@ -279,9 +279,9 @@ func (o *RoutedRunOut) SetSessionId(v string) {
 }
 
 // GetTimeoutSeconds returns the TimeoutSeconds field value if set, zero value otherwise.
-func (o *RoutedRunOut) GetTimeoutSeconds() int32 {
+func (o *RoutedRunOut) GetTimeoutSeconds() int64 {
 	if o == nil || IsNil(o.TimeoutSeconds) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TimeoutSeconds
@@ -289,7 +289,7 @@ func (o *RoutedRunOut) GetTimeoutSeconds() int32 {
 
 // GetTimeoutSecondsOk returns a tuple with the TimeoutSeconds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RoutedRunOut) GetTimeoutSecondsOk() (*int32, bool) {
+func (o *RoutedRunOut) GetTimeoutSecondsOk() (*int64, bool) {
 	if o == nil || IsNil(o.TimeoutSeconds) {
 		return nil, false
 	}
@@ -305,8 +305,8 @@ func (o *RoutedRunOut) HasTimeoutSeconds() bool {
 	return false
 }
 
-// SetTimeoutSeconds gets a reference to the given int32 and assigns it to the TimeoutSeconds field.
-func (o *RoutedRunOut) SetTimeoutSeconds(v int32) {
+// SetTimeoutSeconds gets a reference to the given int64 and assigns it to the TimeoutSeconds field.
+func (o *RoutedRunOut) SetTimeoutSeconds(v int64) {
 	o.TimeoutSeconds = &v
 }
 

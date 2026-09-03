@@ -24,7 +24,7 @@ type DataroomLink struct {
 	// AllowList narrows which addresses pass the email gate. An entry may be a full address, an \"@domain.com\" suffix, or a bare \"domain.com\". An EMPTY list admits everyone.
 	AllowList []string `json:"allowList,omitempty"`
 	// CreatedAt is when the link was minted, in unix milliseconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// DataroomId is the room the link opens, null for a single-document link.
 	DataroomId *string `json:"dataroomId,omitempty"`
 	// DenyList rejects addresses, in the same three forms as the allow list, and is checked BEFORE it — so deny always wins.
@@ -34,7 +34,7 @@ type DataroomLink struct {
 	// EmailProtected is whether a visitor must state an address to enter.
 	EmailProtected *bool `json:"emailProtected,omitempty"`
 	// ExpiresAt is when the link closes, in unix milliseconds; null never expires.
-	ExpiresAt *int32 `json:"expiresAt,omitempty"`
+	ExpiresAt *int64 `json:"expiresAt,omitempty"`
 	// HasPassword reports THAT a password is set. The stored form is a bcrypt hash and no route returns it.
 	HasPassword *bool `json:"hasPassword,omitempty"`
 	// ID is the link id — the public token a visitor opens the room with.
@@ -46,7 +46,7 @@ type DataroomLink struct {
 	// Name is the link's label, null when none was given.
 	Name *string `json:"name,omitempty"`
 	// UpdatedAt is when the link last changed, in unix milliseconds.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewDataroomLink instantiates a new DataroomLink object
@@ -131,9 +131,9 @@ func (o *DataroomLink) SetAllowList(v []string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *DataroomLink) GetCreatedAt() int32 {
+func (o *DataroomLink) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -141,7 +141,7 @@ func (o *DataroomLink) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DataroomLink) GetCreatedAtOk() (*int32, bool) {
+func (o *DataroomLink) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -157,8 +157,8 @@ func (o *DataroomLink) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *DataroomLink) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *DataroomLink) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -291,9 +291,9 @@ func (o *DataroomLink) SetEmailProtected(v bool) {
 }
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
-func (o *DataroomLink) GetExpiresAt() int32 {
+func (o *DataroomLink) GetExpiresAt() int64 {
 	if o == nil || IsNil(o.ExpiresAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ExpiresAt
@@ -301,7 +301,7 @@ func (o *DataroomLink) GetExpiresAt() int32 {
 
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DataroomLink) GetExpiresAtOk() (*int32, bool) {
+func (o *DataroomLink) GetExpiresAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
@@ -317,8 +317,8 @@ func (o *DataroomLink) HasExpiresAt() bool {
 	return false
 }
 
-// SetExpiresAt gets a reference to the given int32 and assigns it to the ExpiresAt field.
-func (o *DataroomLink) SetExpiresAt(v int32) {
+// SetExpiresAt gets a reference to the given int64 and assigns it to the ExpiresAt field.
+func (o *DataroomLink) SetExpiresAt(v int64) {
 	o.ExpiresAt = &v
 }
 
@@ -483,9 +483,9 @@ func (o *DataroomLink) SetName(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *DataroomLink) GetUpdatedAt() int32 {
+func (o *DataroomLink) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -493,7 +493,7 @@ func (o *DataroomLink) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DataroomLink) GetUpdatedAtOk() (*int32, bool) {
+func (o *DataroomLink) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -509,8 +509,8 @@ func (o *DataroomLink) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *DataroomLink) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *DataroomLink) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AmountCents** | Pointer to **int32** | AmountCents is the size of the movement in whole cents, always POSITIVE — direction carries the sign, so a caller must read both to know which way money went. | [optional] 
+**AmountCents** | Pointer to **int64** | AmountCents is the size of the movement in whole cents, always POSITIVE — direction carries the sign, so a caller must read both to know which way money went. | [optional] 
 **Connector** | Pointer to **string** | Connector names the feed this row arrived on — which bank or processor connection it was synced from. With externalId it is the row&#39;s identity, so re-syncing the same statement never books a second copy. | [optional] 
 **Currency** | Pointer to **string** | Currency is the ISO code the bank reported the line in. | [optional] 
 **Description** | Pointer to **string** | Description is the statement memo as the bank wrote it. | [optional] 
@@ -36,20 +36,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAmountCents
 
-`func (o *BankTxnRow) GetAmountCents() int32`
+`func (o *BankTxnRow) GetAmountCents() int64`
 
 GetAmountCents returns the AmountCents field if non-nil, zero value otherwise.
 
 ### GetAmountCentsOk
 
-`func (o *BankTxnRow) GetAmountCentsOk() (*int32, bool)`
+`func (o *BankTxnRow) GetAmountCentsOk() (*int64, bool)`
 
 GetAmountCentsOk returns a tuple with the AmountCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmountCents
 
-`func (o *BankTxnRow) SetAmountCents(v int32)`
+`func (o *BankTxnRow) SetAmountCents(v int64)`
 
 SetAmountCents sets AmountCents field to given value.
 

@@ -387,8 +387,8 @@ func main() {
 	q := "q_example" // string | Q matches the name, title or description, case-insensitively. (optional)
 	featured := "featured_example" // string | Featured keeps only the listings we put on the front of the shelf, and only when it is exactly the string \"true\". (optional)
 	official := "official_example" // string | Official keeps only the vendors' OWN servers — not third-party copies of them — and only when it is exactly the string \"true\". (optional)
-	limit := int32(56) // int32 | Limit bounds the page: default 50, maximum 200. A value that is not a positive integer reads as the default. (optional)
-	offset := int32(56) // int32 | Offset skips that many listings. (optional)
+	limit := int64(789) // int64 | Limit bounds the page: default 50, maximum 200. A value that is not a positive integer reads as the default. (optional)
+	offset := int64(789) // int64 | Offset skips that many listings. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -416,8 +416,8 @@ Name | Type | Description  | Notes
  **q** | **string** | Q matches the name, title or description, case-insensitively. | 
  **featured** | **string** | Featured keeps only the listings we put on the front of the shelf, and only when it is exactly the string \&quot;true\&quot;. | 
  **official** | **string** | Official keeps only the vendors&#39; OWN servers — not third-party copies of them — and only when it is exactly the string \&quot;true\&quot;. | 
- **limit** | **int32** | Limit bounds the page: default 50, maximum 200. A value that is not a positive integer reads as the default. | 
- **offset** | **int32** | Offset skips that many listings. | 
+ **limit** | **int64** | Limit bounds the page: default 50, maximum 200. A value that is not a positive integer reads as the default. | 
+ **offset** | **int64** | Offset skips that many listings. | 
 
 ### Return type
 

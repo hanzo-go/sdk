@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Models** | Pointer to **[]map[string]map[string]interface{}** | Models are the catalog entries visible to the caller, each an opaque object exactly as the pricing source emits it, with any admin override merged on top. An admin additionally sees hidden entries, each annotated under \&quot;_overlay\&quot;. | [optional] 
-**Total** | Pointer to **int32** | Total is how many models this answer carries — recounted over the visible set, not the catalog&#39;s own total. | [optional] 
+**Total** | Pointer to **int64** | Total is how many models this answer carries — recounted over the visible set, not the catalog&#39;s own total. | [optional] 
 **Updated** | Pointer to **map[string]interface{}** | Updated is when the catalog was last refreshed, as the pricing source recorded it. | [optional] 
 
 ## Methods
@@ -54,20 +54,20 @@ HasModels returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *PricingModelList) GetTotal() int32`
+`func (o *PricingModelList) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *PricingModelList) GetTotalOk() (*int32, bool)`
+`func (o *PricingModelList) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *PricingModelList) SetTotal(v int32)`
+`func (o *PricingModelList) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

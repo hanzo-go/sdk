@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Created** | Pointer to **bool** | Created reports whether this call recorded a new attribution edge (201) or found an existing one (200). Absent when nothing was recorded. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the edge was first recorded, in unix seconds. Absent when nothing was recorded. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the edge was first recorded, in unix seconds. Absent when nothing was recorded. | [optional] 
 **DeployId** | Pointer to **string** | DeployID is the attribution edge&#39;s handle. Absent when nothing was recorded. | [optional] 
 **Reason** | Pointer to **string** | Reason says why nothing was attributed. Present only when recorded is false. | [optional] 
 **Recorded** | Pointer to **bool** | Recorded reports whether the deploy was attributed to an author at all. False is the ordinary answer for a project built from no repository, or from one no author has verified — never an error, so a deploy path can fire this unconditionally. | [optional] 
@@ -57,20 +57,20 @@ HasCreated returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *DeployRecord) GetCreatedAt() int32`
+`func (o *DeployRecord) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *DeployRecord) GetCreatedAtOk() (*int32, bool)`
+`func (o *DeployRecord) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *DeployRecord) SetCreatedAt(v int32)`
+`func (o *DeployRecord) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 

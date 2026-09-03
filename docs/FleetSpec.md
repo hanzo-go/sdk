@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Arch** | Pointer to **string** | Arch is the CPU architecture, amd64 or arm64, and it is what decides whether a binary built for the fleet will run here. Only the sources that report one carry it (a linked run-target, a BYO worker). | [optional] 
-**Cpus** | Pointer to **int32** | CPUs is logical cores on the unit. | [optional] 
+**Cpus** | Pointer to **int64** | CPUs is logical cores on the unit. | [optional] 
 **GpuModel** | Pointer to **string** | GPUModel names the FIRST accelerator (\&quot;NVIDIA GB10\&quot;) as the representative of the set; GPUs carries how many. Empty for a cluster, whose cards are counted rather than modelled, and for a unit with none. | [optional] 
-**Gpus** | Pointer to **int32** | GPUs is how many accelerators the unit has. For a cluster it is the vendor totals summed across every node, so it counts cards, not machines. | [optional] 
-**Memory** | Pointer to **int32** | Memory is total system RAM in BYTES — not GB, and not what is free right now (fleetMetrics carries that). Absent when the source reports no RAM figure. | [optional] 
+**Gpus** | Pointer to **int64** | GPUs is how many accelerators the unit has. For a cluster it is the vendor totals summed across every node, so it counts cards, not machines. | [optional] 
+**Memory** | Pointer to **int64** | Memory is total system RAM in BYTES — not GB, and not what is free right now (fleetMetrics carries that). Absent when the source reports no RAM figure. | [optional] 
 **Os** | Pointer to **string** | OS is the operating system the unit runs: linux, darwin or windows. Empty when the source does not report one — a cluster row does not. | [optional] 
 
 ## Methods
@@ -57,20 +57,20 @@ HasArch returns a boolean if a field has been set.
 
 ### GetCpus
 
-`func (o *FleetSpec) GetCpus() int32`
+`func (o *FleetSpec) GetCpus() int64`
 
 GetCpus returns the Cpus field if non-nil, zero value otherwise.
 
 ### GetCpusOk
 
-`func (o *FleetSpec) GetCpusOk() (*int32, bool)`
+`func (o *FleetSpec) GetCpusOk() (*int64, bool)`
 
 GetCpusOk returns a tuple with the Cpus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCpus
 
-`func (o *FleetSpec) SetCpus(v int32)`
+`func (o *FleetSpec) SetCpus(v int64)`
 
 SetCpus sets Cpus field to given value.
 
@@ -107,20 +107,20 @@ HasGpuModel returns a boolean if a field has been set.
 
 ### GetGpus
 
-`func (o *FleetSpec) GetGpus() int32`
+`func (o *FleetSpec) GetGpus() int64`
 
 GetGpus returns the Gpus field if non-nil, zero value otherwise.
 
 ### GetGpusOk
 
-`func (o *FleetSpec) GetGpusOk() (*int32, bool)`
+`func (o *FleetSpec) GetGpusOk() (*int64, bool)`
 
 GetGpusOk returns a tuple with the Gpus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGpus
 
-`func (o *FleetSpec) SetGpus(v int32)`
+`func (o *FleetSpec) SetGpus(v int64)`
 
 SetGpus sets Gpus field to given value.
 
@@ -132,20 +132,20 @@ HasGpus returns a boolean if a field has been set.
 
 ### GetMemory
 
-`func (o *FleetSpec) GetMemory() int32`
+`func (o *FleetSpec) GetMemory() int64`
 
 GetMemory returns the Memory field if non-nil, zero value otherwise.
 
 ### GetMemoryOk
 
-`func (o *FleetSpec) GetMemoryOk() (*int32, bool)`
+`func (o *FleetSpec) GetMemoryOk() (*int64, bool)`
 
 GetMemoryOk returns a tuple with the Memory field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMemory
 
-`func (o *FleetSpec) SetMemory(v int32)`
+`func (o *FleetSpec) SetMemory(v int64)`
 
 SetMemory sets Memory field to given value.
 

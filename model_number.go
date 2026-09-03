@@ -30,7 +30,7 @@ type Number struct {
 	// ID is the carrier's handle for the number, and the id every route here addresses it by. It is not the number itself — see E164.
 	Id *string `json:"id,omitempty"`
 	// Monthly is the recurring rental in the MINOR unit of Currency (cents for USD), exactly as the carrier quoted it. It is a price, not a charge: nothing is billed by this field.
-	Monthly *int32 `json:"monthly,omitempty"`
+	Monthly *int64 `json:"monthly,omitempty"`
 	// Org is the tenant holding the number. A search result carries none — nobody holds it yet — which is how an available number is told from a held one.
 	Org *string `json:"org,omitempty"`
 	// Type is what kind of number it is: \"local\", \"national\", \"tollfree\" or \"mobile\". It decides both price and what a carrier will let it originate.
@@ -215,9 +215,9 @@ func (o *Number) SetId(v string) {
 }
 
 // GetMonthly returns the Monthly field value if set, zero value otherwise.
-func (o *Number) GetMonthly() int32 {
+func (o *Number) GetMonthly() int64 {
 	if o == nil || IsNil(o.Monthly) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Monthly
@@ -225,7 +225,7 @@ func (o *Number) GetMonthly() int32 {
 
 // GetMonthlyOk returns a tuple with the Monthly field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Number) GetMonthlyOk() (*int32, bool) {
+func (o *Number) GetMonthlyOk() (*int64, bool) {
 	if o == nil || IsNil(o.Monthly) {
 		return nil, false
 	}
@@ -241,8 +241,8 @@ func (o *Number) HasMonthly() bool {
 	return false
 }
 
-// SetMonthly gets a reference to the given int32 and assigns it to the Monthly field.
-func (o *Number) SetMonthly(v int32) {
+// SetMonthly gets a reference to the given int64 and assigns it to the Monthly field.
+func (o *Number) SetMonthly(v int64) {
 	o.Monthly = &v
 }
 

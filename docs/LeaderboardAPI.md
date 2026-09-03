@@ -36,7 +36,7 @@ func main() {
 	scope := "personal" // string | Scope picks the board: \"personal\" (default) ranks the caller among their own org's users, \"org\" is that same org board named for an admin, \"global\" ranks organizations against each other. (optional)
 	metric := "tokens" // string | Metric is the value ranked: tokens (default), requests, or cost. (optional)
 	period := "week" // string | Period is the window ranked: day, week, month (default) or all. (optional)
-	limit := int32(10) // int32 | Limit caps the rows returned, clamped to 100. Defaults to 10, which is also what a non-positive or unparseable value takes. (optional)
+	limit := int64(10) // int64 | Limit caps the rows returned, clamped to 100. Defaults to 10, which is also what a non-positive or unparseable value takes. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
  **scope** | **string** | Scope picks the board: \&quot;personal\&quot; (default) ranks the caller among their own org&#39;s users, \&quot;org\&quot; is that same org board named for an admin, \&quot;global\&quot; ranks organizations against each other. | 
  **metric** | **string** | Metric is the value ranked: tokens (default), requests, or cost. | 
  **period** | **string** | Period is the window ranked: day, week, month (default) or all. | 
- **limit** | **int32** | Limit caps the rows returned, clamped to 100. Defaults to 10, which is also what a non-positive or unparseable value takes. | 
+ **limit** | **int64** | Limit caps the rows returned, clamped to 100. Defaults to 10, which is also what a non-positive or unparseable value takes. | 
 
 ### Return type
 

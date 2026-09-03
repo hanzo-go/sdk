@@ -30,7 +30,7 @@ type O11yFunnelStep struct {
 	Name        *string `json:"name,omitempty"`
 	ServiceName *string `json:"service_name,omitempty"`
 	SpanName    *string `json:"span_name,omitempty"`
-	StepOrder   *int32  `json:"step_order,omitempty"`
+	StepOrder   *int64  `json:"step_order,omitempty"`
 }
 
 // NewO11yFunnelStep instantiates a new O11yFunnelStep object
@@ -340,9 +340,9 @@ func (o *O11yFunnelStep) SetSpanName(v string) {
 }
 
 // GetStepOrder returns the StepOrder field value if set, zero value otherwise.
-func (o *O11yFunnelStep) GetStepOrder() int32 {
+func (o *O11yFunnelStep) GetStepOrder() int64 {
 	if o == nil || IsNil(o.StepOrder) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.StepOrder
@@ -350,7 +350,7 @@ func (o *O11yFunnelStep) GetStepOrder() int32 {
 
 // GetStepOrderOk returns a tuple with the StepOrder field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yFunnelStep) GetStepOrderOk() (*int32, bool) {
+func (o *O11yFunnelStep) GetStepOrderOk() (*int64, bool) {
 	if o == nil || IsNil(o.StepOrder) {
 		return nil, false
 	}
@@ -366,8 +366,8 @@ func (o *O11yFunnelStep) HasStepOrder() bool {
 	return false
 }
 
-// SetStepOrder gets a reference to the given int32 and assigns it to the StepOrder field.
-func (o *O11yFunnelStep) SetStepOrder(v int32) {
+// SetStepOrder gets a reference to the given int64 and assigns it to the StepOrder field.
+func (o *O11yFunnelStep) SetStepOrder(v int64) {
 	o.StepOrder = &v
 }
 

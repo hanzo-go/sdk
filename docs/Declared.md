@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **Org** | Pointer to **string** |  | [optional] 
 **Path** | Pointer to **string** |  | [optional] 
 **Project** | Pointer to **string** |  | [optional] 
-**Replicas** | Pointer to **int32** |  | [optional] 
+**Replicas** | Pointer to **int64** |  | [optional] 
 **Repository** | Pointer to **string** |  | [optional] 
 **Tag** | Pointer to **string** |  | [optional] 
 
@@ -289,20 +289,20 @@ HasProject returns a boolean if a field has been set.
 
 ### GetReplicas
 
-`func (o *Declared) GetReplicas() int32`
+`func (o *Declared) GetReplicas() int64`
 
 GetReplicas returns the Replicas field if non-nil, zero value otherwise.
 
 ### GetReplicasOk
 
-`func (o *Declared) GetReplicasOk() (*int32, bool)`
+`func (o *Declared) GetReplicasOk() (*int64, bool)`
 
 GetReplicasOk returns a tuple with the Replicas field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReplicas
 
-`func (o *Declared) SetReplicas(v int32)`
+`func (o *Declared) SetReplicas(v int64)`
 
 SetReplicas sets Replicas field to given value.
 

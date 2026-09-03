@@ -24,7 +24,7 @@ type IamOrganization struct {
 	AccountMenu  *string          `json:"accountMenu,omitempty"`
 	// How the organization appears across Hanzo — the square mark beside its name — as an image or as one emoji, never both. It is the pair a person carries (User.Avatar) under the same names, resolved the same way, so a screen draws a subject without asking which kind of subject it has. Both halves live on the row: a mark that appears everywhere cannot be kept on one device. Written through schema.MarkOf; Logo and LogoDark above are a different thing, the wordmark a login screen draws.
 	Avatar                 *string    `json:"avatar,omitempty"`
-	BalanceCredit          *float32   `json:"balanceCredit,omitempty"`
+	BalanceCredit          *float64   `json:"balanceCredit,omitempty"`
 	BalanceCurrency        *string    `json:"balanceCurrency,omitempty"`
 	CountryCodes           []string   `json:"countryCodes,omitempty"`
 	CreatedAt              *time.Time `json:"createdAt,omitempty"`
@@ -39,15 +39,15 @@ type IamOrganization struct {
 	Emoji                  *string    `json:"emoji,omitempty"`
 	EnableSoftDeletion     *bool      `json:"enableSoftDeletion,omitempty"`
 	EnableTour             *bool      `json:"enableTour,omitempty"`
-	FailedSigninFrozenTime *int32     `json:"failedSigninFrozenTime,omitempty"`
+	FailedSigninFrozenTime *int64     `json:"failedSigninFrozenTime,omitempty"`
 	// Per-organization signin throttle. Zero means \"inherit the application default\"; a non-zero value overrides it. Safe bounds are clamped by the resource service before persistence.
-	FailedSigninLimit *int32  `json:"failedSigninLimit,omitempty"`
+	FailedSigninLimit *int64  `json:"failedSigninLimit,omitempty"`
 	Favicon           *string `json:"favicon,omitempty"`
 	// Founder is the stable storage id of the identity that provisioned this org (self-service onboarding). It is the resume token that makes provisioning converge on a backend where each write autocommits independently (no transaction rollback): after a partial failure that created the org but did not move the founder in, a retry recognises the org as the founder's own and completes it, instead of refusing it as \"already taken\". It also fences the org to ONE tenant — a different identity can never complete or join it.
 	Founder                *string      `json:"founder,omitempty"`
 	HasPrivilegeConsent    *bool        `json:"hasPrivilegeConsent,omitempty"`
 	Id                     *string      `json:"id,omitempty"`
-	InitScore              *int32       `json:"initScore,omitempty"`
+	InitScore              *int64       `json:"initScore,omitempty"`
 	IpRestriction          *string      `json:"ipRestriction,omitempty"`
 	IpWhitelist            *string      `json:"ipWhitelist,omitempty"`
 	IsPersonal             *bool        `json:"isPersonal,omitempty"`
@@ -63,13 +63,13 @@ type IamOrganization struct {
 	MasterPassword         *string      `json:"masterPassword,omitempty"`
 	MasterVerificationCode *string      `json:"masterVerificationCode,omitempty"`
 	MfaItems               []IamMfaItem `json:"mfaItems,omitempty"`
-	MfaRememberInHours     *int32       `json:"mfaRememberInHours,omitempty"`
+	MfaRememberInHours     *int64       `json:"mfaRememberInHours,omitempty"`
 	Name                   *string      `json:"name,omitempty"`
 	NavItems               []string     `json:"navItems,omitempty"`
 	// Balance fields are read-only mirrors; authoritative balances live in Commerce (billing.hanzo.ai). Carried for field-complete v1 parity.
-	OrgBalance             *float32      `json:"orgBalance,omitempty"`
+	OrgBalance             *float64      `json:"orgBalance,omitempty"`
 	Owner                  *string       `json:"owner,omitempty"`
-	PasswordExpireDays     *int32        `json:"passwordExpireDays,omitempty"`
+	PasswordExpireDays     *int64        `json:"passwordExpireDays,omitempty"`
 	PasswordObfuscatorKey  *string       `json:"passwordObfuscatorKey,omitempty"`
 	PasswordObfuscatorType *string       `json:"passwordObfuscatorType,omitempty"`
 	PasswordOptions        []string      `json:"passwordOptions,omitempty"`
@@ -80,7 +80,7 @@ type IamOrganization struct {
 	UpdatedAt              *time.Time    `json:"updatedAt,omitempty"`
 	UseEmailAsUsername     *bool         `json:"useEmailAsUsername,omitempty"`
 	UsePermanentAvatar     *bool         `json:"usePermanentAvatar,omitempty"`
-	UserBalance            *float32      `json:"userBalance,omitempty"`
+	UserBalance            *float64      `json:"userBalance,omitempty"`
 	UserNavItems           []string      `json:"userNavItems,omitempty"`
 	UserTypes              []string      `json:"userTypes,omitempty"`
 	WebsiteUrl             *string       `json:"websiteUrl,omitempty"`
@@ -201,9 +201,9 @@ func (o *IamOrganization) SetAvatar(v string) {
 }
 
 // GetBalanceCredit returns the BalanceCredit field value if set, zero value otherwise.
-func (o *IamOrganization) GetBalanceCredit() float32 {
+func (o *IamOrganization) GetBalanceCredit() float64 {
 	if o == nil || IsNil(o.BalanceCredit) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.BalanceCredit
@@ -211,7 +211,7 @@ func (o *IamOrganization) GetBalanceCredit() float32 {
 
 // GetBalanceCreditOk returns a tuple with the BalanceCredit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamOrganization) GetBalanceCreditOk() (*float32, bool) {
+func (o *IamOrganization) GetBalanceCreditOk() (*float64, bool) {
 	if o == nil || IsNil(o.BalanceCredit) {
 		return nil, false
 	}
@@ -227,8 +227,8 @@ func (o *IamOrganization) HasBalanceCredit() bool {
 	return false
 }
 
-// SetBalanceCredit gets a reference to the given float32 and assigns it to the BalanceCredit field.
-func (o *IamOrganization) SetBalanceCredit(v float32) {
+// SetBalanceCredit gets a reference to the given float64 and assigns it to the BalanceCredit field.
+func (o *IamOrganization) SetBalanceCredit(v float64) {
 	o.BalanceCredit = &v
 }
 
@@ -681,9 +681,9 @@ func (o *IamOrganization) SetEnableTour(v bool) {
 }
 
 // GetFailedSigninFrozenTime returns the FailedSigninFrozenTime field value if set, zero value otherwise.
-func (o *IamOrganization) GetFailedSigninFrozenTime() int32 {
+func (o *IamOrganization) GetFailedSigninFrozenTime() int64 {
 	if o == nil || IsNil(o.FailedSigninFrozenTime) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.FailedSigninFrozenTime
@@ -691,7 +691,7 @@ func (o *IamOrganization) GetFailedSigninFrozenTime() int32 {
 
 // GetFailedSigninFrozenTimeOk returns a tuple with the FailedSigninFrozenTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamOrganization) GetFailedSigninFrozenTimeOk() (*int32, bool) {
+func (o *IamOrganization) GetFailedSigninFrozenTimeOk() (*int64, bool) {
 	if o == nil || IsNil(o.FailedSigninFrozenTime) {
 		return nil, false
 	}
@@ -707,15 +707,15 @@ func (o *IamOrganization) HasFailedSigninFrozenTime() bool {
 	return false
 }
 
-// SetFailedSigninFrozenTime gets a reference to the given int32 and assigns it to the FailedSigninFrozenTime field.
-func (o *IamOrganization) SetFailedSigninFrozenTime(v int32) {
+// SetFailedSigninFrozenTime gets a reference to the given int64 and assigns it to the FailedSigninFrozenTime field.
+func (o *IamOrganization) SetFailedSigninFrozenTime(v int64) {
 	o.FailedSigninFrozenTime = &v
 }
 
 // GetFailedSigninLimit returns the FailedSigninLimit field value if set, zero value otherwise.
-func (o *IamOrganization) GetFailedSigninLimit() int32 {
+func (o *IamOrganization) GetFailedSigninLimit() int64 {
 	if o == nil || IsNil(o.FailedSigninLimit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.FailedSigninLimit
@@ -723,7 +723,7 @@ func (o *IamOrganization) GetFailedSigninLimit() int32 {
 
 // GetFailedSigninLimitOk returns a tuple with the FailedSigninLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamOrganization) GetFailedSigninLimitOk() (*int32, bool) {
+func (o *IamOrganization) GetFailedSigninLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.FailedSigninLimit) {
 		return nil, false
 	}
@@ -739,8 +739,8 @@ func (o *IamOrganization) HasFailedSigninLimit() bool {
 	return false
 }
 
-// SetFailedSigninLimit gets a reference to the given int32 and assigns it to the FailedSigninLimit field.
-func (o *IamOrganization) SetFailedSigninLimit(v int32) {
+// SetFailedSigninLimit gets a reference to the given int64 and assigns it to the FailedSigninLimit field.
+func (o *IamOrganization) SetFailedSigninLimit(v int64) {
 	o.FailedSigninLimit = &v
 }
 
@@ -873,9 +873,9 @@ func (o *IamOrganization) SetId(v string) {
 }
 
 // GetInitScore returns the InitScore field value if set, zero value otherwise.
-func (o *IamOrganization) GetInitScore() int32 {
+func (o *IamOrganization) GetInitScore() int64 {
 	if o == nil || IsNil(o.InitScore) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.InitScore
@@ -883,7 +883,7 @@ func (o *IamOrganization) GetInitScore() int32 {
 
 // GetInitScoreOk returns a tuple with the InitScore field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamOrganization) GetInitScoreOk() (*int32, bool) {
+func (o *IamOrganization) GetInitScoreOk() (*int64, bool) {
 	if o == nil || IsNil(o.InitScore) {
 		return nil, false
 	}
@@ -899,8 +899,8 @@ func (o *IamOrganization) HasInitScore() bool {
 	return false
 }
 
-// SetInitScore gets a reference to the given int32 and assigns it to the InitScore field.
-func (o *IamOrganization) SetInitScore(v int32) {
+// SetInitScore gets a reference to the given int64 and assigns it to the InitScore field.
+func (o *IamOrganization) SetInitScore(v int64) {
 	o.InitScore = &v
 }
 
@@ -1385,9 +1385,9 @@ func (o *IamOrganization) SetMfaItems(v []IamMfaItem) {
 }
 
 // GetMfaRememberInHours returns the MfaRememberInHours field value if set, zero value otherwise.
-func (o *IamOrganization) GetMfaRememberInHours() int32 {
+func (o *IamOrganization) GetMfaRememberInHours() int64 {
 	if o == nil || IsNil(o.MfaRememberInHours) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MfaRememberInHours
@@ -1395,7 +1395,7 @@ func (o *IamOrganization) GetMfaRememberInHours() int32 {
 
 // GetMfaRememberInHoursOk returns a tuple with the MfaRememberInHours field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamOrganization) GetMfaRememberInHoursOk() (*int32, bool) {
+func (o *IamOrganization) GetMfaRememberInHoursOk() (*int64, bool) {
 	if o == nil || IsNil(o.MfaRememberInHours) {
 		return nil, false
 	}
@@ -1411,8 +1411,8 @@ func (o *IamOrganization) HasMfaRememberInHours() bool {
 	return false
 }
 
-// SetMfaRememberInHours gets a reference to the given int32 and assigns it to the MfaRememberInHours field.
-func (o *IamOrganization) SetMfaRememberInHours(v int32) {
+// SetMfaRememberInHours gets a reference to the given int64 and assigns it to the MfaRememberInHours field.
+func (o *IamOrganization) SetMfaRememberInHours(v int64) {
 	o.MfaRememberInHours = &v
 }
 
@@ -1481,9 +1481,9 @@ func (o *IamOrganization) SetNavItems(v []string) {
 }
 
 // GetOrgBalance returns the OrgBalance field value if set, zero value otherwise.
-func (o *IamOrganization) GetOrgBalance() float32 {
+func (o *IamOrganization) GetOrgBalance() float64 {
 	if o == nil || IsNil(o.OrgBalance) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.OrgBalance
@@ -1491,7 +1491,7 @@ func (o *IamOrganization) GetOrgBalance() float32 {
 
 // GetOrgBalanceOk returns a tuple with the OrgBalance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamOrganization) GetOrgBalanceOk() (*float32, bool) {
+func (o *IamOrganization) GetOrgBalanceOk() (*float64, bool) {
 	if o == nil || IsNil(o.OrgBalance) {
 		return nil, false
 	}
@@ -1507,8 +1507,8 @@ func (o *IamOrganization) HasOrgBalance() bool {
 	return false
 }
 
-// SetOrgBalance gets a reference to the given float32 and assigns it to the OrgBalance field.
-func (o *IamOrganization) SetOrgBalance(v float32) {
+// SetOrgBalance gets a reference to the given float64 and assigns it to the OrgBalance field.
+func (o *IamOrganization) SetOrgBalance(v float64) {
 	o.OrgBalance = &v
 }
 
@@ -1545,9 +1545,9 @@ func (o *IamOrganization) SetOwner(v string) {
 }
 
 // GetPasswordExpireDays returns the PasswordExpireDays field value if set, zero value otherwise.
-func (o *IamOrganization) GetPasswordExpireDays() int32 {
+func (o *IamOrganization) GetPasswordExpireDays() int64 {
 	if o == nil || IsNil(o.PasswordExpireDays) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PasswordExpireDays
@@ -1555,7 +1555,7 @@ func (o *IamOrganization) GetPasswordExpireDays() int32 {
 
 // GetPasswordExpireDaysOk returns a tuple with the PasswordExpireDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamOrganization) GetPasswordExpireDaysOk() (*int32, bool) {
+func (o *IamOrganization) GetPasswordExpireDaysOk() (*int64, bool) {
 	if o == nil || IsNil(o.PasswordExpireDays) {
 		return nil, false
 	}
@@ -1571,8 +1571,8 @@ func (o *IamOrganization) HasPasswordExpireDays() bool {
 	return false
 }
 
-// SetPasswordExpireDays gets a reference to the given int32 and assigns it to the PasswordExpireDays field.
-func (o *IamOrganization) SetPasswordExpireDays(v int32) {
+// SetPasswordExpireDays gets a reference to the given int64 and assigns it to the PasswordExpireDays field.
+func (o *IamOrganization) SetPasswordExpireDays(v int64) {
 	o.PasswordExpireDays = &v
 }
 
@@ -1897,9 +1897,9 @@ func (o *IamOrganization) SetUsePermanentAvatar(v bool) {
 }
 
 // GetUserBalance returns the UserBalance field value if set, zero value otherwise.
-func (o *IamOrganization) GetUserBalance() float32 {
+func (o *IamOrganization) GetUserBalance() float64 {
 	if o == nil || IsNil(o.UserBalance) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.UserBalance
@@ -1907,7 +1907,7 @@ func (o *IamOrganization) GetUserBalance() float32 {
 
 // GetUserBalanceOk returns a tuple with the UserBalance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamOrganization) GetUserBalanceOk() (*float32, bool) {
+func (o *IamOrganization) GetUserBalanceOk() (*float64, bool) {
 	if o == nil || IsNil(o.UserBalance) {
 		return nil, false
 	}
@@ -1923,8 +1923,8 @@ func (o *IamOrganization) HasUserBalance() bool {
 	return false
 }
 
-// SetUserBalance gets a reference to the given float32 and assigns it to the UserBalance field.
-func (o *IamOrganization) SetUserBalance(v float32) {
+// SetUserBalance gets a reference to the given float64 and assigns it to the UserBalance field.
+func (o *IamOrganization) SetUserBalance(v float64) {
 	o.UserBalance = &v
 }
 

@@ -20,11 +20,11 @@ var _ MappedNullable = &ProjectsComplete{}
 // ProjectsComplete struct for ProjectsComplete
 type ProjectsComplete struct {
 	// Bytes is their total size in bytes.
-	Bytes *int32 `json:"bytes,omitempty"`
+	Bytes *int64 `json:"bytes,omitempty"`
 	// Commit is the revision that was built, recorded on the deployment.
 	Commit *string `json:"commit,omitempty"`
 	// Files is how many objects CI published.
-	Files *int32 `json:"files,omitempty"`
+	Files *int64 `json:"files,omitempty"`
 	// ID is the queued deployment to complete, from the path.
 	Id *string `json:"id,omitempty"`
 	// Keys is the manifest CI just uploaded, RELATIVE to the deployment prefix. It is what replaces `aws s3 sync --delete`: an upload grant authorizes writes only, so CI cannot remove a file, and cloud reconciles the prefix against this list instead (grant.go). Omit it and nothing is deleted — the prefix only grows, which is the old pre-grant behaviour and a safe default.
@@ -57,9 +57,9 @@ func NewProjectsCompleteWithDefaults() *ProjectsComplete {
 }
 
 // GetBytes returns the Bytes field value if set, zero value otherwise.
-func (o *ProjectsComplete) GetBytes() int32 {
+func (o *ProjectsComplete) GetBytes() int64 {
 	if o == nil || IsNil(o.Bytes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Bytes
@@ -67,7 +67,7 @@ func (o *ProjectsComplete) GetBytes() int32 {
 
 // GetBytesOk returns a tuple with the Bytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsComplete) GetBytesOk() (*int32, bool) {
+func (o *ProjectsComplete) GetBytesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Bytes) {
 		return nil, false
 	}
@@ -83,8 +83,8 @@ func (o *ProjectsComplete) HasBytes() bool {
 	return false
 }
 
-// SetBytes gets a reference to the given int32 and assigns it to the Bytes field.
-func (o *ProjectsComplete) SetBytes(v int32) {
+// SetBytes gets a reference to the given int64 and assigns it to the Bytes field.
+func (o *ProjectsComplete) SetBytes(v int64) {
 	o.Bytes = &v
 }
 
@@ -121,9 +121,9 @@ func (o *ProjectsComplete) SetCommit(v string) {
 }
 
 // GetFiles returns the Files field value if set, zero value otherwise.
-func (o *ProjectsComplete) GetFiles() int32 {
+func (o *ProjectsComplete) GetFiles() int64 {
 	if o == nil || IsNil(o.Files) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Files
@@ -131,7 +131,7 @@ func (o *ProjectsComplete) GetFiles() int32 {
 
 // GetFilesOk returns a tuple with the Files field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsComplete) GetFilesOk() (*int32, bool) {
+func (o *ProjectsComplete) GetFilesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Files) {
 		return nil, false
 	}
@@ -147,8 +147,8 @@ func (o *ProjectsComplete) HasFiles() bool {
 	return false
 }
 
-// SetFiles gets a reference to the given int32 and assigns it to the Files field.
-func (o *ProjectsComplete) SetFiles(v int32) {
+// SetFiles gets a reference to the given int64 and assigns it to the Files field.
+func (o *ProjectsComplete) SetFiles(v int64) {
 	o.Files = &v
 }
 

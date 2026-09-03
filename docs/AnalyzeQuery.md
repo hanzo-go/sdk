@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Alpha** | Pointer to **float32** | Alpha overrides the 0.05 two-tailed significance threshold when it lies strictly between 0 and 1; anything else leaves the default in place. | [optional] 
-**Days** | Pointer to **int32** | Days is how far back to read when no start is given: 1 to 365, 30 by default. A value outside that range leaves the default in place. | [optional] 
+**Alpha** | Pointer to **float64** | Alpha overrides the 0.05 two-tailed significance threshold when it lies strictly between 0 and 1; anything else leaves the default in place. | [optional] 
+**Days** | Pointer to **int64** | Days is how far back to read when no start is given: 1 to 365, 30 by default. A value outside that range leaves the default in place. | [optional] 
 **End** | Pointer to **string** | End is the window&#39;s exclusive end in RFC3339, defaulting to now. | [optional] 
 **Id** | Pointer to **string** | ID is the experiment the URL names. | [optional] 
 **Start** | Pointer to **string** | Start is the window&#39;s inclusive start in RFC3339. Given, it wins over days. | [optional] 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAlpha
 
-`func (o *AnalyzeQuery) GetAlpha() float32`
+`func (o *AnalyzeQuery) GetAlpha() float64`
 
 GetAlpha returns the Alpha field if non-nil, zero value otherwise.
 
 ### GetAlphaOk
 
-`func (o *AnalyzeQuery) GetAlphaOk() (*float32, bool)`
+`func (o *AnalyzeQuery) GetAlphaOk() (*float64, bool)`
 
 GetAlphaOk returns a tuple with the Alpha field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAlpha
 
-`func (o *AnalyzeQuery) SetAlpha(v float32)`
+`func (o *AnalyzeQuery) SetAlpha(v float64)`
 
 SetAlpha sets Alpha field to given value.
 
@@ -56,20 +56,20 @@ HasAlpha returns a boolean if a field has been set.
 
 ### GetDays
 
-`func (o *AnalyzeQuery) GetDays() int32`
+`func (o *AnalyzeQuery) GetDays() int64`
 
 GetDays returns the Days field if non-nil, zero value otherwise.
 
 ### GetDaysOk
 
-`func (o *AnalyzeQuery) GetDaysOk() (*int32, bool)`
+`func (o *AnalyzeQuery) GetDaysOk() (*int64, bool)`
 
 GetDaysOk returns a tuple with the Days field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDays
 
-`func (o *AnalyzeQuery) SetDays(v int32)`
+`func (o *AnalyzeQuery) SetDays(v int64)`
 
 SetDays sets Days field to given value.
 

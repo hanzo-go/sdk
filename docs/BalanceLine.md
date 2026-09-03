@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Account** | Pointer to **string** | Account is the chart-of-accounts number this line reports on. ABSENT marks a DERIVED line that no account holds — retained earnings is the one such line, computed from cumulative income minus expense. | [optional] 
-**Amount** | Pointer to **int32** | Amount is the balance as of the statement date, in whole cents, in its NATURAL sign: positive when the account behaved normally, on all three sides. Assets are debit-normal and shown as stored; liabilities and equity are credit-normal and flipped once here for display. A negative asset is a real overdraft, not a sign convention. | [optional] 
+**Amount** | Pointer to **int64** | Amount is the balance as of the statement date, in whole cents, in its NATURAL sign: positive when the account behaved normally, on all three sides. Assets are debit-normal and shown as stored; liabilities and equity are credit-normal and flipped once here for display. A negative asset is a real overdraft, not a sign convention. | [optional] 
 **Name** | Pointer to **string** | Name is the account&#39;s human name, or the derived line&#39;s own name. | [optional] 
 **Type** | Pointer to **string** | Type is the account&#39;s fundamental class. Absent on a derived line, which belongs to no account and therefore has none. | [optional] 
 
@@ -55,20 +55,20 @@ HasAccount returns a boolean if a field has been set.
 
 ### GetAmount
 
-`func (o *BalanceLine) GetAmount() int32`
+`func (o *BalanceLine) GetAmount() int64`
 
 GetAmount returns the Amount field if non-nil, zero value otherwise.
 
 ### GetAmountOk
 
-`func (o *BalanceLine) GetAmountOk() (*int32, bool)`
+`func (o *BalanceLine) GetAmountOk() (*int64, bool)`
 
 GetAmountOk returns a tuple with the Amount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmount
 
-`func (o *BalanceLine) SetAmount(v int32)`
+`func (o *BalanceLine) SetAmount(v int64)`
 
 SetAmount sets Amount field to given value.
 

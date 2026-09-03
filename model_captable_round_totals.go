@@ -20,9 +20,9 @@ var _ MappedNullable = &CaptableRoundTotals{}
 // CaptableRoundTotals struct for CaptableRoundTotals
 type CaptableRoundTotals struct {
 	// Count is how many rounds the company has recorded.
-	Count *int32 `json:"count,omitempty"`
+	Count *int64 `json:"count,omitempty"`
 	// TotalRaised is the sum of every round's raised amount.
-	TotalRaised *float32 `json:"totalRaised,omitempty"`
+	TotalRaised *float64 `json:"totalRaised,omitempty"`
 }
 
 // NewCaptableRoundTotals instantiates a new CaptableRoundTotals object
@@ -43,9 +43,9 @@ func NewCaptableRoundTotalsWithDefaults() *CaptableRoundTotals {
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *CaptableRoundTotals) GetCount() int32 {
+func (o *CaptableRoundTotals) GetCount() int64 {
 	if o == nil || IsNil(o.Count) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Count
@@ -53,7 +53,7 @@ func (o *CaptableRoundTotals) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableRoundTotals) GetCountOk() (*int32, bool) {
+func (o *CaptableRoundTotals) GetCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -69,15 +69,15 @@ func (o *CaptableRoundTotals) HasCount() bool {
 	return false
 }
 
-// SetCount gets a reference to the given int32 and assigns it to the Count field.
-func (o *CaptableRoundTotals) SetCount(v int32) {
+// SetCount gets a reference to the given int64 and assigns it to the Count field.
+func (o *CaptableRoundTotals) SetCount(v int64) {
 	o.Count = &v
 }
 
 // GetTotalRaised returns the TotalRaised field value if set, zero value otherwise.
-func (o *CaptableRoundTotals) GetTotalRaised() float32 {
+func (o *CaptableRoundTotals) GetTotalRaised() float64 {
 	if o == nil || IsNil(o.TotalRaised) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.TotalRaised
@@ -85,7 +85,7 @@ func (o *CaptableRoundTotals) GetTotalRaised() float32 {
 
 // GetTotalRaisedOk returns a tuple with the TotalRaised field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableRoundTotals) GetTotalRaisedOk() (*float32, bool) {
+func (o *CaptableRoundTotals) GetTotalRaisedOk() (*float64, bool) {
 	if o == nil || IsNil(o.TotalRaised) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *CaptableRoundTotals) HasTotalRaised() bool {
 	return false
 }
 
-// SetTotalRaised gets a reference to the given float32 and assigns it to the TotalRaised field.
-func (o *CaptableRoundTotals) SetTotalRaised(v float32) {
+// SetTotalRaised gets a reference to the given float64 and assigns it to the TotalRaised field.
+func (o *CaptableRoundTotals) SetTotalRaised(v float64) {
 	o.TotalRaised = &v
 }
 

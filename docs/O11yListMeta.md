@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Limit** | Pointer to **int32** | Limit is how many rows one page holds. | [optional] 
-**Page** | Pointer to **int32** | Page is the 1-based page this response is. | [optional] 
-**TotalItems** | Pointer to **int32** | TotalItems is how many rows match in total. | [optional] 
-**TotalPages** | Pointer to **int32** | TotalPages is ceil(totalItems/limit), at least 1. | [optional] 
+**Limit** | Pointer to **int64** | Limit is how many rows one page holds. | [optional] 
+**Page** | Pointer to **int64** | Page is the 1-based page this response is. | [optional] 
+**TotalItems** | Pointer to **int64** | TotalItems is how many rows match in total. | [optional] 
+**TotalPages** | Pointer to **int64** | TotalPages is ceil(totalItems/limit), at least 1. | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLimit
 
-`func (o *O11yListMeta) GetLimit() int32`
+`func (o *O11yListMeta) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *O11yListMeta) GetLimitOk() (*int32, bool)`
+`func (o *O11yListMeta) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *O11yListMeta) SetLimit(v int32)`
+`func (o *O11yListMeta) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 
@@ -55,20 +55,20 @@ HasLimit returns a boolean if a field has been set.
 
 ### GetPage
 
-`func (o *O11yListMeta) GetPage() int32`
+`func (o *O11yListMeta) GetPage() int64`
 
 GetPage returns the Page field if non-nil, zero value otherwise.
 
 ### GetPageOk
 
-`func (o *O11yListMeta) GetPageOk() (*int32, bool)`
+`func (o *O11yListMeta) GetPageOk() (*int64, bool)`
 
 GetPageOk returns a tuple with the Page field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPage
 
-`func (o *O11yListMeta) SetPage(v int32)`
+`func (o *O11yListMeta) SetPage(v int64)`
 
 SetPage sets Page field to given value.
 
@@ -80,20 +80,20 @@ HasPage returns a boolean if a field has been set.
 
 ### GetTotalItems
 
-`func (o *O11yListMeta) GetTotalItems() int32`
+`func (o *O11yListMeta) GetTotalItems() int64`
 
 GetTotalItems returns the TotalItems field if non-nil, zero value otherwise.
 
 ### GetTotalItemsOk
 
-`func (o *O11yListMeta) GetTotalItemsOk() (*int32, bool)`
+`func (o *O11yListMeta) GetTotalItemsOk() (*int64, bool)`
 
 GetTotalItemsOk returns a tuple with the TotalItems field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalItems
 
-`func (o *O11yListMeta) SetTotalItems(v int32)`
+`func (o *O11yListMeta) SetTotalItems(v int64)`
 
 SetTotalItems sets TotalItems field to given value.
 
@@ -105,20 +105,20 @@ HasTotalItems returns a boolean if a field has been set.
 
 ### GetTotalPages
 
-`func (o *O11yListMeta) GetTotalPages() int32`
+`func (o *O11yListMeta) GetTotalPages() int64`
 
 GetTotalPages returns the TotalPages field if non-nil, zero value otherwise.
 
 ### GetTotalPagesOk
 
-`func (o *O11yListMeta) GetTotalPagesOk() (*int32, bool)`
+`func (o *O11yListMeta) GetTotalPagesOk() (*int64, bool)`
 
 GetTotalPagesOk returns a tuple with the TotalPages field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalPages
 
-`func (o *O11yListMeta) SetTotalPages(v int32)`
+`func (o *O11yListMeta) SetTotalPages(v int64)`
 
 SetTotalPages sets TotalPages field to given value.
 

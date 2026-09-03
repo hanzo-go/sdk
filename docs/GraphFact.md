@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **At** | Pointer to **string** | At is when the thing was so, RFC 3339. Required, and refused when it sits more than five minutes ahead of the server clock — an assertion dated further out would never mature and would skew every read until it did. | [optional] 
-**Confidence** | Pointer to **float32** | Confidence in [0,1]. A tie-breaker within the order, never a substitute for it. Absent is 0, the weakest an assertion can be. | [optional] 
+**Confidence** | Pointer to **float64** | Confidence in [0,1]. A tie-breaker within the order, never a substitute for it. Absent is 0, the weakest an assertion can be. | [optional] 
 **Entity** | Pointer to **string** | Entity is the thing being described, in the organization&#39;s own namespace. It is not created: an entity exists because something was asserted about it. Required, 512 bytes at most. | [optional] 
 **Evidence** | Pointer to **string** | Evidence points at the record this claim came from, 512 bytes at most. An assertion without one is admitted and carries no defence. | [optional] 
 **Names** | Pointer to **bool** | Names says the value is an entity. A walk reads only the edges, so this is a declaration and never a guess about the value&#39;s shape. | [optional] 
@@ -60,20 +60,20 @@ HasAt returns a boolean if a field has been set.
 
 ### GetConfidence
 
-`func (o *GraphFact) GetConfidence() float32`
+`func (o *GraphFact) GetConfidence() float64`
 
 GetConfidence returns the Confidence field if non-nil, zero value otherwise.
 
 ### GetConfidenceOk
 
-`func (o *GraphFact) GetConfidenceOk() (*float32, bool)`
+`func (o *GraphFact) GetConfidenceOk() (*float64, bool)`
 
 GetConfidenceOk returns a tuple with the Confidence field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConfidence
 
-`func (o *GraphFact) SetConfidence(v float32)`
+`func (o *GraphFact) SetConfidence(v float64)`
 
 SetConfidence sets Confidence field to given value.
 

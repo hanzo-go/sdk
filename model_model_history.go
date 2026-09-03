@@ -24,7 +24,7 @@ type ModelHistory struct {
 	// Points is every run, oldest first.
 	Points []RunPoint `json:"points,omitempty"`
 	// Trend is the change from the first run to the last, absent when there has only been one. It answers the question a list of points makes you compute.
-	Trend *float32 `json:"trend,omitempty"`
+	Trend *float64 `json:"trend,omitempty"`
 }
 
 // NewModelHistory instantiates a new ModelHistory object
@@ -109,9 +109,9 @@ func (o *ModelHistory) SetPoints(v []RunPoint) {
 }
 
 // GetTrend returns the Trend field value if set, zero value otherwise.
-func (o *ModelHistory) GetTrend() float32 {
+func (o *ModelHistory) GetTrend() float64 {
 	if o == nil || IsNil(o.Trend) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Trend
@@ -119,7 +119,7 @@ func (o *ModelHistory) GetTrend() float32 {
 
 // GetTrendOk returns a tuple with the Trend field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ModelHistory) GetTrendOk() (*float32, bool) {
+func (o *ModelHistory) GetTrendOk() (*float64, bool) {
 	if o == nil || IsNil(o.Trend) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *ModelHistory) HasTrend() bool {
 	return false
 }
 
-// SetTrend gets a reference to the given float32 and assigns it to the Trend field.
-func (o *ModelHistory) SetTrend(v float32) {
+// SetTrend gets a reference to the given float64 and assigns it to the Trend field.
+func (o *ModelHistory) SetTrend(v float64) {
 	o.Trend = &v
 }
 

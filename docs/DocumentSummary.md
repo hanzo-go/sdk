@@ -5,15 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Category** | Pointer to **string** | Category is the template&#39;s category: formation, equity, ops or sales. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the document was generated, in unix seconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the document was generated, in unix seconds. | [optional] 
 **EsignProvider** | Pointer to **string** | EsignProvider names the e-signature provider handling it, absent until a signature has been requested. | [optional] 
 **Id** | Pointer to **string** | ID is the document&#39;s server-minted handle, \&quot;doc_\&quot;-prefixed. | [optional] 
-**SignedAt** | Pointer to **int32** | SignedAt is when the provider reported completion, in unix seconds. Absent until then. | [optional] 
+**SignedAt** | Pointer to **int64** | SignedAt is when the provider reported completion, in unix seconds. Absent until then. | [optional] 
 **Status** | Pointer to **string** | Status is the lifecycle state: draft, out_for_signature, signed or voided. There is deliberately no \&quot;legally valid\&quot; state — that is counsel&#39;s determination, not the platform&#39;s. | [optional] 
 **TemplateId** | Pointer to **string** | TemplateID is the template it was rendered from. | [optional] 
-**TemplateVersion** | Pointer to **int32** | TemplateVersion is WHICH version of that template rendered it, so the document is reproducible and auditable. | [optional] 
+**TemplateVersion** | Pointer to **int64** | TemplateVersion is WHICH version of that template rendered it, so the document is reproducible and auditable. | [optional] 
 **Title** | Pointer to **string** | Title is the document&#39;s title, inherited from the template. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is when it last changed, in unix seconds. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is when it last changed, in unix seconds. | [optional] 
 
 ## Methods
 
@@ -61,20 +61,20 @@ HasCategory returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *DocumentSummary) GetCreatedAt() int32`
+`func (o *DocumentSummary) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *DocumentSummary) GetCreatedAtOk() (*int32, bool)`
+`func (o *DocumentSummary) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *DocumentSummary) SetCreatedAt(v int32)`
+`func (o *DocumentSummary) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -136,20 +136,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetSignedAt
 
-`func (o *DocumentSummary) GetSignedAt() int32`
+`func (o *DocumentSummary) GetSignedAt() int64`
 
 GetSignedAt returns the SignedAt field if non-nil, zero value otherwise.
 
 ### GetSignedAtOk
 
-`func (o *DocumentSummary) GetSignedAtOk() (*int32, bool)`
+`func (o *DocumentSummary) GetSignedAtOk() (*int64, bool)`
 
 GetSignedAtOk returns a tuple with the SignedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSignedAt
 
-`func (o *DocumentSummary) SetSignedAt(v int32)`
+`func (o *DocumentSummary) SetSignedAt(v int64)`
 
 SetSignedAt sets SignedAt field to given value.
 
@@ -211,20 +211,20 @@ HasTemplateId returns a boolean if a field has been set.
 
 ### GetTemplateVersion
 
-`func (o *DocumentSummary) GetTemplateVersion() int32`
+`func (o *DocumentSummary) GetTemplateVersion() int64`
 
 GetTemplateVersion returns the TemplateVersion field if non-nil, zero value otherwise.
 
 ### GetTemplateVersionOk
 
-`func (o *DocumentSummary) GetTemplateVersionOk() (*int32, bool)`
+`func (o *DocumentSummary) GetTemplateVersionOk() (*int64, bool)`
 
 GetTemplateVersionOk returns a tuple with the TemplateVersion field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTemplateVersion
 
-`func (o *DocumentSummary) SetTemplateVersion(v int32)`
+`func (o *DocumentSummary) SetTemplateVersion(v int64)`
 
 SetTemplateVersion sets TemplateVersion field to given value.
 
@@ -261,20 +261,20 @@ HasTitle returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *DocumentSummary) GetUpdatedAt() int32`
+`func (o *DocumentSummary) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *DocumentSummary) GetUpdatedAtOk() (*int32, bool)`
+`func (o *DocumentSummary) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *DocumentSummary) SetUpdatedAt(v int32)`
+`func (o *DocumentSummary) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

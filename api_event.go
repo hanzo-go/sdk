@@ -26,11 +26,11 @@ type EventAPIService service
 type EventAPIGetEventErrorsRequest struct {
 	ctx        context.Context
 	ApiService *EventAPIService
-	limit      *int32
+	limit      *int64
 }
 
 // Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default.
-func (r EventAPIGetEventErrorsRequest) Limit(limit int32) EventAPIGetEventErrorsRequest {
+func (r EventAPIGetEventErrorsRequest) Limit(limit int64) EventAPIGetEventErrorsRequest {
 	r.limit = &limit
 	return r
 }
@@ -289,11 +289,11 @@ func (a *EventAPIService) GetEventHealthExecute(r EventAPIGetEventHealthRequest)
 type EventAPIGetEventInsightsEventsRequest struct {
 	ctx        context.Context
 	ApiService *EventAPIService
-	limit      *int32
+	limit      *int64
 }
 
 // Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default.
-func (r EventAPIGetEventInsightsEventsRequest) Limit(limit int32) EventAPIGetEventInsightsEventsRequest {
+func (r EventAPIGetEventInsightsEventsRequest) Limit(limit int64) EventAPIGetEventInsightsEventsRequest {
 	r.limit = &limit
 	return r
 }
@@ -894,7 +894,7 @@ type EventAPIGetEventTopRequest struct {
 	range_     *string
 	start      *string
 	end        *string
-	limit      *int32
+	limit      *int64
 }
 
 // Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400.
@@ -916,7 +916,7 @@ func (r EventAPIGetEventTopRequest) End(end string) EventAPIGetEventTopRequest {
 }
 
 // Limit bounds every ranked lens in the response. Default 10, maximum 100; a value at or below zero, or one that is not a number, takes the default.
-func (r EventAPIGetEventTopRequest) Limit(limit int32) EventAPIGetEventTopRequest {
+func (r EventAPIGetEventTopRequest) Limit(limit int64) EventAPIGetEventTopRequest {
 	r.limit = &limit
 	return r
 }

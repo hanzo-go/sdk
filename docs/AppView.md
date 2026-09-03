@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BuildType** | Pointer to **string** | BuildType is how a git app builds: &#x60;pack&#x60;, the zero-config default that detects the project, or &#x60;dockerfile&#x60;. An image app carries &#x60;image&#x60;, which means it never builds. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the app was created, unix seconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the app was created, unix seconds. | [optional] 
 **CurrentDeploymentId** | Pointer to **string** | CurrentDeploymentID is the deployment that is live — the pointer a deploy advances monotonically by version, so it never regresses to an older one. Empty until the first deploy reaches the cluster. | [optional] 
 **Description** | Pointer to **string** | Description is free text about what the app is. Nothing derives from it. | [optional] 
 **Dockerfile** | Pointer to **string** | Dockerfile is the path inside the repo to build from, for buildType &#x60;dockerfile&#x60;. The build path keys off its presence, and it is validated at create against the same allowlist the privileged build enforces. | [optional] 
@@ -19,17 +19,17 @@ Name | Type | Description | Notes
 **Namespace** | Pointer to **string** | Namespace is where the app&#39;s cluster objects live, &#x60;tenant-&lt;org&gt;&#x60;. It is derived from the validated org and is never accepted from a request. | [optional] 
 **Org** | Pointer to **string** | Org is the tenant that owns the app. It comes from the validated identity, never from the request, and it is the boundary every route is scoped to. | [optional] 
 **Phase** | Pointer to **string** | Phase is the operator&#39;s own &#x60;status.phase&#x60; for the app&#39;s Service CR, read from the cluster on this request. Empty when there is no CR yet or the cluster could not be read. | [optional] 
-**Port** | Pointer to **int32** | Port is the container port traffic is sent to. 8080 when the create asked for none, or for one outside 1–65535. | [optional] 
+**Port** | Pointer to **int64** | Port is the container port traffic is sent to. 8080 when the create asked for none, or for one outside 1–65535. | [optional] 
 **ProjectId** | Pointer to **string** | ProjectID is the IAM project the app lives under, and it is that project&#39;s NAME — the (org,name) key IAM identifies it by, which is also what the &#x60;:project&#x60; path segment carries. There is no platform-minted project id. | [optional] 
-**Replicas** | Pointer to **int32** | Replicas is how many copies the CR declares. It is CLAMPED to the deployment&#39;s ceiling rather than refused, so it can be below what was asked. | [optional] 
+**Replicas** | Pointer to **int64** | Replicas is how many copies the CR declares. It is CLAMPED to the deployment&#39;s ceiling rather than refused, so it can be below what was asked. | [optional] 
 **Repo** | Pointer to [**GitSource**](GitSource.md) | Repo is the git origin a source &#x60;git&#x60; app builds from, and the repo+branch a landed push has to match to build it. | [optional] 
 **SecretSync** | Pointer to **string** | SecretSync is how far the app&#39;s secret env has got into the cluster: \&quot;\&quot;|pending|syncing|ready|failed (secrets.go). It is best-effort and never fails a deploy, so &#x60;pending&#x60; is ordinary right after one. | [optional] 
 **SecretSyncDetail** | Pointer to **string** | SecretSyncDetail is the honest reason when the sync is not ready — a missing CRD, an RBAC grant, a per-tenant credential. Empty when it is. | [optional] 
 **Slug** | Pointer to **string** | Slug is the app&#39;s identity in the cluster: the operator CR&#39;s name, the first label of its default host, and the &#x60;:app&#x60; path segment. Unique per project. | [optional] 
 **Source** | Pointer to **string** | Source is what the app deploys FROM: &#x60;git&#x60;, which builds Repo, or &#x60;image&#x60;, which runs Image as it is. It decides whether a deploy builds at all. | [optional] 
 **Status** | Pointer to **string** | Status is the lifecycle THIS store records: draft (created, nothing in the cluster yet), building, deploying, live, stopped or error. What the cluster itself says is Phase and Health. | [optional] 
-**StorageGb** | Pointer to **int32** | StorageGB is the persistent volume size in GiB. Absent means stateless — no volume at all — and it is clamped like Replicas. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is when it last changed, unix seconds. Every lifecycle transition moves it, so it tracks deploys as well as edits. | [optional] 
+**StorageGb** | Pointer to **int64** | StorageGB is the persistent volume size in GiB. Absent means stateless — no volume at all — and it is clamped like Replicas. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is when it last changed, unix seconds. Every lifecycle transition moves it, so it tracks deploys as well as edits. | [optional] 
 
 ## Methods
 
@@ -77,20 +77,20 @@ HasBuildType returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *AppView) GetCreatedAt() int32`
+`func (o *AppView) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *AppView) GetCreatedAtOk() (*int32, bool)`
+`func (o *AppView) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *AppView) SetCreatedAt(v int32)`
+`func (o *AppView) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -427,20 +427,20 @@ HasPhase returns a boolean if a field has been set.
 
 ### GetPort
 
-`func (o *AppView) GetPort() int32`
+`func (o *AppView) GetPort() int64`
 
 GetPort returns the Port field if non-nil, zero value otherwise.
 
 ### GetPortOk
 
-`func (o *AppView) GetPortOk() (*int32, bool)`
+`func (o *AppView) GetPortOk() (*int64, bool)`
 
 GetPortOk returns a tuple with the Port field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPort
 
-`func (o *AppView) SetPort(v int32)`
+`func (o *AppView) SetPort(v int64)`
 
 SetPort sets Port field to given value.
 
@@ -477,20 +477,20 @@ HasProjectId returns a boolean if a field has been set.
 
 ### GetReplicas
 
-`func (o *AppView) GetReplicas() int32`
+`func (o *AppView) GetReplicas() int64`
 
 GetReplicas returns the Replicas field if non-nil, zero value otherwise.
 
 ### GetReplicasOk
 
-`func (o *AppView) GetReplicasOk() (*int32, bool)`
+`func (o *AppView) GetReplicasOk() (*int64, bool)`
 
 GetReplicasOk returns a tuple with the Replicas field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReplicas
 
-`func (o *AppView) SetReplicas(v int32)`
+`func (o *AppView) SetReplicas(v int64)`
 
 SetReplicas sets Replicas field to given value.
 
@@ -652,20 +652,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetStorageGb
 
-`func (o *AppView) GetStorageGb() int32`
+`func (o *AppView) GetStorageGb() int64`
 
 GetStorageGb returns the StorageGb field if non-nil, zero value otherwise.
 
 ### GetStorageGbOk
 
-`func (o *AppView) GetStorageGbOk() (*int32, bool)`
+`func (o *AppView) GetStorageGbOk() (*int64, bool)`
 
 GetStorageGbOk returns a tuple with the StorageGb field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStorageGb
 
-`func (o *AppView) SetStorageGb(v int32)`
+`func (o *AppView) SetStorageGb(v int64)`
 
 SetStorageGb sets StorageGb field to given value.
 
@@ -677,20 +677,20 @@ HasStorageGb returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *AppView) GetUpdatedAt() int32`
+`func (o *AppView) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *AppView) GetUpdatedAtOk() (*int32, bool)`
+`func (o *AppView) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *AppView) SetUpdatedAt(v int32)`
+`func (o *AppView) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

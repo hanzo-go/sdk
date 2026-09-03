@@ -396,7 +396,7 @@ type LabelAPIRiskLabelCoverageRequest struct {
 	ApiService *LabelAPIService
 	from       *string
 	to         *string
-	horizon    *int32
+	horizon    *int64
 }
 
 // From and To bound the EVENT window, half-open, RFC 3339.  Unstated, the window is the 90 days ENDING where maturity begins — &#x60;to&#x60; is the horizon ago, not now. A default window running to now under a default horizon could not contain one matured event, so every count below it would be zero however much ground truth the tenant held.
@@ -411,7 +411,7 @@ func (r LabelAPIRiskLabelCoverageRequest) To(to string) LabelAPIRiskLabelCoverag
 }
 
 // Horizon is the maturity horizon in days the coverage is measured under. Unstated takes 120. It also moves the default window, which ends where maturity begins.
-func (r LabelAPIRiskLabelCoverageRequest) Horizon(horizon int32) LabelAPIRiskLabelCoverageRequest {
+func (r LabelAPIRiskLabelCoverageRequest) Horizon(horizon int64) LabelAPIRiskLabelCoverageRequest {
 	r.horizon = &horizon
 	return r
 }
@@ -644,7 +644,7 @@ type LabelAPIRiskLabelsRequest struct {
 	source     *string
 	from       *string
 	to         *string
-	limit      *int32
+	limit      *int64
 }
 
 // Kind and Subject narrow to one entity.
@@ -676,7 +676,7 @@ func (r LabelAPIRiskLabelsRequest) To(to string) LabelAPIRiskLabelsRequest {
 }
 
 // Limit caps the page. Out of range takes the plane&#39;s own bound.
-func (r LabelAPIRiskLabelsRequest) Limit(limit int32) LabelAPIRiskLabelsRequest {
+func (r LabelAPIRiskLabelsRequest) Limit(limit int64) LabelAPIRiskLabelsRequest {
 	r.limit = &limit
 	return r
 }

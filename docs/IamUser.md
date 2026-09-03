@@ -22,8 +22,8 @@ Name | Type | Description | Notes
 **Azuread** | Pointer to **string** |  | [optional] 
 **Azureadb2c** | Pointer to **string** |  | [optional] 
 **Baidu** | Pointer to **string** |  | [optional] 
-**Balance** | Pointer to **float32** | Balance mirrors v1 for lossless migration but is authoritative in Commerce (billing.hanzo.ai), not here — do not write it from IAM. | [optional] 
-**BalanceCredit** | Pointer to **float32** |  | [optional] 
+**Balance** | Pointer to **float64** | Balance mirrors v1 for lossless migration but is authoritative in Commerce (billing.hanzo.ai), not here — do not write it from IAM. | [optional] 
+**BalanceCredit** | Pointer to **float64** |  | [optional] 
 **BalanceCurrency** | Pointer to **string** |  | [optional] 
 **Battlenet** | Pointer to **string** |  | [optional] 
 **Bilibili** | Pointer to **string** |  | [optional] 
@@ -94,7 +94,7 @@ Name | Type | Description | Notes
 **IsOnline** | Pointer to **bool** |  | [optional] 
 **IsVerified** | Pointer to **bool** |  | [optional] 
 **Kakao** | Pointer to **string** |  | [optional] 
-**Karma** | Pointer to **int32** |  | [optional] 
+**Karma** | Pointer to **int64** |  | [optional] 
 **Kwai** | Pointer to **string** |  | [optional] 
 **Language** | Pointer to **string** |  | [optional] 
 **Lark** | Pointer to **string** |  | [optional] 
@@ -146,16 +146,16 @@ Name | Type | Description | Notes
 **PreferredMfaType** | Pointer to **string** |  | [optional] 
 **Properties** | Pointer to **map[string]string** |  | [optional] 
 **Qq** | Pointer to **string** |  | [optional] 
-**Ranking** | Pointer to **int32** |  | [optional] 
+**Ranking** | Pointer to **int64** |  | [optional] 
 **RealName** | Pointer to **string** |  | [optional] 
 **RecoveryCodes** | Pointer to **[]string** |  | [optional] 
 **Region** | Pointer to **string** |  | [optional] 
 **RegisterSource** | Pointer to **string** |  | [optional] 
 **RegisterType** | Pointer to **string** |  | [optional] 
 **Salesforce** | Pointer to **string** |  | [optional] 
-**Score** | Pointer to **int32** |  | [optional] 
+**Score** | Pointer to **int64** |  | [optional] 
 **Shopify** | Pointer to **string** |  | [optional] 
-**SigninWrongTimes** | Pointer to **int32** |  | [optional] 
+**SigninWrongTimes** | Pointer to **int64** |  | [optional] 
 **SignupApplication** | Pointer to **string** |  | [optional] 
 **Slack** | Pointer to **string** |  | [optional] 
 **Soundcloud** | Pointer to **string** |  | [optional] 
@@ -660,20 +660,20 @@ HasBaidu returns a boolean if a field has been set.
 
 ### GetBalance
 
-`func (o *IamUser) GetBalance() float32`
+`func (o *IamUser) GetBalance() float64`
 
 GetBalance returns the Balance field if non-nil, zero value otherwise.
 
 ### GetBalanceOk
 
-`func (o *IamUser) GetBalanceOk() (*float32, bool)`
+`func (o *IamUser) GetBalanceOk() (*float64, bool)`
 
 GetBalanceOk returns a tuple with the Balance field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBalance
 
-`func (o *IamUser) SetBalance(v float32)`
+`func (o *IamUser) SetBalance(v float64)`
 
 SetBalance sets Balance field to given value.
 
@@ -685,20 +685,20 @@ HasBalance returns a boolean if a field has been set.
 
 ### GetBalanceCredit
 
-`func (o *IamUser) GetBalanceCredit() float32`
+`func (o *IamUser) GetBalanceCredit() float64`
 
 GetBalanceCredit returns the BalanceCredit field if non-nil, zero value otherwise.
 
 ### GetBalanceCreditOk
 
-`func (o *IamUser) GetBalanceCreditOk() (*float32, bool)`
+`func (o *IamUser) GetBalanceCreditOk() (*float64, bool)`
 
 GetBalanceCreditOk returns a tuple with the BalanceCredit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBalanceCredit
 
-`func (o *IamUser) SetBalanceCredit(v float32)`
+`func (o *IamUser) SetBalanceCredit(v float64)`
 
 SetBalanceCredit sets BalanceCredit field to given value.
 
@@ -2460,20 +2460,20 @@ HasKakao returns a boolean if a field has been set.
 
 ### GetKarma
 
-`func (o *IamUser) GetKarma() int32`
+`func (o *IamUser) GetKarma() int64`
 
 GetKarma returns the Karma field if non-nil, zero value otherwise.
 
 ### GetKarmaOk
 
-`func (o *IamUser) GetKarmaOk() (*int32, bool)`
+`func (o *IamUser) GetKarmaOk() (*int64, bool)`
 
 GetKarmaOk returns a tuple with the Karma field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetKarma
 
-`func (o *IamUser) SetKarma(v int32)`
+`func (o *IamUser) SetKarma(v int64)`
 
 SetKarma sets Karma field to given value.
 
@@ -3760,20 +3760,20 @@ HasQq returns a boolean if a field has been set.
 
 ### GetRanking
 
-`func (o *IamUser) GetRanking() int32`
+`func (o *IamUser) GetRanking() int64`
 
 GetRanking returns the Ranking field if non-nil, zero value otherwise.
 
 ### GetRankingOk
 
-`func (o *IamUser) GetRankingOk() (*int32, bool)`
+`func (o *IamUser) GetRankingOk() (*int64, bool)`
 
 GetRankingOk returns a tuple with the Ranking field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRanking
 
-`func (o *IamUser) SetRanking(v int32)`
+`func (o *IamUser) SetRanking(v int64)`
 
 SetRanking sets Ranking field to given value.
 
@@ -3935,20 +3935,20 @@ HasSalesforce returns a boolean if a field has been set.
 
 ### GetScore
 
-`func (o *IamUser) GetScore() int32`
+`func (o *IamUser) GetScore() int64`
 
 GetScore returns the Score field if non-nil, zero value otherwise.
 
 ### GetScoreOk
 
-`func (o *IamUser) GetScoreOk() (*int32, bool)`
+`func (o *IamUser) GetScoreOk() (*int64, bool)`
 
 GetScoreOk returns a tuple with the Score field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScore
 
-`func (o *IamUser) SetScore(v int32)`
+`func (o *IamUser) SetScore(v int64)`
 
 SetScore sets Score field to given value.
 
@@ -3985,20 +3985,20 @@ HasShopify returns a boolean if a field has been set.
 
 ### GetSigninWrongTimes
 
-`func (o *IamUser) GetSigninWrongTimes() int32`
+`func (o *IamUser) GetSigninWrongTimes() int64`
 
 GetSigninWrongTimes returns the SigninWrongTimes field if non-nil, zero value otherwise.
 
 ### GetSigninWrongTimesOk
 
-`func (o *IamUser) GetSigninWrongTimesOk() (*int32, bool)`
+`func (o *IamUser) GetSigninWrongTimesOk() (*int64, bool)`
 
 GetSigninWrongTimesOk returns a tuple with the SigninWrongTimes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSigninWrongTimes
 
-`func (o *IamUser) SetSigninWrongTimes(v int32)`
+`func (o *IamUser) SetSigninWrongTimes(v int64)`
 
 SetSigninWrongTimes sets SigninWrongTimes field to given value.
 

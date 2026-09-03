@@ -42,7 +42,7 @@ type Definition struct {
 	// Target is where the function runs: sandbox (the default) or fleet, the org's own GPU fleet. fleet supports runtime=python only.
 	Target *string `json:"target,omitempty"`
 	// TimeoutSec is the per-invocation deadline, defaulting to 30 and clamped at 900 — a larger value is capped rather than reset to the default.
-	TimeoutSec *int32 `json:"timeoutSec,omitempty"`
+	TimeoutSec *int64 `json:"timeoutSec,omitempty"`
 }
 
 type _Definition Definition
@@ -378,9 +378,9 @@ func (o *Definition) SetTarget(v string) {
 }
 
 // GetTimeoutSec returns the TimeoutSec field value if set, zero value otherwise.
-func (o *Definition) GetTimeoutSec() int32 {
+func (o *Definition) GetTimeoutSec() int64 {
 	if o == nil || IsNil(o.TimeoutSec) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TimeoutSec
@@ -388,7 +388,7 @@ func (o *Definition) GetTimeoutSec() int32 {
 
 // GetTimeoutSecOk returns a tuple with the TimeoutSec field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Definition) GetTimeoutSecOk() (*int32, bool) {
+func (o *Definition) GetTimeoutSecOk() (*int64, bool) {
 	if o == nil || IsNil(o.TimeoutSec) {
 		return nil, false
 	}
@@ -404,8 +404,8 @@ func (o *Definition) HasTimeoutSec() bool {
 	return false
 }
 
-// SetTimeoutSec gets a reference to the given int32 and assigns it to the TimeoutSec field.
-func (o *Definition) SetTimeoutSec(v int32) {
+// SetTimeoutSec gets a reference to the given int64 and assigns it to the TimeoutSec field.
+func (o *Definition) SetTimeoutSec(v int64) {
 	o.TimeoutSec = &v
 }
 

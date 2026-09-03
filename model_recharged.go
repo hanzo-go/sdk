@@ -19,8 +19,8 @@ var _ MappedNullable = &Recharged{}
 
 // Recharged struct for Recharged
 type Recharged struct {
-	AmountCents   *int32  `json:"amountCents,omitempty"`
-	BalanceCents  *int32  `json:"balanceCents,omitempty"`
+	AmountCents   *int64  `json:"amountCents,omitempty"`
+	BalanceCents  *int64  `json:"balanceCents,omitempty"`
 	Charged       *bool   `json:"charged,omitempty"`
 	Error         *string `json:"error,omitempty"`
 	OrgName       *string `json:"orgName,omitempty"`
@@ -46,9 +46,9 @@ func NewRechargedWithDefaults() *Recharged {
 }
 
 // GetAmountCents returns the AmountCents field value if set, zero value otherwise.
-func (o *Recharged) GetAmountCents() int32 {
+func (o *Recharged) GetAmountCents() int64 {
 	if o == nil || IsNil(o.AmountCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AmountCents
@@ -56,7 +56,7 @@ func (o *Recharged) GetAmountCents() int32 {
 
 // GetAmountCentsOk returns a tuple with the AmountCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Recharged) GetAmountCentsOk() (*int32, bool) {
+func (o *Recharged) GetAmountCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AmountCents) {
 		return nil, false
 	}
@@ -72,15 +72,15 @@ func (o *Recharged) HasAmountCents() bool {
 	return false
 }
 
-// SetAmountCents gets a reference to the given int32 and assigns it to the AmountCents field.
-func (o *Recharged) SetAmountCents(v int32) {
+// SetAmountCents gets a reference to the given int64 and assigns it to the AmountCents field.
+func (o *Recharged) SetAmountCents(v int64) {
 	o.AmountCents = &v
 }
 
 // GetBalanceCents returns the BalanceCents field value if set, zero value otherwise.
-func (o *Recharged) GetBalanceCents() int32 {
+func (o *Recharged) GetBalanceCents() int64 {
 	if o == nil || IsNil(o.BalanceCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.BalanceCents
@@ -88,7 +88,7 @@ func (o *Recharged) GetBalanceCents() int32 {
 
 // GetBalanceCentsOk returns a tuple with the BalanceCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Recharged) GetBalanceCentsOk() (*int32, bool) {
+func (o *Recharged) GetBalanceCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.BalanceCents) {
 		return nil, false
 	}
@@ -104,8 +104,8 @@ func (o *Recharged) HasBalanceCents() bool {
 	return false
 }
 
-// SetBalanceCents gets a reference to the given int32 and assigns it to the BalanceCents field.
-func (o *Recharged) SetBalanceCents(v int32) {
+// SetBalanceCents gets a reference to the given int64 and assigns it to the BalanceCents field.
+func (o *Recharged) SetBalanceCents(v int64) {
 	o.BalanceCents = &v
 }
 

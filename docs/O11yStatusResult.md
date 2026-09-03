@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CheckedAt** | Pointer to **string** | CheckedAt is when this answer was measured, RFC3339 UTC. | [optional] 
 **Deployments** | Pointer to [**[]O11yDeployment**](O11yDeployment.md) | Deployments is the per-replica inventory behind the verdict. Empty means the telemetry store reported none, not that the service runs on none. | [optional] 
-**LatencyMs** | Pointer to **int32** | LatencyMs is the health probe&#39;s round trip in MILLISECONDS, time-boxed at two seconds. It is 0 when no probe answered, which is not a fast service. | [optional] 
+**LatencyMs** | Pointer to **int64** | LatencyMs is the health probe&#39;s round trip in MILLISECONDS, time-boxed at two seconds. It is 0 when no probe answered, which is not a fast service. | [optional] 
 **Product** | Pointer to **string** | Product is the service this answer is about, echoed back. | [optional] 
 **Source** | Pointer to **string** | Source is where the verdict came from: \&quot;probe\&quot; (we asked and it answered), \&quot;datastore\&quot; (the probe did not answer and the replica inventory decided it), \&quot;unreachable\&quot; (neither), or \&quot;unknown-service\&quot; for a well-formed product name nothing backs — which is answered without probing, since dialling an arbitrary host on a caller&#39;s say-so is the request forgery this refuses. | [optional] 
 **Up** | Pointer to **bool** | Up is true when the health probe succeeded OR any replica reports up, so a service reachable by either route reads up. Read Source to know which. | [optional] 
@@ -82,20 +82,20 @@ HasDeployments returns a boolean if a field has been set.
 
 ### GetLatencyMs
 
-`func (o *O11yStatusResult) GetLatencyMs() int32`
+`func (o *O11yStatusResult) GetLatencyMs() int64`
 
 GetLatencyMs returns the LatencyMs field if non-nil, zero value otherwise.
 
 ### GetLatencyMsOk
 
-`func (o *O11yStatusResult) GetLatencyMsOk() (*int32, bool)`
+`func (o *O11yStatusResult) GetLatencyMsOk() (*int64, bool)`
 
 GetLatencyMsOk returns a tuple with the LatencyMs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLatencyMs
 
-`func (o *O11yStatusResult) SetLatencyMs(v int32)`
+`func (o *O11yStatusResult) SetLatencyMs(v int64)`
 
 SetLatencyMs sets LatencyMs field to given value.
 

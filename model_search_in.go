@@ -22,7 +22,7 @@ type SearchIn struct {
 	// DocTypes restricts retrieval to a subset of the indexed knowledge doctypes (kb.page, kb.memory, kb.source). An empty or foreign list reads all of them.
 	Doctypes []string `json:"doctypes,omitempty"`
 	// Limit bounds the hits returned. Default 10, maximum 50.
-	Limit *int32 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 	// Project narrows retrieval to one project scope.
 	Project *string `json:"project,omitempty"`
 	// Query is the natural-language question. Required.
@@ -79,9 +79,9 @@ func (o *SearchIn) SetDoctypes(v []string) {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *SearchIn) GetLimit() int32 {
+func (o *SearchIn) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -89,7 +89,7 @@ func (o *SearchIn) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SearchIn) GetLimitOk() (*int32, bool) {
+func (o *SearchIn) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *SearchIn) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *SearchIn) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *SearchIn) SetLimit(v int64) {
 	o.Limit = &v
 }
 

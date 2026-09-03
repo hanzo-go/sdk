@@ -20,15 +20,15 @@ var _ MappedNullable = &CaptableHolding{}
 // CaptableHolding struct for CaptableHolding
 type CaptableHolding struct {
 	// FullyDiluted is shares plus options.
-	FullyDiluted *int32 `json:"fullyDiluted,omitempty"`
+	FullyDiluted *int64 `json:"fullyDiluted,omitempty"`
 	// Name is the stakeholder's name.
 	Name *string `json:"name,omitempty"`
 	// Options is the shares under this stakeholder's non-terminal option grants.
-	Options *int32 `json:"options,omitempty"`
+	Options *int64 `json:"options,omitempty"`
 	// OwnershipPct is fullyDiluted as a percentage of the company's fullyDilutedShares, rounded to two decimals; 0 when nothing is issued.
-	OwnershipPct *float32 `json:"ownershipPct,omitempty"`
+	OwnershipPct *float64 `json:"ownershipPct,omitempty"`
 	// Shares is the shares this stakeholder holds by certificate.
-	Shares *int32 `json:"shares,omitempty"`
+	Shares *int64 `json:"shares,omitempty"`
 	// StakeholderID addresses the stakeholder these totals are for.
 	StakeholderId *string `json:"stakeholderId,omitempty"`
 }
@@ -51,9 +51,9 @@ func NewCaptableHoldingWithDefaults() *CaptableHolding {
 }
 
 // GetFullyDiluted returns the FullyDiluted field value if set, zero value otherwise.
-func (o *CaptableHolding) GetFullyDiluted() int32 {
+func (o *CaptableHolding) GetFullyDiluted() int64 {
 	if o == nil || IsNil(o.FullyDiluted) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.FullyDiluted
@@ -61,7 +61,7 @@ func (o *CaptableHolding) GetFullyDiluted() int32 {
 
 // GetFullyDilutedOk returns a tuple with the FullyDiluted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableHolding) GetFullyDilutedOk() (*int32, bool) {
+func (o *CaptableHolding) GetFullyDilutedOk() (*int64, bool) {
 	if o == nil || IsNil(o.FullyDiluted) {
 		return nil, false
 	}
@@ -77,8 +77,8 @@ func (o *CaptableHolding) HasFullyDiluted() bool {
 	return false
 }
 
-// SetFullyDiluted gets a reference to the given int32 and assigns it to the FullyDiluted field.
-func (o *CaptableHolding) SetFullyDiluted(v int32) {
+// SetFullyDiluted gets a reference to the given int64 and assigns it to the FullyDiluted field.
+func (o *CaptableHolding) SetFullyDiluted(v int64) {
 	o.FullyDiluted = &v
 }
 
@@ -115,9 +115,9 @@ func (o *CaptableHolding) SetName(v string) {
 }
 
 // GetOptions returns the Options field value if set, zero value otherwise.
-func (o *CaptableHolding) GetOptions() int32 {
+func (o *CaptableHolding) GetOptions() int64 {
 	if o == nil || IsNil(o.Options) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Options
@@ -125,7 +125,7 @@ func (o *CaptableHolding) GetOptions() int32 {
 
 // GetOptionsOk returns a tuple with the Options field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableHolding) GetOptionsOk() (*int32, bool) {
+func (o *CaptableHolding) GetOptionsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Options) {
 		return nil, false
 	}
@@ -141,15 +141,15 @@ func (o *CaptableHolding) HasOptions() bool {
 	return false
 }
 
-// SetOptions gets a reference to the given int32 and assigns it to the Options field.
-func (o *CaptableHolding) SetOptions(v int32) {
+// SetOptions gets a reference to the given int64 and assigns it to the Options field.
+func (o *CaptableHolding) SetOptions(v int64) {
 	o.Options = &v
 }
 
 // GetOwnershipPct returns the OwnershipPct field value if set, zero value otherwise.
-func (o *CaptableHolding) GetOwnershipPct() float32 {
+func (o *CaptableHolding) GetOwnershipPct() float64 {
 	if o == nil || IsNil(o.OwnershipPct) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.OwnershipPct
@@ -157,7 +157,7 @@ func (o *CaptableHolding) GetOwnershipPct() float32 {
 
 // GetOwnershipPctOk returns a tuple with the OwnershipPct field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableHolding) GetOwnershipPctOk() (*float32, bool) {
+func (o *CaptableHolding) GetOwnershipPctOk() (*float64, bool) {
 	if o == nil || IsNil(o.OwnershipPct) {
 		return nil, false
 	}
@@ -173,15 +173,15 @@ func (o *CaptableHolding) HasOwnershipPct() bool {
 	return false
 }
 
-// SetOwnershipPct gets a reference to the given float32 and assigns it to the OwnershipPct field.
-func (o *CaptableHolding) SetOwnershipPct(v float32) {
+// SetOwnershipPct gets a reference to the given float64 and assigns it to the OwnershipPct field.
+func (o *CaptableHolding) SetOwnershipPct(v float64) {
 	o.OwnershipPct = &v
 }
 
 // GetShares returns the Shares field value if set, zero value otherwise.
-func (o *CaptableHolding) GetShares() int32 {
+func (o *CaptableHolding) GetShares() int64 {
 	if o == nil || IsNil(o.Shares) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Shares
@@ -189,7 +189,7 @@ func (o *CaptableHolding) GetShares() int32 {
 
 // GetSharesOk returns a tuple with the Shares field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableHolding) GetSharesOk() (*int32, bool) {
+func (o *CaptableHolding) GetSharesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Shares) {
 		return nil, false
 	}
@@ -205,8 +205,8 @@ func (o *CaptableHolding) HasShares() bool {
 	return false
 }
 
-// SetShares gets a reference to the given int32 and assigns it to the Shares field.
-func (o *CaptableHolding) SetShares(v int32) {
+// SetShares gets a reference to the given int64 and assigns it to the Shares field.
+func (o *CaptableHolding) SetShares(v int64) {
 	o.Shares = &v
 }
 

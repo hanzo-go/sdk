@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **CreatedBy** | Pointer to **string** | CreatedBy is the id of who created the version. | [optional] 
 **CreatedByName** | Pointer to **string** | CreatedByName is the display name of who created the version. | [optional] 
 **DeployResult** | Pointer to **string** | DeployResult is the deployment&#39;s outcome message. | [optional] 
-**DeploySequence** | Pointer to **int32** | DeploySequence orders this deployment among the version&#39;s deployments. | [optional] 
+**DeploySequence** | Pointer to **int64** | DeploySequence orders this deployment among the version&#39;s deployments. | [optional] 
 **DeployStatus** | Pointer to **string** | DeployStatus is where the deployment stands, e.g. dirty, deploying, deployed, in_progress, failed, unknown. | [optional] 
 **ElementType** | Pointer to **string** | ElementType is the config element this version carries — log_pipelines. | [optional] 
 **History** | Pointer to [**[]O11yO11yLogConfigVersion**](O11yO11yLogConfigVersion.md) | History is the recent version history, newest first. | [optional] 
@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **Pipelines** | Pointer to [**[]O11yO11yLogPipeline**](O11yO11yLogPipeline.md) | Pipelines are the version&#39;s pipelines, in order. | [optional] 
 **UpdatedAt** | Pointer to **time.Time** | UpdatedAt is when the version last changed. | [optional] 
 **UpdatedBy** | Pointer to **string** | UpdatedBy is the id of who last changed it. | [optional] 
-**Version** | Pointer to **int32** | Version is the config version number. | [optional] 
+**Version** | Pointer to **int64** | Version is the config version number. | [optional] 
 
 ## Methods
 
@@ -167,20 +167,20 @@ HasDeployResult returns a boolean if a field has been set.
 
 ### GetDeploySequence
 
-`func (o *O11yO11yLogPipelines) GetDeploySequence() int32`
+`func (o *O11yO11yLogPipelines) GetDeploySequence() int64`
 
 GetDeploySequence returns the DeploySequence field if non-nil, zero value otherwise.
 
 ### GetDeploySequenceOk
 
-`func (o *O11yO11yLogPipelines) GetDeploySequenceOk() (*int32, bool)`
+`func (o *O11yO11yLogPipelines) GetDeploySequenceOk() (*int64, bool)`
 
 GetDeploySequenceOk returns a tuple with the DeploySequence field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDeploySequence
 
-`func (o *O11yO11yLogPipelines) SetDeploySequence(v int32)`
+`func (o *O11yO11yLogPipelines) SetDeploySequence(v int64)`
 
 SetDeploySequence sets DeploySequence field to given value.
 
@@ -417,20 +417,20 @@ HasUpdatedBy returns a boolean if a field has been set.
 
 ### GetVersion
 
-`func (o *O11yO11yLogPipelines) GetVersion() int32`
+`func (o *O11yO11yLogPipelines) GetVersion() int64`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *O11yO11yLogPipelines) GetVersionOk() (*int32, bool)`
+`func (o *O11yO11yLogPipelines) GetVersionOk() (*int64, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *O11yO11yLogPipelines) SetVersion(v int32)`
+`func (o *O11yO11yLogPipelines) SetVersion(v int64)`
 
 SetVersion sets Version field to given value.
 

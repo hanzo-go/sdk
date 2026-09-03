@@ -22,7 +22,7 @@ type AuthorRepo struct {
 	// BadgeMarkdown is the ready-to-paste README snippet, DERIVED for each response from this deployment's badge host and never stored: a \"Deploy on Hanzo\" image linking to the one-click import of this repository. Re-hosting the builder changes every badge without touching a row.
 	BadgeMarkdown *string `json:"badgeMarkdown,omitempty"`
 	// CreatedAt is unix seconds when the claim was first recorded. It equals verifiedAt on the first proof and then stays put while verifiedAt moves, so the pair reads as \"claimed since / last proven\".
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Method is HOW ownership was proven: \"oauth\" — an IAM-linked forge token showed admin or push on the repository; \"file\" — a hanzo.json on the default branch carried this author's verify code; or \"maintainer\" — the repository sits in a first-party namespace, where ownership is intrinsic and the treasury author holds it with no proof step. Omitted on a row written before the method was recorded.
 	Method *string `json:"method,omitempty"`
 	// RepoURL is the claim key in canonical form — lowercased \"host/owner/name\", no scheme, no .git, host ∈ {github.com, gitlab.com}. A deploy's source repo is normalized through the same function before attribution, so the two sides can never miss on a cosmetic difference. UNIQUE across every author: first proven claim wins.
@@ -30,7 +30,7 @@ type AuthorRepo struct {
 	// Verified reports that ownership was proven. Only a proven claim is ever written, so it is true on every row this surface returns; the deploy path re-reads it regardless, because an unverified claim attributes nothing.
 	Verified *bool `json:"verified,omitempty"`
 	// VerifiedAt is unix seconds of the most recent successful proof. Re-verifying refreshes it, and the method beside it, in place.
-	VerifiedAt *int32 `json:"verifiedAt,omitempty"`
+	VerifiedAt *int64 `json:"verifiedAt,omitempty"`
 }
 
 // NewAuthorRepo instantiates a new AuthorRepo object
@@ -83,9 +83,9 @@ func (o *AuthorRepo) SetBadgeMarkdown(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *AuthorRepo) GetCreatedAt() int32 {
+func (o *AuthorRepo) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -93,7 +93,7 @@ func (o *AuthorRepo) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuthorRepo) GetCreatedAtOk() (*int32, bool) {
+func (o *AuthorRepo) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -109,8 +109,8 @@ func (o *AuthorRepo) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *AuthorRepo) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *AuthorRepo) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -211,9 +211,9 @@ func (o *AuthorRepo) SetVerified(v bool) {
 }
 
 // GetVerifiedAt returns the VerifiedAt field value if set, zero value otherwise.
-func (o *AuthorRepo) GetVerifiedAt() int32 {
+func (o *AuthorRepo) GetVerifiedAt() int64 {
 	if o == nil || IsNil(o.VerifiedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.VerifiedAt
@@ -221,7 +221,7 @@ func (o *AuthorRepo) GetVerifiedAt() int32 {
 
 // GetVerifiedAtOk returns a tuple with the VerifiedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuthorRepo) GetVerifiedAtOk() (*int32, bool) {
+func (o *AuthorRepo) GetVerifiedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.VerifiedAt) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *AuthorRepo) HasVerifiedAt() bool {
 	return false
 }
 
-// SetVerifiedAt gets a reference to the given int32 and assigns it to the VerifiedAt field.
-func (o *AuthorRepo) SetVerifiedAt(v int32) {
+// SetVerifiedAt gets a reference to the given int64 and assigns it to the VerifiedAt field.
+func (o *AuthorRepo) SetVerifiedAt(v int64) {
 	o.VerifiedAt = &v
 }
 

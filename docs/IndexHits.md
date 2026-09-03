@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EstimatedTotalHits** | Pointer to **int32** | EstimatedTotalHits is the dialect&#39;s name for the match count. Every hit is materialised here, so for this page it is exact rather than estimated. | [optional] 
+**EstimatedTotalHits** | Pointer to **int64** | EstimatedTotalHits is the dialect&#39;s name for the match count. Every hit is materialised here, so for this page it is exact rather than estimated. | [optional] 
 **Hits** | Pointer to **[]interface{}** | Hits are the matching documents, most relevant first, exactly as stored. | [optional] 
-**Limit** | Pointer to **int32** | Limit is how many hits this page could hold. | [optional] 
-**Offset** | Pointer to **int32** | Offset is where this page starts. | [optional] 
-**ProcessingTimeMs** | Pointer to **int32** | ProcessingTimeMs is how long the query took, in milliseconds. | [optional] 
+**Limit** | Pointer to **int64** | Limit is how many hits this page could hold. | [optional] 
+**Offset** | Pointer to **int64** | Offset is where this page starts. | [optional] 
+**ProcessingTimeMs** | Pointer to **int64** | ProcessingTimeMs is how long the query took, in milliseconds. | [optional] 
 **Query** | Pointer to **string** | Query echoes the search terms, which is what a client renders above the results. | [optional] 
 
 ## Methods
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetEstimatedTotalHits
 
-`func (o *IndexHits) GetEstimatedTotalHits() int32`
+`func (o *IndexHits) GetEstimatedTotalHits() int64`
 
 GetEstimatedTotalHits returns the EstimatedTotalHits field if non-nil, zero value otherwise.
 
 ### GetEstimatedTotalHitsOk
 
-`func (o *IndexHits) GetEstimatedTotalHitsOk() (*int32, bool)`
+`func (o *IndexHits) GetEstimatedTotalHitsOk() (*int64, bool)`
 
 GetEstimatedTotalHitsOk returns a tuple with the EstimatedTotalHits field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEstimatedTotalHits
 
-`func (o *IndexHits) SetEstimatedTotalHits(v int32)`
+`func (o *IndexHits) SetEstimatedTotalHits(v int64)`
 
 SetEstimatedTotalHits sets EstimatedTotalHits field to given value.
 
@@ -82,20 +82,20 @@ HasHits returns a boolean if a field has been set.
 
 ### GetLimit
 
-`func (o *IndexHits) GetLimit() int32`
+`func (o *IndexHits) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *IndexHits) GetLimitOk() (*int32, bool)`
+`func (o *IndexHits) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *IndexHits) SetLimit(v int32)`
+`func (o *IndexHits) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 
@@ -107,20 +107,20 @@ HasLimit returns a boolean if a field has been set.
 
 ### GetOffset
 
-`func (o *IndexHits) GetOffset() int32`
+`func (o *IndexHits) GetOffset() int64`
 
 GetOffset returns the Offset field if non-nil, zero value otherwise.
 
 ### GetOffsetOk
 
-`func (o *IndexHits) GetOffsetOk() (*int32, bool)`
+`func (o *IndexHits) GetOffsetOk() (*int64, bool)`
 
 GetOffsetOk returns a tuple with the Offset field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOffset
 
-`func (o *IndexHits) SetOffset(v int32)`
+`func (o *IndexHits) SetOffset(v int64)`
 
 SetOffset sets Offset field to given value.
 
@@ -132,20 +132,20 @@ HasOffset returns a boolean if a field has been set.
 
 ### GetProcessingTimeMs
 
-`func (o *IndexHits) GetProcessingTimeMs() int32`
+`func (o *IndexHits) GetProcessingTimeMs() int64`
 
 GetProcessingTimeMs returns the ProcessingTimeMs field if non-nil, zero value otherwise.
 
 ### GetProcessingTimeMsOk
 
-`func (o *IndexHits) GetProcessingTimeMsOk() (*int32, bool)`
+`func (o *IndexHits) GetProcessingTimeMsOk() (*int64, bool)`
 
 GetProcessingTimeMsOk returns a tuple with the ProcessingTimeMs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProcessingTimeMs
 
-`func (o *IndexHits) SetProcessingTimeMs(v int32)`
+`func (o *IndexHits) SetProcessingTimeMs(v int64)`
 
 SetProcessingTimeMs sets ProcessingTimeMs field to given value.
 

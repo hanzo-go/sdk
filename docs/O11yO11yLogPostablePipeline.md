@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Filter** | Pointer to [**O11yO11yLogFilter**](O11yO11yLogFilter.md) | Filter selects which records the pipeline processes. | [optional] 
 **Id** | Pointer to **string** | ID is the pipeline&#39;s id. Empty on a new pipeline; the id it was listed with to keep an existing one. | [optional] 
 **Name** | Pointer to **string** | Name is the pipeline&#39;s display name. | [optional] 
-**OrderId** | Pointer to **int32** | OrderID is the pipeline&#39;s 1-based position in the set. | [optional] 
+**OrderId** | Pointer to **int64** | OrderID is the pipeline&#39;s 1-based position in the set. | [optional] 
 
 ## Methods
 
@@ -209,20 +209,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetOrderId
 
-`func (o *O11yO11yLogPostablePipeline) GetOrderId() int32`
+`func (o *O11yO11yLogPostablePipeline) GetOrderId() int64`
 
 GetOrderId returns the OrderId field if non-nil, zero value otherwise.
 
 ### GetOrderIdOk
 
-`func (o *O11yO11yLogPostablePipeline) GetOrderIdOk() (*int32, bool)`
+`func (o *O11yO11yLogPostablePipeline) GetOrderIdOk() (*int64, bool)`
 
 GetOrderIdOk returns a tuple with the OrderId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrderId
 
-`func (o *O11yO11yLogPostablePipeline) SetOrderId(v int32)`
+`func (o *O11yO11yLogPostablePipeline) SetOrderId(v int64)`
 
 SetOrderId sets OrderId field to given value.
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Capital** | Pointer to **float32** | Capital is the total capital across those instruments. | [optional] 
-**Count** | Pointer to **int32** | Count is how many instruments there are. | [optional] 
+**Capital** | Pointer to **float64** | Capital is the total capital across those instruments. | [optional] 
+**Count** | Pointer to **int64** | Count is how many instruments there are. | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCapital
 
-`func (o *CaptableInstrumentTotal) GetCapital() float32`
+`func (o *CaptableInstrumentTotal) GetCapital() float64`
 
 GetCapital returns the Capital field if non-nil, zero value otherwise.
 
 ### GetCapitalOk
 
-`func (o *CaptableInstrumentTotal) GetCapitalOk() (*float32, bool)`
+`func (o *CaptableInstrumentTotal) GetCapitalOk() (*float64, bool)`
 
 GetCapitalOk returns a tuple with the Capital field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCapital
 
-`func (o *CaptableInstrumentTotal) SetCapital(v float32)`
+`func (o *CaptableInstrumentTotal) SetCapital(v float64)`
 
 SetCapital sets Capital field to given value.
 
@@ -53,20 +53,20 @@ HasCapital returns a boolean if a field has been set.
 
 ### GetCount
 
-`func (o *CaptableInstrumentTotal) GetCount() int32`
+`func (o *CaptableInstrumentTotal) GetCount() int64`
 
 GetCount returns the Count field if non-nil, zero value otherwise.
 
 ### GetCountOk
 
-`func (o *CaptableInstrumentTotal) GetCountOk() (*int32, bool)`
+`func (o *CaptableInstrumentTotal) GetCountOk() (*int64, bool)`
 
 GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCount
 
-`func (o *CaptableInstrumentTotal) SetCount(v int32)`
+`func (o *CaptableInstrumentTotal) SetCount(v int64)`
 
 SetCount sets Count field to given value.
 

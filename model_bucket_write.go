@@ -22,11 +22,11 @@ type BucketWrite struct {
 	// Bucket is the bucket's name within the org, from the path: 1–64 of [A-Za-z0-9_], no dash.
 	Bucket *string `json:"bucket,omitempty"`
 	// History is how many revisions each key keeps, 1–64. 0 means 1.
-	History *int32 `json:"history,omitempty"`
+	History *int64 `json:"history,omitempty"`
 	// MaxValue caps one value's size in bytes. 0 or less means the server's ceiling.
-	MaxValue *int32 `json:"maxValue,omitempty"`
+	MaxValue *int64 `json:"maxValue,omitempty"`
 	// TTL expires entries after this many SECONDS. 0 means no expiry.
-	Ttl *int32 `json:"ttl,omitempty"`
+	Ttl *int64 `json:"ttl,omitempty"`
 }
 
 // NewBucketWrite instantiates a new BucketWrite object
@@ -79,9 +79,9 @@ func (o *BucketWrite) SetBucket(v string) {
 }
 
 // GetHistory returns the History field value if set, zero value otherwise.
-func (o *BucketWrite) GetHistory() int32 {
+func (o *BucketWrite) GetHistory() int64 {
 	if o == nil || IsNil(o.History) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.History
@@ -89,7 +89,7 @@ func (o *BucketWrite) GetHistory() int32 {
 
 // GetHistoryOk returns a tuple with the History field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BucketWrite) GetHistoryOk() (*int32, bool) {
+func (o *BucketWrite) GetHistoryOk() (*int64, bool) {
 	if o == nil || IsNil(o.History) {
 		return nil, false
 	}
@@ -105,15 +105,15 @@ func (o *BucketWrite) HasHistory() bool {
 	return false
 }
 
-// SetHistory gets a reference to the given int32 and assigns it to the History field.
-func (o *BucketWrite) SetHistory(v int32) {
+// SetHistory gets a reference to the given int64 and assigns it to the History field.
+func (o *BucketWrite) SetHistory(v int64) {
 	o.History = &v
 }
 
 // GetMaxValue returns the MaxValue field value if set, zero value otherwise.
-func (o *BucketWrite) GetMaxValue() int32 {
+func (o *BucketWrite) GetMaxValue() int64 {
 	if o == nil || IsNil(o.MaxValue) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxValue
@@ -121,7 +121,7 @@ func (o *BucketWrite) GetMaxValue() int32 {
 
 // GetMaxValueOk returns a tuple with the MaxValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BucketWrite) GetMaxValueOk() (*int32, bool) {
+func (o *BucketWrite) GetMaxValueOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxValue) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *BucketWrite) HasMaxValue() bool {
 	return false
 }
 
-// SetMaxValue gets a reference to the given int32 and assigns it to the MaxValue field.
-func (o *BucketWrite) SetMaxValue(v int32) {
+// SetMaxValue gets a reference to the given int64 and assigns it to the MaxValue field.
+func (o *BucketWrite) SetMaxValue(v int64) {
 	o.MaxValue = &v
 }
 
 // GetTtl returns the Ttl field value if set, zero value otherwise.
-func (o *BucketWrite) GetTtl() int32 {
+func (o *BucketWrite) GetTtl() int64 {
 	if o == nil || IsNil(o.Ttl) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Ttl
@@ -153,7 +153,7 @@ func (o *BucketWrite) GetTtl() int32 {
 
 // GetTtlOk returns a tuple with the Ttl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BucketWrite) GetTtlOk() (*int32, bool) {
+func (o *BucketWrite) GetTtlOk() (*int64, bool) {
 	if o == nil || IsNil(o.Ttl) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *BucketWrite) HasTtl() bool {
 	return false
 }
 
-// SetTtl gets a reference to the given int32 and assigns it to the Ttl field.
-func (o *BucketWrite) SetTtl(v int32) {
+// SetTtl gets a reference to the given int64 and assigns it to the Ttl field.
+func (o *BucketWrite) SetTtl(v int64) {
 	o.Ttl = &v
 }
 

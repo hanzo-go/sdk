@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Kind** | Pointer to **string** | Kind is the product provisioned: sql, vector, datastore, kv, search, s3 or docdb. It is the route that was called, not a body field. | [optional] 
 **Name** | Pointer to **string** | Name is the org-unique slug the caller asked for, lower-cased. Every physical name on the backend derives from it. | [optional] 
 **Password** | Pointer to **string** | Password is the minted credential, in plaintext, for the kinds that have one. RETURNED HERE ONCE — where KMS is configured it is sealed there and only a reference is persisted; where it is not, it is stored nowhere at all. It is never held in plaintext on either side. | [optional] 
-**Port** | Pointer to **int32** | Port is the port a client connects to on Host. | [optional] 
+**Port** | Pointer to **int64** | Port is the port a client connects to on Host. | [optional] 
 **Status** | Pointer to **string** | Status is \&quot;ready\&quot;, or \&quot;provisioning\&quot; while a dedicated instance is still being materialized by the operator. A shared-backend create is \&quot;ready\&quot; here; a dedicated one answers 201 still launching, and reaches ready only when a later read reconciles it against the operator&#39;s live CR — never fabricated. | [optional] 
 **Username** | Pointer to **string** | Username is the credential&#39;s user, for the kinds that mint one per resource. Absent for a kind whose backend authenticates with a shared, out-of-band key. | [optional] 
 
@@ -211,20 +211,20 @@ HasPassword returns a boolean if a field has been set.
 
 ### GetPort
 
-`func (o *ProvisionResult) GetPort() int32`
+`func (o *ProvisionResult) GetPort() int64`
 
 GetPort returns the Port field if non-nil, zero value otherwise.
 
 ### GetPortOk
 
-`func (o *ProvisionResult) GetPortOk() (*int32, bool)`
+`func (o *ProvisionResult) GetPortOk() (*int64, bool)`
 
 GetPortOk returns a tuple with the Port field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPort
 
-`func (o *ProvisionResult) SetPort(v int32)`
+`func (o *ProvisionResult) SetPort(v int64)`
 
 SetPort sets Port field to given value.
 

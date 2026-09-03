@@ -24,7 +24,7 @@ type UsageAnalyticsGrant struct {
 	// Export is whether the plan may export the analytics it can read.
 	Export *bool `json:"export,omitempty"`
 	// RetentionDays is how far back the plan may read. GET /v1/usage/analytics clamps a custom window's start to this, so an older `start` returns the clamped window rather than an error.
-	RetentionDays *int32 `json:"retentionDays,omitempty"`
+	RetentionDays *int64 `json:"retentionDays,omitempty"`
 }
 
 // NewUsageAnalyticsGrant instantiates a new UsageAnalyticsGrant object
@@ -109,9 +109,9 @@ func (o *UsageAnalyticsGrant) SetExport(v bool) {
 }
 
 // GetRetentionDays returns the RetentionDays field value if set, zero value otherwise.
-func (o *UsageAnalyticsGrant) GetRetentionDays() int32 {
+func (o *UsageAnalyticsGrant) GetRetentionDays() int64 {
 	if o == nil || IsNil(o.RetentionDays) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RetentionDays
@@ -119,7 +119,7 @@ func (o *UsageAnalyticsGrant) GetRetentionDays() int32 {
 
 // GetRetentionDaysOk returns a tuple with the RetentionDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsageAnalyticsGrant) GetRetentionDaysOk() (*int32, bool) {
+func (o *UsageAnalyticsGrant) GetRetentionDaysOk() (*int64, bool) {
 	if o == nil || IsNil(o.RetentionDays) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *UsageAnalyticsGrant) HasRetentionDays() bool {
 	return false
 }
 
-// SetRetentionDays gets a reference to the given int32 and assigns it to the RetentionDays field.
-func (o *UsageAnalyticsGrant) SetRetentionDays(v int32) {
+// SetRetentionDays gets a reference to the given int64 and assigns it to the RetentionDays field.
+func (o *UsageAnalyticsGrant) SetRetentionDays(v int64) {
 	o.RetentionDays = &v
 }
 

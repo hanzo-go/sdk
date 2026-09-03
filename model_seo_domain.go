@@ -22,13 +22,13 @@ type SeoDomain struct {
 	// Domain is the competitor.
 	Domain *string `json:"domain,omitempty"`
 	// Keywords is how many of the phrases it places for.
-	Keywords *int32 `json:"keywords,omitempty"`
+	Keywords *int64 `json:"keywords,omitempty"`
 	// Position is its average rank across the phrases.
-	Position *float32 `json:"position,omitempty"`
+	Position *float64 `json:"position,omitempty"`
 	// Traffic is the estimated monthly visits those placements earn.
-	Traffic *float32 `json:"traffic,omitempty"`
+	Traffic *float64 `json:"traffic,omitempty"`
 	// Visibility is its share of the possible attention across those phrases.
-	Visibility *float32 `json:"visibility,omitempty"`
+	Visibility *float64 `json:"visibility,omitempty"`
 }
 
 // NewSeoDomain instantiates a new SeoDomain object
@@ -81,9 +81,9 @@ func (o *SeoDomain) SetDomain(v string) {
 }
 
 // GetKeywords returns the Keywords field value if set, zero value otherwise.
-func (o *SeoDomain) GetKeywords() int32 {
+func (o *SeoDomain) GetKeywords() int64 {
 	if o == nil || IsNil(o.Keywords) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Keywords
@@ -91,7 +91,7 @@ func (o *SeoDomain) GetKeywords() int32 {
 
 // GetKeywordsOk returns a tuple with the Keywords field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoDomain) GetKeywordsOk() (*int32, bool) {
+func (o *SeoDomain) GetKeywordsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Keywords) {
 		return nil, false
 	}
@@ -107,15 +107,15 @@ func (o *SeoDomain) HasKeywords() bool {
 	return false
 }
 
-// SetKeywords gets a reference to the given int32 and assigns it to the Keywords field.
-func (o *SeoDomain) SetKeywords(v int32) {
+// SetKeywords gets a reference to the given int64 and assigns it to the Keywords field.
+func (o *SeoDomain) SetKeywords(v int64) {
 	o.Keywords = &v
 }
 
 // GetPosition returns the Position field value if set, zero value otherwise.
-func (o *SeoDomain) GetPosition() float32 {
+func (o *SeoDomain) GetPosition() float64 {
 	if o == nil || IsNil(o.Position) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Position
@@ -123,7 +123,7 @@ func (o *SeoDomain) GetPosition() float32 {
 
 // GetPositionOk returns a tuple with the Position field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoDomain) GetPositionOk() (*float32, bool) {
+func (o *SeoDomain) GetPositionOk() (*float64, bool) {
 	if o == nil || IsNil(o.Position) {
 		return nil, false
 	}
@@ -139,15 +139,15 @@ func (o *SeoDomain) HasPosition() bool {
 	return false
 }
 
-// SetPosition gets a reference to the given float32 and assigns it to the Position field.
-func (o *SeoDomain) SetPosition(v float32) {
+// SetPosition gets a reference to the given float64 and assigns it to the Position field.
+func (o *SeoDomain) SetPosition(v float64) {
 	o.Position = &v
 }
 
 // GetTraffic returns the Traffic field value if set, zero value otherwise.
-func (o *SeoDomain) GetTraffic() float32 {
+func (o *SeoDomain) GetTraffic() float64 {
 	if o == nil || IsNil(o.Traffic) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Traffic
@@ -155,7 +155,7 @@ func (o *SeoDomain) GetTraffic() float32 {
 
 // GetTrafficOk returns a tuple with the Traffic field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoDomain) GetTrafficOk() (*float32, bool) {
+func (o *SeoDomain) GetTrafficOk() (*float64, bool) {
 	if o == nil || IsNil(o.Traffic) {
 		return nil, false
 	}
@@ -171,15 +171,15 @@ func (o *SeoDomain) HasTraffic() bool {
 	return false
 }
 
-// SetTraffic gets a reference to the given float32 and assigns it to the Traffic field.
-func (o *SeoDomain) SetTraffic(v float32) {
+// SetTraffic gets a reference to the given float64 and assigns it to the Traffic field.
+func (o *SeoDomain) SetTraffic(v float64) {
 	o.Traffic = &v
 }
 
 // GetVisibility returns the Visibility field value if set, zero value otherwise.
-func (o *SeoDomain) GetVisibility() float32 {
+func (o *SeoDomain) GetVisibility() float64 {
 	if o == nil || IsNil(o.Visibility) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Visibility
@@ -187,7 +187,7 @@ func (o *SeoDomain) GetVisibility() float32 {
 
 // GetVisibilityOk returns a tuple with the Visibility field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoDomain) GetVisibilityOk() (*float32, bool) {
+func (o *SeoDomain) GetVisibilityOk() (*float64, bool) {
 	if o == nil || IsNil(o.Visibility) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *SeoDomain) HasVisibility() bool {
 	return false
 }
 
-// SetVisibility gets a reference to the given float32 and assigns it to the Visibility field.
-func (o *SeoDomain) SetVisibility(v float32) {
+// SetVisibility gets a reference to the given float64 and assigns it to the Visibility field.
+func (o *SeoDomain) SetVisibility(v float64) {
 	o.Visibility = &v
 }
 

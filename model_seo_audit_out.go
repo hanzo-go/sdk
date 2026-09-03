@@ -26,15 +26,15 @@ type SeoAuditOut struct {
 	// Description is its meta description.
 	Description *string `json:"description,omitempty"`
 	// Score is the upstream's on-page score, 0 to 100.
-	Score *float32 `json:"score,omitempty"`
+	Score *float64 `json:"score,omitempty"`
 	// Status is the HTTP status the page answered with.
-	Status *int32 `json:"status,omitempty"`
+	Status *int64 `json:"status,omitempty"`
 	// Title is the page's title.
 	Title *string `json:"title,omitempty"`
 	// URL is the address actually read, after redirects.
 	Url *string `json:"url,omitempty"`
 	// Words is how many words of readable text the page carries.
-	Words *int32 `json:"words,omitempty"`
+	Words *int64 `json:"words,omitempty"`
 }
 
 // NewSeoAuditOut instantiates a new SeoAuditOut object
@@ -151,9 +151,9 @@ func (o *SeoAuditOut) SetDescription(v string) {
 }
 
 // GetScore returns the Score field value if set, zero value otherwise.
-func (o *SeoAuditOut) GetScore() float32 {
+func (o *SeoAuditOut) GetScore() float64 {
 	if o == nil || IsNil(o.Score) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Score
@@ -161,7 +161,7 @@ func (o *SeoAuditOut) GetScore() float32 {
 
 // GetScoreOk returns a tuple with the Score field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoAuditOut) GetScoreOk() (*float32, bool) {
+func (o *SeoAuditOut) GetScoreOk() (*float64, bool) {
 	if o == nil || IsNil(o.Score) {
 		return nil, false
 	}
@@ -177,15 +177,15 @@ func (o *SeoAuditOut) HasScore() bool {
 	return false
 }
 
-// SetScore gets a reference to the given float32 and assigns it to the Score field.
-func (o *SeoAuditOut) SetScore(v float32) {
+// SetScore gets a reference to the given float64 and assigns it to the Score field.
+func (o *SeoAuditOut) SetScore(v float64) {
 	o.Score = &v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *SeoAuditOut) GetStatus() int32 {
+func (o *SeoAuditOut) GetStatus() int64 {
 	if o == nil || IsNil(o.Status) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Status
@@ -193,7 +193,7 @@ func (o *SeoAuditOut) GetStatus() int32 {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoAuditOut) GetStatusOk() (*int32, bool) {
+func (o *SeoAuditOut) GetStatusOk() (*int64, bool) {
 	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
@@ -209,8 +209,8 @@ func (o *SeoAuditOut) HasStatus() bool {
 	return false
 }
 
-// SetStatus gets a reference to the given int32 and assigns it to the Status field.
-func (o *SeoAuditOut) SetStatus(v int32) {
+// SetStatus gets a reference to the given int64 and assigns it to the Status field.
+func (o *SeoAuditOut) SetStatus(v int64) {
 	o.Status = &v
 }
 
@@ -279,9 +279,9 @@ func (o *SeoAuditOut) SetUrl(v string) {
 }
 
 // GetWords returns the Words field value if set, zero value otherwise.
-func (o *SeoAuditOut) GetWords() int32 {
+func (o *SeoAuditOut) GetWords() int64 {
 	if o == nil || IsNil(o.Words) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Words
@@ -289,7 +289,7 @@ func (o *SeoAuditOut) GetWords() int32 {
 
 // GetWordsOk returns a tuple with the Words field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoAuditOut) GetWordsOk() (*int32, bool) {
+func (o *SeoAuditOut) GetWordsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Words) {
 		return nil, false
 	}
@@ -305,8 +305,8 @@ func (o *SeoAuditOut) HasWords() bool {
 	return false
 }
 
-// SetWords gets a reference to the given int32 and assigns it to the Words field.
-func (o *SeoAuditOut) SetWords(v int32) {
+// SetWords gets a reference to the given int64 and assigns it to the Words field.
+func (o *SeoAuditOut) SetWords(v int64) {
 	o.Words = &v
 }
 

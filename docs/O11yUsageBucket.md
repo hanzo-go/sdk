@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Calls** | Pointer to **int32** | Calls is how many LLM calls landed in the bucket. | [optional] 
-**CostCents** | Pointer to **int32** | CostCents is what they cost, in cents. | [optional] 
+**Calls** | Pointer to **int64** | Calls is how many LLM calls landed in the bucket. | [optional] 
+**CostCents** | Pointer to **int64** | CostCents is what they cost, in cents. | [optional] 
 **T** | Pointer to **string** | T is the bucket start, RFC3339 in UTC. | [optional] 
-**Tokens** | Pointer to **int32** | Tokens is how many tokens they consumed. | [optional] 
+**Tokens** | Pointer to **int64** | Tokens is how many tokens they consumed. | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCalls
 
-`func (o *O11yUsageBucket) GetCalls() int32`
+`func (o *O11yUsageBucket) GetCalls() int64`
 
 GetCalls returns the Calls field if non-nil, zero value otherwise.
 
 ### GetCallsOk
 
-`func (o *O11yUsageBucket) GetCallsOk() (*int32, bool)`
+`func (o *O11yUsageBucket) GetCallsOk() (*int64, bool)`
 
 GetCallsOk returns a tuple with the Calls field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCalls
 
-`func (o *O11yUsageBucket) SetCalls(v int32)`
+`func (o *O11yUsageBucket) SetCalls(v int64)`
 
 SetCalls sets Calls field to given value.
 
@@ -55,20 +55,20 @@ HasCalls returns a boolean if a field has been set.
 
 ### GetCostCents
 
-`func (o *O11yUsageBucket) GetCostCents() int32`
+`func (o *O11yUsageBucket) GetCostCents() int64`
 
 GetCostCents returns the CostCents field if non-nil, zero value otherwise.
 
 ### GetCostCentsOk
 
-`func (o *O11yUsageBucket) GetCostCentsOk() (*int32, bool)`
+`func (o *O11yUsageBucket) GetCostCentsOk() (*int64, bool)`
 
 GetCostCentsOk returns a tuple with the CostCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCostCents
 
-`func (o *O11yUsageBucket) SetCostCents(v int32)`
+`func (o *O11yUsageBucket) SetCostCents(v int64)`
 
 SetCostCents sets CostCents field to given value.
 
@@ -105,20 +105,20 @@ HasT returns a boolean if a field has been set.
 
 ### GetTokens
 
-`func (o *O11yUsageBucket) GetTokens() int32`
+`func (o *O11yUsageBucket) GetTokens() int64`
 
 GetTokens returns the Tokens field if non-nil, zero value otherwise.
 
 ### GetTokensOk
 
-`func (o *O11yUsageBucket) GetTokensOk() (*int32, bool)`
+`func (o *O11yUsageBucket) GetTokensOk() (*int64, bool)`
 
 GetTokensOk returns a tuple with the Tokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTokens
 
-`func (o *O11yUsageBucket) SetTokens(v int32)`
+`func (o *O11yUsageBucket) SetTokens(v int64)`
 
 SetTokens sets Tokens field to given value.
 

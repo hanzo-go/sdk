@@ -9,8 +9,8 @@ Name | Type | Description | Notes
 **Conclusion** | Pointer to **string** |  | [optional] 
 **EndedAt** | Pointer to **time.Time** |  | [optional] 
 **Event** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **int32** |  | [optional] 
-**Number** | Pointer to **int32** |  | [optional] 
+**Id** | Pointer to **int64** |  | [optional] 
+**Number** | Pointer to **int64** |  | [optional] 
 **Org** | Pointer to **string** |  | [optional] 
 **Repo** | Pointer to **string** |  | [optional] 
 **Sha** | Pointer to **string** |  | [optional] 
@@ -166,20 +166,20 @@ HasEvent returns a boolean if a field has been set.
 
 ### GetId
 
-`func (o *Execution) GetId() int32`
+`func (o *Execution) GetId() int64`
 
 GetId returns the Id field if non-nil, zero value otherwise.
 
 ### GetIdOk
 
-`func (o *Execution) GetIdOk() (*int32, bool)`
+`func (o *Execution) GetIdOk() (*int64, bool)`
 
 GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetId
 
-`func (o *Execution) SetId(v int32)`
+`func (o *Execution) SetId(v int64)`
 
 SetId sets Id field to given value.
 
@@ -191,20 +191,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetNumber
 
-`func (o *Execution) GetNumber() int32`
+`func (o *Execution) GetNumber() int64`
 
 GetNumber returns the Number field if non-nil, zero value otherwise.
 
 ### GetNumberOk
 
-`func (o *Execution) GetNumberOk() (*int32, bool)`
+`func (o *Execution) GetNumberOk() (*int64, bool)`
 
 GetNumberOk returns a tuple with the Number field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumber
 
-`func (o *Execution) SetNumber(v int32)`
+`func (o *Execution) SetNumber(v int64)`
 
 SetNumber sets Number field to given value.
 

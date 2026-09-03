@@ -22,15 +22,15 @@ var _ MappedNullable = &O11yO11yMetricTreemapIn{}
 // O11yO11yMetricTreemapIn struct for O11yO11yMetricTreemapIn
 type O11yO11yMetricTreemapIn struct {
 	// End is the end of the window as a Unix timestamp in milliseconds. Required.
-	End int32 `json:"end"`
+	End int64 `json:"end"`
 	// Filter narrows the metrics counted.
 	Filter *O11yO11yMetricFilter `json:"filter,omitempty"`
 	// Limit caps how many entries come back, between 1 and 5000. Required.
-	Limit int32 `json:"limit"`
+	Limit int64 `json:"limit"`
 	// Mode picks the measure: timeseries or samples. Required.
 	Mode string `json:"mode"`
 	// Start is the start of the window as a Unix timestamp in milliseconds. Required.
-	Start int32 `json:"start"`
+	Start int64 `json:"start"`
 }
 
 type _O11yO11yMetricTreemapIn O11yO11yMetricTreemapIn
@@ -39,7 +39,7 @@ type _O11yO11yMetricTreemapIn O11yO11yMetricTreemapIn
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewO11yO11yMetricTreemapIn(end int32, limit int32, mode string, start int32) *O11yO11yMetricTreemapIn {
+func NewO11yO11yMetricTreemapIn(end int64, limit int64, mode string, start int64) *O11yO11yMetricTreemapIn {
 	this := O11yO11yMetricTreemapIn{}
 	this.End = end
 	this.Limit = limit
@@ -57,9 +57,9 @@ func NewO11yO11yMetricTreemapInWithDefaults() *O11yO11yMetricTreemapIn {
 }
 
 // GetEnd returns the End field value
-func (o *O11yO11yMetricTreemapIn) GetEnd() int32 {
+func (o *O11yO11yMetricTreemapIn) GetEnd() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -68,7 +68,7 @@ func (o *O11yO11yMetricTreemapIn) GetEnd() int32 {
 
 // GetEndOk returns a tuple with the End field value
 // and a boolean to check if the value has been set.
-func (o *O11yO11yMetricTreemapIn) GetEndOk() (*int32, bool) {
+func (o *O11yO11yMetricTreemapIn) GetEndOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -76,7 +76,7 @@ func (o *O11yO11yMetricTreemapIn) GetEndOk() (*int32, bool) {
 }
 
 // SetEnd sets field value
-func (o *O11yO11yMetricTreemapIn) SetEnd(v int32) {
+func (o *O11yO11yMetricTreemapIn) SetEnd(v int64) {
 	o.End = v
 }
 
@@ -113,9 +113,9 @@ func (o *O11yO11yMetricTreemapIn) SetFilter(v O11yO11yMetricFilter) {
 }
 
 // GetLimit returns the Limit field value
-func (o *O11yO11yMetricTreemapIn) GetLimit() int32 {
+func (o *O11yO11yMetricTreemapIn) GetLimit() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -124,7 +124,7 @@ func (o *O11yO11yMetricTreemapIn) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value
 // and a boolean to check if the value has been set.
-func (o *O11yO11yMetricTreemapIn) GetLimitOk() (*int32, bool) {
+func (o *O11yO11yMetricTreemapIn) GetLimitOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -132,7 +132,7 @@ func (o *O11yO11yMetricTreemapIn) GetLimitOk() (*int32, bool) {
 }
 
 // SetLimit sets field value
-func (o *O11yO11yMetricTreemapIn) SetLimit(v int32) {
+func (o *O11yO11yMetricTreemapIn) SetLimit(v int64) {
 	o.Limit = v
 }
 
@@ -161,9 +161,9 @@ func (o *O11yO11yMetricTreemapIn) SetMode(v string) {
 }
 
 // GetStart returns the Start field value
-func (o *O11yO11yMetricTreemapIn) GetStart() int32 {
+func (o *O11yO11yMetricTreemapIn) GetStart() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -172,7 +172,7 @@ func (o *O11yO11yMetricTreemapIn) GetStart() int32 {
 
 // GetStartOk returns a tuple with the Start field value
 // and a boolean to check if the value has been set.
-func (o *O11yO11yMetricTreemapIn) GetStartOk() (*int32, bool) {
+func (o *O11yO11yMetricTreemapIn) GetStartOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -180,7 +180,7 @@ func (o *O11yO11yMetricTreemapIn) GetStartOk() (*int32, bool) {
 }
 
 // SetStart sets field value
-func (o *O11yO11yMetricTreemapIn) SetStart(v int32) {
+func (o *O11yO11yMetricTreemapIn) SetStart(v int64) {
 	o.Start = v
 }
 

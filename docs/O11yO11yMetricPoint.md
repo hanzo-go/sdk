@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Partial** | Pointer to **bool** | Partial marks a point whose bucket the window only partly covers. | [optional] 
-**Timestamp** | Pointer to **int32** | Timestamp is the point&#39;s time as a Unix timestamp in milliseconds. | [optional] 
-**Value** | Pointer to **float32** | Value is the point&#39;s value. | [optional] 
-**Values** | Pointer to **[]float32** | Values carries the bucket values of a heatmap point. | [optional] 
+**Timestamp** | Pointer to **int64** | Timestamp is the point&#39;s time as a Unix timestamp in milliseconds. | [optional] 
+**Value** | Pointer to **float64** | Value is the point&#39;s value. | [optional] 
+**Values** | Pointer to **[]float64** | Values carries the bucket values of a heatmap point. | [optional] 
 
 ## Methods
 
@@ -55,20 +55,20 @@ HasPartial returns a boolean if a field has been set.
 
 ### GetTimestamp
 
-`func (o *O11yO11yMetricPoint) GetTimestamp() int32`
+`func (o *O11yO11yMetricPoint) GetTimestamp() int64`
 
 GetTimestamp returns the Timestamp field if non-nil, zero value otherwise.
 
 ### GetTimestampOk
 
-`func (o *O11yO11yMetricPoint) GetTimestampOk() (*int32, bool)`
+`func (o *O11yO11yMetricPoint) GetTimestampOk() (*int64, bool)`
 
 GetTimestampOk returns a tuple with the Timestamp field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimestamp
 
-`func (o *O11yO11yMetricPoint) SetTimestamp(v int32)`
+`func (o *O11yO11yMetricPoint) SetTimestamp(v int64)`
 
 SetTimestamp sets Timestamp field to given value.
 
@@ -80,20 +80,20 @@ HasTimestamp returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *O11yO11yMetricPoint) GetValue() float32`
+`func (o *O11yO11yMetricPoint) GetValue() float64`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *O11yO11yMetricPoint) GetValueOk() (*float32, bool)`
+`func (o *O11yO11yMetricPoint) GetValueOk() (*float64, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *O11yO11yMetricPoint) SetValue(v float32)`
+`func (o *O11yO11yMetricPoint) SetValue(v float64)`
 
 SetValue sets Value field to given value.
 
@@ -105,20 +105,20 @@ HasValue returns a boolean if a field has been set.
 
 ### GetValues
 
-`func (o *O11yO11yMetricPoint) GetValues() []float32`
+`func (o *O11yO11yMetricPoint) GetValues() []float64`
 
 GetValues returns the Values field if non-nil, zero value otherwise.
 
 ### GetValuesOk
 
-`func (o *O11yO11yMetricPoint) GetValuesOk() (*[]float32, bool)`
+`func (o *O11yO11yMetricPoint) GetValuesOk() (*[]float64, bool)`
 
 GetValuesOk returns a tuple with the Values field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValues
 
-`func (o *O11yO11yMetricPoint) SetValues(v []float32)`
+`func (o *O11yO11yMetricPoint) SetValues(v []float64)`
 
 SetValues sets Values field to given value.
 

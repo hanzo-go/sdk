@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the finding was recorded, in Unix milliseconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the finding was recorded, in Unix milliseconds. | [optional] 
 **Fingerprint** | Pointer to **string** | Fingerprint is the SHA-256 of the raw secret. It is what makes the same secret recognisable across scans and after rotation without the secret ever being written down. | [optional] 
 **Id** | Pointer to **string** | ID addresses this finding. | [optional] 
-**Line** | Pointer to **int32** | Line is where in that file. | [optional] 
+**Line** | Pointer to **int64** | Line is where in that file. | [optional] 
 **Path** | Pointer to **string** | Path is the file the secret was found in. | [optional] 
 **Preview** | Pointer to **string** | Preview is the secret MASKED — first and last characters kept, the middle starred — so a reviewer can recognise it without it being disclosed. | [optional] 
 **RuleId** | Pointer to **string** | RuleID is the detection rule that fired. | [optional] 
@@ -36,20 +36,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreatedAt
 
-`func (o *FindingView) GetCreatedAt() int32`
+`func (o *FindingView) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *FindingView) GetCreatedAtOk() (*int32, bool)`
+`func (o *FindingView) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *FindingView) SetCreatedAt(v int32)`
+`func (o *FindingView) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -111,20 +111,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetLine
 
-`func (o *FindingView) GetLine() int32`
+`func (o *FindingView) GetLine() int64`
 
 GetLine returns the Line field if non-nil, zero value otherwise.
 
 ### GetLineOk
 
-`func (o *FindingView) GetLineOk() (*int32, bool)`
+`func (o *FindingView) GetLineOk() (*int64, bool)`
 
 GetLineOk returns a tuple with the Line field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLine
 
-`func (o *FindingView) SetLine(v int32)`
+`func (o *FindingView) SetLine(v int64)`
 
 SetLine sets Line field to given value.
 

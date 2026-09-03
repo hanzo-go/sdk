@@ -20,33 +20,33 @@ var _ MappedNullable = &ModelStat{}
 // ModelStat struct for ModelStat
 type ModelStat struct {
 	// tokens it answered with
-	CompletionTokens *int32 `json:"completionTokens,omitempty"`
+	CompletionTokens *int64 `json:"completionTokens,omitempty"`
 	// what this model cost, in cents
-	CostCents *int32 `json:"costCents,omitempty"`
+	CostCents *int64 `json:"costCents,omitempty"`
 	// share of total spend, 0..100
-	CostPct *float32 `json:"costPct,omitempty"`
+	CostPct *float64 `json:"costPct,omitempty"`
 	// share of its calls that failed, 0..1
-	ErrorRate *float32 `json:"errorRate,omitempty"`
+	ErrorRate *float64 `json:"errorRate,omitempty"`
 	// calls to it that did not succeed
-	Errors *int32 `json:"errors,omitempty"`
+	Errors *int64 `json:"errors,omitempty"`
 	// the model this row is about, or \"other\" for the fold
 	Model *string `json:"model,omitempty"`
 	// >0 only on the \"other\" fold
-	ModelCount *int32 `json:"modelCount,omitempty"`
+	ModelCount *int64 `json:"modelCount,omitempty"`
 	// median latency, null when no spans carry it
-	P50Ms *float32 `json:"p50Ms,omitempty"`
+	P50Ms *float64 `json:"p50Ms,omitempty"`
 	// 95th-percentile latency, null when unknown
-	P95Ms *float32 `json:"p95Ms,omitempty"`
+	P95Ms *float64 `json:"p95Ms,omitempty"`
 	// 99th-percentile latency, null when unknown
-	P99Ms *float32 `json:"p99Ms,omitempty"`
+	P99Ms *float64 `json:"p99Ms,omitempty"`
 	// tokens sent to it
-	PromptTokens *int32 `json:"promptTokens,omitempty"`
+	PromptTokens *int64 `json:"promptTokens,omitempty"`
 	// who serves it
 	Provider *string `json:"provider,omitempty"`
 	// calls to this model in the window
-	Requests *int32 `json:"requests,omitempty"`
+	Requests *int64 `json:"requests,omitempty"`
 	// prompt plus completion
-	TotalTokens *int32 `json:"totalTokens,omitempty"`
+	TotalTokens *int64 `json:"totalTokens,omitempty"`
 }
 
 // NewModelStat instantiates a new ModelStat object
@@ -67,9 +67,9 @@ func NewModelStatWithDefaults() *ModelStat {
 }
 
 // GetCompletionTokens returns the CompletionTokens field value if set, zero value otherwise.
-func (o *ModelStat) GetCompletionTokens() int32 {
+func (o *ModelStat) GetCompletionTokens() int64 {
 	if o == nil || IsNil(o.CompletionTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CompletionTokens
@@ -77,7 +77,7 @@ func (o *ModelStat) GetCompletionTokens() int32 {
 
 // GetCompletionTokensOk returns a tuple with the CompletionTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ModelStat) GetCompletionTokensOk() (*int32, bool) {
+func (o *ModelStat) GetCompletionTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.CompletionTokens) {
 		return nil, false
 	}
@@ -93,15 +93,15 @@ func (o *ModelStat) HasCompletionTokens() bool {
 	return false
 }
 
-// SetCompletionTokens gets a reference to the given int32 and assigns it to the CompletionTokens field.
-func (o *ModelStat) SetCompletionTokens(v int32) {
+// SetCompletionTokens gets a reference to the given int64 and assigns it to the CompletionTokens field.
+func (o *ModelStat) SetCompletionTokens(v int64) {
 	o.CompletionTokens = &v
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *ModelStat) GetCostCents() int32 {
+func (o *ModelStat) GetCostCents() int64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostCents
@@ -109,7 +109,7 @@ func (o *ModelStat) GetCostCents() int32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ModelStat) GetCostCentsOk() (*int32, bool) {
+func (o *ModelStat) GetCostCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -125,15 +125,15 @@ func (o *ModelStat) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *ModelStat) SetCostCents(v int32) {
+// SetCostCents gets a reference to the given int64 and assigns it to the CostCents field.
+func (o *ModelStat) SetCostCents(v int64) {
 	o.CostCents = &v
 }
 
 // GetCostPct returns the CostPct field value if set, zero value otherwise.
-func (o *ModelStat) GetCostPct() float32 {
+func (o *ModelStat) GetCostPct() float64 {
 	if o == nil || IsNil(o.CostPct) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.CostPct
@@ -141,7 +141,7 @@ func (o *ModelStat) GetCostPct() float32 {
 
 // GetCostPctOk returns a tuple with the CostPct field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ModelStat) GetCostPctOk() (*float32, bool) {
+func (o *ModelStat) GetCostPctOk() (*float64, bool) {
 	if o == nil || IsNil(o.CostPct) {
 		return nil, false
 	}
@@ -157,15 +157,15 @@ func (o *ModelStat) HasCostPct() bool {
 	return false
 }
 
-// SetCostPct gets a reference to the given float32 and assigns it to the CostPct field.
-func (o *ModelStat) SetCostPct(v float32) {
+// SetCostPct gets a reference to the given float64 and assigns it to the CostPct field.
+func (o *ModelStat) SetCostPct(v float64) {
 	o.CostPct = &v
 }
 
 // GetErrorRate returns the ErrorRate field value if set, zero value otherwise.
-func (o *ModelStat) GetErrorRate() float32 {
+func (o *ModelStat) GetErrorRate() float64 {
 	if o == nil || IsNil(o.ErrorRate) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.ErrorRate
@@ -173,7 +173,7 @@ func (o *ModelStat) GetErrorRate() float32 {
 
 // GetErrorRateOk returns a tuple with the ErrorRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ModelStat) GetErrorRateOk() (*float32, bool) {
+func (o *ModelStat) GetErrorRateOk() (*float64, bool) {
 	if o == nil || IsNil(o.ErrorRate) {
 		return nil, false
 	}
@@ -189,15 +189,15 @@ func (o *ModelStat) HasErrorRate() bool {
 	return false
 }
 
-// SetErrorRate gets a reference to the given float32 and assigns it to the ErrorRate field.
-func (o *ModelStat) SetErrorRate(v float32) {
+// SetErrorRate gets a reference to the given float64 and assigns it to the ErrorRate field.
+func (o *ModelStat) SetErrorRate(v float64) {
 	o.ErrorRate = &v
 }
 
 // GetErrors returns the Errors field value if set, zero value otherwise.
-func (o *ModelStat) GetErrors() int32 {
+func (o *ModelStat) GetErrors() int64 {
 	if o == nil || IsNil(o.Errors) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Errors
@@ -205,7 +205,7 @@ func (o *ModelStat) GetErrors() int32 {
 
 // GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ModelStat) GetErrorsOk() (*int32, bool) {
+func (o *ModelStat) GetErrorsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Errors) {
 		return nil, false
 	}
@@ -221,8 +221,8 @@ func (o *ModelStat) HasErrors() bool {
 	return false
 }
 
-// SetErrors gets a reference to the given int32 and assigns it to the Errors field.
-func (o *ModelStat) SetErrors(v int32) {
+// SetErrors gets a reference to the given int64 and assigns it to the Errors field.
+func (o *ModelStat) SetErrors(v int64) {
 	o.Errors = &v
 }
 
@@ -259,9 +259,9 @@ func (o *ModelStat) SetModel(v string) {
 }
 
 // GetModelCount returns the ModelCount field value if set, zero value otherwise.
-func (o *ModelStat) GetModelCount() int32 {
+func (o *ModelStat) GetModelCount() int64 {
 	if o == nil || IsNil(o.ModelCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ModelCount
@@ -269,7 +269,7 @@ func (o *ModelStat) GetModelCount() int32 {
 
 // GetModelCountOk returns a tuple with the ModelCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ModelStat) GetModelCountOk() (*int32, bool) {
+func (o *ModelStat) GetModelCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.ModelCount) {
 		return nil, false
 	}
@@ -285,15 +285,15 @@ func (o *ModelStat) HasModelCount() bool {
 	return false
 }
 
-// SetModelCount gets a reference to the given int32 and assigns it to the ModelCount field.
-func (o *ModelStat) SetModelCount(v int32) {
+// SetModelCount gets a reference to the given int64 and assigns it to the ModelCount field.
+func (o *ModelStat) SetModelCount(v int64) {
 	o.ModelCount = &v
 }
 
 // GetP50Ms returns the P50Ms field value if set, zero value otherwise.
-func (o *ModelStat) GetP50Ms() float32 {
+func (o *ModelStat) GetP50Ms() float64 {
 	if o == nil || IsNil(o.P50Ms) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.P50Ms
@@ -301,7 +301,7 @@ func (o *ModelStat) GetP50Ms() float32 {
 
 // GetP50MsOk returns a tuple with the P50Ms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ModelStat) GetP50MsOk() (*float32, bool) {
+func (o *ModelStat) GetP50MsOk() (*float64, bool) {
 	if o == nil || IsNil(o.P50Ms) {
 		return nil, false
 	}
@@ -317,15 +317,15 @@ func (o *ModelStat) HasP50Ms() bool {
 	return false
 }
 
-// SetP50Ms gets a reference to the given float32 and assigns it to the P50Ms field.
-func (o *ModelStat) SetP50Ms(v float32) {
+// SetP50Ms gets a reference to the given float64 and assigns it to the P50Ms field.
+func (o *ModelStat) SetP50Ms(v float64) {
 	o.P50Ms = &v
 }
 
 // GetP95Ms returns the P95Ms field value if set, zero value otherwise.
-func (o *ModelStat) GetP95Ms() float32 {
+func (o *ModelStat) GetP95Ms() float64 {
 	if o == nil || IsNil(o.P95Ms) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.P95Ms
@@ -333,7 +333,7 @@ func (o *ModelStat) GetP95Ms() float32 {
 
 // GetP95MsOk returns a tuple with the P95Ms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ModelStat) GetP95MsOk() (*float32, bool) {
+func (o *ModelStat) GetP95MsOk() (*float64, bool) {
 	if o == nil || IsNil(o.P95Ms) {
 		return nil, false
 	}
@@ -349,15 +349,15 @@ func (o *ModelStat) HasP95Ms() bool {
 	return false
 }
 
-// SetP95Ms gets a reference to the given float32 and assigns it to the P95Ms field.
-func (o *ModelStat) SetP95Ms(v float32) {
+// SetP95Ms gets a reference to the given float64 and assigns it to the P95Ms field.
+func (o *ModelStat) SetP95Ms(v float64) {
 	o.P95Ms = &v
 }
 
 // GetP99Ms returns the P99Ms field value if set, zero value otherwise.
-func (o *ModelStat) GetP99Ms() float32 {
+func (o *ModelStat) GetP99Ms() float64 {
 	if o == nil || IsNil(o.P99Ms) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.P99Ms
@@ -365,7 +365,7 @@ func (o *ModelStat) GetP99Ms() float32 {
 
 // GetP99MsOk returns a tuple with the P99Ms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ModelStat) GetP99MsOk() (*float32, bool) {
+func (o *ModelStat) GetP99MsOk() (*float64, bool) {
 	if o == nil || IsNil(o.P99Ms) {
 		return nil, false
 	}
@@ -381,15 +381,15 @@ func (o *ModelStat) HasP99Ms() bool {
 	return false
 }
 
-// SetP99Ms gets a reference to the given float32 and assigns it to the P99Ms field.
-func (o *ModelStat) SetP99Ms(v float32) {
+// SetP99Ms gets a reference to the given float64 and assigns it to the P99Ms field.
+func (o *ModelStat) SetP99Ms(v float64) {
 	o.P99Ms = &v
 }
 
 // GetPromptTokens returns the PromptTokens field value if set, zero value otherwise.
-func (o *ModelStat) GetPromptTokens() int32 {
+func (o *ModelStat) GetPromptTokens() int64 {
 	if o == nil || IsNil(o.PromptTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PromptTokens
@@ -397,7 +397,7 @@ func (o *ModelStat) GetPromptTokens() int32 {
 
 // GetPromptTokensOk returns a tuple with the PromptTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ModelStat) GetPromptTokensOk() (*int32, bool) {
+func (o *ModelStat) GetPromptTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.PromptTokens) {
 		return nil, false
 	}
@@ -413,8 +413,8 @@ func (o *ModelStat) HasPromptTokens() bool {
 	return false
 }
 
-// SetPromptTokens gets a reference to the given int32 and assigns it to the PromptTokens field.
-func (o *ModelStat) SetPromptTokens(v int32) {
+// SetPromptTokens gets a reference to the given int64 and assigns it to the PromptTokens field.
+func (o *ModelStat) SetPromptTokens(v int64) {
 	o.PromptTokens = &v
 }
 
@@ -451,9 +451,9 @@ func (o *ModelStat) SetProvider(v string) {
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *ModelStat) GetRequests() int32 {
+func (o *ModelStat) GetRequests() int64 {
 	if o == nil || IsNil(o.Requests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Requests
@@ -461,7 +461,7 @@ func (o *ModelStat) GetRequests() int32 {
 
 // GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ModelStat) GetRequestsOk() (*int32, bool) {
+func (o *ModelStat) GetRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Requests) {
 		return nil, false
 	}
@@ -477,15 +477,15 @@ func (o *ModelStat) HasRequests() bool {
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *ModelStat) SetRequests(v int32) {
+// SetRequests gets a reference to the given int64 and assigns it to the Requests field.
+func (o *ModelStat) SetRequests(v int64) {
 	o.Requests = &v
 }
 
 // GetTotalTokens returns the TotalTokens field value if set, zero value otherwise.
-func (o *ModelStat) GetTotalTokens() int32 {
+func (o *ModelStat) GetTotalTokens() int64 {
 	if o == nil || IsNil(o.TotalTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalTokens
@@ -493,7 +493,7 @@ func (o *ModelStat) GetTotalTokens() int32 {
 
 // GetTotalTokensOk returns a tuple with the TotalTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ModelStat) GetTotalTokensOk() (*int32, bool) {
+func (o *ModelStat) GetTotalTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalTokens) {
 		return nil, false
 	}
@@ -509,8 +509,8 @@ func (o *ModelStat) HasTotalTokens() bool {
 	return false
 }
 
-// SetTotalTokens gets a reference to the given int32 and assigns it to the TotalTokens field.
-func (o *ModelStat) SetTotalTokens(v int32) {
+// SetTotalTokens gets a reference to the given int64 and assigns it to the TotalTokens field.
+func (o *ModelStat) SetTotalTokens(v int64) {
 	o.TotalTokens = &v
 }
 

@@ -22,7 +22,7 @@ type PoolScale struct {
 	// ClusterID is the cluster holding the pool, from the URL path.
 	ClusterId *string `json:"clusterId,omitempty"`
 	// Count is the node count to scale TO — an absolute target, not a delta, and never negative.
-	Count *int32 `json:"count,omitempty"`
+	Count *int64 `json:"count,omitempty"`
 	// PoolID is the pool to resize, from the URL path — the `poolId` a cluster read reports for it. Required.
 	PoolId *string `json:"poolId,omitempty"`
 	// Provider is the cloud the cluster lives on. Required; body or ?provider=.
@@ -79,9 +79,9 @@ func (o *PoolScale) SetClusterId(v string) {
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *PoolScale) GetCount() int32 {
+func (o *PoolScale) GetCount() int64 {
 	if o == nil || IsNil(o.Count) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Count
@@ -89,7 +89,7 @@ func (o *PoolScale) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PoolScale) GetCountOk() (*int32, bool) {
+func (o *PoolScale) GetCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *PoolScale) HasCount() bool {
 	return false
 }
 
-// SetCount gets a reference to the given int32 and assigns it to the Count field.
-func (o *PoolScale) SetCount(v int32) {
+// SetCount gets a reference to the given int64 and assigns it to the Count field.
+func (o *PoolScale) SetCount(v int64) {
 	o.Count = &v
 }
 

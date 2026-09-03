@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Activity** | Pointer to **string** | Activity is the one line saying what the run is doing right now (\&quot;running the reaper&#39;s tests\&quot;), up to 120 characters, in the model&#39;s words. Empty when nothing has estimated it yet. | [optional] 
 **At** | Pointer to **string** | At is when this was determined, RFC 3339 in UTC to the second. Read it as the estimate&#39;s AGE: an estimate is not refreshed while nothing has happened, and a stale one beside a run that is still moving is itself worth seeing. Empty when nothing has estimated it yet. | [optional] 
 **Estimated** | Pointer to **bool** | Estimated says a MODEL produced this, from the run&#39;s transcript, and it may be wrong. False means the session&#39;s own row said it: a finished run is 100% because it finished, not because anything guessed. Never treat a true here as a measurement — it is the reason to look, not the answer. | [optional] 
-**Pct** | Pointer to **int32** | Pct is how much of the run is done, 0 to 100. THE KEY IS ABSENT when progress is indeterminate — a run nobody can estimate is not a run that has done nothing, and rendering the second for the first is the mistake this omission exists to make impossible. Read &#x60;phase&#x60; before reaching for it. | [optional] 
+**Pct** | Pointer to **int64** | Pct is how much of the run is done, 0 to 100. THE KEY IS ABSENT when progress is indeterminate — a run nobody can estimate is not a run that has done nothing, and rendering the second for the first is the mistake this omission exists to make impossible. Read &#x60;phase&#x60; before reaching for it. | [optional] 
 **Phase** | Pointer to **string** | Phase is what shape the run is in: running, blocked, done, error, or unknown when nothing has estimated it yet. blocked means the transcript shows the run waiting on something — an approval, a credential, an answer — which is the one state the running surface cannot report about itself. error only ever comes from the session&#39;s own terminal status. | [optional] 
 
 ## Methods
@@ -106,20 +106,20 @@ HasEstimated returns a boolean if a field has been set.
 
 ### GetPct
 
-`func (o *SessionProgress) GetPct() int32`
+`func (o *SessionProgress) GetPct() int64`
 
 GetPct returns the Pct field if non-nil, zero value otherwise.
 
 ### GetPctOk
 
-`func (o *SessionProgress) GetPctOk() (*int32, bool)`
+`func (o *SessionProgress) GetPctOk() (*int64, bool)`
 
 GetPctOk returns a tuple with the Pct field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPct
 
-`func (o *SessionProgress) SetPct(v int32)`
+`func (o *SessionProgress) SetPct(v int64)`
 
 SetPct sets Pct field to given value.
 

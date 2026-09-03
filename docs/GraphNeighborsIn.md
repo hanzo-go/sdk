@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AsOf** | Pointer to **string** | AsOf walks the graph as it stood at an instant, RFC 3339. Absent walks it as it stands now. | [optional] 
-**Depth** | Pointer to **int32** | Depth is how many hops. Absent is one. | [optional] 
+**Depth** | Pointer to **int64** | Depth is how many hops. Absent is one. | [optional] 
 **Direction** | Pointer to **string** | Direction is out, in or both. Out follows an edge from its entity to its value — what the node points at; in follows it the other way — what points at the node; both is the union of the two, not a third rule. Absent is out. | [optional] 
 **Relation** | Pointer to **string** | Relation narrows the walk to one edge relation. Absent follows all. Only edges are ever followed: an assertion whose value is a scalar is a property and is never a hop. | [optional] 
 **Seeds** | Pointer to **[]string** | Seeds is where the walk starts. At least one. | [optional] 
@@ -56,20 +56,20 @@ HasAsOf returns a boolean if a field has been set.
 
 ### GetDepth
 
-`func (o *GraphNeighborsIn) GetDepth() int32`
+`func (o *GraphNeighborsIn) GetDepth() int64`
 
 GetDepth returns the Depth field if non-nil, zero value otherwise.
 
 ### GetDepthOk
 
-`func (o *GraphNeighborsIn) GetDepthOk() (*int32, bool)`
+`func (o *GraphNeighborsIn) GetDepthOk() (*int64, bool)`
 
 GetDepthOk returns a tuple with the Depth field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDepth
 
-`func (o *GraphNeighborsIn) SetDepth(v int32)`
+`func (o *GraphNeighborsIn) SetDepth(v int64)`
 
 SetDepth sets Depth field to given value.
 

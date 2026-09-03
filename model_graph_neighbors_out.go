@@ -20,9 +20,9 @@ var _ MappedNullable = &GraphNeighborsOut{}
 // GraphNeighborsOut struct for GraphNeighborsOut
 type GraphNeighborsOut struct {
 	// Bound is the ceiling this walk was held to, the same for every caller, so Truncated can be read against a number rather than guessed at.
-	Bound *int32 `json:"bound,omitempty"`
+	Bound *int64 `json:"bound,omitempty"`
 	// Depth is the deepest hop count actually reached. It is at most the depth asked for, and smaller when the walk ran out of edges first.
-	Depth *int32 `json:"depth,omitempty"`
+	Depth *int64 `json:"depth,omitempty"`
 	// Entities is everything reached, the seeds included, ordered by the fewest hops that reach each one and then by key.
 	Entities []string `json:"entities,omitempty"`
 	// Truncated says the bound stopped the walk. The bound is part of the answer rather than a silent short read.
@@ -47,9 +47,9 @@ func NewGraphNeighborsOutWithDefaults() *GraphNeighborsOut {
 }
 
 // GetBound returns the Bound field value if set, zero value otherwise.
-func (o *GraphNeighborsOut) GetBound() int32 {
+func (o *GraphNeighborsOut) GetBound() int64 {
 	if o == nil || IsNil(o.Bound) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Bound
@@ -57,7 +57,7 @@ func (o *GraphNeighborsOut) GetBound() int32 {
 
 // GetBoundOk returns a tuple with the Bound field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphNeighborsOut) GetBoundOk() (*int32, bool) {
+func (o *GraphNeighborsOut) GetBoundOk() (*int64, bool) {
 	if o == nil || IsNil(o.Bound) {
 		return nil, false
 	}
@@ -73,15 +73,15 @@ func (o *GraphNeighborsOut) HasBound() bool {
 	return false
 }
 
-// SetBound gets a reference to the given int32 and assigns it to the Bound field.
-func (o *GraphNeighborsOut) SetBound(v int32) {
+// SetBound gets a reference to the given int64 and assigns it to the Bound field.
+func (o *GraphNeighborsOut) SetBound(v int64) {
 	o.Bound = &v
 }
 
 // GetDepth returns the Depth field value if set, zero value otherwise.
-func (o *GraphNeighborsOut) GetDepth() int32 {
+func (o *GraphNeighborsOut) GetDepth() int64 {
 	if o == nil || IsNil(o.Depth) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Depth
@@ -89,7 +89,7 @@ func (o *GraphNeighborsOut) GetDepth() int32 {
 
 // GetDepthOk returns a tuple with the Depth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphNeighborsOut) GetDepthOk() (*int32, bool) {
+func (o *GraphNeighborsOut) GetDepthOk() (*int64, bool) {
 	if o == nil || IsNil(o.Depth) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *GraphNeighborsOut) HasDepth() bool {
 	return false
 }
 
-// SetDepth gets a reference to the given int32 and assigns it to the Depth field.
-func (o *GraphNeighborsOut) SetDepth(v int32) {
+// SetDepth gets a reference to the given int64 and assigns it to the Depth field.
+func (o *GraphNeighborsOut) SetDepth(v int64) {
 	o.Depth = &v
 }
 

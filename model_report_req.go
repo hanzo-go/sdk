@@ -22,17 +22,17 @@ type ReportReq struct {
 	// Account is the linked account the window was metered from.
 	Account *string `json:"account,omitempty"`
 	// CachedInputTokens is the prompt tokens the provider served from cache.
-	CachedInputTokens *int32 `json:"cachedInputTokens,omitempty"`
+	CachedInputTokens *int64 `json:"cachedInputTokens,omitempty"`
 	// Confidence says how much the counters below mean.
 	Confidence *string `json:"confidence,omitempty"`
 	// CostCents is what the window cost on the PROVIDER's own plan, in US cents.
-	CostCents *int32 `json:"costCents,omitempty"`
+	CostCents *int64 `json:"costCents,omitempty"`
 	// CostLimitCents is the plan's spend ceiling for the window, in US cents.
-	CostLimitCents *int32 `json:"costLimitCents,omitempty"`
+	CostLimitCents *int64 `json:"costLimitCents,omitempty"`
 	// Currency is the provider's currency when it is not US cents.
 	Currency *string `json:"currency,omitempty"`
 	// InputTokens is prompt tokens consumed in the window.
-	InputTokens *int32 `json:"inputTokens,omitempty"`
+	InputTokens *int64 `json:"inputTokens,omitempty"`
 	// Kind is subscription or apikey. Empty is accepted; anything else is refused.
 	Kind *string `json:"kind,omitempty"`
 	// Lane is the meter lane within the account.
@@ -40,13 +40,13 @@ type ReportReq struct {
 	// Machine is the host whose meter read the window. Required on every sample.
 	Machine *string `json:"machine,omitempty"`
 	// OutputTokens is completion tokens produced in the window.
-	OutputTokens *int32 `json:"outputTokens,omitempty"`
+	OutputTokens *int64 `json:"outputTokens,omitempty"`
 	// Plan is the subscription plan the account is on, as the provider names it.
 	Plan *string `json:"plan,omitempty"`
 	// Provider is the upstream the account belongs to, e.g. anthropic. Required on every sample.
 	Provider *string `json:"provider,omitempty"`
 	// Requests is how many requests the window covers.
-	Requests *int32 `json:"requests,omitempty"`
+	Requests *int64 `json:"requests,omitempty"`
 	// ResetsAt is when the measured window rolls over, RFC3339.
 	ResetsAt *string `json:"resetsAt,omitempty"`
 	// Samples is the batch form: every lane a poller measured, in one call. When it is non-empty the top-level sample fields are ignored.
@@ -54,9 +54,9 @@ type ReportReq struct {
 	// Synthetic marks a window the meter inferred rather than read.
 	Synthetic *bool `json:"synthetic,omitempty"`
 	// TotalTokens is the window's total tokens.
-	TotalTokens *int32 `json:"totalTokens,omitempty"`
+	TotalTokens *int64 `json:"totalTokens,omitempty"`
 	// UsedPct is how much of the window's allowance is consumed, 0–100.
-	UsedPct *float32 `json:"usedPct,omitempty"`
+	UsedPct *float64 `json:"usedPct,omitempty"`
 	// Window is the window class: 6h, day, week or month. Required, and a class this surface does not know is refused rather than rewritten.
 	Window *string `json:"window,omitempty"`
 	// WindowMinutes is the window's real length in minutes, as the meter reports it.
@@ -115,9 +115,9 @@ func (o *ReportReq) SetAccount(v string) {
 }
 
 // GetCachedInputTokens returns the CachedInputTokens field value if set, zero value otherwise.
-func (o *ReportReq) GetCachedInputTokens() int32 {
+func (o *ReportReq) GetCachedInputTokens() int64 {
 	if o == nil || IsNil(o.CachedInputTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CachedInputTokens
@@ -125,7 +125,7 @@ func (o *ReportReq) GetCachedInputTokens() int32 {
 
 // GetCachedInputTokensOk returns a tuple with the CachedInputTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReportReq) GetCachedInputTokensOk() (*int32, bool) {
+func (o *ReportReq) GetCachedInputTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.CachedInputTokens) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *ReportReq) HasCachedInputTokens() bool {
 	return false
 }
 
-// SetCachedInputTokens gets a reference to the given int32 and assigns it to the CachedInputTokens field.
-func (o *ReportReq) SetCachedInputTokens(v int32) {
+// SetCachedInputTokens gets a reference to the given int64 and assigns it to the CachedInputTokens field.
+func (o *ReportReq) SetCachedInputTokens(v int64) {
 	o.CachedInputTokens = &v
 }
 
@@ -179,9 +179,9 @@ func (o *ReportReq) SetConfidence(v string) {
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *ReportReq) GetCostCents() int32 {
+func (o *ReportReq) GetCostCents() int64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostCents
@@ -189,7 +189,7 @@ func (o *ReportReq) GetCostCents() int32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReportReq) GetCostCentsOk() (*int32, bool) {
+func (o *ReportReq) GetCostCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -205,15 +205,15 @@ func (o *ReportReq) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *ReportReq) SetCostCents(v int32) {
+// SetCostCents gets a reference to the given int64 and assigns it to the CostCents field.
+func (o *ReportReq) SetCostCents(v int64) {
 	o.CostCents = &v
 }
 
 // GetCostLimitCents returns the CostLimitCents field value if set, zero value otherwise.
-func (o *ReportReq) GetCostLimitCents() int32 {
+func (o *ReportReq) GetCostLimitCents() int64 {
 	if o == nil || IsNil(o.CostLimitCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostLimitCents
@@ -221,7 +221,7 @@ func (o *ReportReq) GetCostLimitCents() int32 {
 
 // GetCostLimitCentsOk returns a tuple with the CostLimitCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReportReq) GetCostLimitCentsOk() (*int32, bool) {
+func (o *ReportReq) GetCostLimitCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostLimitCents) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *ReportReq) HasCostLimitCents() bool {
 	return false
 }
 
-// SetCostLimitCents gets a reference to the given int32 and assigns it to the CostLimitCents field.
-func (o *ReportReq) SetCostLimitCents(v int32) {
+// SetCostLimitCents gets a reference to the given int64 and assigns it to the CostLimitCents field.
+func (o *ReportReq) SetCostLimitCents(v int64) {
 	o.CostLimitCents = &v
 }
 
@@ -275,9 +275,9 @@ func (o *ReportReq) SetCurrency(v string) {
 }
 
 // GetInputTokens returns the InputTokens field value if set, zero value otherwise.
-func (o *ReportReq) GetInputTokens() int32 {
+func (o *ReportReq) GetInputTokens() int64 {
 	if o == nil || IsNil(o.InputTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.InputTokens
@@ -285,7 +285,7 @@ func (o *ReportReq) GetInputTokens() int32 {
 
 // GetInputTokensOk returns a tuple with the InputTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReportReq) GetInputTokensOk() (*int32, bool) {
+func (o *ReportReq) GetInputTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.InputTokens) {
 		return nil, false
 	}
@@ -301,8 +301,8 @@ func (o *ReportReq) HasInputTokens() bool {
 	return false
 }
 
-// SetInputTokens gets a reference to the given int32 and assigns it to the InputTokens field.
-func (o *ReportReq) SetInputTokens(v int32) {
+// SetInputTokens gets a reference to the given int64 and assigns it to the InputTokens field.
+func (o *ReportReq) SetInputTokens(v int64) {
 	o.InputTokens = &v
 }
 
@@ -403,9 +403,9 @@ func (o *ReportReq) SetMachine(v string) {
 }
 
 // GetOutputTokens returns the OutputTokens field value if set, zero value otherwise.
-func (o *ReportReq) GetOutputTokens() int32 {
+func (o *ReportReq) GetOutputTokens() int64 {
 	if o == nil || IsNil(o.OutputTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.OutputTokens
@@ -413,7 +413,7 @@ func (o *ReportReq) GetOutputTokens() int32 {
 
 // GetOutputTokensOk returns a tuple with the OutputTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReportReq) GetOutputTokensOk() (*int32, bool) {
+func (o *ReportReq) GetOutputTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.OutputTokens) {
 		return nil, false
 	}
@@ -429,8 +429,8 @@ func (o *ReportReq) HasOutputTokens() bool {
 	return false
 }
 
-// SetOutputTokens gets a reference to the given int32 and assigns it to the OutputTokens field.
-func (o *ReportReq) SetOutputTokens(v int32) {
+// SetOutputTokens gets a reference to the given int64 and assigns it to the OutputTokens field.
+func (o *ReportReq) SetOutputTokens(v int64) {
 	o.OutputTokens = &v
 }
 
@@ -499,9 +499,9 @@ func (o *ReportReq) SetProvider(v string) {
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *ReportReq) GetRequests() int32 {
+func (o *ReportReq) GetRequests() int64 {
 	if o == nil || IsNil(o.Requests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Requests
@@ -509,7 +509,7 @@ func (o *ReportReq) GetRequests() int32 {
 
 // GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReportReq) GetRequestsOk() (*int32, bool) {
+func (o *ReportReq) GetRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Requests) {
 		return nil, false
 	}
@@ -525,8 +525,8 @@ func (o *ReportReq) HasRequests() bool {
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *ReportReq) SetRequests(v int32) {
+// SetRequests gets a reference to the given int64 and assigns it to the Requests field.
+func (o *ReportReq) SetRequests(v int64) {
 	o.Requests = &v
 }
 
@@ -627,9 +627,9 @@ func (o *ReportReq) SetSynthetic(v bool) {
 }
 
 // GetTotalTokens returns the TotalTokens field value if set, zero value otherwise.
-func (o *ReportReq) GetTotalTokens() int32 {
+func (o *ReportReq) GetTotalTokens() int64 {
 	if o == nil || IsNil(o.TotalTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalTokens
@@ -637,7 +637,7 @@ func (o *ReportReq) GetTotalTokens() int32 {
 
 // GetTotalTokensOk returns a tuple with the TotalTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReportReq) GetTotalTokensOk() (*int32, bool) {
+func (o *ReportReq) GetTotalTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalTokens) {
 		return nil, false
 	}
@@ -653,15 +653,15 @@ func (o *ReportReq) HasTotalTokens() bool {
 	return false
 }
 
-// SetTotalTokens gets a reference to the given int32 and assigns it to the TotalTokens field.
-func (o *ReportReq) SetTotalTokens(v int32) {
+// SetTotalTokens gets a reference to the given int64 and assigns it to the TotalTokens field.
+func (o *ReportReq) SetTotalTokens(v int64) {
 	o.TotalTokens = &v
 }
 
 // GetUsedPct returns the UsedPct field value if set, zero value otherwise.
-func (o *ReportReq) GetUsedPct() float32 {
+func (o *ReportReq) GetUsedPct() float64 {
 	if o == nil || IsNil(o.UsedPct) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.UsedPct
@@ -669,7 +669,7 @@ func (o *ReportReq) GetUsedPct() float32 {
 
 // GetUsedPctOk returns a tuple with the UsedPct field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReportReq) GetUsedPctOk() (*float32, bool) {
+func (o *ReportReq) GetUsedPctOk() (*float64, bool) {
 	if o == nil || IsNil(o.UsedPct) {
 		return nil, false
 	}
@@ -685,8 +685,8 @@ func (o *ReportReq) HasUsedPct() bool {
 	return false
 }
 
-// SetUsedPct gets a reference to the given float32 and assigns it to the UsedPct field.
-func (o *ReportReq) SetUsedPct(v float32) {
+// SetUsedPct gets a reference to the given float64 and assigns it to the UsedPct field.
+func (o *ReportReq) SetUsedPct(v float64) {
 	o.UsedPct = &v
 }
 

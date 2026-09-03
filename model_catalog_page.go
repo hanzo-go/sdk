@@ -22,9 +22,9 @@ type CatalogPage struct {
 	// Data is the page of matching entries, most recently updated first.
 	Data []Entry `json:"data,omitempty"`
 	// Facets counts the whole matching set along every browse axis, so a rail a client renders is a rail that has results behind it. Keyed axis → value → count.
-	Facets map[string]map[string]int32 `json:"facets,omitempty"`
+	Facets map[string]map[string]int64 `json:"facets,omitempty"`
 	// Total is how many entries matched BEFORE paging — what a pager sizes itself on.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 }
 
 // NewCatalogPage instantiates a new CatalogPage object
@@ -77,9 +77,9 @@ func (o *CatalogPage) SetData(v []Entry) {
 }
 
 // GetFacets returns the Facets field value if set, zero value otherwise.
-func (o *CatalogPage) GetFacets() map[string]map[string]int32 {
+func (o *CatalogPage) GetFacets() map[string]map[string]int64 {
 	if o == nil || IsNil(o.Facets) {
-		var ret map[string]map[string]int32
+		var ret map[string]map[string]int64
 		return ret
 	}
 	return o.Facets
@@ -87,9 +87,9 @@ func (o *CatalogPage) GetFacets() map[string]map[string]int32 {
 
 // GetFacetsOk returns a tuple with the Facets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CatalogPage) GetFacetsOk() (map[string]map[string]int32, bool) {
+func (o *CatalogPage) GetFacetsOk() (map[string]map[string]int64, bool) {
 	if o == nil || IsNil(o.Facets) {
-		return map[string]map[string]int32{}, false
+		return map[string]map[string]int64{}, false
 	}
 	return o.Facets, true
 }
@@ -103,15 +103,15 @@ func (o *CatalogPage) HasFacets() bool {
 	return false
 }
 
-// SetFacets gets a reference to the given map[string]map[string]int32 and assigns it to the Facets field.
-func (o *CatalogPage) SetFacets(v map[string]map[string]int32) {
+// SetFacets gets a reference to the given map[string]map[string]int64 and assigns it to the Facets field.
+func (o *CatalogPage) SetFacets(v map[string]map[string]int64) {
 	o.Facets = v
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *CatalogPage) GetTotal() int32 {
+func (o *CatalogPage) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -119,7 +119,7 @@ func (o *CatalogPage) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CatalogPage) GetTotalOk() (*int32, bool) {
+func (o *CatalogPage) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *CatalogPage) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *CatalogPage) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *CatalogPage) SetTotal(v int64) {
 	o.Total = &v
 }
 

@@ -24,7 +24,7 @@ type AffiliateLinks struct {
 	// Links is the caller's share links, each with its URL and funnel.
 	Links []CodeView `json:"links,omitempty"`
 	// MaxLinks is how many share links one affiliate may hold.
-	MaxLinks *int32 `json:"maxLinks,omitempty"`
+	MaxLinks *int64 `json:"maxLinks,omitempty"`
 	// Status is the caller's affiliate status: \"applied\", \"approved\" or \"suspended\"; absent for a non-affiliate. Minting a link requires \"approved\", because a link that cannot accrue quietly loses the referral.
 	Status *string `json:"status,omitempty"`
 }
@@ -111,9 +111,9 @@ func (o *AffiliateLinks) SetLinks(v []CodeView) {
 }
 
 // GetMaxLinks returns the MaxLinks field value if set, zero value otherwise.
-func (o *AffiliateLinks) GetMaxLinks() int32 {
+func (o *AffiliateLinks) GetMaxLinks() int64 {
 	if o == nil || IsNil(o.MaxLinks) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxLinks
@@ -121,7 +121,7 @@ func (o *AffiliateLinks) GetMaxLinks() int32 {
 
 // GetMaxLinksOk returns a tuple with the MaxLinks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AffiliateLinks) GetMaxLinksOk() (*int32, bool) {
+func (o *AffiliateLinks) GetMaxLinksOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxLinks) {
 		return nil, false
 	}
@@ -137,8 +137,8 @@ func (o *AffiliateLinks) HasMaxLinks() bool {
 	return false
 }
 
-// SetMaxLinks gets a reference to the given int32 and assigns it to the MaxLinks field.
-func (o *AffiliateLinks) SetMaxLinks(v int32) {
+// SetMaxLinks gets a reference to the given int64 and assigns it to the MaxLinks field.
+func (o *AffiliateLinks) SetMaxLinks(v int64) {
 	o.MaxLinks = &v
 }
 

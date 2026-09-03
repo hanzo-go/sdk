@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreditsRemaining** | Pointer to **int32** |  | [optional] 
+**CreditsRemaining** | Pointer to **int64** |  | [optional] 
 **Currency** | Pointer to **string** |  | [optional] 
-**DailyRemaining** | Pointer to **int32** |  | [optional] 
-**EffectiveAvailable** | Pointer to **int32** |  | [optional] 
-**PrepaidAvailable** | Pointer to **int32** |  | [optional] 
+**DailyRemaining** | Pointer to **int64** |  | [optional] 
+**EffectiveAvailable** | Pointer to **int64** |  | [optional] 
+**PrepaidAvailable** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreditsRemaining
 
-`func (o *TierBalance) GetCreditsRemaining() int32`
+`func (o *TierBalance) GetCreditsRemaining() int64`
 
 GetCreditsRemaining returns the CreditsRemaining field if non-nil, zero value otherwise.
 
 ### GetCreditsRemainingOk
 
-`func (o *TierBalance) GetCreditsRemainingOk() (*int32, bool)`
+`func (o *TierBalance) GetCreditsRemainingOk() (*int64, bool)`
 
 GetCreditsRemainingOk returns a tuple with the CreditsRemaining field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreditsRemaining
 
-`func (o *TierBalance) SetCreditsRemaining(v int32)`
+`func (o *TierBalance) SetCreditsRemaining(v int64)`
 
 SetCreditsRemaining sets CreditsRemaining field to given value.
 
@@ -81,20 +81,20 @@ HasCurrency returns a boolean if a field has been set.
 
 ### GetDailyRemaining
 
-`func (o *TierBalance) GetDailyRemaining() int32`
+`func (o *TierBalance) GetDailyRemaining() int64`
 
 GetDailyRemaining returns the DailyRemaining field if non-nil, zero value otherwise.
 
 ### GetDailyRemainingOk
 
-`func (o *TierBalance) GetDailyRemainingOk() (*int32, bool)`
+`func (o *TierBalance) GetDailyRemainingOk() (*int64, bool)`
 
 GetDailyRemainingOk returns a tuple with the DailyRemaining field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDailyRemaining
 
-`func (o *TierBalance) SetDailyRemaining(v int32)`
+`func (o *TierBalance) SetDailyRemaining(v int64)`
 
 SetDailyRemaining sets DailyRemaining field to given value.
 
@@ -106,20 +106,20 @@ HasDailyRemaining returns a boolean if a field has been set.
 
 ### GetEffectiveAvailable
 
-`func (o *TierBalance) GetEffectiveAvailable() int32`
+`func (o *TierBalance) GetEffectiveAvailable() int64`
 
 GetEffectiveAvailable returns the EffectiveAvailable field if non-nil, zero value otherwise.
 
 ### GetEffectiveAvailableOk
 
-`func (o *TierBalance) GetEffectiveAvailableOk() (*int32, bool)`
+`func (o *TierBalance) GetEffectiveAvailableOk() (*int64, bool)`
 
 GetEffectiveAvailableOk returns a tuple with the EffectiveAvailable field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEffectiveAvailable
 
-`func (o *TierBalance) SetEffectiveAvailable(v int32)`
+`func (o *TierBalance) SetEffectiveAvailable(v int64)`
 
 SetEffectiveAvailable sets EffectiveAvailable field to given value.
 
@@ -131,20 +131,20 @@ HasEffectiveAvailable returns a boolean if a field has been set.
 
 ### GetPrepaidAvailable
 
-`func (o *TierBalance) GetPrepaidAvailable() int32`
+`func (o *TierBalance) GetPrepaidAvailable() int64`
 
 GetPrepaidAvailable returns the PrepaidAvailable field if non-nil, zero value otherwise.
 
 ### GetPrepaidAvailableOk
 
-`func (o *TierBalance) GetPrepaidAvailableOk() (*int32, bool)`
+`func (o *TierBalance) GetPrepaidAvailableOk() (*int64, bool)`
 
 GetPrepaidAvailableOk returns a tuple with the PrepaidAvailable field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrepaidAvailable
 
-`func (o *TierBalance) SetPrepaidAvailable(v int32)`
+`func (o *TierBalance) SetPrepaidAvailable(v int64)`
 
 SetPrepaidAvailable sets PrepaidAvailable field to given value.
 

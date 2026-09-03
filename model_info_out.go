@@ -22,13 +22,13 @@ type InfoOut struct {
 	// JetStream is true when durable streams are enabled.
 	Jetstream *bool `json:"jetstream,omitempty"`
 	// MaxPayload is the broker's message-size ceiling in bytes.
-	MaxPayload *int32 `json:"max_payload,omitempty"`
+	MaxPayload *int64 `json:"max_payload,omitempty"`
 	// Server is the broker's server id.
 	ServerId *string `json:"server_id,omitempty"`
 	// Name is the broker's server name.
 	ServerName *string `json:"server_name,omitempty"`
 	// Streams is the org's stream count.
-	Streams *int32 `json:"streams,omitempty"`
+	Streams *int64 `json:"streams,omitempty"`
 	// Version is the broker's server version.
 	Version *string `json:"version,omitempty"`
 }
@@ -83,9 +83,9 @@ func (o *InfoOut) SetJetstream(v bool) {
 }
 
 // GetMaxPayload returns the MaxPayload field value if set, zero value otherwise.
-func (o *InfoOut) GetMaxPayload() int32 {
+func (o *InfoOut) GetMaxPayload() int64 {
 	if o == nil || IsNil(o.MaxPayload) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxPayload
@@ -93,7 +93,7 @@ func (o *InfoOut) GetMaxPayload() int32 {
 
 // GetMaxPayloadOk returns a tuple with the MaxPayload field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InfoOut) GetMaxPayloadOk() (*int32, bool) {
+func (o *InfoOut) GetMaxPayloadOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxPayload) {
 		return nil, false
 	}
@@ -109,8 +109,8 @@ func (o *InfoOut) HasMaxPayload() bool {
 	return false
 }
 
-// SetMaxPayload gets a reference to the given int32 and assigns it to the MaxPayload field.
-func (o *InfoOut) SetMaxPayload(v int32) {
+// SetMaxPayload gets a reference to the given int64 and assigns it to the MaxPayload field.
+func (o *InfoOut) SetMaxPayload(v int64) {
 	o.MaxPayload = &v
 }
 
@@ -179,9 +179,9 @@ func (o *InfoOut) SetServerName(v string) {
 }
 
 // GetStreams returns the Streams field value if set, zero value otherwise.
-func (o *InfoOut) GetStreams() int32 {
+func (o *InfoOut) GetStreams() int64 {
 	if o == nil || IsNil(o.Streams) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Streams
@@ -189,7 +189,7 @@ func (o *InfoOut) GetStreams() int32 {
 
 // GetStreamsOk returns a tuple with the Streams field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InfoOut) GetStreamsOk() (*int32, bool) {
+func (o *InfoOut) GetStreamsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Streams) {
 		return nil, false
 	}
@@ -205,8 +205,8 @@ func (o *InfoOut) HasStreams() bool {
 	return false
 }
 
-// SetStreams gets a reference to the given int32 and assigns it to the Streams field.
-func (o *InfoOut) SetStreams(v int32) {
+// SetStreams gets a reference to the given int64 and assigns it to the Streams field.
+func (o *InfoOut) SetStreams(v int64) {
 	o.Streams = &v
 }
 

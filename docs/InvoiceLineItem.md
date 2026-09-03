@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Amount** | Pointer to **int32** |  | [optional] 
+**Amount** | Pointer to **int64** |  | [optional] 
 **Currency** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
@@ -13,9 +13,9 @@ Name | Type | Description | Notes
 **PeriodStart** | Pointer to **string** | The billed period. Both carry omitempty and neither is ever empty, which looks contradictory and is not: the shape they reproduce is a time value, and omitempty does nothing to a struct — so those keys render even for the zero instant. The adapter formats the zero instant rather than skipping it, which is what keeps the two wires the same. | [optional] 
 **PlanId** | Pointer to **string** |  | [optional] 
 **PlanName** | Pointer to **string** |  | [optional] 
-**Quantity** | Pointer to **int32** |  | [optional] 
+**Quantity** | Pointer to **int64** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
-**UnitPrice** | Pointer to **int32** |  | [optional] 
+**UnitPrice** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -38,20 +38,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAmount
 
-`func (o *InvoiceLineItem) GetAmount() int32`
+`func (o *InvoiceLineItem) GetAmount() int64`
 
 GetAmount returns the Amount field if non-nil, zero value otherwise.
 
 ### GetAmountOk
 
-`func (o *InvoiceLineItem) GetAmountOk() (*int32, bool)`
+`func (o *InvoiceLineItem) GetAmountOk() (*int64, bool)`
 
 GetAmountOk returns a tuple with the Amount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmount
 
-`func (o *InvoiceLineItem) SetAmount(v int32)`
+`func (o *InvoiceLineItem) SetAmount(v int64)`
 
 SetAmount sets Amount field to given value.
 
@@ -263,20 +263,20 @@ HasPlanName returns a boolean if a field has been set.
 
 ### GetQuantity
 
-`func (o *InvoiceLineItem) GetQuantity() int32`
+`func (o *InvoiceLineItem) GetQuantity() int64`
 
 GetQuantity returns the Quantity field if non-nil, zero value otherwise.
 
 ### GetQuantityOk
 
-`func (o *InvoiceLineItem) GetQuantityOk() (*int32, bool)`
+`func (o *InvoiceLineItem) GetQuantityOk() (*int64, bool)`
 
 GetQuantityOk returns a tuple with the Quantity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQuantity
 
-`func (o *InvoiceLineItem) SetQuantity(v int32)`
+`func (o *InvoiceLineItem) SetQuantity(v int64)`
 
 SetQuantity sets Quantity field to given value.
 
@@ -313,20 +313,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetUnitPrice
 
-`func (o *InvoiceLineItem) GetUnitPrice() int32`
+`func (o *InvoiceLineItem) GetUnitPrice() int64`
 
 GetUnitPrice returns the UnitPrice field if non-nil, zero value otherwise.
 
 ### GetUnitPriceOk
 
-`func (o *InvoiceLineItem) GetUnitPriceOk() (*int32, bool)`
+`func (o *InvoiceLineItem) GetUnitPriceOk() (*int64, bool)`
 
 GetUnitPriceOk returns a tuple with the UnitPrice field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUnitPrice
 
-`func (o *InvoiceLineItem) SetUnitPrice(v int32)`
+`func (o *InvoiceLineItem) SetUnitPrice(v int64)`
 
 SetUnitPrice sets UnitPrice field to given value.
 

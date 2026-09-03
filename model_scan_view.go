@@ -20,21 +20,21 @@ var _ MappedNullable = &ScanView{}
 // ScanView struct for ScanView
 type ScanView struct {
 	// CreatedAt is when the scan ran, in Unix milliseconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Critical is how many findings carry the highest severity.
-	Critical *int32 `json:"critical,omitempty"`
+	Critical *int64 `json:"critical,omitempty"`
 	// Files is how many files the scan read.
-	Files *int32 `json:"files,omitempty"`
+	Files *int64 `json:"files,omitempty"`
 	// Findings is how many secrets fired across them.
-	Findings *int32 `json:"findings,omitempty"`
+	Findings *int64 `json:"findings,omitempty"`
 	// High is how many findings rank high.
-	High *int32 `json:"high,omitempty"`
+	High *int64 `json:"high,omitempty"`
 	// ID addresses this scan and every finding on it.
 	Id *string `json:"id,omitempty"`
 	// Low is how many findings rank low.
-	Low *int32 `json:"low,omitempty"`
+	Low *int64 `json:"low,omitempty"`
 	// Medium is how many findings rank medium.
-	Medium *int32 `json:"medium,omitempty"`
+	Medium *int64 `json:"medium,omitempty"`
 	// Project is the sub-scope the scan was filed under.
 	Project *string `json:"project,omitempty"`
 }
@@ -57,9 +57,9 @@ func NewScanViewWithDefaults() *ScanView {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *ScanView) GetCreatedAt() int32 {
+func (o *ScanView) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -67,7 +67,7 @@ func (o *ScanView) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ScanView) GetCreatedAtOk() (*int32, bool) {
+func (o *ScanView) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -83,15 +83,15 @@ func (o *ScanView) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *ScanView) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *ScanView) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
 // GetCritical returns the Critical field value if set, zero value otherwise.
-func (o *ScanView) GetCritical() int32 {
+func (o *ScanView) GetCritical() int64 {
 	if o == nil || IsNil(o.Critical) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Critical
@@ -99,7 +99,7 @@ func (o *ScanView) GetCritical() int32 {
 
 // GetCriticalOk returns a tuple with the Critical field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ScanView) GetCriticalOk() (*int32, bool) {
+func (o *ScanView) GetCriticalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Critical) {
 		return nil, false
 	}
@@ -115,15 +115,15 @@ func (o *ScanView) HasCritical() bool {
 	return false
 }
 
-// SetCritical gets a reference to the given int32 and assigns it to the Critical field.
-func (o *ScanView) SetCritical(v int32) {
+// SetCritical gets a reference to the given int64 and assigns it to the Critical field.
+func (o *ScanView) SetCritical(v int64) {
 	o.Critical = &v
 }
 
 // GetFiles returns the Files field value if set, zero value otherwise.
-func (o *ScanView) GetFiles() int32 {
+func (o *ScanView) GetFiles() int64 {
 	if o == nil || IsNil(o.Files) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Files
@@ -131,7 +131,7 @@ func (o *ScanView) GetFiles() int32 {
 
 // GetFilesOk returns a tuple with the Files field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ScanView) GetFilesOk() (*int32, bool) {
+func (o *ScanView) GetFilesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Files) {
 		return nil, false
 	}
@@ -147,15 +147,15 @@ func (o *ScanView) HasFiles() bool {
 	return false
 }
 
-// SetFiles gets a reference to the given int32 and assigns it to the Files field.
-func (o *ScanView) SetFiles(v int32) {
+// SetFiles gets a reference to the given int64 and assigns it to the Files field.
+func (o *ScanView) SetFiles(v int64) {
 	o.Files = &v
 }
 
 // GetFindings returns the Findings field value if set, zero value otherwise.
-func (o *ScanView) GetFindings() int32 {
+func (o *ScanView) GetFindings() int64 {
 	if o == nil || IsNil(o.Findings) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Findings
@@ -163,7 +163,7 @@ func (o *ScanView) GetFindings() int32 {
 
 // GetFindingsOk returns a tuple with the Findings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ScanView) GetFindingsOk() (*int32, bool) {
+func (o *ScanView) GetFindingsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Findings) {
 		return nil, false
 	}
@@ -179,15 +179,15 @@ func (o *ScanView) HasFindings() bool {
 	return false
 }
 
-// SetFindings gets a reference to the given int32 and assigns it to the Findings field.
-func (o *ScanView) SetFindings(v int32) {
+// SetFindings gets a reference to the given int64 and assigns it to the Findings field.
+func (o *ScanView) SetFindings(v int64) {
 	o.Findings = &v
 }
 
 // GetHigh returns the High field value if set, zero value otherwise.
-func (o *ScanView) GetHigh() int32 {
+func (o *ScanView) GetHigh() int64 {
 	if o == nil || IsNil(o.High) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.High
@@ -195,7 +195,7 @@ func (o *ScanView) GetHigh() int32 {
 
 // GetHighOk returns a tuple with the High field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ScanView) GetHighOk() (*int32, bool) {
+func (o *ScanView) GetHighOk() (*int64, bool) {
 	if o == nil || IsNil(o.High) {
 		return nil, false
 	}
@@ -211,8 +211,8 @@ func (o *ScanView) HasHigh() bool {
 	return false
 }
 
-// SetHigh gets a reference to the given int32 and assigns it to the High field.
-func (o *ScanView) SetHigh(v int32) {
+// SetHigh gets a reference to the given int64 and assigns it to the High field.
+func (o *ScanView) SetHigh(v int64) {
 	o.High = &v
 }
 
@@ -249,9 +249,9 @@ func (o *ScanView) SetId(v string) {
 }
 
 // GetLow returns the Low field value if set, zero value otherwise.
-func (o *ScanView) GetLow() int32 {
+func (o *ScanView) GetLow() int64 {
 	if o == nil || IsNil(o.Low) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Low
@@ -259,7 +259,7 @@ func (o *ScanView) GetLow() int32 {
 
 // GetLowOk returns a tuple with the Low field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ScanView) GetLowOk() (*int32, bool) {
+func (o *ScanView) GetLowOk() (*int64, bool) {
 	if o == nil || IsNil(o.Low) {
 		return nil, false
 	}
@@ -275,15 +275,15 @@ func (o *ScanView) HasLow() bool {
 	return false
 }
 
-// SetLow gets a reference to the given int32 and assigns it to the Low field.
-func (o *ScanView) SetLow(v int32) {
+// SetLow gets a reference to the given int64 and assigns it to the Low field.
+func (o *ScanView) SetLow(v int64) {
 	o.Low = &v
 }
 
 // GetMedium returns the Medium field value if set, zero value otherwise.
-func (o *ScanView) GetMedium() int32 {
+func (o *ScanView) GetMedium() int64 {
 	if o == nil || IsNil(o.Medium) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Medium
@@ -291,7 +291,7 @@ func (o *ScanView) GetMedium() int32 {
 
 // GetMediumOk returns a tuple with the Medium field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ScanView) GetMediumOk() (*int32, bool) {
+func (o *ScanView) GetMediumOk() (*int64, bool) {
 	if o == nil || IsNil(o.Medium) {
 		return nil, false
 	}
@@ -307,8 +307,8 @@ func (o *ScanView) HasMedium() bool {
 	return false
 }
 
-// SetMedium gets a reference to the given int32 and assigns it to the Medium field.
-func (o *ScanView) SetMedium(v int32) {
+// SetMedium gets a reference to the given int64 and assigns it to the Medium field.
+func (o *ScanView) SetMedium(v int64) {
 	o.Medium = &v
 }
 

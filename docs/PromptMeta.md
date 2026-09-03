@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | Name is the prompt&#39;s org-unique handle and the URL segment it is fetched by: GET /v1/prompt/&lt;name&gt;. | [optional] 
 **Tags** | Pointer to **[]string** | Tags is the second free-form taxonomy under the same rules as Labels. Nothing in this service interprets either; they are yours to organize by. | [optional] 
 **Type** | Pointer to **string** | Type labels the template&#39;s kind, \&quot;text\&quot; unless the creator said otherwise. It is the CURRENT version&#39;s type; earlier versions may carry a different one. | [optional] 
-**Versions** | Pointer to **[]int32** | Versions lists every version NUMBER this prompt has, newest first, capped at the last 100. The highest is the current one. (On a metrics row the same key is a count, not a list.) | [optional] 
+**Versions** | Pointer to **[]int64** | Versions lists every version NUMBER this prompt has, newest first, capped at the last 100. The highest is the current one. (On a metrics row the same key is a count, not a list.) | [optional] 
 
 ## Methods
 
@@ -157,20 +157,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetVersions
 
-`func (o *PromptMeta) GetVersions() []int32`
+`func (o *PromptMeta) GetVersions() []int64`
 
 GetVersions returns the Versions field if non-nil, zero value otherwise.
 
 ### GetVersionsOk
 
-`func (o *PromptMeta) GetVersionsOk() (*[]int32, bool)`
+`func (o *PromptMeta) GetVersionsOk() (*[]int64, bool)`
 
 GetVersionsOk returns a tuple with the Versions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersions
 
-`func (o *PromptMeta) SetVersions(v []int32)`
+`func (o *PromptMeta) SetVersions(v []int64)`
 
 SetVersions sets Versions field to given value.
 

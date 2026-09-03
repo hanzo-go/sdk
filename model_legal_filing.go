@@ -19,7 +19,7 @@ var _ MappedNullable = &LegalFiling{}
 
 // LegalFiling struct for LegalFiling
 type LegalFiling struct {
-	CreatedAt    *int32   `json:"createdAt,omitempty"`
+	CreatedAt    *int64   `json:"createdAt,omitempty"`
 	DocumentIds  []string `json:"documentIds,omitempty"`
 	Id           *string  `json:"id,omitempty"`
 	Jurisdiction *string  `json:"jurisdiction,omitempty"`
@@ -27,7 +27,7 @@ type LegalFiling struct {
 	Org          *string  `json:"org,omitempty"`
 	Provider     *string  `json:"provider,omitempty"`
 	Status       *string  `json:"status,omitempty"`
-	UpdatedAt    *int32   `json:"updatedAt,omitempty"`
+	UpdatedAt    *int64   `json:"updatedAt,omitempty"`
 }
 
 // NewLegalFiling instantiates a new LegalFiling object
@@ -48,9 +48,9 @@ func NewLegalFilingWithDefaults() *LegalFiling {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *LegalFiling) GetCreatedAt() int32 {
+func (o *LegalFiling) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -58,7 +58,7 @@ func (o *LegalFiling) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LegalFiling) GetCreatedAtOk() (*int32, bool) {
+func (o *LegalFiling) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -74,8 +74,8 @@ func (o *LegalFiling) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *LegalFiling) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *LegalFiling) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -304,9 +304,9 @@ func (o *LegalFiling) SetStatus(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *LegalFiling) GetUpdatedAt() int32 {
+func (o *LegalFiling) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -314,7 +314,7 @@ func (o *LegalFiling) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LegalFiling) GetUpdatedAtOk() (*int32, bool) {
+func (o *LegalFiling) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -330,8 +330,8 @@ func (o *LegalFiling) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *LegalFiling) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *LegalFiling) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

@@ -26,7 +26,7 @@ type CaptableTransferred struct {
 	// Success is true when the transfer was applied.
 	Success *bool `json:"success,omitempty"`
 	// Transferred is how many shares moved.
-	Transferred *int32 `json:"transferred,omitempty"`
+	Transferred *int64 `json:"transferred,omitempty"`
 }
 
 // NewCaptableTransferred instantiates a new CaptableTransferred object
@@ -143,9 +143,9 @@ func (o *CaptableTransferred) SetSuccess(v bool) {
 }
 
 // GetTransferred returns the Transferred field value if set, zero value otherwise.
-func (o *CaptableTransferred) GetTransferred() int32 {
+func (o *CaptableTransferred) GetTransferred() int64 {
 	if o == nil || IsNil(o.Transferred) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Transferred
@@ -153,7 +153,7 @@ func (o *CaptableTransferred) GetTransferred() int32 {
 
 // GetTransferredOk returns a tuple with the Transferred field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableTransferred) GetTransferredOk() (*int32, bool) {
+func (o *CaptableTransferred) GetTransferredOk() (*int64, bool) {
 	if o == nil || IsNil(o.Transferred) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *CaptableTransferred) HasTransferred() bool {
 	return false
 }
 
-// SetTransferred gets a reference to the given int32 and assigns it to the Transferred field.
-func (o *CaptableTransferred) SetTransferred(v int32) {
+// SetTransferred gets a reference to the given int64 and assigns it to the Transferred field.
+func (o *CaptableTransferred) SetTransferred(v int64) {
 	o.Transferred = &v
 }
 

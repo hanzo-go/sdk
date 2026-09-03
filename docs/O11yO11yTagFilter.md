@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BoolValues** | Pointer to **[]bool** | BoolValues are the values matched when the tag holds booleans. | [optional] 
 **Key** | Pointer to **string** | Key is the tag to test. | [optional] 
-**NumberValues** | Pointer to **[]float32** | NumberValues are the values matched when the tag holds numbers. | [optional] 
+**NumberValues** | Pointer to **[]float64** | NumberValues are the values matched when the tag holds numbers. | [optional] 
 **Operator** | Pointer to **string** | Operator is the comparison to apply — in, not_in, equals, contains and the other operators the trace filter grammar names. | [optional] 
 **StringValues** | Pointer to **[]string** | StringValues are the values matched when the tag holds strings. | [optional] 
 **TagType** | Pointer to **string** | TagType says which kind of value the tag holds: string, number or bool. | [optional] 
@@ -82,20 +82,20 @@ HasKey returns a boolean if a field has been set.
 
 ### GetNumberValues
 
-`func (o *O11yO11yTagFilter) GetNumberValues() []float32`
+`func (o *O11yO11yTagFilter) GetNumberValues() []float64`
 
 GetNumberValues returns the NumberValues field if non-nil, zero value otherwise.
 
 ### GetNumberValuesOk
 
-`func (o *O11yO11yTagFilter) GetNumberValuesOk() (*[]float32, bool)`
+`func (o *O11yO11yTagFilter) GetNumberValuesOk() (*[]float64, bool)`
 
 GetNumberValuesOk returns a tuple with the NumberValues field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumberValues
 
-`func (o *O11yO11yTagFilter) SetNumberValues(v []float32)`
+`func (o *O11yO11yTagFilter) SetNumberValues(v []float64)`
 
 SetNumberValues sets NumberValues field to given value.
 

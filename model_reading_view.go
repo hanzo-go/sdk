@@ -22,35 +22,35 @@ type ReadingView struct {
 	// Account is the provider-side account the sample belongs to.
 	Account *string `json:"account,omitempty"`
 	// CachedInputTokens is the window's cached-prompt-token count.
-	CachedInputTokens *int32 `json:"cachedInputTokens,omitempty"`
+	CachedInputTokens *int64 `json:"cachedInputTokens,omitempty"`
 	// Confidence says whether the counters that remain mean anything, as the meter graded itself.
 	Confidence *string `json:"confidence,omitempty"`
 	// CostCents is the window's spend in cents, as the provider's meter states it.
-	CostCents *int32 `json:"costCents,omitempty"`
+	CostCents *int64 `json:"costCents,omitempty"`
 	// CostLimitCents is the window's spend cap in cents, when the meter knows one.
-	CostLimitCents *int32 `json:"costLimitCents,omitempty"`
+	CostLimitCents *int64 `json:"costLimitCents,omitempty"`
 	// Currency is the ISO currency the cost fields are stated in.
 	Currency *string `json:"currency,omitempty"`
 	// InputTokens is the window's prompt-token count.
-	InputTokens *int32 `json:"inputTokens,omitempty"`
+	InputTokens *int64 `json:"inputTokens,omitempty"`
 	// Lane names the meter's own lane label for this measurement.
 	Lane *string `json:"lane,omitempty"`
 	// Machine is the machine the collector observed the account on.
 	Machine *string `json:"machine,omitempty"`
 	// OutputTokens is the window's completion-token count.
-	OutputTokens *int32 `json:"outputTokens,omitempty"`
+	OutputTokens *int64 `json:"outputTokens,omitempty"`
 	// Plan is the provider plan label the account is on.
 	Plan *string `json:"plan,omitempty"`
 	// Requests is the window's request count.
-	Requests *int32 `json:"requests,omitempty"`
+	Requests *int64 `json:"requests,omitempty"`
 	// ResetsAt is when the window resets, RFC 3339 UTC.
 	ResetsAt *string `json:"resetsAt,omitempty"`
 	// Synthetic marks a sample the collector derived rather than observed.
 	Synthetic *bool `json:"synthetic,omitempty"`
 	// TotalTokens is the window's total token count.
-	TotalTokens *int32 `json:"totalTokens,omitempty"`
+	TotalTokens *int64 `json:"totalTokens,omitempty"`
 	// UsedPct is how much of the window's allowance is consumed, 0..100.
-	UsedPct *float32 `json:"usedPct,omitempty"`
+	UsedPct *float64 `json:"usedPct,omitempty"`
 	// Window is the window class: 6h, day, week or month.
 	Window *string `json:"window,omitempty"`
 	// WindowMinutes is the window's length as the meter reported it.
@@ -109,9 +109,9 @@ func (o *ReadingView) SetAccount(v string) {
 }
 
 // GetCachedInputTokens returns the CachedInputTokens field value if set, zero value otherwise.
-func (o *ReadingView) GetCachedInputTokens() int32 {
+func (o *ReadingView) GetCachedInputTokens() int64 {
 	if o == nil || IsNil(o.CachedInputTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CachedInputTokens
@@ -119,7 +119,7 @@ func (o *ReadingView) GetCachedInputTokens() int32 {
 
 // GetCachedInputTokensOk returns a tuple with the CachedInputTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReadingView) GetCachedInputTokensOk() (*int32, bool) {
+func (o *ReadingView) GetCachedInputTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.CachedInputTokens) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *ReadingView) HasCachedInputTokens() bool {
 	return false
 }
 
-// SetCachedInputTokens gets a reference to the given int32 and assigns it to the CachedInputTokens field.
-func (o *ReadingView) SetCachedInputTokens(v int32) {
+// SetCachedInputTokens gets a reference to the given int64 and assigns it to the CachedInputTokens field.
+func (o *ReadingView) SetCachedInputTokens(v int64) {
 	o.CachedInputTokens = &v
 }
 
@@ -173,9 +173,9 @@ func (o *ReadingView) SetConfidence(v string) {
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *ReadingView) GetCostCents() int32 {
+func (o *ReadingView) GetCostCents() int64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostCents
@@ -183,7 +183,7 @@ func (o *ReadingView) GetCostCents() int32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReadingView) GetCostCentsOk() (*int32, bool) {
+func (o *ReadingView) GetCostCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -199,15 +199,15 @@ func (o *ReadingView) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *ReadingView) SetCostCents(v int32) {
+// SetCostCents gets a reference to the given int64 and assigns it to the CostCents field.
+func (o *ReadingView) SetCostCents(v int64) {
 	o.CostCents = &v
 }
 
 // GetCostLimitCents returns the CostLimitCents field value if set, zero value otherwise.
-func (o *ReadingView) GetCostLimitCents() int32 {
+func (o *ReadingView) GetCostLimitCents() int64 {
 	if o == nil || IsNil(o.CostLimitCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostLimitCents
@@ -215,7 +215,7 @@ func (o *ReadingView) GetCostLimitCents() int32 {
 
 // GetCostLimitCentsOk returns a tuple with the CostLimitCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReadingView) GetCostLimitCentsOk() (*int32, bool) {
+func (o *ReadingView) GetCostLimitCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostLimitCents) {
 		return nil, false
 	}
@@ -231,8 +231,8 @@ func (o *ReadingView) HasCostLimitCents() bool {
 	return false
 }
 
-// SetCostLimitCents gets a reference to the given int32 and assigns it to the CostLimitCents field.
-func (o *ReadingView) SetCostLimitCents(v int32) {
+// SetCostLimitCents gets a reference to the given int64 and assigns it to the CostLimitCents field.
+func (o *ReadingView) SetCostLimitCents(v int64) {
 	o.CostLimitCents = &v
 }
 
@@ -269,9 +269,9 @@ func (o *ReadingView) SetCurrency(v string) {
 }
 
 // GetInputTokens returns the InputTokens field value if set, zero value otherwise.
-func (o *ReadingView) GetInputTokens() int32 {
+func (o *ReadingView) GetInputTokens() int64 {
 	if o == nil || IsNil(o.InputTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.InputTokens
@@ -279,7 +279,7 @@ func (o *ReadingView) GetInputTokens() int32 {
 
 // GetInputTokensOk returns a tuple with the InputTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReadingView) GetInputTokensOk() (*int32, bool) {
+func (o *ReadingView) GetInputTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.InputTokens) {
 		return nil, false
 	}
@@ -295,8 +295,8 @@ func (o *ReadingView) HasInputTokens() bool {
 	return false
 }
 
-// SetInputTokens gets a reference to the given int32 and assigns it to the InputTokens field.
-func (o *ReadingView) SetInputTokens(v int32) {
+// SetInputTokens gets a reference to the given int64 and assigns it to the InputTokens field.
+func (o *ReadingView) SetInputTokens(v int64) {
 	o.InputTokens = &v
 }
 
@@ -365,9 +365,9 @@ func (o *ReadingView) SetMachine(v string) {
 }
 
 // GetOutputTokens returns the OutputTokens field value if set, zero value otherwise.
-func (o *ReadingView) GetOutputTokens() int32 {
+func (o *ReadingView) GetOutputTokens() int64 {
 	if o == nil || IsNil(o.OutputTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.OutputTokens
@@ -375,7 +375,7 @@ func (o *ReadingView) GetOutputTokens() int32 {
 
 // GetOutputTokensOk returns a tuple with the OutputTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReadingView) GetOutputTokensOk() (*int32, bool) {
+func (o *ReadingView) GetOutputTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.OutputTokens) {
 		return nil, false
 	}
@@ -391,8 +391,8 @@ func (o *ReadingView) HasOutputTokens() bool {
 	return false
 }
 
-// SetOutputTokens gets a reference to the given int32 and assigns it to the OutputTokens field.
-func (o *ReadingView) SetOutputTokens(v int32) {
+// SetOutputTokens gets a reference to the given int64 and assigns it to the OutputTokens field.
+func (o *ReadingView) SetOutputTokens(v int64) {
 	o.OutputTokens = &v
 }
 
@@ -429,9 +429,9 @@ func (o *ReadingView) SetPlan(v string) {
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *ReadingView) GetRequests() int32 {
+func (o *ReadingView) GetRequests() int64 {
 	if o == nil || IsNil(o.Requests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Requests
@@ -439,7 +439,7 @@ func (o *ReadingView) GetRequests() int32 {
 
 // GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReadingView) GetRequestsOk() (*int32, bool) {
+func (o *ReadingView) GetRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Requests) {
 		return nil, false
 	}
@@ -455,8 +455,8 @@ func (o *ReadingView) HasRequests() bool {
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *ReadingView) SetRequests(v int32) {
+// SetRequests gets a reference to the given int64 and assigns it to the Requests field.
+func (o *ReadingView) SetRequests(v int64) {
 	o.Requests = &v
 }
 
@@ -525,9 +525,9 @@ func (o *ReadingView) SetSynthetic(v bool) {
 }
 
 // GetTotalTokens returns the TotalTokens field value if set, zero value otherwise.
-func (o *ReadingView) GetTotalTokens() int32 {
+func (o *ReadingView) GetTotalTokens() int64 {
 	if o == nil || IsNil(o.TotalTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalTokens
@@ -535,7 +535,7 @@ func (o *ReadingView) GetTotalTokens() int32 {
 
 // GetTotalTokensOk returns a tuple with the TotalTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReadingView) GetTotalTokensOk() (*int32, bool) {
+func (o *ReadingView) GetTotalTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalTokens) {
 		return nil, false
 	}
@@ -551,15 +551,15 @@ func (o *ReadingView) HasTotalTokens() bool {
 	return false
 }
 
-// SetTotalTokens gets a reference to the given int32 and assigns it to the TotalTokens field.
-func (o *ReadingView) SetTotalTokens(v int32) {
+// SetTotalTokens gets a reference to the given int64 and assigns it to the TotalTokens field.
+func (o *ReadingView) SetTotalTokens(v int64) {
 	o.TotalTokens = &v
 }
 
 // GetUsedPct returns the UsedPct field value if set, zero value otherwise.
-func (o *ReadingView) GetUsedPct() float32 {
+func (o *ReadingView) GetUsedPct() float64 {
 	if o == nil || IsNil(o.UsedPct) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.UsedPct
@@ -567,7 +567,7 @@ func (o *ReadingView) GetUsedPct() float32 {
 
 // GetUsedPctOk returns a tuple with the UsedPct field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReadingView) GetUsedPctOk() (*float32, bool) {
+func (o *ReadingView) GetUsedPctOk() (*float64, bool) {
 	if o == nil || IsNil(o.UsedPct) {
 		return nil, false
 	}
@@ -583,8 +583,8 @@ func (o *ReadingView) HasUsedPct() bool {
 	return false
 }
 
-// SetUsedPct gets a reference to the given float32 and assigns it to the UsedPct field.
-func (o *ReadingView) SetUsedPct(v float32) {
+// SetUsedPct gets a reference to the given float64 and assigns it to the UsedPct field.
+func (o *ReadingView) SetUsedPct(v float64) {
 	o.UsedPct = &v
 }
 

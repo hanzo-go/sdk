@@ -22,7 +22,7 @@ type DeployRecord struct {
 	// Created reports whether this call recorded a new attribution edge (201) or found an existing one (200). Absent when nothing was recorded.
 	Created *bool `json:"created,omitempty"`
 	// CreatedAt is when the edge was first recorded, in unix seconds. Absent when nothing was recorded.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// DeployID is the attribution edge's handle. Absent when nothing was recorded.
 	DeployId *string `json:"deployId,omitempty"`
 	// Reason says why nothing was attributed. Present only when recorded is false.
@@ -83,9 +83,9 @@ func (o *DeployRecord) SetCreated(v bool) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *DeployRecord) GetCreatedAt() int32 {
+func (o *DeployRecord) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -93,7 +93,7 @@ func (o *DeployRecord) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeployRecord) GetCreatedAtOk() (*int32, bool) {
+func (o *DeployRecord) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -109,8 +109,8 @@ func (o *DeployRecord) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *DeployRecord) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *DeployRecord) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 

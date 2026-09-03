@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Live** | Pointer to **int32** | Live is the number of vouchers newly posted to the live ledger. | [optional] 
-**Sandbox** | Pointer to **int32** | Sandbox is the number newly posted to the sandbox ledger. | [optional] 
+**Live** | Pointer to **int64** | Live is the number of vouchers newly posted to the live ledger. | [optional] 
+**Sandbox** | Pointer to **int64** | Sandbox is the number newly posted to the sandbox ledger. | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLive
 
-`func (o *SyncTally) GetLive() int32`
+`func (o *SyncTally) GetLive() int64`
 
 GetLive returns the Live field if non-nil, zero value otherwise.
 
 ### GetLiveOk
 
-`func (o *SyncTally) GetLiveOk() (*int32, bool)`
+`func (o *SyncTally) GetLiveOk() (*int64, bool)`
 
 GetLiveOk returns a tuple with the Live field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLive
 
-`func (o *SyncTally) SetLive(v int32)`
+`func (o *SyncTally) SetLive(v int64)`
 
 SetLive sets Live field to given value.
 
@@ -53,20 +53,20 @@ HasLive returns a boolean if a field has been set.
 
 ### GetSandbox
 
-`func (o *SyncTally) GetSandbox() int32`
+`func (o *SyncTally) GetSandbox() int64`
 
 GetSandbox returns the Sandbox field if non-nil, zero value otherwise.
 
 ### GetSandboxOk
 
-`func (o *SyncTally) GetSandboxOk() (*int32, bool)`
+`func (o *SyncTally) GetSandboxOk() (*int64, bool)`
 
 GetSandboxOk returns a tuple with the Sandbox field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSandbox
 
-`func (o *SyncTally) SetSandbox(v int32)`
+`func (o *SyncTally) SetSandbox(v int64)`
 
 SetSandbox sets Sandbox field to given value.
 

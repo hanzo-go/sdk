@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Done** | Pointer to **int32** | Done counts steps that are FINISHED — done and skipped alike, since a step the org deliberately passed over is not still owed. It therefore rises when somebody skips, which is the intended reading of a checklist. | [optional] 
+**Done** | Pointer to **int64** | Done counts steps that are FINISHED — done and skipped alike, since a step the org deliberately passed over is not still owed. It therefore rises when somebody skips, which is the intended reading of a checklist. | [optional] 
 **Next** | Pointer to **string** | Next is the id of the step to do next: the first available, unfinished step in authoring order. Empty when the journey is complete, and also empty when every remaining step is blocked by a dependency. | [optional] 
-**Percent** | Pointer to **int32** | Percent is done/total as a whole number 0-100, rounded, so a caller renders a bar without recomputing it. Total zero reads as 0. | [optional] 
-**Total** | Pointer to **int32** | Total is how many steps this org&#39;s journey holds — the ENABLED steps of the playbook, so it shrinks when an operator disables one and does not match the authored step count. | [optional] 
+**Percent** | Pointer to **int64** | Percent is done/total as a whole number 0-100, rounded, so a caller renders a bar without recomputing it. Total zero reads as 0. | [optional] 
+**Total** | Pointer to **int64** | Total is how many steps this org&#39;s journey holds — the ENABLED steps of the playbook, so it shrinks when an operator disables one and does not match the authored step count. | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetDone
 
-`func (o *ProgressView) GetDone() int32`
+`func (o *ProgressView) GetDone() int64`
 
 GetDone returns the Done field if non-nil, zero value otherwise.
 
 ### GetDoneOk
 
-`func (o *ProgressView) GetDoneOk() (*int32, bool)`
+`func (o *ProgressView) GetDoneOk() (*int64, bool)`
 
 GetDoneOk returns a tuple with the Done field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDone
 
-`func (o *ProgressView) SetDone(v int32)`
+`func (o *ProgressView) SetDone(v int64)`
 
 SetDone sets Done field to given value.
 
@@ -80,20 +80,20 @@ HasNext returns a boolean if a field has been set.
 
 ### GetPercent
 
-`func (o *ProgressView) GetPercent() int32`
+`func (o *ProgressView) GetPercent() int64`
 
 GetPercent returns the Percent field if non-nil, zero value otherwise.
 
 ### GetPercentOk
 
-`func (o *ProgressView) GetPercentOk() (*int32, bool)`
+`func (o *ProgressView) GetPercentOk() (*int64, bool)`
 
 GetPercentOk returns a tuple with the Percent field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPercent
 
-`func (o *ProgressView) SetPercent(v int32)`
+`func (o *ProgressView) SetPercent(v int64)`
 
 SetPercent sets Percent field to given value.
 
@@ -105,20 +105,20 @@ HasPercent returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *ProgressView) GetTotal() int32`
+`func (o *ProgressView) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *ProgressView) GetTotalOk() (*int32, bool)`
+`func (o *ProgressView) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *ProgressView) SetTotal(v int32)`
+`func (o *ProgressView) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

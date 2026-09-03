@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FaceIdData** | Pointer to **[]float32** |  | [optional] 
+**FaceIdData** | Pointer to **[]float64** |  | [optional] 
 **ImageUrl** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetFaceIdData
 
-`func (o *IamFaceId) GetFaceIdData() []float32`
+`func (o *IamFaceId) GetFaceIdData() []float64`
 
 GetFaceIdData returns the FaceIdData field if non-nil, zero value otherwise.
 
 ### GetFaceIdDataOk
 
-`func (o *IamFaceId) GetFaceIdDataOk() (*[]float32, bool)`
+`func (o *IamFaceId) GetFaceIdDataOk() (*[]float64, bool)`
 
 GetFaceIdDataOk returns a tuple with the FaceIdData field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFaceIdData
 
-`func (o *IamFaceId) SetFaceIdData(v []float32)`
+`func (o *IamFaceId) SetFaceIdData(v []float64)`
 
 SetFaceIdData sets FaceIdData field to given value.
 

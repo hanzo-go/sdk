@@ -19,7 +19,7 @@ var _ MappedNullable = &IamThemeData{}
 
 // IamThemeData struct for IamThemeData
 type IamThemeData struct {
-	BorderRadius *int32  `json:"borderRadius,omitempty"`
+	BorderRadius *int64  `json:"borderRadius,omitempty"`
 	ColorPrimary *string `json:"colorPrimary,omitempty"`
 	IsCompact    *bool   `json:"isCompact,omitempty"`
 	IsEnabled    *bool   `json:"isEnabled,omitempty"`
@@ -44,9 +44,9 @@ func NewIamThemeDataWithDefaults() *IamThemeData {
 }
 
 // GetBorderRadius returns the BorderRadius field value if set, zero value otherwise.
-func (o *IamThemeData) GetBorderRadius() int32 {
+func (o *IamThemeData) GetBorderRadius() int64 {
 	if o == nil || IsNil(o.BorderRadius) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.BorderRadius
@@ -54,7 +54,7 @@ func (o *IamThemeData) GetBorderRadius() int32 {
 
 // GetBorderRadiusOk returns a tuple with the BorderRadius field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamThemeData) GetBorderRadiusOk() (*int32, bool) {
+func (o *IamThemeData) GetBorderRadiusOk() (*int64, bool) {
 	if o == nil || IsNil(o.BorderRadius) {
 		return nil, false
 	}
@@ -70,8 +70,8 @@ func (o *IamThemeData) HasBorderRadius() bool {
 	return false
 }
 
-// SetBorderRadius gets a reference to the given int32 and assigns it to the BorderRadius field.
-func (o *IamThemeData) SetBorderRadius(v int32) {
+// SetBorderRadius gets a reference to the given int64 and assigns it to the BorderRadius field.
+func (o *IamThemeData) SetBorderRadius(v int64) {
 	o.BorderRadius = &v
 }
 

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Benchmark** | Pointer to **string** | Benchmark is the catalog id these histories are about. | [optional] 
 **Data** | Pointer to [**[]ModelHistory**](ModelHistory.md) | Data is one entry per model, ordered by model name. | [optional] 
-**Total** | Pointer to **int32** | Total is how many models Data holds. | [optional] 
+**Total** | Pointer to **int64** | Total is how many models Data holds. | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasData returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *HistoryOut) GetTotal() int32`
+`func (o *HistoryOut) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *HistoryOut) GetTotalOk() (*int32, bool)`
+`func (o *HistoryOut) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *HistoryOut) SetTotal(v int32)`
+`func (o *HistoryOut) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

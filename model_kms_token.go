@@ -22,7 +22,7 @@ type KmsToken struct {
 	// AccessToken is IAM's own JWT, verbatim. Its `owner` claim scopes it to exactly one org, which is what every secret operation then reads.
 	AccessToken *string `json:"accessToken,omitempty"`
 	// ExpiresIn is the token's lifetime in seconds, as IAM reported it.
-	ExpiresIn *int32 `json:"expiresIn,omitempty"`
+	ExpiresIn *int64 `json:"expiresIn,omitempty"`
 	// TokenType is `Bearer`.
 	TokenType *string `json:"tokenType,omitempty"`
 }
@@ -77,9 +77,9 @@ func (o *KmsToken) SetAccessToken(v string) {
 }
 
 // GetExpiresIn returns the ExpiresIn field value if set, zero value otherwise.
-func (o *KmsToken) GetExpiresIn() int32 {
+func (o *KmsToken) GetExpiresIn() int64 {
 	if o == nil || IsNil(o.ExpiresIn) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ExpiresIn
@@ -87,7 +87,7 @@ func (o *KmsToken) GetExpiresIn() int32 {
 
 // GetExpiresInOk returns a tuple with the ExpiresIn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KmsToken) GetExpiresInOk() (*int32, bool) {
+func (o *KmsToken) GetExpiresInOk() (*int64, bool) {
 	if o == nil || IsNil(o.ExpiresIn) {
 		return nil, false
 	}
@@ -103,8 +103,8 @@ func (o *KmsToken) HasExpiresIn() bool {
 	return false
 }
 
-// SetExpiresIn gets a reference to the given int32 and assigns it to the ExpiresIn field.
-func (o *KmsToken) SetExpiresIn(v int32) {
+// SetExpiresIn gets a reference to the given int64 and assigns it to the ExpiresIn field.
+func (o *KmsToken) SetExpiresIn(v int64) {
 	o.ExpiresIn = &v
 }
 

@@ -22,7 +22,7 @@ type Symbol struct {
 	// Detail is the server's short elaboration, typically the signature. Absent when it offered none.
 	Detail *string `json:"detail,omitempty"`
 	// Kind is the LSP SymbolKind number (5 class, 6 method, 12 function, 23 struct, …), passed through rather than translated to a word — these callers already speak LSP, and inventing a second vocabulary is how the two drift.
-	Kind *int32 `json:"kind,omitempty"`
+	Kind *int64 `json:"kind,omitempty"`
 	// Name is the declared identifier.
 	Name *string `json:"name,omitempty"`
 	// Range is the declaration's span in the file.
@@ -79,9 +79,9 @@ func (o *Symbol) SetDetail(v string) {
 }
 
 // GetKind returns the Kind field value if set, zero value otherwise.
-func (o *Symbol) GetKind() int32 {
+func (o *Symbol) GetKind() int64 {
 	if o == nil || IsNil(o.Kind) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Kind
@@ -89,7 +89,7 @@ func (o *Symbol) GetKind() int32 {
 
 // GetKindOk returns a tuple with the Kind field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Symbol) GetKindOk() (*int32, bool) {
+func (o *Symbol) GetKindOk() (*int64, bool) {
 	if o == nil || IsNil(o.Kind) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *Symbol) HasKind() bool {
 	return false
 }
 
-// SetKind gets a reference to the given int32 and assigns it to the Kind field.
-func (o *Symbol) SetKind(v int32) {
+// SetKind gets a reference to the given int64 and assigns it to the Kind field.
+func (o *Symbol) SetKind(v int64) {
 	o.Kind = &v
 }
 

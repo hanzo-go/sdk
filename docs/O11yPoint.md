@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **T** | Pointer to **string** | T is the bucket start, RFC3339 in UTC. | [optional] 
-**V** | Pointer to **float32** | V is the bucket&#39;s value. | [optional] 
+**V** | Pointer to **float64** | V is the bucket&#39;s value. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasT returns a boolean if a field has been set.
 
 ### GetV
 
-`func (o *O11yPoint) GetV() float32`
+`func (o *O11yPoint) GetV() float64`
 
 GetV returns the V field if non-nil, zero value otherwise.
 
 ### GetVOk
 
-`func (o *O11yPoint) GetVOk() (*float32, bool)`
+`func (o *O11yPoint) GetVOk() (*float64, bool)`
 
 GetVOk returns a tuple with the V field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetV
 
-`func (o *O11yPoint) SetV(v float32)`
+`func (o *O11yPoint) SetV(v float64)`
 
 SetV sets V field to given value.
 

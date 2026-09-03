@@ -22,7 +22,7 @@ type CampaignWrite struct {
 	// Audience is the segment or audience selector this campaign targets.
 	Audience *string `json:"audience,omitempty"`
 	// Budget is the campaign's total budget in CENTS. Negative reads as 0.
-	Budget *int32 `json:"budget,omitempty"`
+	Budget *int64 `json:"budget,omitempty"`
 	// Channels are the fan-out targets, at most one per kind (paid, organic, email) and at most 12. A channel's status and provider id are server-owned: whatever the caller sends for them is replaced with \"pending\".
 	Channels []ChannelSpec `json:"channels,omitempty"`
 	// Content is the ordered creative set. Content[0] is the active creative and the rest are A/B variants; at most 32, empty entries dropped.
@@ -30,7 +30,7 @@ type CampaignWrite struct {
 	// Name is the campaign's display name. Required; trimmed and capped at 2048 characters.
 	Name *string `json:"name,omitempty"`
 	// ScheduleAt is when the campaign should run, in unix seconds. Negative reads as 0 (immediately).
-	ScheduleAt *int32 `json:"scheduleAt,omitempty"`
+	ScheduleAt *int64 `json:"scheduleAt,omitempty"`
 }
 
 // NewCampaignWrite instantiates a new CampaignWrite object
@@ -83,9 +83,9 @@ func (o *CampaignWrite) SetAudience(v string) {
 }
 
 // GetBudget returns the Budget field value if set, zero value otherwise.
-func (o *CampaignWrite) GetBudget() int32 {
+func (o *CampaignWrite) GetBudget() int64 {
 	if o == nil || IsNil(o.Budget) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Budget
@@ -93,7 +93,7 @@ func (o *CampaignWrite) GetBudget() int32 {
 
 // GetBudgetOk returns a tuple with the Budget field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignWrite) GetBudgetOk() (*int32, bool) {
+func (o *CampaignWrite) GetBudgetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Budget) {
 		return nil, false
 	}
@@ -109,8 +109,8 @@ func (o *CampaignWrite) HasBudget() bool {
 	return false
 }
 
-// SetBudget gets a reference to the given int32 and assigns it to the Budget field.
-func (o *CampaignWrite) SetBudget(v int32) {
+// SetBudget gets a reference to the given int64 and assigns it to the Budget field.
+func (o *CampaignWrite) SetBudget(v int64) {
 	o.Budget = &v
 }
 
@@ -211,9 +211,9 @@ func (o *CampaignWrite) SetName(v string) {
 }
 
 // GetScheduleAt returns the ScheduleAt field value if set, zero value otherwise.
-func (o *CampaignWrite) GetScheduleAt() int32 {
+func (o *CampaignWrite) GetScheduleAt() int64 {
 	if o == nil || IsNil(o.ScheduleAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ScheduleAt
@@ -221,7 +221,7 @@ func (o *CampaignWrite) GetScheduleAt() int32 {
 
 // GetScheduleAtOk returns a tuple with the ScheduleAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignWrite) GetScheduleAtOk() (*int32, bool) {
+func (o *CampaignWrite) GetScheduleAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.ScheduleAt) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *CampaignWrite) HasScheduleAt() bool {
 	return false
 }
 
-// SetScheduleAt gets a reference to the given int32 and assigns it to the ScheduleAt field.
-func (o *CampaignWrite) SetScheduleAt(v int32) {
+// SetScheduleAt gets a reference to the given int64 and assigns it to the ScheduleAt field.
+func (o *CampaignWrite) SetScheduleAt(v int64) {
 	o.ScheduleAt = &v
 }
 

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Command** | Pointer to **string** | Command is what was asked, from a closed four: pause, resume, stop, message. It is an INTENT — the poller decides what to do about it, and the session&#39;s status changes only when the poller reports back that it did. | [optional] 
 **Message** | Pointer to **string** | Message is the text that came with the command: what to say into the run for &#x60;message&#x60;, and the cancellation reason for &#x60;stop&#x60;. Up to 16 KiB. Empty on a bare pause or resume. | [optional] 
 **Payload** | Pointer to **interface{}** |  | [optional] 
-**Seq** | Pointer to **int32** | Seq is this command&#39;s position in the session&#39;s log — the same monotonic number every other turn is ordered by, so a command sits in the transcript where it was issued. Send the highest one you applied back as &#x60;after&#x60; and it is never redelivered. | [optional] 
+**Seq** | Pointer to **int64** | Seq is this command&#39;s position in the session&#39;s log — the same monotonic number every other turn is ordered by, so a command sits in the transcript where it was issued. Send the highest one you applied back as &#x60;after&#x60; and it is never redelivered. | [optional] 
 
 ## Methods
 
@@ -115,20 +115,20 @@ HasPayload returns a boolean if a field has been set.
 UnsetPayload ensures that no value is present for Payload, not even an explicit nil
 ### GetSeq
 
-`func (o *ControlCommandView) GetSeq() int32`
+`func (o *ControlCommandView) GetSeq() int64`
 
 GetSeq returns the Seq field if non-nil, zero value otherwise.
 
 ### GetSeqOk
 
-`func (o *ControlCommandView) GetSeqOk() (*int32, bool)`
+`func (o *ControlCommandView) GetSeqOk() (*int64, bool)`
 
 GetSeqOk returns a tuple with the Seq field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSeq
 
-`func (o *ControlCommandView) SetSeq(v int32)`
+`func (o *ControlCommandView) SetSeq(v int64)`
 
 SetSeq sets Seq field to given value.
 

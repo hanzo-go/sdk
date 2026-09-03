@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Attempt** | Pointer to **int32** | Attempt is which try this row is, starting at 1. The ladder waits 1s, then 5s, then 25s before the next one. | [optional] 
+**Attempt** | Pointer to **int64** | Attempt is which try this row is, starting at 1. The ladder waits 1s, then 5s, then 25s before the next one. | [optional] 
 **Created** | Pointer to **string** | Created is when the attempt was made, RFC3339 in UTC. | [optional] 
 **Delivery** | Pointer to **string** | DeliveryID groups the attempts for ONE event to ONE endpoint. Rows sharing it are the same delivery being retried, not separate events. | [optional] 
-**DurationMs** | Pointer to **int32** | DurationMs is how long this attempt took end to end, in MILLISECONDS. | [optional] 
+**DurationMs** | Pointer to **int64** | DurationMs is how long this attempt took end to end, in MILLISECONDS. | [optional] 
 **Endpoint** | Pointer to **string** | EndpointID is which subscriber this attempt was for. | [optional] 
 **Error** | Pointer to **string** | Error says what went wrong on a non-ok attempt. Empty on success. | [optional] 
-**HttpStatus** | Pointer to **int32** | HTTPStatus is what the subscriber answered. ZERO means it never answered — a refused connection, a DNS failure or a timeout — which is why a zero here is not a 200. | [optional] 
+**HttpStatus** | Pointer to **int64** | HTTPStatus is what the subscriber answered. ZERO means it never answered — a refused connection, a DNS failure or a timeout — which is why a zero here is not a 200. | [optional] 
 **Status** | Pointer to **string** | Status is \&quot;ok\&quot; when the subscriber accepted it, \&quot;retrying\&quot; while a further attempt will follow, and \&quot;failed\&quot; when none will. Exactly one row of a delivery is terminal. | [optional] 
 **Subject** | Pointer to **string** | Subject is the event that was delivered (\&quot;commerce.order.created\&quot;). A manual test send carries \&quot;webhook.test\&quot;. | [optional] 
 
@@ -35,20 +35,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAttempt
 
-`func (o *DeliveryRow) GetAttempt() int32`
+`func (o *DeliveryRow) GetAttempt() int64`
 
 GetAttempt returns the Attempt field if non-nil, zero value otherwise.
 
 ### GetAttemptOk
 
-`func (o *DeliveryRow) GetAttemptOk() (*int32, bool)`
+`func (o *DeliveryRow) GetAttemptOk() (*int64, bool)`
 
 GetAttemptOk returns a tuple with the Attempt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAttempt
 
-`func (o *DeliveryRow) SetAttempt(v int32)`
+`func (o *DeliveryRow) SetAttempt(v int64)`
 
 SetAttempt sets Attempt field to given value.
 
@@ -110,20 +110,20 @@ HasDelivery returns a boolean if a field has been set.
 
 ### GetDurationMs
 
-`func (o *DeliveryRow) GetDurationMs() int32`
+`func (o *DeliveryRow) GetDurationMs() int64`
 
 GetDurationMs returns the DurationMs field if non-nil, zero value otherwise.
 
 ### GetDurationMsOk
 
-`func (o *DeliveryRow) GetDurationMsOk() (*int32, bool)`
+`func (o *DeliveryRow) GetDurationMsOk() (*int64, bool)`
 
 GetDurationMsOk returns a tuple with the DurationMs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDurationMs
 
-`func (o *DeliveryRow) SetDurationMs(v int32)`
+`func (o *DeliveryRow) SetDurationMs(v int64)`
 
 SetDurationMs sets DurationMs field to given value.
 
@@ -185,20 +185,20 @@ HasError returns a boolean if a field has been set.
 
 ### GetHttpStatus
 
-`func (o *DeliveryRow) GetHttpStatus() int32`
+`func (o *DeliveryRow) GetHttpStatus() int64`
 
 GetHttpStatus returns the HttpStatus field if non-nil, zero value otherwise.
 
 ### GetHttpStatusOk
 
-`func (o *DeliveryRow) GetHttpStatusOk() (*int32, bool)`
+`func (o *DeliveryRow) GetHttpStatusOk() (*int64, bool)`
 
 GetHttpStatusOk returns a tuple with the HttpStatus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHttpStatus
 
-`func (o *DeliveryRow) SetHttpStatus(v int32)`
+`func (o *DeliveryRow) SetHttpStatus(v int64)`
 
 SetHttpStatus sets HttpStatus field to given value.
 

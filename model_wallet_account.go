@@ -20,7 +20,7 @@ var _ MappedNullable = &WalletAccount{}
 // WalletAccount struct for WalletAccount
 type WalletAccount struct {
 	// CreatedAt is when the account was opened, Unix seconds. Listings order by it, newest first.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// ID is the account id, minted by the server as \"acct_\" + 24 hex. Wallets name it as their accountId, and it becomes a segment of each of their key refs — so it addresses key material and cannot be reassigned.
 	Id *string `json:"id,omitempty"`
 	// Name is the label given at creation, trimmed and required. It groups wallets: it is not a key, holds no balance, and is not unique in the org.
@@ -47,9 +47,9 @@ func NewWalletAccountWithDefaults() *WalletAccount {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *WalletAccount) GetCreatedAt() int32 {
+func (o *WalletAccount) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -57,7 +57,7 @@ func (o *WalletAccount) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WalletAccount) GetCreatedAtOk() (*int32, bool) {
+func (o *WalletAccount) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -73,8 +73,8 @@ func (o *WalletAccount) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *WalletAccount) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *WalletAccount) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 

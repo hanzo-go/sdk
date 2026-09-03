@@ -20,17 +20,17 @@ var _ MappedNullable = &ActivityTotals{}
 // ActivityTotals struct for ActivityTotals
 type ActivityTotals struct {
 	// ActiveDays counts the days with any usage at all — the streak/consistency number. Compare it against len(days) for the share of days the subject showed up.
-	ActiveDays *int32 `json:"activeDays,omitempty"`
+	ActiveDays *int64 `json:"activeDays,omitempty"`
 	// CostCents is the window's spend in whole US cents, the sum of Days[].CostCents.
-	CostCents *int32 `json:"costCents,omitempty"`
+	CostCents *int64 `json:"costCents,omitempty"`
 	// MaxRequests is the same ceiling for a request-based heatmap — the busiest single day's request count, 0 for an idle window.
-	MaxRequests *int32 `json:"maxRequests,omitempty"`
+	MaxRequests *int64 `json:"maxRequests,omitempty"`
 	// MaxTokens is the busiest single day's token count: the ceiling to normalize a token heatmap against, so the darkest cell is that day. 0 for an idle window, which a client must not divide by.
-	MaxTokens *int32 `json:"maxTokens,omitempty"`
+	MaxTokens *int64 `json:"maxTokens,omitempty"`
 	// Requests is the sum of Days[].Requests over the whole window.
-	Requests *int32 `json:"requests,omitempty"`
+	Requests *int64 `json:"requests,omitempty"`
 	// Tokens is the sum of Days[].Tokens over the whole window.
-	Tokens *int32 `json:"tokens,omitempty"`
+	Tokens *int64 `json:"tokens,omitempty"`
 }
 
 // NewActivityTotals instantiates a new ActivityTotals object
@@ -51,9 +51,9 @@ func NewActivityTotalsWithDefaults() *ActivityTotals {
 }
 
 // GetActiveDays returns the ActiveDays field value if set, zero value otherwise.
-func (o *ActivityTotals) GetActiveDays() int32 {
+func (o *ActivityTotals) GetActiveDays() int64 {
 	if o == nil || IsNil(o.ActiveDays) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ActiveDays
@@ -61,7 +61,7 @@ func (o *ActivityTotals) GetActiveDays() int32 {
 
 // GetActiveDaysOk returns a tuple with the ActiveDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ActivityTotals) GetActiveDaysOk() (*int32, bool) {
+func (o *ActivityTotals) GetActiveDaysOk() (*int64, bool) {
 	if o == nil || IsNil(o.ActiveDays) {
 		return nil, false
 	}
@@ -77,15 +77,15 @@ func (o *ActivityTotals) HasActiveDays() bool {
 	return false
 }
 
-// SetActiveDays gets a reference to the given int32 and assigns it to the ActiveDays field.
-func (o *ActivityTotals) SetActiveDays(v int32) {
+// SetActiveDays gets a reference to the given int64 and assigns it to the ActiveDays field.
+func (o *ActivityTotals) SetActiveDays(v int64) {
 	o.ActiveDays = &v
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *ActivityTotals) GetCostCents() int32 {
+func (o *ActivityTotals) GetCostCents() int64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostCents
@@ -93,7 +93,7 @@ func (o *ActivityTotals) GetCostCents() int32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ActivityTotals) GetCostCentsOk() (*int32, bool) {
+func (o *ActivityTotals) GetCostCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -109,15 +109,15 @@ func (o *ActivityTotals) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *ActivityTotals) SetCostCents(v int32) {
+// SetCostCents gets a reference to the given int64 and assigns it to the CostCents field.
+func (o *ActivityTotals) SetCostCents(v int64) {
 	o.CostCents = &v
 }
 
 // GetMaxRequests returns the MaxRequests field value if set, zero value otherwise.
-func (o *ActivityTotals) GetMaxRequests() int32 {
+func (o *ActivityTotals) GetMaxRequests() int64 {
 	if o == nil || IsNil(o.MaxRequests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxRequests
@@ -125,7 +125,7 @@ func (o *ActivityTotals) GetMaxRequests() int32 {
 
 // GetMaxRequestsOk returns a tuple with the MaxRequests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ActivityTotals) GetMaxRequestsOk() (*int32, bool) {
+func (o *ActivityTotals) GetMaxRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxRequests) {
 		return nil, false
 	}
@@ -141,15 +141,15 @@ func (o *ActivityTotals) HasMaxRequests() bool {
 	return false
 }
 
-// SetMaxRequests gets a reference to the given int32 and assigns it to the MaxRequests field.
-func (o *ActivityTotals) SetMaxRequests(v int32) {
+// SetMaxRequests gets a reference to the given int64 and assigns it to the MaxRequests field.
+func (o *ActivityTotals) SetMaxRequests(v int64) {
 	o.MaxRequests = &v
 }
 
 // GetMaxTokens returns the MaxTokens field value if set, zero value otherwise.
-func (o *ActivityTotals) GetMaxTokens() int32 {
+func (o *ActivityTotals) GetMaxTokens() int64 {
 	if o == nil || IsNil(o.MaxTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxTokens
@@ -157,7 +157,7 @@ func (o *ActivityTotals) GetMaxTokens() int32 {
 
 // GetMaxTokensOk returns a tuple with the MaxTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ActivityTotals) GetMaxTokensOk() (*int32, bool) {
+func (o *ActivityTotals) GetMaxTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxTokens) {
 		return nil, false
 	}
@@ -173,15 +173,15 @@ func (o *ActivityTotals) HasMaxTokens() bool {
 	return false
 }
 
-// SetMaxTokens gets a reference to the given int32 and assigns it to the MaxTokens field.
-func (o *ActivityTotals) SetMaxTokens(v int32) {
+// SetMaxTokens gets a reference to the given int64 and assigns it to the MaxTokens field.
+func (o *ActivityTotals) SetMaxTokens(v int64) {
 	o.MaxTokens = &v
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *ActivityTotals) GetRequests() int32 {
+func (o *ActivityTotals) GetRequests() int64 {
 	if o == nil || IsNil(o.Requests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Requests
@@ -189,7 +189,7 @@ func (o *ActivityTotals) GetRequests() int32 {
 
 // GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ActivityTotals) GetRequestsOk() (*int32, bool) {
+func (o *ActivityTotals) GetRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Requests) {
 		return nil, false
 	}
@@ -205,15 +205,15 @@ func (o *ActivityTotals) HasRequests() bool {
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *ActivityTotals) SetRequests(v int32) {
+// SetRequests gets a reference to the given int64 and assigns it to the Requests field.
+func (o *ActivityTotals) SetRequests(v int64) {
 	o.Requests = &v
 }
 
 // GetTokens returns the Tokens field value if set, zero value otherwise.
-func (o *ActivityTotals) GetTokens() int32 {
+func (o *ActivityTotals) GetTokens() int64 {
 	if o == nil || IsNil(o.Tokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Tokens
@@ -221,7 +221,7 @@ func (o *ActivityTotals) GetTokens() int32 {
 
 // GetTokensOk returns a tuple with the Tokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ActivityTotals) GetTokensOk() (*int32, bool) {
+func (o *ActivityTotals) GetTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.Tokens) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *ActivityTotals) HasTokens() bool {
 	return false
 }
 
-// SetTokens gets a reference to the given int32 and assigns it to the Tokens field.
-func (o *ActivityTotals) SetTokens(v int32) {
+// SetTokens gets a reference to the given int64 and assigns it to the Tokens field.
+func (o *ActivityTotals) SetTokens(v int64) {
 	o.Tokens = &v
 }
 

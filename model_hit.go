@@ -28,7 +28,7 @@ type Hit struct {
 	// Provider is the connector that ingested the document — github, slack, google or notion. Absent for a page or memory written in the product, which came from no connector.
 	Provider *string `json:"provider,omitempty"`
 	// Score is the cosine similarity between the query's embedding and the document's, from -1 to 1, higher being closer — the collection is created with Cosine distance. Hits arrive ordered by it, descending. There is no absolute cutoff: what counts as a good score moves with the query and the embedding model, so compare scores within one response and not across queries.
-	Score *float32 `json:"score,omitempty"`
+	Score *float64 `json:"score,omitempty"`
 	// Title is the document's title as it was indexed. Empty for a document saved without one; it is a label to show, never the id (that is Name).
 	Title *string `json:"title,omitempty"`
 	// URL is the document's link back into the app it was ingested from. Absent when the indexed payload carries none, which is the normal case for pages and memories.
@@ -181,9 +181,9 @@ func (o *Hit) SetProvider(v string) {
 }
 
 // GetScore returns the Score field value if set, zero value otherwise.
-func (o *Hit) GetScore() float32 {
+func (o *Hit) GetScore() float64 {
 	if o == nil || IsNil(o.Score) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Score
@@ -191,7 +191,7 @@ func (o *Hit) GetScore() float32 {
 
 // GetScoreOk returns a tuple with the Score field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Hit) GetScoreOk() (*float32, bool) {
+func (o *Hit) GetScoreOk() (*float64, bool) {
 	if o == nil || IsNil(o.Score) {
 		return nil, false
 	}
@@ -207,8 +207,8 @@ func (o *Hit) HasScore() bool {
 	return false
 }
 
-// SetScore gets a reference to the given float32 and assigns it to the Score field.
-func (o *Hit) SetScore(v float32) {
+// SetScore gets a reference to the given float64 and assigns it to the Score field.
+func (o *Hit) SetScore(v float64) {
 	o.Score = &v
 }
 

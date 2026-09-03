@@ -34,7 +34,7 @@ type Taxon struct {
 	// Name is the display name, e.g. \"Vector\".
 	Name *string `json:"name,omitempty"`
 	// Order is where the taxon sits within its category, ascending.
-	Order *int32 `json:"order,omitempty"`
+	Order *int64 `json:"order,omitempty"`
 	// Owner is the org this product belongs to: the platform's own org for one every tenant sees, or your org for one you added. Where two rows share an id, yours is the one served.
 	Owner *string `json:"owner,omitempty"`
 	// Published is whether the taxon is shown. An unpublished taxon is served only to an editor, so a product can be staged before anyone sees it.
@@ -287,9 +287,9 @@ func (o *Taxon) SetName(v string) {
 }
 
 // GetOrder returns the Order field value if set, zero value otherwise.
-func (o *Taxon) GetOrder() int32 {
+func (o *Taxon) GetOrder() int64 {
 	if o == nil || IsNil(o.Order) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Order
@@ -297,7 +297,7 @@ func (o *Taxon) GetOrder() int32 {
 
 // GetOrderOk returns a tuple with the Order field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Taxon) GetOrderOk() (*int32, bool) {
+func (o *Taxon) GetOrderOk() (*int64, bool) {
 	if o == nil || IsNil(o.Order) {
 		return nil, false
 	}
@@ -313,8 +313,8 @@ func (o *Taxon) HasOrder() bool {
 	return false
 }
 
-// SetOrder gets a reference to the given int32 and assigns it to the Order field.
-func (o *Taxon) SetOrder(v int32) {
+// SetOrder gets a reference to the given int64 and assigns it to the Order field.
+func (o *Taxon) SetOrder(v int64) {
 	o.Order = &v
 }
 

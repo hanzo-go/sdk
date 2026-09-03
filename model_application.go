@@ -26,7 +26,7 @@ type Application struct {
 	// ID is the affiliate's server-minted handle, \"aff_\"-prefixed — the id staff approve, suspend, re-rate and pay against.
 	Id *string `json:"id,omitempty"`
 	// RateBps is the direct (level 1) commission rate the row carries, in basis points OF Hanzo's margin (2000 = 20% of margin, never of the customer's bill).
-	RateBps *int32 `json:"rateBps,omitempty"`
+	RateBps *int64 `json:"rateBps,omitempty"`
 	// RequestedCode echoes the vanity code asked for, normalized to lower case. It is a request only: approval mints a different slug if this one is taken.
 	RequestedCode *string `json:"requestedCode,omitempty"`
 	// Status is \"applied\" for a row this call created. A re-apply echoes the existing row's status, which may already be \"approved\" or \"suspended\".
@@ -147,9 +147,9 @@ func (o *Application) SetId(v string) {
 }
 
 // GetRateBps returns the RateBps field value if set, zero value otherwise.
-func (o *Application) GetRateBps() int32 {
+func (o *Application) GetRateBps() int64 {
 	if o == nil || IsNil(o.RateBps) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RateBps
@@ -157,7 +157,7 @@ func (o *Application) GetRateBps() int32 {
 
 // GetRateBpsOk returns a tuple with the RateBps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Application) GetRateBpsOk() (*int32, bool) {
+func (o *Application) GetRateBpsOk() (*int64, bool) {
 	if o == nil || IsNil(o.RateBps) {
 		return nil, false
 	}
@@ -173,8 +173,8 @@ func (o *Application) HasRateBps() bool {
 	return false
 }
 
-// SetRateBps gets a reference to the given int32 and assigns it to the RateBps field.
-func (o *Application) SetRateBps(v int32) {
+// SetRateBps gets a reference to the given int64 and assigns it to the RateBps field.
+func (o *Application) SetRateBps(v int64) {
 	o.RateBps = &v
 }
 

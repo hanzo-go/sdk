@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AlreadyEnrolled** | Pointer to **int32** | AlreadyEnrolled is how many this sequence had already taken and were left alone. | [optional] 
-**Enrolled** | Pointer to **int32** | Enrolled is how many started a walk on this call. | [optional] 
+**AlreadyEnrolled** | Pointer to **int64** | AlreadyEnrolled is how many this sequence had already taken and were left alone. | [optional] 
+**Enrolled** | Pointer to **int64** | Enrolled is how many started a walk on this call. | [optional] 
 **EnrollmentId** | Pointer to **string** | EnrollmentID names the walk, and is present ONLY for a single-address enroll — a fan-out has many, and reporting one of them would be a lie. | [optional] 
-**Resolved** | Pointer to **int32** | Resolved is how many addresses the request named — 1 for an address, the audience&#39;s deliverable count for an audience. | [optional] 
+**Resolved** | Pointer to **int64** | Resolved is how many addresses the request named — 1 for an address, the audience&#39;s deliverable count for an audience. | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAlreadyEnrolled
 
-`func (o *EnrollResult) GetAlreadyEnrolled() int32`
+`func (o *EnrollResult) GetAlreadyEnrolled() int64`
 
 GetAlreadyEnrolled returns the AlreadyEnrolled field if non-nil, zero value otherwise.
 
 ### GetAlreadyEnrolledOk
 
-`func (o *EnrollResult) GetAlreadyEnrolledOk() (*int32, bool)`
+`func (o *EnrollResult) GetAlreadyEnrolledOk() (*int64, bool)`
 
 GetAlreadyEnrolledOk returns a tuple with the AlreadyEnrolled field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAlreadyEnrolled
 
-`func (o *EnrollResult) SetAlreadyEnrolled(v int32)`
+`func (o *EnrollResult) SetAlreadyEnrolled(v int64)`
 
 SetAlreadyEnrolled sets AlreadyEnrolled field to given value.
 
@@ -55,20 +55,20 @@ HasAlreadyEnrolled returns a boolean if a field has been set.
 
 ### GetEnrolled
 
-`func (o *EnrollResult) GetEnrolled() int32`
+`func (o *EnrollResult) GetEnrolled() int64`
 
 GetEnrolled returns the Enrolled field if non-nil, zero value otherwise.
 
 ### GetEnrolledOk
 
-`func (o *EnrollResult) GetEnrolledOk() (*int32, bool)`
+`func (o *EnrollResult) GetEnrolledOk() (*int64, bool)`
 
 GetEnrolledOk returns a tuple with the Enrolled field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnrolled
 
-`func (o *EnrollResult) SetEnrolled(v int32)`
+`func (o *EnrollResult) SetEnrolled(v int64)`
 
 SetEnrolled sets Enrolled field to given value.
 
@@ -105,20 +105,20 @@ HasEnrollmentId returns a boolean if a field has been set.
 
 ### GetResolved
 
-`func (o *EnrollResult) GetResolved() int32`
+`func (o *EnrollResult) GetResolved() int64`
 
 GetResolved returns the Resolved field if non-nil, zero value otherwise.
 
 ### GetResolvedOk
 
-`func (o *EnrollResult) GetResolvedOk() (*int32, bool)`
+`func (o *EnrollResult) GetResolvedOk() (*int64, bool)`
 
 GetResolvedOk returns a tuple with the Resolved field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResolved
 
-`func (o *EnrollResult) SetResolved(v int32)`
+`func (o *EnrollResult) SetResolved(v int64)`
 
 SetResolved sets Resolved field to given value.
 

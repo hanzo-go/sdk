@@ -8,9 +8,9 @@ Name | Type | Description | Notes
 **Kind** | Pointer to **string** | Kind is what the unit IS: laptop, cloud, gpu, cluster, machine or worker. | [optional] 
 **Label** | Pointer to **string** | Label is the name to show a human — a target&#39;s label, a worker&#39;s hostname, a machine&#39;s display name. Empty when the source has none to give. | [optional] 
 **Metrics** | Pointer to [**FleetMetrics**](FleetMetrics.md) | Metrics is the unit&#39;s latest utilization: its own live snapshot when it keeps one (a run-target&#39;s heartbeat wins), else the newest sample from the series for the SAME source. Absent means nothing is known about this unit&#39;s load — which is deliberately not the same as a reading of zero. | [optional] 
-**Queued** | Pointer to **int32** | Queued is how many renders are waiting on THIS GPU&#39;s own lane in the org&#39;s gpu-jobs queue. BYO units only — an agent run-target dispatches, it does not queue — and omitted when nothing is waiting. | [optional] 
-**Running** | Pointer to **int32** | Running is what the unit is executing right now: agent sessions in flight for a run-target, claimed renders for a BYO GPU. | [optional] 
-**Sessions** | Pointer to **int32** | Sessions is how many agent sessions are open on this unit. Always present, and 0 for a source that cannot host agent sessions at all — a fact about that plane, not a gap in the reading. | [optional] 
+**Queued** | Pointer to **int64** | Queued is how many renders are waiting on THIS GPU&#39;s own lane in the org&#39;s gpu-jobs queue. BYO units only — an agent run-target dispatches, it does not queue — and omitted when nothing is waiting. | [optional] 
+**Running** | Pointer to **int64** | Running is what the unit is executing right now: agent sessions in flight for a run-target, claimed renders for a BYO GPU. | [optional] 
+**Sessions** | Pointer to **int64** | Sessions is how many agent sessions are open on this unit. Always present, and 0 for a source that cannot host agent sessions at all — a fact about that plane, not a gap in the reading. | [optional] 
 **Source** | Pointer to **string** | Source is the plane this row came from: \&quot;agent\&quot; (a linked run-target), \&quot;byo\&quot; (a worker or cluster the org dialed in) or \&quot;visor\&quot; (a machine Hanzo provisioned). It is half the row&#39;s identity, and it says which face owns the unit — /v1/agents/targets, /v1/visor/fleet/workers, /v1/visor/machines. | [optional] 
 **Spec** | Pointer to [**FleetSpec**](FleetSpec.md) | Spec is the unit&#39;s static capability. Absent when the source reported none — unknown capability, never a zeroed one. | [optional] 
 **Status** | Pointer to **string** | Status is liveness in the SOURCE&#39;s own vocabulary, because each plane decides it differently: a run-target&#39;s is derived from its heartbeat, a BYO worker&#39;s is online/offline on the 90s window, a BYO cluster&#39;s is \&quot;attached\&quot;, and a Visor machine&#39;s is the provider&#39;s word for its lifecycle state. | [optional] 
@@ -137,20 +137,20 @@ HasMetrics returns a boolean if a field has been set.
 
 ### GetQueued
 
-`func (o *FleetUnit) GetQueued() int32`
+`func (o *FleetUnit) GetQueued() int64`
 
 GetQueued returns the Queued field if non-nil, zero value otherwise.
 
 ### GetQueuedOk
 
-`func (o *FleetUnit) GetQueuedOk() (*int32, bool)`
+`func (o *FleetUnit) GetQueuedOk() (*int64, bool)`
 
 GetQueuedOk returns a tuple with the Queued field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueued
 
-`func (o *FleetUnit) SetQueued(v int32)`
+`func (o *FleetUnit) SetQueued(v int64)`
 
 SetQueued sets Queued field to given value.
 
@@ -162,20 +162,20 @@ HasQueued returns a boolean if a field has been set.
 
 ### GetRunning
 
-`func (o *FleetUnit) GetRunning() int32`
+`func (o *FleetUnit) GetRunning() int64`
 
 GetRunning returns the Running field if non-nil, zero value otherwise.
 
 ### GetRunningOk
 
-`func (o *FleetUnit) GetRunningOk() (*int32, bool)`
+`func (o *FleetUnit) GetRunningOk() (*int64, bool)`
 
 GetRunningOk returns a tuple with the Running field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRunning
 
-`func (o *FleetUnit) SetRunning(v int32)`
+`func (o *FleetUnit) SetRunning(v int64)`
 
 SetRunning sets Running field to given value.
 
@@ -187,20 +187,20 @@ HasRunning returns a boolean if a field has been set.
 
 ### GetSessions
 
-`func (o *FleetUnit) GetSessions() int32`
+`func (o *FleetUnit) GetSessions() int64`
 
 GetSessions returns the Sessions field if non-nil, zero value otherwise.
 
 ### GetSessionsOk
 
-`func (o *FleetUnit) GetSessionsOk() (*int32, bool)`
+`func (o *FleetUnit) GetSessionsOk() (*int64, bool)`
 
 GetSessionsOk returns a tuple with the Sessions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSessions
 
-`func (o *FleetUnit) SetSessions(v int32)`
+`func (o *FleetUnit) SetSessions(v int64)`
 
 SetSessions sets Sessions field to given value.
 

@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the referral was recorded, as a Unix timestamp. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the referral was recorded, as a Unix timestamp. | [optional] 
 **Id** | Pointer to **string** | ID is the referral&#39;s handle. | [optional] 
-**QualifiedAt** | Pointer to **int32** | QualifiedAt is when the referee first made metered spend, as a Unix timestamp; 0 while the referral is still pending. | [optional] 
+**QualifiedAt** | Pointer to **int64** | QualifiedAt is when the referee first made metered spend, as a Unix timestamp; 0 while the referral is still pending. | [optional] 
 **Referee** | Pointer to **string** | Referee is the org that signed up with my code. | [optional] 
 **Status** | Pointer to **string** | Status is the referral&#39;s lifecycle state: \&quot;signup\&quot; until the referee makes metered spend, then \&quot;qualified\&quot;. | [optional] 
 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreatedAt
 
-`func (o *MyReferralView) GetCreatedAt() int32`
+`func (o *MyReferralView) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *MyReferralView) GetCreatedAtOk() (*int32, bool)`
+`func (o *MyReferralView) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *MyReferralView) SetCreatedAt(v int32)`
+`func (o *MyReferralView) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -81,20 +81,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetQualifiedAt
 
-`func (o *MyReferralView) GetQualifiedAt() int32`
+`func (o *MyReferralView) GetQualifiedAt() int64`
 
 GetQualifiedAt returns the QualifiedAt field if non-nil, zero value otherwise.
 
 ### GetQualifiedAtOk
 
-`func (o *MyReferralView) GetQualifiedAtOk() (*int32, bool)`
+`func (o *MyReferralView) GetQualifiedAtOk() (*int64, bool)`
 
 GetQualifiedAtOk returns a tuple with the QualifiedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQualifiedAt
 
-`func (o *MyReferralView) SetQualifiedAt(v int32)`
+`func (o *MyReferralView) SetQualifiedAt(v int64)`
 
 SetQualifiedAt sets QualifiedAt field to given value.
 

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | Name is the repo&#39;s org-unique handle. | [optional] 
 **Project** | Pointer to **string** | Project is the sub-scope the repo lives in; absent for the default scope. | [optional] 
-**SizeBytes** | Pointer to **int32** | SizeBytes is the repo&#39;s on-disk size at its last measurement. | [optional] 
+**SizeBytes** | Pointer to **int64** | SizeBytes is the repo&#39;s on-disk size at its last measurement. | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasProject returns a boolean if a field has been set.
 
 ### GetSizeBytes
 
-`func (o *UsageRepo) GetSizeBytes() int32`
+`func (o *UsageRepo) GetSizeBytes() int64`
 
 GetSizeBytes returns the SizeBytes field if non-nil, zero value otherwise.
 
 ### GetSizeBytesOk
 
-`func (o *UsageRepo) GetSizeBytesOk() (*int32, bool)`
+`func (o *UsageRepo) GetSizeBytesOk() (*int64, bool)`
 
 GetSizeBytesOk returns a tuple with the SizeBytes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSizeBytes
 
-`func (o *UsageRepo) SetSizeBytes(v int32)`
+`func (o *UsageRepo) SetSizeBytes(v int64)`
 
 SetSizeBytes sets SizeBytes field to given value.
 

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Data** | Pointer to **interface{}** |  | [optional] 
 **Id** | Pointer to **string** | ID is the record&#39;s id. Omit it on a create and one is minted; the single-valued sections (profile, risk) hold one record whatever is named. | [optional] 
 **Kind** | Pointer to **string** | Kind is the section being written. The URL is the authority. | [optional] 
-**Ord** | Pointer to **int32** | Ord orders this record within its section, ascending, ties broken by id. It is the organization&#39;s own ordering — the page renders in it. | [optional] 
+**Ord** | Pointer to **int64** | Ord orders this record within its section, ascending, ties broken by id. It is the organization&#39;s own ordering — the page renders in it. | [optional] 
 
 ## Methods
 
@@ -115,20 +115,20 @@ HasKind returns a boolean if a field has been set.
 
 ### GetOrd
 
-`func (o *SectionWrite) GetOrd() int32`
+`func (o *SectionWrite) GetOrd() int64`
 
 GetOrd returns the Ord field if non-nil, zero value otherwise.
 
 ### GetOrdOk
 
-`func (o *SectionWrite) GetOrdOk() (*int32, bool)`
+`func (o *SectionWrite) GetOrdOk() (*int64, bool)`
 
 GetOrdOk returns a tuple with the Ord field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrd
 
-`func (o *SectionWrite) SetOrd(v int32)`
+`func (o *SectionWrite) SetOrd(v int64)`
 
 SetOrd sets Ord field to given value.
 

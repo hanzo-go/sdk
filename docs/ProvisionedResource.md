@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** | ID is the resource&#39;s server-minted handle, \&quot;rs_\&quot;-prefixed. | [optional] 
 **Kind** | Pointer to **string** | Kind is the product: sql, vector, datastore, kv, search, s3 or docdb. | [optional] 
 **Name** | Pointer to **string** | Name is the org-unique slug the caller provisioned the resource under. | [optional] 
-**Port** | Pointer to **int32** | Port is the port a client connects to on Host. | [optional] 
+**Port** | Pointer to **int64** | Port is the port a client connects to on Host. | [optional] 
 **Status** | Pointer to **string** | Status is \&quot;ready\&quot;, or \&quot;provisioning\&quot; while a dedicated instance is still being materialized. A dedicated resource&#39;s status is reconciled from the operator&#39;s live CR before this is answered, so it is never a stale ready. | [optional] 
 **Username** | Pointer to **string** | Username is the credential&#39;s user, for the kinds that mint one per resource. Absent for a kind whose backend authenticates with a shared, out-of-band key. | [optional] 
 
@@ -159,20 +159,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetPort
 
-`func (o *ProvisionedResource) GetPort() int32`
+`func (o *ProvisionedResource) GetPort() int64`
 
 GetPort returns the Port field if non-nil, zero value otherwise.
 
 ### GetPortOk
 
-`func (o *ProvisionedResource) GetPortOk() (*int32, bool)`
+`func (o *ProvisionedResource) GetPortOk() (*int64, bool)`
 
 GetPortOk returns a tuple with the Port field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPort
 
-`func (o *ProvisionedResource) SetPort(v int32)`
+`func (o *ProvisionedResource) SetPort(v int64)`
 
 SetPort sets Port field to given value.
 

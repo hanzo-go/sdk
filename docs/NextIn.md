@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Batch** | Pointer to **int32** | Batch is how many messages to pull (1–1000, default 1). | [optional] 
+**Batch** | Pointer to **int64** | Batch is how many messages to pull (1–1000, default 1). | [optional] 
 **Expires** | Pointer to **string** | Expires is how long to wait for messages, e.g. \&quot;5s\&quot; (default \&quot;30s\&quot;, max \&quot;60s\&quot;). | [optional] 
 **Name** | Pointer to **string** | Name is the consumer name, from the path. | [optional] 
 **NoWait** | Pointer to **bool** | NoWait answers immediately with whatever is available instead of waiting. | [optional] 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetBatch
 
-`func (o *NextIn) GetBatch() int32`
+`func (o *NextIn) GetBatch() int64`
 
 GetBatch returns the Batch field if non-nil, zero value otherwise.
 
 ### GetBatchOk
 
-`func (o *NextIn) GetBatchOk() (*int32, bool)`
+`func (o *NextIn) GetBatchOk() (*int64, bool)`
 
 GetBatchOk returns a tuple with the Batch field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBatch
 
-`func (o *NextIn) SetBatch(v int32)`
+`func (o *NextIn) SetBatch(v int64)`
 
 SetBatch sets Batch field to given value.
 

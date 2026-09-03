@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Duplicate** | Pointer to **int32** | Duplicate is how many members this plane already held. A redelivery collides on its content address and is counted here, not refused: it is the success a retrying caller depends on. | [optional] 
+**Duplicate** | Pointer to **int64** | Duplicate is how many members this plane already held. A redelivery collides on its content address and is counted here, not refused: it is the success a retrying caller depends on. | [optional] 
 **Reasons** | Pointer to **[]string** | Reasons names why each refused member was refused, in the order sent. | [optional] 
-**Recorded** | Pointer to **int32** | Recorded is how many members became new rows. | [optional] 
-**Refused** | Pointer to **int32** | Refused is how many members were turned away on arrival, before the store was touched — a missing entity, a timestamp that is not RFC 3339, a confidence outside [0,1]. The rest of the batch was still recorded. | [optional] 
+**Recorded** | Pointer to **int64** | Recorded is how many members became new rows. | [optional] 
+**Refused** | Pointer to **int64** | Refused is how many members were turned away on arrival, before the store was touched — a missing entity, a timestamp that is not RFC 3339, a confidence outside [0,1]. The rest of the batch was still recorded. | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetDuplicate
 
-`func (o *GraphAssertOut) GetDuplicate() int32`
+`func (o *GraphAssertOut) GetDuplicate() int64`
 
 GetDuplicate returns the Duplicate field if non-nil, zero value otherwise.
 
 ### GetDuplicateOk
 
-`func (o *GraphAssertOut) GetDuplicateOk() (*int32, bool)`
+`func (o *GraphAssertOut) GetDuplicateOk() (*int64, bool)`
 
 GetDuplicateOk returns a tuple with the Duplicate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDuplicate
 
-`func (o *GraphAssertOut) SetDuplicate(v int32)`
+`func (o *GraphAssertOut) SetDuplicate(v int64)`
 
 SetDuplicate sets Duplicate field to given value.
 
@@ -80,20 +80,20 @@ HasReasons returns a boolean if a field has been set.
 
 ### GetRecorded
 
-`func (o *GraphAssertOut) GetRecorded() int32`
+`func (o *GraphAssertOut) GetRecorded() int64`
 
 GetRecorded returns the Recorded field if non-nil, zero value otherwise.
 
 ### GetRecordedOk
 
-`func (o *GraphAssertOut) GetRecordedOk() (*int32, bool)`
+`func (o *GraphAssertOut) GetRecordedOk() (*int64, bool)`
 
 GetRecordedOk returns a tuple with the Recorded field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRecorded
 
-`func (o *GraphAssertOut) SetRecorded(v int32)`
+`func (o *GraphAssertOut) SetRecorded(v int64)`
 
 SetRecorded sets Recorded field to given value.
 
@@ -105,20 +105,20 @@ HasRecorded returns a boolean if a field has been set.
 
 ### GetRefused
 
-`func (o *GraphAssertOut) GetRefused() int32`
+`func (o *GraphAssertOut) GetRefused() int64`
 
 GetRefused returns the Refused field if non-nil, zero value otherwise.
 
 ### GetRefusedOk
 
-`func (o *GraphAssertOut) GetRefusedOk() (*int32, bool)`
+`func (o *GraphAssertOut) GetRefusedOk() (*int64, bool)`
 
 GetRefusedOk returns a tuple with the Refused field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRefused
 
-`func (o *GraphAssertOut) SetRefused(v int32)`
+`func (o *GraphAssertOut) SetRefused(v int64)`
 
 SetRefused sets Refused field to given value.
 

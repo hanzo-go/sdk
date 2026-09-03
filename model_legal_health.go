@@ -22,7 +22,7 @@ type LegalHealth struct {
 	// Status is \"ok\" when the subsystem is serving.
 	Status *string `json:"status,omitempty"`
 	// Templates is how many built-in templates the catalog carries.
-	Templates *int32 `json:"templates,omitempty"`
+	Templates *int64 `json:"templates,omitempty"`
 }
 
 // NewLegalHealth instantiates a new LegalHealth object
@@ -75,9 +75,9 @@ func (o *LegalHealth) SetStatus(v string) {
 }
 
 // GetTemplates returns the Templates field value if set, zero value otherwise.
-func (o *LegalHealth) GetTemplates() int32 {
+func (o *LegalHealth) GetTemplates() int64 {
 	if o == nil || IsNil(o.Templates) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Templates
@@ -85,7 +85,7 @@ func (o *LegalHealth) GetTemplates() int32 {
 
 // GetTemplatesOk returns a tuple with the Templates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LegalHealth) GetTemplatesOk() (*int32, bool) {
+func (o *LegalHealth) GetTemplatesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Templates) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *LegalHealth) HasTemplates() bool {
 	return false
 }
 
-// SetTemplates gets a reference to the given int32 and assigns it to the Templates field.
-func (o *LegalHealth) SetTemplates(v int32) {
+// SetTemplates gets a reference to the given int64 and assigns it to the Templates field.
+func (o *LegalHealth) SetTemplates(v int64) {
 	o.Templates = &v
 }
 

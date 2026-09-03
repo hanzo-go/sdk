@@ -26,7 +26,7 @@ type BusRequest struct {
 	// Subject is the subject a responder listens on, in the org's namespace.
 	Subject *string `json:"subject,omitempty"`
 	// TimeoutMs bounds the wait for a reply. 0 or less means the default of 5000; anything above 30000 is clamped to 30000.
-	TimeoutMs *int32 `json:"timeoutMs,omitempty"`
+	TimeoutMs *int64 `json:"timeoutMs,omitempty"`
 }
 
 // NewBusRequest instantiates a new BusRequest object
@@ -143,9 +143,9 @@ func (o *BusRequest) SetSubject(v string) {
 }
 
 // GetTimeoutMs returns the TimeoutMs field value if set, zero value otherwise.
-func (o *BusRequest) GetTimeoutMs() int32 {
+func (o *BusRequest) GetTimeoutMs() int64 {
 	if o == nil || IsNil(o.TimeoutMs) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TimeoutMs
@@ -153,7 +153,7 @@ func (o *BusRequest) GetTimeoutMs() int32 {
 
 // GetTimeoutMsOk returns a tuple with the TimeoutMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BusRequest) GetTimeoutMsOk() (*int32, bool) {
+func (o *BusRequest) GetTimeoutMsOk() (*int64, bool) {
 	if o == nil || IsNil(o.TimeoutMs) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *BusRequest) HasTimeoutMs() bool {
 	return false
 }
 
-// SetTimeoutMs gets a reference to the given int32 and assigns it to the TimeoutMs field.
-func (o *BusRequest) SetTimeoutMs(v int32) {
+// SetTimeoutMs gets a reference to the given int64 and assigns it to the TimeoutMs field.
+func (o *BusRequest) SetTimeoutMs(v int64) {
 	o.TimeoutMs = &v
 }
 

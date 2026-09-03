@@ -20,19 +20,19 @@ var _ MappedNullable = &Metrics{}
 // Metrics struct for Metrics
 type Metrics struct {
 	// unix seconds, server-stamped
-	At *int32 `json:"at,omitempty"`
+	At *int64 `json:"at,omitempty"`
 	// 0..1 aggregate utilization
-	GpuUtil *float32 `json:"gpuUtil,omitempty"`
+	GpuUtil *float64 `json:"gpuUtil,omitempty"`
 	// Load1 is the machine's own one-minute load average — a count of runnable and uninterruptible tasks, NOT a percentage and NOT already divided by core count, so it is read against Spec.CPUs: 8.0 is idle on 16 cores and swamped on 4. Coerced finite and non-negative on write, so 0 means either genuinely idle or nothing reported.
-	Load1 *float32 `json:"load1,omitempty"`
+	Load1 *float64 `json:"load1,omitempty"`
 	// Load5 is the same figure averaged over five minutes.
-	Load5 *float32 `json:"load5,omitempty"`
+	Load5 *float64 `json:"load5,omitempty"`
 	// Load15 is the same figure over fifteen. The three together are what separate a machine that is busy right now from one that has been busy all along — which is the question a dispatcher is really asking.
-	Load15 *float32 `json:"load15,omitempty"`
+	Load15 *float64 `json:"load15,omitempty"`
 	// bytes
-	MemFree *int32 `json:"memFree,omitempty"`
+	MemFree *int64 `json:"memFree,omitempty"`
 	// bytes
-	MemUsed *int32 `json:"memUsed,omitempty"`
+	MemUsed *int64 `json:"memUsed,omitempty"`
 }
 
 // NewMetrics instantiates a new Metrics object
@@ -53,9 +53,9 @@ func NewMetricsWithDefaults() *Metrics {
 }
 
 // GetAt returns the At field value if set, zero value otherwise.
-func (o *Metrics) GetAt() int32 {
+func (o *Metrics) GetAt() int64 {
 	if o == nil || IsNil(o.At) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.At
@@ -63,7 +63,7 @@ func (o *Metrics) GetAt() int32 {
 
 // GetAtOk returns a tuple with the At field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Metrics) GetAtOk() (*int32, bool) {
+func (o *Metrics) GetAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.At) {
 		return nil, false
 	}
@@ -79,15 +79,15 @@ func (o *Metrics) HasAt() bool {
 	return false
 }
 
-// SetAt gets a reference to the given int32 and assigns it to the At field.
-func (o *Metrics) SetAt(v int32) {
+// SetAt gets a reference to the given int64 and assigns it to the At field.
+func (o *Metrics) SetAt(v int64) {
 	o.At = &v
 }
 
 // GetGpuUtil returns the GpuUtil field value if set, zero value otherwise.
-func (o *Metrics) GetGpuUtil() float32 {
+func (o *Metrics) GetGpuUtil() float64 {
 	if o == nil || IsNil(o.GpuUtil) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.GpuUtil
@@ -95,7 +95,7 @@ func (o *Metrics) GetGpuUtil() float32 {
 
 // GetGpuUtilOk returns a tuple with the GpuUtil field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Metrics) GetGpuUtilOk() (*float32, bool) {
+func (o *Metrics) GetGpuUtilOk() (*float64, bool) {
 	if o == nil || IsNil(o.GpuUtil) {
 		return nil, false
 	}
@@ -111,15 +111,15 @@ func (o *Metrics) HasGpuUtil() bool {
 	return false
 }
 
-// SetGpuUtil gets a reference to the given float32 and assigns it to the GpuUtil field.
-func (o *Metrics) SetGpuUtil(v float32) {
+// SetGpuUtil gets a reference to the given float64 and assigns it to the GpuUtil field.
+func (o *Metrics) SetGpuUtil(v float64) {
 	o.GpuUtil = &v
 }
 
 // GetLoad1 returns the Load1 field value if set, zero value otherwise.
-func (o *Metrics) GetLoad1() float32 {
+func (o *Metrics) GetLoad1() float64 {
 	if o == nil || IsNil(o.Load1) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Load1
@@ -127,7 +127,7 @@ func (o *Metrics) GetLoad1() float32 {
 
 // GetLoad1Ok returns a tuple with the Load1 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Metrics) GetLoad1Ok() (*float32, bool) {
+func (o *Metrics) GetLoad1Ok() (*float64, bool) {
 	if o == nil || IsNil(o.Load1) {
 		return nil, false
 	}
@@ -143,15 +143,15 @@ func (o *Metrics) HasLoad1() bool {
 	return false
 }
 
-// SetLoad1 gets a reference to the given float32 and assigns it to the Load1 field.
-func (o *Metrics) SetLoad1(v float32) {
+// SetLoad1 gets a reference to the given float64 and assigns it to the Load1 field.
+func (o *Metrics) SetLoad1(v float64) {
 	o.Load1 = &v
 }
 
 // GetLoad5 returns the Load5 field value if set, zero value otherwise.
-func (o *Metrics) GetLoad5() float32 {
+func (o *Metrics) GetLoad5() float64 {
 	if o == nil || IsNil(o.Load5) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Load5
@@ -159,7 +159,7 @@ func (o *Metrics) GetLoad5() float32 {
 
 // GetLoad5Ok returns a tuple with the Load5 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Metrics) GetLoad5Ok() (*float32, bool) {
+func (o *Metrics) GetLoad5Ok() (*float64, bool) {
 	if o == nil || IsNil(o.Load5) {
 		return nil, false
 	}
@@ -175,15 +175,15 @@ func (o *Metrics) HasLoad5() bool {
 	return false
 }
 
-// SetLoad5 gets a reference to the given float32 and assigns it to the Load5 field.
-func (o *Metrics) SetLoad5(v float32) {
+// SetLoad5 gets a reference to the given float64 and assigns it to the Load5 field.
+func (o *Metrics) SetLoad5(v float64) {
 	o.Load5 = &v
 }
 
 // GetLoad15 returns the Load15 field value if set, zero value otherwise.
-func (o *Metrics) GetLoad15() float32 {
+func (o *Metrics) GetLoad15() float64 {
 	if o == nil || IsNil(o.Load15) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Load15
@@ -191,7 +191,7 @@ func (o *Metrics) GetLoad15() float32 {
 
 // GetLoad15Ok returns a tuple with the Load15 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Metrics) GetLoad15Ok() (*float32, bool) {
+func (o *Metrics) GetLoad15Ok() (*float64, bool) {
 	if o == nil || IsNil(o.Load15) {
 		return nil, false
 	}
@@ -207,15 +207,15 @@ func (o *Metrics) HasLoad15() bool {
 	return false
 }
 
-// SetLoad15 gets a reference to the given float32 and assigns it to the Load15 field.
-func (o *Metrics) SetLoad15(v float32) {
+// SetLoad15 gets a reference to the given float64 and assigns it to the Load15 field.
+func (o *Metrics) SetLoad15(v float64) {
 	o.Load15 = &v
 }
 
 // GetMemFree returns the MemFree field value if set, zero value otherwise.
-func (o *Metrics) GetMemFree() int32 {
+func (o *Metrics) GetMemFree() int64 {
 	if o == nil || IsNil(o.MemFree) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MemFree
@@ -223,7 +223,7 @@ func (o *Metrics) GetMemFree() int32 {
 
 // GetMemFreeOk returns a tuple with the MemFree field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Metrics) GetMemFreeOk() (*int32, bool) {
+func (o *Metrics) GetMemFreeOk() (*int64, bool) {
 	if o == nil || IsNil(o.MemFree) {
 		return nil, false
 	}
@@ -239,15 +239,15 @@ func (o *Metrics) HasMemFree() bool {
 	return false
 }
 
-// SetMemFree gets a reference to the given int32 and assigns it to the MemFree field.
-func (o *Metrics) SetMemFree(v int32) {
+// SetMemFree gets a reference to the given int64 and assigns it to the MemFree field.
+func (o *Metrics) SetMemFree(v int64) {
 	o.MemFree = &v
 }
 
 // GetMemUsed returns the MemUsed field value if set, zero value otherwise.
-func (o *Metrics) GetMemUsed() int32 {
+func (o *Metrics) GetMemUsed() int64 {
 	if o == nil || IsNil(o.MemUsed) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MemUsed
@@ -255,7 +255,7 @@ func (o *Metrics) GetMemUsed() int32 {
 
 // GetMemUsedOk returns a tuple with the MemUsed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Metrics) GetMemUsedOk() (*int32, bool) {
+func (o *Metrics) GetMemUsedOk() (*int64, bool) {
 	if o == nil || IsNil(o.MemUsed) {
 		return nil, false
 	}
@@ -271,8 +271,8 @@ func (o *Metrics) HasMemUsed() bool {
 	return false
 }
 
-// SetMemUsed gets a reference to the given int32 and assigns it to the MemUsed field.
-func (o *Metrics) SetMemUsed(v int32) {
+// SetMemUsed gets a reference to the given int64 and assigns it to the MemUsed field.
+func (o *Metrics) SetMemUsed(v int64) {
 	o.MemUsed = &v
 }
 

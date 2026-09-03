@@ -8,16 +8,16 @@ Name | Type | Description | Notes
 **CompanyName** | Pointer to **string** | CompanyName is the name of the company whose cap table this is. | [optional] 
 **ConversionRights** | Pointer to **string** | ConversionRights describes what the class converts into, e.g. CONVERTS_TO_FUTURE_ROUND. | [optional] 
 **Id** | Pointer to **string** | ID is the share class id. | [optional] 
-**Idx** | Pointer to **int32** | Idx is the class&#39;s 1-based position within the company, in creation order. | [optional] 
-**InitialSharesAuthorized** | Pointer to **int32** | InitialSharesAuthorized is how many shares of this class are authorized. | [optional] 
-**LiquidationPreferenceMultiple** | Pointer to **float32** | LiquidationPreferenceMultiple is the preference multiple on liquidation. | [optional] 
+**Idx** | Pointer to **int64** | Idx is the class&#39;s 1-based position within the company, in creation order. | [optional] 
+**InitialSharesAuthorized** | Pointer to **int64** | InitialSharesAuthorized is how many shares of this class are authorized. | [optional] 
+**LiquidationPreferenceMultiple** | Pointer to **float64** | LiquidationPreferenceMultiple is the preference multiple on liquidation. | [optional] 
 **Name** | Pointer to **string** | Name is the class name, e.g. \&quot;Common\&quot; or \&quot;Series A Preferred\&quot;. | [optional] 
-**ParValue** | Pointer to **float32** | ParValue is the par value per share. | [optional] 
-**ParticipationCapMultiple** | Pointer to **float32** | ParticipationCapMultiple caps participation on liquidation; 0 is uncapped. | [optional] 
+**ParValue** | Pointer to **float64** | ParValue is the par value per share. | [optional] 
+**ParticipationCapMultiple** | Pointer to **float64** | ParticipationCapMultiple caps participation on liquidation; 0 is uncapped. | [optional] 
 **Prefix** | Pointer to **string** | Prefix is the certificate prefix, CS for common and PS for preferred. | [optional] 
-**PricePerShare** | Pointer to **float32** | PricePerShare is the issue price per share. | [optional] 
-**Seniority** | Pointer to **int32** | Seniority orders classes in a liquidation waterfall; higher is more senior. | [optional] 
-**VotesPerShare** | Pointer to **int32** | VotesPerShare is how many votes one share of this class carries. | [optional] 
+**PricePerShare** | Pointer to **float64** | PricePerShare is the issue price per share. | [optional] 
+**Seniority** | Pointer to **int64** | Seniority orders classes in a liquidation waterfall; higher is more senior. | [optional] 
+**VotesPerShare** | Pointer to **int64** | VotesPerShare is how many votes one share of this class carries. | [optional] 
 
 ## Methods
 
@@ -140,20 +140,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetIdx
 
-`func (o *CaptableShareClass) GetIdx() int32`
+`func (o *CaptableShareClass) GetIdx() int64`
 
 GetIdx returns the Idx field if non-nil, zero value otherwise.
 
 ### GetIdxOk
 
-`func (o *CaptableShareClass) GetIdxOk() (*int32, bool)`
+`func (o *CaptableShareClass) GetIdxOk() (*int64, bool)`
 
 GetIdxOk returns a tuple with the Idx field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIdx
 
-`func (o *CaptableShareClass) SetIdx(v int32)`
+`func (o *CaptableShareClass) SetIdx(v int64)`
 
 SetIdx sets Idx field to given value.
 
@@ -165,20 +165,20 @@ HasIdx returns a boolean if a field has been set.
 
 ### GetInitialSharesAuthorized
 
-`func (o *CaptableShareClass) GetInitialSharesAuthorized() int32`
+`func (o *CaptableShareClass) GetInitialSharesAuthorized() int64`
 
 GetInitialSharesAuthorized returns the InitialSharesAuthorized field if non-nil, zero value otherwise.
 
 ### GetInitialSharesAuthorizedOk
 
-`func (o *CaptableShareClass) GetInitialSharesAuthorizedOk() (*int32, bool)`
+`func (o *CaptableShareClass) GetInitialSharesAuthorizedOk() (*int64, bool)`
 
 GetInitialSharesAuthorizedOk returns a tuple with the InitialSharesAuthorized field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInitialSharesAuthorized
 
-`func (o *CaptableShareClass) SetInitialSharesAuthorized(v int32)`
+`func (o *CaptableShareClass) SetInitialSharesAuthorized(v int64)`
 
 SetInitialSharesAuthorized sets InitialSharesAuthorized field to given value.
 
@@ -190,20 +190,20 @@ HasInitialSharesAuthorized returns a boolean if a field has been set.
 
 ### GetLiquidationPreferenceMultiple
 
-`func (o *CaptableShareClass) GetLiquidationPreferenceMultiple() float32`
+`func (o *CaptableShareClass) GetLiquidationPreferenceMultiple() float64`
 
 GetLiquidationPreferenceMultiple returns the LiquidationPreferenceMultiple field if non-nil, zero value otherwise.
 
 ### GetLiquidationPreferenceMultipleOk
 
-`func (o *CaptableShareClass) GetLiquidationPreferenceMultipleOk() (*float32, bool)`
+`func (o *CaptableShareClass) GetLiquidationPreferenceMultipleOk() (*float64, bool)`
 
 GetLiquidationPreferenceMultipleOk returns a tuple with the LiquidationPreferenceMultiple field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLiquidationPreferenceMultiple
 
-`func (o *CaptableShareClass) SetLiquidationPreferenceMultiple(v float32)`
+`func (o *CaptableShareClass) SetLiquidationPreferenceMultiple(v float64)`
 
 SetLiquidationPreferenceMultiple sets LiquidationPreferenceMultiple field to given value.
 
@@ -240,20 +240,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetParValue
 
-`func (o *CaptableShareClass) GetParValue() float32`
+`func (o *CaptableShareClass) GetParValue() float64`
 
 GetParValue returns the ParValue field if non-nil, zero value otherwise.
 
 ### GetParValueOk
 
-`func (o *CaptableShareClass) GetParValueOk() (*float32, bool)`
+`func (o *CaptableShareClass) GetParValueOk() (*float64, bool)`
 
 GetParValueOk returns a tuple with the ParValue field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetParValue
 
-`func (o *CaptableShareClass) SetParValue(v float32)`
+`func (o *CaptableShareClass) SetParValue(v float64)`
 
 SetParValue sets ParValue field to given value.
 
@@ -265,20 +265,20 @@ HasParValue returns a boolean if a field has been set.
 
 ### GetParticipationCapMultiple
 
-`func (o *CaptableShareClass) GetParticipationCapMultiple() float32`
+`func (o *CaptableShareClass) GetParticipationCapMultiple() float64`
 
 GetParticipationCapMultiple returns the ParticipationCapMultiple field if non-nil, zero value otherwise.
 
 ### GetParticipationCapMultipleOk
 
-`func (o *CaptableShareClass) GetParticipationCapMultipleOk() (*float32, bool)`
+`func (o *CaptableShareClass) GetParticipationCapMultipleOk() (*float64, bool)`
 
 GetParticipationCapMultipleOk returns a tuple with the ParticipationCapMultiple field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetParticipationCapMultiple
 
-`func (o *CaptableShareClass) SetParticipationCapMultiple(v float32)`
+`func (o *CaptableShareClass) SetParticipationCapMultiple(v float64)`
 
 SetParticipationCapMultiple sets ParticipationCapMultiple field to given value.
 
@@ -315,20 +315,20 @@ HasPrefix returns a boolean if a field has been set.
 
 ### GetPricePerShare
 
-`func (o *CaptableShareClass) GetPricePerShare() float32`
+`func (o *CaptableShareClass) GetPricePerShare() float64`
 
 GetPricePerShare returns the PricePerShare field if non-nil, zero value otherwise.
 
 ### GetPricePerShareOk
 
-`func (o *CaptableShareClass) GetPricePerShareOk() (*float32, bool)`
+`func (o *CaptableShareClass) GetPricePerShareOk() (*float64, bool)`
 
 GetPricePerShareOk returns a tuple with the PricePerShare field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPricePerShare
 
-`func (o *CaptableShareClass) SetPricePerShare(v float32)`
+`func (o *CaptableShareClass) SetPricePerShare(v float64)`
 
 SetPricePerShare sets PricePerShare field to given value.
 
@@ -340,20 +340,20 @@ HasPricePerShare returns a boolean if a field has been set.
 
 ### GetSeniority
 
-`func (o *CaptableShareClass) GetSeniority() int32`
+`func (o *CaptableShareClass) GetSeniority() int64`
 
 GetSeniority returns the Seniority field if non-nil, zero value otherwise.
 
 ### GetSeniorityOk
 
-`func (o *CaptableShareClass) GetSeniorityOk() (*int32, bool)`
+`func (o *CaptableShareClass) GetSeniorityOk() (*int64, bool)`
 
 GetSeniorityOk returns a tuple with the Seniority field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSeniority
 
-`func (o *CaptableShareClass) SetSeniority(v int32)`
+`func (o *CaptableShareClass) SetSeniority(v int64)`
 
 SetSeniority sets Seniority field to given value.
 
@@ -365,20 +365,20 @@ HasSeniority returns a boolean if a field has been set.
 
 ### GetVotesPerShare
 
-`func (o *CaptableShareClass) GetVotesPerShare() int32`
+`func (o *CaptableShareClass) GetVotesPerShare() int64`
 
 GetVotesPerShare returns the VotesPerShare field if non-nil, zero value otherwise.
 
 ### GetVotesPerShareOk
 
-`func (o *CaptableShareClass) GetVotesPerShareOk() (*int32, bool)`
+`func (o *CaptableShareClass) GetVotesPerShareOk() (*int64, bool)`
 
 GetVotesPerShareOk returns a tuple with the VotesPerShare field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVotesPerShare
 
-`func (o *CaptableShareClass) SetVotesPerShare(v int32)`
+`func (o *CaptableShareClass) SetVotesPerShare(v int64)`
 
 SetVotesPerShare sets VotesPerShare field to given value.
 

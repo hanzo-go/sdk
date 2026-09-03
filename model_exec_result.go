@@ -20,7 +20,7 @@ var _ MappedNullable = &ExecResult{}
 // ExecResult struct for ExecResult
 type ExecResult struct {
 	// ExitCode is the command's own exit status. A non-zero one is a SUCCESSFUL call carrying a failed command — the HTTP status stays 200, because \"the command failed\" and \"the call failed\" are different facts and a caller has to be able to tell them apart.
-	ExitCode *int32 `json:"exitCode,omitempty"`
+	ExitCode *int64 `json:"exitCode,omitempty"`
 	// Stderr is everything it wrote to standard error. It is populated on a successful run too — plenty of tools report progress there — so it is not a signal that anything went wrong; ExitCode is.
 	Stderr *string `json:"stderr,omitempty"`
 	// Stdout is everything the command wrote to standard output, as text.
@@ -45,9 +45,9 @@ func NewExecResultWithDefaults() *ExecResult {
 }
 
 // GetExitCode returns the ExitCode field value if set, zero value otherwise.
-func (o *ExecResult) GetExitCode() int32 {
+func (o *ExecResult) GetExitCode() int64 {
 	if o == nil || IsNil(o.ExitCode) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ExitCode
@@ -55,7 +55,7 @@ func (o *ExecResult) GetExitCode() int32 {
 
 // GetExitCodeOk returns a tuple with the ExitCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExecResult) GetExitCodeOk() (*int32, bool) {
+func (o *ExecResult) GetExitCodeOk() (*int64, bool) {
 	if o == nil || IsNil(o.ExitCode) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *ExecResult) HasExitCode() bool {
 	return false
 }
 
-// SetExitCode gets a reference to the given int32 and assigns it to the ExitCode field.
-func (o *ExecResult) SetExitCode(v int32) {
+// SetExitCode gets a reference to the given int64 and assigns it to the ExitCode field.
+func (o *ExecResult) SetExitCode(v int64) {
 	o.ExitCode = &v
 }
 

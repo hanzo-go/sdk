@@ -20,7 +20,7 @@ var _ MappedNullable = &ProvisionedSummary{}
 // ProvisionedSummary struct for ProvisionedSummary
 type ProvisionedSummary struct {
 	// CreatedAt is when the resource was provisioned, in unix seconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Host is the address that actually routes to this resource — a dedicated instance's own in-cluster Service, or the public gateway for a shared one. Never the internal admin address of a shared backend.
 	Host *string `json:"host,omitempty"`
 	// ID is the resource's server-minted handle, \"rs_\"-prefixed.
@@ -30,7 +30,7 @@ type ProvisionedSummary struct {
 	// Name is the org-unique slug the caller provisioned the resource under.
 	Name *string `json:"name,omitempty"`
 	// Port is the port a client connects to on Host.
-	Port *int32 `json:"port,omitempty"`
+	Port *int64 `json:"port,omitempty"`
 	// Status is \"ready\", or \"provisioning\" while a dedicated instance is still being materialized by the operator.
 	Status *string `json:"status,omitempty"`
 }
@@ -53,9 +53,9 @@ func NewProvisionedSummaryWithDefaults() *ProvisionedSummary {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *ProvisionedSummary) GetCreatedAt() int32 {
+func (o *ProvisionedSummary) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -63,7 +63,7 @@ func (o *ProvisionedSummary) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProvisionedSummary) GetCreatedAtOk() (*int32, bool) {
+func (o *ProvisionedSummary) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -79,8 +79,8 @@ func (o *ProvisionedSummary) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *ProvisionedSummary) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *ProvisionedSummary) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -213,9 +213,9 @@ func (o *ProvisionedSummary) SetName(v string) {
 }
 
 // GetPort returns the Port field value if set, zero value otherwise.
-func (o *ProvisionedSummary) GetPort() int32 {
+func (o *ProvisionedSummary) GetPort() int64 {
 	if o == nil || IsNil(o.Port) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Port
@@ -223,7 +223,7 @@ func (o *ProvisionedSummary) GetPort() int32 {
 
 // GetPortOk returns a tuple with the Port field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProvisionedSummary) GetPortOk() (*int32, bool) {
+func (o *ProvisionedSummary) GetPortOk() (*int64, bool) {
 	if o == nil || IsNil(o.Port) {
 		return nil, false
 	}
@@ -239,8 +239,8 @@ func (o *ProvisionedSummary) HasPort() bool {
 	return false
 }
 
-// SetPort gets a reference to the given int32 and assigns it to the Port field.
-func (o *ProvisionedSummary) SetPort(v int32) {
+// SetPort gets a reference to the given int64 and assigns it to the Port field.
+func (o *ProvisionedSummary) SetPort(v int64) {
 	o.Port = &v
 }
 

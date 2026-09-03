@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**GetTeamBots**](TeamAPI.md#GetTeamBots) | **Get** /v1/team/bots | Returns the caller org&#39;s bot members — the org&#39;s agents projected as the space Employees they become, each with the member account uuid and Person reference the roster addresses it by.
 [**GetTeamCollaborator**](TeamAPI.md#GetTeamCollaborator) | **Get** /v1/team/collaborator | Open the live collaborative-editing socket
 [**GetTeamFilesBySpaceByFilename**](TeamAPI.md#GetTeamFilesBySpaceByFilename) | **Get** /v1/team/files/{space}/{filename} | Download a space file
+[**GetTeamPublic**](TeamAPI.md#GetTeamPublic) | **Get** /v1/team/public | Lists the rooms orgs have published, across every org.
 [**GetTeamRooms**](TeamAPI.md#GetTeamRooms) | **Get** /v1/team/rooms | Returns every room of the caller&#39;s org, across the spaces it owns, with the work facet each carries.
 [**GetTeamRoomsByIdMessages**](TeamAPI.md#GetTeamRoomsByIdMessages) | **Get** /v1/team/rooms/{id}/messages | Returns the tail of one room&#39;s conversation, oldest first.
 [**GetTeamTransactorByToken**](TeamAPI.md#GetTeamTransactorByToken) | **Get** /v1/team/transactor/{token} | Open the space data-plane socket
@@ -669,6 +670,76 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/octet-stream
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetTeamPublic
+
+> PublicRooms GetTeamPublic(ctx).Q(q).Org(org).Limit(limit).Execute()
+
+Lists the rooms orgs have published, across every org.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	q := "q_example" // string | Q matches a room's name or its topic. (optional)
+	org := "org_example" // string | Org narrows to one org's published rooms. (optional)
+	limit := int64(789) // int64 | Limit caps the page, 50 when unstated and 200 at most. An unparseable value reads as unstated rather than as zero — zero pages is not an answer anybody asked for. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TeamAPI.GetTeamPublic(context.Background()).Q(q).Org(org).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamPublic``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTeamPublic`: PublicRooms
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamPublic`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetTeamPublicRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **q** | **string** | Q matches a room&#39;s name or its topic. | 
+ **org** | **string** | Org narrows to one org&#39;s published rooms. | 
+ **limit** | **int64** | Limit caps the page, 50 when unstated and 200 at most. An unparseable value reads as unstated rather than as zero — zero pages is not an answer anybody asked for. | 
+
+### Return type
+
+[**PublicRooms**](PublicRooms.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

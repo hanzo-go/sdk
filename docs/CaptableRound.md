@@ -5,16 +5,16 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CloseDate** | Pointer to **string** | CloseDate is the ISO date the round closed, once it has. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the round was recorded, in unix milliseconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the round was recorded, in unix milliseconds. | [optional] 
 **Id** | Pointer to **string** | ID is the round id. | [optional] 
 **Name** | Pointer to **string** | Name is the round name, e.g. \&quot;Series A\&quot;. | [optional] 
-**PreMoneyValuation** | Pointer to **float32** | PreMoneyValuation is the pre-money valuation, for a priced round. | [optional] 
-**PricePerShare** | Pointer to **float32** | PricePerShare is the price per share, for a priced round. | [optional] 
-**RaisedAmount** | Pointer to **float32** | RaisedAmount is how much has been invested so far. | [optional] 
+**PreMoneyValuation** | Pointer to **float64** | PreMoneyValuation is the pre-money valuation, for a priced round. | [optional] 
+**PricePerShare** | Pointer to **float64** | PricePerShare is the price per share, for a priced round. | [optional] 
+**RaisedAmount** | Pointer to **float64** | RaisedAmount is how much has been invested so far. | [optional] 
 **RoundType** | Pointer to **string** | RoundType is PRICED, SAFE or CONVERTIBLE_NOTE. | [optional] 
 **ShareClassId** | Pointer to **string** | ShareClassID is the class a priced round issues into. | [optional] 
 **Status** | Pointer to **string** | Status is OPEN or CLOSED. | [optional] 
-**TargetAmount** | Pointer to **float32** | TargetAmount is how much the round set out to raise. | [optional] 
+**TargetAmount** | Pointer to **float64** | TargetAmount is how much the round set out to raise. | [optional] 
 
 ## Methods
 
@@ -62,20 +62,20 @@ HasCloseDate returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *CaptableRound) GetCreatedAt() int32`
+`func (o *CaptableRound) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *CaptableRound) GetCreatedAtOk() (*int32, bool)`
+`func (o *CaptableRound) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *CaptableRound) SetCreatedAt(v int32)`
+`func (o *CaptableRound) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -137,20 +137,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetPreMoneyValuation
 
-`func (o *CaptableRound) GetPreMoneyValuation() float32`
+`func (o *CaptableRound) GetPreMoneyValuation() float64`
 
 GetPreMoneyValuation returns the PreMoneyValuation field if non-nil, zero value otherwise.
 
 ### GetPreMoneyValuationOk
 
-`func (o *CaptableRound) GetPreMoneyValuationOk() (*float32, bool)`
+`func (o *CaptableRound) GetPreMoneyValuationOk() (*float64, bool)`
 
 GetPreMoneyValuationOk returns a tuple with the PreMoneyValuation field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPreMoneyValuation
 
-`func (o *CaptableRound) SetPreMoneyValuation(v float32)`
+`func (o *CaptableRound) SetPreMoneyValuation(v float64)`
 
 SetPreMoneyValuation sets PreMoneyValuation field to given value.
 
@@ -162,20 +162,20 @@ HasPreMoneyValuation returns a boolean if a field has been set.
 
 ### GetPricePerShare
 
-`func (o *CaptableRound) GetPricePerShare() float32`
+`func (o *CaptableRound) GetPricePerShare() float64`
 
 GetPricePerShare returns the PricePerShare field if non-nil, zero value otherwise.
 
 ### GetPricePerShareOk
 
-`func (o *CaptableRound) GetPricePerShareOk() (*float32, bool)`
+`func (o *CaptableRound) GetPricePerShareOk() (*float64, bool)`
 
 GetPricePerShareOk returns a tuple with the PricePerShare field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPricePerShare
 
-`func (o *CaptableRound) SetPricePerShare(v float32)`
+`func (o *CaptableRound) SetPricePerShare(v float64)`
 
 SetPricePerShare sets PricePerShare field to given value.
 
@@ -187,20 +187,20 @@ HasPricePerShare returns a boolean if a field has been set.
 
 ### GetRaisedAmount
 
-`func (o *CaptableRound) GetRaisedAmount() float32`
+`func (o *CaptableRound) GetRaisedAmount() float64`
 
 GetRaisedAmount returns the RaisedAmount field if non-nil, zero value otherwise.
 
 ### GetRaisedAmountOk
 
-`func (o *CaptableRound) GetRaisedAmountOk() (*float32, bool)`
+`func (o *CaptableRound) GetRaisedAmountOk() (*float64, bool)`
 
 GetRaisedAmountOk returns a tuple with the RaisedAmount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRaisedAmount
 
-`func (o *CaptableRound) SetRaisedAmount(v float32)`
+`func (o *CaptableRound) SetRaisedAmount(v float64)`
 
 SetRaisedAmount sets RaisedAmount field to given value.
 
@@ -287,20 +287,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetTargetAmount
 
-`func (o *CaptableRound) GetTargetAmount() float32`
+`func (o *CaptableRound) GetTargetAmount() float64`
 
 GetTargetAmount returns the TargetAmount field if non-nil, zero value otherwise.
 
 ### GetTargetAmountOk
 
-`func (o *CaptableRound) GetTargetAmountOk() (*float32, bool)`
+`func (o *CaptableRound) GetTargetAmountOk() (*float64, bool)`
 
 GetTargetAmountOk returns a tuple with the TargetAmount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTargetAmount
 
-`func (o *CaptableRound) SetTargetAmount(v float32)`
+`func (o *CaptableRound) SetTargetAmount(v float64)`
 
 SetTargetAmount sets TargetAmount field to given value.
 

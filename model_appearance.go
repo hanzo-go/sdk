@@ -24,7 +24,7 @@ type Appearance struct {
 	// Density is the spacing step: \"compact\", \"default\" or \"comfortable\".
 	Density *string `json:"density,omitempty"`
 	// Type is the text-size multiplier, clamped to the ramp window [0.85, 1.4]. Absent (0) leaves the published default.
-	Type *float32 `json:"type,omitempty"`
+	Type *float64 `json:"type,omitempty"`
 }
 
 // NewAppearance instantiates a new Appearance object
@@ -109,9 +109,9 @@ func (o *Appearance) SetDensity(v string) {
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
-func (o *Appearance) GetType() float32 {
+func (o *Appearance) GetType() float64 {
 	if o == nil || IsNil(o.Type) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Type
@@ -119,7 +119,7 @@ func (o *Appearance) GetType() float32 {
 
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Appearance) GetTypeOk() (*float32, bool) {
+func (o *Appearance) GetTypeOk() (*float64, bool) {
 	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *Appearance) HasType() bool {
 	return false
 }
 
-// SetType gets a reference to the given float32 and assigns it to the Type field.
-func (o *Appearance) SetType(v float32) {
+// SetType gets a reference to the given float64 and assigns it to the Type field.
+func (o *Appearance) SetType(v float64) {
 	o.Type = &v
 }
 

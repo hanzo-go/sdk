@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Expires** | Pointer to **int32** | Expires is the token&#39;s lifetime in seconds. | [optional] 
+**Expires** | Pointer to **int64** | Expires is the token&#39;s lifetime in seconds. | [optional] 
 **Ref** | Pointer to **string** | Ref is the one repository reference the token can pull. | [optional] 
 **Token** | Pointer to **string** | Token is the bearer to present on the OCI wire (&#x60;Authorization: Bearer …&#x60; against the host&#39;s /v2/ routes). | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetExpires
 
-`func (o *RegistryToken) GetExpires() int32`
+`func (o *RegistryToken) GetExpires() int64`
 
 GetExpires returns the Expires field if non-nil, zero value otherwise.
 
 ### GetExpiresOk
 
-`func (o *RegistryToken) GetExpiresOk() (*int32, bool)`
+`func (o *RegistryToken) GetExpiresOk() (*int64, bool)`
 
 GetExpiresOk returns a tuple with the Expires field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpires
 
-`func (o *RegistryToken) SetExpires(v int32)`
+`func (o *RegistryToken) SetExpires(v int64)`
 
 SetExpires sets Expires field to given value.
 

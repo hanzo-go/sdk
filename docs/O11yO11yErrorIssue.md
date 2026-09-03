@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Assignee** | Pointer to **string** | Assignee is who the issue is assigned to. | [optional] 
-**Count** | Pointer to **int32** | Count is how many occurrences have landed on the issue. | [optional] 
+**Count** | Pointer to **int64** | Count is how many occurrences have landed on the issue. | [optional] 
 **CreatedAt** | Pointer to **time.Time** | CreatedAt is when the issue was first recorded. | [optional] 
 **Culprit** | Pointer to **string** | Culprit is where it came from — the function or route blamed for it. | [optional] 
 **Environment** | Pointer to **string** | Environment is the deployment the issue was seen in. | [optional] 
@@ -70,20 +70,20 @@ HasAssignee returns a boolean if a field has been set.
 
 ### GetCount
 
-`func (o *O11yO11yErrorIssue) GetCount() int32`
+`func (o *O11yO11yErrorIssue) GetCount() int64`
 
 GetCount returns the Count field if non-nil, zero value otherwise.
 
 ### GetCountOk
 
-`func (o *O11yO11yErrorIssue) GetCountOk() (*int32, bool)`
+`func (o *O11yO11yErrorIssue) GetCountOk() (*int64, bool)`
 
 GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCount
 
-`func (o *O11yO11yErrorIssue) SetCount(v int32)`
+`func (o *O11yO11yErrorIssue) SetCount(v int64)`
 
 SetCount sets Count field to given value.
 

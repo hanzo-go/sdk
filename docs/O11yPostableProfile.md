@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ExistingObservabilityTool** | Pointer to **string** |  | [optional] 
 **ExistingObservabilityToolPresent** | Pointer to **bool** |  | [optional] 
-**LogsScalePerDayInGb** | Pointer to **int32** |  | [optional] 
-**NumberOfHosts** | Pointer to **int32** |  | [optional] 
-**NumberOfServices** | Pointer to **int32** |  | [optional] 
+**LogsScalePerDayInGb** | Pointer to **int64** |  | [optional] 
+**NumberOfHosts** | Pointer to **int64** |  | [optional] 
+**NumberOfServices** | Pointer to **int64** |  | [optional] 
 **ReasonsForInterestInO11y** | Pointer to **[]string** |  | [optional] 
 **TimelineForMigratingToO11y** | Pointer to **string** |  | [optional] 
 **UsesOtel** | Pointer to **bool** |  | [optional] 
@@ -85,20 +85,20 @@ HasExistingObservabilityToolPresent returns a boolean if a field has been set.
 
 ### GetLogsScalePerDayInGb
 
-`func (o *O11yPostableProfile) GetLogsScalePerDayInGb() int32`
+`func (o *O11yPostableProfile) GetLogsScalePerDayInGb() int64`
 
 GetLogsScalePerDayInGb returns the LogsScalePerDayInGb field if non-nil, zero value otherwise.
 
 ### GetLogsScalePerDayInGbOk
 
-`func (o *O11yPostableProfile) GetLogsScalePerDayInGbOk() (*int32, bool)`
+`func (o *O11yPostableProfile) GetLogsScalePerDayInGbOk() (*int64, bool)`
 
 GetLogsScalePerDayInGbOk returns a tuple with the LogsScalePerDayInGb field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLogsScalePerDayInGb
 
-`func (o *O11yPostableProfile) SetLogsScalePerDayInGb(v int32)`
+`func (o *O11yPostableProfile) SetLogsScalePerDayInGb(v int64)`
 
 SetLogsScalePerDayInGb sets LogsScalePerDayInGb field to given value.
 
@@ -110,20 +110,20 @@ HasLogsScalePerDayInGb returns a boolean if a field has been set.
 
 ### GetNumberOfHosts
 
-`func (o *O11yPostableProfile) GetNumberOfHosts() int32`
+`func (o *O11yPostableProfile) GetNumberOfHosts() int64`
 
 GetNumberOfHosts returns the NumberOfHosts field if non-nil, zero value otherwise.
 
 ### GetNumberOfHostsOk
 
-`func (o *O11yPostableProfile) GetNumberOfHostsOk() (*int32, bool)`
+`func (o *O11yPostableProfile) GetNumberOfHostsOk() (*int64, bool)`
 
 GetNumberOfHostsOk returns a tuple with the NumberOfHosts field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumberOfHosts
 
-`func (o *O11yPostableProfile) SetNumberOfHosts(v int32)`
+`func (o *O11yPostableProfile) SetNumberOfHosts(v int64)`
 
 SetNumberOfHosts sets NumberOfHosts field to given value.
 
@@ -135,20 +135,20 @@ HasNumberOfHosts returns a boolean if a field has been set.
 
 ### GetNumberOfServices
 
-`func (o *O11yPostableProfile) GetNumberOfServices() int32`
+`func (o *O11yPostableProfile) GetNumberOfServices() int64`
 
 GetNumberOfServices returns the NumberOfServices field if non-nil, zero value otherwise.
 
 ### GetNumberOfServicesOk
 
-`func (o *O11yPostableProfile) GetNumberOfServicesOk() (*int32, bool)`
+`func (o *O11yPostableProfile) GetNumberOfServicesOk() (*int64, bool)`
 
 GetNumberOfServicesOk returns a tuple with the NumberOfServices field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumberOfServices
 
-`func (o *O11yPostableProfile) SetNumberOfServices(v int32)`
+`func (o *O11yPostableProfile) SetNumberOfServices(v int64)`
 
 SetNumberOfServices sets NumberOfServices field to given value.
 

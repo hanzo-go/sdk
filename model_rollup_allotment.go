@@ -19,10 +19,10 @@ var _ MappedNullable = &RollupAllotment{}
 
 // RollupAllotment struct for RollupAllotment
 type RollupAllotment struct {
-	ConsumedCents  *int32 `json:"consumedCents,omitempty"`
-	GrantedCents   *int32 `json:"grantedCents,omitempty"`
-	MonthlyCents   *int32 `json:"monthlyCents,omitempty"`
-	RemainingCents *int32 `json:"remainingCents,omitempty"`
+	ConsumedCents  *int64 `json:"consumedCents,omitempty"`
+	GrantedCents   *int64 `json:"grantedCents,omitempty"`
+	MonthlyCents   *int64 `json:"monthlyCents,omitempty"`
+	RemainingCents *int64 `json:"remainingCents,omitempty"`
 }
 
 // NewRollupAllotment instantiates a new RollupAllotment object
@@ -43,9 +43,9 @@ func NewRollupAllotmentWithDefaults() *RollupAllotment {
 }
 
 // GetConsumedCents returns the ConsumedCents field value if set, zero value otherwise.
-func (o *RollupAllotment) GetConsumedCents() int32 {
+func (o *RollupAllotment) GetConsumedCents() int64 {
 	if o == nil || IsNil(o.ConsumedCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ConsumedCents
@@ -53,7 +53,7 @@ func (o *RollupAllotment) GetConsumedCents() int32 {
 
 // GetConsumedCentsOk returns a tuple with the ConsumedCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RollupAllotment) GetConsumedCentsOk() (*int32, bool) {
+func (o *RollupAllotment) GetConsumedCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.ConsumedCents) {
 		return nil, false
 	}
@@ -69,15 +69,15 @@ func (o *RollupAllotment) HasConsumedCents() bool {
 	return false
 }
 
-// SetConsumedCents gets a reference to the given int32 and assigns it to the ConsumedCents field.
-func (o *RollupAllotment) SetConsumedCents(v int32) {
+// SetConsumedCents gets a reference to the given int64 and assigns it to the ConsumedCents field.
+func (o *RollupAllotment) SetConsumedCents(v int64) {
 	o.ConsumedCents = &v
 }
 
 // GetGrantedCents returns the GrantedCents field value if set, zero value otherwise.
-func (o *RollupAllotment) GetGrantedCents() int32 {
+func (o *RollupAllotment) GetGrantedCents() int64 {
 	if o == nil || IsNil(o.GrantedCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.GrantedCents
@@ -85,7 +85,7 @@ func (o *RollupAllotment) GetGrantedCents() int32 {
 
 // GetGrantedCentsOk returns a tuple with the GrantedCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RollupAllotment) GetGrantedCentsOk() (*int32, bool) {
+func (o *RollupAllotment) GetGrantedCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.GrantedCents) {
 		return nil, false
 	}
@@ -101,15 +101,15 @@ func (o *RollupAllotment) HasGrantedCents() bool {
 	return false
 }
 
-// SetGrantedCents gets a reference to the given int32 and assigns it to the GrantedCents field.
-func (o *RollupAllotment) SetGrantedCents(v int32) {
+// SetGrantedCents gets a reference to the given int64 and assigns it to the GrantedCents field.
+func (o *RollupAllotment) SetGrantedCents(v int64) {
 	o.GrantedCents = &v
 }
 
 // GetMonthlyCents returns the MonthlyCents field value if set, zero value otherwise.
-func (o *RollupAllotment) GetMonthlyCents() int32 {
+func (o *RollupAllotment) GetMonthlyCents() int64 {
 	if o == nil || IsNil(o.MonthlyCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MonthlyCents
@@ -117,7 +117,7 @@ func (o *RollupAllotment) GetMonthlyCents() int32 {
 
 // GetMonthlyCentsOk returns a tuple with the MonthlyCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RollupAllotment) GetMonthlyCentsOk() (*int32, bool) {
+func (o *RollupAllotment) GetMonthlyCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.MonthlyCents) {
 		return nil, false
 	}
@@ -133,15 +133,15 @@ func (o *RollupAllotment) HasMonthlyCents() bool {
 	return false
 }
 
-// SetMonthlyCents gets a reference to the given int32 and assigns it to the MonthlyCents field.
-func (o *RollupAllotment) SetMonthlyCents(v int32) {
+// SetMonthlyCents gets a reference to the given int64 and assigns it to the MonthlyCents field.
+func (o *RollupAllotment) SetMonthlyCents(v int64) {
 	o.MonthlyCents = &v
 }
 
 // GetRemainingCents returns the RemainingCents field value if set, zero value otherwise.
-func (o *RollupAllotment) GetRemainingCents() int32 {
+func (o *RollupAllotment) GetRemainingCents() int64 {
 	if o == nil || IsNil(o.RemainingCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RemainingCents
@@ -149,7 +149,7 @@ func (o *RollupAllotment) GetRemainingCents() int32 {
 
 // GetRemainingCentsOk returns a tuple with the RemainingCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RollupAllotment) GetRemainingCentsOk() (*int32, bool) {
+func (o *RollupAllotment) GetRemainingCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.RemainingCents) {
 		return nil, false
 	}
@@ -165,8 +165,8 @@ func (o *RollupAllotment) HasRemainingCents() bool {
 	return false
 }
 
-// SetRemainingCents gets a reference to the given int32 and assigns it to the RemainingCents field.
-func (o *RollupAllotment) SetRemainingCents(v int32) {
+// SetRemainingCents gets a reference to the given int64 and assigns it to the RemainingCents field.
+func (o *RollupAllotment) SetRemainingCents(v int64) {
 	o.RemainingCents = &v
 }
 

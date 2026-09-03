@@ -26,7 +26,7 @@ type BlueprintView struct {
 	// Counts summarises how many items each collection holds.
 	Counts *BlueprintCounts `json:"counts,omitempty"`
 	// Version is the active stored version number (1 is the seed). Each edit appends a new one; nothing is ever overwritten.
-	Version *int32 `json:"version,omitempty"`
+	Version *int64 `json:"version,omitempty"`
 }
 
 // NewBlueprintView instantiates a new BlueprintView object
@@ -143,9 +143,9 @@ func (o *BlueprintView) SetCounts(v BlueprintCounts) {
 }
 
 // GetVersion returns the Version field value if set, zero value otherwise.
-func (o *BlueprintView) GetVersion() int32 {
+func (o *BlueprintView) GetVersion() int64 {
 	if o == nil || IsNil(o.Version) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Version
@@ -153,7 +153,7 @@ func (o *BlueprintView) GetVersion() int32 {
 
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BlueprintView) GetVersionOk() (*int32, bool) {
+func (o *BlueprintView) GetVersionOk() (*int64, bool) {
 	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *BlueprintView) HasVersion() bool {
 	return false
 }
 
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
-func (o *BlueprintView) SetVersion(v int32) {
+// SetVersion gets a reference to the given int64 and assigns it to the Version field.
+func (o *BlueprintView) SetVersion(v int64) {
 	o.Version = &v
 }
 

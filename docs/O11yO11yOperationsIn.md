@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **End** | Pointer to **string** | End is the window&#39;s end, epoch nanoseconds as a string. | [optional] 
-**Limit** | Pointer to **int32** | Limit caps how many operations come back. | [optional] 
+**Limit** | Pointer to **int64** | Limit caps how many operations come back. | [optional] 
 **Service** | Pointer to **string** | Service is the service whose operations are read. | [optional] 
 **Start** | Pointer to **string** | Start is the window&#39;s start, epoch nanoseconds as a string. | [optional] 
 **Tags** | Pointer to [**[]O11yO11yServiceTag**](O11yO11yServiceTag.md) | Tags narrow the spans counted, each a span-attribute predicate. | [optional] 
@@ -56,20 +56,20 @@ HasEnd returns a boolean if a field has been set.
 
 ### GetLimit
 
-`func (o *O11yO11yOperationsIn) GetLimit() int32`
+`func (o *O11yO11yOperationsIn) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *O11yO11yOperationsIn) GetLimitOk() (*int32, bool)`
+`func (o *O11yO11yOperationsIn) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *O11yO11yOperationsIn) SetLimit(v int32)`
+`func (o *O11yO11yOperationsIn) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 

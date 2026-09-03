@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Brands** | Pointer to **[]string** | Brands are the brands whose console shows it. Omit for every brand. | [optional] 
 **Id** | Pointer to **string** | ID is the category slug to write, from the path. | [optional] 
 **Label** | Pointer to **string** | Label is the display name. Required. | [optional] 
-**Order** | Pointer to **int32** | Order is where the category sits among its siblings, ascending. | [optional] 
+**Order** | Pointer to **int64** | Order is where the category sits among its siblings, ascending. | [optional] 
 **Summary** | Pointer to **string** | Summary is the one line describing what the category groups. | [optional] 
 
 ## Methods
@@ -106,20 +106,20 @@ HasLabel returns a boolean if a field has been set.
 
 ### GetOrder
 
-`func (o *CategoryIn) GetOrder() int32`
+`func (o *CategoryIn) GetOrder() int64`
 
 GetOrder returns the Order field if non-nil, zero value otherwise.
 
 ### GetOrderOk
 
-`func (o *CategoryIn) GetOrderOk() (*int32, bool)`
+`func (o *CategoryIn) GetOrderOk() (*int64, bool)`
 
 GetOrderOk returns a tuple with the Order field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrder
 
-`func (o *CategoryIn) SetOrder(v int32)`
+`func (o *CategoryIn) SetOrder(v int64)`
 
 SetOrder sets Order field to given value.
 

@@ -9,14 +9,14 @@ Name | Type | Description | Notes
 **ClientSecret** | Pointer to **string** |  | [optional] 
 **DisplayName** | Pointer to **string** |  | [optional] 
 **EnableCodeSignin** | Pointer to **bool** | EnableCodeSignin offers sign-in by an emailed or texted one-time code beside the password. A POINTER for the same reason as IsShared: a plain bool reads as false on every reconcile that says nothing and would switch the method off for every app whose caller never mentioned it. | [optional] 
-**ExpireInHours** | Pointer to **float32** | ExpireInHours and RefreshExpireInHours are the application&#39;s token lifetimes. They are the ONLY declarative way to say that a refresh token must OUTLIVE its access token: with neither stated, oidc.refreshTTL clamps the refresh lifetime to the access lifetime, so the refresh_token grant the registration advertises expires at the same instant as the token it was meant to renew and can never be exercised. &#x60;hanzo-cli&#x60; sat in exactly that state — a browser re-login every hour, and a live refresh returning 401.  POINTERS, for the same reason as IsShared: a plain float would read as 0 on every reconcile that says nothing and reset a deliberate lifetime back to the default. Nil means \&quot;not stated, leave it\&quot;. | [optional] 
+**ExpireInHours** | Pointer to **float64** | ExpireInHours and RefreshExpireInHours are the application&#39;s token lifetimes. They are the ONLY declarative way to say that a refresh token must OUTLIVE its access token: with neither stated, oidc.refreshTTL clamps the refresh lifetime to the access lifetime, so the refresh_token grant the registration advertises expires at the same instant as the token it was meant to renew and can never be exercised. &#x60;hanzo-cli&#x60; sat in exactly that state — a browser re-login every hour, and a live refresh returning 401.  POINTERS, for the same reason as IsShared: a plain float would read as 0 on every reconcile that says nothing and reset a deliberate lifetime back to the default. Nil means \&quot;not stated, leave it\&quot;. | [optional] 
 **GrantTypes** | Pointer to **[]string** |  | [optional] 
 **IsShared** | Pointer to **bool** | IsShared declares that this application serves EVERY organization, not only the one named in Organization. It is the honest description of a brand app — hanzo-id, hanzo-chat, a brand console — whose customers each live in their own tenant: self-service onboarding moves a founder OUT of the brand org, so &#x60;user.Owner !&#x3D; app.Organization&#x60; is the steady state and the app really does serve every org. Application.ServesOrg reads it as one of the three ways to say yes.  A POINTER because omission must PRESERVE. This upsert is the operator&#39;s steady-state reconcile and most callers say nothing about sharing; a plain bool would read as false on every one of them and silently un-share an app — the same shape of accident that de-secreted apps through update-application. Nil means \&quot;not stated, leave it\&quot;; only an explicit true or false moves it. | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Organization** | Pointer to **string** |  | [optional] 
 **Public** | Pointer to **bool** | Public declares a client that CANNOT hold a credential — a browser SPA, a CLI, a desktop app. It proves itself with PKCE instead, and the token endpoint treats \&quot;no stored secret\&quot; as exactly that (token.go: a secret is verified only when one is stored). Without this flag every upsert minted a secret, so a public client could never be registered at all and its browser code-&gt;token exchange 401&#39;d &#x60;invalid_client&#x60; forever. | [optional] 
 **RedirectUris** | Pointer to **[]string** |  | [optional] 
-**RefreshExpireInHours** | Pointer to **float32** |  | [optional] 
+**RefreshExpireInHours** | Pointer to **float64** |  | [optional] 
 
 ## Methods
 
@@ -164,20 +164,20 @@ HasEnableCodeSignin returns a boolean if a field has been set.
 
 ### GetExpireInHours
 
-`func (o *IamRegistration) GetExpireInHours() float32`
+`func (o *IamRegistration) GetExpireInHours() float64`
 
 GetExpireInHours returns the ExpireInHours field if non-nil, zero value otherwise.
 
 ### GetExpireInHoursOk
 
-`func (o *IamRegistration) GetExpireInHoursOk() (*float32, bool)`
+`func (o *IamRegistration) GetExpireInHoursOk() (*float64, bool)`
 
 GetExpireInHoursOk returns a tuple with the ExpireInHours field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpireInHours
 
-`func (o *IamRegistration) SetExpireInHours(v float32)`
+`func (o *IamRegistration) SetExpireInHours(v float64)`
 
 SetExpireInHours sets ExpireInHours field to given value.
 
@@ -339,20 +339,20 @@ HasRedirectUris returns a boolean if a field has been set.
 
 ### GetRefreshExpireInHours
 
-`func (o *IamRegistration) GetRefreshExpireInHours() float32`
+`func (o *IamRegistration) GetRefreshExpireInHours() float64`
 
 GetRefreshExpireInHours returns the RefreshExpireInHours field if non-nil, zero value otherwise.
 
 ### GetRefreshExpireInHoursOk
 
-`func (o *IamRegistration) GetRefreshExpireInHoursOk() (*float32, bool)`
+`func (o *IamRegistration) GetRefreshExpireInHoursOk() (*float64, bool)`
 
 GetRefreshExpireInHoursOk returns a tuple with the RefreshExpireInHours field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRefreshExpireInHours
 
-`func (o *IamRegistration) SetRefreshExpireInHours(v float32)`
+`func (o *IamRegistration) SetRefreshExpireInHours(v float64)`
 
 SetRefreshExpireInHours sets RefreshExpireInHours field to given value.
 

@@ -20,7 +20,7 @@ var _ MappedNullable = &OrgEarningView{}
 // OrgEarningView struct for OrgEarningView
 type OrgEarningView struct {
 	// CommissionCents is what the caller earned from that org across ALL periods, in cents. Deliberately the caller's own share and nothing else: that org's spend and the margin on it are not restated here.
-	CommissionCents *int32 `json:"commissionCents,omitempty"`
+	CommissionCents *int64 `json:"commissionCents,omitempty"`
 	// ReferredOrg is the org slug this contribution came from — one the caller referred, directly or up to three levels down.
 	ReferredOrg *string `json:"referredOrg,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewOrgEarningViewWithDefaults() *OrgEarningView {
 }
 
 // GetCommissionCents returns the CommissionCents field value if set, zero value otherwise.
-func (o *OrgEarningView) GetCommissionCents() int32 {
+func (o *OrgEarningView) GetCommissionCents() int64 {
 	if o == nil || IsNil(o.CommissionCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CommissionCents
@@ -53,7 +53,7 @@ func (o *OrgEarningView) GetCommissionCents() int32 {
 
 // GetCommissionCentsOk returns a tuple with the CommissionCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OrgEarningView) GetCommissionCentsOk() (*int32, bool) {
+func (o *OrgEarningView) GetCommissionCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CommissionCents) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *OrgEarningView) HasCommissionCents() bool {
 	return false
 }
 
-// SetCommissionCents gets a reference to the given int32 and assigns it to the CommissionCents field.
-func (o *OrgEarningView) SetCommissionCents(v int32) {
+// SetCommissionCents gets a reference to the given int64 and assigns it to the CommissionCents field.
+func (o *OrgEarningView) SetCommissionCents(v int64) {
 	o.CommissionCents = &v
 }
 

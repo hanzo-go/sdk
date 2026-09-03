@@ -22,7 +22,7 @@ type O11yO11ySentryProjects struct {
 	// Items are the projects.
 	Items []O11yO11ySentryProject `json:"items,omitempty"`
 	// Total is how many the org has.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 }
 
 // NewO11yO11ySentryProjects instantiates a new O11yO11ySentryProjects object
@@ -75,9 +75,9 @@ func (o *O11yO11ySentryProjects) SetItems(v []O11yO11ySentryProject) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *O11yO11ySentryProjects) GetTotal() int32 {
+func (o *O11yO11ySentryProjects) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -85,7 +85,7 @@ func (o *O11yO11ySentryProjects) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11ySentryProjects) GetTotalOk() (*int32, bool) {
+func (o *O11yO11ySentryProjects) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *O11yO11ySentryProjects) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *O11yO11ySentryProjects) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *O11yO11ySentryProjects) SetTotal(v int64) {
 	o.Total = &v
 }
 

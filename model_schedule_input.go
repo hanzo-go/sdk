@@ -22,7 +22,7 @@ type ScheduleInput struct {
 	// ID is the campaign id from the path.
 	Id *string `json:"id,omitempty"`
 	// ScheduledAt is the unix send time. 0 clears the schedule.
-	ScheduledAt *int32 `json:"scheduledAt,omitempty"`
+	ScheduledAt *int64 `json:"scheduledAt,omitempty"`
 }
 
 // NewScheduleInput instantiates a new ScheduleInput object
@@ -75,9 +75,9 @@ func (o *ScheduleInput) SetId(v string) {
 }
 
 // GetScheduledAt returns the ScheduledAt field value if set, zero value otherwise.
-func (o *ScheduleInput) GetScheduledAt() int32 {
+func (o *ScheduleInput) GetScheduledAt() int64 {
 	if o == nil || IsNil(o.ScheduledAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ScheduledAt
@@ -85,7 +85,7 @@ func (o *ScheduleInput) GetScheduledAt() int32 {
 
 // GetScheduledAtOk returns a tuple with the ScheduledAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ScheduleInput) GetScheduledAtOk() (*int32, bool) {
+func (o *ScheduleInput) GetScheduledAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.ScheduledAt) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *ScheduleInput) HasScheduledAt() bool {
 	return false
 }
 
-// SetScheduledAt gets a reference to the given int32 and assigns it to the ScheduledAt field.
-func (o *ScheduleInput) SetScheduledAt(v int32) {
+// SetScheduledAt gets a reference to the given int64 and assigns it to the ScheduledAt field.
+func (o *ScheduleInput) SetScheduledAt(v int64) {
 	o.ScheduledAt = &v
 }
 

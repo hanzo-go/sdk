@@ -22,9 +22,9 @@ type O11yAvailabilityPoint struct {
 	// T is the bucket start, RFC3339 in UTC.
 	T *string `json:"t,omitempty"`
 	// Total is how many services reported at all inside the bucket. It can be lower than the current total: a target added last week reported nothing the week before, and saying so is the point.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 	// Up is how many services were up at the end of the bucket.
-	Up *int32 `json:"up,omitempty"`
+	Up *int64 `json:"up,omitempty"`
 }
 
 // NewO11yAvailabilityPoint instantiates a new O11yAvailabilityPoint object
@@ -77,9 +77,9 @@ func (o *O11yAvailabilityPoint) SetT(v string) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *O11yAvailabilityPoint) GetTotal() int32 {
+func (o *O11yAvailabilityPoint) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -87,7 +87,7 @@ func (o *O11yAvailabilityPoint) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yAvailabilityPoint) GetTotalOk() (*int32, bool) {
+func (o *O11yAvailabilityPoint) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -103,15 +103,15 @@ func (o *O11yAvailabilityPoint) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *O11yAvailabilityPoint) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *O11yAvailabilityPoint) SetTotal(v int64) {
 	o.Total = &v
 }
 
 // GetUp returns the Up field value if set, zero value otherwise.
-func (o *O11yAvailabilityPoint) GetUp() int32 {
+func (o *O11yAvailabilityPoint) GetUp() int64 {
 	if o == nil || IsNil(o.Up) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Up
@@ -119,7 +119,7 @@ func (o *O11yAvailabilityPoint) GetUp() int32 {
 
 // GetUpOk returns a tuple with the Up field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yAvailabilityPoint) GetUpOk() (*int32, bool) {
+func (o *O11yAvailabilityPoint) GetUpOk() (*int64, bool) {
 	if o == nil || IsNil(o.Up) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *O11yAvailabilityPoint) HasUp() bool {
 	return false
 }
 
-// SetUp gets a reference to the given int32 and assigns it to the Up field.
-func (o *O11yAvailabilityPoint) SetUp(v int32) {
+// SetUp gets a reference to the given int64 and assigns it to the Up field.
+func (o *O11yAvailabilityPoint) SetUp(v int64) {
 	o.Up = &v
 }
 

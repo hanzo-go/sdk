@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Commit** | Pointer to **string** | Commit is the full sha this turn produced, empty when the turn changed nothing. It is ECHOED from the transcript, and the authority is the commit itself: it carries the &#x60;Hanzo-Session:&#x60;/&#x60;Hanzo-Turn:&#x60; trailer, or a note under refs/notes/hanzo-provenance saying the same, so the claim is checkable at source with the command in &#x60;verify&#x60;. | [optional] 
 **Kind** | Pointer to **string** | Kind is what the turn was, from the log&#39;s closed six: message, tool-call, spawn, log, status, control. A deploy arrives as a &#x60;status&#x60; turn. | [optional] 
 **Subject** | Pointer to **string** | Subject is that commit&#39;s subject line, from the same transcript, so a reader sees what the commit says without fetching the repository. | [optional] 
-**Turn** | Pointer to **int32** | Seq is this turn&#39;s POSITION in the session&#39;s log — monotonic from 1, per session — and it is what a commit&#39;s &#x60;Hanzo-Turn:&#x60; trailer names. It is not a count of anything: the count is &#x60;turns&#x60; on the summary beside it. | [optional] 
+**Turn** | Pointer to **int64** | Seq is this turn&#39;s POSITION in the session&#39;s log — monotonic from 1, per session — and it is what a commit&#39;s &#x60;Hanzo-Turn:&#x60; trailer names. It is not a count of anything: the count is &#x60;turns&#x60; on the summary beside it. | [optional] 
 
 ## Methods
 
@@ -183,20 +183,20 @@ HasSubject returns a boolean if a field has been set.
 
 ### GetTurn
 
-`func (o *BuildTurn) GetTurn() int32`
+`func (o *BuildTurn) GetTurn() int64`
 
 GetTurn returns the Turn field if non-nil, zero value otherwise.
 
 ### GetTurnOk
 
-`func (o *BuildTurn) GetTurnOk() (*int32, bool)`
+`func (o *BuildTurn) GetTurnOk() (*int64, bool)`
 
 GetTurnOk returns a tuple with the Turn field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTurn
 
-`func (o *BuildTurn) SetTurn(v int32)`
+`func (o *BuildTurn) SetTurn(v int64)`
 
 SetTurn sets Turn field to given value.
 

@@ -30,7 +30,7 @@ type PromptMeta struct {
 	// Type labels the template's kind, \"text\" unless the creator said otherwise. It is the CURRENT version's type; earlier versions may carry a different one.
 	Type *string `json:"type,omitempty"`
 	// Versions lists every version NUMBER this prompt has, newest first, capped at the last 100. The highest is the current one. (On a metrics row the same key is a count, not a list.)
-	Versions []int32 `json:"versions,omitempty"`
+	Versions []int64 `json:"versions,omitempty"`
 }
 
 // NewPromptMeta instantiates a new PromptMeta object
@@ -211,9 +211,9 @@ func (o *PromptMeta) SetType(v string) {
 }
 
 // GetVersions returns the Versions field value if set, zero value otherwise.
-func (o *PromptMeta) GetVersions() []int32 {
+func (o *PromptMeta) GetVersions() []int64 {
 	if o == nil || IsNil(o.Versions) {
-		var ret []int32
+		var ret []int64
 		return ret
 	}
 	return o.Versions
@@ -221,7 +221,7 @@ func (o *PromptMeta) GetVersions() []int32 {
 
 // GetVersionsOk returns a tuple with the Versions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PromptMeta) GetVersionsOk() ([]int32, bool) {
+func (o *PromptMeta) GetVersionsOk() ([]int64, bool) {
 	if o == nil || IsNil(o.Versions) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *PromptMeta) HasVersions() bool {
 	return false
 }
 
-// SetVersions gets a reference to the given []int32 and assigns it to the Versions field.
-func (o *PromptMeta) SetVersions(v []int32) {
+// SetVersions gets a reference to the given []int64 and assigns it to the Versions field.
+func (o *PromptMeta) SetVersions(v []int64) {
 	o.Versions = v
 }
 

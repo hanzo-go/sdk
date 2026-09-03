@@ -22,7 +22,7 @@ type MetricRow struct {
 	// CreatedAt is when version 1 was written, RFC 3339 UTC.
 	CreatedAt *string `json:"createdAt,omitempty"`
 	// CurrentVer is the version number served as current. It always equals `versions`: numbering is dense from 1, and deleting a prompt takes its whole history with it rather than leaving a gap.
-	CurrentVersion *int32 `json:"currentVersion,omitempty"`
+	CurrentVersion *int64 `json:"currentVersion,omitempty"`
 	// LastUpdatedAt is when the newest version was appended, RFC 3339 UTC — the age of the template you would get today.
 	LastUpdatedAt *string `json:"lastUpdatedAt,omitempty"`
 	// Name is the prompt this row is about — its org-unique handle.
@@ -30,7 +30,7 @@ type MetricRow struct {
 	// Type is the current version's kind.
 	Type *string `json:"type,omitempty"`
 	// Versions is how many revisions the prompt has, COUNTED in the store and uncapped — so it can exceed the 100 entries a list row or a detail response carries. Note the type: here `versions` is a number, while on a list row it is the list of version numbers.
-	Versions *int32 `json:"versions,omitempty"`
+	Versions *int64 `json:"versions,omitempty"`
 }
 
 // NewMetricRow instantiates a new MetricRow object
@@ -83,9 +83,9 @@ func (o *MetricRow) SetCreatedAt(v string) {
 }
 
 // GetCurrentVersion returns the CurrentVersion field value if set, zero value otherwise.
-func (o *MetricRow) GetCurrentVersion() int32 {
+func (o *MetricRow) GetCurrentVersion() int64 {
 	if o == nil || IsNil(o.CurrentVersion) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CurrentVersion
@@ -93,7 +93,7 @@ func (o *MetricRow) GetCurrentVersion() int32 {
 
 // GetCurrentVersionOk returns a tuple with the CurrentVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricRow) GetCurrentVersionOk() (*int32, bool) {
+func (o *MetricRow) GetCurrentVersionOk() (*int64, bool) {
 	if o == nil || IsNil(o.CurrentVersion) {
 		return nil, false
 	}
@@ -109,8 +109,8 @@ func (o *MetricRow) HasCurrentVersion() bool {
 	return false
 }
 
-// SetCurrentVersion gets a reference to the given int32 and assigns it to the CurrentVersion field.
-func (o *MetricRow) SetCurrentVersion(v int32) {
+// SetCurrentVersion gets a reference to the given int64 and assigns it to the CurrentVersion field.
+func (o *MetricRow) SetCurrentVersion(v int64) {
 	o.CurrentVersion = &v
 }
 
@@ -211,9 +211,9 @@ func (o *MetricRow) SetType(v string) {
 }
 
 // GetVersions returns the Versions field value if set, zero value otherwise.
-func (o *MetricRow) GetVersions() int32 {
+func (o *MetricRow) GetVersions() int64 {
 	if o == nil || IsNil(o.Versions) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Versions
@@ -221,7 +221,7 @@ func (o *MetricRow) GetVersions() int32 {
 
 // GetVersionsOk returns a tuple with the Versions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricRow) GetVersionsOk() (*int32, bool) {
+func (o *MetricRow) GetVersionsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Versions) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *MetricRow) HasVersions() bool {
 	return false
 }
 
-// SetVersions gets a reference to the given int32 and assigns it to the Versions field.
-func (o *MetricRow) SetVersions(v int32) {
+// SetVersions gets a reference to the given int64 and assigns it to the Versions field.
+func (o *MetricRow) SetVersions(v int64) {
 	o.Versions = &v
 }
 

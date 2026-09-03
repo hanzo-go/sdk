@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Amount** | Pointer to **float32** | Amount is the cash invested. | [optional] 
+**Amount** | Pointer to **float64** | Amount is the cash invested. | [optional] 
 **Date** | Pointer to **string** | Date is the ISO date of the investment. | [optional] 
 **Id** | Pointer to **string** | ID is the investment id. | [optional] 
 **RoundId** | Pointer to **string** | RoundID is the round the cheque went into. | [optional] 
 **ShareClassId** | Pointer to **string** | ShareClassID is the class shares were issued in, for a priced round. | [optional] 
-**Shares** | Pointer to **int32** | Shares is how many shares the investment bought; 0 when the round issues no equity at the time of investment. | [optional] 
+**Shares** | Pointer to **int64** | Shares is how many shares the investment bought; 0 when the round issues no equity at the time of investment. | [optional] 
 **StakeholderId** | Pointer to **string** | StakeholderID is the investor. | [optional] 
 **StakeholderName** | Pointer to **string** | StakeholderName is that investor&#39;s name. | [optional] 
 
@@ -34,20 +34,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAmount
 
-`func (o *CaptableInvestment) GetAmount() float32`
+`func (o *CaptableInvestment) GetAmount() float64`
 
 GetAmount returns the Amount field if non-nil, zero value otherwise.
 
 ### GetAmountOk
 
-`func (o *CaptableInvestment) GetAmountOk() (*float32, bool)`
+`func (o *CaptableInvestment) GetAmountOk() (*float64, bool)`
 
 GetAmountOk returns a tuple with the Amount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmount
 
-`func (o *CaptableInvestment) SetAmount(v float32)`
+`func (o *CaptableInvestment) SetAmount(v float64)`
 
 SetAmount sets Amount field to given value.
 
@@ -159,20 +159,20 @@ HasShareClassId returns a boolean if a field has been set.
 
 ### GetShares
 
-`func (o *CaptableInvestment) GetShares() int32`
+`func (o *CaptableInvestment) GetShares() int64`
 
 GetShares returns the Shares field if non-nil, zero value otherwise.
 
 ### GetSharesOk
 
-`func (o *CaptableInvestment) GetSharesOk() (*int32, bool)`
+`func (o *CaptableInvestment) GetSharesOk() (*int64, bool)`
 
 GetSharesOk returns a tuple with the Shares field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetShares
 
-`func (o *CaptableInvestment) SetShares(v int32)`
+`func (o *CaptableInvestment) SetShares(v int64)`
 
 SetShares sets Shares field to given value.
 

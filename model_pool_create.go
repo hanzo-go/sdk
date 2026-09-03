@@ -24,11 +24,11 @@ type PoolCreate struct {
 	// ClusterID is the cluster to add the pool to, from the URL path.
 	ClusterId *string `json:"clusterId,omitempty"`
 	// Count is how many nodes the pool starts with.
-	Count *int32 `json:"count,omitempty"`
+	Count *int64 `json:"count,omitempty"`
 	// MaxNodes is the ceiling the autoscaler may not grow the pool past, and so the bound on what this pool can spend. Ignored unless AutoScale is set.
-	MaxNodes *int32 `json:"maxNodes,omitempty"`
+	MaxNodes *int64 `json:"maxNodes,omitempty"`
 	// MinNodes is the floor the autoscaler may not shrink the pool below. Ignored unless AutoScale is set.
-	MinNodes *int32 `json:"minNodes,omitempty"`
+	MinNodes *int64 `json:"minNodes,omitempty"`
 	// Name is the pool's name.
 	Name *string `json:"name,omitempty"`
 	// Provider is the cloud the cluster lives on (e.g. \"digitalocean\"). Required — Visor routes the create by it. Accepted from the body or ?provider=.
@@ -119,9 +119,9 @@ func (o *PoolCreate) SetClusterId(v string) {
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *PoolCreate) GetCount() int32 {
+func (o *PoolCreate) GetCount() int64 {
 	if o == nil || IsNil(o.Count) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Count
@@ -129,7 +129,7 @@ func (o *PoolCreate) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PoolCreate) GetCountOk() (*int32, bool) {
+func (o *PoolCreate) GetCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -145,15 +145,15 @@ func (o *PoolCreate) HasCount() bool {
 	return false
 }
 
-// SetCount gets a reference to the given int32 and assigns it to the Count field.
-func (o *PoolCreate) SetCount(v int32) {
+// SetCount gets a reference to the given int64 and assigns it to the Count field.
+func (o *PoolCreate) SetCount(v int64) {
 	o.Count = &v
 }
 
 // GetMaxNodes returns the MaxNodes field value if set, zero value otherwise.
-func (o *PoolCreate) GetMaxNodes() int32 {
+func (o *PoolCreate) GetMaxNodes() int64 {
 	if o == nil || IsNil(o.MaxNodes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxNodes
@@ -161,7 +161,7 @@ func (o *PoolCreate) GetMaxNodes() int32 {
 
 // GetMaxNodesOk returns a tuple with the MaxNodes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PoolCreate) GetMaxNodesOk() (*int32, bool) {
+func (o *PoolCreate) GetMaxNodesOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxNodes) {
 		return nil, false
 	}
@@ -177,15 +177,15 @@ func (o *PoolCreate) HasMaxNodes() bool {
 	return false
 }
 
-// SetMaxNodes gets a reference to the given int32 and assigns it to the MaxNodes field.
-func (o *PoolCreate) SetMaxNodes(v int32) {
+// SetMaxNodes gets a reference to the given int64 and assigns it to the MaxNodes field.
+func (o *PoolCreate) SetMaxNodes(v int64) {
 	o.MaxNodes = &v
 }
 
 // GetMinNodes returns the MinNodes field value if set, zero value otherwise.
-func (o *PoolCreate) GetMinNodes() int32 {
+func (o *PoolCreate) GetMinNodes() int64 {
 	if o == nil || IsNil(o.MinNodes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MinNodes
@@ -193,7 +193,7 @@ func (o *PoolCreate) GetMinNodes() int32 {
 
 // GetMinNodesOk returns a tuple with the MinNodes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PoolCreate) GetMinNodesOk() (*int32, bool) {
+func (o *PoolCreate) GetMinNodesOk() (*int64, bool) {
 	if o == nil || IsNil(o.MinNodes) {
 		return nil, false
 	}
@@ -209,8 +209,8 @@ func (o *PoolCreate) HasMinNodes() bool {
 	return false
 }
 
-// SetMinNodes gets a reference to the given int32 and assigns it to the MinNodes field.
-func (o *PoolCreate) SetMinNodes(v int32) {
+// SetMinNodes gets a reference to the given int64 and assigns it to the MinNodes field.
+func (o *PoolCreate) SetMinNodes(v int64) {
 	o.MinNodes = &v
 }
 

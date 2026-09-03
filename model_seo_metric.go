@@ -20,17 +20,17 @@ var _ MappedNullable = &SeoMetric{}
 // SeoMetric struct for SeoMetric
 type SeoMetric struct {
 	// Competition is how contested the advertising is, from 0 to 1. The upstream reports it as an index out of a hundred on one endpoint and as this fraction on another; it is the fraction here in both cases.
-	Competition *float32 `json:"competition,omitempty"`
+	Competition *float64 `json:"competition,omitempty"`
 	// CPC is the average cost of one advertising click, in USD. It is a reported statistic about somebody else's auction, not an amount this API moves.
-	Cpc *float32 `json:"cpc,omitempty"`
+	Cpc *float64 `json:"cpc,omitempty"`
 	// Difficulty is how hard the first page is to reach organically, 0 to 100. Present on seoIdea, which measures it; absent on seoKeyword, which does not.
-	Difficulty *int32 `json:"difficulty,omitempty"`
+	Difficulty *int64 `json:"difficulty,omitempty"`
 	// Keyword is the phrase.
 	Keyword *string `json:"keyword,omitempty"`
 	// Level is the same fact as a word: low, medium or high.
 	Level *string `json:"level,omitempty"`
 	// Volume is the average monthly searches.
-	Volume *int32 `json:"volume,omitempty"`
+	Volume *int64 `json:"volume,omitempty"`
 }
 
 // NewSeoMetric instantiates a new SeoMetric object
@@ -51,9 +51,9 @@ func NewSeoMetricWithDefaults() *SeoMetric {
 }
 
 // GetCompetition returns the Competition field value if set, zero value otherwise.
-func (o *SeoMetric) GetCompetition() float32 {
+func (o *SeoMetric) GetCompetition() float64 {
 	if o == nil || IsNil(o.Competition) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Competition
@@ -61,7 +61,7 @@ func (o *SeoMetric) GetCompetition() float32 {
 
 // GetCompetitionOk returns a tuple with the Competition field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoMetric) GetCompetitionOk() (*float32, bool) {
+func (o *SeoMetric) GetCompetitionOk() (*float64, bool) {
 	if o == nil || IsNil(o.Competition) {
 		return nil, false
 	}
@@ -77,15 +77,15 @@ func (o *SeoMetric) HasCompetition() bool {
 	return false
 }
 
-// SetCompetition gets a reference to the given float32 and assigns it to the Competition field.
-func (o *SeoMetric) SetCompetition(v float32) {
+// SetCompetition gets a reference to the given float64 and assigns it to the Competition field.
+func (o *SeoMetric) SetCompetition(v float64) {
 	o.Competition = &v
 }
 
 // GetCpc returns the Cpc field value if set, zero value otherwise.
-func (o *SeoMetric) GetCpc() float32 {
+func (o *SeoMetric) GetCpc() float64 {
 	if o == nil || IsNil(o.Cpc) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Cpc
@@ -93,7 +93,7 @@ func (o *SeoMetric) GetCpc() float32 {
 
 // GetCpcOk returns a tuple with the Cpc field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoMetric) GetCpcOk() (*float32, bool) {
+func (o *SeoMetric) GetCpcOk() (*float64, bool) {
 	if o == nil || IsNil(o.Cpc) {
 		return nil, false
 	}
@@ -109,15 +109,15 @@ func (o *SeoMetric) HasCpc() bool {
 	return false
 }
 
-// SetCpc gets a reference to the given float32 and assigns it to the Cpc field.
-func (o *SeoMetric) SetCpc(v float32) {
+// SetCpc gets a reference to the given float64 and assigns it to the Cpc field.
+func (o *SeoMetric) SetCpc(v float64) {
 	o.Cpc = &v
 }
 
 // GetDifficulty returns the Difficulty field value if set, zero value otherwise.
-func (o *SeoMetric) GetDifficulty() int32 {
+func (o *SeoMetric) GetDifficulty() int64 {
 	if o == nil || IsNil(o.Difficulty) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Difficulty
@@ -125,7 +125,7 @@ func (o *SeoMetric) GetDifficulty() int32 {
 
 // GetDifficultyOk returns a tuple with the Difficulty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoMetric) GetDifficultyOk() (*int32, bool) {
+func (o *SeoMetric) GetDifficultyOk() (*int64, bool) {
 	if o == nil || IsNil(o.Difficulty) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *SeoMetric) HasDifficulty() bool {
 	return false
 }
 
-// SetDifficulty gets a reference to the given int32 and assigns it to the Difficulty field.
-func (o *SeoMetric) SetDifficulty(v int32) {
+// SetDifficulty gets a reference to the given int64 and assigns it to the Difficulty field.
+func (o *SeoMetric) SetDifficulty(v int64) {
 	o.Difficulty = &v
 }
 
@@ -211,9 +211,9 @@ func (o *SeoMetric) SetLevel(v string) {
 }
 
 // GetVolume returns the Volume field value if set, zero value otherwise.
-func (o *SeoMetric) GetVolume() int32 {
+func (o *SeoMetric) GetVolume() int64 {
 	if o == nil || IsNil(o.Volume) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Volume
@@ -221,7 +221,7 @@ func (o *SeoMetric) GetVolume() int32 {
 
 // GetVolumeOk returns a tuple with the Volume field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoMetric) GetVolumeOk() (*int32, bool) {
+func (o *SeoMetric) GetVolumeOk() (*int64, bool) {
 	if o == nil || IsNil(o.Volume) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *SeoMetric) HasVolume() bool {
 	return false
 }
 
-// SetVolume gets a reference to the given int32 and assigns it to the Volume field.
-func (o *SeoMetric) SetVolume(v int32) {
+// SetVolume gets a reference to the given int64 and assigns it to the Volume field.
+func (o *SeoMetric) SetVolume(v int64) {
 	o.Volume = &v
 }
 

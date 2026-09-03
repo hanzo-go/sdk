@@ -19,7 +19,7 @@ var _ MappedNullable = &Catalog{}
 
 // Catalog struct for Catalog
 type Catalog struct {
-	ConnectorCount *int32              `json:"connectorCount,omitempty"`
+	ConnectorCount *int64              `json:"connectorCount,omitempty"`
 	Connectors     []ConnectorMetadata `json:"connectors,omitempty"`
 }
 
@@ -41,9 +41,9 @@ func NewCatalogWithDefaults() *Catalog {
 }
 
 // GetConnectorCount returns the ConnectorCount field value if set, zero value otherwise.
-func (o *Catalog) GetConnectorCount() int32 {
+func (o *Catalog) GetConnectorCount() int64 {
 	if o == nil || IsNil(o.ConnectorCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ConnectorCount
@@ -51,7 +51,7 @@ func (o *Catalog) GetConnectorCount() int32 {
 
 // GetConnectorCountOk returns a tuple with the ConnectorCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Catalog) GetConnectorCountOk() (*int32, bool) {
+func (o *Catalog) GetConnectorCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.ConnectorCount) {
 		return nil, false
 	}
@@ -67,8 +67,8 @@ func (o *Catalog) HasConnectorCount() bool {
 	return false
 }
 
-// SetConnectorCount gets a reference to the given int32 and assigns it to the ConnectorCount field.
-func (o *Catalog) SetConnectorCount(v int32) {
+// SetConnectorCount gets a reference to the given int64 and assigns it to the ConnectorCount field.
+func (o *Catalog) SetConnectorCount(v int64) {
 	o.ConnectorCount = &v
 }
 

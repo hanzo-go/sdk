@@ -20,21 +20,21 @@ var _ MappedNullable = &RiskTrial{}
 // RiskTrial struct for RiskTrial
 type RiskTrial struct {
 	// Alerted is how many of those it would have raised.
-	Alerted *int32 `json:"alerted,omitempty"`
+	Alerted *int64 `json:"alerted,omitempty"`
 	// Curve is the realised alert rate over successive tenths of the history — the learning curve, which says whether the shape settled or is still moving.
-	Curve []float32 `json:"curve,omitempty"`
+	Curve []float64 `json:"curve,omitempty"`
 	// Fit ranks the shape, smaller being better: the relative miss of the stated appetite, plus flat penalties for never warming and for saturating, plus the share of coordinates that were blind.
-	Fit *float32 `json:"fit,omitempty"`
+	Fit *float64 `json:"fit,omitempty"`
 	// Learned is how many events the shape learned from during the replay.
-	Learned *int32 `json:"learned,omitempty"`
+	Learned *int64 `json:"learned,omitempty"`
 	// Realised is what that appetite actually produced. The distance between the two is what the search is searching over.
-	Realised *float32 `json:"realised,omitempty"`
+	Realised *float64 `json:"realised,omitempty"`
 	// Saturated is whether the appetite could not be honoured by any threshold, which is a shape that alerts on nothing and reads like a quiet one.
 	Saturated *bool `json:"saturated,omitempty"`
 	// Scored is how many it was able to score.
-	Scored *int32 `json:"scored,omitempty"`
+	Scored *int64 `json:"scored,omitempty"`
 	// Stated is the appetite the shape was tried at.
-	Stated *float32 `json:"stated,omitempty"`
+	Stated *float64 `json:"stated,omitempty"`
 	// Topology is the shape.
 	Topology *RiskTopology `json:"topology,omitempty"`
 	// Warm is whether the shape learned enough to have an opinion at all over this organisation's whole history.
@@ -59,9 +59,9 @@ func NewRiskTrialWithDefaults() *RiskTrial {
 }
 
 // GetAlerted returns the Alerted field value if set, zero value otherwise.
-func (o *RiskTrial) GetAlerted() int32 {
+func (o *RiskTrial) GetAlerted() int64 {
 	if o == nil || IsNil(o.Alerted) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Alerted
@@ -69,7 +69,7 @@ func (o *RiskTrial) GetAlerted() int32 {
 
 // GetAlertedOk returns a tuple with the Alerted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskTrial) GetAlertedOk() (*int32, bool) {
+func (o *RiskTrial) GetAlertedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Alerted) {
 		return nil, false
 	}
@@ -85,15 +85,15 @@ func (o *RiskTrial) HasAlerted() bool {
 	return false
 }
 
-// SetAlerted gets a reference to the given int32 and assigns it to the Alerted field.
-func (o *RiskTrial) SetAlerted(v int32) {
+// SetAlerted gets a reference to the given int64 and assigns it to the Alerted field.
+func (o *RiskTrial) SetAlerted(v int64) {
 	o.Alerted = &v
 }
 
 // GetCurve returns the Curve field value if set, zero value otherwise.
-func (o *RiskTrial) GetCurve() []float32 {
+func (o *RiskTrial) GetCurve() []float64 {
 	if o == nil || IsNil(o.Curve) {
-		var ret []float32
+		var ret []float64
 		return ret
 	}
 	return o.Curve
@@ -101,7 +101,7 @@ func (o *RiskTrial) GetCurve() []float32 {
 
 // GetCurveOk returns a tuple with the Curve field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskTrial) GetCurveOk() ([]float32, bool) {
+func (o *RiskTrial) GetCurveOk() ([]float64, bool) {
 	if o == nil || IsNil(o.Curve) {
 		return nil, false
 	}
@@ -117,15 +117,15 @@ func (o *RiskTrial) HasCurve() bool {
 	return false
 }
 
-// SetCurve gets a reference to the given []float32 and assigns it to the Curve field.
-func (o *RiskTrial) SetCurve(v []float32) {
+// SetCurve gets a reference to the given []float64 and assigns it to the Curve field.
+func (o *RiskTrial) SetCurve(v []float64) {
 	o.Curve = v
 }
 
 // GetFit returns the Fit field value if set, zero value otherwise.
-func (o *RiskTrial) GetFit() float32 {
+func (o *RiskTrial) GetFit() float64 {
 	if o == nil || IsNil(o.Fit) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Fit
@@ -133,7 +133,7 @@ func (o *RiskTrial) GetFit() float32 {
 
 // GetFitOk returns a tuple with the Fit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskTrial) GetFitOk() (*float32, bool) {
+func (o *RiskTrial) GetFitOk() (*float64, bool) {
 	if o == nil || IsNil(o.Fit) {
 		return nil, false
 	}
@@ -149,15 +149,15 @@ func (o *RiskTrial) HasFit() bool {
 	return false
 }
 
-// SetFit gets a reference to the given float32 and assigns it to the Fit field.
-func (o *RiskTrial) SetFit(v float32) {
+// SetFit gets a reference to the given float64 and assigns it to the Fit field.
+func (o *RiskTrial) SetFit(v float64) {
 	o.Fit = &v
 }
 
 // GetLearned returns the Learned field value if set, zero value otherwise.
-func (o *RiskTrial) GetLearned() int32 {
+func (o *RiskTrial) GetLearned() int64 {
 	if o == nil || IsNil(o.Learned) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Learned
@@ -165,7 +165,7 @@ func (o *RiskTrial) GetLearned() int32 {
 
 // GetLearnedOk returns a tuple with the Learned field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskTrial) GetLearnedOk() (*int32, bool) {
+func (o *RiskTrial) GetLearnedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Learned) {
 		return nil, false
 	}
@@ -181,15 +181,15 @@ func (o *RiskTrial) HasLearned() bool {
 	return false
 }
 
-// SetLearned gets a reference to the given int32 and assigns it to the Learned field.
-func (o *RiskTrial) SetLearned(v int32) {
+// SetLearned gets a reference to the given int64 and assigns it to the Learned field.
+func (o *RiskTrial) SetLearned(v int64) {
 	o.Learned = &v
 }
 
 // GetRealised returns the Realised field value if set, zero value otherwise.
-func (o *RiskTrial) GetRealised() float32 {
+func (o *RiskTrial) GetRealised() float64 {
 	if o == nil || IsNil(o.Realised) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Realised
@@ -197,7 +197,7 @@ func (o *RiskTrial) GetRealised() float32 {
 
 // GetRealisedOk returns a tuple with the Realised field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskTrial) GetRealisedOk() (*float32, bool) {
+func (o *RiskTrial) GetRealisedOk() (*float64, bool) {
 	if o == nil || IsNil(o.Realised) {
 		return nil, false
 	}
@@ -213,8 +213,8 @@ func (o *RiskTrial) HasRealised() bool {
 	return false
 }
 
-// SetRealised gets a reference to the given float32 and assigns it to the Realised field.
-func (o *RiskTrial) SetRealised(v float32) {
+// SetRealised gets a reference to the given float64 and assigns it to the Realised field.
+func (o *RiskTrial) SetRealised(v float64) {
 	o.Realised = &v
 }
 
@@ -251,9 +251,9 @@ func (o *RiskTrial) SetSaturated(v bool) {
 }
 
 // GetScored returns the Scored field value if set, zero value otherwise.
-func (o *RiskTrial) GetScored() int32 {
+func (o *RiskTrial) GetScored() int64 {
 	if o == nil || IsNil(o.Scored) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Scored
@@ -261,7 +261,7 @@ func (o *RiskTrial) GetScored() int32 {
 
 // GetScoredOk returns a tuple with the Scored field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskTrial) GetScoredOk() (*int32, bool) {
+func (o *RiskTrial) GetScoredOk() (*int64, bool) {
 	if o == nil || IsNil(o.Scored) {
 		return nil, false
 	}
@@ -277,15 +277,15 @@ func (o *RiskTrial) HasScored() bool {
 	return false
 }
 
-// SetScored gets a reference to the given int32 and assigns it to the Scored field.
-func (o *RiskTrial) SetScored(v int32) {
+// SetScored gets a reference to the given int64 and assigns it to the Scored field.
+func (o *RiskTrial) SetScored(v int64) {
 	o.Scored = &v
 }
 
 // GetStated returns the Stated field value if set, zero value otherwise.
-func (o *RiskTrial) GetStated() float32 {
+func (o *RiskTrial) GetStated() float64 {
 	if o == nil || IsNil(o.Stated) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Stated
@@ -293,7 +293,7 @@ func (o *RiskTrial) GetStated() float32 {
 
 // GetStatedOk returns a tuple with the Stated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskTrial) GetStatedOk() (*float32, bool) {
+func (o *RiskTrial) GetStatedOk() (*float64, bool) {
 	if o == nil || IsNil(o.Stated) {
 		return nil, false
 	}
@@ -309,8 +309,8 @@ func (o *RiskTrial) HasStated() bool {
 	return false
 }
 
-// SetStated gets a reference to the given float32 and assigns it to the Stated field.
-func (o *RiskTrial) SetStated(v float32) {
+// SetStated gets a reference to the given float64 and assigns it to the Stated field.
+func (o *RiskTrial) SetStated(v float64) {
 	o.Stated = &v
 }
 

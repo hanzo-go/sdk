@@ -20,7 +20,7 @@ var _ MappedNullable = &KbSyncOut{}
 // KbSyncOut struct for KbSyncOut
 type KbSyncOut struct {
 	// Ingested is how many documents landed in the org's knowledge store.
-	Ingested *int32 `json:"ingested,omitempty"`
+	Ingested *int64 `json:"ingested,omitempty"`
 	// Provider is the connector that was pulled.
 	Provider *string `json:"provider,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewKbSyncOutWithDefaults() *KbSyncOut {
 }
 
 // GetIngested returns the Ingested field value if set, zero value otherwise.
-func (o *KbSyncOut) GetIngested() int32 {
+func (o *KbSyncOut) GetIngested() int64 {
 	if o == nil || IsNil(o.Ingested) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Ingested
@@ -53,7 +53,7 @@ func (o *KbSyncOut) GetIngested() int32 {
 
 // GetIngestedOk returns a tuple with the Ingested field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KbSyncOut) GetIngestedOk() (*int32, bool) {
+func (o *KbSyncOut) GetIngestedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Ingested) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *KbSyncOut) HasIngested() bool {
 	return false
 }
 
-// SetIngested gets a reference to the given int32 and assigns it to the Ingested field.
-func (o *KbSyncOut) SetIngested(v int32) {
+// SetIngested gets a reference to the given int64 and assigns it to the Ingested field.
+func (o *KbSyncOut) SetIngested(v int64) {
 	o.Ingested = &v
 }
 

@@ -308,7 +308,7 @@ type MarketingAPIDeleteMarketingSuppressionsRequest struct {
 	channel    *string
 	address    *string
 	reason     *string
-	createdAt  *int32
+	createdAt  *int64
 }
 
 // Channel is the surface opted out of: email, sms, social, meta, google or tiktok. Empty means email. Opting out of one leaves the others reachable.
@@ -330,7 +330,7 @@ func (r MarketingAPIDeleteMarketingSuppressionsRequest) Reason(reason string) Ma
 }
 
 // CreatedAt is unix seconds, server-assigned.
-func (r MarketingAPIDeleteMarketingSuppressionsRequest) CreatedAt(createdAt int32) MarketingAPIDeleteMarketingSuppressionsRequest {
+func (r MarketingAPIDeleteMarketingSuppressionsRequest) CreatedAt(createdAt int64) MarketingAPIDeleteMarketingSuppressionsRequest {
 	r.createdAt = &createdAt
 	return r
 }
@@ -434,11 +434,11 @@ func (a *MarketingAPIService) DeleteMarketingSuppressionsExecute(r MarketingAPID
 type MarketingAPIGetMarketingAudiencesRequest struct {
 	ctx        context.Context
 	ApiService *MarketingAPIService
-	limit      *int32
+	limit      *int64
 }
 
 // Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured.
-func (r MarketingAPIGetMarketingAudiencesRequest) Limit(limit int32) MarketingAPIGetMarketingAudiencesRequest {
+func (r MarketingAPIGetMarketingAudiencesRequest) Limit(limit int64) MarketingAPIGetMarketingAudiencesRequest {
 	r.limit = &limit
 	return r
 }
@@ -757,7 +757,7 @@ type MarketingAPIGetMarketingCalendarRequest struct {
 	ctx        context.Context
 	ApiService *MarketingAPIService
 	status     *string
-	limit      *int32
+	limit      *int64
 }
 
 // Status keeps only posts in that state (draft, scheduled, published, failed, canceled). Empty means every post.
@@ -767,7 +767,7 @@ func (r MarketingAPIGetMarketingCalendarRequest) Status(status string) Marketing
 }
 
 // Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured.
-func (r MarketingAPIGetMarketingCalendarRequest) Limit(limit int32) MarketingAPIGetMarketingCalendarRequest {
+func (r MarketingAPIGetMarketingCalendarRequest) Limit(limit int64) MarketingAPIGetMarketingCalendarRequest {
 	r.limit = &limit
 	return r
 }
@@ -984,7 +984,7 @@ type MarketingAPIGetMarketingCampaignsRequest struct {
 	ctx        context.Context
 	ApiService *MarketingAPIService
 	status     *string
-	limit      *int32
+	limit      *int64
 }
 
 // Status keeps only campaigns in that lifecycle state (draft, scheduled, active, paused, completed). Empty means every campaign.
@@ -994,7 +994,7 @@ func (r MarketingAPIGetMarketingCampaignsRequest) Status(status string) Marketin
 }
 
 // Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured.
-func (r MarketingAPIGetMarketingCampaignsRequest) Limit(limit int32) MarketingAPIGetMarketingCampaignsRequest {
+func (r MarketingAPIGetMarketingCampaignsRequest) Limit(limit int64) MarketingAPIGetMarketingCampaignsRequest {
 	r.limit = &limit
 	return r
 }
@@ -1313,7 +1313,7 @@ type MarketingAPIGetMarketingPromosByCodeEligibilityRequest struct {
 	ApiService *MarketingAPIService
 	code       string
 	plan       *string
-	seats      *int32
+	seats      *int64
 }
 
 // Plan is the plan being priced: pro, max or team. Anything else (including the free Developer plan) has no list price and so nothing to discount.
@@ -1323,7 +1323,7 @@ func (r MarketingAPIGetMarketingPromosByCodeEligibilityRequest) Plan(plan string
 }
 
 // Seats is the Team seat count; 0 means 1, and it is ignored for the single-seat plans.
-func (r MarketingAPIGetMarketingPromosByCodeEligibilityRequest) Seats(seats int32) MarketingAPIGetMarketingPromosByCodeEligibilityRequest {
+func (r MarketingAPIGetMarketingPromosByCodeEligibilityRequest) Seats(seats int64) MarketingAPIGetMarketingPromosByCodeEligibilityRequest {
 	r.seats = &seats
 	return r
 }
@@ -1544,11 +1544,11 @@ func (a *MarketingAPIService) GetMarketingPromosByCodeRedemptionExecute(r Market
 type MarketingAPIGetMarketingSequencesRequest struct {
 	ctx        context.Context
 	ApiService *MarketingAPIService
-	limit      *int32
+	limit      *int64
 }
 
 // Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured.
-func (r MarketingAPIGetMarketingSequencesRequest) Limit(limit int32) MarketingAPIGetMarketingSequencesRequest {
+func (r MarketingAPIGetMarketingSequencesRequest) Limit(limit int64) MarketingAPIGetMarketingSequencesRequest {
 	r.limit = &limit
 	return r
 }
@@ -1760,11 +1760,11 @@ type MarketingAPIGetMarketingSequencesByIdEnrollmentsRequest struct {
 	ctx        context.Context
 	ApiService *MarketingAPIService
 	id         string
-	limit      *int32
+	limit      *int64
 }
 
 // Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured.
-func (r MarketingAPIGetMarketingSequencesByIdEnrollmentsRequest) Limit(limit int32) MarketingAPIGetMarketingSequencesByIdEnrollmentsRequest {
+func (r MarketingAPIGetMarketingSequencesByIdEnrollmentsRequest) Limit(limit int64) MarketingAPIGetMarketingSequencesByIdEnrollmentsRequest {
 	r.limit = &limit
 	return r
 }
@@ -2079,11 +2079,11 @@ func (a *MarketingAPIService) GetMarketingSummaryExecute(r MarketingAPIGetMarket
 type MarketingAPIGetMarketingSuppressionsRequest struct {
 	ctx        context.Context
 	ApiService *MarketingAPIService
-	limit      *int32
+	limit      *int64
 }
 
 // Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured.
-func (r MarketingAPIGetMarketingSuppressionsRequest) Limit(limit int32) MarketingAPIGetMarketingSuppressionsRequest {
+func (r MarketingAPIGetMarketingSuppressionsRequest) Limit(limit int64) MarketingAPIGetMarketingSuppressionsRequest {
 	r.limit = &limit
 	return r
 }

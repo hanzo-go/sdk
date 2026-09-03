@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AvgDuration** | Pointer to **float32** | AvgDuration is their average latency, nanoseconds. | [optional] 
-**CallRate** | Pointer to **float32** | CallRate is calls per second over the window. | [optional] 
+**AvgDuration** | Pointer to **float64** | AvgDuration is their average latency, nanoseconds. | [optional] 
+**CallRate** | Pointer to **float64** | CallRate is calls per second over the window. | [optional] 
 **DataWarning** | Pointer to [**O11yO11yServiceWarning**](O11yO11yServiceWarning.md) | DataWarning carries the entry-point operations the numbers were computed over. | [optional] 
-**ErrorRate** | Pointer to **float32** | ErrorRate is the percentage of calls that errored. | [optional] 
-**FourXXRate** | Pointer to **float32** | FourXXRate is the percentage of calls that answered 4xx. | [optional] 
+**ErrorRate** | Pointer to **float64** | ErrorRate is the percentage of calls that errored. | [optional] 
+**FourXXRate** | Pointer to **float64** | FourXXRate is the percentage of calls that answered 4xx. | [optional] 
 **Num4XX** | Pointer to **int32** | Num4XX is how many of the calls answered 4xx. | [optional] 
 **NumCalls** | Pointer to **int32** | NumCalls is how many entry-point spans landed in the window. | [optional] 
 **NumErrors** | Pointer to **int32** | NumErrors is how many of the calls errored. | [optional] 
-**P99** | Pointer to **float32** | Percentile99 is the p99 latency of its entry-point spans, nanoseconds. | [optional] 
+**P99** | Pointer to **float64** | Percentile99 is the p99 latency of its entry-point spans, nanoseconds. | [optional] 
 **ServiceName** | Pointer to **string** | ServiceName is the service. | [optional] 
 
 ## Methods
@@ -36,20 +36,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAvgDuration
 
-`func (o *O11yO11yService) GetAvgDuration() float32`
+`func (o *O11yO11yService) GetAvgDuration() float64`
 
 GetAvgDuration returns the AvgDuration field if non-nil, zero value otherwise.
 
 ### GetAvgDurationOk
 
-`func (o *O11yO11yService) GetAvgDurationOk() (*float32, bool)`
+`func (o *O11yO11yService) GetAvgDurationOk() (*float64, bool)`
 
 GetAvgDurationOk returns a tuple with the AvgDuration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAvgDuration
 
-`func (o *O11yO11yService) SetAvgDuration(v float32)`
+`func (o *O11yO11yService) SetAvgDuration(v float64)`
 
 SetAvgDuration sets AvgDuration field to given value.
 
@@ -61,20 +61,20 @@ HasAvgDuration returns a boolean if a field has been set.
 
 ### GetCallRate
 
-`func (o *O11yO11yService) GetCallRate() float32`
+`func (o *O11yO11yService) GetCallRate() float64`
 
 GetCallRate returns the CallRate field if non-nil, zero value otherwise.
 
 ### GetCallRateOk
 
-`func (o *O11yO11yService) GetCallRateOk() (*float32, bool)`
+`func (o *O11yO11yService) GetCallRateOk() (*float64, bool)`
 
 GetCallRateOk returns a tuple with the CallRate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCallRate
 
-`func (o *O11yO11yService) SetCallRate(v float32)`
+`func (o *O11yO11yService) SetCallRate(v float64)`
 
 SetCallRate sets CallRate field to given value.
 
@@ -111,20 +111,20 @@ HasDataWarning returns a boolean if a field has been set.
 
 ### GetErrorRate
 
-`func (o *O11yO11yService) GetErrorRate() float32`
+`func (o *O11yO11yService) GetErrorRate() float64`
 
 GetErrorRate returns the ErrorRate field if non-nil, zero value otherwise.
 
 ### GetErrorRateOk
 
-`func (o *O11yO11yService) GetErrorRateOk() (*float32, bool)`
+`func (o *O11yO11yService) GetErrorRateOk() (*float64, bool)`
 
 GetErrorRateOk returns a tuple with the ErrorRate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetErrorRate
 
-`func (o *O11yO11yService) SetErrorRate(v float32)`
+`func (o *O11yO11yService) SetErrorRate(v float64)`
 
 SetErrorRate sets ErrorRate field to given value.
 
@@ -136,20 +136,20 @@ HasErrorRate returns a boolean if a field has been set.
 
 ### GetFourXXRate
 
-`func (o *O11yO11yService) GetFourXXRate() float32`
+`func (o *O11yO11yService) GetFourXXRate() float64`
 
 GetFourXXRate returns the FourXXRate field if non-nil, zero value otherwise.
 
 ### GetFourXXRateOk
 
-`func (o *O11yO11yService) GetFourXXRateOk() (*float32, bool)`
+`func (o *O11yO11yService) GetFourXXRateOk() (*float64, bool)`
 
 GetFourXXRateOk returns a tuple with the FourXXRate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFourXXRate
 
-`func (o *O11yO11yService) SetFourXXRate(v float32)`
+`func (o *O11yO11yService) SetFourXXRate(v float64)`
 
 SetFourXXRate sets FourXXRate field to given value.
 
@@ -236,20 +236,20 @@ HasNumErrors returns a boolean if a field has been set.
 
 ### GetP99
 
-`func (o *O11yO11yService) GetP99() float32`
+`func (o *O11yO11yService) GetP99() float64`
 
 GetP99 returns the P99 field if non-nil, zero value otherwise.
 
 ### GetP99Ok
 
-`func (o *O11yO11yService) GetP99Ok() (*float32, bool)`
+`func (o *O11yO11yService) GetP99Ok() (*float64, bool)`
 
 GetP99Ok returns a tuple with the P99 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetP99
 
-`func (o *O11yO11yService) SetP99(v float32)`
+`func (o *O11yO11yService) SetP99(v float64)`
 
 SetP99 sets P99 field to given value.
 

@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Available** | Pointer to **bool** | Available is false when the product-event table could not be read — the lens is reported missing rather than as zeros that look like real traffic. | [optional] 
-**Pageviews** | Pointer to **int32** | Pageviews is how many $pageview events landed in the window. | [optional] 
+**Pageviews** | Pointer to **int64** | Pageviews is how many $pageview events landed in the window. | [optional] 
 **Reason** | Pointer to **string** | Reason says why the lens is unavailable. Omitted when it is available. | [optional] 
-**Sessions** | Pointer to **int32** | Sessions is how many distinct visits they span. | [optional] 
+**Sessions** | Pointer to **int64** | Sessions is how many distinct visits they span. | [optional] 
 **Source** | Pointer to **string** | Source is the warehouse table the lens read. | [optional] 
-**Visitors** | Pointer to **int32** | Visitors is how many distinct people those pageviews came from. | [optional] 
+**Visitors** | Pointer to **int64** | Visitors is how many distinct people those pageviews came from. | [optional] 
 
 ## Methods
 
@@ -57,20 +57,20 @@ HasAvailable returns a boolean if a field has been set.
 
 ### GetPageviews
 
-`func (o *WebOverview) GetPageviews() int32`
+`func (o *WebOverview) GetPageviews() int64`
 
 GetPageviews returns the Pageviews field if non-nil, zero value otherwise.
 
 ### GetPageviewsOk
 
-`func (o *WebOverview) GetPageviewsOk() (*int32, bool)`
+`func (o *WebOverview) GetPageviewsOk() (*int64, bool)`
 
 GetPageviewsOk returns a tuple with the Pageviews field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPageviews
 
-`func (o *WebOverview) SetPageviews(v int32)`
+`func (o *WebOverview) SetPageviews(v int64)`
 
 SetPageviews sets Pageviews field to given value.
 
@@ -107,20 +107,20 @@ HasReason returns a boolean if a field has been set.
 
 ### GetSessions
 
-`func (o *WebOverview) GetSessions() int32`
+`func (o *WebOverview) GetSessions() int64`
 
 GetSessions returns the Sessions field if non-nil, zero value otherwise.
 
 ### GetSessionsOk
 
-`func (o *WebOverview) GetSessionsOk() (*int32, bool)`
+`func (o *WebOverview) GetSessionsOk() (*int64, bool)`
 
 GetSessionsOk returns a tuple with the Sessions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSessions
 
-`func (o *WebOverview) SetSessions(v int32)`
+`func (o *WebOverview) SetSessions(v int64)`
 
 SetSessions sets Sessions field to given value.
 
@@ -157,20 +157,20 @@ HasSource returns a boolean if a field has been set.
 
 ### GetVisitors
 
-`func (o *WebOverview) GetVisitors() int32`
+`func (o *WebOverview) GetVisitors() int64`
 
 GetVisitors returns the Visitors field if non-nil, zero value otherwise.
 
 ### GetVisitorsOk
 
-`func (o *WebOverview) GetVisitorsOk() (*int32, bool)`
+`func (o *WebOverview) GetVisitorsOk() (*int64, bool)`
 
 GetVisitorsOk returns a tuple with the Visitors field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVisitors
 
-`func (o *WebOverview) SetVisitors(v int32)`
+`func (o *WebOverview) SetVisitors(v int64)`
 
 SetVisitors sets Visitors field to given value.
 

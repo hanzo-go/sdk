@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Keys** | Pointer to **int32** | Keys is how many members it carries. | [optional] 
+**Keys** | Pointer to **int64** | Keys is how many members it carries. | [optional] 
 **Refusal** | Pointer to **string** | Refusal is why this publisher contributed nothing, if it did not. The set keeps its previous version of this source rather than shrinking. | [optional] 
 **Resumed** | Pointer to **bool** | Resumed is true when this run continued a version a previous run left half-landed. | [optional] 
 **Source** | Pointer to **string** | Source is the publisher. | [optional] 
 **Unchanged** | Pointer to **bool** | Unchanged is true when the publisher&#39;s data was byte-for-byte the set we already held. | [optional] 
 **Version** | Pointer to **string** | Version is the content digest that landed. | [optional] 
-**Wrote** | Pointer to **int32** | Wrote is how many rows this run actually wrote. Zero with Unchanged means the publisher served the same set again. | [optional] 
+**Wrote** | Pointer to **int64** | Wrote is how many rows this run actually wrote. Zero with Unchanged means the publisher served the same set again. | [optional] 
 
 ## Methods
 
@@ -33,20 +33,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetKeys
 
-`func (o *ReferenceTaken) GetKeys() int32`
+`func (o *ReferenceTaken) GetKeys() int64`
 
 GetKeys returns the Keys field if non-nil, zero value otherwise.
 
 ### GetKeysOk
 
-`func (o *ReferenceTaken) GetKeysOk() (*int32, bool)`
+`func (o *ReferenceTaken) GetKeysOk() (*int64, bool)`
 
 GetKeysOk returns a tuple with the Keys field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetKeys
 
-`func (o *ReferenceTaken) SetKeys(v int32)`
+`func (o *ReferenceTaken) SetKeys(v int64)`
 
 SetKeys sets Keys field to given value.
 
@@ -183,20 +183,20 @@ HasVersion returns a boolean if a field has been set.
 
 ### GetWrote
 
-`func (o *ReferenceTaken) GetWrote() int32`
+`func (o *ReferenceTaken) GetWrote() int64`
 
 GetWrote returns the Wrote field if non-nil, zero value otherwise.
 
 ### GetWroteOk
 
-`func (o *ReferenceTaken) GetWroteOk() (*int32, bool)`
+`func (o *ReferenceTaken) GetWroteOk() (*int64, bool)`
 
 GetWroteOk returns a tuple with the Wrote field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWrote
 
-`func (o *ReferenceTaken) SetWrote(v int32)`
+`func (o *ReferenceTaken) SetWrote(v int64)`
 
 SetWrote sets Wrote field to given value.
 

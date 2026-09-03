@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Rules** | Pointer to [**[]O11yO11yReductionRule**](O11yO11yReductionRule.md) | Rules are the rules. | [optional] 
-**Total** | Pointer to **int32** | Total is how many rules matched, across all pages. | [optional] 
+**Total** | Pointer to **int64** | Total is how many rules matched, across all pages. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasRules returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *O11yO11yReductionRules) GetTotal() int32`
+`func (o *O11yO11yReductionRules) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *O11yO11yReductionRules) GetTotalOk() (*int32, bool)`
+`func (o *O11yO11yReductionRules) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *O11yO11yReductionRules) SetTotal(v int32)`
+`func (o *O11yO11yReductionRules) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

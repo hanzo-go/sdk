@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Behind** | Pointer to **int32** | Behind counts commits after the one that last produced an image whose own build has FINISHED without producing one, and Since is when the oldest of them landed. A commit still building is not counted, so a push in flight is not drift and a service appears here only once something has actually stopped without shipping. How long that has stood is the number worth acting on; that it is true says nothing about whether anyone should move. | [optional] 
+**Behind** | Pointer to **int64** | Behind counts commits after the one that last produced an image whose own build has FINISHED without producing one, and Since is when the oldest of them landed. A commit still building is not counted, so a push in flight is not drift and a service appears here only once something has actually stopped without shipping. How long that has stood is the number worth acting on; that it is true says nothing about whether anyone should move. | [optional] 
 **Built** | Pointer to [**Artifact**](Artifact.md) |  | [optional] 
 **Declared** | Pointer to [**Artifact**](Artifact.md) |  | [optional] 
 **Drift** | Pointer to **[]string** |  | [optional] 
@@ -14,11 +14,11 @@ Name | Type | Description | Notes
 **Namespace** | Pointer to **string** | hanzo | [optional] 
 **Org** | Pointer to **string** | Hanzo Git owner; empty when the repo is unresolved | [optional] 
 **PinnedAt** | Pointer to **time.Time** |  | [optional] 
-**Ready** | Pointer to **int32** |  | [optional] 
+**Ready** | Pointer to **int64** |  | [optional] 
 **Repo** | Pointer to **string** | hanzo-inc/cloud | [optional] 
 **Running** | Pointer to [**Artifact**](Artifact.md) |  | [optional] 
 **Since** | Pointer to **time.Time** |  | [optional] 
-**Want** | Pointer to **int32** |  | [optional] 
+**Want** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -41,20 +41,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetBehind
 
-`func (o *Pipeline) GetBehind() int32`
+`func (o *Pipeline) GetBehind() int64`
 
 GetBehind returns the Behind field if non-nil, zero value otherwise.
 
 ### GetBehindOk
 
-`func (o *Pipeline) GetBehindOk() (*int32, bool)`
+`func (o *Pipeline) GetBehindOk() (*int64, bool)`
 
 GetBehindOk returns a tuple with the Behind field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBehind
 
-`func (o *Pipeline) SetBehind(v int32)`
+`func (o *Pipeline) SetBehind(v int64)`
 
 SetBehind sets Behind field to given value.
 
@@ -291,20 +291,20 @@ HasPinnedAt returns a boolean if a field has been set.
 
 ### GetReady
 
-`func (o *Pipeline) GetReady() int32`
+`func (o *Pipeline) GetReady() int64`
 
 GetReady returns the Ready field if non-nil, zero value otherwise.
 
 ### GetReadyOk
 
-`func (o *Pipeline) GetReadyOk() (*int32, bool)`
+`func (o *Pipeline) GetReadyOk() (*int64, bool)`
 
 GetReadyOk returns a tuple with the Ready field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReady
 
-`func (o *Pipeline) SetReady(v int32)`
+`func (o *Pipeline) SetReady(v int64)`
 
 SetReady sets Ready field to given value.
 
@@ -391,20 +391,20 @@ HasSince returns a boolean if a field has been set.
 
 ### GetWant
 
-`func (o *Pipeline) GetWant() int32`
+`func (o *Pipeline) GetWant() int64`
 
 GetWant returns the Want field if non-nil, zero value otherwise.
 
 ### GetWantOk
 
-`func (o *Pipeline) GetWantOk() (*int32, bool)`
+`func (o *Pipeline) GetWantOk() (*int64, bool)`
 
 GetWantOk returns a tuple with the Want field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWant
 
-`func (o *Pipeline) SetWant(v int32)`
+`func (o *Pipeline) SetWant(v int64)`
 
 SetWant sets Want field to given value.
 

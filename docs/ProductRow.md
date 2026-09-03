@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Orders** | Pointer to **int32** | Orders is how many order_completed events carried it. | [optional] 
+**Orders** | Pointer to **int64** | Orders is how many order_completed events carried it. | [optional] 
 **ProductId** | Pointer to **string** | ProductID is the product the order events named. | [optional] 
-**Revenue** | Pointer to **float32** | Revenue is the total they carried, in the events&#39; own currency unit. | [optional] 
-**Units** | Pointer to **int32** | Units is the summed quantity sold. | [optional] 
+**Revenue** | Pointer to **float64** | Revenue is the total they carried, in the events&#39; own currency unit. | [optional] 
+**Units** | Pointer to **int64** | Units is the summed quantity sold. | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetOrders
 
-`func (o *ProductRow) GetOrders() int32`
+`func (o *ProductRow) GetOrders() int64`
 
 GetOrders returns the Orders field if non-nil, zero value otherwise.
 
 ### GetOrdersOk
 
-`func (o *ProductRow) GetOrdersOk() (*int32, bool)`
+`func (o *ProductRow) GetOrdersOk() (*int64, bool)`
 
 GetOrdersOk returns a tuple with the Orders field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrders
 
-`func (o *ProductRow) SetOrders(v int32)`
+`func (o *ProductRow) SetOrders(v int64)`
 
 SetOrders sets Orders field to given value.
 
@@ -80,20 +80,20 @@ HasProductId returns a boolean if a field has been set.
 
 ### GetRevenue
 
-`func (o *ProductRow) GetRevenue() float32`
+`func (o *ProductRow) GetRevenue() float64`
 
 GetRevenue returns the Revenue field if non-nil, zero value otherwise.
 
 ### GetRevenueOk
 
-`func (o *ProductRow) GetRevenueOk() (*float32, bool)`
+`func (o *ProductRow) GetRevenueOk() (*float64, bool)`
 
 GetRevenueOk returns a tuple with the Revenue field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRevenue
 
-`func (o *ProductRow) SetRevenue(v float32)`
+`func (o *ProductRow) SetRevenue(v float64)`
 
 SetRevenue sets Revenue field to given value.
 
@@ -105,20 +105,20 @@ HasRevenue returns a boolean if a field has been set.
 
 ### GetUnits
 
-`func (o *ProductRow) GetUnits() int32`
+`func (o *ProductRow) GetUnits() int64`
 
 GetUnits returns the Units field if non-nil, zero value otherwise.
 
 ### GetUnitsOk
 
-`func (o *ProductRow) GetUnitsOk() (*int32, bool)`
+`func (o *ProductRow) GetUnitsOk() (*int64, bool)`
 
 GetUnitsOk returns a tuple with the Units field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUnits
 
-`func (o *ProductRow) SetUnits(v int32)`
+`func (o *ProductRow) SetUnits(v int64)`
 
 SetUnits sets Units field to given value.
 

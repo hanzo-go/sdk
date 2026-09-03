@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Detail** | Pointer to **string** | Detail is the server&#39;s short elaboration, typically the signature. Absent when it offered none. | [optional] 
-**Kind** | Pointer to **int32** | Kind is the LSP SymbolKind number (5 class, 6 method, 12 function, 23 struct, …), passed through rather than translated to a word — these callers already speak LSP, and inventing a second vocabulary is how the two drift. | [optional] 
+**Kind** | Pointer to **int64** | Kind is the LSP SymbolKind number (5 class, 6 method, 12 function, 23 struct, …), passed through rather than translated to a word — these callers already speak LSP, and inventing a second vocabulary is how the two drift. | [optional] 
 **Name** | Pointer to **string** | Name is the declared identifier. | [optional] 
 **Range** | Pointer to [**Range**](Range.md) | Range is the declaration&#39;s span in the file. | [optional] 
 
@@ -55,20 +55,20 @@ HasDetail returns a boolean if a field has been set.
 
 ### GetKind
 
-`func (o *Symbol) GetKind() int32`
+`func (o *Symbol) GetKind() int64`
 
 GetKind returns the Kind field if non-nil, zero value otherwise.
 
 ### GetKindOk
 
-`func (o *Symbol) GetKindOk() (*int32, bool)`
+`func (o *Symbol) GetKindOk() (*int64, bool)`
 
 GetKindOk returns a tuple with the Kind field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetKind
 
-`func (o *Symbol) SetKind(v int32)`
+`func (o *Symbol) SetKind(v int64)`
 
 SetKind sets Kind field to given value.
 

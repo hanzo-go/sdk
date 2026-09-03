@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EndTimestampMillis** | Pointer to **int32** |  | [optional] 
+**EndTimestampMillis** | Pointer to **int64** |  | [optional] 
 **HasMore** | Pointer to **bool** |  | [optional] 
 **Spans** | Pointer to [**[][]O11yFlamegraphSpan**]([]O11yFlamegraphSpan.md) |  | [optional] 
-**StartTimestampMillis** | Pointer to **int32** |  | [optional] 
+**StartTimestampMillis** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetEndTimestampMillis
 
-`func (o *O11yGettableFlamegraphTrace) GetEndTimestampMillis() int32`
+`func (o *O11yGettableFlamegraphTrace) GetEndTimestampMillis() int64`
 
 GetEndTimestampMillis returns the EndTimestampMillis field if non-nil, zero value otherwise.
 
 ### GetEndTimestampMillisOk
 
-`func (o *O11yGettableFlamegraphTrace) GetEndTimestampMillisOk() (*int32, bool)`
+`func (o *O11yGettableFlamegraphTrace) GetEndTimestampMillisOk() (*int64, bool)`
 
 GetEndTimestampMillisOk returns a tuple with the EndTimestampMillis field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndTimestampMillis
 
-`func (o *O11yGettableFlamegraphTrace) SetEndTimestampMillis(v int32)`
+`func (o *O11yGettableFlamegraphTrace) SetEndTimestampMillis(v int64)`
 
 SetEndTimestampMillis sets EndTimestampMillis field to given value.
 
@@ -105,20 +105,20 @@ HasSpans returns a boolean if a field has been set.
 
 ### GetStartTimestampMillis
 
-`func (o *O11yGettableFlamegraphTrace) GetStartTimestampMillis() int32`
+`func (o *O11yGettableFlamegraphTrace) GetStartTimestampMillis() int64`
 
 GetStartTimestampMillis returns the StartTimestampMillis field if non-nil, zero value otherwise.
 
 ### GetStartTimestampMillisOk
 
-`func (o *O11yGettableFlamegraphTrace) GetStartTimestampMillisOk() (*int32, bool)`
+`func (o *O11yGettableFlamegraphTrace) GetStartTimestampMillisOk() (*int64, bool)`
 
 GetStartTimestampMillisOk returns a tuple with the StartTimestampMillis field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartTimestampMillis
 
-`func (o *O11yGettableFlamegraphTrace) SetStartTimestampMillis(v int32)`
+`func (o *O11yGettableFlamegraphTrace) SetStartTimestampMillis(v int64)`
 
 SetStartTimestampMillis sets StartTimestampMillis field to given value.
 

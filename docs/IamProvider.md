@@ -39,7 +39,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 
 **PathPrefix** | Pointer to **string** |  | [optional] 
-**Port** | Pointer to **int32** |  | [optional] 
+**Port** | Pointer to **int64** |  | [optional] 
 **ProviderUrl** | Pointer to **string** |  | [optional] 
 **Receiver** | Pointer to **string** |  | [optional] 
 **RegionId** | Pointer to **string** |  | [optional] 
@@ -949,20 +949,20 @@ HasPathPrefix returns a boolean if a field has been set.
 
 ### GetPort
 
-`func (o *IamProvider) GetPort() int32`
+`func (o *IamProvider) GetPort() int64`
 
 GetPort returns the Port field if non-nil, zero value otherwise.
 
 ### GetPortOk
 
-`func (o *IamProvider) GetPortOk() (*int32, bool)`
+`func (o *IamProvider) GetPortOk() (*int64, bool)`
 
 GetPortOk returns a tuple with the Port field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPort
 
-`func (o *IamProvider) SetPort(v int32)`
+`func (o *IamProvider) SetPort(v int64)`
 
 SetPort sets Port field to given value.
 

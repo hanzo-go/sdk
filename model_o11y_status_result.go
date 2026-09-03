@@ -24,7 +24,7 @@ type O11yStatusResult struct {
 	// Deployments is the per-replica inventory behind the verdict. Empty means the telemetry store reported none, not that the service runs on none.
 	Deployments []O11yDeployment `json:"deployments,omitempty"`
 	// LatencyMs is the health probe's round trip in MILLISECONDS, time-boxed at two seconds. It is 0 when no probe answered, which is not a fast service.
-	LatencyMs *int32 `json:"latencyMs,omitempty"`
+	LatencyMs *int64 `json:"latencyMs,omitempty"`
 	// Product is the service this answer is about, echoed back.
 	Product *string `json:"product,omitempty"`
 	// Source is where the verdict came from: \"probe\" (we asked and it answered), \"datastore\" (the probe did not answer and the replica inventory decided it), \"unreachable\" (neither), or \"unknown-service\" for a well-formed product name nothing backs — which is answered without probing, since dialling an arbitrary host on a caller's say-so is the request forgery this refuses.
@@ -115,9 +115,9 @@ func (o *O11yStatusResult) SetDeployments(v []O11yDeployment) {
 }
 
 // GetLatencyMs returns the LatencyMs field value if set, zero value otherwise.
-func (o *O11yStatusResult) GetLatencyMs() int32 {
+func (o *O11yStatusResult) GetLatencyMs() int64 {
 	if o == nil || IsNil(o.LatencyMs) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.LatencyMs
@@ -125,7 +125,7 @@ func (o *O11yStatusResult) GetLatencyMs() int32 {
 
 // GetLatencyMsOk returns a tuple with the LatencyMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yStatusResult) GetLatencyMsOk() (*int32, bool) {
+func (o *O11yStatusResult) GetLatencyMsOk() (*int64, bool) {
 	if o == nil || IsNil(o.LatencyMs) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *O11yStatusResult) HasLatencyMs() bool {
 	return false
 }
 
-// SetLatencyMs gets a reference to the given int32 and assigns it to the LatencyMs field.
-func (o *O11yStatusResult) SetLatencyMs(v int32) {
+// SetLatencyMs gets a reference to the given int64 and assigns it to the LatencyMs field.
+func (o *O11yStatusResult) SetLatencyMs(v int64) {
 	o.LatencyMs = &v
 }
 

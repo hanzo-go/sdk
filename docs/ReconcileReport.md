@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Declared** | Pointer to **int32** | Declared is how many objects the rendered source declares — the denominator the three outcome counts below are read against. Zero means the render produced nothing, which trips the prune fuse rather than sweeping the fleet. | [optional] 
-**Failed** | Pointer to **int32** | Failed is how many objects the apply could not reconcile. Non-zero is a PARTIAL run reported at 200: the engine applied what it could and each failure names itself in Results, so a caller reads this number rather than the status code to learn whether the fleet matches the source. | [optional] 
+**Declared** | Pointer to **int64** | Declared is how many objects the rendered source declares — the denominator the three outcome counts below are read against. Zero means the render produced nothing, which trips the prune fuse rather than sweeping the fleet. | [optional] 
+**Failed** | Pointer to **int64** | Failed is how many objects the apply could not reconcile. Non-zero is a PARTIAL run reported at 200: the engine applied what it could and each failure names itself in Results, so a caller reads this number rather than the status code to learn whether the fleet matches the source. | [optional] 
 **Instance** | Pointer to **string** | Instance is the tracking id this run stamps on everything it manages, so a later run can tell the objects it owns from objects another instance declares. DEPLOY_ENGINE_INSTANCE names it; the default is &#x60;universe&#x60;. | [optional] 
 **Prune** | Pointer to **bool** | Prune reports whether DELETION was enabled for this run. False means an object the source no longer declares was left alone rather than removed, so a zero Pruned below means \&quot;nothing to delete\&quot; only when this is true. | [optional] 
-**Pruned** | Pointer to **int32** | Pruned is how many live objects this run DELETED because the source no longer declares them. Always 0 when Prune is false. | [optional] 
+**Pruned** | Pointer to **int64** | Pruned is how many live objects this run DELETED because the source no longer declares them. Always 0 when Prune is false. | [optional] 
 **Results** | Pointer to [**[]AppliedResource**](AppliedResource.md) | Results is one entry per object the run acted on, in the order the engine applied them. Empty (never null) when the run reconciled nothing. | [optional] 
 **Revision** | Pointer to **string** | Revision is the source commit this run applied, as the source resolved it — a git commit SHA, not an image tag. It is what an operator cites when asking what the cluster was last made to match. | [optional] 
 **Source** | Pointer to [**ReconcileSource**](ReconcileSource.md) | Source is the git coordinate the run rendered. It is this deployment&#39;s own configuration echoed back, never a request parameter, and it is reported so a reader of the answer knows WHICH tree the revision names. | [optional] 
-**Synced** | Pointer to **int32** | Synced is how many objects the run applied successfully. | [optional] 
+**Synced** | Pointer to **int64** | Synced is how many objects the run applied successfully. | [optional] 
 
 ## Methods
 
@@ -35,20 +35,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetDeclared
 
-`func (o *ReconcileReport) GetDeclared() int32`
+`func (o *ReconcileReport) GetDeclared() int64`
 
 GetDeclared returns the Declared field if non-nil, zero value otherwise.
 
 ### GetDeclaredOk
 
-`func (o *ReconcileReport) GetDeclaredOk() (*int32, bool)`
+`func (o *ReconcileReport) GetDeclaredOk() (*int64, bool)`
 
 GetDeclaredOk returns a tuple with the Declared field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDeclared
 
-`func (o *ReconcileReport) SetDeclared(v int32)`
+`func (o *ReconcileReport) SetDeclared(v int64)`
 
 SetDeclared sets Declared field to given value.
 
@@ -60,20 +60,20 @@ HasDeclared returns a boolean if a field has been set.
 
 ### GetFailed
 
-`func (o *ReconcileReport) GetFailed() int32`
+`func (o *ReconcileReport) GetFailed() int64`
 
 GetFailed returns the Failed field if non-nil, zero value otherwise.
 
 ### GetFailedOk
 
-`func (o *ReconcileReport) GetFailedOk() (*int32, bool)`
+`func (o *ReconcileReport) GetFailedOk() (*int64, bool)`
 
 GetFailedOk returns a tuple with the Failed field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFailed
 
-`func (o *ReconcileReport) SetFailed(v int32)`
+`func (o *ReconcileReport) SetFailed(v int64)`
 
 SetFailed sets Failed field to given value.
 
@@ -135,20 +135,20 @@ HasPrune returns a boolean if a field has been set.
 
 ### GetPruned
 
-`func (o *ReconcileReport) GetPruned() int32`
+`func (o *ReconcileReport) GetPruned() int64`
 
 GetPruned returns the Pruned field if non-nil, zero value otherwise.
 
 ### GetPrunedOk
 
-`func (o *ReconcileReport) GetPrunedOk() (*int32, bool)`
+`func (o *ReconcileReport) GetPrunedOk() (*int64, bool)`
 
 GetPrunedOk returns a tuple with the Pruned field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPruned
 
-`func (o *ReconcileReport) SetPruned(v int32)`
+`func (o *ReconcileReport) SetPruned(v int64)`
 
 SetPruned sets Pruned field to given value.
 
@@ -235,20 +235,20 @@ HasSource returns a boolean if a field has been set.
 
 ### GetSynced
 
-`func (o *ReconcileReport) GetSynced() int32`
+`func (o *ReconcileReport) GetSynced() int64`
 
 GetSynced returns the Synced field if non-nil, zero value otherwise.
 
 ### GetSyncedOk
 
-`func (o *ReconcileReport) GetSyncedOk() (*int32, bool)`
+`func (o *ReconcileReport) GetSyncedOk() (*int64, bool)`
 
 GetSyncedOk returns a tuple with the Synced field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSynced
 
-`func (o *ReconcileReport) SetSynced(v int32)`
+`func (o *ReconcileReport) SetSynced(v int64)`
 
 SetSynced sets Synced field to given value.
 

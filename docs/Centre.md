@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Documents** | Pointer to [**[]DocRow**](DocRow.md) | Documents are the artifacts, each saying whether this reader may read it. | [optional] 
 **Faq** | Pointer to **[]interface{}** | Faq is the knowledge base — the questions a reviewer asks, answered. | [optional] 
 **Frameworks** | Pointer to [**[]FrameworkRow**](FrameworkRow.md) | Frameworks are the clause universes the coverage is computed against. | [optional] 
-**Generated** | Pointer to **int32** | Generated is when this answer was computed, unix milliseconds. | [optional] 
+**Generated** | Pointer to **int64** | Generated is when this answer was computed, unix milliseconds. | [optional] 
 **Inventory** | Pointer to [**TrustTally**](TrustTally.md) | Inventory is how the controls themselves stand, independent of framework. | [optional] 
 **Org** | Pointer to **string** | Org is whose centre this is. | [optional] 
 **Policies** | Pointer to **[]interface{}** | Policies are the published policies. | [optional] 
@@ -165,20 +165,20 @@ HasFrameworks returns a boolean if a field has been set.
 
 ### GetGenerated
 
-`func (o *Centre) GetGenerated() int32`
+`func (o *Centre) GetGenerated() int64`
 
 GetGenerated returns the Generated field if non-nil, zero value otherwise.
 
 ### GetGeneratedOk
 
-`func (o *Centre) GetGeneratedOk() (*int32, bool)`
+`func (o *Centre) GetGeneratedOk() (*int64, bool)`
 
 GetGeneratedOk returns a tuple with the Generated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGenerated
 
-`func (o *Centre) SetGenerated(v int32)`
+`func (o *Centre) SetGenerated(v int64)`
 
 SetGenerated sets Generated field to given value.
 

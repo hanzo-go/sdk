@@ -20,7 +20,7 @@ var _ MappedNullable = &RiskLearnOut{}
 // RiskLearnOut struct for RiskLearnOut
 type RiskLearnOut struct {
 	// Learned is how many of the events the model actually learned from, and is also what the call is metered at: one screen per event learned from. It is the batch minus the events already in this organisation's record, so a retried batch reports — and is charged — zero.
-	Learned *int32 `json:"learned,omitempty"`
+	Learned *int64 `json:"learned,omitempty"`
 }
 
 // NewRiskLearnOut instantiates a new RiskLearnOut object
@@ -41,9 +41,9 @@ func NewRiskLearnOutWithDefaults() *RiskLearnOut {
 }
 
 // GetLearned returns the Learned field value if set, zero value otherwise.
-func (o *RiskLearnOut) GetLearned() int32 {
+func (o *RiskLearnOut) GetLearned() int64 {
 	if o == nil || IsNil(o.Learned) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Learned
@@ -51,7 +51,7 @@ func (o *RiskLearnOut) GetLearned() int32 {
 
 // GetLearnedOk returns a tuple with the Learned field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLearnOut) GetLearnedOk() (*int32, bool) {
+func (o *RiskLearnOut) GetLearnedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Learned) {
 		return nil, false
 	}
@@ -67,8 +67,8 @@ func (o *RiskLearnOut) HasLearned() bool {
 	return false
 }
 
-// SetLearned gets a reference to the given int32 and assigns it to the Learned field.
-func (o *RiskLearnOut) SetLearned(v int32) {
+// SetLearned gets a reference to the given int64 and assigns it to the Learned field.
+func (o *RiskLearnOut) SetLearned(v int64) {
 	o.Learned = &v
 }
 

@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Model** | Pointer to **string** | Model is the model id, e.g. zen5-coder. | [optional] 
-**Pct** | Pointer to **float32** | Pct is this model&#39;s share of the window&#39;s returned spend, 0..100, one decimal. | [optional] 
+**Pct** | Pointer to **float64** | Pct is this model&#39;s share of the window&#39;s returned spend, 0..100, one decimal. | [optional] 
 **Provider** | Pointer to **string** | Provider is who served it. | [optional] 
-**Requests** | Pointer to **int32** | Requests is how many calls went to this model. | [optional] 
-**SpendCents** | Pointer to **int32** | SpendCents is what they cost, in cents. | [optional] 
-**Tokens** | Pointer to **int32** | Tokens is prompt plus completion tokens over those calls. | [optional] 
+**Requests** | Pointer to **int64** | Requests is how many calls went to this model. | [optional] 
+**SpendCents** | Pointer to **int64** | SpendCents is what they cost, in cents. | [optional] 
+**Tokens** | Pointer to **int64** | Tokens is prompt plus completion tokens over those calls. | [optional] 
 
 ## Methods
 
@@ -57,20 +57,20 @@ HasModel returns a boolean if a field has been set.
 
 ### GetPct
 
-`func (o *ModelRow) GetPct() float32`
+`func (o *ModelRow) GetPct() float64`
 
 GetPct returns the Pct field if non-nil, zero value otherwise.
 
 ### GetPctOk
 
-`func (o *ModelRow) GetPctOk() (*float32, bool)`
+`func (o *ModelRow) GetPctOk() (*float64, bool)`
 
 GetPctOk returns a tuple with the Pct field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPct
 
-`func (o *ModelRow) SetPct(v float32)`
+`func (o *ModelRow) SetPct(v float64)`
 
 SetPct sets Pct field to given value.
 
@@ -107,20 +107,20 @@ HasProvider returns a boolean if a field has been set.
 
 ### GetRequests
 
-`func (o *ModelRow) GetRequests() int32`
+`func (o *ModelRow) GetRequests() int64`
 
 GetRequests returns the Requests field if non-nil, zero value otherwise.
 
 ### GetRequestsOk
 
-`func (o *ModelRow) GetRequestsOk() (*int32, bool)`
+`func (o *ModelRow) GetRequestsOk() (*int64, bool)`
 
 GetRequestsOk returns a tuple with the Requests field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRequests
 
-`func (o *ModelRow) SetRequests(v int32)`
+`func (o *ModelRow) SetRequests(v int64)`
 
 SetRequests sets Requests field to given value.
 
@@ -132,20 +132,20 @@ HasRequests returns a boolean if a field has been set.
 
 ### GetSpendCents
 
-`func (o *ModelRow) GetSpendCents() int32`
+`func (o *ModelRow) GetSpendCents() int64`
 
 GetSpendCents returns the SpendCents field if non-nil, zero value otherwise.
 
 ### GetSpendCentsOk
 
-`func (o *ModelRow) GetSpendCentsOk() (*int32, bool)`
+`func (o *ModelRow) GetSpendCentsOk() (*int64, bool)`
 
 GetSpendCentsOk returns a tuple with the SpendCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSpendCents
 
-`func (o *ModelRow) SetSpendCents(v int32)`
+`func (o *ModelRow) SetSpendCents(v int64)`
 
 SetSpendCents sets SpendCents field to given value.
 
@@ -157,20 +157,20 @@ HasSpendCents returns a boolean if a field has been set.
 
 ### GetTokens
 
-`func (o *ModelRow) GetTokens() int32`
+`func (o *ModelRow) GetTokens() int64`
 
 GetTokens returns the Tokens field if non-nil, zero value otherwise.
 
 ### GetTokensOk
 
-`func (o *ModelRow) GetTokensOk() (*int32, bool)`
+`func (o *ModelRow) GetTokensOk() (*int64, bool)`
 
 GetTokensOk returns a tuple with the Tokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTokens
 
-`func (o *ModelRow) SetTokens(v int32)`
+`func (o *ModelRow) SetTokens(v int64)`
 
 SetTokens sets Tokens field to given value.
 

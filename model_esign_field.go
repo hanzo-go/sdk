@@ -23,23 +23,23 @@ type EsignField struct {
 	CustomText *string     `json:"customText,omitempty"`
 	FieldMeta  interface{} `json:"fieldMeta,omitempty"`
 	// Height is the field's height, -1 when the renderer is to choose one.
-	Height *float32 `json:"height,omitempty"`
+	Height *float64 `json:"height,omitempty"`
 	// ID is the field id.
 	Id *string `json:"id,omitempty"`
 	// Inserted is whether this field has been filled in.
 	Inserted *bool `json:"inserted,omitempty"`
 	// Page is the 1-based page the field sits on.
-	Page *float32 `json:"page,omitempty"`
+	Page *float64 `json:"page,omitempty"`
 	// PositionX is the field's horizontal position on that page.
-	PositionX *float32 `json:"positionX,omitempty"`
+	PositionX *float64 `json:"positionX,omitempty"`
 	// PositionY is the field's vertical position on that page.
-	PositionY *float32 `json:"positionY,omitempty"`
+	PositionY *float64 `json:"positionY,omitempty"`
 	// RecipientID is who must fill this field. It is absent on a signer's own view of a document, where every field returned is already theirs.
 	RecipientId *string `json:"recipientId,omitempty"`
 	// Type is what the field collects — SIGNATURE, DATE, NAME, EMAIL, TEXT and the rest.
 	Type *string `json:"type,omitempty"`
 	// Width is the field's width, -1 when the renderer is to choose one.
-	Width *float32 `json:"width,omitempty"`
+	Width *float64 `json:"width,omitempty"`
 }
 
 // NewEsignField instantiates a new EsignField object
@@ -125,9 +125,9 @@ func (o *EsignField) SetFieldMeta(v interface{}) {
 }
 
 // GetHeight returns the Height field value if set, zero value otherwise.
-func (o *EsignField) GetHeight() float32 {
+func (o *EsignField) GetHeight() float64 {
 	if o == nil || IsNil(o.Height) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Height
@@ -135,7 +135,7 @@ func (o *EsignField) GetHeight() float32 {
 
 // GetHeightOk returns a tuple with the Height field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsignField) GetHeightOk() (*float32, bool) {
+func (o *EsignField) GetHeightOk() (*float64, bool) {
 	if o == nil || IsNil(o.Height) {
 		return nil, false
 	}
@@ -151,8 +151,8 @@ func (o *EsignField) HasHeight() bool {
 	return false
 }
 
-// SetHeight gets a reference to the given float32 and assigns it to the Height field.
-func (o *EsignField) SetHeight(v float32) {
+// SetHeight gets a reference to the given float64 and assigns it to the Height field.
+func (o *EsignField) SetHeight(v float64) {
 	o.Height = &v
 }
 
@@ -221,9 +221,9 @@ func (o *EsignField) SetInserted(v bool) {
 }
 
 // GetPage returns the Page field value if set, zero value otherwise.
-func (o *EsignField) GetPage() float32 {
+func (o *EsignField) GetPage() float64 {
 	if o == nil || IsNil(o.Page) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Page
@@ -231,7 +231,7 @@ func (o *EsignField) GetPage() float32 {
 
 // GetPageOk returns a tuple with the Page field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsignField) GetPageOk() (*float32, bool) {
+func (o *EsignField) GetPageOk() (*float64, bool) {
 	if o == nil || IsNil(o.Page) {
 		return nil, false
 	}
@@ -247,15 +247,15 @@ func (o *EsignField) HasPage() bool {
 	return false
 }
 
-// SetPage gets a reference to the given float32 and assigns it to the Page field.
-func (o *EsignField) SetPage(v float32) {
+// SetPage gets a reference to the given float64 and assigns it to the Page field.
+func (o *EsignField) SetPage(v float64) {
 	o.Page = &v
 }
 
 // GetPositionX returns the PositionX field value if set, zero value otherwise.
-func (o *EsignField) GetPositionX() float32 {
+func (o *EsignField) GetPositionX() float64 {
 	if o == nil || IsNil(o.PositionX) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.PositionX
@@ -263,7 +263,7 @@ func (o *EsignField) GetPositionX() float32 {
 
 // GetPositionXOk returns a tuple with the PositionX field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsignField) GetPositionXOk() (*float32, bool) {
+func (o *EsignField) GetPositionXOk() (*float64, bool) {
 	if o == nil || IsNil(o.PositionX) {
 		return nil, false
 	}
@@ -279,15 +279,15 @@ func (o *EsignField) HasPositionX() bool {
 	return false
 }
 
-// SetPositionX gets a reference to the given float32 and assigns it to the PositionX field.
-func (o *EsignField) SetPositionX(v float32) {
+// SetPositionX gets a reference to the given float64 and assigns it to the PositionX field.
+func (o *EsignField) SetPositionX(v float64) {
 	o.PositionX = &v
 }
 
 // GetPositionY returns the PositionY field value if set, zero value otherwise.
-func (o *EsignField) GetPositionY() float32 {
+func (o *EsignField) GetPositionY() float64 {
 	if o == nil || IsNil(o.PositionY) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.PositionY
@@ -295,7 +295,7 @@ func (o *EsignField) GetPositionY() float32 {
 
 // GetPositionYOk returns a tuple with the PositionY field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsignField) GetPositionYOk() (*float32, bool) {
+func (o *EsignField) GetPositionYOk() (*float64, bool) {
 	if o == nil || IsNil(o.PositionY) {
 		return nil, false
 	}
@@ -311,8 +311,8 @@ func (o *EsignField) HasPositionY() bool {
 	return false
 }
 
-// SetPositionY gets a reference to the given float32 and assigns it to the PositionY field.
-func (o *EsignField) SetPositionY(v float32) {
+// SetPositionY gets a reference to the given float64 and assigns it to the PositionY field.
+func (o *EsignField) SetPositionY(v float64) {
 	o.PositionY = &v
 }
 
@@ -381,9 +381,9 @@ func (o *EsignField) SetType(v string) {
 }
 
 // GetWidth returns the Width field value if set, zero value otherwise.
-func (o *EsignField) GetWidth() float32 {
+func (o *EsignField) GetWidth() float64 {
 	if o == nil || IsNil(o.Width) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Width
@@ -391,7 +391,7 @@ func (o *EsignField) GetWidth() float32 {
 
 // GetWidthOk returns a tuple with the Width field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsignField) GetWidthOk() (*float32, bool) {
+func (o *EsignField) GetWidthOk() (*float64, bool) {
 	if o == nil || IsNil(o.Width) {
 		return nil, false
 	}
@@ -407,8 +407,8 @@ func (o *EsignField) HasWidth() bool {
 	return false
 }
 
-// SetWidth gets a reference to the given float32 and assigns it to the Width field.
-func (o *EsignField) SetWidth(v float32) {
+// SetWidth gets a reference to the given float64 and assigns it to the Width field.
+func (o *EsignField) SetWidth(v float64) {
 	o.Width = &v
 }
 

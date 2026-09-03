@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Brand** | Pointer to **string** | Brand is the white-label key this revision was authored under; empty is the shared base playbook. Revisions of two brands never share a number line. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is when this revision was written, as Unix seconds — the \&quot;who changed the playbook, and when\&quot; half of the audit trail. | [optional] 
-**Version** | Pointer to **int32** | Version is the store&#39;s own revision counter for that brand, starting at 1 for the seeded playbook and incrementing on every edit. Nothing is overwritten, so the highest number is the live one and every lower number is still readable. It is not the playbook&#39;s authored &#x60;version&#x60; string. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is when this revision was written, as Unix seconds — the \&quot;who changed the playbook, and when\&quot; half of the audit trail. | [optional] 
+**Version** | Pointer to **int64** | Version is the store&#39;s own revision counter for that brand, starting at 1 for the seeded playbook and incrementing on every edit. Nothing is overwritten, so the highest number is the live one and every lower number is still readable. It is not the playbook&#39;s authored &#x60;version&#x60; string. | [optional] 
 
 ## Methods
 
@@ -54,20 +54,20 @@ HasBrand returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *VersionMeta) GetUpdatedAt() int32`
+`func (o *VersionMeta) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *VersionMeta) GetUpdatedAtOk() (*int32, bool)`
+`func (o *VersionMeta) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *VersionMeta) SetUpdatedAt(v int32)`
+`func (o *VersionMeta) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
@@ -79,20 +79,20 @@ HasUpdatedAt returns a boolean if a field has been set.
 
 ### GetVersion
 
-`func (o *VersionMeta) GetVersion() int32`
+`func (o *VersionMeta) GetVersion() int64`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *VersionMeta) GetVersionOk() (*int32, bool)`
+`func (o *VersionMeta) GetVersionOk() (*int64, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *VersionMeta) SetVersion(v int32)`
+`func (o *VersionMeta) SetVersion(v int64)`
 
 SetVersion sets Version field to given value.
 

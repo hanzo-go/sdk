@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **IsAnomaly** | Pointer to **bool** |  | [optional] 
 **QueriesUsedInFormula** | Pointer to **[]string** |  | [optional] 
-**ShiftBy** | Pointer to **int32** |  | [optional] 
+**ShiftBy** | Pointer to **int64** |  | [optional] 
 **AggregateAttribute** | Pointer to [**O11yAttributeKey**](O11yAttributeKey.md) |  | [optional] 
 **AggregateOperator** | Pointer to **string** |  | [optional] 
 **DataSource** | Pointer to **string** |  | [optional] 
@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 **SelectColumns** | Pointer to [**[]O11yAttributeKey**](O11yAttributeKey.md) |  | [optional] 
 **SeriesAggregation** | Pointer to **string** |  | [optional] 
 **SpaceAggregation** | Pointer to **string** |  | [optional] 
-**StepInterval** | Pointer to **int32** |  | [optional] 
+**StepInterval** | Pointer to **int64** |  | [optional] 
 **Temporality** | Pointer to **string** |  | [optional] 
 **TimeAggregation** | Pointer to **string** |  | [optional] 
 
@@ -101,20 +101,20 @@ HasQueriesUsedInFormula returns a boolean if a field has been set.
 
 ### GetShiftBy
 
-`func (o *O11yBuilderQuery) GetShiftBy() int32`
+`func (o *O11yBuilderQuery) GetShiftBy() int64`
 
 GetShiftBy returns the ShiftBy field if non-nil, zero value otherwise.
 
 ### GetShiftByOk
 
-`func (o *O11yBuilderQuery) GetShiftByOk() (*int32, bool)`
+`func (o *O11yBuilderQuery) GetShiftByOk() (*int64, bool)`
 
 GetShiftByOk returns a tuple with the ShiftBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetShiftBy
 
-`func (o *O11yBuilderQuery) SetShiftBy(v int32)`
+`func (o *O11yBuilderQuery) SetShiftBy(v int64)`
 
 SetShiftBy sets ShiftBy field to given value.
 
@@ -601,20 +601,20 @@ HasSpaceAggregation returns a boolean if a field has been set.
 
 ### GetStepInterval
 
-`func (o *O11yBuilderQuery) GetStepInterval() int32`
+`func (o *O11yBuilderQuery) GetStepInterval() int64`
 
 GetStepInterval returns the StepInterval field if non-nil, zero value otherwise.
 
 ### GetStepIntervalOk
 
-`func (o *O11yBuilderQuery) GetStepIntervalOk() (*int32, bool)`
+`func (o *O11yBuilderQuery) GetStepIntervalOk() (*int64, bool)`
 
 GetStepIntervalOk returns a tuple with the StepInterval field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStepInterval
 
-`func (o *O11yBuilderQuery) SetStepInterval(v int32)`
+`func (o *O11yBuilderQuery) SetStepInterval(v int64)`
 
 SetStepInterval sets StepInterval field to given value.
 

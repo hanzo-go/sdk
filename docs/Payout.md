@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Amount** | Pointer to **int32** |  | [optional] 
+**Amount** | Pointer to **int64** |  | [optional] 
 **ArrivalDate** | Pointer to **string** |  | [optional] 
 **Created** | Pointer to **string** |  | [optional] 
 **Currency** | Pointer to **string** |  | [optional] 
@@ -39,20 +39,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAmount
 
-`func (o *Payout) GetAmount() int32`
+`func (o *Payout) GetAmount() int64`
 
 GetAmount returns the Amount field if non-nil, zero value otherwise.
 
 ### GetAmountOk
 
-`func (o *Payout) GetAmountOk() (*int32, bool)`
+`func (o *Payout) GetAmountOk() (*int64, bool)`
 
 GetAmountOk returns a tuple with the Amount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmount
 
-`func (o *Payout) SetAmount(v int32)`
+`func (o *Payout) SetAmount(v int64)`
 
 SetAmount sets Amount field to given value.
 

@@ -6,24 +6,24 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AbTest** | Pointer to **interface{}** |  | [optional] 
 **Available** | Pointer to **bool** | Available is false when the analytics warehouse is not connected or the query failed: the funnel below is then zero because nothing could be read, not because nothing happened. Spend and Channels are still real — they come from the connectors, not the warehouse. | [optional] 
-**Cac** | Pointer to **float32** | CAC is customer acquisition cost: spend DOLLARS per conversion, rounded to cents. 0 when nothing converted — that is \&quot;not yet computable\&quot;, not \&quot;free\&quot;. | [optional] 
+**Cac** | Pointer to **float64** | CAC is customer acquisition cost: spend DOLLARS per conversion, rounded to cents. 0 when nothing converted — that is \&quot;not yet computable\&quot;, not \&quot;free\&quot;. | [optional] 
 **CampaignId** | Pointer to **string** | CampaignID is the campaign these results are for, echoed from the request. | [optional] 
 **Channels** | Pointer to [**[]ChannelMetric**](ChannelMetric.md) | Channels is the per-channel spend breakdown that SpendCents sums, one row per channel on the campaign including the ones that never launched. | [optional] 
-**Clicks** | Pointer to **int32** | Clicks is the campaign&#39;s click events over the window. | [optional] 
-**Conversions** | Pointer to **int32** | Conversions is the terminal funnel events attributed to the campaign — orders completed, signups completed, explicit conversion events. | [optional] 
-**Ctr** | Pointer to **float32** | CTR is clicks per impression, a fraction rounded to 4 places (0.0123 &#x3D; 1.23%), not a percentage. 0 when there were no impressions to divide by. | [optional] 
-**Cvr** | Pointer to **float32** | CVR is conversions per click, a fraction rounded to 4 places. 0 when there were no clicks. | [optional] 
+**Clicks** | Pointer to **int64** | Clicks is the campaign&#39;s click events over the window. | [optional] 
+**Conversions** | Pointer to **int64** | Conversions is the terminal funnel events attributed to the campaign — orders completed, signups completed, explicit conversion events. | [optional] 
+**Ctr** | Pointer to **float64** | CTR is clicks per impression, a fraction rounded to 4 places (0.0123 &#x3D; 1.23%), not a percentage. 0 when there were no impressions to divide by. | [optional] 
+**Cvr** | Pointer to **float64** | CVR is conversions per click, a fraction rounded to 4 places. 0 when there were no clicks. | [optional] 
 **End** | Pointer to **string** | End is the window&#39;s end, RFC3339 UTC — the read&#39;s own clock unless an explicit pair was given. The window is a LOOKBACK, not the campaign&#39;s own lifetime. | [optional] 
-**Impressions** | Pointer to **int32** | Impressions is how many times the campaign&#39;s creatives were shown, counted from its utm_campaign-tagged impression events. | [optional] 
+**Impressions** | Pointer to **int64** | Impressions is how many times the campaign&#39;s creatives were shown, counted from its utm_campaign-tagged impression events. | [optional] 
 **Name** | Pointer to **string** | Name is the campaign&#39;s display name at read time, so a result can be labelled without a second fetch. | [optional] 
 **Range** | Pointer to **string** | Range is the window actually used: 24h, 7d, 30d, 90d, or \&quot;custom\&quot; when an explicit start/end pair was honored. An unparseable or absent range reads 30d, so this is the value to trust, not the one that was sent. | [optional] 
-**Revenue** | Pointer to **float32** | Revenue is the summed revenue attribute of the campaign&#39;s events, in whole CURRENCY UNITS (dollars) — the one money value here that is not in cents. | [optional] 
-**Roas** | Pointer to **float32** | ROAS is return on ad spend: revenue per spend DOLLAR, rounded to 2 places (2.5 &#x3D; $2.50 back per $1). 0 when nothing was spent. | [optional] 
+**Revenue** | Pointer to **float64** | Revenue is the summed revenue attribute of the campaign&#39;s events, in whole CURRENCY UNITS (dollars) — the one money value here that is not in cents. | [optional] 
+**Roas** | Pointer to **float64** | ROAS is return on ad spend: revenue per spend DOLLAR, rounded to 2 places (2.5 &#x3D; $2.50 back per $1). 0 when nothing was spent. | [optional] 
 **Source** | Pointer to **string** | Source names the analytics table the funnel was read from, so an operator can see exactly what was counted. Set even when Available is false. | [optional] 
-**SpendCents** | Pointer to **int32** | SpendCents is the campaign&#39;s total spend in CENTS: the sum of what each live channel&#39;s provider reports. A channel whose spend could not be read contributes 0 and says so on its own row. | [optional] 
+**SpendCents** | Pointer to **int64** | SpendCents is the campaign&#39;s total spend in CENTS: the sum of what each live channel&#39;s provider reports. A channel whose spend could not be read contributes 0 and says so on its own row. | [optional] 
 **Start** | Pointer to **string** | Start is the window&#39;s inclusive start, RFC3339 UTC. | [optional] 
 **Status** | Pointer to **string** | Status is the campaign&#39;s lifecycle state at read time — draft, live, paused, completed or failed. A draft has never run, so its funnel is legitimately zero. | [optional] 
-**Visitors** | Pointer to **int32** | Visitors is how many distinct people the campaign reached, counted by event identity across ALL its events in the window — not a subset of Impressions, so it can exceed them for a campaign whose provider reports clicks but not views. | [optional] 
+**Visitors** | Pointer to **int64** | Visitors is how many distinct people the campaign reached, counted by event identity across ALL its events in the window — not a subset of Impressions, so it can exceed them for a campaign whose provider reports clicks but not views. | [optional] 
 
 ## Methods
 
@@ -106,20 +106,20 @@ HasAvailable returns a boolean if a field has been set.
 
 ### GetCac
 
-`func (o *CampaignResults) GetCac() float32`
+`func (o *CampaignResults) GetCac() float64`
 
 GetCac returns the Cac field if non-nil, zero value otherwise.
 
 ### GetCacOk
 
-`func (o *CampaignResults) GetCacOk() (*float32, bool)`
+`func (o *CampaignResults) GetCacOk() (*float64, bool)`
 
 GetCacOk returns a tuple with the Cac field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCac
 
-`func (o *CampaignResults) SetCac(v float32)`
+`func (o *CampaignResults) SetCac(v float64)`
 
 SetCac sets Cac field to given value.
 
@@ -181,20 +181,20 @@ HasChannels returns a boolean if a field has been set.
 
 ### GetClicks
 
-`func (o *CampaignResults) GetClicks() int32`
+`func (o *CampaignResults) GetClicks() int64`
 
 GetClicks returns the Clicks field if non-nil, zero value otherwise.
 
 ### GetClicksOk
 
-`func (o *CampaignResults) GetClicksOk() (*int32, bool)`
+`func (o *CampaignResults) GetClicksOk() (*int64, bool)`
 
 GetClicksOk returns a tuple with the Clicks field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetClicks
 
-`func (o *CampaignResults) SetClicks(v int32)`
+`func (o *CampaignResults) SetClicks(v int64)`
 
 SetClicks sets Clicks field to given value.
 
@@ -206,20 +206,20 @@ HasClicks returns a boolean if a field has been set.
 
 ### GetConversions
 
-`func (o *CampaignResults) GetConversions() int32`
+`func (o *CampaignResults) GetConversions() int64`
 
 GetConversions returns the Conversions field if non-nil, zero value otherwise.
 
 ### GetConversionsOk
 
-`func (o *CampaignResults) GetConversionsOk() (*int32, bool)`
+`func (o *CampaignResults) GetConversionsOk() (*int64, bool)`
 
 GetConversionsOk returns a tuple with the Conversions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConversions
 
-`func (o *CampaignResults) SetConversions(v int32)`
+`func (o *CampaignResults) SetConversions(v int64)`
 
 SetConversions sets Conversions field to given value.
 
@@ -231,20 +231,20 @@ HasConversions returns a boolean if a field has been set.
 
 ### GetCtr
 
-`func (o *CampaignResults) GetCtr() float32`
+`func (o *CampaignResults) GetCtr() float64`
 
 GetCtr returns the Ctr field if non-nil, zero value otherwise.
 
 ### GetCtrOk
 
-`func (o *CampaignResults) GetCtrOk() (*float32, bool)`
+`func (o *CampaignResults) GetCtrOk() (*float64, bool)`
 
 GetCtrOk returns a tuple with the Ctr field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCtr
 
-`func (o *CampaignResults) SetCtr(v float32)`
+`func (o *CampaignResults) SetCtr(v float64)`
 
 SetCtr sets Ctr field to given value.
 
@@ -256,20 +256,20 @@ HasCtr returns a boolean if a field has been set.
 
 ### GetCvr
 
-`func (o *CampaignResults) GetCvr() float32`
+`func (o *CampaignResults) GetCvr() float64`
 
 GetCvr returns the Cvr field if non-nil, zero value otherwise.
 
 ### GetCvrOk
 
-`func (o *CampaignResults) GetCvrOk() (*float32, bool)`
+`func (o *CampaignResults) GetCvrOk() (*float64, bool)`
 
 GetCvrOk returns a tuple with the Cvr field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCvr
 
-`func (o *CampaignResults) SetCvr(v float32)`
+`func (o *CampaignResults) SetCvr(v float64)`
 
 SetCvr sets Cvr field to given value.
 
@@ -306,20 +306,20 @@ HasEnd returns a boolean if a field has been set.
 
 ### GetImpressions
 
-`func (o *CampaignResults) GetImpressions() int32`
+`func (o *CampaignResults) GetImpressions() int64`
 
 GetImpressions returns the Impressions field if non-nil, zero value otherwise.
 
 ### GetImpressionsOk
 
-`func (o *CampaignResults) GetImpressionsOk() (*int32, bool)`
+`func (o *CampaignResults) GetImpressionsOk() (*int64, bool)`
 
 GetImpressionsOk returns a tuple with the Impressions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetImpressions
 
-`func (o *CampaignResults) SetImpressions(v int32)`
+`func (o *CampaignResults) SetImpressions(v int64)`
 
 SetImpressions sets Impressions field to given value.
 
@@ -381,20 +381,20 @@ HasRange returns a boolean if a field has been set.
 
 ### GetRevenue
 
-`func (o *CampaignResults) GetRevenue() float32`
+`func (o *CampaignResults) GetRevenue() float64`
 
 GetRevenue returns the Revenue field if non-nil, zero value otherwise.
 
 ### GetRevenueOk
 
-`func (o *CampaignResults) GetRevenueOk() (*float32, bool)`
+`func (o *CampaignResults) GetRevenueOk() (*float64, bool)`
 
 GetRevenueOk returns a tuple with the Revenue field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRevenue
 
-`func (o *CampaignResults) SetRevenue(v float32)`
+`func (o *CampaignResults) SetRevenue(v float64)`
 
 SetRevenue sets Revenue field to given value.
 
@@ -406,20 +406,20 @@ HasRevenue returns a boolean if a field has been set.
 
 ### GetRoas
 
-`func (o *CampaignResults) GetRoas() float32`
+`func (o *CampaignResults) GetRoas() float64`
 
 GetRoas returns the Roas field if non-nil, zero value otherwise.
 
 ### GetRoasOk
 
-`func (o *CampaignResults) GetRoasOk() (*float32, bool)`
+`func (o *CampaignResults) GetRoasOk() (*float64, bool)`
 
 GetRoasOk returns a tuple with the Roas field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRoas
 
-`func (o *CampaignResults) SetRoas(v float32)`
+`func (o *CampaignResults) SetRoas(v float64)`
 
 SetRoas sets Roas field to given value.
 
@@ -456,20 +456,20 @@ HasSource returns a boolean if a field has been set.
 
 ### GetSpendCents
 
-`func (o *CampaignResults) GetSpendCents() int32`
+`func (o *CampaignResults) GetSpendCents() int64`
 
 GetSpendCents returns the SpendCents field if non-nil, zero value otherwise.
 
 ### GetSpendCentsOk
 
-`func (o *CampaignResults) GetSpendCentsOk() (*int32, bool)`
+`func (o *CampaignResults) GetSpendCentsOk() (*int64, bool)`
 
 GetSpendCentsOk returns a tuple with the SpendCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSpendCents
 
-`func (o *CampaignResults) SetSpendCents(v int32)`
+`func (o *CampaignResults) SetSpendCents(v int64)`
 
 SetSpendCents sets SpendCents field to given value.
 
@@ -531,20 +531,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetVisitors
 
-`func (o *CampaignResults) GetVisitors() int32`
+`func (o *CampaignResults) GetVisitors() int64`
 
 GetVisitors returns the Visitors field if non-nil, zero value otherwise.
 
 ### GetVisitorsOk
 
-`func (o *CampaignResults) GetVisitorsOk() (*int32, bool)`
+`func (o *CampaignResults) GetVisitorsOk() (*int64, bool)`
 
 GetVisitorsOk returns a tuple with the Visitors field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVisitors
 
-`func (o *CampaignResults) SetVisitors(v int32)`
+`func (o *CampaignResults) SetVisitors(v int64)`
 
 SetVisitors sets Visitors field to given value.
 

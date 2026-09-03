@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **Source** | Pointer to **string** | Source names the table these numbers were aggregated from (the derived daily rollup, hanzo.usage_rollup_daily), so an operator can tell exactly what was read. | [optional] 
 **Start** | Pointer to **string** | Start is the first day counted, \&quot;2006-01-02\&quot; inclusive. Empty for period&#x3D;all, which has no lower bound at all. | [optional] 
 **Subject** | Pointer to **string** | Subject is what the rows stand for — \&quot;user\&quot; on a personal or org board, \&quot;org\&quot; on the global one. It tells a client whether Handle names a person or a company. | [optional] 
-**Total** | Pointer to **int32** | Total is how many subjects were ranked in the window — the org&#39;s active users, or the active/opted-in orgs on the global board. It is the universe the ranks are out of, so it is normally larger than len(rows). | [optional] 
+**Total** | Pointer to **int64** | Total is how many subjects were ranked in the window — the org&#39;s active users, or the active/opted-in orgs on the global board. It is the universe the ranks are out of, so it is normally larger than len(rows). | [optional] 
 
 ## Methods
 
@@ -287,20 +287,20 @@ HasSubject returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *LeaderboardView) GetTotal() int32`
+`func (o *LeaderboardView) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *LeaderboardView) GetTotalOk() (*int32, bool)`
+`func (o *LeaderboardView) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *LeaderboardView) SetTotal(v int32)`
+`func (o *LeaderboardView) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

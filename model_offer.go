@@ -28,9 +28,9 @@ type Offer struct {
 	// whether the registry prices it above the standard rate
 	Premium *bool `json:"premium,omitempty"`
 	// sell (first-term registration)
-	PriceCents *int32 `json:"priceCents,omitempty"`
+	PriceCents *int64 `json:"priceCents,omitempty"`
 	// sell (renewal)
-	RenewalPriceCents *int32 `json:"renewalPriceCents,omitempty"`
+	RenewalPriceCents *int64 `json:"renewalPriceCents,omitempty"`
 	// the top-level domain the name sits under
 	Tld *string `json:"tld,omitempty"`
 }
@@ -181,9 +181,9 @@ func (o *Offer) SetPremium(v bool) {
 }
 
 // GetPriceCents returns the PriceCents field value if set, zero value otherwise.
-func (o *Offer) GetPriceCents() int32 {
+func (o *Offer) GetPriceCents() int64 {
 	if o == nil || IsNil(o.PriceCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PriceCents
@@ -191,7 +191,7 @@ func (o *Offer) GetPriceCents() int32 {
 
 // GetPriceCentsOk returns a tuple with the PriceCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Offer) GetPriceCentsOk() (*int32, bool) {
+func (o *Offer) GetPriceCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.PriceCents) {
 		return nil, false
 	}
@@ -207,15 +207,15 @@ func (o *Offer) HasPriceCents() bool {
 	return false
 }
 
-// SetPriceCents gets a reference to the given int32 and assigns it to the PriceCents field.
-func (o *Offer) SetPriceCents(v int32) {
+// SetPriceCents gets a reference to the given int64 and assigns it to the PriceCents field.
+func (o *Offer) SetPriceCents(v int64) {
 	o.PriceCents = &v
 }
 
 // GetRenewalPriceCents returns the RenewalPriceCents field value if set, zero value otherwise.
-func (o *Offer) GetRenewalPriceCents() int32 {
+func (o *Offer) GetRenewalPriceCents() int64 {
 	if o == nil || IsNil(o.RenewalPriceCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RenewalPriceCents
@@ -223,7 +223,7 @@ func (o *Offer) GetRenewalPriceCents() int32 {
 
 // GetRenewalPriceCentsOk returns a tuple with the RenewalPriceCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Offer) GetRenewalPriceCentsOk() (*int32, bool) {
+func (o *Offer) GetRenewalPriceCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.RenewalPriceCents) {
 		return nil, false
 	}
@@ -239,8 +239,8 @@ func (o *Offer) HasRenewalPriceCents() bool {
 	return false
 }
 
-// SetRenewalPriceCents gets a reference to the given int32 and assigns it to the RenewalPriceCents field.
-func (o *Offer) SetRenewalPriceCents(v int32) {
+// SetRenewalPriceCents gets a reference to the given int64 and assigns it to the RenewalPriceCents field.
+func (o *Offer) SetRenewalPriceCents(v int64) {
 	o.RenewalPriceCents = &v
 }
 

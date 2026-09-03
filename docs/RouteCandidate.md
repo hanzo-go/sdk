@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Account** | Pointer to **string** | Account is the provider-side account identifier. | [optional] 
 **Available** | Pointer to **bool** | Available reports whether the candidate is routable right now. | [optional] 
 **Billing** | Pointer to **string** | Billing is the cost consequence of dialing this candidate: plan (the user&#39;s own subscription) or commerce (the metered gateway path). | [optional] 
-**HeadroomPct** | Pointer to **float32** | HeadroomPct is the remaining rate-limit capacity, 0..100. A link with no snapshot counts as full headroom. | [optional] 
+**HeadroomPct** | Pointer to **float64** | HeadroomPct is the remaining rate-limit capacity, 0..100. A link with no snapshot counts as full headroom. | [optional] 
 **Host** | Pointer to **string** | Host is that machine&#39;s hostname label. | [optional] 
 **Kind** | Pointer to **string** | Kind is how the account authenticates: subscription or apikey. | [optional] 
 **LinkId** | Pointer to **string** | LinkID is the underlying link&#39;s opaque handle. | [optional] 
@@ -112,20 +112,20 @@ HasBilling returns a boolean if a field has been set.
 
 ### GetHeadroomPct
 
-`func (o *RouteCandidate) GetHeadroomPct() float32`
+`func (o *RouteCandidate) GetHeadroomPct() float64`
 
 GetHeadroomPct returns the HeadroomPct field if non-nil, zero value otherwise.
 
 ### GetHeadroomPctOk
 
-`func (o *RouteCandidate) GetHeadroomPctOk() (*float32, bool)`
+`func (o *RouteCandidate) GetHeadroomPctOk() (*float64, bool)`
 
 GetHeadroomPctOk returns a tuple with the HeadroomPct field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHeadroomPct
 
-`func (o *RouteCandidate) SetHeadroomPct(v float32)`
+`func (o *RouteCandidate) SetHeadroomPct(v float64)`
 
 SetHeadroomPct sets HeadroomPct field to given value.
 

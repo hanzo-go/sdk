@@ -24,9 +24,9 @@ type DataroomLinkStats struct {
 	// Pages is the per-page breakdown, in page order.
 	Pages []DataroomPageStat `json:"pages,omitempty"`
 	// TotalPageViews is how many page views the link received.
-	TotalPageViews *int32 `json:"totalPageViews,omitempty"`
+	TotalPageViews *int64 `json:"totalPageViews,omitempty"`
 	// TotalViews is how many viewing sessions the link opened.
-	TotalViews *int32 `json:"totalViews,omitempty"`
+	TotalViews *int64 `json:"totalViews,omitempty"`
 }
 
 // NewDataroomLinkStats instantiates a new DataroomLinkStats object
@@ -111,9 +111,9 @@ func (o *DataroomLinkStats) SetPages(v []DataroomPageStat) {
 }
 
 // GetTotalPageViews returns the TotalPageViews field value if set, zero value otherwise.
-func (o *DataroomLinkStats) GetTotalPageViews() int32 {
+func (o *DataroomLinkStats) GetTotalPageViews() int64 {
 	if o == nil || IsNil(o.TotalPageViews) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalPageViews
@@ -121,7 +121,7 @@ func (o *DataroomLinkStats) GetTotalPageViews() int32 {
 
 // GetTotalPageViewsOk returns a tuple with the TotalPageViews field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DataroomLinkStats) GetTotalPageViewsOk() (*int32, bool) {
+func (o *DataroomLinkStats) GetTotalPageViewsOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalPageViews) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *DataroomLinkStats) HasTotalPageViews() bool {
 	return false
 }
 
-// SetTotalPageViews gets a reference to the given int32 and assigns it to the TotalPageViews field.
-func (o *DataroomLinkStats) SetTotalPageViews(v int32) {
+// SetTotalPageViews gets a reference to the given int64 and assigns it to the TotalPageViews field.
+func (o *DataroomLinkStats) SetTotalPageViews(v int64) {
 	o.TotalPageViews = &v
 }
 
 // GetTotalViews returns the TotalViews field value if set, zero value otherwise.
-func (o *DataroomLinkStats) GetTotalViews() int32 {
+func (o *DataroomLinkStats) GetTotalViews() int64 {
 	if o == nil || IsNil(o.TotalViews) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalViews
@@ -153,7 +153,7 @@ func (o *DataroomLinkStats) GetTotalViews() int32 {
 
 // GetTotalViewsOk returns a tuple with the TotalViews field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DataroomLinkStats) GetTotalViewsOk() (*int32, bool) {
+func (o *DataroomLinkStats) GetTotalViewsOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalViews) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *DataroomLinkStats) HasTotalViews() bool {
 	return false
 }
 
-// SetTotalViews gets a reference to the given int32 and assigns it to the TotalViews field.
-func (o *DataroomLinkStats) SetTotalViews(v int32) {
+// SetTotalViews gets a reference to the given int64 and assigns it to the TotalViews field.
+func (o *DataroomLinkStats) SetTotalViews(v int64) {
 	o.TotalViews = &v
 }
 

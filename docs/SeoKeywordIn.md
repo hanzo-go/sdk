@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Keywords** | Pointer to **[]string** | Keywords are the phrases. At least one; blanks are dropped. | [optional] 
 **Language** | Pointer to **string** | Language is the ISO code. Defaults to \&quot;en\&quot;. | [optional] 
-**Location** | Pointer to **int32** | Location is the market, as the upstream&#39;s numeric code. Defaults to 2840, the United States. | [optional] 
+**Location** | Pointer to **int64** | Location is the market, as the upstream&#39;s numeric code. Defaults to 2840, the United States. | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasLanguage returns a boolean if a field has been set.
 
 ### GetLocation
 
-`func (o *SeoKeywordIn) GetLocation() int32`
+`func (o *SeoKeywordIn) GetLocation() int64`
 
 GetLocation returns the Location field if non-nil, zero value otherwise.
 
 ### GetLocationOk
 
-`func (o *SeoKeywordIn) GetLocationOk() (*int32, bool)`
+`func (o *SeoKeywordIn) GetLocationOk() (*int64, bool)`
 
 GetLocationOk returns a tuple with the Location field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLocation
 
-`func (o *SeoKeywordIn) SetLocation(v int32)`
+`func (o *SeoKeywordIn) SetLocation(v int64)`
 
 SetLocation sets Location field to given value.
 

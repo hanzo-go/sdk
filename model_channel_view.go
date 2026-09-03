@@ -34,7 +34,7 @@ type ChannelView struct {
 	// ID is the fixed transport identifier — discord, slack, teams, telegram or whatsapp — and the value every route on this surface names a channel by, including the `:channel` segment of the send path. The listing is always in that order.
 	Id *string `json:"id,omitempty"`
 	// PendingPairing counts the org's UNEXPIRED pairing requests on this channel: exactly the rows GET /v1/channels/pairing returns for it, one per person waiting on an admin. It never exceeds three — the pending cap per (org, channel) — and expired requests are not counted.
-	PendingPairing *int32 `json:"pendingPairing,omitempty"`
+	PendingPairing *int64 `json:"pendingPairing,omitempty"`
 }
 
 // NewChannelView instantiates a new ChannelView object
@@ -279,9 +279,9 @@ func (o *ChannelView) SetId(v string) {
 }
 
 // GetPendingPairing returns the PendingPairing field value if set, zero value otherwise.
-func (o *ChannelView) GetPendingPairing() int32 {
+func (o *ChannelView) GetPendingPairing() int64 {
 	if o == nil || IsNil(o.PendingPairing) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PendingPairing
@@ -289,7 +289,7 @@ func (o *ChannelView) GetPendingPairing() int32 {
 
 // GetPendingPairingOk returns a tuple with the PendingPairing field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ChannelView) GetPendingPairingOk() (*int32, bool) {
+func (o *ChannelView) GetPendingPairingOk() (*int64, bool) {
 	if o == nil || IsNil(o.PendingPairing) {
 		return nil, false
 	}
@@ -305,8 +305,8 @@ func (o *ChannelView) HasPendingPairing() bool {
 	return false
 }
 
-// SetPendingPairing gets a reference to the given int32 and assigns it to the PendingPairing field.
-func (o *ChannelView) SetPendingPairing(v int32) {
+// SetPendingPairing gets a reference to the given int64 and assigns it to the PendingPairing field.
+func (o *ChannelView) SetPendingPairing(v int64) {
 	o.PendingPairing = &v
 }
 

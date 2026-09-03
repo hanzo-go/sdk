@@ -20,7 +20,7 @@ var _ MappedNullable = &RiskSearchIn{}
 // RiskSearchIn struct for RiskSearchIn
 type RiskSearchIn struct {
 	// Days is how much of the organisation's own history to replay, 1 to 400. Zero takes thirty.
-	Days *int32 `json:"days,omitempty"`
+	Days *int64 `json:"days,omitempty"`
 }
 
 // NewRiskSearchIn instantiates a new RiskSearchIn object
@@ -41,9 +41,9 @@ func NewRiskSearchInWithDefaults() *RiskSearchIn {
 }
 
 // GetDays returns the Days field value if set, zero value otherwise.
-func (o *RiskSearchIn) GetDays() int32 {
+func (o *RiskSearchIn) GetDays() int64 {
 	if o == nil || IsNil(o.Days) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Days
@@ -51,7 +51,7 @@ func (o *RiskSearchIn) GetDays() int32 {
 
 // GetDaysOk returns a tuple with the Days field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskSearchIn) GetDaysOk() (*int32, bool) {
+func (o *RiskSearchIn) GetDaysOk() (*int64, bool) {
 	if o == nil || IsNil(o.Days) {
 		return nil, false
 	}
@@ -67,8 +67,8 @@ func (o *RiskSearchIn) HasDays() bool {
 	return false
 }
 
-// SetDays gets a reference to the given int32 and assigns it to the Days field.
-func (o *RiskSearchIn) SetDays(v int32) {
+// SetDays gets a reference to the given int64 and assigns it to the Days field.
+func (o *RiskSearchIn) SetDays(v int64) {
 	o.Days = &v
 }
 

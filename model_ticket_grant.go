@@ -20,7 +20,7 @@ var _ MappedNullable = &TicketGrant{}
 // TicketGrant struct for TicketGrant
 type TicketGrant struct {
 	// ExpiresIn is how long the ticket is good for, in seconds.
-	ExpiresIn *int32 `json:"expiresIn,omitempty"`
+	ExpiresIn *int64 `json:"expiresIn,omitempty"`
 	// Ticket is the grant itself. It is single-purpose and short-lived, and it travels in a query string because a WebSocket handshake carries no Authorization header a browser can set.
 	Ticket *string `json:"ticket,omitempty"`
 	// URL is the PATH to open, ticket included — not an absolute URL. Which host this address wears in public is the edge's answer and not this process's, so an absolute URL would be a guess; the client already knows the host it is talking to. It names the PAGE, which is what a caller embeds — the page finds its own socket, and a caller that wants the raw socket adds `/ws`.
@@ -45,9 +45,9 @@ func NewTicketGrantWithDefaults() *TicketGrant {
 }
 
 // GetExpiresIn returns the ExpiresIn field value if set, zero value otherwise.
-func (o *TicketGrant) GetExpiresIn() int32 {
+func (o *TicketGrant) GetExpiresIn() int64 {
 	if o == nil || IsNil(o.ExpiresIn) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ExpiresIn
@@ -55,7 +55,7 @@ func (o *TicketGrant) GetExpiresIn() int32 {
 
 // GetExpiresInOk returns a tuple with the ExpiresIn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TicketGrant) GetExpiresInOk() (*int32, bool) {
+func (o *TicketGrant) GetExpiresInOk() (*int64, bool) {
 	if o == nil || IsNil(o.ExpiresIn) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *TicketGrant) HasExpiresIn() bool {
 	return false
 }
 
-// SetExpiresIn gets a reference to the given int32 and assigns it to the ExpiresIn field.
-func (o *TicketGrant) SetExpiresIn(v int32) {
+// SetExpiresIn gets a reference to the given int64 and assigns it to the ExpiresIn field.
+func (o *TicketGrant) SetExpiresIn(v int64) {
 	o.ExpiresIn = &v
 }
 

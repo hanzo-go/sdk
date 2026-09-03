@@ -28,9 +28,9 @@ type TrialBalance struct {
 	// To is the posting time the window closes at, inclusive. Absent means \"up to now\" — every posting the ledger holds.
 	To *string `json:"to,omitempty"`
 	// TotalCredit is the sum of every row's closing credit column, in cents.
-	TotalCredit *int32 `json:"totalCredit,omitempty"`
+	TotalCredit *int64 `json:"totalCredit,omitempty"`
 	// TotalDebit is the sum of every row's CLOSING debit column, in cents.
-	TotalDebit *int32 `json:"totalDebit,omitempty"`
+	TotalDebit *int64 `json:"totalDebit,omitempty"`
 }
 
 // NewTrialBalance instantiates a new TrialBalance object
@@ -179,9 +179,9 @@ func (o *TrialBalance) SetTo(v string) {
 }
 
 // GetTotalCredit returns the TotalCredit field value if set, zero value otherwise.
-func (o *TrialBalance) GetTotalCredit() int32 {
+func (o *TrialBalance) GetTotalCredit() int64 {
 	if o == nil || IsNil(o.TotalCredit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalCredit
@@ -189,7 +189,7 @@ func (o *TrialBalance) GetTotalCredit() int32 {
 
 // GetTotalCreditOk returns a tuple with the TotalCredit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrialBalance) GetTotalCreditOk() (*int32, bool) {
+func (o *TrialBalance) GetTotalCreditOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalCredit) {
 		return nil, false
 	}
@@ -205,15 +205,15 @@ func (o *TrialBalance) HasTotalCredit() bool {
 	return false
 }
 
-// SetTotalCredit gets a reference to the given int32 and assigns it to the TotalCredit field.
-func (o *TrialBalance) SetTotalCredit(v int32) {
+// SetTotalCredit gets a reference to the given int64 and assigns it to the TotalCredit field.
+func (o *TrialBalance) SetTotalCredit(v int64) {
 	o.TotalCredit = &v
 }
 
 // GetTotalDebit returns the TotalDebit field value if set, zero value otherwise.
-func (o *TrialBalance) GetTotalDebit() int32 {
+func (o *TrialBalance) GetTotalDebit() int64 {
 	if o == nil || IsNil(o.TotalDebit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalDebit
@@ -221,7 +221,7 @@ func (o *TrialBalance) GetTotalDebit() int32 {
 
 // GetTotalDebitOk returns a tuple with the TotalDebit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrialBalance) GetTotalDebitOk() (*int32, bool) {
+func (o *TrialBalance) GetTotalDebitOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalDebit) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *TrialBalance) HasTotalDebit() bool {
 	return false
 }
 
-// SetTotalDebit gets a reference to the given int32 and assigns it to the TotalDebit field.
-func (o *TrialBalance) SetTotalDebit(v int32) {
+// SetTotalDebit gets a reference to the given int64 and assigns it to the TotalDebit field.
+func (o *TrialBalance) SetTotalDebit(v int64) {
 	o.TotalDebit = &v
 }
 

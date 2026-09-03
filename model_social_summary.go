@@ -20,13 +20,13 @@ var _ MappedNullable = &SocialSummary{}
 // SocialSummary struct for SocialSummary
 type SocialSummary struct {
 	// Accounts is how many accounts the org has connected, in any status.
-	Accounts *int32 `json:"accounts,omitempty"`
+	Accounts *int64 `json:"accounts,omitempty"`
 	// Posts is how many posts the org has, in any state.
-	Posts *int32 `json:"posts,omitempty"`
+	Posts *int64 `json:"posts,omitempty"`
 	// Published is how many of them have published.
-	Published *int32 `json:"published,omitempty"`
+	Published *int64 `json:"published,omitempty"`
 	// Scheduled is how many of them are waiting for their scheduled time.
-	Scheduled *int32 `json:"scheduled,omitempty"`
+	Scheduled *int64 `json:"scheduled,omitempty"`
 }
 
 // NewSocialSummary instantiates a new SocialSummary object
@@ -47,9 +47,9 @@ func NewSocialSummaryWithDefaults() *SocialSummary {
 }
 
 // GetAccounts returns the Accounts field value if set, zero value otherwise.
-func (o *SocialSummary) GetAccounts() int32 {
+func (o *SocialSummary) GetAccounts() int64 {
 	if o == nil || IsNil(o.Accounts) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Accounts
@@ -57,7 +57,7 @@ func (o *SocialSummary) GetAccounts() int32 {
 
 // GetAccountsOk returns a tuple with the Accounts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SocialSummary) GetAccountsOk() (*int32, bool) {
+func (o *SocialSummary) GetAccountsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Accounts) {
 		return nil, false
 	}
@@ -73,15 +73,15 @@ func (o *SocialSummary) HasAccounts() bool {
 	return false
 }
 
-// SetAccounts gets a reference to the given int32 and assigns it to the Accounts field.
-func (o *SocialSummary) SetAccounts(v int32) {
+// SetAccounts gets a reference to the given int64 and assigns it to the Accounts field.
+func (o *SocialSummary) SetAccounts(v int64) {
 	o.Accounts = &v
 }
 
 // GetPosts returns the Posts field value if set, zero value otherwise.
-func (o *SocialSummary) GetPosts() int32 {
+func (o *SocialSummary) GetPosts() int64 {
 	if o == nil || IsNil(o.Posts) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Posts
@@ -89,7 +89,7 @@ func (o *SocialSummary) GetPosts() int32 {
 
 // GetPostsOk returns a tuple with the Posts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SocialSummary) GetPostsOk() (*int32, bool) {
+func (o *SocialSummary) GetPostsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Posts) {
 		return nil, false
 	}
@@ -105,15 +105,15 @@ func (o *SocialSummary) HasPosts() bool {
 	return false
 }
 
-// SetPosts gets a reference to the given int32 and assigns it to the Posts field.
-func (o *SocialSummary) SetPosts(v int32) {
+// SetPosts gets a reference to the given int64 and assigns it to the Posts field.
+func (o *SocialSummary) SetPosts(v int64) {
 	o.Posts = &v
 }
 
 // GetPublished returns the Published field value if set, zero value otherwise.
-func (o *SocialSummary) GetPublished() int32 {
+func (o *SocialSummary) GetPublished() int64 {
 	if o == nil || IsNil(o.Published) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Published
@@ -121,7 +121,7 @@ func (o *SocialSummary) GetPublished() int32 {
 
 // GetPublishedOk returns a tuple with the Published field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SocialSummary) GetPublishedOk() (*int32, bool) {
+func (o *SocialSummary) GetPublishedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Published) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *SocialSummary) HasPublished() bool {
 	return false
 }
 
-// SetPublished gets a reference to the given int32 and assigns it to the Published field.
-func (o *SocialSummary) SetPublished(v int32) {
+// SetPublished gets a reference to the given int64 and assigns it to the Published field.
+func (o *SocialSummary) SetPublished(v int64) {
 	o.Published = &v
 }
 
 // GetScheduled returns the Scheduled field value if set, zero value otherwise.
-func (o *SocialSummary) GetScheduled() int32 {
+func (o *SocialSummary) GetScheduled() int64 {
 	if o == nil || IsNil(o.Scheduled) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Scheduled
@@ -153,7 +153,7 @@ func (o *SocialSummary) GetScheduled() int32 {
 
 // GetScheduledOk returns a tuple with the Scheduled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SocialSummary) GetScheduledOk() (*int32, bool) {
+func (o *SocialSummary) GetScheduledOk() (*int64, bool) {
 	if o == nil || IsNil(o.Scheduled) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *SocialSummary) HasScheduled() bool {
 	return false
 }
 
-// SetScheduled gets a reference to the given int32 and assigns it to the Scheduled field.
-func (o *SocialSummary) SetScheduled(v int32) {
+// SetScheduled gets a reference to the given int64 and assigns it to the Scheduled field.
+func (o *SocialSummary) SetScheduled(v int64) {
 	o.Scheduled = &v
 }
 

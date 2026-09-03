@@ -21,9 +21,9 @@ var _ MappedNullable = &O11yPostableProfile{}
 type O11yPostableProfile struct {
 	ExistingObservabilityTool        *string  `json:"existing_observability_tool,omitempty"`
 	ExistingObservabilityToolPresent *bool    `json:"has_existing_observability_tool,omitempty"`
-	LogsScalePerDayInGb              *int32   `json:"logs_scale_per_day_in_gb,omitempty"`
-	NumberOfHosts                    *int32   `json:"number_of_hosts,omitempty"`
-	NumberOfServices                 *int32   `json:"number_of_services,omitempty"`
+	LogsScalePerDayInGb              *int64   `json:"logs_scale_per_day_in_gb,omitempty"`
+	NumberOfHosts                    *int64   `json:"number_of_hosts,omitempty"`
+	NumberOfServices                 *int64   `json:"number_of_services,omitempty"`
 	ReasonsForInterestInO11y         []string `json:"reasons_for_interest_in_o11y,omitempty"`
 	TimelineForMigratingToO11y       *string  `json:"timeline_for_migrating_to_o11y,omitempty"`
 	UsesOtel                         *bool    `json:"uses_otel,omitempty"`
@@ -112,9 +112,9 @@ func (o *O11yPostableProfile) SetExistingObservabilityToolPresent(v bool) {
 }
 
 // GetLogsScalePerDayInGb returns the LogsScalePerDayInGb field value if set, zero value otherwise.
-func (o *O11yPostableProfile) GetLogsScalePerDayInGb() int32 {
+func (o *O11yPostableProfile) GetLogsScalePerDayInGb() int64 {
 	if o == nil || IsNil(o.LogsScalePerDayInGb) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.LogsScalePerDayInGb
@@ -122,7 +122,7 @@ func (o *O11yPostableProfile) GetLogsScalePerDayInGb() int32 {
 
 // GetLogsScalePerDayInGbOk returns a tuple with the LogsScalePerDayInGb field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPostableProfile) GetLogsScalePerDayInGbOk() (*int32, bool) {
+func (o *O11yPostableProfile) GetLogsScalePerDayInGbOk() (*int64, bool) {
 	if o == nil || IsNil(o.LogsScalePerDayInGb) {
 		return nil, false
 	}
@@ -138,15 +138,15 @@ func (o *O11yPostableProfile) HasLogsScalePerDayInGb() bool {
 	return false
 }
 
-// SetLogsScalePerDayInGb gets a reference to the given int32 and assigns it to the LogsScalePerDayInGb field.
-func (o *O11yPostableProfile) SetLogsScalePerDayInGb(v int32) {
+// SetLogsScalePerDayInGb gets a reference to the given int64 and assigns it to the LogsScalePerDayInGb field.
+func (o *O11yPostableProfile) SetLogsScalePerDayInGb(v int64) {
 	o.LogsScalePerDayInGb = &v
 }
 
 // GetNumberOfHosts returns the NumberOfHosts field value if set, zero value otherwise.
-func (o *O11yPostableProfile) GetNumberOfHosts() int32 {
+func (o *O11yPostableProfile) GetNumberOfHosts() int64 {
 	if o == nil || IsNil(o.NumberOfHosts) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NumberOfHosts
@@ -154,7 +154,7 @@ func (o *O11yPostableProfile) GetNumberOfHosts() int32 {
 
 // GetNumberOfHostsOk returns a tuple with the NumberOfHosts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPostableProfile) GetNumberOfHostsOk() (*int32, bool) {
+func (o *O11yPostableProfile) GetNumberOfHostsOk() (*int64, bool) {
 	if o == nil || IsNil(o.NumberOfHosts) {
 		return nil, false
 	}
@@ -170,15 +170,15 @@ func (o *O11yPostableProfile) HasNumberOfHosts() bool {
 	return false
 }
 
-// SetNumberOfHosts gets a reference to the given int32 and assigns it to the NumberOfHosts field.
-func (o *O11yPostableProfile) SetNumberOfHosts(v int32) {
+// SetNumberOfHosts gets a reference to the given int64 and assigns it to the NumberOfHosts field.
+func (o *O11yPostableProfile) SetNumberOfHosts(v int64) {
 	o.NumberOfHosts = &v
 }
 
 // GetNumberOfServices returns the NumberOfServices field value if set, zero value otherwise.
-func (o *O11yPostableProfile) GetNumberOfServices() int32 {
+func (o *O11yPostableProfile) GetNumberOfServices() int64 {
 	if o == nil || IsNil(o.NumberOfServices) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NumberOfServices
@@ -186,7 +186,7 @@ func (o *O11yPostableProfile) GetNumberOfServices() int32 {
 
 // GetNumberOfServicesOk returns a tuple with the NumberOfServices field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPostableProfile) GetNumberOfServicesOk() (*int32, bool) {
+func (o *O11yPostableProfile) GetNumberOfServicesOk() (*int64, bool) {
 	if o == nil || IsNil(o.NumberOfServices) {
 		return nil, false
 	}
@@ -202,8 +202,8 @@ func (o *O11yPostableProfile) HasNumberOfServices() bool {
 	return false
 }
 
-// SetNumberOfServices gets a reference to the given int32 and assigns it to the NumberOfServices field.
-func (o *O11yPostableProfile) SetNumberOfServices(v int32) {
+// SetNumberOfServices gets a reference to the given int64 and assigns it to the NumberOfServices field.
+func (o *O11yPostableProfile) SetNumberOfServices(v int64) {
 	o.NumberOfServices = &v
 }
 

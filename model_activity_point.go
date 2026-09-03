@@ -20,13 +20,13 @@ var _ MappedNullable = &ActivityPoint{}
 // ActivityPoint struct for ActivityPoint
 type ActivityPoint struct {
 	// CostCents is the day's spend in whole US cents. A series is only ever returned for a subject the caller is authorized to see, so this is never withheld: 0 means no spend that day.
-	CostCents *int32 `json:"costCents,omitempty"`
+	CostCents *int64 `json:"costCents,omitempty"`
 	// Day is the UTC calendar day this point covers, \"2006-01-02\".
 	Day *string `json:"day,omitempty"`
 	// Requests is the subject's request count on this day. 0 is a real, quiet day: the series is gap-filled, so every day in the range is present whether or not anything happened.
-	Requests *int32 `json:"requests,omitempty"`
+	Requests *int64 `json:"requests,omitempty"`
 	// Tokens is prompt+completion tokens on this day — normally the heatmap's intensity, scaled against ActivityTotals.MaxTokens.
-	Tokens *int32 `json:"tokens,omitempty"`
+	Tokens *int64 `json:"tokens,omitempty"`
 }
 
 // NewActivityPoint instantiates a new ActivityPoint object
@@ -47,9 +47,9 @@ func NewActivityPointWithDefaults() *ActivityPoint {
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *ActivityPoint) GetCostCents() int32 {
+func (o *ActivityPoint) GetCostCents() int64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostCents
@@ -57,7 +57,7 @@ func (o *ActivityPoint) GetCostCents() int32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ActivityPoint) GetCostCentsOk() (*int32, bool) {
+func (o *ActivityPoint) GetCostCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -73,8 +73,8 @@ func (o *ActivityPoint) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *ActivityPoint) SetCostCents(v int32) {
+// SetCostCents gets a reference to the given int64 and assigns it to the CostCents field.
+func (o *ActivityPoint) SetCostCents(v int64) {
 	o.CostCents = &v
 }
 
@@ -111,9 +111,9 @@ func (o *ActivityPoint) SetDay(v string) {
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *ActivityPoint) GetRequests() int32 {
+func (o *ActivityPoint) GetRequests() int64 {
 	if o == nil || IsNil(o.Requests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Requests
@@ -121,7 +121,7 @@ func (o *ActivityPoint) GetRequests() int32 {
 
 // GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ActivityPoint) GetRequestsOk() (*int32, bool) {
+func (o *ActivityPoint) GetRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Requests) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *ActivityPoint) HasRequests() bool {
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *ActivityPoint) SetRequests(v int32) {
+// SetRequests gets a reference to the given int64 and assigns it to the Requests field.
+func (o *ActivityPoint) SetRequests(v int64) {
 	o.Requests = &v
 }
 
 // GetTokens returns the Tokens field value if set, zero value otherwise.
-func (o *ActivityPoint) GetTokens() int32 {
+func (o *ActivityPoint) GetTokens() int64 {
 	if o == nil || IsNil(o.Tokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Tokens
@@ -153,7 +153,7 @@ func (o *ActivityPoint) GetTokens() int32 {
 
 // GetTokensOk returns a tuple with the Tokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ActivityPoint) GetTokensOk() (*int32, bool) {
+func (o *ActivityPoint) GetTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.Tokens) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *ActivityPoint) HasTokens() bool {
 	return false
 }
 
-// SetTokens gets a reference to the given int32 and assigns it to the Tokens field.
-func (o *ActivityPoint) SetTokens(v int32) {
+// SetTokens gets a reference to the given int64 and assigns it to the Tokens field.
+func (o *ActivityPoint) SetTokens(v int64) {
 	o.Tokens = &v
 }
 

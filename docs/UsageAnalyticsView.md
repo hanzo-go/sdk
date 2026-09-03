@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Plan** | Pointer to **string** | Plan echoes the plan id the entitlement was resolved from. | [optional] 
 **Providers** | Pointer to [**ProviderBreakdown**](ProviderBreakdown.md) | Providers is the per-provider roll-up over the window. | [optional] 
 **Range** | Pointer to **string** | Range is the label that was ASKED for. A plan whose retention is shorter than that window is served the retention instead, so read start and end for the window the rows actually cover and retentionDays for the reason — on a clamped read the label is longer than what was served. | [optional] 
-**RetentionDays** | Pointer to **int32** | RetentionDays is how far back the resolved plan allows reading. | [optional] 
+**RetentionDays** | Pointer to **int64** | RetentionDays is how far back the resolved plan allows reading. | [optional] 
 **Scope** | Pointer to [**UsageScope**](UsageScope.md) | Scope is the tenant the rows were read under — the validated principal&#39;s org. | [optional] 
 **Start** | Pointer to **string** | Start is the window&#39;s inclusive start, RFC3339 UTC, AFTER the retention clamp — so it may be later than the start that was asked for. | [optional] 
 
@@ -159,20 +159,20 @@ HasRange returns a boolean if a field has been set.
 
 ### GetRetentionDays
 
-`func (o *UsageAnalyticsView) GetRetentionDays() int32`
+`func (o *UsageAnalyticsView) GetRetentionDays() int64`
 
 GetRetentionDays returns the RetentionDays field if non-nil, zero value otherwise.
 
 ### GetRetentionDaysOk
 
-`func (o *UsageAnalyticsView) GetRetentionDaysOk() (*int32, bool)`
+`func (o *UsageAnalyticsView) GetRetentionDaysOk() (*int64, bool)`
 
 GetRetentionDaysOk returns a tuple with the RetentionDays field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRetentionDays
 
-`func (o *UsageAnalyticsView) SetRetentionDays(v int32)`
+`func (o *UsageAnalyticsView) SetRetentionDays(v int64)`
 
 SetRetentionDays sets RetentionDays field to given value.
 

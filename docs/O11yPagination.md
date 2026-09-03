@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Page** | Pointer to **int32** |  | [optional] 
-**Pages** | Pointer to **int32** |  | [optional] 
-**PerPage** | Pointer to **int32** |  | [optional] 
-**Total** | Pointer to **int32** |  | [optional] 
+**Page** | Pointer to **int64** |  | [optional] 
+**Pages** | Pointer to **int64** |  | [optional] 
+**PerPage** | Pointer to **int64** |  | [optional] 
+**Total** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetPage
 
-`func (o *O11yPagination) GetPage() int32`
+`func (o *O11yPagination) GetPage() int64`
 
 GetPage returns the Page field if non-nil, zero value otherwise.
 
 ### GetPageOk
 
-`func (o *O11yPagination) GetPageOk() (*int32, bool)`
+`func (o *O11yPagination) GetPageOk() (*int64, bool)`
 
 GetPageOk returns a tuple with the Page field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPage
 
-`func (o *O11yPagination) SetPage(v int32)`
+`func (o *O11yPagination) SetPage(v int64)`
 
 SetPage sets Page field to given value.
 
@@ -55,20 +55,20 @@ HasPage returns a boolean if a field has been set.
 
 ### GetPages
 
-`func (o *O11yPagination) GetPages() int32`
+`func (o *O11yPagination) GetPages() int64`
 
 GetPages returns the Pages field if non-nil, zero value otherwise.
 
 ### GetPagesOk
 
-`func (o *O11yPagination) GetPagesOk() (*int32, bool)`
+`func (o *O11yPagination) GetPagesOk() (*int64, bool)`
 
 GetPagesOk returns a tuple with the Pages field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPages
 
-`func (o *O11yPagination) SetPages(v int32)`
+`func (o *O11yPagination) SetPages(v int64)`
 
 SetPages sets Pages field to given value.
 
@@ -80,20 +80,20 @@ HasPages returns a boolean if a field has been set.
 
 ### GetPerPage
 
-`func (o *O11yPagination) GetPerPage() int32`
+`func (o *O11yPagination) GetPerPage() int64`
 
 GetPerPage returns the PerPage field if non-nil, zero value otherwise.
 
 ### GetPerPageOk
 
-`func (o *O11yPagination) GetPerPageOk() (*int32, bool)`
+`func (o *O11yPagination) GetPerPageOk() (*int64, bool)`
 
 GetPerPageOk returns a tuple with the PerPage field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPerPage
 
-`func (o *O11yPagination) SetPerPage(v int32)`
+`func (o *O11yPagination) SetPerPage(v int64)`
 
 SetPerPage sets PerPage field to given value.
 
@@ -105,20 +105,20 @@ HasPerPage returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *O11yPagination) GetTotal() int32`
+`func (o *O11yPagination) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *O11yPagination) GetTotalOk() (*int32, bool)`
+`func (o *O11yPagination) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *O11yPagination) SetTotal(v int32)`
+`func (o *O11yPagination) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

@@ -22,15 +22,15 @@ type RoundInput struct {
 	// Name is the round's name on the cap table, e.g. \"Seed\". Required.
 	Name *string `json:"name,omitempty"`
 	// PreMoneyValuation is the valuation the round prices off, before the new money.
-	PreMoneyValuation *float32 `json:"preMoneyValuation,omitempty"`
+	PreMoneyValuation *float64 `json:"preMoneyValuation,omitempty"`
 	// PricePerShare is the per-share price of a priced round.
-	PricePerShare *float32 `json:"pricePerShare,omitempty"`
+	PricePerShare *float64 `json:"pricePerShare,omitempty"`
 	// RoundType is PRICED, SAFE or CONVERTIBLE_NOTE. Defaults to PRICED.
 	RoundType *string `json:"roundType,omitempty"`
 	// ShareClassID is the cap table's share class the round issues into.
 	ShareClassId *string `json:"shareClassId,omitempty"`
 	// TargetAmount is the amount the round is raising, recorded verbatim on the canonical cap table's rounds.create contract.
-	TargetAmount *float32 `json:"targetAmount,omitempty"`
+	TargetAmount *float64 `json:"targetAmount,omitempty"`
 }
 
 // NewRoundInput instantiates a new RoundInput object
@@ -83,9 +83,9 @@ func (o *RoundInput) SetName(v string) {
 }
 
 // GetPreMoneyValuation returns the PreMoneyValuation field value if set, zero value otherwise.
-func (o *RoundInput) GetPreMoneyValuation() float32 {
+func (o *RoundInput) GetPreMoneyValuation() float64 {
 	if o == nil || IsNil(o.PreMoneyValuation) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.PreMoneyValuation
@@ -93,7 +93,7 @@ func (o *RoundInput) GetPreMoneyValuation() float32 {
 
 // GetPreMoneyValuationOk returns a tuple with the PreMoneyValuation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RoundInput) GetPreMoneyValuationOk() (*float32, bool) {
+func (o *RoundInput) GetPreMoneyValuationOk() (*float64, bool) {
 	if o == nil || IsNil(o.PreMoneyValuation) {
 		return nil, false
 	}
@@ -109,15 +109,15 @@ func (o *RoundInput) HasPreMoneyValuation() bool {
 	return false
 }
 
-// SetPreMoneyValuation gets a reference to the given float32 and assigns it to the PreMoneyValuation field.
-func (o *RoundInput) SetPreMoneyValuation(v float32) {
+// SetPreMoneyValuation gets a reference to the given float64 and assigns it to the PreMoneyValuation field.
+func (o *RoundInput) SetPreMoneyValuation(v float64) {
 	o.PreMoneyValuation = &v
 }
 
 // GetPricePerShare returns the PricePerShare field value if set, zero value otherwise.
-func (o *RoundInput) GetPricePerShare() float32 {
+func (o *RoundInput) GetPricePerShare() float64 {
 	if o == nil || IsNil(o.PricePerShare) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.PricePerShare
@@ -125,7 +125,7 @@ func (o *RoundInput) GetPricePerShare() float32 {
 
 // GetPricePerShareOk returns a tuple with the PricePerShare field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RoundInput) GetPricePerShareOk() (*float32, bool) {
+func (o *RoundInput) GetPricePerShareOk() (*float64, bool) {
 	if o == nil || IsNil(o.PricePerShare) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *RoundInput) HasPricePerShare() bool {
 	return false
 }
 
-// SetPricePerShare gets a reference to the given float32 and assigns it to the PricePerShare field.
-func (o *RoundInput) SetPricePerShare(v float32) {
+// SetPricePerShare gets a reference to the given float64 and assigns it to the PricePerShare field.
+func (o *RoundInput) SetPricePerShare(v float64) {
 	o.PricePerShare = &v
 }
 
@@ -211,9 +211,9 @@ func (o *RoundInput) SetShareClassId(v string) {
 }
 
 // GetTargetAmount returns the TargetAmount field value if set, zero value otherwise.
-func (o *RoundInput) GetTargetAmount() float32 {
+func (o *RoundInput) GetTargetAmount() float64 {
 	if o == nil || IsNil(o.TargetAmount) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.TargetAmount
@@ -221,7 +221,7 @@ func (o *RoundInput) GetTargetAmount() float32 {
 
 // GetTargetAmountOk returns a tuple with the TargetAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RoundInput) GetTargetAmountOk() (*float32, bool) {
+func (o *RoundInput) GetTargetAmountOk() (*float64, bool) {
 	if o == nil || IsNil(o.TargetAmount) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *RoundInput) HasTargetAmount() bool {
 	return false
 }
 
-// SetTargetAmount gets a reference to the given float32 and assigns it to the TargetAmount field.
-func (o *RoundInput) SetTargetAmount(v float32) {
+// SetTargetAmount gets a reference to the given float64 and assigns it to the TargetAmount field.
+func (o *RoundInput) SetTargetAmount(v float64) {
 	o.TargetAmount = &v
 }
 

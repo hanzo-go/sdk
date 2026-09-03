@@ -24,19 +24,19 @@ type RoutedUsage struct {
 	// Billing is how the routed inference bills: plan or commerce.
 	Billing *string `json:"billing,omitempty"`
 	// CompletionTokens is the routed completion-token count.
-	CompletionTokens *int32 `json:"completionTokens,omitempty"`
+	CompletionTokens *int64 `json:"completionTokens,omitempty"`
 	// CostCents is the routed cost in cents.
-	CostCents *int32 `json:"costCents,omitempty"`
+	CostCents *int64 `json:"costCents,omitempty"`
 	// Kind is how the account authenticates: subscription or apikey.
 	Kind *string `json:"kind,omitempty"`
 	// PromptTokens is the routed prompt-token count.
-	PromptTokens *int32 `json:"promptTokens,omitempty"`
+	PromptTokens *int64 `json:"promptTokens,omitempty"`
 	// Provider is the AI provider the row's account belongs to.
 	Provider *string `json:"provider,omitempty"`
 	// Requests is how many requests the gateway routed through this account.
-	Requests *int32 `json:"requests,omitempty"`
+	Requests *int64 `json:"requests,omitempty"`
 	// TotalTokens is the routed total token count.
-	TotalTokens *int32 `json:"totalTokens,omitempty"`
+	TotalTokens *int64 `json:"totalTokens,omitempty"`
 }
 
 // NewRoutedUsage instantiates a new RoutedUsage object
@@ -121,9 +121,9 @@ func (o *RoutedUsage) SetBilling(v string) {
 }
 
 // GetCompletionTokens returns the CompletionTokens field value if set, zero value otherwise.
-func (o *RoutedUsage) GetCompletionTokens() int32 {
+func (o *RoutedUsage) GetCompletionTokens() int64 {
 	if o == nil || IsNil(o.CompletionTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CompletionTokens
@@ -131,7 +131,7 @@ func (o *RoutedUsage) GetCompletionTokens() int32 {
 
 // GetCompletionTokensOk returns a tuple with the CompletionTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RoutedUsage) GetCompletionTokensOk() (*int32, bool) {
+func (o *RoutedUsage) GetCompletionTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.CompletionTokens) {
 		return nil, false
 	}
@@ -147,15 +147,15 @@ func (o *RoutedUsage) HasCompletionTokens() bool {
 	return false
 }
 
-// SetCompletionTokens gets a reference to the given int32 and assigns it to the CompletionTokens field.
-func (o *RoutedUsage) SetCompletionTokens(v int32) {
+// SetCompletionTokens gets a reference to the given int64 and assigns it to the CompletionTokens field.
+func (o *RoutedUsage) SetCompletionTokens(v int64) {
 	o.CompletionTokens = &v
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *RoutedUsage) GetCostCents() int32 {
+func (o *RoutedUsage) GetCostCents() int64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostCents
@@ -163,7 +163,7 @@ func (o *RoutedUsage) GetCostCents() int32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RoutedUsage) GetCostCentsOk() (*int32, bool) {
+func (o *RoutedUsage) GetCostCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -179,8 +179,8 @@ func (o *RoutedUsage) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *RoutedUsage) SetCostCents(v int32) {
+// SetCostCents gets a reference to the given int64 and assigns it to the CostCents field.
+func (o *RoutedUsage) SetCostCents(v int64) {
 	o.CostCents = &v
 }
 
@@ -217,9 +217,9 @@ func (o *RoutedUsage) SetKind(v string) {
 }
 
 // GetPromptTokens returns the PromptTokens field value if set, zero value otherwise.
-func (o *RoutedUsage) GetPromptTokens() int32 {
+func (o *RoutedUsage) GetPromptTokens() int64 {
 	if o == nil || IsNil(o.PromptTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PromptTokens
@@ -227,7 +227,7 @@ func (o *RoutedUsage) GetPromptTokens() int32 {
 
 // GetPromptTokensOk returns a tuple with the PromptTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RoutedUsage) GetPromptTokensOk() (*int32, bool) {
+func (o *RoutedUsage) GetPromptTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.PromptTokens) {
 		return nil, false
 	}
@@ -243,8 +243,8 @@ func (o *RoutedUsage) HasPromptTokens() bool {
 	return false
 }
 
-// SetPromptTokens gets a reference to the given int32 and assigns it to the PromptTokens field.
-func (o *RoutedUsage) SetPromptTokens(v int32) {
+// SetPromptTokens gets a reference to the given int64 and assigns it to the PromptTokens field.
+func (o *RoutedUsage) SetPromptTokens(v int64) {
 	o.PromptTokens = &v
 }
 
@@ -281,9 +281,9 @@ func (o *RoutedUsage) SetProvider(v string) {
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *RoutedUsage) GetRequests() int32 {
+func (o *RoutedUsage) GetRequests() int64 {
 	if o == nil || IsNil(o.Requests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Requests
@@ -291,7 +291,7 @@ func (o *RoutedUsage) GetRequests() int32 {
 
 // GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RoutedUsage) GetRequestsOk() (*int32, bool) {
+func (o *RoutedUsage) GetRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Requests) {
 		return nil, false
 	}
@@ -307,15 +307,15 @@ func (o *RoutedUsage) HasRequests() bool {
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *RoutedUsage) SetRequests(v int32) {
+// SetRequests gets a reference to the given int64 and assigns it to the Requests field.
+func (o *RoutedUsage) SetRequests(v int64) {
 	o.Requests = &v
 }
 
 // GetTotalTokens returns the TotalTokens field value if set, zero value otherwise.
-func (o *RoutedUsage) GetTotalTokens() int32 {
+func (o *RoutedUsage) GetTotalTokens() int64 {
 	if o == nil || IsNil(o.TotalTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalTokens
@@ -323,7 +323,7 @@ func (o *RoutedUsage) GetTotalTokens() int32 {
 
 // GetTotalTokensOk returns a tuple with the TotalTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RoutedUsage) GetTotalTokensOk() (*int32, bool) {
+func (o *RoutedUsage) GetTotalTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalTokens) {
 		return nil, false
 	}
@@ -339,8 +339,8 @@ func (o *RoutedUsage) HasTotalTokens() bool {
 	return false
 }
 
-// SetTotalTokens gets a reference to the given int32 and assigns it to the TotalTokens field.
-func (o *RoutedUsage) SetTotalTokens(v int32) {
+// SetTotalTokens gets a reference to the given int64 and assigns it to the TotalTokens field.
+func (o *RoutedUsage) SetTotalTokens(v int64) {
 	o.TotalTokens = &v
 }
 

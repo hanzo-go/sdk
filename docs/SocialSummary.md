@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Accounts** | Pointer to **int32** | Accounts is how many accounts the org has connected, in any status. | [optional] 
-**Posts** | Pointer to **int32** | Posts is how many posts the org has, in any state. | [optional] 
-**Published** | Pointer to **int32** | Published is how many of them have published. | [optional] 
-**Scheduled** | Pointer to **int32** | Scheduled is how many of them are waiting for their scheduled time. | [optional] 
+**Accounts** | Pointer to **int64** | Accounts is how many accounts the org has connected, in any status. | [optional] 
+**Posts** | Pointer to **int64** | Posts is how many posts the org has, in any state. | [optional] 
+**Published** | Pointer to **int64** | Published is how many of them have published. | [optional] 
+**Scheduled** | Pointer to **int64** | Scheduled is how many of them are waiting for their scheduled time. | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAccounts
 
-`func (o *SocialSummary) GetAccounts() int32`
+`func (o *SocialSummary) GetAccounts() int64`
 
 GetAccounts returns the Accounts field if non-nil, zero value otherwise.
 
 ### GetAccountsOk
 
-`func (o *SocialSummary) GetAccountsOk() (*int32, bool)`
+`func (o *SocialSummary) GetAccountsOk() (*int64, bool)`
 
 GetAccountsOk returns a tuple with the Accounts field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccounts
 
-`func (o *SocialSummary) SetAccounts(v int32)`
+`func (o *SocialSummary) SetAccounts(v int64)`
 
 SetAccounts sets Accounts field to given value.
 
@@ -55,20 +55,20 @@ HasAccounts returns a boolean if a field has been set.
 
 ### GetPosts
 
-`func (o *SocialSummary) GetPosts() int32`
+`func (o *SocialSummary) GetPosts() int64`
 
 GetPosts returns the Posts field if non-nil, zero value otherwise.
 
 ### GetPostsOk
 
-`func (o *SocialSummary) GetPostsOk() (*int32, bool)`
+`func (o *SocialSummary) GetPostsOk() (*int64, bool)`
 
 GetPostsOk returns a tuple with the Posts field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPosts
 
-`func (o *SocialSummary) SetPosts(v int32)`
+`func (o *SocialSummary) SetPosts(v int64)`
 
 SetPosts sets Posts field to given value.
 
@@ -80,20 +80,20 @@ HasPosts returns a boolean if a field has been set.
 
 ### GetPublished
 
-`func (o *SocialSummary) GetPublished() int32`
+`func (o *SocialSummary) GetPublished() int64`
 
 GetPublished returns the Published field if non-nil, zero value otherwise.
 
 ### GetPublishedOk
 
-`func (o *SocialSummary) GetPublishedOk() (*int32, bool)`
+`func (o *SocialSummary) GetPublishedOk() (*int64, bool)`
 
 GetPublishedOk returns a tuple with the Published field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPublished
 
-`func (o *SocialSummary) SetPublished(v int32)`
+`func (o *SocialSummary) SetPublished(v int64)`
 
 SetPublished sets Published field to given value.
 
@@ -105,20 +105,20 @@ HasPublished returns a boolean if a field has been set.
 
 ### GetScheduled
 
-`func (o *SocialSummary) GetScheduled() int32`
+`func (o *SocialSummary) GetScheduled() int64`
 
 GetScheduled returns the Scheduled field if non-nil, zero value otherwise.
 
 ### GetScheduledOk
 
-`func (o *SocialSummary) GetScheduledOk() (*int32, bool)`
+`func (o *SocialSummary) GetScheduledOk() (*int64, bool)`
 
 GetScheduledOk returns a tuple with the Scheduled field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScheduled
 
-`func (o *SocialSummary) SetScheduled(v int32)`
+`func (o *SocialSummary) SetScheduled(v int64)`
 
 SetScheduled sets Scheduled field to given value.
 

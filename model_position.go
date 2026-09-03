@@ -20,9 +20,9 @@ var _ MappedNullable = &Position{}
 // Position struct for Position
 type Position struct {
 	// Character is a 0-based UTF-16 code-unit offset within Line, per the LSP specification: not a byte offset and not a rune index. An emoji before the cursor counts as one here and as two in Go's arithmetic.
-	Character *int32 `json:"character,omitempty"`
+	Character *int64 `json:"character,omitempty"`
 	// Line is 0-BASED, per the LSP specification — one less than the line an editor shows a human.
-	Line *int32 `json:"line,omitempty"`
+	Line *int64 `json:"line,omitempty"`
 }
 
 // NewPosition instantiates a new Position object
@@ -43,9 +43,9 @@ func NewPositionWithDefaults() *Position {
 }
 
 // GetCharacter returns the Character field value if set, zero value otherwise.
-func (o *Position) GetCharacter() int32 {
+func (o *Position) GetCharacter() int64 {
 	if o == nil || IsNil(o.Character) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Character
@@ -53,7 +53,7 @@ func (o *Position) GetCharacter() int32 {
 
 // GetCharacterOk returns a tuple with the Character field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Position) GetCharacterOk() (*int32, bool) {
+func (o *Position) GetCharacterOk() (*int64, bool) {
 	if o == nil || IsNil(o.Character) {
 		return nil, false
 	}
@@ -69,15 +69,15 @@ func (o *Position) HasCharacter() bool {
 	return false
 }
 
-// SetCharacter gets a reference to the given int32 and assigns it to the Character field.
-func (o *Position) SetCharacter(v int32) {
+// SetCharacter gets a reference to the given int64 and assigns it to the Character field.
+func (o *Position) SetCharacter(v int64) {
 	o.Character = &v
 }
 
 // GetLine returns the Line field value if set, zero value otherwise.
-func (o *Position) GetLine() int32 {
+func (o *Position) GetLine() int64 {
 	if o == nil || IsNil(o.Line) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Line
@@ -85,7 +85,7 @@ func (o *Position) GetLine() int32 {
 
 // GetLineOk returns a tuple with the Line field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Position) GetLineOk() (*int32, bool) {
+func (o *Position) GetLineOk() (*int64, bool) {
 	if o == nil || IsNil(o.Line) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *Position) HasLine() bool {
 	return false
 }
 
-// SetLine gets a reference to the given int32 and assigns it to the Line field.
-func (o *Position) SetLine(v int32) {
+// SetLine gets a reference to the given int64 and assigns it to the Line field.
+func (o *Position) SetLine(v int64) {
 	o.Line = &v
 }
 

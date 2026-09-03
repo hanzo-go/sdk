@@ -19,7 +19,7 @@ var _ MappedNullable = &Flow{}
 
 // Flow struct for Flow
 type Flow struct {
-	Created    *int32      `json:"created,omitempty"`
+	Created    *int64      `json:"created,omitempty"`
 	ExternalId *string     `json:"externalId,omitempty"`
 	FolderId   *string     `json:"folderId,omitempty"`
 	Id         *string     `json:"id,omitempty"`
@@ -28,7 +28,7 @@ type Flow struct {
 	ProjectId          *string `json:"projectId,omitempty"`
 	PublishedVersionId *string `json:"publishedVersionId,omitempty"`
 	Status             *string `json:"status,omitempty"`
-	Updated            *int32  `json:"updated,omitempty"`
+	Updated            *int64  `json:"updated,omitempty"`
 }
 
 // NewFlow instantiates a new Flow object
@@ -49,9 +49,9 @@ func NewFlowWithDefaults() *Flow {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *Flow) GetCreated() int32 {
+func (o *Flow) GetCreated() int64 {
 	if o == nil || IsNil(o.Created) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Created
@@ -59,7 +59,7 @@ func (o *Flow) GetCreated() int32 {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Flow) GetCreatedOk() (*int32, bool) {
+func (o *Flow) GetCreatedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *Flow) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given int32 and assigns it to the Created field.
-func (o *Flow) SetCreated(v int32) {
+// SetCreated gets a reference to the given int64 and assigns it to the Created field.
+func (o *Flow) SetCreated(v int64) {
 	o.Created = &v
 }
 
@@ -306,9 +306,9 @@ func (o *Flow) SetStatus(v string) {
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *Flow) GetUpdated() int32 {
+func (o *Flow) GetUpdated() int64 {
 	if o == nil || IsNil(o.Updated) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Updated
@@ -316,7 +316,7 @@ func (o *Flow) GetUpdated() int32 {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Flow) GetUpdatedOk() (*int32, bool) {
+func (o *Flow) GetUpdatedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -332,8 +332,8 @@ func (o *Flow) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given int32 and assigns it to the Updated field.
-func (o *Flow) SetUpdated(v int32) {
+// SetUpdated gets a reference to the given int64 and assigns it to the Updated field.
+func (o *Flow) SetUpdated(v int64) {
 	o.Updated = &v
 }
 

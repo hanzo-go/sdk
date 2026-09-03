@@ -20,7 +20,7 @@ var _ MappedNullable = &BlueprintHealth{}
 // BlueprintHealth struct for BlueprintHealth
 type BlueprintHealth struct {
 	// Blueprints is how many blueprints this build has embedded and priced.
-	Blueprints *int32 `json:"blueprints,omitempty"`
+	Blueprints *int64 `json:"blueprints,omitempty"`
 	// RateCard is the rate card actually in force after the operator env overlay (CLOUD_BLUEPRINT_UCPU_HR / CLOUD_BLUEPRINT_UGB_HR), not the shipped default.
 	RateCard *RateCard `json:"rateCard,omitempty"`
 	// Service names the subsystem answering — always \"blueprint\".
@@ -47,9 +47,9 @@ func NewBlueprintHealthWithDefaults() *BlueprintHealth {
 }
 
 // GetBlueprints returns the Blueprints field value if set, zero value otherwise.
-func (o *BlueprintHealth) GetBlueprints() int32 {
+func (o *BlueprintHealth) GetBlueprints() int64 {
 	if o == nil || IsNil(o.Blueprints) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Blueprints
@@ -57,7 +57,7 @@ func (o *BlueprintHealth) GetBlueprints() int32 {
 
 // GetBlueprintsOk returns a tuple with the Blueprints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BlueprintHealth) GetBlueprintsOk() (*int32, bool) {
+func (o *BlueprintHealth) GetBlueprintsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Blueprints) {
 		return nil, false
 	}
@@ -73,8 +73,8 @@ func (o *BlueprintHealth) HasBlueprints() bool {
 	return false
 }
 
-// SetBlueprints gets a reference to the given int32 and assigns it to the Blueprints field.
-func (o *BlueprintHealth) SetBlueprints(v int32) {
+// SetBlueprints gets a reference to the given int64 and assigns it to the Blueprints field.
+func (o *BlueprintHealth) SetBlueprints(v int64) {
 	o.Blueprints = &v
 }
 

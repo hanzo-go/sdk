@@ -22,7 +22,7 @@ type ReferenceReceipt struct {
 	// AsOf is when the load happened, RFC 3339. Absent is dated on arrival, which can only make the list look older than it is.
 	AsOf *string `json:"asOf,omitempty"`
 	// Keys is how many designations that load carried. Zero from a publisher who designates somebody is a failed load wearing a successful one's clothes, and belongs in Refusal instead.
-	Keys *int32 `json:"keys,omitempty"`
+	Keys *int64 `json:"keys,omitempty"`
 	// Refusal is why the load failed, when it did.
 	Refusal *string `json:"refusal,omitempty"`
 	// Source is the publisher this receipt is for.
@@ -81,9 +81,9 @@ func (o *ReferenceReceipt) SetAsOf(v string) {
 }
 
 // GetKeys returns the Keys field value if set, zero value otherwise.
-func (o *ReferenceReceipt) GetKeys() int32 {
+func (o *ReferenceReceipt) GetKeys() int64 {
 	if o == nil || IsNil(o.Keys) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Keys
@@ -91,7 +91,7 @@ func (o *ReferenceReceipt) GetKeys() int32 {
 
 // GetKeysOk returns a tuple with the Keys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReferenceReceipt) GetKeysOk() (*int32, bool) {
+func (o *ReferenceReceipt) GetKeysOk() (*int64, bool) {
 	if o == nil || IsNil(o.Keys) {
 		return nil, false
 	}
@@ -107,8 +107,8 @@ func (o *ReferenceReceipt) HasKeys() bool {
 	return false
 }
 
-// SetKeys gets a reference to the given int32 and assigns it to the Keys field.
-func (o *ReferenceReceipt) SetKeys(v int32) {
+// SetKeys gets a reference to the given int64 and assigns it to the Keys field.
+func (o *ReferenceReceipt) SetKeys(v int64) {
 	o.Keys = &v
 }
 

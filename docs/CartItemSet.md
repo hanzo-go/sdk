@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | ID is the cart to amend, from the path. | [optional] 
 **Product** | Pointer to **string** | Product names the catalog product to set, by its id or its URL slug. Give this or Variant, never both; a request naming neither is refused. | [optional] 
-**Quantity** | Pointer to **int32** | Quantity is how many of that item the cart should hold AFTER this call — it is the resulting count, not a delta, so sending 3 twice leaves 3 and not 6. ZERO REMOVES the line, which is the only way to take an item out. | [optional] 
+**Quantity** | Pointer to **int64** | Quantity is how many of that item the cart should hold AFTER this call — it is the resulting count, not a delta, so sending 3 twice leaves 3 and not 6. ZERO REMOVES the line, which is the only way to take an item out. | [optional] 
 **Variant** | Pointer to **string** | Variant names the specific sellable variant to set, by its id or its SKU. Prefer it over Product for anything sold in sizes, colours or tiers — the price and the stock are the variant&#39;s, not the product&#39;s. | [optional] 
 
 ## Methods
@@ -80,20 +80,20 @@ HasProduct returns a boolean if a field has been set.
 
 ### GetQuantity
 
-`func (o *CartItemSet) GetQuantity() int32`
+`func (o *CartItemSet) GetQuantity() int64`
 
 GetQuantity returns the Quantity field if non-nil, zero value otherwise.
 
 ### GetQuantityOk
 
-`func (o *CartItemSet) GetQuantityOk() (*int32, bool)`
+`func (o *CartItemSet) GetQuantityOk() (*int64, bool)`
 
 GetQuantityOk returns a tuple with the Quantity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQuantity
 
-`func (o *CartItemSet) SetQuantity(v int32)`
+`func (o *CartItemSet) SetQuantity(v int64)`
 
 SetQuantity sets Quantity field to given value.
 

@@ -246,7 +246,7 @@ type GraphAPIGraphReadRequest struct {
 	relation   *string
 	value      *string
 	asOf       *string
-	limit      *int32
+	limit      *int64
 }
 
 // Entity narrows to what was asserted ABOUT one entity. Absent matches every entity.
@@ -274,7 +274,7 @@ func (r GraphAPIGraphReadRequest) AsOf(asOf string) GraphAPIGraphReadRequest {
 }
 
 // Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling.
-func (r GraphAPIGraphReadRequest) Limit(limit int32) GraphAPIGraphReadRequest {
+func (r GraphAPIGraphReadRequest) Limit(limit int64) GraphAPIGraphReadRequest {
 	r.limit = &limit
 	return r
 }
@@ -502,7 +502,7 @@ type GraphAPIGraphSearchRequest struct {
 	q          *string
 	relation   *string
 	asOf       *string
-	limit      *int32
+	limit      *int64
 }
 
 // Q is what to look for: words, matched as prefixes, all of them required. Punctuation is text here rather than syntax, so an entity key searches as itself.
@@ -524,7 +524,7 @@ func (r GraphAPIGraphSearchRequest) AsOf(asOf string) GraphAPIGraphSearchRequest
 }
 
 // Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling.
-func (r GraphAPIGraphSearchRequest) Limit(limit int32) GraphAPIGraphSearchRequest {
+func (r GraphAPIGraphSearchRequest) Limit(limit int64) GraphAPIGraphSearchRequest {
 	r.limit = &limit
 	return r
 }

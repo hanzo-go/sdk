@@ -22,9 +22,9 @@ type Leg struct {
 	// Account is the chart-of-accounts number this side posts to, e.g. \"5300\".
 	Account *string `json:"account,omitempty"`
 	// Credit is the leg's credit in exact cents. Set this or Debit, not both.
-	Credit *int32 `json:"credit,omitempty"`
+	Credit *int64 `json:"credit,omitempty"`
 	// Debit is the leg's debit in exact cents. Set this or Credit, not both.
-	Debit *int32 `json:"debit,omitempty"`
+	Debit *int64 `json:"debit,omitempty"`
 }
 
 // NewLeg instantiates a new Leg object
@@ -77,9 +77,9 @@ func (o *Leg) SetAccount(v string) {
 }
 
 // GetCredit returns the Credit field value if set, zero value otherwise.
-func (o *Leg) GetCredit() int32 {
+func (o *Leg) GetCredit() int64 {
 	if o == nil || IsNil(o.Credit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Credit
@@ -87,7 +87,7 @@ func (o *Leg) GetCredit() int32 {
 
 // GetCreditOk returns a tuple with the Credit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Leg) GetCreditOk() (*int32, bool) {
+func (o *Leg) GetCreditOk() (*int64, bool) {
 	if o == nil || IsNil(o.Credit) {
 		return nil, false
 	}
@@ -103,15 +103,15 @@ func (o *Leg) HasCredit() bool {
 	return false
 }
 
-// SetCredit gets a reference to the given int32 and assigns it to the Credit field.
-func (o *Leg) SetCredit(v int32) {
+// SetCredit gets a reference to the given int64 and assigns it to the Credit field.
+func (o *Leg) SetCredit(v int64) {
 	o.Credit = &v
 }
 
 // GetDebit returns the Debit field value if set, zero value otherwise.
-func (o *Leg) GetDebit() int32 {
+func (o *Leg) GetDebit() int64 {
 	if o == nil || IsNil(o.Debit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Debit
@@ -119,7 +119,7 @@ func (o *Leg) GetDebit() int32 {
 
 // GetDebitOk returns a tuple with the Debit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Leg) GetDebitOk() (*int32, bool) {
+func (o *Leg) GetDebitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Debit) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *Leg) HasDebit() bool {
 	return false
 }
 
-// SetDebit gets a reference to the given int32 and assigns it to the Debit field.
-func (o *Leg) SetDebit(v int32) {
+// SetDebit gets a reference to the given int64 and assigns it to the Debit field.
+func (o *Leg) SetDebit(v int64) {
 	o.Debit = &v
 }
 

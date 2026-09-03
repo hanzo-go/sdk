@@ -20,15 +20,15 @@ var _ MappedNullable = &IndexHits{}
 // IndexHits struct for IndexHits
 type IndexHits struct {
 	// EstimatedTotalHits is the dialect's name for the match count. Every hit is materialised here, so for this page it is exact rather than estimated.
-	EstimatedTotalHits *int32 `json:"estimatedTotalHits,omitempty"`
+	EstimatedTotalHits *int64 `json:"estimatedTotalHits,omitempty"`
 	// Hits are the matching documents, most relevant first, exactly as stored.
 	Hits []interface{} `json:"hits,omitempty"`
 	// Limit is how many hits this page could hold.
-	Limit *int32 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 	// Offset is where this page starts.
-	Offset *int32 `json:"offset,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
 	// ProcessingTimeMs is how long the query took, in milliseconds.
-	ProcessingTimeMs *int32 `json:"processingTimeMs,omitempty"`
+	ProcessingTimeMs *int64 `json:"processingTimeMs,omitempty"`
 	// Query echoes the search terms, which is what a client renders above the results.
 	Query *string `json:"query,omitempty"`
 }
@@ -51,9 +51,9 @@ func NewIndexHitsWithDefaults() *IndexHits {
 }
 
 // GetEstimatedTotalHits returns the EstimatedTotalHits field value if set, zero value otherwise.
-func (o *IndexHits) GetEstimatedTotalHits() int32 {
+func (o *IndexHits) GetEstimatedTotalHits() int64 {
 	if o == nil || IsNil(o.EstimatedTotalHits) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.EstimatedTotalHits
@@ -61,7 +61,7 @@ func (o *IndexHits) GetEstimatedTotalHits() int32 {
 
 // GetEstimatedTotalHitsOk returns a tuple with the EstimatedTotalHits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexHits) GetEstimatedTotalHitsOk() (*int32, bool) {
+func (o *IndexHits) GetEstimatedTotalHitsOk() (*int64, bool) {
 	if o == nil || IsNil(o.EstimatedTotalHits) {
 		return nil, false
 	}
@@ -77,8 +77,8 @@ func (o *IndexHits) HasEstimatedTotalHits() bool {
 	return false
 }
 
-// SetEstimatedTotalHits gets a reference to the given int32 and assigns it to the EstimatedTotalHits field.
-func (o *IndexHits) SetEstimatedTotalHits(v int32) {
+// SetEstimatedTotalHits gets a reference to the given int64 and assigns it to the EstimatedTotalHits field.
+func (o *IndexHits) SetEstimatedTotalHits(v int64) {
 	o.EstimatedTotalHits = &v
 }
 
@@ -115,9 +115,9 @@ func (o *IndexHits) SetHits(v []interface{}) {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *IndexHits) GetLimit() int32 {
+func (o *IndexHits) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -125,7 +125,7 @@ func (o *IndexHits) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexHits) GetLimitOk() (*int32, bool) {
+func (o *IndexHits) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -141,15 +141,15 @@ func (o *IndexHits) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *IndexHits) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *IndexHits) SetLimit(v int64) {
 	o.Limit = &v
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
-func (o *IndexHits) GetOffset() int32 {
+func (o *IndexHits) GetOffset() int64 {
 	if o == nil || IsNil(o.Offset) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Offset
@@ -157,7 +157,7 @@ func (o *IndexHits) GetOffset() int32 {
 
 // GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexHits) GetOffsetOk() (*int32, bool) {
+func (o *IndexHits) GetOffsetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Offset) {
 		return nil, false
 	}
@@ -173,15 +173,15 @@ func (o *IndexHits) HasOffset() bool {
 	return false
 }
 
-// SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *IndexHits) SetOffset(v int32) {
+// SetOffset gets a reference to the given int64 and assigns it to the Offset field.
+func (o *IndexHits) SetOffset(v int64) {
 	o.Offset = &v
 }
 
 // GetProcessingTimeMs returns the ProcessingTimeMs field value if set, zero value otherwise.
-func (o *IndexHits) GetProcessingTimeMs() int32 {
+func (o *IndexHits) GetProcessingTimeMs() int64 {
 	if o == nil || IsNil(o.ProcessingTimeMs) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ProcessingTimeMs
@@ -189,7 +189,7 @@ func (o *IndexHits) GetProcessingTimeMs() int32 {
 
 // GetProcessingTimeMsOk returns a tuple with the ProcessingTimeMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexHits) GetProcessingTimeMsOk() (*int32, bool) {
+func (o *IndexHits) GetProcessingTimeMsOk() (*int64, bool) {
 	if o == nil || IsNil(o.ProcessingTimeMs) {
 		return nil, false
 	}
@@ -205,8 +205,8 @@ func (o *IndexHits) HasProcessingTimeMs() bool {
 	return false
 }
 
-// SetProcessingTimeMs gets a reference to the given int32 and assigns it to the ProcessingTimeMs field.
-func (o *IndexHits) SetProcessingTimeMs(v int32) {
+// SetProcessingTimeMs gets a reference to the given int64 and assigns it to the ProcessingTimeMs field.
+func (o *IndexHits) SetProcessingTimeMs(v int64) {
 	o.ProcessingTimeMs = &v
 }
 

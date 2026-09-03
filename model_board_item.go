@@ -30,7 +30,7 @@ type BoardItem struct {
 	// Title is the item's headline, read from its type's own title field. Empty for a document that has none.
 	Title *string `json:"title,omitempty"`
 	// UpdatedAt is unix seconds of the document's last write, and the key the board sorts on, newest first.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewBoardItem instantiates a new BoardItem object
@@ -211,9 +211,9 @@ func (o *BoardItem) SetTitle(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *BoardItem) GetUpdatedAt() int32 {
+func (o *BoardItem) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -221,7 +221,7 @@ func (o *BoardItem) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BoardItem) GetUpdatedAtOk() (*int32, bool) {
+func (o *BoardItem) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *BoardItem) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *BoardItem) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *BoardItem) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

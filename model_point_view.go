@@ -22,7 +22,7 @@ type PointView struct {
 	// the bucket's start, RFC3339 (UTC)
 	T *string `json:"t,omitempty"`
 	// how many invocations fell in it — a real count, never interpolated
-	V *int32 `json:"v,omitempty"`
+	V *int64 `json:"v,omitempty"`
 }
 
 // NewPointView instantiates a new PointView object
@@ -75,9 +75,9 @@ func (o *PointView) SetT(v string) {
 }
 
 // GetV returns the V field value if set, zero value otherwise.
-func (o *PointView) GetV() int32 {
+func (o *PointView) GetV() int64 {
 	if o == nil || IsNil(o.V) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.V
@@ -85,7 +85,7 @@ func (o *PointView) GetV() int32 {
 
 // GetVOk returns a tuple with the V field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PointView) GetVOk() (*int32, bool) {
+func (o *PointView) GetVOk() (*int64, bool) {
 	if o == nil || IsNil(o.V) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *PointView) HasV() bool {
 	return false
 }
 
-// SetV gets a reference to the given int32 and assigns it to the V field.
-func (o *PointView) SetV(v int32) {
+// SetV gets a reference to the given int64 and assigns it to the V field.
+func (o *PointView) SetV(v int64) {
 	o.V = &v
 }
 

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **IsAffiliate** | Pointer to **bool** | IsAffiliate says whether the caller org has an affiliate record. On false only maxLinks comes back — there are no links, and there is no link to mint until the org applies and is approved. | [optional] 
 **Links** | Pointer to [**[]CodeView**](CodeView.md) | Links is the caller&#39;s share links, each with its URL and funnel. | [optional] 
-**MaxLinks** | Pointer to **int32** | MaxLinks is how many share links one affiliate may hold. | [optional] 
+**MaxLinks** | Pointer to **int64** | MaxLinks is how many share links one affiliate may hold. | [optional] 
 **Status** | Pointer to **string** | Status is the caller&#39;s affiliate status: \&quot;applied\&quot;, \&quot;approved\&quot; or \&quot;suspended\&quot;; absent for a non-affiliate. Minting a link requires \&quot;approved\&quot;, because a link that cannot accrue quietly loses the referral. | [optional] 
 
 ## Methods
@@ -80,20 +80,20 @@ HasLinks returns a boolean if a field has been set.
 
 ### GetMaxLinks
 
-`func (o *AffiliateLinks) GetMaxLinks() int32`
+`func (o *AffiliateLinks) GetMaxLinks() int64`
 
 GetMaxLinks returns the MaxLinks field if non-nil, zero value otherwise.
 
 ### GetMaxLinksOk
 
-`func (o *AffiliateLinks) GetMaxLinksOk() (*int32, bool)`
+`func (o *AffiliateLinks) GetMaxLinksOk() (*int64, bool)`
 
 GetMaxLinksOk returns a tuple with the MaxLinks field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxLinks
 
-`func (o *AffiliateLinks) SetMaxLinks(v int32)`
+`func (o *AffiliateLinks) SetMaxLinks(v int64)`
 
 SetMaxLinks sets MaxLinks field to given value.
 

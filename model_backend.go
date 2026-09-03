@@ -22,7 +22,7 @@ type Backend struct {
 	// URL is the upstream server, http(s)://host[:port].
 	Url *string `json:"url,omitempty"`
 	// Weight is this member's share of the round-robin; must be >= 0.
-	Weight *int32 `json:"weight,omitempty"`
+	Weight *int64 `json:"weight,omitempty"`
 }
 
 // NewBackend instantiates a new Backend object
@@ -75,9 +75,9 @@ func (o *Backend) SetUrl(v string) {
 }
 
 // GetWeight returns the Weight field value if set, zero value otherwise.
-func (o *Backend) GetWeight() int32 {
+func (o *Backend) GetWeight() int64 {
 	if o == nil || IsNil(o.Weight) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Weight
@@ -85,7 +85,7 @@ func (o *Backend) GetWeight() int32 {
 
 // GetWeightOk returns a tuple with the Weight field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Backend) GetWeightOk() (*int32, bool) {
+func (o *Backend) GetWeightOk() (*int64, bool) {
 	if o == nil || IsNil(o.Weight) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *Backend) HasWeight() bool {
 	return false
 }
 
-// SetWeight gets a reference to the given int32 and assigns it to the Weight field.
-func (o *Backend) SetWeight(v int32) {
+// SetWeight gets a reference to the given int64 and assigns it to the Weight field.
+func (o *Backend) SetWeight(v int64) {
 	o.Weight = &v
 }
 

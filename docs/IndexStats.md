@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DatabaseSize** | Pointer to **int32** | DatabaseSize is the org&#39;s total document count across its indexes. It is a count, not bytes: the store is shared by every tenant, so a byte figure would either be the whole file (another tenant&#39;s size) or a fiction. | [optional] 
+**DatabaseSize** | Pointer to **int64** | DatabaseSize is the org&#39;s total document count across its indexes. It is a count, not bytes: the store is shared by every tenant, so a byte figure would either be the whole file (another tenant&#39;s size) or a fiction. | [optional] 
 **Indexes** | Pointer to [**map[string]IndexCount**](IndexCount.md) | Indexes maps each index uid to its own count. | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetDatabaseSize
 
-`func (o *IndexStats) GetDatabaseSize() int32`
+`func (o *IndexStats) GetDatabaseSize() int64`
 
 GetDatabaseSize returns the DatabaseSize field if non-nil, zero value otherwise.
 
 ### GetDatabaseSizeOk
 
-`func (o *IndexStats) GetDatabaseSizeOk() (*int32, bool)`
+`func (o *IndexStats) GetDatabaseSizeOk() (*int64, bool)`
 
 GetDatabaseSizeOk returns a tuple with the DatabaseSize field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDatabaseSize
 
-`func (o *IndexStats) SetDatabaseSize(v int32)`
+`func (o *IndexStats) SetDatabaseSize(v int64)`
 
 SetDatabaseSize sets DatabaseSize field to given value.
 

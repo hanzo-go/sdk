@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Capital** | Pointer to **float32** | Capital is the cash the investor put in. | [optional] 
-**DiscountRate** | Pointer to **float32** | DiscountRate is the discount to the next round&#39;s price, if any. | [optional] 
+**Capital** | Pointer to **float64** | Capital is the cash the investor put in. | [optional] 
+**DiscountRate** | Pointer to **float64** | DiscountRate is the discount to the next round&#39;s price, if any. | [optional] 
 **Id** | Pointer to **string** | ID is the SAFE id. | [optional] 
 **IssueDate** | Pointer to **string** | IssueDate is the ISO date the SAFE was signed. | [optional] 
 **Mfn** | Pointer to **bool** | MFN is true when the SAFE carries a most-favoured-nation clause. | [optional] 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **StakeholderName** | Pointer to **string** | StakeholderName is that investor&#39;s name. | [optional] 
 **Status** | Pointer to **string** | Status is the SAFE&#39;s state, e.g. DRAFT or ACTIVE. | [optional] 
 **Type** | Pointer to **string** | Type is POST_MONEY or PRE_MONEY. | [optional] 
-**ValuationCap** | Pointer to **float32** | ValuationCap is the valuation cap, if any. | [optional] 
+**ValuationCap** | Pointer to **float64** | ValuationCap is the valuation cap, if any. | [optional] 
 
 ## Methods
 
@@ -38,20 +38,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCapital
 
-`func (o *CaptableSafe) GetCapital() float32`
+`func (o *CaptableSafe) GetCapital() float64`
 
 GetCapital returns the Capital field if non-nil, zero value otherwise.
 
 ### GetCapitalOk
 
-`func (o *CaptableSafe) GetCapitalOk() (*float32, bool)`
+`func (o *CaptableSafe) GetCapitalOk() (*float64, bool)`
 
 GetCapitalOk returns a tuple with the Capital field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCapital
 
-`func (o *CaptableSafe) SetCapital(v float32)`
+`func (o *CaptableSafe) SetCapital(v float64)`
 
 SetCapital sets Capital field to given value.
 
@@ -63,20 +63,20 @@ HasCapital returns a boolean if a field has been set.
 
 ### GetDiscountRate
 
-`func (o *CaptableSafe) GetDiscountRate() float32`
+`func (o *CaptableSafe) GetDiscountRate() float64`
 
 GetDiscountRate returns the DiscountRate field if non-nil, zero value otherwise.
 
 ### GetDiscountRateOk
 
-`func (o *CaptableSafe) GetDiscountRateOk() (*float32, bool)`
+`func (o *CaptableSafe) GetDiscountRateOk() (*float64, bool)`
 
 GetDiscountRateOk returns a tuple with the DiscountRate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDiscountRate
 
-`func (o *CaptableSafe) SetDiscountRate(v float32)`
+`func (o *CaptableSafe) SetDiscountRate(v float64)`
 
 SetDiscountRate sets DiscountRate field to given value.
 
@@ -313,20 +313,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetValuationCap
 
-`func (o *CaptableSafe) GetValuationCap() float32`
+`func (o *CaptableSafe) GetValuationCap() float64`
 
 GetValuationCap returns the ValuationCap field if non-nil, zero value otherwise.
 
 ### GetValuationCapOk
 
-`func (o *CaptableSafe) GetValuationCapOk() (*float32, bool)`
+`func (o *CaptableSafe) GetValuationCapOk() (*float64, bool)`
 
 GetValuationCapOk returns a tuple with the ValuationCap field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValuationCap
 
-`func (o *CaptableSafe) SetValuationCap(v float32)`
+`func (o *CaptableSafe) SetValuationCap(v float64)`
 
 SetValuationCap sets ValuationCap field to given value.
 

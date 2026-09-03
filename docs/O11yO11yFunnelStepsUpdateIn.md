@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **FunnelId** | Pointer to **string** | FunnelID is the funnel to update. | [optional] 
 **FunnelName** | Pointer to **string** | Name replaces the funnel&#39;s name. Empty leaves it as it was. | [optional] 
 **Steps** | Pointer to [**[]O11yFunnelStep**](O11yFunnelStep.md) | Steps are the funnel&#39;s steps, in order. At least two are needed before any analytics read will answer. | [optional] 
-**Timestamp** | Pointer to **int32** | Timestamp is when the change was made, as a millisecond epoch. | [optional] 
+**Timestamp** | Pointer to **int64** | Timestamp is when the change was made, as a millisecond epoch. | [optional] 
 
 ## Methods
 
@@ -131,20 +131,20 @@ HasSteps returns a boolean if a field has been set.
 
 ### GetTimestamp
 
-`func (o *O11yO11yFunnelStepsUpdateIn) GetTimestamp() int32`
+`func (o *O11yO11yFunnelStepsUpdateIn) GetTimestamp() int64`
 
 GetTimestamp returns the Timestamp field if non-nil, zero value otherwise.
 
 ### GetTimestampOk
 
-`func (o *O11yO11yFunnelStepsUpdateIn) GetTimestampOk() (*int32, bool)`
+`func (o *O11yO11yFunnelStepsUpdateIn) GetTimestampOk() (*int64, bool)`
 
 GetTimestampOk returns a tuple with the Timestamp field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimestamp
 
-`func (o *O11yO11yFunnelStepsUpdateIn) SetTimestamp(v int32)`
+`func (o *O11yO11yFunnelStepsUpdateIn) SetTimestamp(v int64)`
 
 SetTimestamp sets Timestamp field to given value.
 

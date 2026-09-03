@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Address** | Pointer to **string** | Address is the recipient, normalized (lower-cased, trimmed) so an opt-out cannot be slipped past on a case or whitespace difference. Required. | [optional] 
 **Channel** | Pointer to **string** | Channel is the surface opted out of: email, sms, social, meta, google or tiktok. Empty means email. Opting out of one leaves the others reachable. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is unix seconds, server-assigned. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is unix seconds, server-assigned. | [optional] 
 **Reason** | Pointer to **string** | Reason is a free-text note, capped at 1024 bytes. The public one-click endpoint records \&quot;one-click unsubscribe\&quot;. | [optional] 
 
 ## Methods
@@ -80,20 +80,20 @@ HasChannel returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *Suppression) GetCreatedAt() int32`
+`func (o *Suppression) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *Suppression) GetCreatedAtOk() (*int32, bool)`
+`func (o *Suppression) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *Suppression) SetCreatedAt(v int32)`
+`func (o *Suppression) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 

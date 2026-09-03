@@ -50,7 +50,7 @@ type O11yO11yLogPipelineOperator struct {
 	// OnError says what to do when the processor fails, e.g. send, drop.
 	OnError *string `json:"on_error,omitempty"`
 	// OrderID is the processor's 1-based position in the pipeline.
-	OrderId *int32 `json:"orderId,omitempty"`
+	OrderId *int64 `json:"orderId,omitempty"`
 	// Output is the id of the processor that runs next.
 	Output *string `json:"output,omitempty"`
 	// OverwriteSeverityText rewrites the severity text alongside the number when true.
@@ -579,9 +579,9 @@ func (o *O11yO11yLogPipelineOperator) SetOnError(v string) {
 }
 
 // GetOrderId returns the OrderId field value if set, zero value otherwise.
-func (o *O11yO11yLogPipelineOperator) GetOrderId() int32 {
+func (o *O11yO11yLogPipelineOperator) GetOrderId() int64 {
 	if o == nil || IsNil(o.OrderId) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.OrderId
@@ -589,7 +589,7 @@ func (o *O11yO11yLogPipelineOperator) GetOrderId() int32 {
 
 // GetOrderIdOk returns a tuple with the OrderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLogPipelineOperator) GetOrderIdOk() (*int32, bool) {
+func (o *O11yO11yLogPipelineOperator) GetOrderIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.OrderId) {
 		return nil, false
 	}
@@ -605,8 +605,8 @@ func (o *O11yO11yLogPipelineOperator) HasOrderId() bool {
 	return false
 }
 
-// SetOrderId gets a reference to the given int32 and assigns it to the OrderId field.
-func (o *O11yO11yLogPipelineOperator) SetOrderId(v int32) {
+// SetOrderId gets a reference to the given int64 and assigns it to the OrderId field.
+func (o *O11yO11yLogPipelineOperator) SetOrderId(v int64) {
 	o.OrderId = &v
 }
 

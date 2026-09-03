@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **DisplayName** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 
-**Price** | Pointer to **float32** |  | [optional] 
-**Quantity** | Pointer to **int32** |  | [optional] 
+**Price** | Pointer to **float64** |  | [optional] 
+**Quantity** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -106,20 +106,20 @@ HasOwner returns a boolean if a field has been set.
 
 ### GetPrice
 
-`func (o *IamCartItem) GetPrice() float32`
+`func (o *IamCartItem) GetPrice() float64`
 
 GetPrice returns the Price field if non-nil, zero value otherwise.
 
 ### GetPriceOk
 
-`func (o *IamCartItem) GetPriceOk() (*float32, bool)`
+`func (o *IamCartItem) GetPriceOk() (*float64, bool)`
 
 GetPriceOk returns a tuple with the Price field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrice
 
-`func (o *IamCartItem) SetPrice(v float32)`
+`func (o *IamCartItem) SetPrice(v float64)`
 
 SetPrice sets Price field to given value.
 
@@ -131,20 +131,20 @@ HasPrice returns a boolean if a field has been set.
 
 ### GetQuantity
 
-`func (o *IamCartItem) GetQuantity() int32`
+`func (o *IamCartItem) GetQuantity() int64`
 
 GetQuantity returns the Quantity field if non-nil, zero value otherwise.
 
 ### GetQuantityOk
 
-`func (o *IamCartItem) GetQuantityOk() (*int32, bool)`
+`func (o *IamCartItem) GetQuantityOk() (*int64, bool)`
 
 GetQuantityOk returns a tuple with the Quantity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQuantity
 
-`func (o *IamCartItem) SetQuantity(v int32)`
+`func (o *IamCartItem) SetQuantity(v int64)`
 
 SetQuantity sets Quantity field to given value.
 

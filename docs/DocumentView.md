@@ -7,15 +7,15 @@ Name | Type | Description | Notes
 **Body** | Pointer to **string** | Body is the rendered document. It is sealed at rest and returned only to the owning org. When the template is counsel-review it opens with the counsel notice, which the engine prepends and no caller can suppress. | [optional] 
 **Category** | Pointer to **string** |  | [optional] 
 **ContentType** | Pointer to **string** | ContentType is the rendered body&#39;s media type — text/markdown. | [optional] 
-**CreatedAt** | Pointer to **int32** |  | [optional] 
+**CreatedAt** | Pointer to **int64** |  | [optional] 
 **EsignProvider** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
-**SignedAt** | Pointer to **int32** |  | [optional] 
+**SignedAt** | Pointer to **int64** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 **TemplateId** | Pointer to **string** |  | [optional] 
-**TemplateVersion** | Pointer to **int32** |  | [optional] 
+**TemplateVersion** | Pointer to **int64** |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
-**UpdatedAt** | Pointer to **int32** |  | [optional] 
+**UpdatedAt** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -113,20 +113,20 @@ HasContentType returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *DocumentView) GetCreatedAt() int32`
+`func (o *DocumentView) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *DocumentView) GetCreatedAtOk() (*int32, bool)`
+`func (o *DocumentView) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *DocumentView) SetCreatedAt(v int32)`
+`func (o *DocumentView) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -188,20 +188,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetSignedAt
 
-`func (o *DocumentView) GetSignedAt() int32`
+`func (o *DocumentView) GetSignedAt() int64`
 
 GetSignedAt returns the SignedAt field if non-nil, zero value otherwise.
 
 ### GetSignedAtOk
 
-`func (o *DocumentView) GetSignedAtOk() (*int32, bool)`
+`func (o *DocumentView) GetSignedAtOk() (*int64, bool)`
 
 GetSignedAtOk returns a tuple with the SignedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSignedAt
 
-`func (o *DocumentView) SetSignedAt(v int32)`
+`func (o *DocumentView) SetSignedAt(v int64)`
 
 SetSignedAt sets SignedAt field to given value.
 
@@ -263,20 +263,20 @@ HasTemplateId returns a boolean if a field has been set.
 
 ### GetTemplateVersion
 
-`func (o *DocumentView) GetTemplateVersion() int32`
+`func (o *DocumentView) GetTemplateVersion() int64`
 
 GetTemplateVersion returns the TemplateVersion field if non-nil, zero value otherwise.
 
 ### GetTemplateVersionOk
 
-`func (o *DocumentView) GetTemplateVersionOk() (*int32, bool)`
+`func (o *DocumentView) GetTemplateVersionOk() (*int64, bool)`
 
 GetTemplateVersionOk returns a tuple with the TemplateVersion field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTemplateVersion
 
-`func (o *DocumentView) SetTemplateVersion(v int32)`
+`func (o *DocumentView) SetTemplateVersion(v int64)`
 
 SetTemplateVersion sets TemplateVersion field to given value.
 
@@ -313,20 +313,20 @@ HasTitle returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *DocumentView) GetUpdatedAt() int32`
+`func (o *DocumentView) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *DocumentView) GetUpdatedAtOk() (*int32, bool)`
+`func (o *DocumentView) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *DocumentView) SetUpdatedAt(v int32)`
+`func (o *DocumentView) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

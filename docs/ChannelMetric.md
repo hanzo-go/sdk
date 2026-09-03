@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **ExternalId** | Pointer to **string** | ExternalID is the provider-side id of the execution the spend belongs to. Absent until the channel has launched. | [optional] 
 **Kind** | Pointer to **string** | Kind is which channel this row is: paid, organic or email. It is also the row&#39;s identity — a campaign carries at most one channel per kind. | [optional] 
 **Platform** | Pointer to **string** | Platform is the provider the spend was read from: meta, google, x, instagram, or the email provider. | [optional] 
-**SpendCents** | Pointer to **int32** | SpendCents is what the provider itself reports this channel spent, in CENTS. 0 when the channel never launched, when no executor is wired for it, or when the read failed — SpendError tells the last case apart from a genuine zero. | [optional] 
+**SpendCents** | Pointer to **int64** | SpendCents is what the provider itself reports this channel spent, in CENTS. 0 when the channel never launched, when no executor is wired for it, or when the read failed — SpendError tells the last case apart from a genuine zero. | [optional] 
 **SpendError** | Pointer to **string** | SpendError is why this channel&#39;s spend could not be read (connector not connected, provider error), as one secret-free line. Present only on failure; the campaign total then simply omits this channel rather than failing. | [optional] 
 **Status** | Pointer to **string** | Status is the channel&#39;s launch state on the campaign — pending, live, paused, failed or unavailable. Only a live channel is asked for its spend at all. | [optional] 
 
@@ -107,20 +107,20 @@ HasPlatform returns a boolean if a field has been set.
 
 ### GetSpendCents
 
-`func (o *ChannelMetric) GetSpendCents() int32`
+`func (o *ChannelMetric) GetSpendCents() int64`
 
 GetSpendCents returns the SpendCents field if non-nil, zero value otherwise.
 
 ### GetSpendCentsOk
 
-`func (o *ChannelMetric) GetSpendCentsOk() (*int32, bool)`
+`func (o *ChannelMetric) GetSpendCentsOk() (*int64, bool)`
 
 GetSpendCentsOk returns a tuple with the SpendCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSpendCents
 
-`func (o *ChannelMetric) SetSpendCents(v int32)`
+`func (o *ChannelMetric) SetSpendCents(v int64)`
 
 SetSpendCents sets SpendCents field to given value.
 

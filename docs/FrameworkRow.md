@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Framework** | Pointer to **string** | Framework is the framework id. | [optional] 
 **Name** | Pointer to **string** | Name is the published standard&#39;s name. | [optional] 
 **Publisher** | Pointer to **string** | Publisher is who publishes it. | [optional] 
-**Total** | Pointer to **int32** | Total is how many clauses the standard publishes. | [optional] 
+**Total** | Pointer to **int64** | Total is how many clauses the standard publishes. | [optional] 
 **Unit** | Pointer to **string** | Unit is what one clause is; Units is its plural. | [optional] 
 **Units** | Pointer to **string** | Units is Unit&#39;s plural, carried so a caller renders \&quot;12 controls\&quot; without having to pluralise a word it does not know. | [optional] 
 
@@ -133,20 +133,20 @@ HasPublisher returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *FrameworkRow) GetTotal() int32`
+`func (o *FrameworkRow) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *FrameworkRow) GetTotalOk() (*int32, bool)`
+`func (o *FrameworkRow) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *FrameworkRow) SetTotal(v int32)`
+`func (o *FrameworkRow) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**SinceSec** | Pointer to **int32** |  | [optional] 
-**StepSec** | Pointer to **int32** |  | [optional] 
+**SinceSec** | Pointer to **int64** |  | [optional] 
+**StepSec** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetSinceSec
 
-`func (o *O11yMetricsResponseRange) GetSinceSec() int32`
+`func (o *O11yMetricsResponseRange) GetSinceSec() int64`
 
 GetSinceSec returns the SinceSec field if non-nil, zero value otherwise.
 
 ### GetSinceSecOk
 
-`func (o *O11yMetricsResponseRange) GetSinceSecOk() (*int32, bool)`
+`func (o *O11yMetricsResponseRange) GetSinceSecOk() (*int64, bool)`
 
 GetSinceSecOk returns a tuple with the SinceSec field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSinceSec
 
-`func (o *O11yMetricsResponseRange) SetSinceSec(v int32)`
+`func (o *O11yMetricsResponseRange) SetSinceSec(v int64)`
 
 SetSinceSec sets SinceSec field to given value.
 
@@ -53,20 +53,20 @@ HasSinceSec returns a boolean if a field has been set.
 
 ### GetStepSec
 
-`func (o *O11yMetricsResponseRange) GetStepSec() int32`
+`func (o *O11yMetricsResponseRange) GetStepSec() int64`
 
 GetStepSec returns the StepSec field if non-nil, zero value otherwise.
 
 ### GetStepSecOk
 
-`func (o *O11yMetricsResponseRange) GetStepSecOk() (*int32, bool)`
+`func (o *O11yMetricsResponseRange) GetStepSecOk() (*int64, bool)`
 
 GetStepSecOk returns a tuple with the StepSec field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStepSec
 
-`func (o *O11yMetricsResponseRange) SetStepSec(v int32)`
+`func (o *O11yMetricsResponseRange) SetStepSec(v int64)`
 
 SetStepSec sets StepSec field to given value.
 

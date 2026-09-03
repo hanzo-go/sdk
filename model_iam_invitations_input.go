@@ -29,11 +29,11 @@ type IamInvitationsInput struct {
 	Name        *string `json:"name,omitempty"`
 	Owner       *string `json:"owner,omitempty"`
 	Phone       *string `json:"phone,omitempty"`
-	Quota       *int32  `json:"quota,omitempty"`
+	Quota       *int64  `json:"quota,omitempty"`
 	SignupGroup *string `json:"signupGroup,omitempty"`
 	State       *string `json:"state,omitempty"`
 	UpdatedTime *string `json:"updatedTime,omitempty"`
-	UsedCount   *int32  `json:"usedCount,omitempty"`
+	UsedCount   *int64  `json:"usedCount,omitempty"`
 	Username    *string `json:"username,omitempty"`
 }
 
@@ -375,9 +375,9 @@ func (o *IamInvitationsInput) SetPhone(v string) {
 }
 
 // GetQuota returns the Quota field value if set, zero value otherwise.
-func (o *IamInvitationsInput) GetQuota() int32 {
+func (o *IamInvitationsInput) GetQuota() int64 {
 	if o == nil || IsNil(o.Quota) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Quota
@@ -385,7 +385,7 @@ func (o *IamInvitationsInput) GetQuota() int32 {
 
 // GetQuotaOk returns a tuple with the Quota field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamInvitationsInput) GetQuotaOk() (*int32, bool) {
+func (o *IamInvitationsInput) GetQuotaOk() (*int64, bool) {
 	if o == nil || IsNil(o.Quota) {
 		return nil, false
 	}
@@ -401,8 +401,8 @@ func (o *IamInvitationsInput) HasQuota() bool {
 	return false
 }
 
-// SetQuota gets a reference to the given int32 and assigns it to the Quota field.
-func (o *IamInvitationsInput) SetQuota(v int32) {
+// SetQuota gets a reference to the given int64 and assigns it to the Quota field.
+func (o *IamInvitationsInput) SetQuota(v int64) {
 	o.Quota = &v
 }
 
@@ -503,9 +503,9 @@ func (o *IamInvitationsInput) SetUpdatedTime(v string) {
 }
 
 // GetUsedCount returns the UsedCount field value if set, zero value otherwise.
-func (o *IamInvitationsInput) GetUsedCount() int32 {
+func (o *IamInvitationsInput) GetUsedCount() int64 {
 	if o == nil || IsNil(o.UsedCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UsedCount
@@ -513,7 +513,7 @@ func (o *IamInvitationsInput) GetUsedCount() int32 {
 
 // GetUsedCountOk returns a tuple with the UsedCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamInvitationsInput) GetUsedCountOk() (*int32, bool) {
+func (o *IamInvitationsInput) GetUsedCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.UsedCount) {
 		return nil, false
 	}
@@ -529,8 +529,8 @@ func (o *IamInvitationsInput) HasUsedCount() bool {
 	return false
 }
 
-// SetUsedCount gets a reference to the given int32 and assigns it to the UsedCount field.
-func (o *IamInvitationsInput) SetUsedCount(v int32) {
+// SetUsedCount gets a reference to the given int64 and assigns it to the UsedCount field.
+func (o *IamInvitationsInput) SetUsedCount(v int64) {
 	o.UsedCount = &v
 }
 

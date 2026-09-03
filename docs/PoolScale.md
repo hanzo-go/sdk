@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ClusterId** | Pointer to **string** | ClusterID is the cluster holding the pool, from the URL path. | [optional] 
-**Count** | Pointer to **int32** | Count is the node count to scale TO — an absolute target, not a delta, and never negative. | [optional] 
+**Count** | Pointer to **int64** | Count is the node count to scale TO — an absolute target, not a delta, and never negative. | [optional] 
 **PoolId** | Pointer to **string** | PoolID is the pool to resize, from the URL path — the &#x60;poolId&#x60; a cluster read reports for it. Required. | [optional] 
 **Provider** | Pointer to **string** | Provider is the cloud the cluster lives on. Required; body or ?provider&#x3D;. | [optional] 
 
@@ -55,20 +55,20 @@ HasClusterId returns a boolean if a field has been set.
 
 ### GetCount
 
-`func (o *PoolScale) GetCount() int32`
+`func (o *PoolScale) GetCount() int64`
 
 GetCount returns the Count field if non-nil, zero value otherwise.
 
 ### GetCountOk
 
-`func (o *PoolScale) GetCountOk() (*int32, bool)`
+`func (o *PoolScale) GetCountOk() (*int64, bool)`
 
 GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCount
 
-`func (o *PoolScale) SetCount(v int32)`
+`func (o *PoolScale) SetCount(v int64)`
 
 SetCount sets Count field to given value.
 

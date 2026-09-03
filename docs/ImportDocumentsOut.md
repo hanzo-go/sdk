@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Formation** | Pointer to [**Formation**](Formation.md) | Formation is the org&#39;s incorporation record with the imported document ids. | [optional] 
-**Ingested** | Pointer to **int32** | Ingested is how many files this call put in the data room. | [optional] 
+**Ingested** | Pointer to **int64** | Ingested is how many files this call put in the data room. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasFormation returns a boolean if a field has been set.
 
 ### GetIngested
 
-`func (o *ImportDocumentsOut) GetIngested() int32`
+`func (o *ImportDocumentsOut) GetIngested() int64`
 
 GetIngested returns the Ingested field if non-nil, zero value otherwise.
 
 ### GetIngestedOk
 
-`func (o *ImportDocumentsOut) GetIngestedOk() (*int32, bool)`
+`func (o *ImportDocumentsOut) GetIngestedOk() (*int64, bool)`
 
 GetIngestedOk returns a tuple with the Ingested field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIngested
 
-`func (o *ImportDocumentsOut) SetIngested(v int32)`
+`func (o *ImportDocumentsOut) SetIngested(v int64)`
 
 SetIngested sets Ingested field to given value.
 

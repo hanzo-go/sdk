@@ -26,7 +26,7 @@ type FileJSON struct {
 	// Path is the file's repo-relative path.
 	Path *string `json:"path,omitempty"`
 	// Size is the file's byte length in the repo.
-	Size *int32 `json:"size,omitempty"`
+	Size *int64 `json:"size,omitempty"`
 	// Truncated marks a file past the read cap; no content is sent. A caller assembling a desired set must treat this as INCOMPLETE, never as empty.
 	Truncated *bool `json:"truncated,omitempty"`
 }
@@ -145,9 +145,9 @@ func (o *FileJSON) SetPath(v string) {
 }
 
 // GetSize returns the Size field value if set, zero value otherwise.
-func (o *FileJSON) GetSize() int32 {
+func (o *FileJSON) GetSize() int64 {
 	if o == nil || IsNil(o.Size) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Size
@@ -155,7 +155,7 @@ func (o *FileJSON) GetSize() int32 {
 
 // GetSizeOk returns a tuple with the Size field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FileJSON) GetSizeOk() (*int32, bool) {
+func (o *FileJSON) GetSizeOk() (*int64, bool) {
 	if o == nil || IsNil(o.Size) {
 		return nil, false
 	}
@@ -171,8 +171,8 @@ func (o *FileJSON) HasSize() bool {
 	return false
 }
 
-// SetSize gets a reference to the given int32 and assigns it to the Size field.
-func (o *FileJSON) SetSize(v int32) {
+// SetSize gets a reference to the given int64 and assigns it to the Size field.
+func (o *FileJSON) SetSize(v int64) {
 	o.Size = &v
 }
 

@@ -5,21 +5,21 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Account** | Pointer to **string** | Account is the linked provider account the window belongs to. | [optional] 
-**CachedInputTokens** | Pointer to **int32** | CachedInputTokens is the prompt tokens served from the provider&#39;s cache; omitted when unknown. | [optional] 
+**CachedInputTokens** | Pointer to **int64** | CachedInputTokens is the prompt tokens served from the provider&#39;s cache; omitted when unknown. | [optional] 
 **Confidence** | Pointer to **string** | Confidence says how much the counters beside it mean — a meter that reported only a percentage leaves them at zero, and this is how a reader tells that from a true zero. | [optional] 
-**CostCents** | Pointer to **int32** | CostCents is what the window cost on the PROVIDER&#39;s own plan, in US cents. It is not a Hanzo charge. | [optional] 
-**CostLimitCents** | Pointer to **int32** | CostLimitCents is the plan&#39;s spend ceiling for the window, in US cents. | [optional] 
+**CostCents** | Pointer to **int64** | CostCents is what the window cost on the PROVIDER&#39;s own plan, in US cents. It is not a Hanzo charge. | [optional] 
+**CostLimitCents** | Pointer to **int64** | CostLimitCents is the plan&#39;s spend ceiling for the window, in US cents. | [optional] 
 **Currency** | Pointer to **string** | Currency is the provider&#39;s currency when it is not US cents. | [optional] 
-**InputTokens** | Pointer to **int32** | InputTokens is prompt tokens consumed in the window; omitted when unknown. | [optional] 
+**InputTokens** | Pointer to **int64** | InputTokens is prompt tokens consumed in the window; omitted when unknown. | [optional] 
 **Lane** | Pointer to **string** | Lane is the meter lane this instance belongs to, e.g. a provider&#39;s own rolling-window meter. | [optional] 
 **Machine** | Pointer to **string** | Machine is the host whose meter reported the window. | [optional] 
-**OutputTokens** | Pointer to **int32** | OutputTokens is completion tokens produced in the window; omitted when unknown. | [optional] 
+**OutputTokens** | Pointer to **int64** | OutputTokens is completion tokens produced in the window; omitted when unknown. | [optional] 
 **Plan** | Pointer to **string** | Plan is the subscription plan the account is on, as the provider names it. | [optional] 
-**Requests** | Pointer to **int32** | Requests is how many requests were made in the window; omitted when the meter did not report it. | [optional] 
+**Requests** | Pointer to **int64** | Requests is how many requests were made in the window; omitted when the meter did not report it. | [optional] 
 **ResetsAt** | Pointer to **string** | ResetsAt is when this window rolls over, RFC3339 UTC; omitted when unknown. | [optional] 
 **Synthetic** | Pointer to **bool** | Synthetic marks an instance the meter inferred rather than read. | [optional] 
-**TotalTokens** | Pointer to **int32** | TotalTokens is the window&#39;s total tokens; omitted when unknown. | [optional] 
-**UsedPct** | Pointer to **float32** | UsedPct is how much of the window&#39;s allowance is consumed, 0–100. | [optional] 
+**TotalTokens** | Pointer to **int64** | TotalTokens is the window&#39;s total tokens; omitted when unknown. | [optional] 
+**UsedPct** | Pointer to **float64** | UsedPct is how much of the window&#39;s allowance is consumed, 0–100. | [optional] 
 **Window** | Pointer to **string** | Window is the window class: 6h, day, week or month. | [optional] 
 **WindowMinutes** | Pointer to **int32** | WindowMinutes is the window&#39;s real length in minutes when the meter reported one; omitted when it did not. | [optional] 
 **WindowStart** | Pointer to **string** | WindowStart is when this window opened, RFC3339 UTC; omitted when unknown. | [optional] 
@@ -70,20 +70,20 @@ HasAccount returns a boolean if a field has been set.
 
 ### GetCachedInputTokens
 
-`func (o *UsageWindowView) GetCachedInputTokens() int32`
+`func (o *UsageWindowView) GetCachedInputTokens() int64`
 
 GetCachedInputTokens returns the CachedInputTokens field if non-nil, zero value otherwise.
 
 ### GetCachedInputTokensOk
 
-`func (o *UsageWindowView) GetCachedInputTokensOk() (*int32, bool)`
+`func (o *UsageWindowView) GetCachedInputTokensOk() (*int64, bool)`
 
 GetCachedInputTokensOk returns a tuple with the CachedInputTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCachedInputTokens
 
-`func (o *UsageWindowView) SetCachedInputTokens(v int32)`
+`func (o *UsageWindowView) SetCachedInputTokens(v int64)`
 
 SetCachedInputTokens sets CachedInputTokens field to given value.
 
@@ -120,20 +120,20 @@ HasConfidence returns a boolean if a field has been set.
 
 ### GetCostCents
 
-`func (o *UsageWindowView) GetCostCents() int32`
+`func (o *UsageWindowView) GetCostCents() int64`
 
 GetCostCents returns the CostCents field if non-nil, zero value otherwise.
 
 ### GetCostCentsOk
 
-`func (o *UsageWindowView) GetCostCentsOk() (*int32, bool)`
+`func (o *UsageWindowView) GetCostCentsOk() (*int64, bool)`
 
 GetCostCentsOk returns a tuple with the CostCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCostCents
 
-`func (o *UsageWindowView) SetCostCents(v int32)`
+`func (o *UsageWindowView) SetCostCents(v int64)`
 
 SetCostCents sets CostCents field to given value.
 
@@ -145,20 +145,20 @@ HasCostCents returns a boolean if a field has been set.
 
 ### GetCostLimitCents
 
-`func (o *UsageWindowView) GetCostLimitCents() int32`
+`func (o *UsageWindowView) GetCostLimitCents() int64`
 
 GetCostLimitCents returns the CostLimitCents field if non-nil, zero value otherwise.
 
 ### GetCostLimitCentsOk
 
-`func (o *UsageWindowView) GetCostLimitCentsOk() (*int32, bool)`
+`func (o *UsageWindowView) GetCostLimitCentsOk() (*int64, bool)`
 
 GetCostLimitCentsOk returns a tuple with the CostLimitCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCostLimitCents
 
-`func (o *UsageWindowView) SetCostLimitCents(v int32)`
+`func (o *UsageWindowView) SetCostLimitCents(v int64)`
 
 SetCostLimitCents sets CostLimitCents field to given value.
 
@@ -195,20 +195,20 @@ HasCurrency returns a boolean if a field has been set.
 
 ### GetInputTokens
 
-`func (o *UsageWindowView) GetInputTokens() int32`
+`func (o *UsageWindowView) GetInputTokens() int64`
 
 GetInputTokens returns the InputTokens field if non-nil, zero value otherwise.
 
 ### GetInputTokensOk
 
-`func (o *UsageWindowView) GetInputTokensOk() (*int32, bool)`
+`func (o *UsageWindowView) GetInputTokensOk() (*int64, bool)`
 
 GetInputTokensOk returns a tuple with the InputTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInputTokens
 
-`func (o *UsageWindowView) SetInputTokens(v int32)`
+`func (o *UsageWindowView) SetInputTokens(v int64)`
 
 SetInputTokens sets InputTokens field to given value.
 
@@ -270,20 +270,20 @@ HasMachine returns a boolean if a field has been set.
 
 ### GetOutputTokens
 
-`func (o *UsageWindowView) GetOutputTokens() int32`
+`func (o *UsageWindowView) GetOutputTokens() int64`
 
 GetOutputTokens returns the OutputTokens field if non-nil, zero value otherwise.
 
 ### GetOutputTokensOk
 
-`func (o *UsageWindowView) GetOutputTokensOk() (*int32, bool)`
+`func (o *UsageWindowView) GetOutputTokensOk() (*int64, bool)`
 
 GetOutputTokensOk returns a tuple with the OutputTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOutputTokens
 
-`func (o *UsageWindowView) SetOutputTokens(v int32)`
+`func (o *UsageWindowView) SetOutputTokens(v int64)`
 
 SetOutputTokens sets OutputTokens field to given value.
 
@@ -320,20 +320,20 @@ HasPlan returns a boolean if a field has been set.
 
 ### GetRequests
 
-`func (o *UsageWindowView) GetRequests() int32`
+`func (o *UsageWindowView) GetRequests() int64`
 
 GetRequests returns the Requests field if non-nil, zero value otherwise.
 
 ### GetRequestsOk
 
-`func (o *UsageWindowView) GetRequestsOk() (*int32, bool)`
+`func (o *UsageWindowView) GetRequestsOk() (*int64, bool)`
 
 GetRequestsOk returns a tuple with the Requests field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRequests
 
-`func (o *UsageWindowView) SetRequests(v int32)`
+`func (o *UsageWindowView) SetRequests(v int64)`
 
 SetRequests sets Requests field to given value.
 
@@ -395,20 +395,20 @@ HasSynthetic returns a boolean if a field has been set.
 
 ### GetTotalTokens
 
-`func (o *UsageWindowView) GetTotalTokens() int32`
+`func (o *UsageWindowView) GetTotalTokens() int64`
 
 GetTotalTokens returns the TotalTokens field if non-nil, zero value otherwise.
 
 ### GetTotalTokensOk
 
-`func (o *UsageWindowView) GetTotalTokensOk() (*int32, bool)`
+`func (o *UsageWindowView) GetTotalTokensOk() (*int64, bool)`
 
 GetTotalTokensOk returns a tuple with the TotalTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalTokens
 
-`func (o *UsageWindowView) SetTotalTokens(v int32)`
+`func (o *UsageWindowView) SetTotalTokens(v int64)`
 
 SetTotalTokens sets TotalTokens field to given value.
 
@@ -420,20 +420,20 @@ HasTotalTokens returns a boolean if a field has been set.
 
 ### GetUsedPct
 
-`func (o *UsageWindowView) GetUsedPct() float32`
+`func (o *UsageWindowView) GetUsedPct() float64`
 
 GetUsedPct returns the UsedPct field if non-nil, zero value otherwise.
 
 ### GetUsedPctOk
 
-`func (o *UsageWindowView) GetUsedPctOk() (*float32, bool)`
+`func (o *UsageWindowView) GetUsedPctOk() (*float64, bool)`
 
 GetUsedPctOk returns a tuple with the UsedPct field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUsedPct
 
-`func (o *UsageWindowView) SetUsedPct(v float32)`
+`func (o *UsageWindowView) SetUsedPct(v float64)`
 
 SetUsedPct sets UsedPct field to given value.
 

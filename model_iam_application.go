@@ -29,8 +29,8 @@ type IamApplication struct {
 	// ClientId is the OAuth2/OIDC client identifier and the GLOBAL key every confidential-client resolver authenticates against (store.GetApplicationByClientId, the mint gates, Basic auth). It MUST be globally unique across ALL owners — a collision would let one app shadow another at that key. This store persists each entity as a JSON document in a shared table, so there is no per-field column to carry a DB UNIQUE index; uniqueness is enforced at the write in applications.Create/Update (ensureClientIdUnique), exactly as the (owner,name) natural key is, and store.GetApplicationByClientId resolves admin-preferring as defense-in-depth.
 	ClientId                     *string               `json:"clientId,omitempty"`
 	ClientSecret                 *string               `json:"clientSecret,omitempty"`
-	CodeResendTimeout            *int32                `json:"codeResendTimeout,omitempty"`
-	CookieExpireInHours          *int32                `json:"cookieExpireInHours,omitempty"`
+	CodeResendTimeout            *int64                `json:"codeResendTimeout,omitempty"`
+	CookieExpireInHours          *int64                `json:"cookieExpireInHours,omitempty"`
 	CreatedAt                    *time.Time            `json:"createdAt,omitempty"`
 	CreatedTime                  *string               `json:"createdTime,omitempty"`
 	CustomScopes                 []IamScopeDescription `json:"customScopes,omitempty"`
@@ -54,9 +54,9 @@ type IamApplication struct {
 	EnableSigninSession          *bool                 `json:"enableSigninSession,omitempty"`
 	EnableWebAuthn               *bool                 `json:"enableWebAuthn,omitempty"`
 	Environment                  *string               `json:"environment,omitempty"`
-	ExpireInHours                *float32              `json:"expireInHours,omitempty"`
-	FailedSigninFrozenTime       *int32                `json:"failedSigninFrozenTime,omitempty"`
-	FailedSigninLimit            *int32                `json:"failedSigninLimit,omitempty"`
+	ExpireInHours                *float64              `json:"expireInHours,omitempty"`
+	FailedSigninFrozenTime       *int64                `json:"failedSigninFrozenTime,omitempty"`
+	FailedSigninLimit            *int64                `json:"failedSigninLimit,omitempty"`
 	Favicon                      *string               `json:"favicon,omitempty"`
 	FooterHtml                   *string               `json:"footerHtml,omitempty"`
 	ForcedRedirectOrigin         *string               `json:"forcedRedirectOrigin,omitempty"`
@@ -65,7 +65,7 @@ type IamApplication struct {
 	FormBackgroundUrlMobile      *string               `json:"formBackgroundUrlMobile,omitempty"`
 	FormCss                      *string               `json:"formCss,omitempty"`
 	FormCssMobile                *string               `json:"formCssMobile,omitempty"`
-	FormOffset                   *int32                `json:"formOffset,omitempty"`
+	FormOffset                   *int64                `json:"formOffset,omitempty"`
 	FormSideHtml                 *string               `json:"formSideHtml,omitempty"`
 	GrantTypes                   []string              `json:"grantTypes,omitempty"`
 	HeaderHtml                   *string               `json:"headerHtml,omitempty"`
@@ -76,7 +76,7 @@ type IamApplication struct {
 	IsShared                     *bool                 `json:"isShared,omitempty"`
 	Logo                         *string               `json:"logo,omitempty"`
 	Name                         *string               `json:"name,omitempty"`
-	Order                        *int32                `json:"order,omitempty"`
+	Order                        *int64                `json:"order,omitempty"`
 	OrgChoiceMode                *string               `json:"orgChoiceMode,omitempty"`
 	Organization                 *string               `json:"organization,omitempty"`
 	OrganizationObj              *IamOrganization      `json:"organizationObj,omitempty"`
@@ -85,7 +85,7 @@ type IamApplication struct {
 	Project                      *string               `json:"project,omitempty"`
 	Providers                    []IamProviderItem     `json:"providers,omitempty"`
 	RedirectUris                 []string              `json:"redirectUris,omitempty"`
-	RefreshExpireInHours         *float32              `json:"refreshExpireInHours,omitempty"`
+	RefreshExpireInHours         *float64              `json:"refreshExpireInHours,omitempty"`
 	SamlAttributes               []IamSamlItem         `json:"samlAttributes,omitempty"`
 	SamlHashAlgorithm            *string               `json:"samlHashAlgorithm,omitempty"`
 	SamlReplyUrl                 *string               `json:"samlReplyUrl,omitempty"`
@@ -387,9 +387,9 @@ func (o *IamApplication) SetClientSecret(v string) {
 }
 
 // GetCodeResendTimeout returns the CodeResendTimeout field value if set, zero value otherwise.
-func (o *IamApplication) GetCodeResendTimeout() int32 {
+func (o *IamApplication) GetCodeResendTimeout() int64 {
 	if o == nil || IsNil(o.CodeResendTimeout) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CodeResendTimeout
@@ -397,7 +397,7 @@ func (o *IamApplication) GetCodeResendTimeout() int32 {
 
 // GetCodeResendTimeoutOk returns a tuple with the CodeResendTimeout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamApplication) GetCodeResendTimeoutOk() (*int32, bool) {
+func (o *IamApplication) GetCodeResendTimeoutOk() (*int64, bool) {
 	if o == nil || IsNil(o.CodeResendTimeout) {
 		return nil, false
 	}
@@ -413,15 +413,15 @@ func (o *IamApplication) HasCodeResendTimeout() bool {
 	return false
 }
 
-// SetCodeResendTimeout gets a reference to the given int32 and assigns it to the CodeResendTimeout field.
-func (o *IamApplication) SetCodeResendTimeout(v int32) {
+// SetCodeResendTimeout gets a reference to the given int64 and assigns it to the CodeResendTimeout field.
+func (o *IamApplication) SetCodeResendTimeout(v int64) {
 	o.CodeResendTimeout = &v
 }
 
 // GetCookieExpireInHours returns the CookieExpireInHours field value if set, zero value otherwise.
-func (o *IamApplication) GetCookieExpireInHours() int32 {
+func (o *IamApplication) GetCookieExpireInHours() int64 {
 	if o == nil || IsNil(o.CookieExpireInHours) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CookieExpireInHours
@@ -429,7 +429,7 @@ func (o *IamApplication) GetCookieExpireInHours() int32 {
 
 // GetCookieExpireInHoursOk returns a tuple with the CookieExpireInHours field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamApplication) GetCookieExpireInHoursOk() (*int32, bool) {
+func (o *IamApplication) GetCookieExpireInHoursOk() (*int64, bool) {
 	if o == nil || IsNil(o.CookieExpireInHours) {
 		return nil, false
 	}
@@ -445,8 +445,8 @@ func (o *IamApplication) HasCookieExpireInHours() bool {
 	return false
 }
 
-// SetCookieExpireInHours gets a reference to the given int32 and assigns it to the CookieExpireInHours field.
-func (o *IamApplication) SetCookieExpireInHours(v int32) {
+// SetCookieExpireInHours gets a reference to the given int64 and assigns it to the CookieExpireInHours field.
+func (o *IamApplication) SetCookieExpireInHours(v int64) {
 	o.CookieExpireInHours = &v
 }
 
@@ -1187,9 +1187,9 @@ func (o *IamApplication) SetEnvironment(v string) {
 }
 
 // GetExpireInHours returns the ExpireInHours field value if set, zero value otherwise.
-func (o *IamApplication) GetExpireInHours() float32 {
+func (o *IamApplication) GetExpireInHours() float64 {
 	if o == nil || IsNil(o.ExpireInHours) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.ExpireInHours
@@ -1197,7 +1197,7 @@ func (o *IamApplication) GetExpireInHours() float32 {
 
 // GetExpireInHoursOk returns a tuple with the ExpireInHours field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamApplication) GetExpireInHoursOk() (*float32, bool) {
+func (o *IamApplication) GetExpireInHoursOk() (*float64, bool) {
 	if o == nil || IsNil(o.ExpireInHours) {
 		return nil, false
 	}
@@ -1213,15 +1213,15 @@ func (o *IamApplication) HasExpireInHours() bool {
 	return false
 }
 
-// SetExpireInHours gets a reference to the given float32 and assigns it to the ExpireInHours field.
-func (o *IamApplication) SetExpireInHours(v float32) {
+// SetExpireInHours gets a reference to the given float64 and assigns it to the ExpireInHours field.
+func (o *IamApplication) SetExpireInHours(v float64) {
 	o.ExpireInHours = &v
 }
 
 // GetFailedSigninFrozenTime returns the FailedSigninFrozenTime field value if set, zero value otherwise.
-func (o *IamApplication) GetFailedSigninFrozenTime() int32 {
+func (o *IamApplication) GetFailedSigninFrozenTime() int64 {
 	if o == nil || IsNil(o.FailedSigninFrozenTime) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.FailedSigninFrozenTime
@@ -1229,7 +1229,7 @@ func (o *IamApplication) GetFailedSigninFrozenTime() int32 {
 
 // GetFailedSigninFrozenTimeOk returns a tuple with the FailedSigninFrozenTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamApplication) GetFailedSigninFrozenTimeOk() (*int32, bool) {
+func (o *IamApplication) GetFailedSigninFrozenTimeOk() (*int64, bool) {
 	if o == nil || IsNil(o.FailedSigninFrozenTime) {
 		return nil, false
 	}
@@ -1245,15 +1245,15 @@ func (o *IamApplication) HasFailedSigninFrozenTime() bool {
 	return false
 }
 
-// SetFailedSigninFrozenTime gets a reference to the given int32 and assigns it to the FailedSigninFrozenTime field.
-func (o *IamApplication) SetFailedSigninFrozenTime(v int32) {
+// SetFailedSigninFrozenTime gets a reference to the given int64 and assigns it to the FailedSigninFrozenTime field.
+func (o *IamApplication) SetFailedSigninFrozenTime(v int64) {
 	o.FailedSigninFrozenTime = &v
 }
 
 // GetFailedSigninLimit returns the FailedSigninLimit field value if set, zero value otherwise.
-func (o *IamApplication) GetFailedSigninLimit() int32 {
+func (o *IamApplication) GetFailedSigninLimit() int64 {
 	if o == nil || IsNil(o.FailedSigninLimit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.FailedSigninLimit
@@ -1261,7 +1261,7 @@ func (o *IamApplication) GetFailedSigninLimit() int32 {
 
 // GetFailedSigninLimitOk returns a tuple with the FailedSigninLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamApplication) GetFailedSigninLimitOk() (*int32, bool) {
+func (o *IamApplication) GetFailedSigninLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.FailedSigninLimit) {
 		return nil, false
 	}
@@ -1277,8 +1277,8 @@ func (o *IamApplication) HasFailedSigninLimit() bool {
 	return false
 }
 
-// SetFailedSigninLimit gets a reference to the given int32 and assigns it to the FailedSigninLimit field.
-func (o *IamApplication) SetFailedSigninLimit(v int32) {
+// SetFailedSigninLimit gets a reference to the given int64 and assigns it to the FailedSigninLimit field.
+func (o *IamApplication) SetFailedSigninLimit(v int64) {
 	o.FailedSigninLimit = &v
 }
 
@@ -1539,9 +1539,9 @@ func (o *IamApplication) SetFormCssMobile(v string) {
 }
 
 // GetFormOffset returns the FormOffset field value if set, zero value otherwise.
-func (o *IamApplication) GetFormOffset() int32 {
+func (o *IamApplication) GetFormOffset() int64 {
 	if o == nil || IsNil(o.FormOffset) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.FormOffset
@@ -1549,7 +1549,7 @@ func (o *IamApplication) GetFormOffset() int32 {
 
 // GetFormOffsetOk returns a tuple with the FormOffset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamApplication) GetFormOffsetOk() (*int32, bool) {
+func (o *IamApplication) GetFormOffsetOk() (*int64, bool) {
 	if o == nil || IsNil(o.FormOffset) {
 		return nil, false
 	}
@@ -1565,8 +1565,8 @@ func (o *IamApplication) HasFormOffset() bool {
 	return false
 }
 
-// SetFormOffset gets a reference to the given int32 and assigns it to the FormOffset field.
-func (o *IamApplication) SetFormOffset(v int32) {
+// SetFormOffset gets a reference to the given int64 and assigns it to the FormOffset field.
+func (o *IamApplication) SetFormOffset(v int64) {
 	o.FormOffset = &v
 }
 
@@ -1891,9 +1891,9 @@ func (o *IamApplication) SetName(v string) {
 }
 
 // GetOrder returns the Order field value if set, zero value otherwise.
-func (o *IamApplication) GetOrder() int32 {
+func (o *IamApplication) GetOrder() int64 {
 	if o == nil || IsNil(o.Order) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Order
@@ -1901,7 +1901,7 @@ func (o *IamApplication) GetOrder() int32 {
 
 // GetOrderOk returns a tuple with the Order field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamApplication) GetOrderOk() (*int32, bool) {
+func (o *IamApplication) GetOrderOk() (*int64, bool) {
 	if o == nil || IsNil(o.Order) {
 		return nil, false
 	}
@@ -1917,8 +1917,8 @@ func (o *IamApplication) HasOrder() bool {
 	return false
 }
 
-// SetOrder gets a reference to the given int32 and assigns it to the Order field.
-func (o *IamApplication) SetOrder(v int32) {
+// SetOrder gets a reference to the given int64 and assigns it to the Order field.
+func (o *IamApplication) SetOrder(v int64) {
 	o.Order = &v
 }
 
@@ -2179,9 +2179,9 @@ func (o *IamApplication) SetRedirectUris(v []string) {
 }
 
 // GetRefreshExpireInHours returns the RefreshExpireInHours field value if set, zero value otherwise.
-func (o *IamApplication) GetRefreshExpireInHours() float32 {
+func (o *IamApplication) GetRefreshExpireInHours() float64 {
 	if o == nil || IsNil(o.RefreshExpireInHours) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.RefreshExpireInHours
@@ -2189,7 +2189,7 @@ func (o *IamApplication) GetRefreshExpireInHours() float32 {
 
 // GetRefreshExpireInHoursOk returns a tuple with the RefreshExpireInHours field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamApplication) GetRefreshExpireInHoursOk() (*float32, bool) {
+func (o *IamApplication) GetRefreshExpireInHoursOk() (*float64, bool) {
 	if o == nil || IsNil(o.RefreshExpireInHours) {
 		return nil, false
 	}
@@ -2205,8 +2205,8 @@ func (o *IamApplication) HasRefreshExpireInHours() bool {
 	return false
 }
 
-// SetRefreshExpireInHours gets a reference to the given float32 and assigns it to the RefreshExpireInHours field.
-func (o *IamApplication) SetRefreshExpireInHours(v float32) {
+// SetRefreshExpireInHours gets a reference to the given float64 and assigns it to the RefreshExpireInHours field.
+func (o *IamApplication) SetRefreshExpireInHours(v float64) {
 	o.RefreshExpireInHours = &v
 }
 

@@ -22,19 +22,19 @@ type TrialBalanceRow struct {
 	// Account is the chart-of-accounts NUMBER this line reports on (\"1000\", \"4000\") — the stable posting key, not a display label.
 	Account *string `json:"account,omitempty"`
 	// ClosingCredit is that closing balance in cents when it is a credit balance.
-	ClosingCredit *int32 `json:"closingCredit,omitempty"`
+	ClosingCredit *int64 `json:"closingCredit,omitempty"`
 	// ClosingDebit is the balance at the end of the window, in cents, when it is a debit balance. This is the column the report's totals are summed from.
-	ClosingDebit *int32 `json:"closingDebit,omitempty"`
+	ClosingDebit *int64 `json:"closingDebit,omitempty"`
 	// Credit is the same window movement in cents when it was net credit.
-	Credit *int32 `json:"credit,omitempty"`
+	Credit *int64 `json:"credit,omitempty"`
 	// Debit is the account's MOVEMENT within the window — closing minus opening, not the closing balance — in cents, when that movement was net debit. Zero when the account moved net credit.
-	Debit *int32 `json:"debit,omitempty"`
+	Debit *int64 `json:"debit,omitempty"`
 	// Name is that account's human name from the fixed chart.
 	Name *string `json:"name,omitempty"`
 	// OpeningCredit is the same opening balance in cents when it fell on the credit side. Zero when the balance was a debit one.
-	OpeningCredit *int32 `json:"openingCredit,omitempty"`
+	OpeningCredit *int64 `json:"openingCredit,omitempty"`
 	// OpeningDebit is the account's balance before the window began, in whole cents, when that balance was on the debit side. Zero when the balance was a credit one — the pair is exclusive, never two halves of one number.
-	OpeningDebit *int32 `json:"openingDebit,omitempty"`
+	OpeningDebit *int64 `json:"openingDebit,omitempty"`
 	// Type is the account's fundamental class — asset, liability, income, expense or equity — which is also its normal balance side. It is carried for presentation and does NOT decide which column an amount lands in: placement follows the sign of the real net, so a contra balance shows up as one.
 	Type *string `json:"type,omitempty"`
 }
@@ -89,9 +89,9 @@ func (o *TrialBalanceRow) SetAccount(v string) {
 }
 
 // GetClosingCredit returns the ClosingCredit field value if set, zero value otherwise.
-func (o *TrialBalanceRow) GetClosingCredit() int32 {
+func (o *TrialBalanceRow) GetClosingCredit() int64 {
 	if o == nil || IsNil(o.ClosingCredit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ClosingCredit
@@ -99,7 +99,7 @@ func (o *TrialBalanceRow) GetClosingCredit() int32 {
 
 // GetClosingCreditOk returns a tuple with the ClosingCredit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrialBalanceRow) GetClosingCreditOk() (*int32, bool) {
+func (o *TrialBalanceRow) GetClosingCreditOk() (*int64, bool) {
 	if o == nil || IsNil(o.ClosingCredit) {
 		return nil, false
 	}
@@ -115,15 +115,15 @@ func (o *TrialBalanceRow) HasClosingCredit() bool {
 	return false
 }
 
-// SetClosingCredit gets a reference to the given int32 and assigns it to the ClosingCredit field.
-func (o *TrialBalanceRow) SetClosingCredit(v int32) {
+// SetClosingCredit gets a reference to the given int64 and assigns it to the ClosingCredit field.
+func (o *TrialBalanceRow) SetClosingCredit(v int64) {
 	o.ClosingCredit = &v
 }
 
 // GetClosingDebit returns the ClosingDebit field value if set, zero value otherwise.
-func (o *TrialBalanceRow) GetClosingDebit() int32 {
+func (o *TrialBalanceRow) GetClosingDebit() int64 {
 	if o == nil || IsNil(o.ClosingDebit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ClosingDebit
@@ -131,7 +131,7 @@ func (o *TrialBalanceRow) GetClosingDebit() int32 {
 
 // GetClosingDebitOk returns a tuple with the ClosingDebit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrialBalanceRow) GetClosingDebitOk() (*int32, bool) {
+func (o *TrialBalanceRow) GetClosingDebitOk() (*int64, bool) {
 	if o == nil || IsNil(o.ClosingDebit) {
 		return nil, false
 	}
@@ -147,15 +147,15 @@ func (o *TrialBalanceRow) HasClosingDebit() bool {
 	return false
 }
 
-// SetClosingDebit gets a reference to the given int32 and assigns it to the ClosingDebit field.
-func (o *TrialBalanceRow) SetClosingDebit(v int32) {
+// SetClosingDebit gets a reference to the given int64 and assigns it to the ClosingDebit field.
+func (o *TrialBalanceRow) SetClosingDebit(v int64) {
 	o.ClosingDebit = &v
 }
 
 // GetCredit returns the Credit field value if set, zero value otherwise.
-func (o *TrialBalanceRow) GetCredit() int32 {
+func (o *TrialBalanceRow) GetCredit() int64 {
 	if o == nil || IsNil(o.Credit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Credit
@@ -163,7 +163,7 @@ func (o *TrialBalanceRow) GetCredit() int32 {
 
 // GetCreditOk returns a tuple with the Credit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrialBalanceRow) GetCreditOk() (*int32, bool) {
+func (o *TrialBalanceRow) GetCreditOk() (*int64, bool) {
 	if o == nil || IsNil(o.Credit) {
 		return nil, false
 	}
@@ -179,15 +179,15 @@ func (o *TrialBalanceRow) HasCredit() bool {
 	return false
 }
 
-// SetCredit gets a reference to the given int32 and assigns it to the Credit field.
-func (o *TrialBalanceRow) SetCredit(v int32) {
+// SetCredit gets a reference to the given int64 and assigns it to the Credit field.
+func (o *TrialBalanceRow) SetCredit(v int64) {
 	o.Credit = &v
 }
 
 // GetDebit returns the Debit field value if set, zero value otherwise.
-func (o *TrialBalanceRow) GetDebit() int32 {
+func (o *TrialBalanceRow) GetDebit() int64 {
 	if o == nil || IsNil(o.Debit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Debit
@@ -195,7 +195,7 @@ func (o *TrialBalanceRow) GetDebit() int32 {
 
 // GetDebitOk returns a tuple with the Debit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrialBalanceRow) GetDebitOk() (*int32, bool) {
+func (o *TrialBalanceRow) GetDebitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Debit) {
 		return nil, false
 	}
@@ -211,8 +211,8 @@ func (o *TrialBalanceRow) HasDebit() bool {
 	return false
 }
 
-// SetDebit gets a reference to the given int32 and assigns it to the Debit field.
-func (o *TrialBalanceRow) SetDebit(v int32) {
+// SetDebit gets a reference to the given int64 and assigns it to the Debit field.
+func (o *TrialBalanceRow) SetDebit(v int64) {
 	o.Debit = &v
 }
 
@@ -249,9 +249,9 @@ func (o *TrialBalanceRow) SetName(v string) {
 }
 
 // GetOpeningCredit returns the OpeningCredit field value if set, zero value otherwise.
-func (o *TrialBalanceRow) GetOpeningCredit() int32 {
+func (o *TrialBalanceRow) GetOpeningCredit() int64 {
 	if o == nil || IsNil(o.OpeningCredit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.OpeningCredit
@@ -259,7 +259,7 @@ func (o *TrialBalanceRow) GetOpeningCredit() int32 {
 
 // GetOpeningCreditOk returns a tuple with the OpeningCredit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrialBalanceRow) GetOpeningCreditOk() (*int32, bool) {
+func (o *TrialBalanceRow) GetOpeningCreditOk() (*int64, bool) {
 	if o == nil || IsNil(o.OpeningCredit) {
 		return nil, false
 	}
@@ -275,15 +275,15 @@ func (o *TrialBalanceRow) HasOpeningCredit() bool {
 	return false
 }
 
-// SetOpeningCredit gets a reference to the given int32 and assigns it to the OpeningCredit field.
-func (o *TrialBalanceRow) SetOpeningCredit(v int32) {
+// SetOpeningCredit gets a reference to the given int64 and assigns it to the OpeningCredit field.
+func (o *TrialBalanceRow) SetOpeningCredit(v int64) {
 	o.OpeningCredit = &v
 }
 
 // GetOpeningDebit returns the OpeningDebit field value if set, zero value otherwise.
-func (o *TrialBalanceRow) GetOpeningDebit() int32 {
+func (o *TrialBalanceRow) GetOpeningDebit() int64 {
 	if o == nil || IsNil(o.OpeningDebit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.OpeningDebit
@@ -291,7 +291,7 @@ func (o *TrialBalanceRow) GetOpeningDebit() int32 {
 
 // GetOpeningDebitOk returns a tuple with the OpeningDebit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrialBalanceRow) GetOpeningDebitOk() (*int32, bool) {
+func (o *TrialBalanceRow) GetOpeningDebitOk() (*int64, bool) {
 	if o == nil || IsNil(o.OpeningDebit) {
 		return nil, false
 	}
@@ -307,8 +307,8 @@ func (o *TrialBalanceRow) HasOpeningDebit() bool {
 	return false
 }
 
-// SetOpeningDebit gets a reference to the given int32 and assigns it to the OpeningDebit field.
-func (o *TrialBalanceRow) SetOpeningDebit(v int32) {
+// SetOpeningDebit gets a reference to the given int64 and assigns it to the OpeningDebit field.
+func (o *TrialBalanceRow) SetOpeningDebit(v int64) {
 	o.OpeningDebit = &v
 }
 

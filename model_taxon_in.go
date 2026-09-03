@@ -34,7 +34,7 @@ type TaxonIn struct {
 	// Name is the display name. Required.
 	Name *string `json:"name,omitempty"`
 	// Order is where it sits within its category, ascending.
-	Order *int32 `json:"order,omitempty"`
+	Order *int64 `json:"order,omitempty"`
 	// Published is whether it is shown. Omitted means published — a taxon someone took the trouble to write is meant to be seen, and hiding one is the deliberate act.
 	Published *bool `json:"published,omitempty"`
 	// Route is the in-console path it opens, e.g. \"/vector\". Give this or href, never both.
@@ -285,9 +285,9 @@ func (o *TaxonIn) SetName(v string) {
 }
 
 // GetOrder returns the Order field value if set, zero value otherwise.
-func (o *TaxonIn) GetOrder() int32 {
+func (o *TaxonIn) GetOrder() int64 {
 	if o == nil || IsNil(o.Order) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Order
@@ -295,7 +295,7 @@ func (o *TaxonIn) GetOrder() int32 {
 
 // GetOrderOk returns a tuple with the Order field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TaxonIn) GetOrderOk() (*int32, bool) {
+func (o *TaxonIn) GetOrderOk() (*int64, bool) {
 	if o == nil || IsNil(o.Order) {
 		return nil, false
 	}
@@ -311,8 +311,8 @@ func (o *TaxonIn) HasOrder() bool {
 	return false
 }
 
-// SetOrder gets a reference to the given int32 and assigns it to the Order field.
-func (o *TaxonIn) SetOrder(v int32) {
+// SetOrder gets a reference to the given int64 and assigns it to the Order field.
+func (o *TaxonIn) SetOrder(v int64) {
 	o.Order = &v
 }
 

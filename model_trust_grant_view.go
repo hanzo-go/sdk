@@ -22,7 +22,7 @@ type TrustGrantView struct {
 	// Email is the one address the link admits.
 	Email *string `json:"email,omitempty"`
 	// ExpiresAt is when the grant closes, in unix milliseconds.
-	ExpiresAt *int32 `json:"expiresAt,omitempty"`
+	ExpiresAt *int64 `json:"expiresAt,omitempty"`
 	// Item is the item granted, empty when the whole released tier was granted.
 	Item *string `json:"item,omitempty"`
 	// Link is the share link's id — the token the party opens. Reading it here does not widen it: the link admits only Email whoever holds the id.
@@ -81,9 +81,9 @@ func (o *TrustGrantView) SetEmail(v string) {
 }
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
-func (o *TrustGrantView) GetExpiresAt() int32 {
+func (o *TrustGrantView) GetExpiresAt() int64 {
 	if o == nil || IsNil(o.ExpiresAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ExpiresAt
@@ -91,7 +91,7 @@ func (o *TrustGrantView) GetExpiresAt() int32 {
 
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrustGrantView) GetExpiresAtOk() (*int32, bool) {
+func (o *TrustGrantView) GetExpiresAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
@@ -107,8 +107,8 @@ func (o *TrustGrantView) HasExpiresAt() bool {
 	return false
 }
 
-// SetExpiresAt gets a reference to the given int32 and assigns it to the ExpiresAt field.
-func (o *TrustGrantView) SetExpiresAt(v int32) {
+// SetExpiresAt gets a reference to the given int64 and assigns it to the ExpiresAt field.
+func (o *TrustGrantView) SetExpiresAt(v int64) {
 	o.ExpiresAt = &v
 }
 

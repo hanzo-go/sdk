@@ -22,7 +22,7 @@ type GraphFact struct {
 	// At is when the thing was so, RFC 3339. Required, and refused when it sits more than five minutes ahead of the server clock — an assertion dated further out would never mature and would skew every read until it did.
 	At *string `json:"at,omitempty"`
 	// Confidence in [0,1]. A tie-breaker within the order, never a substitute for it. Absent is 0, the weakest an assertion can be.
-	Confidence *float32 `json:"confidence,omitempty"`
+	Confidence *float64 `json:"confidence,omitempty"`
 	// Entity is the thing being described, in the organization's own namespace. It is not created: an entity exists because something was asserted about it. Required, 512 bytes at most.
 	Entity *string `json:"entity,omitempty"`
 	// Evidence points at the record this claim came from, 512 bytes at most. An assertion without one is admitted and carries no defence.
@@ -89,9 +89,9 @@ func (o *GraphFact) SetAt(v string) {
 }
 
 // GetConfidence returns the Confidence field value if set, zero value otherwise.
-func (o *GraphFact) GetConfidence() float32 {
+func (o *GraphFact) GetConfidence() float64 {
 	if o == nil || IsNil(o.Confidence) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Confidence
@@ -99,7 +99,7 @@ func (o *GraphFact) GetConfidence() float32 {
 
 // GetConfidenceOk returns a tuple with the Confidence field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphFact) GetConfidenceOk() (*float32, bool) {
+func (o *GraphFact) GetConfidenceOk() (*float64, bool) {
 	if o == nil || IsNil(o.Confidence) {
 		return nil, false
 	}
@@ -115,8 +115,8 @@ func (o *GraphFact) HasConfidence() bool {
 	return false
 }
 
-// SetConfidence gets a reference to the given float32 and assigns it to the Confidence field.
-func (o *GraphFact) SetConfidence(v float32) {
+// SetConfidence gets a reference to the given float64 and assigns it to the Confidence field.
+func (o *GraphFact) SetConfidence(v float64) {
 	o.Confidence = &v
 }
 

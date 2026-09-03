@@ -6,12 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Meta** | Pointer to **map[string]string** |  | [optional] 
 **PersistentVolumeClaimName** | Pointer to **string** |  | [optional] 
-**VolumeAvailable** | Pointer to **float32** |  | [optional] 
-**VolumeCapacity** | Pointer to **float32** |  | [optional] 
-**VolumeInodes** | Pointer to **float32** |  | [optional] 
-**VolumeInodesFree** | Pointer to **float32** |  | [optional] 
-**VolumeInodesUsed** | Pointer to **float32** |  | [optional] 
-**VolumeUsage** | Pointer to **float32** |  | [optional] 
+**VolumeAvailable** | Pointer to **float64** |  | [optional] 
+**VolumeCapacity** | Pointer to **float64** |  | [optional] 
+**VolumeInodes** | Pointer to **float64** |  | [optional] 
+**VolumeInodesFree** | Pointer to **float64** |  | [optional] 
+**VolumeInodesUsed** | Pointer to **float64** |  | [optional] 
+**VolumeUsage** | Pointer to **float64** |  | [optional] 
 
 ## Methods
 
@@ -84,20 +84,20 @@ HasPersistentVolumeClaimName returns a boolean if a field has been set.
 
 ### GetVolumeAvailable
 
-`func (o *O11yVolumeRecord) GetVolumeAvailable() float32`
+`func (o *O11yVolumeRecord) GetVolumeAvailable() float64`
 
 GetVolumeAvailable returns the VolumeAvailable field if non-nil, zero value otherwise.
 
 ### GetVolumeAvailableOk
 
-`func (o *O11yVolumeRecord) GetVolumeAvailableOk() (*float32, bool)`
+`func (o *O11yVolumeRecord) GetVolumeAvailableOk() (*float64, bool)`
 
 GetVolumeAvailableOk returns a tuple with the VolumeAvailable field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVolumeAvailable
 
-`func (o *O11yVolumeRecord) SetVolumeAvailable(v float32)`
+`func (o *O11yVolumeRecord) SetVolumeAvailable(v float64)`
 
 SetVolumeAvailable sets VolumeAvailable field to given value.
 
@@ -109,20 +109,20 @@ HasVolumeAvailable returns a boolean if a field has been set.
 
 ### GetVolumeCapacity
 
-`func (o *O11yVolumeRecord) GetVolumeCapacity() float32`
+`func (o *O11yVolumeRecord) GetVolumeCapacity() float64`
 
 GetVolumeCapacity returns the VolumeCapacity field if non-nil, zero value otherwise.
 
 ### GetVolumeCapacityOk
 
-`func (o *O11yVolumeRecord) GetVolumeCapacityOk() (*float32, bool)`
+`func (o *O11yVolumeRecord) GetVolumeCapacityOk() (*float64, bool)`
 
 GetVolumeCapacityOk returns a tuple with the VolumeCapacity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVolumeCapacity
 
-`func (o *O11yVolumeRecord) SetVolumeCapacity(v float32)`
+`func (o *O11yVolumeRecord) SetVolumeCapacity(v float64)`
 
 SetVolumeCapacity sets VolumeCapacity field to given value.
 
@@ -134,20 +134,20 @@ HasVolumeCapacity returns a boolean if a field has been set.
 
 ### GetVolumeInodes
 
-`func (o *O11yVolumeRecord) GetVolumeInodes() float32`
+`func (o *O11yVolumeRecord) GetVolumeInodes() float64`
 
 GetVolumeInodes returns the VolumeInodes field if non-nil, zero value otherwise.
 
 ### GetVolumeInodesOk
 
-`func (o *O11yVolumeRecord) GetVolumeInodesOk() (*float32, bool)`
+`func (o *O11yVolumeRecord) GetVolumeInodesOk() (*float64, bool)`
 
 GetVolumeInodesOk returns a tuple with the VolumeInodes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVolumeInodes
 
-`func (o *O11yVolumeRecord) SetVolumeInodes(v float32)`
+`func (o *O11yVolumeRecord) SetVolumeInodes(v float64)`
 
 SetVolumeInodes sets VolumeInodes field to given value.
 
@@ -159,20 +159,20 @@ HasVolumeInodes returns a boolean if a field has been set.
 
 ### GetVolumeInodesFree
 
-`func (o *O11yVolumeRecord) GetVolumeInodesFree() float32`
+`func (o *O11yVolumeRecord) GetVolumeInodesFree() float64`
 
 GetVolumeInodesFree returns the VolumeInodesFree field if non-nil, zero value otherwise.
 
 ### GetVolumeInodesFreeOk
 
-`func (o *O11yVolumeRecord) GetVolumeInodesFreeOk() (*float32, bool)`
+`func (o *O11yVolumeRecord) GetVolumeInodesFreeOk() (*float64, bool)`
 
 GetVolumeInodesFreeOk returns a tuple with the VolumeInodesFree field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVolumeInodesFree
 
-`func (o *O11yVolumeRecord) SetVolumeInodesFree(v float32)`
+`func (o *O11yVolumeRecord) SetVolumeInodesFree(v float64)`
 
 SetVolumeInodesFree sets VolumeInodesFree field to given value.
 
@@ -184,20 +184,20 @@ HasVolumeInodesFree returns a boolean if a field has been set.
 
 ### GetVolumeInodesUsed
 
-`func (o *O11yVolumeRecord) GetVolumeInodesUsed() float32`
+`func (o *O11yVolumeRecord) GetVolumeInodesUsed() float64`
 
 GetVolumeInodesUsed returns the VolumeInodesUsed field if non-nil, zero value otherwise.
 
 ### GetVolumeInodesUsedOk
 
-`func (o *O11yVolumeRecord) GetVolumeInodesUsedOk() (*float32, bool)`
+`func (o *O11yVolumeRecord) GetVolumeInodesUsedOk() (*float64, bool)`
 
 GetVolumeInodesUsedOk returns a tuple with the VolumeInodesUsed field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVolumeInodesUsed
 
-`func (o *O11yVolumeRecord) SetVolumeInodesUsed(v float32)`
+`func (o *O11yVolumeRecord) SetVolumeInodesUsed(v float64)`
 
 SetVolumeInodesUsed sets VolumeInodesUsed field to given value.
 
@@ -209,20 +209,20 @@ HasVolumeInodesUsed returns a boolean if a field has been set.
 
 ### GetVolumeUsage
 
-`func (o *O11yVolumeRecord) GetVolumeUsage() float32`
+`func (o *O11yVolumeRecord) GetVolumeUsage() float64`
 
 GetVolumeUsage returns the VolumeUsage field if non-nil, zero value otherwise.
 
 ### GetVolumeUsageOk
 
-`func (o *O11yVolumeRecord) GetVolumeUsageOk() (*float32, bool)`
+`func (o *O11yVolumeRecord) GetVolumeUsageOk() (*float64, bool)`
 
 GetVolumeUsageOk returns a tuple with the VolumeUsage field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVolumeUsage
 
-`func (o *O11yVolumeRecord) SetVolumeUsage(v float32)`
+`func (o *O11yVolumeRecord) SetVolumeUsage(v float64)`
 
 SetVolumeUsage sets VolumeUsage field to given value.
 

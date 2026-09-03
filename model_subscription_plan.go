@@ -23,7 +23,7 @@ type SubscriptionPlan struct {
 	Id       *string `json:"id,omitempty"`
 	Interval *string `json:"interval,omitempty"`
 	Name     *string `json:"name,omitempty"`
-	Price    *int32  `json:"price,omitempty"`
+	Price    *int64  `json:"price,omitempty"`
 }
 
 // NewSubscriptionPlan instantiates a new SubscriptionPlan object
@@ -172,9 +172,9 @@ func (o *SubscriptionPlan) SetName(v string) {
 }
 
 // GetPrice returns the Price field value if set, zero value otherwise.
-func (o *SubscriptionPlan) GetPrice() int32 {
+func (o *SubscriptionPlan) GetPrice() int64 {
 	if o == nil || IsNil(o.Price) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Price
@@ -182,7 +182,7 @@ func (o *SubscriptionPlan) GetPrice() int32 {
 
 // GetPriceOk returns a tuple with the Price field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SubscriptionPlan) GetPriceOk() (*int32, bool) {
+func (o *SubscriptionPlan) GetPriceOk() (*int64, bool) {
 	if o == nil || IsNil(o.Price) {
 		return nil, false
 	}
@@ -198,8 +198,8 @@ func (o *SubscriptionPlan) HasPrice() bool {
 	return false
 }
 
-// SetPrice gets a reference to the given int32 and assigns it to the Price field.
-func (o *SubscriptionPlan) SetPrice(v int32) {
+// SetPrice gets a reference to the given int64 and assigns it to the Price field.
+func (o *SubscriptionPlan) SetPrice(v int64) {
 	o.Price = &v
 }
 

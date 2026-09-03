@@ -19,7 +19,7 @@ var _ MappedNullable = &O11yGettableFunnel{}
 
 // O11yGettableFunnel struct for O11yGettableFunnel
 type O11yGettableFunnel struct {
-	CreatedAt   *int32              `json:"created_at,omitempty"`
+	CreatedAt   *int64              `json:"created_at,omitempty"`
 	CreatedBy   *string             `json:"created_by,omitempty"`
 	Description *string             `json:"description,omitempty"`
 	Funnel      *O11yStorableFunnel `json:"funnel,omitempty"`
@@ -27,7 +27,7 @@ type O11yGettableFunnel struct {
 	FunnelName  *string             `json:"funnel_name,omitempty"`
 	OrgId       *string             `json:"org_id,omitempty"`
 	Steps       []O11yFunnelStep    `json:"steps,omitempty"`
-	UpdatedAt   *int32              `json:"updated_at,omitempty"`
+	UpdatedAt   *int64              `json:"updated_at,omitempty"`
 	UpdatedBy   *string             `json:"updated_by,omitempty"`
 	UserEmail   *string             `json:"user_email,omitempty"`
 }
@@ -50,9 +50,9 @@ func NewO11yGettableFunnelWithDefaults() *O11yGettableFunnel {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *O11yGettableFunnel) GetCreatedAt() int32 {
+func (o *O11yGettableFunnel) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -60,7 +60,7 @@ func (o *O11yGettableFunnel) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yGettableFunnel) GetCreatedAtOk() (*int32, bool) {
+func (o *O11yGettableFunnel) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -76,8 +76,8 @@ func (o *O11yGettableFunnel) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *O11yGettableFunnel) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *O11yGettableFunnel) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -306,9 +306,9 @@ func (o *O11yGettableFunnel) SetSteps(v []O11yFunnelStep) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *O11yGettableFunnel) GetUpdatedAt() int32 {
+func (o *O11yGettableFunnel) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -316,7 +316,7 @@ func (o *O11yGettableFunnel) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yGettableFunnel) GetUpdatedAtOk() (*int32, bool) {
+func (o *O11yGettableFunnel) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -332,8 +332,8 @@ func (o *O11yGettableFunnel) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *O11yGettableFunnel) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *O11yGettableFunnel) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

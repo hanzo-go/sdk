@@ -9,10 +9,10 @@ Name | Type | Description | Notes
 **EdgeEnabled** | Pointer to **bool** | EdgeEnabled is true when the edge listeners are actually bound. | [optional] 
 **HttpAddr** | Pointer to **string** | HTTPAddr is the address the ACME HTTP-01 + HTTP router listens on. | [optional] 
 **HttpsAddr** | Pointer to **string** | HTTPSAddr is the address the SNI TLS terminator listens on. | [optional] 
-**LiveHosts** | Pointer to **int32** | LiveHosts is how many hosts the compiled table routes. | [optional] 
+**LiveHosts** | Pointer to **int64** | LiveHosts is how many hosts the compiled table routes. | [optional] 
 **Proxy** | Pointer to **string** | Proxy names the reverse-proxy implementation behind every route. | [optional] 
 **Role** | Pointer to **string** | Role is \&quot;edge\&quot; when CLOUD_INGRESS_EDGE_ENABLED is set, else \&quot;app\&quot;. | [optional] 
-**TlsHosts** | Pointer to **int32** | TLSHosts is how many hosts the ACME HostPolicy will issue a certificate for. NOT a subset of LiveHosts: an extraHost owns no route, and a TLS route naming a missing service is skipped while its host still wants a cert. | [optional] 
+**TlsHosts** | Pointer to **int64** | TLSHosts is how many hosts the ACME HostPolicy will issue a certificate for. NOT a subset of LiveHosts: an extraHost owns no route, and a TLS route naming a missing service is skipped while its host still wants a cert. | [optional] 
 
 ## Methods
 
@@ -160,20 +160,20 @@ HasHttpsAddr returns a boolean if a field has been set.
 
 ### GetLiveHosts
 
-`func (o *IngressStatus) GetLiveHosts() int32`
+`func (o *IngressStatus) GetLiveHosts() int64`
 
 GetLiveHosts returns the LiveHosts field if non-nil, zero value otherwise.
 
 ### GetLiveHostsOk
 
-`func (o *IngressStatus) GetLiveHostsOk() (*int32, bool)`
+`func (o *IngressStatus) GetLiveHostsOk() (*int64, bool)`
 
 GetLiveHostsOk returns a tuple with the LiveHosts field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLiveHosts
 
-`func (o *IngressStatus) SetLiveHosts(v int32)`
+`func (o *IngressStatus) SetLiveHosts(v int64)`
 
 SetLiveHosts sets LiveHosts field to given value.
 
@@ -235,20 +235,20 @@ HasRole returns a boolean if a field has been set.
 
 ### GetTlsHosts
 
-`func (o *IngressStatus) GetTlsHosts() int32`
+`func (o *IngressStatus) GetTlsHosts() int64`
 
 GetTlsHosts returns the TlsHosts field if non-nil, zero value otherwise.
 
 ### GetTlsHostsOk
 
-`func (o *IngressStatus) GetTlsHostsOk() (*int32, bool)`
+`func (o *IngressStatus) GetTlsHostsOk() (*int64, bool)`
 
 GetTlsHostsOk returns a tuple with the TlsHosts field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTlsHosts
 
-`func (o *IngressStatus) SetTlsHosts(v int32)`
+`func (o *IngressStatus) SetTlsHosts(v int64)`
 
 SetTlsHosts sets TlsHosts field to given value.
 

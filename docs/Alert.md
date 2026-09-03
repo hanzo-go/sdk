@@ -10,13 +10,13 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] 
 **Over** | Pointer to **bool** |  | [optional] 
 **Period** | Pointer to **string** |  | [optional] 
-**PeriodSpentCents** | Pointer to **int32** |  | [optional] 
+**PeriodSpentCents** | Pointer to **int64** |  | [optional] 
 **Project** | Pointer to **string** |  | [optional] 
-**RateLimitRpm** | Pointer to **int32** |  | [optional] 
+**RateLimitRpm** | Pointer to **int64** |  | [optional] 
 **ResetsAt** | Pointer to **string** |  | [optional] 
 **Service** | Pointer to **string** |  | [optional] 
-**SoftPct** | Pointer to **int32** |  | [optional] 
-**Threshold** | Pointer to **int32** |  | [optional] 
+**SoftPct** | Pointer to **int64** |  | [optional] 
+**Threshold** | Pointer to **int64** |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **TriggeredAt** | Pointer to **string** |  | [optional] 
 **UpdatedAt** | Pointer to **string** |  | [optional] 
@@ -194,20 +194,20 @@ HasPeriod returns a boolean if a field has been set.
 
 ### GetPeriodSpentCents
 
-`func (o *Alert) GetPeriodSpentCents() int32`
+`func (o *Alert) GetPeriodSpentCents() int64`
 
 GetPeriodSpentCents returns the PeriodSpentCents field if non-nil, zero value otherwise.
 
 ### GetPeriodSpentCentsOk
 
-`func (o *Alert) GetPeriodSpentCentsOk() (*int32, bool)`
+`func (o *Alert) GetPeriodSpentCentsOk() (*int64, bool)`
 
 GetPeriodSpentCentsOk returns a tuple with the PeriodSpentCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPeriodSpentCents
 
-`func (o *Alert) SetPeriodSpentCents(v int32)`
+`func (o *Alert) SetPeriodSpentCents(v int64)`
 
 SetPeriodSpentCents sets PeriodSpentCents field to given value.
 
@@ -244,20 +244,20 @@ HasProject returns a boolean if a field has been set.
 
 ### GetRateLimitRpm
 
-`func (o *Alert) GetRateLimitRpm() int32`
+`func (o *Alert) GetRateLimitRpm() int64`
 
 GetRateLimitRpm returns the RateLimitRpm field if non-nil, zero value otherwise.
 
 ### GetRateLimitRpmOk
 
-`func (o *Alert) GetRateLimitRpmOk() (*int32, bool)`
+`func (o *Alert) GetRateLimitRpmOk() (*int64, bool)`
 
 GetRateLimitRpmOk returns a tuple with the RateLimitRpm field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRateLimitRpm
 
-`func (o *Alert) SetRateLimitRpm(v int32)`
+`func (o *Alert) SetRateLimitRpm(v int64)`
 
 SetRateLimitRpm sets RateLimitRpm field to given value.
 
@@ -319,20 +319,20 @@ HasService returns a boolean if a field has been set.
 
 ### GetSoftPct
 
-`func (o *Alert) GetSoftPct() int32`
+`func (o *Alert) GetSoftPct() int64`
 
 GetSoftPct returns the SoftPct field if non-nil, zero value otherwise.
 
 ### GetSoftPctOk
 
-`func (o *Alert) GetSoftPctOk() (*int32, bool)`
+`func (o *Alert) GetSoftPctOk() (*int64, bool)`
 
 GetSoftPctOk returns a tuple with the SoftPct field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSoftPct
 
-`func (o *Alert) SetSoftPct(v int32)`
+`func (o *Alert) SetSoftPct(v int64)`
 
 SetSoftPct sets SoftPct field to given value.
 
@@ -344,20 +344,20 @@ HasSoftPct returns a boolean if a field has been set.
 
 ### GetThreshold
 
-`func (o *Alert) GetThreshold() int32`
+`func (o *Alert) GetThreshold() int64`
 
 GetThreshold returns the Threshold field if non-nil, zero value otherwise.
 
 ### GetThresholdOk
 
-`func (o *Alert) GetThresholdOk() (*int32, bool)`
+`func (o *Alert) GetThresholdOk() (*int64, bool)`
 
 GetThresholdOk returns a tuple with the Threshold field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetThreshold
 
-`func (o *Alert) SetThreshold(v int32)`
+`func (o *Alert) SetThreshold(v int64)`
 
 SetThreshold sets Threshold field to given value.
 

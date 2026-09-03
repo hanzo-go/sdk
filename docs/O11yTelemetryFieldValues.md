@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BoolValues** | Pointer to **[]bool** |  | [optional] 
-**NumberValues** | Pointer to **[]float32** |  | [optional] 
+**NumberValues** | Pointer to **[]float64** |  | [optional] 
 **RelatedValues** | Pointer to **[]string** |  | [optional] 
 **StringValues** | Pointer to **[]string** |  | [optional] 
 
@@ -55,20 +55,20 @@ HasBoolValues returns a boolean if a field has been set.
 
 ### GetNumberValues
 
-`func (o *O11yTelemetryFieldValues) GetNumberValues() []float32`
+`func (o *O11yTelemetryFieldValues) GetNumberValues() []float64`
 
 GetNumberValues returns the NumberValues field if non-nil, zero value otherwise.
 
 ### GetNumberValuesOk
 
-`func (o *O11yTelemetryFieldValues) GetNumberValuesOk() (*[]float32, bool)`
+`func (o *O11yTelemetryFieldValues) GetNumberValuesOk() (*[]float64, bool)`
 
 GetNumberValuesOk returns a tuple with the NumberValues field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumberValues
 
-`func (o *O11yTelemetryFieldValues) SetNumberValues(v []float32)`
+`func (o *O11yTelemetryFieldValues) SetNumberValues(v []float64)`
 
 SetNumberValues sets NumberValues field to given value.
 

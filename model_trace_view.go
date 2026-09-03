@@ -32,7 +32,7 @@ type TraceView struct {
 	// Input is what the model was given.
 	Input map[string]interface{} `json:"input,omitempty"`
 	// LatencyMs is EndTime-StartTime in milliseconds, nil when the trace carries no timing (so the console renders \"—\", never a fabricated 0).
-	LatencyMs *float32 `json:"latencyMs,omitempty"`
+	LatencyMs *float64 `json:"latencyMs,omitempty"`
 	// Model is the model that answered.
 	Model *string `json:"model,omitempty"`
 	// Name is the trace's label, \"eval:<run>\" for a call a run made.
@@ -261,9 +261,9 @@ func (o *TraceView) SetInput(v map[string]interface{}) {
 }
 
 // GetLatencyMs returns the LatencyMs field value if set, zero value otherwise.
-func (o *TraceView) GetLatencyMs() float32 {
+func (o *TraceView) GetLatencyMs() float64 {
 	if o == nil || IsNil(o.LatencyMs) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.LatencyMs
@@ -271,7 +271,7 @@ func (o *TraceView) GetLatencyMs() float32 {
 
 // GetLatencyMsOk returns a tuple with the LatencyMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TraceView) GetLatencyMsOk() (*float32, bool) {
+func (o *TraceView) GetLatencyMsOk() (*float64, bool) {
 	if o == nil || IsNil(o.LatencyMs) {
 		return nil, false
 	}
@@ -287,8 +287,8 @@ func (o *TraceView) HasLatencyMs() bool {
 	return false
 }
 
-// SetLatencyMs gets a reference to the given float32 and assigns it to the LatencyMs field.
-func (o *TraceView) SetLatencyMs(v float32) {
+// SetLatencyMs gets a reference to the given float64 and assigns it to the LatencyMs field.
+func (o *TraceView) SetLatencyMs(v float64) {
 	o.LatencyMs = &v
 }
 

@@ -20,7 +20,7 @@ var _ MappedNullable = &ReferenceTaken{}
 // ReferenceTaken struct for ReferenceTaken
 type ReferenceTaken struct {
 	// Keys is how many members it carries.
-	Keys *int32 `json:"keys,omitempty"`
+	Keys *int64 `json:"keys,omitempty"`
 	// Refusal is why this publisher contributed nothing, if it did not. The set keeps its previous version of this source rather than shrinking.
 	Refusal *string `json:"refusal,omitempty"`
 	// Resumed is true when this run continued a version a previous run left half-landed.
@@ -32,7 +32,7 @@ type ReferenceTaken struct {
 	// Version is the content digest that landed.
 	Version *string `json:"version,omitempty"`
 	// Wrote is how many rows this run actually wrote. Zero with Unchanged means the publisher served the same set again.
-	Wrote *int32 `json:"wrote,omitempty"`
+	Wrote *int64 `json:"wrote,omitempty"`
 }
 
 // NewReferenceTaken instantiates a new ReferenceTaken object
@@ -53,9 +53,9 @@ func NewReferenceTakenWithDefaults() *ReferenceTaken {
 }
 
 // GetKeys returns the Keys field value if set, zero value otherwise.
-func (o *ReferenceTaken) GetKeys() int32 {
+func (o *ReferenceTaken) GetKeys() int64 {
 	if o == nil || IsNil(o.Keys) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Keys
@@ -63,7 +63,7 @@ func (o *ReferenceTaken) GetKeys() int32 {
 
 // GetKeysOk returns a tuple with the Keys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReferenceTaken) GetKeysOk() (*int32, bool) {
+func (o *ReferenceTaken) GetKeysOk() (*int64, bool) {
 	if o == nil || IsNil(o.Keys) {
 		return nil, false
 	}
@@ -79,8 +79,8 @@ func (o *ReferenceTaken) HasKeys() bool {
 	return false
 }
 
-// SetKeys gets a reference to the given int32 and assigns it to the Keys field.
-func (o *ReferenceTaken) SetKeys(v int32) {
+// SetKeys gets a reference to the given int64 and assigns it to the Keys field.
+func (o *ReferenceTaken) SetKeys(v int64) {
 	o.Keys = &v
 }
 
@@ -245,9 +245,9 @@ func (o *ReferenceTaken) SetVersion(v string) {
 }
 
 // GetWrote returns the Wrote field value if set, zero value otherwise.
-func (o *ReferenceTaken) GetWrote() int32 {
+func (o *ReferenceTaken) GetWrote() int64 {
 	if o == nil || IsNil(o.Wrote) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Wrote
@@ -255,7 +255,7 @@ func (o *ReferenceTaken) GetWrote() int32 {
 
 // GetWroteOk returns a tuple with the Wrote field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReferenceTaken) GetWroteOk() (*int32, bool) {
+func (o *ReferenceTaken) GetWroteOk() (*int64, bool) {
 	if o == nil || IsNil(o.Wrote) {
 		return nil, false
 	}
@@ -271,8 +271,8 @@ func (o *ReferenceTaken) HasWrote() bool {
 	return false
 }
 
-// SetWrote gets a reference to the given int32 and assigns it to the Wrote field.
-func (o *ReferenceTaken) SetWrote(v int32) {
+// SetWrote gets a reference to the given int64 and assigns it to the Wrote field.
+func (o *ReferenceTaken) SetWrote(v int64) {
 	o.Wrote = &v
 }
 

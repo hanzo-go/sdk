@@ -26,7 +26,7 @@ type IamRegistration struct {
 	// EnableCodeSignin offers sign-in by an emailed or texted one-time code beside the password. A POINTER for the same reason as IsShared: a plain bool reads as false on every reconcile that says nothing and would switch the method off for every app whose caller never mentioned it.
 	EnableCodeSignin *bool `json:"enableCodeSignin,omitempty"`
 	// ExpireInHours and RefreshExpireInHours are the application's token lifetimes. They are the ONLY declarative way to say that a refresh token must OUTLIVE its access token: with neither stated, oidc.refreshTTL clamps the refresh lifetime to the access lifetime, so the refresh_token grant the registration advertises expires at the same instant as the token it was meant to renew and can never be exercised. `hanzo-cli` sat in exactly that state — a browser re-login every hour, and a live refresh returning 401.  POINTERS, for the same reason as IsShared: a plain float would read as 0 on every reconcile that says nothing and reset a deliberate lifetime back to the default. Nil means \"not stated, leave it\".
-	ExpireInHours *float32 `json:"expireInHours,omitempty"`
+	ExpireInHours *float64 `json:"expireInHours,omitempty"`
 	GrantTypes    []string `json:"grantTypes,omitempty"`
 	// IsShared declares that this application serves EVERY organization, not only the one named in Organization. It is the honest description of a brand app — hanzo-id, hanzo-chat, a brand console — whose customers each live in their own tenant: self-service onboarding moves a founder OUT of the brand org, so `user.Owner != app.Organization` is the steady state and the app really does serve every org. Application.ServesOrg reads it as one of the three ways to say yes.  A POINTER because omission must PRESERVE. This upsert is the operator's steady-state reconcile and most callers say nothing about sharing; a plain bool would read as false on every one of them and silently un-share an app — the same shape of accident that de-secreted apps through update-application. Nil means \"not stated, leave it\"; only an explicit true or false moves it.
 	IsShared     *bool   `json:"isShared,omitempty"`
@@ -35,7 +35,7 @@ type IamRegistration struct {
 	// Public declares a client that CANNOT hold a credential — a browser SPA, a CLI, a desktop app. It proves itself with PKCE instead, and the token endpoint treats \"no stored secret\" as exactly that (token.go: a secret is verified only when one is stored). Without this flag every upsert minted a secret, so a public client could never be registered at all and its browser code->token exchange 401'd `invalid_client` forever.
 	Public               *bool    `json:"public,omitempty"`
 	RedirectUris         []string `json:"redirectUris,omitempty"`
-	RefreshExpireInHours *float32 `json:"refreshExpireInHours,omitempty"`
+	RefreshExpireInHours *float64 `json:"refreshExpireInHours,omitempty"`
 }
 
 // NewIamRegistration instantiates a new IamRegistration object
@@ -216,9 +216,9 @@ func (o *IamRegistration) SetEnableCodeSignin(v bool) {
 }
 
 // GetExpireInHours returns the ExpireInHours field value if set, zero value otherwise.
-func (o *IamRegistration) GetExpireInHours() float32 {
+func (o *IamRegistration) GetExpireInHours() float64 {
 	if o == nil || IsNil(o.ExpireInHours) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.ExpireInHours
@@ -226,7 +226,7 @@ func (o *IamRegistration) GetExpireInHours() float32 {
 
 // GetExpireInHoursOk returns a tuple with the ExpireInHours field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamRegistration) GetExpireInHoursOk() (*float32, bool) {
+func (o *IamRegistration) GetExpireInHoursOk() (*float64, bool) {
 	if o == nil || IsNil(o.ExpireInHours) {
 		return nil, false
 	}
@@ -242,8 +242,8 @@ func (o *IamRegistration) HasExpireInHours() bool {
 	return false
 }
 
-// SetExpireInHours gets a reference to the given float32 and assigns it to the ExpireInHours field.
-func (o *IamRegistration) SetExpireInHours(v float32) {
+// SetExpireInHours gets a reference to the given float64 and assigns it to the ExpireInHours field.
+func (o *IamRegistration) SetExpireInHours(v float64) {
 	o.ExpireInHours = &v
 }
 
@@ -440,9 +440,9 @@ func (o *IamRegistration) SetRedirectUris(v []string) {
 }
 
 // GetRefreshExpireInHours returns the RefreshExpireInHours field value if set, zero value otherwise.
-func (o *IamRegistration) GetRefreshExpireInHours() float32 {
+func (o *IamRegistration) GetRefreshExpireInHours() float64 {
 	if o == nil || IsNil(o.RefreshExpireInHours) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.RefreshExpireInHours
@@ -450,7 +450,7 @@ func (o *IamRegistration) GetRefreshExpireInHours() float32 {
 
 // GetRefreshExpireInHoursOk returns a tuple with the RefreshExpireInHours field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamRegistration) GetRefreshExpireInHoursOk() (*float32, bool) {
+func (o *IamRegistration) GetRefreshExpireInHoursOk() (*float64, bool) {
 	if o == nil || IsNil(o.RefreshExpireInHours) {
 		return nil, false
 	}
@@ -466,8 +466,8 @@ func (o *IamRegistration) HasRefreshExpireInHours() bool {
 	return false
 }
 
-// SetRefreshExpireInHours gets a reference to the given float32 and assigns it to the RefreshExpireInHours field.
-func (o *IamRegistration) SetRefreshExpireInHours(v float32) {
+// SetRefreshExpireInHours gets a reference to the given float64 and assigns it to the RefreshExpireInHours field.
+func (o *IamRegistration) SetRefreshExpireInHours(v float64) {
 	o.RefreshExpireInHours = &v
 }
 

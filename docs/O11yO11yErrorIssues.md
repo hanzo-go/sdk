@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Items** | Pointer to [**[]O11yO11yErrorIssue**](O11yO11yErrorIssue.md) | Items are the issues. | [optional] 
-**Limit** | Pointer to **int32** | Limit is the page cap that was applied. | [optional] 
-**Offset** | Pointer to **int32** | Offset is how many were skipped. | [optional] 
-**Total** | Pointer to **int32** | Total is how many matched the filter. | [optional] 
+**Limit** | Pointer to **int64** | Limit is the page cap that was applied. | [optional] 
+**Offset** | Pointer to **int64** | Offset is how many were skipped. | [optional] 
+**Total** | Pointer to **int64** | Total is how many matched the filter. | [optional] 
 
 ## Methods
 
@@ -55,20 +55,20 @@ HasItems returns a boolean if a field has been set.
 
 ### GetLimit
 
-`func (o *O11yO11yErrorIssues) GetLimit() int32`
+`func (o *O11yO11yErrorIssues) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *O11yO11yErrorIssues) GetLimitOk() (*int32, bool)`
+`func (o *O11yO11yErrorIssues) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *O11yO11yErrorIssues) SetLimit(v int32)`
+`func (o *O11yO11yErrorIssues) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 
@@ -80,20 +80,20 @@ HasLimit returns a boolean if a field has been set.
 
 ### GetOffset
 
-`func (o *O11yO11yErrorIssues) GetOffset() int32`
+`func (o *O11yO11yErrorIssues) GetOffset() int64`
 
 GetOffset returns the Offset field if non-nil, zero value otherwise.
 
 ### GetOffsetOk
 
-`func (o *O11yO11yErrorIssues) GetOffsetOk() (*int32, bool)`
+`func (o *O11yO11yErrorIssues) GetOffsetOk() (*int64, bool)`
 
 GetOffsetOk returns a tuple with the Offset field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOffset
 
-`func (o *O11yO11yErrorIssues) SetOffset(v int32)`
+`func (o *O11yO11yErrorIssues) SetOffset(v int64)`
 
 SetOffset sets Offset field to given value.
 
@@ -105,20 +105,20 @@ HasOffset returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *O11yO11yErrorIssues) GetTotal() int32`
+`func (o *O11yO11yErrorIssues) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *O11yO11yErrorIssues) GetTotalOk() (*int32, bool)`
+`func (o *O11yO11yErrorIssues) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *O11yO11yErrorIssues) SetTotal(v int32)`
+`func (o *O11yO11yErrorIssues) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

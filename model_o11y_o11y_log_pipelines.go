@@ -31,7 +31,7 @@ type O11yO11yLogPipelines struct {
 	// DeployResult is the deployment's outcome message.
 	DeployResult *string `json:"deployResult,omitempty"`
 	// DeploySequence orders this deployment among the version's deployments.
-	DeploySequence *int32 `json:"deploySequence,omitempty"`
+	DeploySequence *int64 `json:"deploySequence,omitempty"`
 	// DeployStatus is where the deployment stands, e.g. dirty, deploying, deployed, in_progress, failed, unknown.
 	DeployStatus *string `json:"deployStatus,omitempty"`
 	// ElementType is the config element this version carries — log_pipelines.
@@ -51,7 +51,7 @@ type O11yO11yLogPipelines struct {
 	// UpdatedBy is the id of who last changed it.
 	UpdatedBy *string `json:"updatedBy,omitempty"`
 	// Version is the config version number.
-	Version *int32 `json:"version,omitempty"`
+	Version *int64 `json:"version,omitempty"`
 }
 
 // NewO11yO11yLogPipelines instantiates a new O11yO11yLogPipelines object
@@ -232,9 +232,9 @@ func (o *O11yO11yLogPipelines) SetDeployResult(v string) {
 }
 
 // GetDeploySequence returns the DeploySequence field value if set, zero value otherwise.
-func (o *O11yO11yLogPipelines) GetDeploySequence() int32 {
+func (o *O11yO11yLogPipelines) GetDeploySequence() int64 {
 	if o == nil || IsNil(o.DeploySequence) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DeploySequence
@@ -242,7 +242,7 @@ func (o *O11yO11yLogPipelines) GetDeploySequence() int32 {
 
 // GetDeploySequenceOk returns a tuple with the DeploySequence field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLogPipelines) GetDeploySequenceOk() (*int32, bool) {
+func (o *O11yO11yLogPipelines) GetDeploySequenceOk() (*int64, bool) {
 	if o == nil || IsNil(o.DeploySequence) {
 		return nil, false
 	}
@@ -258,8 +258,8 @@ func (o *O11yO11yLogPipelines) HasDeploySequence() bool {
 	return false
 }
 
-// SetDeploySequence gets a reference to the given int32 and assigns it to the DeploySequence field.
-func (o *O11yO11yLogPipelines) SetDeploySequence(v int32) {
+// SetDeploySequence gets a reference to the given int64 and assigns it to the DeploySequence field.
+func (o *O11yO11yLogPipelines) SetDeploySequence(v int64) {
 	o.DeploySequence = &v
 }
 
@@ -552,9 +552,9 @@ func (o *O11yO11yLogPipelines) SetUpdatedBy(v string) {
 }
 
 // GetVersion returns the Version field value if set, zero value otherwise.
-func (o *O11yO11yLogPipelines) GetVersion() int32 {
+func (o *O11yO11yLogPipelines) GetVersion() int64 {
 	if o == nil || IsNil(o.Version) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Version
@@ -562,7 +562,7 @@ func (o *O11yO11yLogPipelines) GetVersion() int32 {
 
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLogPipelines) GetVersionOk() (*int32, bool) {
+func (o *O11yO11yLogPipelines) GetVersionOk() (*int64, bool) {
 	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
@@ -578,8 +578,8 @@ func (o *O11yO11yLogPipelines) HasVersion() bool {
 	return false
 }
 
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
-func (o *O11yO11yLogPipelines) SetVersion(v int32) {
+// SetVersion gets a reference to the given int64 and assigns it to the Version field.
+func (o *O11yO11yLogPipelines) SetVersion(v int64) {
 	o.Version = &v
 }
 

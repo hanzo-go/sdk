@@ -19,8 +19,8 @@ var _ MappedNullable = &SharePolicy{}
 
 // SharePolicy struct for SharePolicy
 type SharePolicy struct {
-	RevenueShareBps *int32 `json:"revenueShareBps,omitempty"`
-	UpdatedAt       *int32 `json:"updatedAt,omitempty"`
+	RevenueShareBps *int64 `json:"revenueShareBps,omitempty"`
+	UpdatedAt       *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewSharePolicy instantiates a new SharePolicy object
@@ -41,9 +41,9 @@ func NewSharePolicyWithDefaults() *SharePolicy {
 }
 
 // GetRevenueShareBps returns the RevenueShareBps field value if set, zero value otherwise.
-func (o *SharePolicy) GetRevenueShareBps() int32 {
+func (o *SharePolicy) GetRevenueShareBps() int64 {
 	if o == nil || IsNil(o.RevenueShareBps) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RevenueShareBps
@@ -51,7 +51,7 @@ func (o *SharePolicy) GetRevenueShareBps() int32 {
 
 // GetRevenueShareBpsOk returns a tuple with the RevenueShareBps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SharePolicy) GetRevenueShareBpsOk() (*int32, bool) {
+func (o *SharePolicy) GetRevenueShareBpsOk() (*int64, bool) {
 	if o == nil || IsNil(o.RevenueShareBps) {
 		return nil, false
 	}
@@ -67,15 +67,15 @@ func (o *SharePolicy) HasRevenueShareBps() bool {
 	return false
 }
 
-// SetRevenueShareBps gets a reference to the given int32 and assigns it to the RevenueShareBps field.
-func (o *SharePolicy) SetRevenueShareBps(v int32) {
+// SetRevenueShareBps gets a reference to the given int64 and assigns it to the RevenueShareBps field.
+func (o *SharePolicy) SetRevenueShareBps(v int64) {
 	o.RevenueShareBps = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *SharePolicy) GetUpdatedAt() int32 {
+func (o *SharePolicy) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -83,7 +83,7 @@ func (o *SharePolicy) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SharePolicy) GetUpdatedAtOk() (*int32, bool) {
+func (o *SharePolicy) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -99,8 +99,8 @@ func (o *SharePolicy) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *SharePolicy) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *SharePolicy) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

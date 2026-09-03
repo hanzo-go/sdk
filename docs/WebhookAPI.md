@@ -236,7 +236,7 @@ import (
 
 func main() {
 	id := "wh_9f8c1d2e" // string | 
-	limit := int32(100) // int32 | Limit caps how many attempts come back: default 50, maximum 200. A value that is not a positive integer reads as the default. (optional)
+	limit := int64(100) // int64 | Limit caps how many attempts come back: default 50, maximum 200. A value that is not a positive integer reads as the default. (optional)
 	status := "failed" // string | Status narrows the log to one outcome: \"ok\", \"retrying\" or \"failed\". Empty returns every attempt. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -267,7 +267,7 @@ Other parameters are passed through a pointer to a apiGetWebhookByIdDeliveriesRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **limit** | **int32** | Limit caps how many attempts come back: default 50, maximum 200. A value that is not a positive integer reads as the default. | 
+ **limit** | **int64** | Limit caps how many attempts come back: default 50, maximum 200. A value that is not a positive integer reads as the default. | 
  **status** | **string** | Status narrows the log to one outcome: \&quot;ok\&quot;, \&quot;retrying\&quot; or \&quot;failed\&quot;. Empty returns every attempt. | 
 
 ### Return type

@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ColdStorageTtlDays** | Pointer to **int32** | ColdStorageTTLDays is how old data must be before it moves, in days. | [optional] 
+**ColdStorageTtlDays** | Pointer to **int64** | ColdStorageTTLDays is how old data must be before it moves, in days. | [optional] 
 **ColdStorageVolume** | Pointer to **string** | ColdStorageVolume names the volume aged data moves to. | [optional] 
-**DefaultTtlDays** | Pointer to **int32** | DefaultTTLDays is the retention for data no rule matches, in days. | [optional] 
-**ExpectedLogsMoveTtlDurationHrs** | Pointer to **int32** | ExpectedLogsMoveTTLHours is the pending logs cold-storage move TTL, in hours. | [optional] 
-**ExpectedLogsTtlDurationHrs** | Pointer to **int32** | ExpectedLogsTTLHours is the pending logs TTL, in hours. | [optional] 
+**DefaultTtlDays** | Pointer to **int64** | DefaultTTLDays is the retention for data no rule matches, in days. | [optional] 
+**ExpectedLogsMoveTtlDurationHrs** | Pointer to **int64** | ExpectedLogsMoveTTLHours is the pending logs cold-storage move TTL, in hours. | [optional] 
+**ExpectedLogsTtlDurationHrs** | Pointer to **int64** | ExpectedLogsTTLHours is the pending logs TTL, in hours. | [optional] 
 **Status** | Pointer to **string** | Status is the last TTL operation&#39;s state. | [optional] 
 **TtlConditions** | Pointer to [**[]O11yO11yRetentionRule**](O11yO11yRetentionRule.md) | TTLConditions are the ordered per-label rules; the first match wins. | [optional] 
 **Version** | Pointer to **string** | Version is the policy format version. | [optional] 
@@ -34,20 +34,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetColdStorageTtlDays
 
-`func (o *O11yO11yRetentionOut) GetColdStorageTtlDays() int32`
+`func (o *O11yO11yRetentionOut) GetColdStorageTtlDays() int64`
 
 GetColdStorageTtlDays returns the ColdStorageTtlDays field if non-nil, zero value otherwise.
 
 ### GetColdStorageTtlDaysOk
 
-`func (o *O11yO11yRetentionOut) GetColdStorageTtlDaysOk() (*int32, bool)`
+`func (o *O11yO11yRetentionOut) GetColdStorageTtlDaysOk() (*int64, bool)`
 
 GetColdStorageTtlDaysOk returns a tuple with the ColdStorageTtlDays field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetColdStorageTtlDays
 
-`func (o *O11yO11yRetentionOut) SetColdStorageTtlDays(v int32)`
+`func (o *O11yO11yRetentionOut) SetColdStorageTtlDays(v int64)`
 
 SetColdStorageTtlDays sets ColdStorageTtlDays field to given value.
 
@@ -84,20 +84,20 @@ HasColdStorageVolume returns a boolean if a field has been set.
 
 ### GetDefaultTtlDays
 
-`func (o *O11yO11yRetentionOut) GetDefaultTtlDays() int32`
+`func (o *O11yO11yRetentionOut) GetDefaultTtlDays() int64`
 
 GetDefaultTtlDays returns the DefaultTtlDays field if non-nil, zero value otherwise.
 
 ### GetDefaultTtlDaysOk
 
-`func (o *O11yO11yRetentionOut) GetDefaultTtlDaysOk() (*int32, bool)`
+`func (o *O11yO11yRetentionOut) GetDefaultTtlDaysOk() (*int64, bool)`
 
 GetDefaultTtlDaysOk returns a tuple with the DefaultTtlDays field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDefaultTtlDays
 
-`func (o *O11yO11yRetentionOut) SetDefaultTtlDays(v int32)`
+`func (o *O11yO11yRetentionOut) SetDefaultTtlDays(v int64)`
 
 SetDefaultTtlDays sets DefaultTtlDays field to given value.
 
@@ -109,20 +109,20 @@ HasDefaultTtlDays returns a boolean if a field has been set.
 
 ### GetExpectedLogsMoveTtlDurationHrs
 
-`func (o *O11yO11yRetentionOut) GetExpectedLogsMoveTtlDurationHrs() int32`
+`func (o *O11yO11yRetentionOut) GetExpectedLogsMoveTtlDurationHrs() int64`
 
 GetExpectedLogsMoveTtlDurationHrs returns the ExpectedLogsMoveTtlDurationHrs field if non-nil, zero value otherwise.
 
 ### GetExpectedLogsMoveTtlDurationHrsOk
 
-`func (o *O11yO11yRetentionOut) GetExpectedLogsMoveTtlDurationHrsOk() (*int32, bool)`
+`func (o *O11yO11yRetentionOut) GetExpectedLogsMoveTtlDurationHrsOk() (*int64, bool)`
 
 GetExpectedLogsMoveTtlDurationHrsOk returns a tuple with the ExpectedLogsMoveTtlDurationHrs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpectedLogsMoveTtlDurationHrs
 
-`func (o *O11yO11yRetentionOut) SetExpectedLogsMoveTtlDurationHrs(v int32)`
+`func (o *O11yO11yRetentionOut) SetExpectedLogsMoveTtlDurationHrs(v int64)`
 
 SetExpectedLogsMoveTtlDurationHrs sets ExpectedLogsMoveTtlDurationHrs field to given value.
 
@@ -134,20 +134,20 @@ HasExpectedLogsMoveTtlDurationHrs returns a boolean if a field has been set.
 
 ### GetExpectedLogsTtlDurationHrs
 
-`func (o *O11yO11yRetentionOut) GetExpectedLogsTtlDurationHrs() int32`
+`func (o *O11yO11yRetentionOut) GetExpectedLogsTtlDurationHrs() int64`
 
 GetExpectedLogsTtlDurationHrs returns the ExpectedLogsTtlDurationHrs field if non-nil, zero value otherwise.
 
 ### GetExpectedLogsTtlDurationHrsOk
 
-`func (o *O11yO11yRetentionOut) GetExpectedLogsTtlDurationHrsOk() (*int32, bool)`
+`func (o *O11yO11yRetentionOut) GetExpectedLogsTtlDurationHrsOk() (*int64, bool)`
 
 GetExpectedLogsTtlDurationHrsOk returns a tuple with the ExpectedLogsTtlDurationHrs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpectedLogsTtlDurationHrs
 
-`func (o *O11yO11yRetentionOut) SetExpectedLogsTtlDurationHrs(v int32)`
+`func (o *O11yO11yRetentionOut) SetExpectedLogsTtlDurationHrs(v int64)`
 
 SetExpectedLogsTtlDurationHrs sets ExpectedLogsTtlDurationHrs field to given value.
 

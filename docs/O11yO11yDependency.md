@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CallCount** | Pointer to **int32** | CallCount is how many calls crossed the edge in the window. | [optional] 
-**CallRate** | Pointer to **float32** | CallRate is calls per second. | [optional] 
+**CallRate** | Pointer to **float64** | CallRate is calls per second. | [optional] 
 **Child** | Pointer to **string** | Child is the called service. | [optional] 
-**ErrorRate** | Pointer to **float32** | ErrorRate is the percentage of calls that erred. | [optional] 
-**P50** | Pointer to **float32** | P50 is the median call duration, in nanoseconds. | [optional] 
-**P75** | Pointer to **float32** | P75 is the 75th-percentile call duration, in nanoseconds. | [optional] 
-**P90** | Pointer to **float32** | P90 is the 90th-percentile call duration, in nanoseconds. | [optional] 
-**P95** | Pointer to **float32** | P95 is the 95th-percentile call duration, in nanoseconds. | [optional] 
-**P99** | Pointer to **float32** | P99 is the 99th-percentile call duration, in nanoseconds. | [optional] 
+**ErrorRate** | Pointer to **float64** | ErrorRate is the percentage of calls that erred. | [optional] 
+**P50** | Pointer to **float64** | P50 is the median call duration, in nanoseconds. | [optional] 
+**P75** | Pointer to **float64** | P75 is the 75th-percentile call duration, in nanoseconds. | [optional] 
+**P90** | Pointer to **float64** | P90 is the 90th-percentile call duration, in nanoseconds. | [optional] 
+**P95** | Pointer to **float64** | P95 is the 95th-percentile call duration, in nanoseconds. | [optional] 
+**P99** | Pointer to **float64** | P99 is the 99th-percentile call duration, in nanoseconds. | [optional] 
 **Parent** | Pointer to **string** | Parent is the calling service. | [optional] 
 
 ## Methods
@@ -61,20 +61,20 @@ HasCallCount returns a boolean if a field has been set.
 
 ### GetCallRate
 
-`func (o *O11yO11yDependency) GetCallRate() float32`
+`func (o *O11yO11yDependency) GetCallRate() float64`
 
 GetCallRate returns the CallRate field if non-nil, zero value otherwise.
 
 ### GetCallRateOk
 
-`func (o *O11yO11yDependency) GetCallRateOk() (*float32, bool)`
+`func (o *O11yO11yDependency) GetCallRateOk() (*float64, bool)`
 
 GetCallRateOk returns a tuple with the CallRate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCallRate
 
-`func (o *O11yO11yDependency) SetCallRate(v float32)`
+`func (o *O11yO11yDependency) SetCallRate(v float64)`
 
 SetCallRate sets CallRate field to given value.
 
@@ -111,20 +111,20 @@ HasChild returns a boolean if a field has been set.
 
 ### GetErrorRate
 
-`func (o *O11yO11yDependency) GetErrorRate() float32`
+`func (o *O11yO11yDependency) GetErrorRate() float64`
 
 GetErrorRate returns the ErrorRate field if non-nil, zero value otherwise.
 
 ### GetErrorRateOk
 
-`func (o *O11yO11yDependency) GetErrorRateOk() (*float32, bool)`
+`func (o *O11yO11yDependency) GetErrorRateOk() (*float64, bool)`
 
 GetErrorRateOk returns a tuple with the ErrorRate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetErrorRate
 
-`func (o *O11yO11yDependency) SetErrorRate(v float32)`
+`func (o *O11yO11yDependency) SetErrorRate(v float64)`
 
 SetErrorRate sets ErrorRate field to given value.
 
@@ -136,20 +136,20 @@ HasErrorRate returns a boolean if a field has been set.
 
 ### GetP50
 
-`func (o *O11yO11yDependency) GetP50() float32`
+`func (o *O11yO11yDependency) GetP50() float64`
 
 GetP50 returns the P50 field if non-nil, zero value otherwise.
 
 ### GetP50Ok
 
-`func (o *O11yO11yDependency) GetP50Ok() (*float32, bool)`
+`func (o *O11yO11yDependency) GetP50Ok() (*float64, bool)`
 
 GetP50Ok returns a tuple with the P50 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetP50
 
-`func (o *O11yO11yDependency) SetP50(v float32)`
+`func (o *O11yO11yDependency) SetP50(v float64)`
 
 SetP50 sets P50 field to given value.
 
@@ -161,20 +161,20 @@ HasP50 returns a boolean if a field has been set.
 
 ### GetP75
 
-`func (o *O11yO11yDependency) GetP75() float32`
+`func (o *O11yO11yDependency) GetP75() float64`
 
 GetP75 returns the P75 field if non-nil, zero value otherwise.
 
 ### GetP75Ok
 
-`func (o *O11yO11yDependency) GetP75Ok() (*float32, bool)`
+`func (o *O11yO11yDependency) GetP75Ok() (*float64, bool)`
 
 GetP75Ok returns a tuple with the P75 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetP75
 
-`func (o *O11yO11yDependency) SetP75(v float32)`
+`func (o *O11yO11yDependency) SetP75(v float64)`
 
 SetP75 sets P75 field to given value.
 
@@ -186,20 +186,20 @@ HasP75 returns a boolean if a field has been set.
 
 ### GetP90
 
-`func (o *O11yO11yDependency) GetP90() float32`
+`func (o *O11yO11yDependency) GetP90() float64`
 
 GetP90 returns the P90 field if non-nil, zero value otherwise.
 
 ### GetP90Ok
 
-`func (o *O11yO11yDependency) GetP90Ok() (*float32, bool)`
+`func (o *O11yO11yDependency) GetP90Ok() (*float64, bool)`
 
 GetP90Ok returns a tuple with the P90 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetP90
 
-`func (o *O11yO11yDependency) SetP90(v float32)`
+`func (o *O11yO11yDependency) SetP90(v float64)`
 
 SetP90 sets P90 field to given value.
 
@@ -211,20 +211,20 @@ HasP90 returns a boolean if a field has been set.
 
 ### GetP95
 
-`func (o *O11yO11yDependency) GetP95() float32`
+`func (o *O11yO11yDependency) GetP95() float64`
 
 GetP95 returns the P95 field if non-nil, zero value otherwise.
 
 ### GetP95Ok
 
-`func (o *O11yO11yDependency) GetP95Ok() (*float32, bool)`
+`func (o *O11yO11yDependency) GetP95Ok() (*float64, bool)`
 
 GetP95Ok returns a tuple with the P95 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetP95
 
-`func (o *O11yO11yDependency) SetP95(v float32)`
+`func (o *O11yO11yDependency) SetP95(v float64)`
 
 SetP95 sets P95 field to given value.
 
@@ -236,20 +236,20 @@ HasP95 returns a boolean if a field has been set.
 
 ### GetP99
 
-`func (o *O11yO11yDependency) GetP99() float32`
+`func (o *O11yO11yDependency) GetP99() float64`
 
 GetP99 returns the P99 field if non-nil, zero value otherwise.
 
 ### GetP99Ok
 
-`func (o *O11yO11yDependency) GetP99Ok() (*float32, bool)`
+`func (o *O11yO11yDependency) GetP99Ok() (*float64, bool)`
 
 GetP99Ok returns a tuple with the P99 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetP99
 
-`func (o *O11yO11yDependency) SetP99(v float32)`
+`func (o *O11yO11yDependency) SetP99(v float64)`
 
 SetP99 sets P99 field to given value.
 

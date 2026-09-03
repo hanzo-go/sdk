@@ -20,7 +20,7 @@ var _ MappedNullable = &BaseView{}
 // BaseView struct for BaseView
 type BaseView struct {
 	// Bytes is the store's size on disk, present only once it exists. It is what this Base occupies, not a quota.
-	Bytes *int32 `json:"bytes,omitempty"`
+	Bytes *int64 `json:"bytes,omitempty"`
 	// Exists reports whether this Base's store has been provisioned. False is an org nobody has stored anything for yet, which is a state to name rather than an error: the store is created the first time anything writes.
 	Exists *bool `json:"exists,omitempty"`
 	// Org is the org this Base belongs to. It is the address every other Base call is scoped by, and a Base has no name of its own.
@@ -45,9 +45,9 @@ func NewBaseViewWithDefaults() *BaseView {
 }
 
 // GetBytes returns the Bytes field value if set, zero value otherwise.
-func (o *BaseView) GetBytes() int32 {
+func (o *BaseView) GetBytes() int64 {
 	if o == nil || IsNil(o.Bytes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Bytes
@@ -55,7 +55,7 @@ func (o *BaseView) GetBytes() int32 {
 
 // GetBytesOk returns a tuple with the Bytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BaseView) GetBytesOk() (*int32, bool) {
+func (o *BaseView) GetBytesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Bytes) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *BaseView) HasBytes() bool {
 	return false
 }
 
-// SetBytes gets a reference to the given int32 and assigns it to the Bytes field.
-func (o *BaseView) SetBytes(v int32) {
+// SetBytes gets a reference to the given int64 and assigns it to the Bytes field.
+func (o *BaseView) SetBytes(v int64) {
 	o.Bytes = &v
 }
 

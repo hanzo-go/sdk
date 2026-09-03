@@ -20,9 +20,9 @@ var _ MappedNullable = &Policy{}
 // Policy struct for Policy
 type Policy struct {
 	// CachePaths overrides CacheTTLSec per path PREFIX (key \"/v1/models\" → seconds). The longest matching prefix wins.
-	CachePaths map[string]int32 `json:"cache_paths,omitempty"`
+	CachePaths map[string]int64 `json:"cache_paths,omitempty"`
 	// CacheTTLSec is the org's default edge-cache TTL for its responses, in seconds; 0 means no caching. Unset inherits the platform default.
-	CacheTtlSec *int32 `json:"cache_ttl_sec,omitempty"`
+	CacheTtlSec *int64 `json:"cache_ttl_sec,omitempty"`
 	// CORSOrigins is the PLATFORM-scope CORS allowlist EdgeCORS admits: an exact origin, a bare host, or a \"*.host\" wildcard. Writable only by a SuperAdmin — CORS is evaluated before identity, so it has no tenant to scope to.
 	CorsOrigins []string `json:"cors_origins,omitempty"`
 	// Methods is the allowlist of HTTP methods the edge accepts for this org. Empty means all are accepted.
@@ -30,15 +30,15 @@ type Policy struct {
 	// Mode is the abuse gate's posture for THIS scope: \"shadow\" scores traffic and records the verdict without acting on it, \"live\" enforces it. Unset means shadow.  It is the one per-org field that does NOT inherit. Every other field here layers a platform default under the org's own value, which is right for a default: a tenant that sets no rate ceiling should get the platform's. Mode is not a default, it is an ARMING DECISION — it is what makes a statistical judgement start refusing real traffic — and inheriting it means arming one scope arms every tenant that never asked for it, without a write to their row and without anything in their config changing. So a tenant is live only if that tenant's OWN row says live, and the platform row's mode governs exactly one scope: the anonymous lane, which has no tenant of its own.  It is also not self-service. Writing it requires SuperAdmin (see the /v1/gateway config op): the subject of an abuse control does not get to switch the control off.
 	Mode *string `json:"mode,omitempty"`
 	// OrgRPM is the org's OWN authenticated rate ceiling, requests per minute, as ScopeRateLimit enforces it. Unset inherits the platform default, then the static boot default.
-	OrgRpm *int32 `json:"org_rpm,omitempty"`
+	OrgRpm *int64 `json:"org_rpm,omitempty"`
 	// PerIPRPM is the PLATFORM-scope pre-auth flood cap: requests EdgeRateLimit admits per WindowSec from one client IP. SuperAdmin-only, same reason.
-	PerIpRpm *int32 `json:"per_ip_rpm,omitempty"`
+	PerIpRpm *int64 `json:"per_ip_rpm,omitempty"`
 	// UpdatedAt is the unix second this policy row was last written. Server-stamped; a client-supplied value is ignored.
-	UpdatedAt *int32 `json:"updated_at,omitempty"`
+	UpdatedAt *int64 `json:"updated_at,omitempty"`
 	// UpdatedBy is the validated user id that wrote this policy row. Server-stamped; a client-supplied value is ignored.
 	UpdatedBy *string `json:"updated_by,omitempty"`
 	// WindowSec is the window PerIPRPM is counted over, in seconds. SuperAdmin-only.
-	WindowSec *int32 `json:"window_sec,omitempty"`
+	WindowSec *int64 `json:"window_sec,omitempty"`
 }
 
 // NewPolicy instantiates a new Policy object
@@ -59,9 +59,9 @@ func NewPolicyWithDefaults() *Policy {
 }
 
 // GetCachePaths returns the CachePaths field value if set, zero value otherwise.
-func (o *Policy) GetCachePaths() map[string]int32 {
+func (o *Policy) GetCachePaths() map[string]int64 {
 	if o == nil || IsNil(o.CachePaths) {
-		var ret map[string]int32
+		var ret map[string]int64
 		return ret
 	}
 	return o.CachePaths
@@ -69,9 +69,9 @@ func (o *Policy) GetCachePaths() map[string]int32 {
 
 // GetCachePathsOk returns a tuple with the CachePaths field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Policy) GetCachePathsOk() (map[string]int32, bool) {
+func (o *Policy) GetCachePathsOk() (map[string]int64, bool) {
 	if o == nil || IsNil(o.CachePaths) {
-		return map[string]int32{}, false
+		return map[string]int64{}, false
 	}
 	return o.CachePaths, true
 }
@@ -85,15 +85,15 @@ func (o *Policy) HasCachePaths() bool {
 	return false
 }
 
-// SetCachePaths gets a reference to the given map[string]int32 and assigns it to the CachePaths field.
-func (o *Policy) SetCachePaths(v map[string]int32) {
+// SetCachePaths gets a reference to the given map[string]int64 and assigns it to the CachePaths field.
+func (o *Policy) SetCachePaths(v map[string]int64) {
 	o.CachePaths = v
 }
 
 // GetCacheTtlSec returns the CacheTtlSec field value if set, zero value otherwise.
-func (o *Policy) GetCacheTtlSec() int32 {
+func (o *Policy) GetCacheTtlSec() int64 {
 	if o == nil || IsNil(o.CacheTtlSec) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CacheTtlSec
@@ -101,7 +101,7 @@ func (o *Policy) GetCacheTtlSec() int32 {
 
 // GetCacheTtlSecOk returns a tuple with the CacheTtlSec field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Policy) GetCacheTtlSecOk() (*int32, bool) {
+func (o *Policy) GetCacheTtlSecOk() (*int64, bool) {
 	if o == nil || IsNil(o.CacheTtlSec) {
 		return nil, false
 	}
@@ -117,8 +117,8 @@ func (o *Policy) HasCacheTtlSec() bool {
 	return false
 }
 
-// SetCacheTtlSec gets a reference to the given int32 and assigns it to the CacheTtlSec field.
-func (o *Policy) SetCacheTtlSec(v int32) {
+// SetCacheTtlSec gets a reference to the given int64 and assigns it to the CacheTtlSec field.
+func (o *Policy) SetCacheTtlSec(v int64) {
 	o.CacheTtlSec = &v
 }
 
@@ -219,9 +219,9 @@ func (o *Policy) SetMode(v string) {
 }
 
 // GetOrgRpm returns the OrgRpm field value if set, zero value otherwise.
-func (o *Policy) GetOrgRpm() int32 {
+func (o *Policy) GetOrgRpm() int64 {
 	if o == nil || IsNil(o.OrgRpm) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.OrgRpm
@@ -229,7 +229,7 @@ func (o *Policy) GetOrgRpm() int32 {
 
 // GetOrgRpmOk returns a tuple with the OrgRpm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Policy) GetOrgRpmOk() (*int32, bool) {
+func (o *Policy) GetOrgRpmOk() (*int64, bool) {
 	if o == nil || IsNil(o.OrgRpm) {
 		return nil, false
 	}
@@ -245,15 +245,15 @@ func (o *Policy) HasOrgRpm() bool {
 	return false
 }
 
-// SetOrgRpm gets a reference to the given int32 and assigns it to the OrgRpm field.
-func (o *Policy) SetOrgRpm(v int32) {
+// SetOrgRpm gets a reference to the given int64 and assigns it to the OrgRpm field.
+func (o *Policy) SetOrgRpm(v int64) {
 	o.OrgRpm = &v
 }
 
 // GetPerIpRpm returns the PerIpRpm field value if set, zero value otherwise.
-func (o *Policy) GetPerIpRpm() int32 {
+func (o *Policy) GetPerIpRpm() int64 {
 	if o == nil || IsNil(o.PerIpRpm) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PerIpRpm
@@ -261,7 +261,7 @@ func (o *Policy) GetPerIpRpm() int32 {
 
 // GetPerIpRpmOk returns a tuple with the PerIpRpm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Policy) GetPerIpRpmOk() (*int32, bool) {
+func (o *Policy) GetPerIpRpmOk() (*int64, bool) {
 	if o == nil || IsNil(o.PerIpRpm) {
 		return nil, false
 	}
@@ -277,15 +277,15 @@ func (o *Policy) HasPerIpRpm() bool {
 	return false
 }
 
-// SetPerIpRpm gets a reference to the given int32 and assigns it to the PerIpRpm field.
-func (o *Policy) SetPerIpRpm(v int32) {
+// SetPerIpRpm gets a reference to the given int64 and assigns it to the PerIpRpm field.
+func (o *Policy) SetPerIpRpm(v int64) {
 	o.PerIpRpm = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *Policy) GetUpdatedAt() int32 {
+func (o *Policy) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -293,7 +293,7 @@ func (o *Policy) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Policy) GetUpdatedAtOk() (*int32, bool) {
+func (o *Policy) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -309,8 +309,8 @@ func (o *Policy) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *Policy) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *Policy) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 
@@ -347,9 +347,9 @@ func (o *Policy) SetUpdatedBy(v string) {
 }
 
 // GetWindowSec returns the WindowSec field value if set, zero value otherwise.
-func (o *Policy) GetWindowSec() int32 {
+func (o *Policy) GetWindowSec() int64 {
 	if o == nil || IsNil(o.WindowSec) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.WindowSec
@@ -357,7 +357,7 @@ func (o *Policy) GetWindowSec() int32 {
 
 // GetWindowSecOk returns a tuple with the WindowSec field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Policy) GetWindowSecOk() (*int32, bool) {
+func (o *Policy) GetWindowSecOk() (*int64, bool) {
 	if o == nil || IsNil(o.WindowSec) {
 		return nil, false
 	}
@@ -373,8 +373,8 @@ func (o *Policy) HasWindowSec() bool {
 	return false
 }
 
-// SetWindowSec gets a reference to the given int32 and assigns it to the WindowSec field.
-func (o *Policy) SetWindowSec(v int32) {
+// SetWindowSec gets a reference to the given int64 and assigns it to the WindowSec field.
+func (o *Policy) SetWindowSec(v int64) {
 	o.WindowSec = &v
 }
 

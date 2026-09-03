@@ -25,7 +25,7 @@ Method | HTTP request | Description
 
 ## DeleteEvalDatasetsByName
 
-> map[string]interface{} DeleteEvalDatasetsByName(ctx, name).Execute()
+> DeleteEvalDatasetsByName(ctx, name).Execute()
 
 Removes the named dataset of the caller's org AND all of its examples, in one transaction.
 
@@ -48,13 +48,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EvalAPI.DeleteEvalDatasetsByName(context.Background(), name).Execute()
+	r, err := apiClient.EvalAPI.DeleteEvalDatasetsByName(context.Background(), name).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EvalAPI.DeleteEvalDatasetsByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteEvalDatasetsByName`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `EvalAPI.DeleteEvalDatasetsByName`: %v\n", resp)
 }
 ```
 
@@ -77,7 +75,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+ (empty response body)
 
 ### Authorization
 
@@ -86,7 +84,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -114,7 +112,7 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 | Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
+	limit := int64(789) // int64 | Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -139,7 +137,7 @@ Other parameters are passed through a pointer to a apiGetEvalDatasetsRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. | 
+ **limit** | **int64** | Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. | 
 
 ### Return type
 
@@ -251,7 +249,7 @@ import (
 
 func main() {
 	name := "name_example" // string | Dataset is the set to read, from the path — this collection only exists inside one.
-	limit := int32(56) // int32 |  (optional)
+	limit := int64(789) // int64 |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -281,7 +279,7 @@ Other parameters are passed through a pointer to a apiGetEvalDatasetsByNameItems
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **limit** | **int32** |  | 
+ **limit** | **int64** |  | 
 
 ### Return type
 
@@ -322,7 +320,7 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 | Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
+	limit := int64(789) // int64 | Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -347,7 +345,7 @@ Other parameters are passed through a pointer to a apiGetEvalEvaluatorsRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. | 
+ **limit** | **int64** | Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. | 
 
 ### Return type
 
@@ -456,7 +454,7 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 | Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
+	limit := int64(789) // int64 | Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -481,7 +479,7 @@ Other parameters are passed through a pointer to a apiGetEvalRubricsRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. | 
+ **limit** | **int64** | Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. | 
 
 ### Return type
 
@@ -523,7 +521,7 @@ import (
 
 func main() {
 	datasetName := "datasetName_example" // string | Dataset narrows to the runs against one dataset. (optional)
-	limit := int32(56) // int32 |  (optional)
+	limit := int64(789) // int64 |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -549,7 +547,7 @@ Other parameters are passed through a pointer to a apiGetEvalRunsRequest struct 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **datasetName** | **string** | Dataset narrows to the runs against one dataset. | 
- **limit** | **int32** |  | 
+ **limit** | **int64** |  | 
 
 ### Return type
 
@@ -593,7 +591,7 @@ func main() {
 	name := "name_example" // string | Name narrows to one score name. (optional)
 	runName := "runName_example" // string | RunName narrows to the scores of one run. (optional)
 	traceId := "traceId_example" // string | TraceID narrows to the scores on one model call. (optional)
-	limit := int32(56) // int32 |  (optional)
+	limit := int64(789) // int64 |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -621,7 +619,7 @@ Name | Type | Description  | Notes
  **name** | **string** | Name narrows to one score name. | 
  **runName** | **string** | RunName narrows to the scores of one run. | 
  **traceId** | **string** | TraceID narrows to the scores on one model call. | 
- **limit** | **int32** |  | 
+ **limit** | **int64** |  | 
 
 ### Return type
 
@@ -665,7 +663,7 @@ func main() {
 	sessionId := "sessionId_example" // string | SessionID narrows to one session, which for an evaluation is one run. (optional)
 	runName := "runName_example" // string | RunName narrows to the calls one run made. (optional)
 	datasetName := "datasetName_example" // string | Dataset narrows to the calls made against one dataset. (optional)
-	limit := int32(56) // int32 |  (optional)
+	limit := int64(789) // int64 |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -693,7 +691,7 @@ Name | Type | Description  | Notes
  **sessionId** | **string** | SessionID narrows to one session, which for an evaluation is one run. | 
  **runName** | **string** | RunName narrows to the calls one run made. | 
  **datasetName** | **string** | Dataset narrows to the calls made against one dataset. | 
- **limit** | **int32** |  | 
+ **limit** | **int64** |  | 
 
 ### Return type
 

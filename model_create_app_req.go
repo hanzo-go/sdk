@@ -36,11 +36,11 @@ type CreateAppReq struct {
 	// Name is the application's display name. Required; the slug is derived from it when none is given.
 	Name *string `json:"name,omitempty"`
 	// Port is the container port the app listens on.
-	Port *int32 `json:"port,omitempty"`
+	Port *int64 `json:"port,omitempty"`
 	// Project is the project to create the application under, from the path.
 	Project *string `json:"project,omitempty"`
 	// Replicas is how many copies to run; clamped to the deployment's limit rather than refused.
-	Replicas *int32 `json:"replicas,omitempty"`
+	Replicas *int64 `json:"replicas,omitempty"`
 	// Repo is the git source to build from, for source `git`.
 	Repo *GitOrigin `json:"repo,omitempty"`
 	// Slug is the app's identity in the cluster — its CR name and part of its host. Given or derived from Name, it must match `^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$`, and one already used in this project is 409.
@@ -48,7 +48,7 @@ type CreateAppReq struct {
 	// Source is `git`, which requires repo.url, or `image`, which requires image.repository. Anything else is 400.
 	Source *string `json:"source,omitempty"`
 	// StorageGB is the persistent volume size in GiB; absent means stateless. Clamped to the deployment's limit rather than refused.
-	StorageGb *int32 `json:"storageGb,omitempty"`
+	StorageGb *int64 `json:"storageGb,omitempty"`
 }
 
 // NewCreateAppReq instantiates a new CreateAppReq object
@@ -325,9 +325,9 @@ func (o *CreateAppReq) SetName(v string) {
 }
 
 // GetPort returns the Port field value if set, zero value otherwise.
-func (o *CreateAppReq) GetPort() int32 {
+func (o *CreateAppReq) GetPort() int64 {
 	if o == nil || IsNil(o.Port) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Port
@@ -335,7 +335,7 @@ func (o *CreateAppReq) GetPort() int32 {
 
 // GetPortOk returns a tuple with the Port field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateAppReq) GetPortOk() (*int32, bool) {
+func (o *CreateAppReq) GetPortOk() (*int64, bool) {
 	if o == nil || IsNil(o.Port) {
 		return nil, false
 	}
@@ -351,8 +351,8 @@ func (o *CreateAppReq) HasPort() bool {
 	return false
 }
 
-// SetPort gets a reference to the given int32 and assigns it to the Port field.
-func (o *CreateAppReq) SetPort(v int32) {
+// SetPort gets a reference to the given int64 and assigns it to the Port field.
+func (o *CreateAppReq) SetPort(v int64) {
 	o.Port = &v
 }
 
@@ -389,9 +389,9 @@ func (o *CreateAppReq) SetProject(v string) {
 }
 
 // GetReplicas returns the Replicas field value if set, zero value otherwise.
-func (o *CreateAppReq) GetReplicas() int32 {
+func (o *CreateAppReq) GetReplicas() int64 {
 	if o == nil || IsNil(o.Replicas) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Replicas
@@ -399,7 +399,7 @@ func (o *CreateAppReq) GetReplicas() int32 {
 
 // GetReplicasOk returns a tuple with the Replicas field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateAppReq) GetReplicasOk() (*int32, bool) {
+func (o *CreateAppReq) GetReplicasOk() (*int64, bool) {
 	if o == nil || IsNil(o.Replicas) {
 		return nil, false
 	}
@@ -415,8 +415,8 @@ func (o *CreateAppReq) HasReplicas() bool {
 	return false
 }
 
-// SetReplicas gets a reference to the given int32 and assigns it to the Replicas field.
-func (o *CreateAppReq) SetReplicas(v int32) {
+// SetReplicas gets a reference to the given int64 and assigns it to the Replicas field.
+func (o *CreateAppReq) SetReplicas(v int64) {
 	o.Replicas = &v
 }
 
@@ -517,9 +517,9 @@ func (o *CreateAppReq) SetSource(v string) {
 }
 
 // GetStorageGb returns the StorageGb field value if set, zero value otherwise.
-func (o *CreateAppReq) GetStorageGb() int32 {
+func (o *CreateAppReq) GetStorageGb() int64 {
 	if o == nil || IsNil(o.StorageGb) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.StorageGb
@@ -527,7 +527,7 @@ func (o *CreateAppReq) GetStorageGb() int32 {
 
 // GetStorageGbOk returns a tuple with the StorageGb field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateAppReq) GetStorageGbOk() (*int32, bool) {
+func (o *CreateAppReq) GetStorageGbOk() (*int64, bool) {
 	if o == nil || IsNil(o.StorageGb) {
 		return nil, false
 	}
@@ -543,8 +543,8 @@ func (o *CreateAppReq) HasStorageGb() bool {
 	return false
 }
 
-// SetStorageGb gets a reference to the given int32 and assigns it to the StorageGb field.
-func (o *CreateAppReq) SetStorageGb(v int32) {
+// SetStorageGb gets a reference to the given int64 and assigns it to the StorageGb field.
+func (o *CreateAppReq) SetStorageGb(v int64) {
 	o.StorageGb = &v
 }
 

@@ -25,8 +25,8 @@ type Execution struct {
 	Conclusion *string    `json:"conclusion,omitempty"`
 	EndedAt    *time.Time `json:"endedAt,omitempty"`
 	Event      *string    `json:"event,omitempty"`
-	Id         *int32     `json:"id,omitempty"`
-	Number     *int32     `json:"number,omitempty"`
+	Id         *int64     `json:"id,omitempty"`
+	Number     *int64     `json:"number,omitempty"`
 	Org        *string    `json:"org,omitempty"`
 	Repo       *string    `json:"repo,omitempty"`
 	Sha        *string    `json:"sha,omitempty"`
@@ -216,9 +216,9 @@ func (o *Execution) SetEvent(v string) {
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *Execution) GetId() int32 {
+func (o *Execution) GetId() int64 {
 	if o == nil || IsNil(o.Id) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Id
@@ -226,7 +226,7 @@ func (o *Execution) GetId() int32 {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Execution) GetIdOk() (*int32, bool) {
+func (o *Execution) GetIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -242,15 +242,15 @@ func (o *Execution) HasId() bool {
 	return false
 }
 
-// SetId gets a reference to the given int32 and assigns it to the Id field.
-func (o *Execution) SetId(v int32) {
+// SetId gets a reference to the given int64 and assigns it to the Id field.
+func (o *Execution) SetId(v int64) {
 	o.Id = &v
 }
 
 // GetNumber returns the Number field value if set, zero value otherwise.
-func (o *Execution) GetNumber() int32 {
+func (o *Execution) GetNumber() int64 {
 	if o == nil || IsNil(o.Number) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Number
@@ -258,7 +258,7 @@ func (o *Execution) GetNumber() int32 {
 
 // GetNumberOk returns a tuple with the Number field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Execution) GetNumberOk() (*int32, bool) {
+func (o *Execution) GetNumberOk() (*int64, bool) {
 	if o == nil || IsNil(o.Number) {
 		return nil, false
 	}
@@ -274,8 +274,8 @@ func (o *Execution) HasNumber() bool {
 	return false
 }
 
-// SetNumber gets a reference to the given int32 and assigns it to the Number field.
-func (o *Execution) SetNumber(v int32) {
+// SetNumber gets a reference to the given int64 and assigns it to the Number field.
+func (o *Execution) SetNumber(v int64) {
 	o.Number = &v
 }
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Limit** | Pointer to **int32** | Limit caps the answer; 0 takes the default and anything above the ceiling is clamped rather than refused. | [optional] 
+**Limit** | Pointer to **int64** | Limit caps the answer; 0 takes the default and anything above the ceiling is clamped rather than refused. | [optional] 
 **Q** | Pointer to **string** | Q is GitHub&#39;s own search syntax, passed through: \&quot;tetris language:go\&quot;, \&quot;org:hanzoai stars:&gt;10\&quot;. Passing it through rather than inventing a vocabulary means one thing to learn, and it is theirs. | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLimit
 
-`func (o *GithubSearchReq) GetLimit() int32`
+`func (o *GithubSearchReq) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *GithubSearchReq) GetLimitOk() (*int32, bool)`
+`func (o *GithubSearchReq) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *GithubSearchReq) SetLimit(v int32)`
+`func (o *GithubSearchReq) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 

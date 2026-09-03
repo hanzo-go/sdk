@@ -12,11 +12,11 @@ Name | Type | Description | Notes
 **DefaultPaymentMethod** | Pointer to **string** |  | [optional] 
 **EndedAt** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
-**MrrCents** | Pointer to **int32** | MRRCents is what this subscription contributes per month — commerce&#39;s own figure, interval-normalized and multiplied by its seats, so no reader re-derives it from price and interval. | [optional] 
+**MrrCents** | Pointer to **int64** | MRRCents is what this subscription contributes per month — commerce&#39;s own figure, interval-normalized and multiplied by its seats, so no reader re-derives it from price and interval. | [optional] 
 **Plan** | Pointer to [**SubscriptionPlan**](SubscriptionPlan.md) |  | [optional] 
 **PlanId** | Pointer to **string** |  | [optional] 
 **ProviderType** | Pointer to **string** |  | [optional] 
-**Quantity** | Pointer to **int32** |  | [optional] 
+**Quantity** | Pointer to **int64** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 **TrialEnd** | Pointer to **string** |  | [optional] 
 **TrialStart** | Pointer to **string** |  | [optional] 
@@ -244,20 +244,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetMrrCents
 
-`func (o *Subscription) GetMrrCents() int32`
+`func (o *Subscription) GetMrrCents() int64`
 
 GetMrrCents returns the MrrCents field if non-nil, zero value otherwise.
 
 ### GetMrrCentsOk
 
-`func (o *Subscription) GetMrrCentsOk() (*int32, bool)`
+`func (o *Subscription) GetMrrCentsOk() (*int64, bool)`
 
 GetMrrCentsOk returns a tuple with the MrrCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMrrCents
 
-`func (o *Subscription) SetMrrCents(v int32)`
+`func (o *Subscription) SetMrrCents(v int64)`
 
 SetMrrCents sets MrrCents field to given value.
 
@@ -344,20 +344,20 @@ HasProviderType returns a boolean if a field has been set.
 
 ### GetQuantity
 
-`func (o *Subscription) GetQuantity() int32`
+`func (o *Subscription) GetQuantity() int64`
 
 GetQuantity returns the Quantity field if non-nil, zero value otherwise.
 
 ### GetQuantityOk
 
-`func (o *Subscription) GetQuantityOk() (*int32, bool)`
+`func (o *Subscription) GetQuantityOk() (*int64, bool)`
 
 GetQuantityOk returns a tuple with the Quantity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQuantity
 
-`func (o *Subscription) SetQuantity(v int32)`
+`func (o *Subscription) SetQuantity(v int64)`
 
 SetQuantity sets Quantity field to given value.
 

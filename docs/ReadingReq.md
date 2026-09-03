@@ -5,23 +5,23 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Account** | Pointer to **string** | Account is the provider-side account the sample belongs to. | [optional] 
-**CachedInputTokens** | Pointer to **int32** | CachedInputTokens is the window&#39;s cached-prompt-token count. | [optional] 
+**CachedInputTokens** | Pointer to **int64** | CachedInputTokens is the window&#39;s cached-prompt-token count. | [optional] 
 **Confidence** | Pointer to **string** | Confidence says how real the counters are, as the meter graded itself. | [optional] 
-**CostCents** | Pointer to **int32** | CostCents is the window&#39;s spend in cents, as the provider&#39;s meter states it. | [optional] 
-**CostLimitCents** | Pointer to **int32** | CostLimitCents is the window&#39;s spend cap in cents, when the meter knows one. | [optional] 
+**CostCents** | Pointer to **int64** | CostCents is the window&#39;s spend in cents, as the provider&#39;s meter states it. | [optional] 
+**CostLimitCents** | Pointer to **int64** | CostLimitCents is the window&#39;s spend cap in cents, when the meter knows one. | [optional] 
 **Currency** | Pointer to **string** | Currency is the ISO currency the cost fields are stated in. | [optional] 
-**InputTokens** | Pointer to **int32** | InputTokens is the window&#39;s prompt-token count. | [optional] 
+**InputTokens** | Pointer to **int64** | InputTokens is the window&#39;s prompt-token count. | [optional] 
 **Kind** | Pointer to **string** | Kind is subscription or apikey; anything else is refused. | [optional] 
 **Lane** | Pointer to **string** | Lane names the meter&#39;s own lane label for this measurement. | [optional] 
 **Machine** | Pointer to **string** | Machine is the machine the collector observed the account on. Required. | [optional] 
-**OutputTokens** | Pointer to **int32** | OutputTokens is the window&#39;s completion-token count. | [optional] 
+**OutputTokens** | Pointer to **int64** | OutputTokens is the window&#39;s completion-token count. | [optional] 
 **Plan** | Pointer to **string** | Plan is the provider plan label the account is on. | [optional] 
 **Provider** | Pointer to **string** | Provider is the AI provider whose meter reported this sample. Required. | [optional] 
-**Requests** | Pointer to **int32** | Requests is the window&#39;s request count. | [optional] 
+**Requests** | Pointer to **int64** | Requests is the window&#39;s request count. | [optional] 
 **ResetsAt** | Pointer to **string** | ResetsAt is when the window resets, RFC 3339, bounded. | [optional] 
 **Synthetic** | Pointer to **bool** | Synthetic marks a sample the collector derived rather than observed. | [optional] 
-**TotalTokens** | Pointer to **int32** | TotalTokens is the window&#39;s total token count. | [optional] 
-**UsedPct** | Pointer to **float32** | UsedPct is how much of the window&#39;s allowance is consumed, clamped 0..100. | [optional] 
+**TotalTokens** | Pointer to **int64** | TotalTokens is the window&#39;s total token count. | [optional] 
+**UsedPct** | Pointer to **float64** | UsedPct is how much of the window&#39;s allowance is consumed, clamped 0..100. | [optional] 
 **Window** | Pointer to **string** | Window is the window class, one of 6h, day, week, month; anything else is refused rather than silently reclassified. | [optional] 
 **WindowMinutes** | Pointer to **int32** | WindowMinutes is the window&#39;s length as the meter reported it. | [optional] 
 **WindowStart** | Pointer to **string** | WindowStart is when the measured window opened, RFC 3339, bounded to a sane interval around now. | [optional] 
@@ -72,20 +72,20 @@ HasAccount returns a boolean if a field has been set.
 
 ### GetCachedInputTokens
 
-`func (o *ReadingReq) GetCachedInputTokens() int32`
+`func (o *ReadingReq) GetCachedInputTokens() int64`
 
 GetCachedInputTokens returns the CachedInputTokens field if non-nil, zero value otherwise.
 
 ### GetCachedInputTokensOk
 
-`func (o *ReadingReq) GetCachedInputTokensOk() (*int32, bool)`
+`func (o *ReadingReq) GetCachedInputTokensOk() (*int64, bool)`
 
 GetCachedInputTokensOk returns a tuple with the CachedInputTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCachedInputTokens
 
-`func (o *ReadingReq) SetCachedInputTokens(v int32)`
+`func (o *ReadingReq) SetCachedInputTokens(v int64)`
 
 SetCachedInputTokens sets CachedInputTokens field to given value.
 
@@ -122,20 +122,20 @@ HasConfidence returns a boolean if a field has been set.
 
 ### GetCostCents
 
-`func (o *ReadingReq) GetCostCents() int32`
+`func (o *ReadingReq) GetCostCents() int64`
 
 GetCostCents returns the CostCents field if non-nil, zero value otherwise.
 
 ### GetCostCentsOk
 
-`func (o *ReadingReq) GetCostCentsOk() (*int32, bool)`
+`func (o *ReadingReq) GetCostCentsOk() (*int64, bool)`
 
 GetCostCentsOk returns a tuple with the CostCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCostCents
 
-`func (o *ReadingReq) SetCostCents(v int32)`
+`func (o *ReadingReq) SetCostCents(v int64)`
 
 SetCostCents sets CostCents field to given value.
 
@@ -147,20 +147,20 @@ HasCostCents returns a boolean if a field has been set.
 
 ### GetCostLimitCents
 
-`func (o *ReadingReq) GetCostLimitCents() int32`
+`func (o *ReadingReq) GetCostLimitCents() int64`
 
 GetCostLimitCents returns the CostLimitCents field if non-nil, zero value otherwise.
 
 ### GetCostLimitCentsOk
 
-`func (o *ReadingReq) GetCostLimitCentsOk() (*int32, bool)`
+`func (o *ReadingReq) GetCostLimitCentsOk() (*int64, bool)`
 
 GetCostLimitCentsOk returns a tuple with the CostLimitCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCostLimitCents
 
-`func (o *ReadingReq) SetCostLimitCents(v int32)`
+`func (o *ReadingReq) SetCostLimitCents(v int64)`
 
 SetCostLimitCents sets CostLimitCents field to given value.
 
@@ -197,20 +197,20 @@ HasCurrency returns a boolean if a field has been set.
 
 ### GetInputTokens
 
-`func (o *ReadingReq) GetInputTokens() int32`
+`func (o *ReadingReq) GetInputTokens() int64`
 
 GetInputTokens returns the InputTokens field if non-nil, zero value otherwise.
 
 ### GetInputTokensOk
 
-`func (o *ReadingReq) GetInputTokensOk() (*int32, bool)`
+`func (o *ReadingReq) GetInputTokensOk() (*int64, bool)`
 
 GetInputTokensOk returns a tuple with the InputTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInputTokens
 
-`func (o *ReadingReq) SetInputTokens(v int32)`
+`func (o *ReadingReq) SetInputTokens(v int64)`
 
 SetInputTokens sets InputTokens field to given value.
 
@@ -297,20 +297,20 @@ HasMachine returns a boolean if a field has been set.
 
 ### GetOutputTokens
 
-`func (o *ReadingReq) GetOutputTokens() int32`
+`func (o *ReadingReq) GetOutputTokens() int64`
 
 GetOutputTokens returns the OutputTokens field if non-nil, zero value otherwise.
 
 ### GetOutputTokensOk
 
-`func (o *ReadingReq) GetOutputTokensOk() (*int32, bool)`
+`func (o *ReadingReq) GetOutputTokensOk() (*int64, bool)`
 
 GetOutputTokensOk returns a tuple with the OutputTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOutputTokens
 
-`func (o *ReadingReq) SetOutputTokens(v int32)`
+`func (o *ReadingReq) SetOutputTokens(v int64)`
 
 SetOutputTokens sets OutputTokens field to given value.
 
@@ -372,20 +372,20 @@ HasProvider returns a boolean if a field has been set.
 
 ### GetRequests
 
-`func (o *ReadingReq) GetRequests() int32`
+`func (o *ReadingReq) GetRequests() int64`
 
 GetRequests returns the Requests field if non-nil, zero value otherwise.
 
 ### GetRequestsOk
 
-`func (o *ReadingReq) GetRequestsOk() (*int32, bool)`
+`func (o *ReadingReq) GetRequestsOk() (*int64, bool)`
 
 GetRequestsOk returns a tuple with the Requests field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRequests
 
-`func (o *ReadingReq) SetRequests(v int32)`
+`func (o *ReadingReq) SetRequests(v int64)`
 
 SetRequests sets Requests field to given value.
 
@@ -447,20 +447,20 @@ HasSynthetic returns a boolean if a field has been set.
 
 ### GetTotalTokens
 
-`func (o *ReadingReq) GetTotalTokens() int32`
+`func (o *ReadingReq) GetTotalTokens() int64`
 
 GetTotalTokens returns the TotalTokens field if non-nil, zero value otherwise.
 
 ### GetTotalTokensOk
 
-`func (o *ReadingReq) GetTotalTokensOk() (*int32, bool)`
+`func (o *ReadingReq) GetTotalTokensOk() (*int64, bool)`
 
 GetTotalTokensOk returns a tuple with the TotalTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalTokens
 
-`func (o *ReadingReq) SetTotalTokens(v int32)`
+`func (o *ReadingReq) SetTotalTokens(v int64)`
 
 SetTotalTokens sets TotalTokens field to given value.
 
@@ -472,20 +472,20 @@ HasTotalTokens returns a boolean if a field has been set.
 
 ### GetUsedPct
 
-`func (o *ReadingReq) GetUsedPct() float32`
+`func (o *ReadingReq) GetUsedPct() float64`
 
 GetUsedPct returns the UsedPct field if non-nil, zero value otherwise.
 
 ### GetUsedPctOk
 
-`func (o *ReadingReq) GetUsedPctOk() (*float32, bool)`
+`func (o *ReadingReq) GetUsedPctOk() (*float64, bool)`
 
 GetUsedPctOk returns a tuple with the UsedPct field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUsedPct
 
-`func (o *ReadingReq) SetUsedPct(v float32)`
+`func (o *ReadingReq) SetUsedPct(v float64)`
 
 SetUsedPct sets UsedPct field to given value.
 

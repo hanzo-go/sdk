@@ -21,10 +21,10 @@ var _ MappedNullable = &O11yNodeListRecord{}
 type O11yNodeListRecord struct {
 	CountByCondition      *O11yNodeCountByCondition `json:"countByCondition,omitempty"`
 	Meta                  map[string]string         `json:"meta,omitempty"`
-	NodeCPUAllocatable    *float32                  `json:"nodeCPUAllocatable,omitempty"`
-	NodeCPUUsage          *float32                  `json:"nodeCPUUsage,omitempty"`
-	NodeMemoryAllocatable *float32                  `json:"nodeMemoryAllocatable,omitempty"`
-	NodeMemoryUsage       *float32                  `json:"nodeMemoryUsage,omitempty"`
+	NodeCPUAllocatable    *float64                  `json:"nodeCPUAllocatable,omitempty"`
+	NodeCPUUsage          *float64                  `json:"nodeCPUUsage,omitempty"`
+	NodeMemoryAllocatable *float64                  `json:"nodeMemoryAllocatable,omitempty"`
+	NodeMemoryUsage       *float64                  `json:"nodeMemoryUsage,omitempty"`
 	NodeUID               *string                   `json:"nodeUID,omitempty"`
 }
 
@@ -110,9 +110,9 @@ func (o *O11yNodeListRecord) SetMeta(v map[string]string) {
 }
 
 // GetNodeCPUAllocatable returns the NodeCPUAllocatable field value if set, zero value otherwise.
-func (o *O11yNodeListRecord) GetNodeCPUAllocatable() float32 {
+func (o *O11yNodeListRecord) GetNodeCPUAllocatable() float64 {
 	if o == nil || IsNil(o.NodeCPUAllocatable) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.NodeCPUAllocatable
@@ -120,7 +120,7 @@ func (o *O11yNodeListRecord) GetNodeCPUAllocatable() float32 {
 
 // GetNodeCPUAllocatableOk returns a tuple with the NodeCPUAllocatable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yNodeListRecord) GetNodeCPUAllocatableOk() (*float32, bool) {
+func (o *O11yNodeListRecord) GetNodeCPUAllocatableOk() (*float64, bool) {
 	if o == nil || IsNil(o.NodeCPUAllocatable) {
 		return nil, false
 	}
@@ -136,15 +136,15 @@ func (o *O11yNodeListRecord) HasNodeCPUAllocatable() bool {
 	return false
 }
 
-// SetNodeCPUAllocatable gets a reference to the given float32 and assigns it to the NodeCPUAllocatable field.
-func (o *O11yNodeListRecord) SetNodeCPUAllocatable(v float32) {
+// SetNodeCPUAllocatable gets a reference to the given float64 and assigns it to the NodeCPUAllocatable field.
+func (o *O11yNodeListRecord) SetNodeCPUAllocatable(v float64) {
 	o.NodeCPUAllocatable = &v
 }
 
 // GetNodeCPUUsage returns the NodeCPUUsage field value if set, zero value otherwise.
-func (o *O11yNodeListRecord) GetNodeCPUUsage() float32 {
+func (o *O11yNodeListRecord) GetNodeCPUUsage() float64 {
 	if o == nil || IsNil(o.NodeCPUUsage) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.NodeCPUUsage
@@ -152,7 +152,7 @@ func (o *O11yNodeListRecord) GetNodeCPUUsage() float32 {
 
 // GetNodeCPUUsageOk returns a tuple with the NodeCPUUsage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yNodeListRecord) GetNodeCPUUsageOk() (*float32, bool) {
+func (o *O11yNodeListRecord) GetNodeCPUUsageOk() (*float64, bool) {
 	if o == nil || IsNil(o.NodeCPUUsage) {
 		return nil, false
 	}
@@ -168,15 +168,15 @@ func (o *O11yNodeListRecord) HasNodeCPUUsage() bool {
 	return false
 }
 
-// SetNodeCPUUsage gets a reference to the given float32 and assigns it to the NodeCPUUsage field.
-func (o *O11yNodeListRecord) SetNodeCPUUsage(v float32) {
+// SetNodeCPUUsage gets a reference to the given float64 and assigns it to the NodeCPUUsage field.
+func (o *O11yNodeListRecord) SetNodeCPUUsage(v float64) {
 	o.NodeCPUUsage = &v
 }
 
 // GetNodeMemoryAllocatable returns the NodeMemoryAllocatable field value if set, zero value otherwise.
-func (o *O11yNodeListRecord) GetNodeMemoryAllocatable() float32 {
+func (o *O11yNodeListRecord) GetNodeMemoryAllocatable() float64 {
 	if o == nil || IsNil(o.NodeMemoryAllocatable) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.NodeMemoryAllocatable
@@ -184,7 +184,7 @@ func (o *O11yNodeListRecord) GetNodeMemoryAllocatable() float32 {
 
 // GetNodeMemoryAllocatableOk returns a tuple with the NodeMemoryAllocatable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yNodeListRecord) GetNodeMemoryAllocatableOk() (*float32, bool) {
+func (o *O11yNodeListRecord) GetNodeMemoryAllocatableOk() (*float64, bool) {
 	if o == nil || IsNil(o.NodeMemoryAllocatable) {
 		return nil, false
 	}
@@ -200,15 +200,15 @@ func (o *O11yNodeListRecord) HasNodeMemoryAllocatable() bool {
 	return false
 }
 
-// SetNodeMemoryAllocatable gets a reference to the given float32 and assigns it to the NodeMemoryAllocatable field.
-func (o *O11yNodeListRecord) SetNodeMemoryAllocatable(v float32) {
+// SetNodeMemoryAllocatable gets a reference to the given float64 and assigns it to the NodeMemoryAllocatable field.
+func (o *O11yNodeListRecord) SetNodeMemoryAllocatable(v float64) {
 	o.NodeMemoryAllocatable = &v
 }
 
 // GetNodeMemoryUsage returns the NodeMemoryUsage field value if set, zero value otherwise.
-func (o *O11yNodeListRecord) GetNodeMemoryUsage() float32 {
+func (o *O11yNodeListRecord) GetNodeMemoryUsage() float64 {
 	if o == nil || IsNil(o.NodeMemoryUsage) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.NodeMemoryUsage
@@ -216,7 +216,7 @@ func (o *O11yNodeListRecord) GetNodeMemoryUsage() float32 {
 
 // GetNodeMemoryUsageOk returns a tuple with the NodeMemoryUsage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yNodeListRecord) GetNodeMemoryUsageOk() (*float32, bool) {
+func (o *O11yNodeListRecord) GetNodeMemoryUsageOk() (*float64, bool) {
 	if o == nil || IsNil(o.NodeMemoryUsage) {
 		return nil, false
 	}
@@ -232,8 +232,8 @@ func (o *O11yNodeListRecord) HasNodeMemoryUsage() bool {
 	return false
 }
 
-// SetNodeMemoryUsage gets a reference to the given float32 and assigns it to the NodeMemoryUsage field.
-func (o *O11yNodeListRecord) SetNodeMemoryUsage(v float32) {
+// SetNodeMemoryUsage gets a reference to the given float64 and assigns it to the NodeMemoryUsage field.
+func (o *O11yNodeListRecord) SetNodeMemoryUsage(v float64) {
 	o.NodeMemoryUsage = &v
 }
 

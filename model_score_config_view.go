@@ -26,9 +26,9 @@ type ScoreConfigView struct {
 	// DataType is NUMERIC, CATEGORICAL or BOOLEAN, and is authoritative — a score recorded under this name cannot claim a different one.
 	DataType *string `json:"dataType,omitempty"`
 	// MaxValue is the inclusive ceiling a NUMERIC score must stay under, absent when unbounded.
-	MaxValue *float32 `json:"maxValue,omitempty"`
+	MaxValue *float64 `json:"maxValue,omitempty"`
 	// MinValue is the inclusive floor a NUMERIC score must clear, absent when unbounded.
-	MinValue *float32 `json:"minValue,omitempty"`
+	MinValue *float64 `json:"minValue,omitempty"`
 	// Name is the score name this rubric governs.
 	Name *string `json:"name,omitempty"`
 	// UpdatedAt is when it last changed.
@@ -149,9 +149,9 @@ func (o *ScoreConfigView) SetDataType(v string) {
 }
 
 // GetMaxValue returns the MaxValue field value if set, zero value otherwise.
-func (o *ScoreConfigView) GetMaxValue() float32 {
+func (o *ScoreConfigView) GetMaxValue() float64 {
 	if o == nil || IsNil(o.MaxValue) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.MaxValue
@@ -159,7 +159,7 @@ func (o *ScoreConfigView) GetMaxValue() float32 {
 
 // GetMaxValueOk returns a tuple with the MaxValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ScoreConfigView) GetMaxValueOk() (*float32, bool) {
+func (o *ScoreConfigView) GetMaxValueOk() (*float64, bool) {
 	if o == nil || IsNil(o.MaxValue) {
 		return nil, false
 	}
@@ -175,15 +175,15 @@ func (o *ScoreConfigView) HasMaxValue() bool {
 	return false
 }
 
-// SetMaxValue gets a reference to the given float32 and assigns it to the MaxValue field.
-func (o *ScoreConfigView) SetMaxValue(v float32) {
+// SetMaxValue gets a reference to the given float64 and assigns it to the MaxValue field.
+func (o *ScoreConfigView) SetMaxValue(v float64) {
 	o.MaxValue = &v
 }
 
 // GetMinValue returns the MinValue field value if set, zero value otherwise.
-func (o *ScoreConfigView) GetMinValue() float32 {
+func (o *ScoreConfigView) GetMinValue() float64 {
 	if o == nil || IsNil(o.MinValue) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.MinValue
@@ -191,7 +191,7 @@ func (o *ScoreConfigView) GetMinValue() float32 {
 
 // GetMinValueOk returns a tuple with the MinValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ScoreConfigView) GetMinValueOk() (*float32, bool) {
+func (o *ScoreConfigView) GetMinValueOk() (*float64, bool) {
 	if o == nil || IsNil(o.MinValue) {
 		return nil, false
 	}
@@ -207,8 +207,8 @@ func (o *ScoreConfigView) HasMinValue() bool {
 	return false
 }
 
-// SetMinValue gets a reference to the given float32 and assigns it to the MinValue field.
-func (o *ScoreConfigView) SetMinValue(v float32) {
+// SetMinValue gets a reference to the given float64 and assigns it to the MinValue field.
+func (o *ScoreConfigView) SetMinValue(v float64) {
 	o.MinValue = &v
 }
 

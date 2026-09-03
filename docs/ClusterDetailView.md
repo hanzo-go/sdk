@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AmdGpu** | Pointer to **int32** |  | [optional] 
+**AmdGpu** | Pointer to **int64** |  | [optional] 
 **CreatedAt** | Pointer to **string** |  | [optional] 
 **DoClusterId** | Pointer to **string** |  | [optional] 
 **DoksClusterId** | Pointer to **string** |  | [optional] 
 **Kind** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**NodeCount** | Pointer to **int32** |  | [optional] 
+**NodeCount** | Pointer to **int64** |  | [optional] 
 **NodePools** | Pointer to [**[]NodePoolView**](NodePoolView.md) |  | [optional] 
 **NodeSize** | Pointer to **string** |  | [optional] 
 **Nodes** | Pointer to [**[]MachineView**](MachineView.md) | Nodes is every worker node in the cluster, each in the same shape the machines surface uses — a node IS a machine, addressable by its own id. This is the individual hardware behind the pool counts above. | [optional] 
-**NvidiaGpu** | Pointer to **int32** |  | [optional] 
+**NvidiaGpu** | Pointer to **int64** |  | [optional] 
 **Region** | Pointer to **string** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 
@@ -39,20 +39,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAmdGpu
 
-`func (o *ClusterDetailView) GetAmdGpu() int32`
+`func (o *ClusterDetailView) GetAmdGpu() int64`
 
 GetAmdGpu returns the AmdGpu field if non-nil, zero value otherwise.
 
 ### GetAmdGpuOk
 
-`func (o *ClusterDetailView) GetAmdGpuOk() (*int32, bool)`
+`func (o *ClusterDetailView) GetAmdGpuOk() (*int64, bool)`
 
 GetAmdGpuOk returns a tuple with the AmdGpu field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmdGpu
 
-`func (o *ClusterDetailView) SetAmdGpu(v int32)`
+`func (o *ClusterDetailView) SetAmdGpu(v int64)`
 
 SetAmdGpu sets AmdGpu field to given value.
 
@@ -189,20 +189,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetNodeCount
 
-`func (o *ClusterDetailView) GetNodeCount() int32`
+`func (o *ClusterDetailView) GetNodeCount() int64`
 
 GetNodeCount returns the NodeCount field if non-nil, zero value otherwise.
 
 ### GetNodeCountOk
 
-`func (o *ClusterDetailView) GetNodeCountOk() (*int32, bool)`
+`func (o *ClusterDetailView) GetNodeCountOk() (*int64, bool)`
 
 GetNodeCountOk returns a tuple with the NodeCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNodeCount
 
-`func (o *ClusterDetailView) SetNodeCount(v int32)`
+`func (o *ClusterDetailView) SetNodeCount(v int64)`
 
 SetNodeCount sets NodeCount field to given value.
 
@@ -289,20 +289,20 @@ HasNodes returns a boolean if a field has been set.
 
 ### GetNvidiaGpu
 
-`func (o *ClusterDetailView) GetNvidiaGpu() int32`
+`func (o *ClusterDetailView) GetNvidiaGpu() int64`
 
 GetNvidiaGpu returns the NvidiaGpu field if non-nil, zero value otherwise.
 
 ### GetNvidiaGpuOk
 
-`func (o *ClusterDetailView) GetNvidiaGpuOk() (*int32, bool)`
+`func (o *ClusterDetailView) GetNvidiaGpuOk() (*int64, bool)`
 
 GetNvidiaGpuOk returns a tuple with the NvidiaGpu field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNvidiaGpu
 
-`func (o *ClusterDetailView) SetNvidiaGpu(v int32)`
+`func (o *ClusterDetailView) SetNvidiaGpu(v int64)`
 
 SetNvidiaGpu sets NvidiaGpu field to given value.
 

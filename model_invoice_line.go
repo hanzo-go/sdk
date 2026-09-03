@@ -20,13 +20,13 @@ var _ MappedNullable = &InvoiceLine{}
 // InvoiceLine struct for InvoiceLine
 type InvoiceLine struct {
 	// Amount is the line total in whole cents (250000 is $2,500.00).
-	Amount *int32 `json:"amount,omitempty"`
+	Amount *int64 `json:"amount,omitempty"`
 	// Description is the human-readable line, e.g. \"Advisory retainer — August\".
 	Description *string `json:"description,omitempty"`
 	// Quantity is the number of units, when the line is metered. Optional.
-	Quantity *int32 `json:"quantity,omitempty"`
+	Quantity *int64 `json:"quantity,omitempty"`
 	// UnitPrice is the per-unit price in cents, when the line is metered. Optional.
-	UnitPrice *int32 `json:"unitPrice,omitempty"`
+	UnitPrice *int64 `json:"unitPrice,omitempty"`
 }
 
 // NewInvoiceLine instantiates a new InvoiceLine object
@@ -47,9 +47,9 @@ func NewInvoiceLineWithDefaults() *InvoiceLine {
 }
 
 // GetAmount returns the Amount field value if set, zero value otherwise.
-func (o *InvoiceLine) GetAmount() int32 {
+func (o *InvoiceLine) GetAmount() int64 {
 	if o == nil || IsNil(o.Amount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Amount
@@ -57,7 +57,7 @@ func (o *InvoiceLine) GetAmount() int32 {
 
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InvoiceLine) GetAmountOk() (*int32, bool) {
+func (o *InvoiceLine) GetAmountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Amount) {
 		return nil, false
 	}
@@ -73,8 +73,8 @@ func (o *InvoiceLine) HasAmount() bool {
 	return false
 }
 
-// SetAmount gets a reference to the given int32 and assigns it to the Amount field.
-func (o *InvoiceLine) SetAmount(v int32) {
+// SetAmount gets a reference to the given int64 and assigns it to the Amount field.
+func (o *InvoiceLine) SetAmount(v int64) {
 	o.Amount = &v
 }
 
@@ -111,9 +111,9 @@ func (o *InvoiceLine) SetDescription(v string) {
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise.
-func (o *InvoiceLine) GetQuantity() int32 {
+func (o *InvoiceLine) GetQuantity() int64 {
 	if o == nil || IsNil(o.Quantity) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Quantity
@@ -121,7 +121,7 @@ func (o *InvoiceLine) GetQuantity() int32 {
 
 // GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InvoiceLine) GetQuantityOk() (*int32, bool) {
+func (o *InvoiceLine) GetQuantityOk() (*int64, bool) {
 	if o == nil || IsNil(o.Quantity) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *InvoiceLine) HasQuantity() bool {
 	return false
 }
 
-// SetQuantity gets a reference to the given int32 and assigns it to the Quantity field.
-func (o *InvoiceLine) SetQuantity(v int32) {
+// SetQuantity gets a reference to the given int64 and assigns it to the Quantity field.
+func (o *InvoiceLine) SetQuantity(v int64) {
 	o.Quantity = &v
 }
 
 // GetUnitPrice returns the UnitPrice field value if set, zero value otherwise.
-func (o *InvoiceLine) GetUnitPrice() int32 {
+func (o *InvoiceLine) GetUnitPrice() int64 {
 	if o == nil || IsNil(o.UnitPrice) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UnitPrice
@@ -153,7 +153,7 @@ func (o *InvoiceLine) GetUnitPrice() int32 {
 
 // GetUnitPriceOk returns a tuple with the UnitPrice field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InvoiceLine) GetUnitPriceOk() (*int32, bool) {
+func (o *InvoiceLine) GetUnitPriceOk() (*int64, bool) {
 	if o == nil || IsNil(o.UnitPrice) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *InvoiceLine) HasUnitPrice() bool {
 	return false
 }
 
-// SetUnitPrice gets a reference to the given int32 and assigns it to the UnitPrice field.
-func (o *InvoiceLine) SetUnitPrice(v int32) {
+// SetUnitPrice gets a reference to the given int64 and assigns it to the UnitPrice field.
+func (o *InvoiceLine) SetUnitPrice(v int64) {
 	o.UnitPrice = &v
 }
 

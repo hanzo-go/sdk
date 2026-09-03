@@ -20,7 +20,7 @@ var _ MappedNullable = &ArgoClusterInfo{}
 // ArgoClusterInfo struct for ArgoClusterInfo
 type ArgoClusterInfo struct {
 	// ApplicationsCount is how many of THE CALLER'S applications reconcile into this cluster, so a tenant sees its own count and a SuperAdmin the fleet's. It is zero for the in-cluster destination when the caller owns nothing, since that destination is listed whether or not anything targets it.
-	ApplicationsCount *int32 `json:"applicationsCount,omitempty"`
+	ApplicationsCount *int64 `json:"applicationsCount,omitempty"`
 	// ConnectionState repeats the cluster's own connection state, which is where ArgoCD's UI reads it from on this object.
 	ConnectionState *ArgoConnectionState `json:"connectionState,omitempty"`
 	// ServerVersion is the kubernetes version of the destination. Always absent: nothing here queries the API server for it.
@@ -45,9 +45,9 @@ func NewArgoClusterInfoWithDefaults() *ArgoClusterInfo {
 }
 
 // GetApplicationsCount returns the ApplicationsCount field value if set, zero value otherwise.
-func (o *ArgoClusterInfo) GetApplicationsCount() int32 {
+func (o *ArgoClusterInfo) GetApplicationsCount() int64 {
 	if o == nil || IsNil(o.ApplicationsCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ApplicationsCount
@@ -55,7 +55,7 @@ func (o *ArgoClusterInfo) GetApplicationsCount() int32 {
 
 // GetApplicationsCountOk returns a tuple with the ApplicationsCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ArgoClusterInfo) GetApplicationsCountOk() (*int32, bool) {
+func (o *ArgoClusterInfo) GetApplicationsCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.ApplicationsCount) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *ArgoClusterInfo) HasApplicationsCount() bool {
 	return false
 }
 
-// SetApplicationsCount gets a reference to the given int32 and assigns it to the ApplicationsCount field.
-func (o *ArgoClusterInfo) SetApplicationsCount(v int32) {
+// SetApplicationsCount gets a reference to the given int64 and assigns it to the ApplicationsCount field.
+func (o *ArgoClusterInfo) SetApplicationsCount(v int64) {
 	o.ApplicationsCount = &v
 }
 

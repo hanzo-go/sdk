@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Total** | Pointer to **int32** |  | [optional] 
+**Total** | Pointer to **int64** |  | [optional] 
 **Workspaces** | Pointer to [**[]IamWorkspace**](IamWorkspace.md) |  | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetTotal
 
-`func (o *IamWorkspacesListOutput) GetTotal() int32`
+`func (o *IamWorkspacesListOutput) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *IamWorkspacesListOutput) GetTotalOk() (*int32, bool)`
+`func (o *IamWorkspacesListOutput) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *IamWorkspacesListOutput) SetTotal(v int32)`
+`func (o *IamWorkspacesListOutput) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

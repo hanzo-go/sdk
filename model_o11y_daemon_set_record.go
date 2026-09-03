@@ -19,15 +19,15 @@ var _ MappedNullable = &O11yDaemonSetRecord{}
 
 // O11yDaemonSetRecord struct for O11yDaemonSetRecord
 type O11yDaemonSetRecord struct {
-	CurrentNodes           *int32                `json:"currentNodes,omitempty"`
-	DaemonSetCPU           *float32              `json:"daemonSetCPU,omitempty"`
-	DaemonSetCPULimit      *float32              `json:"daemonSetCPULimit,omitempty"`
-	DaemonSetCPURequest    *float32              `json:"daemonSetCPURequest,omitempty"`
-	DaemonSetMemory        *float32              `json:"daemonSetMemory,omitempty"`
-	DaemonSetMemoryLimit   *float32              `json:"daemonSetMemoryLimit,omitempty"`
-	DaemonSetMemoryRequest *float32              `json:"daemonSetMemoryRequest,omitempty"`
+	CurrentNodes           *int64                `json:"currentNodes,omitempty"`
+	DaemonSetCPU           *float64              `json:"daemonSetCPU,omitempty"`
+	DaemonSetCPULimit      *float64              `json:"daemonSetCPULimit,omitempty"`
+	DaemonSetCPURequest    *float64              `json:"daemonSetCPURequest,omitempty"`
+	DaemonSetMemory        *float64              `json:"daemonSetMemory,omitempty"`
+	DaemonSetMemoryLimit   *float64              `json:"daemonSetMemoryLimit,omitempty"`
+	DaemonSetMemoryRequest *float64              `json:"daemonSetMemoryRequest,omitempty"`
 	DaemonSetName          *string               `json:"daemonSetName,omitempty"`
-	DesiredNodes           *int32                `json:"desiredNodes,omitempty"`
+	DesiredNodes           *int64                `json:"desiredNodes,omitempty"`
 	Meta                   map[string]string     `json:"meta,omitempty"`
 	PodCountsByPhase       *O11yPodCountsByPhase `json:"podCountsByPhase,omitempty"`
 }
@@ -50,9 +50,9 @@ func NewO11yDaemonSetRecordWithDefaults() *O11yDaemonSetRecord {
 }
 
 // GetCurrentNodes returns the CurrentNodes field value if set, zero value otherwise.
-func (o *O11yDaemonSetRecord) GetCurrentNodes() int32 {
+func (o *O11yDaemonSetRecord) GetCurrentNodes() int64 {
 	if o == nil || IsNil(o.CurrentNodes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CurrentNodes
@@ -60,7 +60,7 @@ func (o *O11yDaemonSetRecord) GetCurrentNodes() int32 {
 
 // GetCurrentNodesOk returns a tuple with the CurrentNodes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDaemonSetRecord) GetCurrentNodesOk() (*int32, bool) {
+func (o *O11yDaemonSetRecord) GetCurrentNodesOk() (*int64, bool) {
 	if o == nil || IsNil(o.CurrentNodes) {
 		return nil, false
 	}
@@ -76,15 +76,15 @@ func (o *O11yDaemonSetRecord) HasCurrentNodes() bool {
 	return false
 }
 
-// SetCurrentNodes gets a reference to the given int32 and assigns it to the CurrentNodes field.
-func (o *O11yDaemonSetRecord) SetCurrentNodes(v int32) {
+// SetCurrentNodes gets a reference to the given int64 and assigns it to the CurrentNodes field.
+func (o *O11yDaemonSetRecord) SetCurrentNodes(v int64) {
 	o.CurrentNodes = &v
 }
 
 // GetDaemonSetCPU returns the DaemonSetCPU field value if set, zero value otherwise.
-func (o *O11yDaemonSetRecord) GetDaemonSetCPU() float32 {
+func (o *O11yDaemonSetRecord) GetDaemonSetCPU() float64 {
 	if o == nil || IsNil(o.DaemonSetCPU) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.DaemonSetCPU
@@ -92,7 +92,7 @@ func (o *O11yDaemonSetRecord) GetDaemonSetCPU() float32 {
 
 // GetDaemonSetCPUOk returns a tuple with the DaemonSetCPU field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDaemonSetRecord) GetDaemonSetCPUOk() (*float32, bool) {
+func (o *O11yDaemonSetRecord) GetDaemonSetCPUOk() (*float64, bool) {
 	if o == nil || IsNil(o.DaemonSetCPU) {
 		return nil, false
 	}
@@ -108,15 +108,15 @@ func (o *O11yDaemonSetRecord) HasDaemonSetCPU() bool {
 	return false
 }
 
-// SetDaemonSetCPU gets a reference to the given float32 and assigns it to the DaemonSetCPU field.
-func (o *O11yDaemonSetRecord) SetDaemonSetCPU(v float32) {
+// SetDaemonSetCPU gets a reference to the given float64 and assigns it to the DaemonSetCPU field.
+func (o *O11yDaemonSetRecord) SetDaemonSetCPU(v float64) {
 	o.DaemonSetCPU = &v
 }
 
 // GetDaemonSetCPULimit returns the DaemonSetCPULimit field value if set, zero value otherwise.
-func (o *O11yDaemonSetRecord) GetDaemonSetCPULimit() float32 {
+func (o *O11yDaemonSetRecord) GetDaemonSetCPULimit() float64 {
 	if o == nil || IsNil(o.DaemonSetCPULimit) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.DaemonSetCPULimit
@@ -124,7 +124,7 @@ func (o *O11yDaemonSetRecord) GetDaemonSetCPULimit() float32 {
 
 // GetDaemonSetCPULimitOk returns a tuple with the DaemonSetCPULimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDaemonSetRecord) GetDaemonSetCPULimitOk() (*float32, bool) {
+func (o *O11yDaemonSetRecord) GetDaemonSetCPULimitOk() (*float64, bool) {
 	if o == nil || IsNil(o.DaemonSetCPULimit) {
 		return nil, false
 	}
@@ -140,15 +140,15 @@ func (o *O11yDaemonSetRecord) HasDaemonSetCPULimit() bool {
 	return false
 }
 
-// SetDaemonSetCPULimit gets a reference to the given float32 and assigns it to the DaemonSetCPULimit field.
-func (o *O11yDaemonSetRecord) SetDaemonSetCPULimit(v float32) {
+// SetDaemonSetCPULimit gets a reference to the given float64 and assigns it to the DaemonSetCPULimit field.
+func (o *O11yDaemonSetRecord) SetDaemonSetCPULimit(v float64) {
 	o.DaemonSetCPULimit = &v
 }
 
 // GetDaemonSetCPURequest returns the DaemonSetCPURequest field value if set, zero value otherwise.
-func (o *O11yDaemonSetRecord) GetDaemonSetCPURequest() float32 {
+func (o *O11yDaemonSetRecord) GetDaemonSetCPURequest() float64 {
 	if o == nil || IsNil(o.DaemonSetCPURequest) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.DaemonSetCPURequest
@@ -156,7 +156,7 @@ func (o *O11yDaemonSetRecord) GetDaemonSetCPURequest() float32 {
 
 // GetDaemonSetCPURequestOk returns a tuple with the DaemonSetCPURequest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDaemonSetRecord) GetDaemonSetCPURequestOk() (*float32, bool) {
+func (o *O11yDaemonSetRecord) GetDaemonSetCPURequestOk() (*float64, bool) {
 	if o == nil || IsNil(o.DaemonSetCPURequest) {
 		return nil, false
 	}
@@ -172,15 +172,15 @@ func (o *O11yDaemonSetRecord) HasDaemonSetCPURequest() bool {
 	return false
 }
 
-// SetDaemonSetCPURequest gets a reference to the given float32 and assigns it to the DaemonSetCPURequest field.
-func (o *O11yDaemonSetRecord) SetDaemonSetCPURequest(v float32) {
+// SetDaemonSetCPURequest gets a reference to the given float64 and assigns it to the DaemonSetCPURequest field.
+func (o *O11yDaemonSetRecord) SetDaemonSetCPURequest(v float64) {
 	o.DaemonSetCPURequest = &v
 }
 
 // GetDaemonSetMemory returns the DaemonSetMemory field value if set, zero value otherwise.
-func (o *O11yDaemonSetRecord) GetDaemonSetMemory() float32 {
+func (o *O11yDaemonSetRecord) GetDaemonSetMemory() float64 {
 	if o == nil || IsNil(o.DaemonSetMemory) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.DaemonSetMemory
@@ -188,7 +188,7 @@ func (o *O11yDaemonSetRecord) GetDaemonSetMemory() float32 {
 
 // GetDaemonSetMemoryOk returns a tuple with the DaemonSetMemory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDaemonSetRecord) GetDaemonSetMemoryOk() (*float32, bool) {
+func (o *O11yDaemonSetRecord) GetDaemonSetMemoryOk() (*float64, bool) {
 	if o == nil || IsNil(o.DaemonSetMemory) {
 		return nil, false
 	}
@@ -204,15 +204,15 @@ func (o *O11yDaemonSetRecord) HasDaemonSetMemory() bool {
 	return false
 }
 
-// SetDaemonSetMemory gets a reference to the given float32 and assigns it to the DaemonSetMemory field.
-func (o *O11yDaemonSetRecord) SetDaemonSetMemory(v float32) {
+// SetDaemonSetMemory gets a reference to the given float64 and assigns it to the DaemonSetMemory field.
+func (o *O11yDaemonSetRecord) SetDaemonSetMemory(v float64) {
 	o.DaemonSetMemory = &v
 }
 
 // GetDaemonSetMemoryLimit returns the DaemonSetMemoryLimit field value if set, zero value otherwise.
-func (o *O11yDaemonSetRecord) GetDaemonSetMemoryLimit() float32 {
+func (o *O11yDaemonSetRecord) GetDaemonSetMemoryLimit() float64 {
 	if o == nil || IsNil(o.DaemonSetMemoryLimit) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.DaemonSetMemoryLimit
@@ -220,7 +220,7 @@ func (o *O11yDaemonSetRecord) GetDaemonSetMemoryLimit() float32 {
 
 // GetDaemonSetMemoryLimitOk returns a tuple with the DaemonSetMemoryLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDaemonSetRecord) GetDaemonSetMemoryLimitOk() (*float32, bool) {
+func (o *O11yDaemonSetRecord) GetDaemonSetMemoryLimitOk() (*float64, bool) {
 	if o == nil || IsNil(o.DaemonSetMemoryLimit) {
 		return nil, false
 	}
@@ -236,15 +236,15 @@ func (o *O11yDaemonSetRecord) HasDaemonSetMemoryLimit() bool {
 	return false
 }
 
-// SetDaemonSetMemoryLimit gets a reference to the given float32 and assigns it to the DaemonSetMemoryLimit field.
-func (o *O11yDaemonSetRecord) SetDaemonSetMemoryLimit(v float32) {
+// SetDaemonSetMemoryLimit gets a reference to the given float64 and assigns it to the DaemonSetMemoryLimit field.
+func (o *O11yDaemonSetRecord) SetDaemonSetMemoryLimit(v float64) {
 	o.DaemonSetMemoryLimit = &v
 }
 
 // GetDaemonSetMemoryRequest returns the DaemonSetMemoryRequest field value if set, zero value otherwise.
-func (o *O11yDaemonSetRecord) GetDaemonSetMemoryRequest() float32 {
+func (o *O11yDaemonSetRecord) GetDaemonSetMemoryRequest() float64 {
 	if o == nil || IsNil(o.DaemonSetMemoryRequest) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.DaemonSetMemoryRequest
@@ -252,7 +252,7 @@ func (o *O11yDaemonSetRecord) GetDaemonSetMemoryRequest() float32 {
 
 // GetDaemonSetMemoryRequestOk returns a tuple with the DaemonSetMemoryRequest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDaemonSetRecord) GetDaemonSetMemoryRequestOk() (*float32, bool) {
+func (o *O11yDaemonSetRecord) GetDaemonSetMemoryRequestOk() (*float64, bool) {
 	if o == nil || IsNil(o.DaemonSetMemoryRequest) {
 		return nil, false
 	}
@@ -268,8 +268,8 @@ func (o *O11yDaemonSetRecord) HasDaemonSetMemoryRequest() bool {
 	return false
 }
 
-// SetDaemonSetMemoryRequest gets a reference to the given float32 and assigns it to the DaemonSetMemoryRequest field.
-func (o *O11yDaemonSetRecord) SetDaemonSetMemoryRequest(v float32) {
+// SetDaemonSetMemoryRequest gets a reference to the given float64 and assigns it to the DaemonSetMemoryRequest field.
+func (o *O11yDaemonSetRecord) SetDaemonSetMemoryRequest(v float64) {
 	o.DaemonSetMemoryRequest = &v
 }
 
@@ -306,9 +306,9 @@ func (o *O11yDaemonSetRecord) SetDaemonSetName(v string) {
 }
 
 // GetDesiredNodes returns the DesiredNodes field value if set, zero value otherwise.
-func (o *O11yDaemonSetRecord) GetDesiredNodes() int32 {
+func (o *O11yDaemonSetRecord) GetDesiredNodes() int64 {
 	if o == nil || IsNil(o.DesiredNodes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DesiredNodes
@@ -316,7 +316,7 @@ func (o *O11yDaemonSetRecord) GetDesiredNodes() int32 {
 
 // GetDesiredNodesOk returns a tuple with the DesiredNodes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDaemonSetRecord) GetDesiredNodesOk() (*int32, bool) {
+func (o *O11yDaemonSetRecord) GetDesiredNodesOk() (*int64, bool) {
 	if o == nil || IsNil(o.DesiredNodes) {
 		return nil, false
 	}
@@ -332,8 +332,8 @@ func (o *O11yDaemonSetRecord) HasDesiredNodes() bool {
 	return false
 }
 
-// SetDesiredNodes gets a reference to the given int32 and assigns it to the DesiredNodes field.
-func (o *O11yDaemonSetRecord) SetDesiredNodes(v int32) {
+// SetDesiredNodes gets a reference to the given int64 and assigns it to the DesiredNodes field.
+func (o *O11yDaemonSetRecord) SetDesiredNodes(v int64) {
 	o.DesiredNodes = &v
 }
 

@@ -20,7 +20,7 @@ var _ MappedNullable = &ContextBundle{}
 // ContextBundle struct for ContextBundle
 type ContextBundle struct {
 	// BudgetTokens is the ceiling the caller asked for. Packing stops under it, so this is a bound and not a target.
-	BudgetTokens *int32 `json:"budgetTokens,omitempty"`
+	BudgetTokens *int64 `json:"budgetTokens,omitempty"`
 	// Query is the ask this bundle was packed for, echoed back so a cached or forwarded bundle still says what it answers.
 	Query *string `json:"query,omitempty"`
 	// Repo narrows the retrieval to one repository. Absent means every indexed repo was searched.
@@ -28,7 +28,7 @@ type ContextBundle struct {
 	// Spans are the packed chunks, most relevant first, each expanded with the definitions it calls and its notable callers. The top match is always present even if it had to be truncated to fit, so a matched query never comes back with nothing.
 	Spans []Span `json:"spans,omitempty"`
 	// UsedTokens is what the returned spans actually cost, by the same estimate the packer used (roughly one token per four characters — an estimate, not a tokenizer's count, so size a real window with headroom).
-	UsedTokens *int32 `json:"usedTokens,omitempty"`
+	UsedTokens *int64 `json:"usedTokens,omitempty"`
 }
 
 // NewContextBundle instantiates a new ContextBundle object
@@ -49,9 +49,9 @@ func NewContextBundleWithDefaults() *ContextBundle {
 }
 
 // GetBudgetTokens returns the BudgetTokens field value if set, zero value otherwise.
-func (o *ContextBundle) GetBudgetTokens() int32 {
+func (o *ContextBundle) GetBudgetTokens() int64 {
 	if o == nil || IsNil(o.BudgetTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.BudgetTokens
@@ -59,7 +59,7 @@ func (o *ContextBundle) GetBudgetTokens() int32 {
 
 // GetBudgetTokensOk returns a tuple with the BudgetTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContextBundle) GetBudgetTokensOk() (*int32, bool) {
+func (o *ContextBundle) GetBudgetTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.BudgetTokens) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *ContextBundle) HasBudgetTokens() bool {
 	return false
 }
 
-// SetBudgetTokens gets a reference to the given int32 and assigns it to the BudgetTokens field.
-func (o *ContextBundle) SetBudgetTokens(v int32) {
+// SetBudgetTokens gets a reference to the given int64 and assigns it to the BudgetTokens field.
+func (o *ContextBundle) SetBudgetTokens(v int64) {
 	o.BudgetTokens = &v
 }
 
@@ -177,9 +177,9 @@ func (o *ContextBundle) SetSpans(v []Span) {
 }
 
 // GetUsedTokens returns the UsedTokens field value if set, zero value otherwise.
-func (o *ContextBundle) GetUsedTokens() int32 {
+func (o *ContextBundle) GetUsedTokens() int64 {
 	if o == nil || IsNil(o.UsedTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UsedTokens
@@ -187,7 +187,7 @@ func (o *ContextBundle) GetUsedTokens() int32 {
 
 // GetUsedTokensOk returns a tuple with the UsedTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContextBundle) GetUsedTokensOk() (*int32, bool) {
+func (o *ContextBundle) GetUsedTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.UsedTokens) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *ContextBundle) HasUsedTokens() bool {
 	return false
 }
 
-// SetUsedTokens gets a reference to the given int32 and assigns it to the UsedTokens field.
-func (o *ContextBundle) SetUsedTokens(v int32) {
+// SetUsedTokens gets a reference to the given int64 and assigns it to the UsedTokens field.
+func (o *ContextBundle) SetUsedTokens(v int64) {
 	o.UsedTokens = &v
 }
 

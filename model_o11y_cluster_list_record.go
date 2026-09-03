@@ -20,10 +20,10 @@ var _ MappedNullable = &O11yClusterListRecord{}
 // O11yClusterListRecord struct for O11yClusterListRecord
 type O11yClusterListRecord struct {
 	ClusterUID        *string           `json:"clusterUID,omitempty"`
-	CpuAllocatable    *float32          `json:"cpuAllocatable,omitempty"`
-	CpuUsage          *float32          `json:"cpuUsage,omitempty"`
-	MemoryAllocatable *float32          `json:"memoryAllocatable,omitempty"`
-	MemoryUsage       *float32          `json:"memoryUsage,omitempty"`
+	CpuAllocatable    *float64          `json:"cpuAllocatable,omitempty"`
+	CpuUsage          *float64          `json:"cpuUsage,omitempty"`
+	MemoryAllocatable *float64          `json:"memoryAllocatable,omitempty"`
+	MemoryUsage       *float64          `json:"memoryUsage,omitempty"`
 	Meta              map[string]string `json:"meta,omitempty"`
 }
 
@@ -77,9 +77,9 @@ func (o *O11yClusterListRecord) SetClusterUID(v string) {
 }
 
 // GetCpuAllocatable returns the CpuAllocatable field value if set, zero value otherwise.
-func (o *O11yClusterListRecord) GetCpuAllocatable() float32 {
+func (o *O11yClusterListRecord) GetCpuAllocatable() float64 {
 	if o == nil || IsNil(o.CpuAllocatable) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.CpuAllocatable
@@ -87,7 +87,7 @@ func (o *O11yClusterListRecord) GetCpuAllocatable() float32 {
 
 // GetCpuAllocatableOk returns a tuple with the CpuAllocatable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yClusterListRecord) GetCpuAllocatableOk() (*float32, bool) {
+func (o *O11yClusterListRecord) GetCpuAllocatableOk() (*float64, bool) {
 	if o == nil || IsNil(o.CpuAllocatable) {
 		return nil, false
 	}
@@ -103,15 +103,15 @@ func (o *O11yClusterListRecord) HasCpuAllocatable() bool {
 	return false
 }
 
-// SetCpuAllocatable gets a reference to the given float32 and assigns it to the CpuAllocatable field.
-func (o *O11yClusterListRecord) SetCpuAllocatable(v float32) {
+// SetCpuAllocatable gets a reference to the given float64 and assigns it to the CpuAllocatable field.
+func (o *O11yClusterListRecord) SetCpuAllocatable(v float64) {
 	o.CpuAllocatable = &v
 }
 
 // GetCpuUsage returns the CpuUsage field value if set, zero value otherwise.
-func (o *O11yClusterListRecord) GetCpuUsage() float32 {
+func (o *O11yClusterListRecord) GetCpuUsage() float64 {
 	if o == nil || IsNil(o.CpuUsage) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.CpuUsage
@@ -119,7 +119,7 @@ func (o *O11yClusterListRecord) GetCpuUsage() float32 {
 
 // GetCpuUsageOk returns a tuple with the CpuUsage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yClusterListRecord) GetCpuUsageOk() (*float32, bool) {
+func (o *O11yClusterListRecord) GetCpuUsageOk() (*float64, bool) {
 	if o == nil || IsNil(o.CpuUsage) {
 		return nil, false
 	}
@@ -135,15 +135,15 @@ func (o *O11yClusterListRecord) HasCpuUsage() bool {
 	return false
 }
 
-// SetCpuUsage gets a reference to the given float32 and assigns it to the CpuUsage field.
-func (o *O11yClusterListRecord) SetCpuUsage(v float32) {
+// SetCpuUsage gets a reference to the given float64 and assigns it to the CpuUsage field.
+func (o *O11yClusterListRecord) SetCpuUsage(v float64) {
 	o.CpuUsage = &v
 }
 
 // GetMemoryAllocatable returns the MemoryAllocatable field value if set, zero value otherwise.
-func (o *O11yClusterListRecord) GetMemoryAllocatable() float32 {
+func (o *O11yClusterListRecord) GetMemoryAllocatable() float64 {
 	if o == nil || IsNil(o.MemoryAllocatable) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.MemoryAllocatable
@@ -151,7 +151,7 @@ func (o *O11yClusterListRecord) GetMemoryAllocatable() float32 {
 
 // GetMemoryAllocatableOk returns a tuple with the MemoryAllocatable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yClusterListRecord) GetMemoryAllocatableOk() (*float32, bool) {
+func (o *O11yClusterListRecord) GetMemoryAllocatableOk() (*float64, bool) {
 	if o == nil || IsNil(o.MemoryAllocatable) {
 		return nil, false
 	}
@@ -167,15 +167,15 @@ func (o *O11yClusterListRecord) HasMemoryAllocatable() bool {
 	return false
 }
 
-// SetMemoryAllocatable gets a reference to the given float32 and assigns it to the MemoryAllocatable field.
-func (o *O11yClusterListRecord) SetMemoryAllocatable(v float32) {
+// SetMemoryAllocatable gets a reference to the given float64 and assigns it to the MemoryAllocatable field.
+func (o *O11yClusterListRecord) SetMemoryAllocatable(v float64) {
 	o.MemoryAllocatable = &v
 }
 
 // GetMemoryUsage returns the MemoryUsage field value if set, zero value otherwise.
-func (o *O11yClusterListRecord) GetMemoryUsage() float32 {
+func (o *O11yClusterListRecord) GetMemoryUsage() float64 {
 	if o == nil || IsNil(o.MemoryUsage) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.MemoryUsage
@@ -183,7 +183,7 @@ func (o *O11yClusterListRecord) GetMemoryUsage() float32 {
 
 // GetMemoryUsageOk returns a tuple with the MemoryUsage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yClusterListRecord) GetMemoryUsageOk() (*float32, bool) {
+func (o *O11yClusterListRecord) GetMemoryUsageOk() (*float64, bool) {
 	if o == nil || IsNil(o.MemoryUsage) {
 		return nil, false
 	}
@@ -199,8 +199,8 @@ func (o *O11yClusterListRecord) HasMemoryUsage() bool {
 	return false
 }
 
-// SetMemoryUsage gets a reference to the given float32 and assigns it to the MemoryUsage field.
-func (o *O11yClusterListRecord) SetMemoryUsage(v float32) {
+// SetMemoryUsage gets a reference to the given float64 and assigns it to the MemoryUsage field.
+func (o *O11yClusterListRecord) SetMemoryUsage(v float64) {
 	o.MemoryUsage = &v
 }
 

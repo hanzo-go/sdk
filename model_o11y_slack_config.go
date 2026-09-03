@@ -45,7 +45,7 @@ type O11ySlackConfig struct {
 	Text        *string               `json:"text,omitempty"`
 	ThumbUrl    *string               `json:"thumb_url,omitempty"`
 	// Timeout is the maximum time allowed to invoke the slack. Setting this to 0 does not impose a timeout.
-	Timeout   *int32  `json:"timeout,omitempty"`
+	Timeout   *int64  `json:"timeout,omitempty"`
 	Title     *string `json:"title,omitempty"`
 	TitleLink *string `json:"title_link,omitempty"`
 	Username  *string `json:"username,omitempty"`
@@ -840,9 +840,9 @@ func (o *O11ySlackConfig) SetThumbUrl(v string) {
 }
 
 // GetTimeout returns the Timeout field value if set, zero value otherwise.
-func (o *O11ySlackConfig) GetTimeout() int32 {
+func (o *O11ySlackConfig) GetTimeout() int64 {
 	if o == nil || IsNil(o.Timeout) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Timeout
@@ -850,7 +850,7 @@ func (o *O11ySlackConfig) GetTimeout() int32 {
 
 // GetTimeoutOk returns a tuple with the Timeout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11ySlackConfig) GetTimeoutOk() (*int32, bool) {
+func (o *O11ySlackConfig) GetTimeoutOk() (*int64, bool) {
 	if o == nil || IsNil(o.Timeout) {
 		return nil, false
 	}
@@ -866,8 +866,8 @@ func (o *O11ySlackConfig) HasTimeout() bool {
 	return false
 }
 
-// SetTimeout gets a reference to the given int32 and assigns it to the Timeout field.
-func (o *O11ySlackConfig) SetTimeout(v int32) {
+// SetTimeout gets a reference to the given int64 and assigns it to the Timeout field.
+func (o *O11ySlackConfig) SetTimeout(v int64) {
 	o.Timeout = &v
 }
 

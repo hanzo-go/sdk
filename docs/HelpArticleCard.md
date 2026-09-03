@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Excerpt** | Pointer to **string** | Excerpt is the short summary the author wrote for listings, or empty. | [optional] 
 **Slug** | Pointer to **string** | Slug is the article&#39;s stable public identifier and the path segment /v1/help/articles/{slug} addresses it by. | [optional] 
 **Title** | Pointer to **string** | Title is the article&#39;s headline. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is the unix second the article was last written, in the help center&#39;s own store. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is the unix second the article was last written, in the help center&#39;s own store. | [optional] 
 
 ## Methods
 
@@ -131,20 +131,20 @@ HasTitle returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *HelpArticleCard) GetUpdatedAt() int32`
+`func (o *HelpArticleCard) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *HelpArticleCard) GetUpdatedAtOk() (*int32, bool)`
+`func (o *HelpArticleCard) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *HelpArticleCard) SetUpdatedAt(v int32)`
+`func (o *HelpArticleCard) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

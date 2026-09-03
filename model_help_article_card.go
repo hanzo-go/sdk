@@ -28,7 +28,7 @@ type HelpArticleCard struct {
 	// Title is the article's headline.
 	Title *string `json:"title,omitempty"`
 	// UpdatedAt is the unix second the article was last written, in the help center's own store.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewHelpArticleCard instantiates a new HelpArticleCard object
@@ -177,9 +177,9 @@ func (o *HelpArticleCard) SetTitle(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *HelpArticleCard) GetUpdatedAt() int32 {
+func (o *HelpArticleCard) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -187,7 +187,7 @@ func (o *HelpArticleCard) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *HelpArticleCard) GetUpdatedAtOk() (*int32, bool) {
+func (o *HelpArticleCard) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *HelpArticleCard) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *HelpArticleCard) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *HelpArticleCard) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

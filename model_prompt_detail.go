@@ -34,7 +34,7 @@ type PromptDetail struct {
 	// Type labels the current version's kind; \"text\" unless the creator said otherwise.
 	Type *string `json:"type,omitempty"`
 	// Version is the current version number, starting at 1 and incremented by one on every create against an existing name.
-	Version *int32 `json:"version,omitempty"`
+	Version *int64 `json:"version,omitempty"`
 	// Versions is the history METADATA, newest first, capped at the last 100 — no bodies, so a long history cannot inflate this response. It always includes the current version as its first entry.
 	VersionHistory []VersionView `json:"versionHistory,omitempty"`
 }
@@ -281,9 +281,9 @@ func (o *PromptDetail) SetType(v string) {
 }
 
 // GetVersion returns the Version field value if set, zero value otherwise.
-func (o *PromptDetail) GetVersion() int32 {
+func (o *PromptDetail) GetVersion() int64 {
 	if o == nil || IsNil(o.Version) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Version
@@ -291,7 +291,7 @@ func (o *PromptDetail) GetVersion() int32 {
 
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PromptDetail) GetVersionOk() (*int32, bool) {
+func (o *PromptDetail) GetVersionOk() (*int64, bool) {
 	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
@@ -307,8 +307,8 @@ func (o *PromptDetail) HasVersion() bool {
 	return false
 }
 
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
-func (o *PromptDetail) SetVersion(v int32) {
+// SetVersion gets a reference to the given int64 and assigns it to the Version field.
+func (o *PromptDetail) SetVersion(v int64) {
 	o.Version = &v
 }
 

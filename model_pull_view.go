@@ -32,7 +32,7 @@ type PullView struct {
 	// MergedRev is what base points at now that the merge landed. Empty while the proposal is open.
 	MergedRev *string `json:"mergedRev,omitempty"`
 	// Number is the proposal's per-repo handle, dense from 1.
-	Number *int32 `json:"number,omitempty"`
+	Number *int64 `json:"number,omitempty"`
 	// Repo is the repository the proposal belongs to.
 	Repo *string `json:"repo,omitempty"`
 	// State is \"open\" or \"merged\".
@@ -253,9 +253,9 @@ func (o *PullView) SetMergedRev(v string) {
 }
 
 // GetNumber returns the Number field value if set, zero value otherwise.
-func (o *PullView) GetNumber() int32 {
+func (o *PullView) GetNumber() int64 {
 	if o == nil || IsNil(o.Number) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Number
@@ -263,7 +263,7 @@ func (o *PullView) GetNumber() int32 {
 
 // GetNumberOk returns a tuple with the Number field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PullView) GetNumberOk() (*int32, bool) {
+func (o *PullView) GetNumberOk() (*int64, bool) {
 	if o == nil || IsNil(o.Number) {
 		return nil, false
 	}
@@ -279,8 +279,8 @@ func (o *PullView) HasNumber() bool {
 	return false
 }
 
-// SetNumber gets a reference to the given int32 and assigns it to the Number field.
-func (o *PullView) SetNumber(v int32) {
+// SetNumber gets a reference to the given int64 and assigns it to the Number field.
+func (o *PullView) SetNumber(v int64) {
 	o.Number = &v
 }
 

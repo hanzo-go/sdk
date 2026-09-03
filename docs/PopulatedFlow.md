@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **int32** | Created and Updated are unix milliseconds. | [optional] 
+**Created** | Pointer to **int64** | Created and Updated are unix milliseconds. | [optional] 
 **ExternalId** | Pointer to **string** | ExternalID is the caller&#39;s own id for this flow, if it set one. | [optional] 
 **FolderId** | Pointer to **string** | FolderID groups the flow in the builder&#39;s tree. | [optional] 
 **Id** | Pointer to **string** | ID is the flow&#39;s id. | [optional] 
@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **ProjectId** | Pointer to **string** | Org is the owning org, which this surface names projectId. Server-derived from the validated principal — never read from a request. | [optional] 
 **PublishedVersionId** | Pointer to **string** | PublishedVersionID is the version a run executes when set; empty means the latest version runs. | [optional] 
 **Status** | Pointer to **string** | Status is ENABLED or DISABLED — whether the flow&#39;s trigger is armed. | [optional] 
-**Updated** | Pointer to **int32** |  | [optional] 
+**Updated** | Pointer to **int64** |  | [optional] 
 **Version** | Pointer to [**FlowVersion**](FlowVersion.md) | Version is the flow&#39;s latest version — its display name and step tree. | [optional] 
 
 ## Methods
@@ -36,20 +36,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreated
 
-`func (o *PopulatedFlow) GetCreated() int32`
+`func (o *PopulatedFlow) GetCreated() int64`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *PopulatedFlow) GetCreatedOk() (*int32, bool)`
+`func (o *PopulatedFlow) GetCreatedOk() (*int64, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *PopulatedFlow) SetCreated(v int32)`
+`func (o *PopulatedFlow) SetCreated(v int64)`
 
 SetCreated sets Created field to given value.
 
@@ -246,20 +246,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetUpdated
 
-`func (o *PopulatedFlow) GetUpdated() int32`
+`func (o *PopulatedFlow) GetUpdated() int64`
 
 GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
 ### GetUpdatedOk
 
-`func (o *PopulatedFlow) GetUpdatedOk() (*int32, bool)`
+`func (o *PopulatedFlow) GetUpdatedOk() (*int64, bool)`
 
 GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdated
 
-`func (o *PopulatedFlow) SetUpdated(v int32)`
+`func (o *PopulatedFlow) SetUpdated(v int64)`
 
 SetUpdated sets Updated field to given value.
 

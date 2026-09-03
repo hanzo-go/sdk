@@ -22,7 +22,7 @@ type PnLLine struct {
 	// Account is the chart-of-accounts number this line reports on.
 	Account *string `json:"account,omitempty"`
 	// Amount is the account's movement over the period in whole cents, in its NATURAL sign: positive when the account behaved normally, for income and expense alike. Income is credit-normal so its stored net is flipped once here for display; the ledger underneath is never sign-flipped. A negative amount therefore means the account ran backwards — a refunded sale, a reversed cost.
-	Amount *int32 `json:"amount,omitempty"`
+	Amount *int64 `json:"amount,omitempty"`
 	// Name is that account's human name from the fixed chart.
 	Name *string `json:"name,omitempty"`
 	// Type is the account's fundamental class, which on this statement is always income or expense — it tells a reader which half of the statement the line came from without re-deriving it from the array it arrived in.
@@ -79,9 +79,9 @@ func (o *PnLLine) SetAccount(v string) {
 }
 
 // GetAmount returns the Amount field value if set, zero value otherwise.
-func (o *PnLLine) GetAmount() int32 {
+func (o *PnLLine) GetAmount() int64 {
 	if o == nil || IsNil(o.Amount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Amount
@@ -89,7 +89,7 @@ func (o *PnLLine) GetAmount() int32 {
 
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PnLLine) GetAmountOk() (*int32, bool) {
+func (o *PnLLine) GetAmountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Amount) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *PnLLine) HasAmount() bool {
 	return false
 }
 
-// SetAmount gets a reference to the given int32 and assigns it to the Amount field.
-func (o *PnLLine) SetAmount(v int32) {
+// SetAmount gets a reference to the given int64 and assigns it to the Amount field.
+func (o *PnLLine) SetAmount(v int64) {
 	o.Amount = &v
 }
 

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccountItems** | Pointer to [**[]IamAccountItem**](IamAccountItem.md) |  | [optional] 
 **AccountMenu** | Pointer to **string** |  | [optional] 
 **Avatar** | Pointer to **string** | How the organization appears across Hanzo — the square mark beside its name — as an image or as one emoji, never both. It is the pair a person carries (User.Avatar) under the same names, resolved the same way, so a screen draws a subject without asking which kind of subject it has. Both halves live on the row: a mark that appears everywhere cannot be kept on one device. Written through schema.MarkOf; Logo and LogoDark above are a different thing, the wordmark a login screen draws. | [optional] 
-**BalanceCredit** | Pointer to **float32** |  | [optional] 
+**BalanceCredit** | Pointer to **float64** |  | [optional] 
 **BalanceCurrency** | Pointer to **string** |  | [optional] 
 **CountryCodes** | Pointer to **[]string** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
@@ -22,13 +22,13 @@ Name | Type | Description | Notes
 **Emoji** | Pointer to **string** |  | [optional] 
 **EnableSoftDeletion** | Pointer to **bool** |  | [optional] 
 **EnableTour** | Pointer to **bool** |  | [optional] 
-**FailedSigninFrozenTime** | Pointer to **int32** |  | [optional] 
-**FailedSigninLimit** | Pointer to **int32** | Per-organization signin throttle. Zero means \&quot;inherit the application default\&quot;; a non-zero value overrides it. Safe bounds are clamped by the resource service before persistence. | [optional] 
+**FailedSigninFrozenTime** | Pointer to **int64** |  | [optional] 
+**FailedSigninLimit** | Pointer to **int64** | Per-organization signin throttle. Zero means \&quot;inherit the application default\&quot;; a non-zero value overrides it. Safe bounds are clamped by the resource service before persistence. | [optional] 
 **Favicon** | Pointer to **string** |  | [optional] 
 **Founder** | Pointer to **string** | Founder is the stable storage id of the identity that provisioned this org (self-service onboarding). It is the resume token that makes provisioning converge on a backend where each write autocommits independently (no transaction rollback): after a partial failure that created the org but did not move the founder in, a retry recognises the org as the founder&#39;s own and completes it, instead of refusing it as \&quot;already taken\&quot;. It also fences the org to ONE tenant — a different identity can never complete or join it. | [optional] 
 **HasPrivilegeConsent** | Pointer to **bool** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
-**InitScore** | Pointer to **int32** |  | [optional] 
+**InitScore** | Pointer to **int64** |  | [optional] 
 **IpRestriction** | Pointer to **string** |  | [optional] 
 **IpWhitelist** | Pointer to **string** |  | [optional] 
 **IsPersonal** | Pointer to **bool** |  | [optional] 
@@ -44,12 +44,12 @@ Name | Type | Description | Notes
 **MasterPassword** | Pointer to **string** |  | [optional] 
 **MasterVerificationCode** | Pointer to **string** |  | [optional] 
 **MfaItems** | Pointer to [**[]IamMfaItem**](IamMfaItem.md) |  | [optional] 
-**MfaRememberInHours** | Pointer to **int32** |  | [optional] 
+**MfaRememberInHours** | Pointer to **int64** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **NavItems** | Pointer to **[]string** |  | [optional] 
-**OrgBalance** | Pointer to **float32** | Balance fields are read-only mirrors; authoritative balances live in Commerce (billing.hanzo.ai). Carried for field-complete v1 parity. | [optional] 
+**OrgBalance** | Pointer to **float64** | Balance fields are read-only mirrors; authoritative balances live in Commerce (billing.hanzo.ai). Carried for field-complete v1 parity. | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 
-**PasswordExpireDays** | Pointer to **int32** |  | [optional] 
+**PasswordExpireDays** | Pointer to **int64** |  | [optional] 
 **PasswordObfuscatorKey** | Pointer to **string** |  | [optional] 
 **PasswordObfuscatorType** | Pointer to **string** |  | [optional] 
 **PasswordOptions** | Pointer to **[]string** |  | [optional] 
@@ -60,7 +60,7 @@ Name | Type | Description | Notes
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 **UseEmailAsUsername** | Pointer to **bool** |  | [optional] 
 **UsePermanentAvatar** | Pointer to **bool** |  | [optional] 
-**UserBalance** | Pointer to **float32** |  | [optional] 
+**UserBalance** | Pointer to **float64** |  | [optional] 
 **UserNavItems** | Pointer to **[]string** |  | [optional] 
 **UserTypes** | Pointer to **[]string** |  | [optional] 
 **WebsiteUrl** | Pointer to **string** |  | [optional] 
@@ -162,20 +162,20 @@ HasAvatar returns a boolean if a field has been set.
 
 ### GetBalanceCredit
 
-`func (o *IamOrganization) GetBalanceCredit() float32`
+`func (o *IamOrganization) GetBalanceCredit() float64`
 
 GetBalanceCredit returns the BalanceCredit field if non-nil, zero value otherwise.
 
 ### GetBalanceCreditOk
 
-`func (o *IamOrganization) GetBalanceCreditOk() (*float32, bool)`
+`func (o *IamOrganization) GetBalanceCreditOk() (*float64, bool)`
 
 GetBalanceCreditOk returns a tuple with the BalanceCredit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBalanceCredit
 
-`func (o *IamOrganization) SetBalanceCredit(v float32)`
+`func (o *IamOrganization) SetBalanceCredit(v float64)`
 
 SetBalanceCredit sets BalanceCredit field to given value.
 
@@ -537,20 +537,20 @@ HasEnableTour returns a boolean if a field has been set.
 
 ### GetFailedSigninFrozenTime
 
-`func (o *IamOrganization) GetFailedSigninFrozenTime() int32`
+`func (o *IamOrganization) GetFailedSigninFrozenTime() int64`
 
 GetFailedSigninFrozenTime returns the FailedSigninFrozenTime field if non-nil, zero value otherwise.
 
 ### GetFailedSigninFrozenTimeOk
 
-`func (o *IamOrganization) GetFailedSigninFrozenTimeOk() (*int32, bool)`
+`func (o *IamOrganization) GetFailedSigninFrozenTimeOk() (*int64, bool)`
 
 GetFailedSigninFrozenTimeOk returns a tuple with the FailedSigninFrozenTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFailedSigninFrozenTime
 
-`func (o *IamOrganization) SetFailedSigninFrozenTime(v int32)`
+`func (o *IamOrganization) SetFailedSigninFrozenTime(v int64)`
 
 SetFailedSigninFrozenTime sets FailedSigninFrozenTime field to given value.
 
@@ -562,20 +562,20 @@ HasFailedSigninFrozenTime returns a boolean if a field has been set.
 
 ### GetFailedSigninLimit
 
-`func (o *IamOrganization) GetFailedSigninLimit() int32`
+`func (o *IamOrganization) GetFailedSigninLimit() int64`
 
 GetFailedSigninLimit returns the FailedSigninLimit field if non-nil, zero value otherwise.
 
 ### GetFailedSigninLimitOk
 
-`func (o *IamOrganization) GetFailedSigninLimitOk() (*int32, bool)`
+`func (o *IamOrganization) GetFailedSigninLimitOk() (*int64, bool)`
 
 GetFailedSigninLimitOk returns a tuple with the FailedSigninLimit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFailedSigninLimit
 
-`func (o *IamOrganization) SetFailedSigninLimit(v int32)`
+`func (o *IamOrganization) SetFailedSigninLimit(v int64)`
 
 SetFailedSigninLimit sets FailedSigninLimit field to given value.
 
@@ -687,20 +687,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetInitScore
 
-`func (o *IamOrganization) GetInitScore() int32`
+`func (o *IamOrganization) GetInitScore() int64`
 
 GetInitScore returns the InitScore field if non-nil, zero value otherwise.
 
 ### GetInitScoreOk
 
-`func (o *IamOrganization) GetInitScoreOk() (*int32, bool)`
+`func (o *IamOrganization) GetInitScoreOk() (*int64, bool)`
 
 GetInitScoreOk returns a tuple with the InitScore field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInitScore
 
-`func (o *IamOrganization) SetInitScore(v int32)`
+`func (o *IamOrganization) SetInitScore(v int64)`
 
 SetInitScore sets InitScore field to given value.
 
@@ -1087,20 +1087,20 @@ HasMfaItems returns a boolean if a field has been set.
 
 ### GetMfaRememberInHours
 
-`func (o *IamOrganization) GetMfaRememberInHours() int32`
+`func (o *IamOrganization) GetMfaRememberInHours() int64`
 
 GetMfaRememberInHours returns the MfaRememberInHours field if non-nil, zero value otherwise.
 
 ### GetMfaRememberInHoursOk
 
-`func (o *IamOrganization) GetMfaRememberInHoursOk() (*int32, bool)`
+`func (o *IamOrganization) GetMfaRememberInHoursOk() (*int64, bool)`
 
 GetMfaRememberInHoursOk returns a tuple with the MfaRememberInHours field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMfaRememberInHours
 
-`func (o *IamOrganization) SetMfaRememberInHours(v int32)`
+`func (o *IamOrganization) SetMfaRememberInHours(v int64)`
 
 SetMfaRememberInHours sets MfaRememberInHours field to given value.
 
@@ -1162,20 +1162,20 @@ HasNavItems returns a boolean if a field has been set.
 
 ### GetOrgBalance
 
-`func (o *IamOrganization) GetOrgBalance() float32`
+`func (o *IamOrganization) GetOrgBalance() float64`
 
 GetOrgBalance returns the OrgBalance field if non-nil, zero value otherwise.
 
 ### GetOrgBalanceOk
 
-`func (o *IamOrganization) GetOrgBalanceOk() (*float32, bool)`
+`func (o *IamOrganization) GetOrgBalanceOk() (*float64, bool)`
 
 GetOrgBalanceOk returns a tuple with the OrgBalance field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrgBalance
 
-`func (o *IamOrganization) SetOrgBalance(v float32)`
+`func (o *IamOrganization) SetOrgBalance(v float64)`
 
 SetOrgBalance sets OrgBalance field to given value.
 
@@ -1212,20 +1212,20 @@ HasOwner returns a boolean if a field has been set.
 
 ### GetPasswordExpireDays
 
-`func (o *IamOrganization) GetPasswordExpireDays() int32`
+`func (o *IamOrganization) GetPasswordExpireDays() int64`
 
 GetPasswordExpireDays returns the PasswordExpireDays field if non-nil, zero value otherwise.
 
 ### GetPasswordExpireDaysOk
 
-`func (o *IamOrganization) GetPasswordExpireDaysOk() (*int32, bool)`
+`func (o *IamOrganization) GetPasswordExpireDaysOk() (*int64, bool)`
 
 GetPasswordExpireDaysOk returns a tuple with the PasswordExpireDays field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPasswordExpireDays
 
-`func (o *IamOrganization) SetPasswordExpireDays(v int32)`
+`func (o *IamOrganization) SetPasswordExpireDays(v int64)`
 
 SetPasswordExpireDays sets PasswordExpireDays field to given value.
 
@@ -1487,20 +1487,20 @@ HasUsePermanentAvatar returns a boolean if a field has been set.
 
 ### GetUserBalance
 
-`func (o *IamOrganization) GetUserBalance() float32`
+`func (o *IamOrganization) GetUserBalance() float64`
 
 GetUserBalance returns the UserBalance field if non-nil, zero value otherwise.
 
 ### GetUserBalanceOk
 
-`func (o *IamOrganization) GetUserBalanceOk() (*float32, bool)`
+`func (o *IamOrganization) GetUserBalanceOk() (*float64, bool)`
 
 GetUserBalanceOk returns a tuple with the UserBalance field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUserBalance
 
-`func (o *IamOrganization) SetUserBalance(v float32)`
+`func (o *IamOrganization) SetUserBalance(v float64)`
 
 SetUserBalance sets UserBalance field to given value.
 

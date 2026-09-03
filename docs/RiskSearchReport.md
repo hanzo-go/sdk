@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Done** | Pointer to **bool** | Done is false while the run is still going; the trials below are then the ones finished so far. | [optional] 
 **Ended** | Pointer to **string** | Ended is when it finished, RFC 3339. Absent while it is still going. | [optional] 
-**Events** | Pointer to **int32** | Events is how much of this organisation&#39;s history was replayed. | [optional] 
+**Events** | Pointer to **int64** | Events is how much of this organisation&#39;s history was replayed. | [optional] 
 **Fitted** | Pointer to [**RiskModelValue**](RiskModelValue.md) | Fitted is the winning shape FITTED over your own history and published as one of your organisation&#39;s own model values. Name its address on PUT /v1/risk/state/model and the winning shape becomes the model you are running.  It is why this op answers something you can act on. A trial keeps counts and not the model that produced them, so a report without this named a shape nobody could install — and the adoption path refused a shape change besides. Fitting the winner once is a sixty-fifth pass over the same history; keeping all sixty-four fitted models resident instead would cost a measured 21 MiB per run for sixty-three shapes nobody adopts.  Two things about it are worth knowing before you adopt it. Its realised rate can differ from the winner&#39;s above, because the ranking measures every candidate under one fixed reference geometry so the comparison is a comparison, while this is fitted under YOUR geometry — the one an outsider cannot predict. And it has learned the window this search replayed and nothing older, so adopting it trades history for fit. | [optional] 
 **Gap** | Pointer to **string** | Gap says why the winning shape could not be fitted into an adoptable value, when it could not. It is separate from Refusal because they are different facts: a refusal means the ranking below proves nothing, a gap means the ranking stands and only the value is missing. | [optional] 
 **Id** | Pointer to **string** | ID is the run. | [optional] 
@@ -86,20 +86,20 @@ HasEnded returns a boolean if a field has been set.
 
 ### GetEvents
 
-`func (o *RiskSearchReport) GetEvents() int32`
+`func (o *RiskSearchReport) GetEvents() int64`
 
 GetEvents returns the Events field if non-nil, zero value otherwise.
 
 ### GetEventsOk
 
-`func (o *RiskSearchReport) GetEventsOk() (*int32, bool)`
+`func (o *RiskSearchReport) GetEventsOk() (*int64, bool)`
 
 GetEventsOk returns a tuple with the Events field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEvents
 
-`func (o *RiskSearchReport) SetEvents(v int32)`
+`func (o *RiskSearchReport) SetEvents(v int64)`
 
 SetEvents sets Events field to given value.
 

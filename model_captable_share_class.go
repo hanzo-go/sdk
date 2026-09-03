@@ -28,25 +28,25 @@ type CaptableShareClass struct {
 	// ID is the share class id.
 	Id *string `json:"id,omitempty"`
 	// Idx is the class's 1-based position within the company, in creation order.
-	Idx *int32 `json:"idx,omitempty"`
+	Idx *int64 `json:"idx,omitempty"`
 	// InitialSharesAuthorized is how many shares of this class are authorized.
-	InitialSharesAuthorized *int32 `json:"initialSharesAuthorized,omitempty"`
+	InitialSharesAuthorized *int64 `json:"initialSharesAuthorized,omitempty"`
 	// LiquidationPreferenceMultiple is the preference multiple on liquidation.
-	LiquidationPreferenceMultiple *float32 `json:"liquidationPreferenceMultiple,omitempty"`
+	LiquidationPreferenceMultiple *float64 `json:"liquidationPreferenceMultiple,omitempty"`
 	// Name is the class name, e.g. \"Common\" or \"Series A Preferred\".
 	Name *string `json:"name,omitempty"`
 	// ParValue is the par value per share.
-	ParValue *float32 `json:"parValue,omitempty"`
+	ParValue *float64 `json:"parValue,omitempty"`
 	// ParticipationCapMultiple caps participation on liquidation; 0 is uncapped.
-	ParticipationCapMultiple *float32 `json:"participationCapMultiple,omitempty"`
+	ParticipationCapMultiple *float64 `json:"participationCapMultiple,omitempty"`
 	// Prefix is the certificate prefix, CS for common and PS for preferred.
 	Prefix *string `json:"prefix,omitempty"`
 	// PricePerShare is the issue price per share.
-	PricePerShare *float32 `json:"pricePerShare,omitempty"`
+	PricePerShare *float64 `json:"pricePerShare,omitempty"`
 	// Seniority orders classes in a liquidation waterfall; higher is more senior.
-	Seniority *int32 `json:"seniority,omitempty"`
+	Seniority *int64 `json:"seniority,omitempty"`
 	// VotesPerShare is how many votes one share of this class carries.
-	VotesPerShare *int32 `json:"votesPerShare,omitempty"`
+	VotesPerShare *int64 `json:"votesPerShare,omitempty"`
 }
 
 // NewCaptableShareClass instantiates a new CaptableShareClass object
@@ -195,9 +195,9 @@ func (o *CaptableShareClass) SetId(v string) {
 }
 
 // GetIdx returns the Idx field value if set, zero value otherwise.
-func (o *CaptableShareClass) GetIdx() int32 {
+func (o *CaptableShareClass) GetIdx() int64 {
 	if o == nil || IsNil(o.Idx) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Idx
@@ -205,7 +205,7 @@ func (o *CaptableShareClass) GetIdx() int32 {
 
 // GetIdxOk returns a tuple with the Idx field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableShareClass) GetIdxOk() (*int32, bool) {
+func (o *CaptableShareClass) GetIdxOk() (*int64, bool) {
 	if o == nil || IsNil(o.Idx) {
 		return nil, false
 	}
@@ -221,15 +221,15 @@ func (o *CaptableShareClass) HasIdx() bool {
 	return false
 }
 
-// SetIdx gets a reference to the given int32 and assigns it to the Idx field.
-func (o *CaptableShareClass) SetIdx(v int32) {
+// SetIdx gets a reference to the given int64 and assigns it to the Idx field.
+func (o *CaptableShareClass) SetIdx(v int64) {
 	o.Idx = &v
 }
 
 // GetInitialSharesAuthorized returns the InitialSharesAuthorized field value if set, zero value otherwise.
-func (o *CaptableShareClass) GetInitialSharesAuthorized() int32 {
+func (o *CaptableShareClass) GetInitialSharesAuthorized() int64 {
 	if o == nil || IsNil(o.InitialSharesAuthorized) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.InitialSharesAuthorized
@@ -237,7 +237,7 @@ func (o *CaptableShareClass) GetInitialSharesAuthorized() int32 {
 
 // GetInitialSharesAuthorizedOk returns a tuple with the InitialSharesAuthorized field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableShareClass) GetInitialSharesAuthorizedOk() (*int32, bool) {
+func (o *CaptableShareClass) GetInitialSharesAuthorizedOk() (*int64, bool) {
 	if o == nil || IsNil(o.InitialSharesAuthorized) {
 		return nil, false
 	}
@@ -253,15 +253,15 @@ func (o *CaptableShareClass) HasInitialSharesAuthorized() bool {
 	return false
 }
 
-// SetInitialSharesAuthorized gets a reference to the given int32 and assigns it to the InitialSharesAuthorized field.
-func (o *CaptableShareClass) SetInitialSharesAuthorized(v int32) {
+// SetInitialSharesAuthorized gets a reference to the given int64 and assigns it to the InitialSharesAuthorized field.
+func (o *CaptableShareClass) SetInitialSharesAuthorized(v int64) {
 	o.InitialSharesAuthorized = &v
 }
 
 // GetLiquidationPreferenceMultiple returns the LiquidationPreferenceMultiple field value if set, zero value otherwise.
-func (o *CaptableShareClass) GetLiquidationPreferenceMultiple() float32 {
+func (o *CaptableShareClass) GetLiquidationPreferenceMultiple() float64 {
 	if o == nil || IsNil(o.LiquidationPreferenceMultiple) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.LiquidationPreferenceMultiple
@@ -269,7 +269,7 @@ func (o *CaptableShareClass) GetLiquidationPreferenceMultiple() float32 {
 
 // GetLiquidationPreferenceMultipleOk returns a tuple with the LiquidationPreferenceMultiple field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableShareClass) GetLiquidationPreferenceMultipleOk() (*float32, bool) {
+func (o *CaptableShareClass) GetLiquidationPreferenceMultipleOk() (*float64, bool) {
 	if o == nil || IsNil(o.LiquidationPreferenceMultiple) {
 		return nil, false
 	}
@@ -285,8 +285,8 @@ func (o *CaptableShareClass) HasLiquidationPreferenceMultiple() bool {
 	return false
 }
 
-// SetLiquidationPreferenceMultiple gets a reference to the given float32 and assigns it to the LiquidationPreferenceMultiple field.
-func (o *CaptableShareClass) SetLiquidationPreferenceMultiple(v float32) {
+// SetLiquidationPreferenceMultiple gets a reference to the given float64 and assigns it to the LiquidationPreferenceMultiple field.
+func (o *CaptableShareClass) SetLiquidationPreferenceMultiple(v float64) {
 	o.LiquidationPreferenceMultiple = &v
 }
 
@@ -323,9 +323,9 @@ func (o *CaptableShareClass) SetName(v string) {
 }
 
 // GetParValue returns the ParValue field value if set, zero value otherwise.
-func (o *CaptableShareClass) GetParValue() float32 {
+func (o *CaptableShareClass) GetParValue() float64 {
 	if o == nil || IsNil(o.ParValue) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.ParValue
@@ -333,7 +333,7 @@ func (o *CaptableShareClass) GetParValue() float32 {
 
 // GetParValueOk returns a tuple with the ParValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableShareClass) GetParValueOk() (*float32, bool) {
+func (o *CaptableShareClass) GetParValueOk() (*float64, bool) {
 	if o == nil || IsNil(o.ParValue) {
 		return nil, false
 	}
@@ -349,15 +349,15 @@ func (o *CaptableShareClass) HasParValue() bool {
 	return false
 }
 
-// SetParValue gets a reference to the given float32 and assigns it to the ParValue field.
-func (o *CaptableShareClass) SetParValue(v float32) {
+// SetParValue gets a reference to the given float64 and assigns it to the ParValue field.
+func (o *CaptableShareClass) SetParValue(v float64) {
 	o.ParValue = &v
 }
 
 // GetParticipationCapMultiple returns the ParticipationCapMultiple field value if set, zero value otherwise.
-func (o *CaptableShareClass) GetParticipationCapMultiple() float32 {
+func (o *CaptableShareClass) GetParticipationCapMultiple() float64 {
 	if o == nil || IsNil(o.ParticipationCapMultiple) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.ParticipationCapMultiple
@@ -365,7 +365,7 @@ func (o *CaptableShareClass) GetParticipationCapMultiple() float32 {
 
 // GetParticipationCapMultipleOk returns a tuple with the ParticipationCapMultiple field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableShareClass) GetParticipationCapMultipleOk() (*float32, bool) {
+func (o *CaptableShareClass) GetParticipationCapMultipleOk() (*float64, bool) {
 	if o == nil || IsNil(o.ParticipationCapMultiple) {
 		return nil, false
 	}
@@ -381,8 +381,8 @@ func (o *CaptableShareClass) HasParticipationCapMultiple() bool {
 	return false
 }
 
-// SetParticipationCapMultiple gets a reference to the given float32 and assigns it to the ParticipationCapMultiple field.
-func (o *CaptableShareClass) SetParticipationCapMultiple(v float32) {
+// SetParticipationCapMultiple gets a reference to the given float64 and assigns it to the ParticipationCapMultiple field.
+func (o *CaptableShareClass) SetParticipationCapMultiple(v float64) {
 	o.ParticipationCapMultiple = &v
 }
 
@@ -419,9 +419,9 @@ func (o *CaptableShareClass) SetPrefix(v string) {
 }
 
 // GetPricePerShare returns the PricePerShare field value if set, zero value otherwise.
-func (o *CaptableShareClass) GetPricePerShare() float32 {
+func (o *CaptableShareClass) GetPricePerShare() float64 {
 	if o == nil || IsNil(o.PricePerShare) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.PricePerShare
@@ -429,7 +429,7 @@ func (o *CaptableShareClass) GetPricePerShare() float32 {
 
 // GetPricePerShareOk returns a tuple with the PricePerShare field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableShareClass) GetPricePerShareOk() (*float32, bool) {
+func (o *CaptableShareClass) GetPricePerShareOk() (*float64, bool) {
 	if o == nil || IsNil(o.PricePerShare) {
 		return nil, false
 	}
@@ -445,15 +445,15 @@ func (o *CaptableShareClass) HasPricePerShare() bool {
 	return false
 }
 
-// SetPricePerShare gets a reference to the given float32 and assigns it to the PricePerShare field.
-func (o *CaptableShareClass) SetPricePerShare(v float32) {
+// SetPricePerShare gets a reference to the given float64 and assigns it to the PricePerShare field.
+func (o *CaptableShareClass) SetPricePerShare(v float64) {
 	o.PricePerShare = &v
 }
 
 // GetSeniority returns the Seniority field value if set, zero value otherwise.
-func (o *CaptableShareClass) GetSeniority() int32 {
+func (o *CaptableShareClass) GetSeniority() int64 {
 	if o == nil || IsNil(o.Seniority) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Seniority
@@ -461,7 +461,7 @@ func (o *CaptableShareClass) GetSeniority() int32 {
 
 // GetSeniorityOk returns a tuple with the Seniority field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableShareClass) GetSeniorityOk() (*int32, bool) {
+func (o *CaptableShareClass) GetSeniorityOk() (*int64, bool) {
 	if o == nil || IsNil(o.Seniority) {
 		return nil, false
 	}
@@ -477,15 +477,15 @@ func (o *CaptableShareClass) HasSeniority() bool {
 	return false
 }
 
-// SetSeniority gets a reference to the given int32 and assigns it to the Seniority field.
-func (o *CaptableShareClass) SetSeniority(v int32) {
+// SetSeniority gets a reference to the given int64 and assigns it to the Seniority field.
+func (o *CaptableShareClass) SetSeniority(v int64) {
 	o.Seniority = &v
 }
 
 // GetVotesPerShare returns the VotesPerShare field value if set, zero value otherwise.
-func (o *CaptableShareClass) GetVotesPerShare() int32 {
+func (o *CaptableShareClass) GetVotesPerShare() int64 {
 	if o == nil || IsNil(o.VotesPerShare) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.VotesPerShare
@@ -493,7 +493,7 @@ func (o *CaptableShareClass) GetVotesPerShare() int32 {
 
 // GetVotesPerShareOk returns a tuple with the VotesPerShare field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableShareClass) GetVotesPerShareOk() (*int32, bool) {
+func (o *CaptableShareClass) GetVotesPerShareOk() (*int64, bool) {
 	if o == nil || IsNil(o.VotesPerShare) {
 		return nil, false
 	}
@@ -509,8 +509,8 @@ func (o *CaptableShareClass) HasVotesPerShare() bool {
 	return false
 }
 
-// SetVotesPerShare gets a reference to the given int32 and assigns it to the VotesPerShare field.
-func (o *CaptableShareClass) SetVotesPerShare(v int32) {
+// SetVotesPerShare gets a reference to the given int64 and assigns it to the VotesPerShare field.
+func (o *CaptableShareClass) SetVotesPerShare(v int64) {
 	o.VotesPerShare = &v
 }
 

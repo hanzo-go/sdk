@@ -22,13 +22,13 @@ var _ MappedNullable = &O11yO11yMetricInspectIn{}
 // O11yO11yMetricInspectIn struct for O11yO11yMetricInspectIn
 type O11yO11yMetricInspectIn struct {
 	// End is the end of the window as a Unix timestamp in milliseconds, at most thirty minutes after start. Required.
-	End int32 `json:"end"`
+	End int64 `json:"end"`
 	// Filter narrows the series returned.
 	Filter *O11yO11yMetricFilter `json:"filter,omitempty"`
 	// MetricName is the metric to inspect. Required.
 	MetricName string `json:"metricName"`
 	// Start is the start of the window as a Unix timestamp in milliseconds. Required.
-	Start int32 `json:"start"`
+	Start int64 `json:"start"`
 }
 
 type _O11yO11yMetricInspectIn O11yO11yMetricInspectIn
@@ -37,7 +37,7 @@ type _O11yO11yMetricInspectIn O11yO11yMetricInspectIn
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewO11yO11yMetricInspectIn(end int32, metricName string, start int32) *O11yO11yMetricInspectIn {
+func NewO11yO11yMetricInspectIn(end int64, metricName string, start int64) *O11yO11yMetricInspectIn {
 	this := O11yO11yMetricInspectIn{}
 	this.End = end
 	this.MetricName = metricName
@@ -54,9 +54,9 @@ func NewO11yO11yMetricInspectInWithDefaults() *O11yO11yMetricInspectIn {
 }
 
 // GetEnd returns the End field value
-func (o *O11yO11yMetricInspectIn) GetEnd() int32 {
+func (o *O11yO11yMetricInspectIn) GetEnd() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -65,7 +65,7 @@ func (o *O11yO11yMetricInspectIn) GetEnd() int32 {
 
 // GetEndOk returns a tuple with the End field value
 // and a boolean to check if the value has been set.
-func (o *O11yO11yMetricInspectIn) GetEndOk() (*int32, bool) {
+func (o *O11yO11yMetricInspectIn) GetEndOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -73,7 +73,7 @@ func (o *O11yO11yMetricInspectIn) GetEndOk() (*int32, bool) {
 }
 
 // SetEnd sets field value
-func (o *O11yO11yMetricInspectIn) SetEnd(v int32) {
+func (o *O11yO11yMetricInspectIn) SetEnd(v int64) {
 	o.End = v
 }
 
@@ -134,9 +134,9 @@ func (o *O11yO11yMetricInspectIn) SetMetricName(v string) {
 }
 
 // GetStart returns the Start field value
-func (o *O11yO11yMetricInspectIn) GetStart() int32 {
+func (o *O11yO11yMetricInspectIn) GetStart() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -145,7 +145,7 @@ func (o *O11yO11yMetricInspectIn) GetStart() int32 {
 
 // GetStartOk returns a tuple with the Start field value
 // and a boolean to check if the value has been set.
-func (o *O11yO11yMetricInspectIn) GetStartOk() (*int32, bool) {
+func (o *O11yO11yMetricInspectIn) GetStartOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -153,7 +153,7 @@ func (o *O11yO11yMetricInspectIn) GetStartOk() (*int32, bool) {
 }
 
 // SetStart sets field value
-func (o *O11yO11yMetricInspectIn) SetStart(v int32) {
+func (o *O11yO11yMetricInspectIn) SetStart(v int64) {
 	o.Start = v
 }
 

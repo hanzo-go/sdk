@@ -24,7 +24,7 @@ type Benchmark struct {
 	// the id every other op on this surface takes
 	Id *string `json:"id,omitempty"`
 	// how many items it holds, when the set is fixed
-	Items *int32 `json:"items,omitempty"`
+	Items *int64 `json:"items,omitempty"`
 	// whether the standardized harness runs it today
 	Native *bool `json:"native,omitempty"`
 	// where the items come from
@@ -115,9 +115,9 @@ func (o *Benchmark) SetId(v string) {
 }
 
 // GetItems returns the Items field value if set, zero value otherwise.
-func (o *Benchmark) GetItems() int32 {
+func (o *Benchmark) GetItems() int64 {
 	if o == nil || IsNil(o.Items) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Items
@@ -125,7 +125,7 @@ func (o *Benchmark) GetItems() int32 {
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Benchmark) GetItemsOk() (*int32, bool) {
+func (o *Benchmark) GetItemsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *Benchmark) HasItems() bool {
 	return false
 }
 
-// SetItems gets a reference to the given int32 and assigns it to the Items field.
-func (o *Benchmark) SetItems(v int32) {
+// SetItems gets a reference to the given int64 and assigns it to the Items field.
+func (o *Benchmark) SetItems(v int64) {
 	o.Items = &v
 }
 

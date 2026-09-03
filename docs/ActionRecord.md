@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Args** | Pointer to **string** | Args is the JSON the tool was called with, recorded as TEXT exactly as sent — including whatever the AI drafted into it — so a run can be read back and reproduced. It is a string, not an object. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the run was recorded, as Unix seconds. The ledger is read newest-first on this column. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the run was recorded, as Unix seconds. The ledger is read newest-first on this column. | [optional] 
 **Err** | Pointer to **string** | Err is why the run failed, when it did. Empty on a successful run. | [optional] 
 **Id** | Pointer to **string** | ID identifies this one execution. The ledger is append-only, so an id is never reused and never updated. | [optional] 
 **Ok** | Pointer to **bool** | OK is whether the tool ran to completion. It is the ledger&#39;s own verdict, not the tool&#39;s opinion of the outcome — a tool that succeeded at reporting bad news is ok. | [optional] 
@@ -59,20 +59,20 @@ HasArgs returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *ActionRecord) GetCreatedAt() int32`
+`func (o *ActionRecord) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *ActionRecord) GetCreatedAtOk() (*int32, bool)`
+`func (o *ActionRecord) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *ActionRecord) SetCreatedAt(v int32)`
+`func (o *ActionRecord) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 

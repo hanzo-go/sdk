@@ -19,8 +19,8 @@ var _ MappedNullable = &O11yGettableRuleStateWindow{}
 
 // O11yGettableRuleStateWindow struct for O11yGettableRuleStateWindow
 type O11yGettableRuleStateWindow struct {
-	End   *int32      `json:"end,omitempty"`
-	Start *int32      `json:"start,omitempty"`
+	End   *int64      `json:"end,omitempty"`
+	Start *int64      `json:"start,omitempty"`
 	State interface{} `json:"state,omitempty"`
 }
 
@@ -42,9 +42,9 @@ func NewO11yGettableRuleStateWindowWithDefaults() *O11yGettableRuleStateWindow {
 }
 
 // GetEnd returns the End field value if set, zero value otherwise.
-func (o *O11yGettableRuleStateWindow) GetEnd() int32 {
+func (o *O11yGettableRuleStateWindow) GetEnd() int64 {
 	if o == nil || IsNil(o.End) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.End
@@ -52,7 +52,7 @@ func (o *O11yGettableRuleStateWindow) GetEnd() int32 {
 
 // GetEndOk returns a tuple with the End field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yGettableRuleStateWindow) GetEndOk() (*int32, bool) {
+func (o *O11yGettableRuleStateWindow) GetEndOk() (*int64, bool) {
 	if o == nil || IsNil(o.End) {
 		return nil, false
 	}
@@ -68,15 +68,15 @@ func (o *O11yGettableRuleStateWindow) HasEnd() bool {
 	return false
 }
 
-// SetEnd gets a reference to the given int32 and assigns it to the End field.
-func (o *O11yGettableRuleStateWindow) SetEnd(v int32) {
+// SetEnd gets a reference to the given int64 and assigns it to the End field.
+func (o *O11yGettableRuleStateWindow) SetEnd(v int64) {
 	o.End = &v
 }
 
 // GetStart returns the Start field value if set, zero value otherwise.
-func (o *O11yGettableRuleStateWindow) GetStart() int32 {
+func (o *O11yGettableRuleStateWindow) GetStart() int64 {
 	if o == nil || IsNil(o.Start) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Start
@@ -84,7 +84,7 @@ func (o *O11yGettableRuleStateWindow) GetStart() int32 {
 
 // GetStartOk returns a tuple with the Start field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yGettableRuleStateWindow) GetStartOk() (*int32, bool) {
+func (o *O11yGettableRuleStateWindow) GetStartOk() (*int64, bool) {
 	if o == nil || IsNil(o.Start) {
 		return nil, false
 	}
@@ -100,8 +100,8 @@ func (o *O11yGettableRuleStateWindow) HasStart() bool {
 	return false
 }
 
-// SetStart gets a reference to the given int32 and assigns it to the Start field.
-func (o *O11yGettableRuleStateWindow) SetStart(v int32) {
+// SetStart gets a reference to the given int64 and assigns it to the Start field.
+func (o *O11yGettableRuleStateWindow) SetStart(v int64) {
 	o.Start = &v
 }
 

@@ -22,9 +22,9 @@ type BucketRecord struct {
 	// Bucket is the bucket's name within the org.
 	Bucket *string `json:"bucket,omitempty"`
 	// History is how many revisions each key keeps.
-	History *int32 `json:"history,omitempty"`
+	History *int64 `json:"history,omitempty"`
 	// TTL is the entry expiry in seconds; 0 means none.
-	Ttl *int32 `json:"ttl,omitempty"`
+	Ttl *int64 `json:"ttl,omitempty"`
 	// Values is how many values the bucket holds right now.
 	Values *int32 `json:"values,omitempty"`
 }
@@ -79,9 +79,9 @@ func (o *BucketRecord) SetBucket(v string) {
 }
 
 // GetHistory returns the History field value if set, zero value otherwise.
-func (o *BucketRecord) GetHistory() int32 {
+func (o *BucketRecord) GetHistory() int64 {
 	if o == nil || IsNil(o.History) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.History
@@ -89,7 +89,7 @@ func (o *BucketRecord) GetHistory() int32 {
 
 // GetHistoryOk returns a tuple with the History field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BucketRecord) GetHistoryOk() (*int32, bool) {
+func (o *BucketRecord) GetHistoryOk() (*int64, bool) {
 	if o == nil || IsNil(o.History) {
 		return nil, false
 	}
@@ -105,15 +105,15 @@ func (o *BucketRecord) HasHistory() bool {
 	return false
 }
 
-// SetHistory gets a reference to the given int32 and assigns it to the History field.
-func (o *BucketRecord) SetHistory(v int32) {
+// SetHistory gets a reference to the given int64 and assigns it to the History field.
+func (o *BucketRecord) SetHistory(v int64) {
 	o.History = &v
 }
 
 // GetTtl returns the Ttl field value if set, zero value otherwise.
-func (o *BucketRecord) GetTtl() int32 {
+func (o *BucketRecord) GetTtl() int64 {
 	if o == nil || IsNil(o.Ttl) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Ttl
@@ -121,7 +121,7 @@ func (o *BucketRecord) GetTtl() int32 {
 
 // GetTtlOk returns a tuple with the Ttl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BucketRecord) GetTtlOk() (*int32, bool) {
+func (o *BucketRecord) GetTtlOk() (*int64, bool) {
 	if o == nil || IsNil(o.Ttl) {
 		return nil, false
 	}
@@ -137,8 +137,8 @@ func (o *BucketRecord) HasTtl() bool {
 	return false
 }
 
-// SetTtl gets a reference to the given int32 and assigns it to the Ttl field.
-func (o *BucketRecord) SetTtl(v int32) {
+// SetTtl gets a reference to the given int64 and assigns it to the Ttl field.
+func (o *BucketRecord) SetTtl(v int64) {
 	o.Ttl = &v
 }
 

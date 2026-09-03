@@ -20,12 +20,12 @@ var _ MappedNullable = &O11yQueryRangeParamsV3{}
 // O11yQueryRangeParamsV3 struct for O11yQueryRangeParamsV3
 type O11yQueryRangeParamsV3 struct {
 	CompositeQuery *O11yCompositeQuery `json:"compositeQuery,omitempty"`
-	End            *int32              `json:"end,omitempty"`
+	End            *int64              `json:"end,omitempty"`
 	FormatForWeb   *bool               `json:"formatForWeb,omitempty"`
 	NoCache        *bool               `json:"noCache,omitempty"`
-	Start          *int32              `json:"start,omitempty"`
+	Start          *int64              `json:"start,omitempty"`
 	// step is in seconds; used for prometheus queries
-	Step      *int32                            `json:"step,omitempty"`
+	Step      *int64                            `json:"step,omitempty"`
 	Variables map[string]map[string]interface{} `json:"variables,omitempty"`
 }
 
@@ -79,9 +79,9 @@ func (o *O11yQueryRangeParamsV3) SetCompositeQuery(v O11yCompositeQuery) {
 }
 
 // GetEnd returns the End field value if set, zero value otherwise.
-func (o *O11yQueryRangeParamsV3) GetEnd() int32 {
+func (o *O11yQueryRangeParamsV3) GetEnd() int64 {
 	if o == nil || IsNil(o.End) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.End
@@ -89,7 +89,7 @@ func (o *O11yQueryRangeParamsV3) GetEnd() int32 {
 
 // GetEndOk returns a tuple with the End field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yQueryRangeParamsV3) GetEndOk() (*int32, bool) {
+func (o *O11yQueryRangeParamsV3) GetEndOk() (*int64, bool) {
 	if o == nil || IsNil(o.End) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *O11yQueryRangeParamsV3) HasEnd() bool {
 	return false
 }
 
-// SetEnd gets a reference to the given int32 and assigns it to the End field.
-func (o *O11yQueryRangeParamsV3) SetEnd(v int32) {
+// SetEnd gets a reference to the given int64 and assigns it to the End field.
+func (o *O11yQueryRangeParamsV3) SetEnd(v int64) {
 	o.End = &v
 }
 
@@ -175,9 +175,9 @@ func (o *O11yQueryRangeParamsV3) SetNoCache(v bool) {
 }
 
 // GetStart returns the Start field value if set, zero value otherwise.
-func (o *O11yQueryRangeParamsV3) GetStart() int32 {
+func (o *O11yQueryRangeParamsV3) GetStart() int64 {
 	if o == nil || IsNil(o.Start) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Start
@@ -185,7 +185,7 @@ func (o *O11yQueryRangeParamsV3) GetStart() int32 {
 
 // GetStartOk returns a tuple with the Start field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yQueryRangeParamsV3) GetStartOk() (*int32, bool) {
+func (o *O11yQueryRangeParamsV3) GetStartOk() (*int64, bool) {
 	if o == nil || IsNil(o.Start) {
 		return nil, false
 	}
@@ -201,15 +201,15 @@ func (o *O11yQueryRangeParamsV3) HasStart() bool {
 	return false
 }
 
-// SetStart gets a reference to the given int32 and assigns it to the Start field.
-func (o *O11yQueryRangeParamsV3) SetStart(v int32) {
+// SetStart gets a reference to the given int64 and assigns it to the Start field.
+func (o *O11yQueryRangeParamsV3) SetStart(v int64) {
 	o.Start = &v
 }
 
 // GetStep returns the Step field value if set, zero value otherwise.
-func (o *O11yQueryRangeParamsV3) GetStep() int32 {
+func (o *O11yQueryRangeParamsV3) GetStep() int64 {
 	if o == nil || IsNil(o.Step) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Step
@@ -217,7 +217,7 @@ func (o *O11yQueryRangeParamsV3) GetStep() int32 {
 
 // GetStepOk returns a tuple with the Step field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yQueryRangeParamsV3) GetStepOk() (*int32, bool) {
+func (o *O11yQueryRangeParamsV3) GetStepOk() (*int64, bool) {
 	if o == nil || IsNil(o.Step) {
 		return nil, false
 	}
@@ -233,8 +233,8 @@ func (o *O11yQueryRangeParamsV3) HasStep() bool {
 	return false
 }
 
-// SetStep gets a reference to the given int32 and assigns it to the Step field.
-func (o *O11yQueryRangeParamsV3) SetStep(v int32) {
+// SetStep gets a reference to the given int64 and assigns it to the Step field.
+func (o *O11yQueryRangeParamsV3) SetStep(v int64) {
 	o.Step = &v
 }
 

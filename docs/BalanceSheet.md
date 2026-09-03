@@ -9,9 +9,9 @@ Name | Type | Description | Notes
 **Balanced** | Pointer to **bool** | Balanced is whether assets equal liabilities plus equity — the accounting equation, computed from the totals above rather than assumed. False means the ledger is broken, not that the statement is. | [optional] 
 **Equity** | Pointer to [**[]BalanceLine**](BalanceLine.md) | Equity is what is left over for the owners. It carries a DERIVED retained earnings line holding cumulative income minus expense, because this ledger has no period close that sweeps the P&amp;L into equity — without that line the equation would not close. | [optional] 
 **Liabilities** | Pointer to [**[]BalanceLine**](BalanceLine.md) | Liabilities are what the org OWES — including customers&#39; unspent prepaid credit, which is their money until it is consumed and so is carried here rather than counted as revenue. | [optional] 
-**TotalAssets** | Pointer to **int32** | TotalAssets is the sum of the asset lines, in cents. | [optional] 
-**TotalEquity** | Pointer to **int32** | TotalEquity is the sum of the equity lines including retained earnings, in cents. | [optional] 
-**TotalLiabilities** | Pointer to **int32** | TotalLiabilities is the sum of the liability lines, in cents. | [optional] 
+**TotalAssets** | Pointer to **int64** | TotalAssets is the sum of the asset lines, in cents. | [optional] 
+**TotalEquity** | Pointer to **int64** | TotalEquity is the sum of the equity lines including retained earnings, in cents. | [optional] 
+**TotalLiabilities** | Pointer to **int64** | TotalLiabilities is the sum of the liability lines, in cents. | [optional] 
 
 ## Methods
 
@@ -159,20 +159,20 @@ HasLiabilities returns a boolean if a field has been set.
 
 ### GetTotalAssets
 
-`func (o *BalanceSheet) GetTotalAssets() int32`
+`func (o *BalanceSheet) GetTotalAssets() int64`
 
 GetTotalAssets returns the TotalAssets field if non-nil, zero value otherwise.
 
 ### GetTotalAssetsOk
 
-`func (o *BalanceSheet) GetTotalAssetsOk() (*int32, bool)`
+`func (o *BalanceSheet) GetTotalAssetsOk() (*int64, bool)`
 
 GetTotalAssetsOk returns a tuple with the TotalAssets field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalAssets
 
-`func (o *BalanceSheet) SetTotalAssets(v int32)`
+`func (o *BalanceSheet) SetTotalAssets(v int64)`
 
 SetTotalAssets sets TotalAssets field to given value.
 
@@ -184,20 +184,20 @@ HasTotalAssets returns a boolean if a field has been set.
 
 ### GetTotalEquity
 
-`func (o *BalanceSheet) GetTotalEquity() int32`
+`func (o *BalanceSheet) GetTotalEquity() int64`
 
 GetTotalEquity returns the TotalEquity field if non-nil, zero value otherwise.
 
 ### GetTotalEquityOk
 
-`func (o *BalanceSheet) GetTotalEquityOk() (*int32, bool)`
+`func (o *BalanceSheet) GetTotalEquityOk() (*int64, bool)`
 
 GetTotalEquityOk returns a tuple with the TotalEquity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalEquity
 
-`func (o *BalanceSheet) SetTotalEquity(v int32)`
+`func (o *BalanceSheet) SetTotalEquity(v int64)`
 
 SetTotalEquity sets TotalEquity field to given value.
 
@@ -209,20 +209,20 @@ HasTotalEquity returns a boolean if a field has been set.
 
 ### GetTotalLiabilities
 
-`func (o *BalanceSheet) GetTotalLiabilities() int32`
+`func (o *BalanceSheet) GetTotalLiabilities() int64`
 
 GetTotalLiabilities returns the TotalLiabilities field if non-nil, zero value otherwise.
 
 ### GetTotalLiabilitiesOk
 
-`func (o *BalanceSheet) GetTotalLiabilitiesOk() (*int32, bool)`
+`func (o *BalanceSheet) GetTotalLiabilitiesOk() (*int64, bool)`
 
 GetTotalLiabilitiesOk returns a tuple with the TotalLiabilities field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalLiabilities
 
-`func (o *BalanceSheet) SetTotalLiabilities(v int32)`
+`func (o *BalanceSheet) SetTotalLiabilities(v int64)`
 
 SetTotalLiabilities sets TotalLiabilities field to given value.
 

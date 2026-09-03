@@ -22,17 +22,17 @@ var _ MappedNullable = &O11yO11yMetricStatsIn{}
 // O11yO11yMetricStatsIn struct for O11yO11yMetricStatsIn
 type O11yO11yMetricStatsIn struct {
 	// End is the end of the window as a Unix timestamp in milliseconds. Required.
-	End int32 `json:"end"`
+	End int64 `json:"end"`
 	// Filter narrows the metrics counted.
 	Filter *O11yO11yMetricFilter `json:"filter,omitempty"`
 	// Limit caps how many metrics come back, between 1 and 5000. Required.
-	Limit int32 `json:"limit"`
+	Limit int64 `json:"limit"`
 	// Offset is how many metrics to skip, for paging.
-	Offset *int32 `json:"offset,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
 	// OrderBy sorts the page, by samples or timeseries.
 	OrderBy *O11yO11yMetricOrder `json:"orderBy,omitempty"`
 	// Start is the start of the window as a Unix timestamp in milliseconds. Required.
-	Start int32 `json:"start"`
+	Start int64 `json:"start"`
 }
 
 type _O11yO11yMetricStatsIn O11yO11yMetricStatsIn
@@ -41,7 +41,7 @@ type _O11yO11yMetricStatsIn O11yO11yMetricStatsIn
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewO11yO11yMetricStatsIn(end int32, limit int32, start int32) *O11yO11yMetricStatsIn {
+func NewO11yO11yMetricStatsIn(end int64, limit int64, start int64) *O11yO11yMetricStatsIn {
 	this := O11yO11yMetricStatsIn{}
 	this.End = end
 	this.Limit = limit
@@ -58,9 +58,9 @@ func NewO11yO11yMetricStatsInWithDefaults() *O11yO11yMetricStatsIn {
 }
 
 // GetEnd returns the End field value
-func (o *O11yO11yMetricStatsIn) GetEnd() int32 {
+func (o *O11yO11yMetricStatsIn) GetEnd() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -69,7 +69,7 @@ func (o *O11yO11yMetricStatsIn) GetEnd() int32 {
 
 // GetEndOk returns a tuple with the End field value
 // and a boolean to check if the value has been set.
-func (o *O11yO11yMetricStatsIn) GetEndOk() (*int32, bool) {
+func (o *O11yO11yMetricStatsIn) GetEndOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -77,7 +77,7 @@ func (o *O11yO11yMetricStatsIn) GetEndOk() (*int32, bool) {
 }
 
 // SetEnd sets field value
-func (o *O11yO11yMetricStatsIn) SetEnd(v int32) {
+func (o *O11yO11yMetricStatsIn) SetEnd(v int64) {
 	o.End = v
 }
 
@@ -114,9 +114,9 @@ func (o *O11yO11yMetricStatsIn) SetFilter(v O11yO11yMetricFilter) {
 }
 
 // GetLimit returns the Limit field value
-func (o *O11yO11yMetricStatsIn) GetLimit() int32 {
+func (o *O11yO11yMetricStatsIn) GetLimit() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -125,7 +125,7 @@ func (o *O11yO11yMetricStatsIn) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value
 // and a boolean to check if the value has been set.
-func (o *O11yO11yMetricStatsIn) GetLimitOk() (*int32, bool) {
+func (o *O11yO11yMetricStatsIn) GetLimitOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -133,14 +133,14 @@ func (o *O11yO11yMetricStatsIn) GetLimitOk() (*int32, bool) {
 }
 
 // SetLimit sets field value
-func (o *O11yO11yMetricStatsIn) SetLimit(v int32) {
+func (o *O11yO11yMetricStatsIn) SetLimit(v int64) {
 	o.Limit = v
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
-func (o *O11yO11yMetricStatsIn) GetOffset() int32 {
+func (o *O11yO11yMetricStatsIn) GetOffset() int64 {
 	if o == nil || IsNil(o.Offset) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Offset
@@ -148,7 +148,7 @@ func (o *O11yO11yMetricStatsIn) GetOffset() int32 {
 
 // GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yMetricStatsIn) GetOffsetOk() (*int32, bool) {
+func (o *O11yO11yMetricStatsIn) GetOffsetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Offset) {
 		return nil, false
 	}
@@ -164,8 +164,8 @@ func (o *O11yO11yMetricStatsIn) HasOffset() bool {
 	return false
 }
 
-// SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *O11yO11yMetricStatsIn) SetOffset(v int32) {
+// SetOffset gets a reference to the given int64 and assigns it to the Offset field.
+func (o *O11yO11yMetricStatsIn) SetOffset(v int64) {
 	o.Offset = &v
 }
 
@@ -202,9 +202,9 @@ func (o *O11yO11yMetricStatsIn) SetOrderBy(v O11yO11yMetricOrder) {
 }
 
 // GetStart returns the Start field value
-func (o *O11yO11yMetricStatsIn) GetStart() int32 {
+func (o *O11yO11yMetricStatsIn) GetStart() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -213,7 +213,7 @@ func (o *O11yO11yMetricStatsIn) GetStart() int32 {
 
 // GetStartOk returns a tuple with the Start field value
 // and a boolean to check if the value has been set.
-func (o *O11yO11yMetricStatsIn) GetStartOk() (*int32, bool) {
+func (o *O11yO11yMetricStatsIn) GetStartOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -221,7 +221,7 @@ func (o *O11yO11yMetricStatsIn) GetStartOk() (*int32, bool) {
 }
 
 // SetStart sets field value
-func (o *O11yO11yMetricStatsIn) SetStart(v int32) {
+func (o *O11yO11yMetricStatsIn) SetStart(v int64) {
 	o.Start = v
 }
 

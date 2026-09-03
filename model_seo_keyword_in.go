@@ -24,7 +24,7 @@ type SeoKeywordIn struct {
 	// Language is the ISO code. Defaults to \"en\".
 	Language *string `json:"language,omitempty"`
 	// Location is the market, as the upstream's numeric code. Defaults to 2840, the United States.
-	Location *int32 `json:"location,omitempty"`
+	Location *int64 `json:"location,omitempty"`
 }
 
 // NewSeoKeywordIn instantiates a new SeoKeywordIn object
@@ -109,9 +109,9 @@ func (o *SeoKeywordIn) SetLanguage(v string) {
 }
 
 // GetLocation returns the Location field value if set, zero value otherwise.
-func (o *SeoKeywordIn) GetLocation() int32 {
+func (o *SeoKeywordIn) GetLocation() int64 {
 	if o == nil || IsNil(o.Location) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Location
@@ -119,7 +119,7 @@ func (o *SeoKeywordIn) GetLocation() int32 {
 
 // GetLocationOk returns a tuple with the Location field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoKeywordIn) GetLocationOk() (*int32, bool) {
+func (o *SeoKeywordIn) GetLocationOk() (*int64, bool) {
 	if o == nil || IsNil(o.Location) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *SeoKeywordIn) HasLocation() bool {
 	return false
 }
 
-// SetLocation gets a reference to the given int32 and assigns it to the Location field.
-func (o *SeoKeywordIn) SetLocation(v int32) {
+// SetLocation gets a reference to the given int64 and assigns it to the Location field.
+func (o *SeoKeywordIn) SetLocation(v int64) {
 	o.Location = &v
 }
 

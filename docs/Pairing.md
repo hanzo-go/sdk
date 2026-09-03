@@ -5,15 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **A** | Pointer to **string** | A is the first model id. | [optional] 
-**ACorrect** | Pointer to **int32** | ACorrect is how many of those common items A got right. | [optional] 
+**ACorrect** | Pointer to **int64** | ACorrect is how many of those common items A got right. | [optional] 
 **B** | Pointer to **string** | B is the second model id. | [optional] 
-**BCorrect** | Pointer to **int32** | BCorrect is how many of those common items B got right. | [optional] 
+**BCorrect** | Pointer to **int64** | BCorrect is how many of those common items B got right. | [optional] 
 **Benchmark** | Pointer to **string** | Benchmark is the catalog id the two arms were compared on. | [optional] 
-**McnemarP** | Pointer to **float32** | McnemarP is the two-sided exact binomial p on the discordant pairs. It is 1 when nothing is discordant, which is \&quot;no evidence of a difference\&quot;, not an error. | [optional] 
-**NCommon** | Pointer to **int32** | NCommon is how many items BOTH arms completed. It is the denominator, and the reason this comparison is valid where a raw accuracy difference is not. | [optional] 
-**NetAMinusB** | Pointer to **int32** | NetAMinusB is the two rescue counts subtracted — A&#39;s advantage in items. | [optional] 
-**RescueAOverB** | Pointer to **int32** | RescueAOverB is how many items A got right and B got wrong. | [optional] 
-**RescueBOverA** | Pointer to **int32** | RescueBOverA is how many items B got right and A got wrong. | [optional] 
+**McnemarP** | Pointer to **float64** | McnemarP is the two-sided exact binomial p on the discordant pairs. It is 1 when nothing is discordant, which is \&quot;no evidence of a difference\&quot;, not an error. | [optional] 
+**NCommon** | Pointer to **int64** | NCommon is how many items BOTH arms completed. It is the denominator, and the reason this comparison is valid where a raw accuracy difference is not. | [optional] 
+**NetAMinusB** | Pointer to **int64** | NetAMinusB is the two rescue counts subtracted — A&#39;s advantage in items. | [optional] 
+**RescueAOverB** | Pointer to **int64** | RescueAOverB is how many items A got right and B got wrong. | [optional] 
+**RescueBOverA** | Pointer to **int64** | RescueBOverA is how many items B got right and A got wrong. | [optional] 
 
 ## Methods
 
@@ -61,20 +61,20 @@ HasA returns a boolean if a field has been set.
 
 ### GetACorrect
 
-`func (o *Pairing) GetACorrect() int32`
+`func (o *Pairing) GetACorrect() int64`
 
 GetACorrect returns the ACorrect field if non-nil, zero value otherwise.
 
 ### GetACorrectOk
 
-`func (o *Pairing) GetACorrectOk() (*int32, bool)`
+`func (o *Pairing) GetACorrectOk() (*int64, bool)`
 
 GetACorrectOk returns a tuple with the ACorrect field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetACorrect
 
-`func (o *Pairing) SetACorrect(v int32)`
+`func (o *Pairing) SetACorrect(v int64)`
 
 SetACorrect sets ACorrect field to given value.
 
@@ -111,20 +111,20 @@ HasB returns a boolean if a field has been set.
 
 ### GetBCorrect
 
-`func (o *Pairing) GetBCorrect() int32`
+`func (o *Pairing) GetBCorrect() int64`
 
 GetBCorrect returns the BCorrect field if non-nil, zero value otherwise.
 
 ### GetBCorrectOk
 
-`func (o *Pairing) GetBCorrectOk() (*int32, bool)`
+`func (o *Pairing) GetBCorrectOk() (*int64, bool)`
 
 GetBCorrectOk returns a tuple with the BCorrect field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBCorrect
 
-`func (o *Pairing) SetBCorrect(v int32)`
+`func (o *Pairing) SetBCorrect(v int64)`
 
 SetBCorrect sets BCorrect field to given value.
 
@@ -161,20 +161,20 @@ HasBenchmark returns a boolean if a field has been set.
 
 ### GetMcnemarP
 
-`func (o *Pairing) GetMcnemarP() float32`
+`func (o *Pairing) GetMcnemarP() float64`
 
 GetMcnemarP returns the McnemarP field if non-nil, zero value otherwise.
 
 ### GetMcnemarPOk
 
-`func (o *Pairing) GetMcnemarPOk() (*float32, bool)`
+`func (o *Pairing) GetMcnemarPOk() (*float64, bool)`
 
 GetMcnemarPOk returns a tuple with the McnemarP field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMcnemarP
 
-`func (o *Pairing) SetMcnemarP(v float32)`
+`func (o *Pairing) SetMcnemarP(v float64)`
 
 SetMcnemarP sets McnemarP field to given value.
 
@@ -186,20 +186,20 @@ HasMcnemarP returns a boolean if a field has been set.
 
 ### GetNCommon
 
-`func (o *Pairing) GetNCommon() int32`
+`func (o *Pairing) GetNCommon() int64`
 
 GetNCommon returns the NCommon field if non-nil, zero value otherwise.
 
 ### GetNCommonOk
 
-`func (o *Pairing) GetNCommonOk() (*int32, bool)`
+`func (o *Pairing) GetNCommonOk() (*int64, bool)`
 
 GetNCommonOk returns a tuple with the NCommon field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNCommon
 
-`func (o *Pairing) SetNCommon(v int32)`
+`func (o *Pairing) SetNCommon(v int64)`
 
 SetNCommon sets NCommon field to given value.
 
@@ -211,20 +211,20 @@ HasNCommon returns a boolean if a field has been set.
 
 ### GetNetAMinusB
 
-`func (o *Pairing) GetNetAMinusB() int32`
+`func (o *Pairing) GetNetAMinusB() int64`
 
 GetNetAMinusB returns the NetAMinusB field if non-nil, zero value otherwise.
 
 ### GetNetAMinusBOk
 
-`func (o *Pairing) GetNetAMinusBOk() (*int32, bool)`
+`func (o *Pairing) GetNetAMinusBOk() (*int64, bool)`
 
 GetNetAMinusBOk returns a tuple with the NetAMinusB field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNetAMinusB
 
-`func (o *Pairing) SetNetAMinusB(v int32)`
+`func (o *Pairing) SetNetAMinusB(v int64)`
 
 SetNetAMinusB sets NetAMinusB field to given value.
 
@@ -236,20 +236,20 @@ HasNetAMinusB returns a boolean if a field has been set.
 
 ### GetRescueAOverB
 
-`func (o *Pairing) GetRescueAOverB() int32`
+`func (o *Pairing) GetRescueAOverB() int64`
 
 GetRescueAOverB returns the RescueAOverB field if non-nil, zero value otherwise.
 
 ### GetRescueAOverBOk
 
-`func (o *Pairing) GetRescueAOverBOk() (*int32, bool)`
+`func (o *Pairing) GetRescueAOverBOk() (*int64, bool)`
 
 GetRescueAOverBOk returns a tuple with the RescueAOverB field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRescueAOverB
 
-`func (o *Pairing) SetRescueAOverB(v int32)`
+`func (o *Pairing) SetRescueAOverB(v int64)`
 
 SetRescueAOverB sets RescueAOverB field to given value.
 
@@ -261,20 +261,20 @@ HasRescueAOverB returns a boolean if a field has been set.
 
 ### GetRescueBOverA
 
-`func (o *Pairing) GetRescueBOverA() int32`
+`func (o *Pairing) GetRescueBOverA() int64`
 
 GetRescueBOverA returns the RescueBOverA field if non-nil, zero value otherwise.
 
 ### GetRescueBOverAOk
 
-`func (o *Pairing) GetRescueBOverAOk() (*int32, bool)`
+`func (o *Pairing) GetRescueBOverAOk() (*int64, bool)`
 
 GetRescueBOverAOk returns a tuple with the RescueBOverA field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRescueBOverA
 
-`func (o *Pairing) SetRescueBOverA(v int32)`
+`func (o *Pairing) SetRescueBOverA(v int64)`
 
 SetRescueBOverA sets RescueBOverA field to given value.
 

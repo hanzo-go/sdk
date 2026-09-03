@@ -28,7 +28,7 @@ type Fusion struct {
 	// Status is the query's overall honesty signal:   ok          every consulted leg answered.   partial     at least one leg failed; Hits holds the survivors' results.   unavailable every consulted leg failed; Hits is empty AND that is stated.
 	Status *string `json:"status,omitempty"`
 	// TookMS is the whole query's wall time in milliseconds — every leg it consulted, plus fusion and paging. Each leg's own share is in Backends[].TookMS; the legs run in sequence, so this is at least their sum.
-	TookMs *int32 `json:"took_ms,omitempty"`
+	TookMs *int64 `json:"took_ms,omitempty"`
 }
 
 // NewFusion instantiates a new Fusion object
@@ -177,9 +177,9 @@ func (o *Fusion) SetStatus(v string) {
 }
 
 // GetTookMs returns the TookMs field value if set, zero value otherwise.
-func (o *Fusion) GetTookMs() int32 {
+func (o *Fusion) GetTookMs() int64 {
 	if o == nil || IsNil(o.TookMs) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TookMs
@@ -187,7 +187,7 @@ func (o *Fusion) GetTookMs() int32 {
 
 // GetTookMsOk returns a tuple with the TookMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Fusion) GetTookMsOk() (*int32, bool) {
+func (o *Fusion) GetTookMsOk() (*int64, bool) {
 	if o == nil || IsNil(o.TookMs) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *Fusion) HasTookMs() bool {
 	return false
 }
 
-// SetTookMs gets a reference to the given int32 and assigns it to the TookMs field.
-func (o *Fusion) SetTookMs(v int32) {
+// SetTookMs gets a reference to the given int64 and assigns it to the TookMs field.
+func (o *Fusion) SetTookMs(v int64) {
 	o.TookMs = &v
 }
 

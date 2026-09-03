@@ -36,7 +36,7 @@ type BotView struct {
 	Region      *string       `json:"region,omitempty"`
 	Status      *string       `json:"status,omitempty"`
 	Type        *string       `json:"type,omitempty"`
-	Vcpu        *int32        `json:"vcpu,omitempty"`
+	Vcpu        *int64        `json:"vcpu,omitempty"`
 }
 
 // NewBotView instantiates a new BotView object
@@ -537,9 +537,9 @@ func (o *BotView) SetType(v string) {
 }
 
 // GetVcpu returns the Vcpu field value if set, zero value otherwise.
-func (o *BotView) GetVcpu() int32 {
+func (o *BotView) GetVcpu() int64 {
 	if o == nil || IsNil(o.Vcpu) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Vcpu
@@ -547,7 +547,7 @@ func (o *BotView) GetVcpu() int32 {
 
 // GetVcpuOk returns a tuple with the Vcpu field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BotView) GetVcpuOk() (*int32, bool) {
+func (o *BotView) GetVcpuOk() (*int64, bool) {
 	if o == nil || IsNil(o.Vcpu) {
 		return nil, false
 	}
@@ -563,8 +563,8 @@ func (o *BotView) HasVcpu() bool {
 	return false
 }
 
-// SetVcpu gets a reference to the given int32 and assigns it to the Vcpu field.
-func (o *BotView) SetVcpu(v int32) {
+// SetVcpu gets a reference to the given int64 and assigns it to the Vcpu field.
+func (o *BotView) SetVcpu(v int64) {
 	o.Vcpu = &v
 }
 

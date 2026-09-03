@@ -21,9 +21,9 @@ var _ MappedNullable = &Day{}
 type Day struct {
 	Close *string `json:"close,omitempty"`
 	// Count is transactions in the day, where the table keeps one.
-	Count *int32 `json:"count,omitempty"`
+	Count *int64 `json:"count,omitempty"`
 	// Date is the day's start, unix seconds.
-	Date   *int32  `json:"date,omitempty"`
+	Date   *int64  `json:"date,omitempty"`
 	High   *string `json:"high,omitempty"`
 	Locked *string `json:"locked,omitempty"`
 	Low    *string `json:"low,omitempty"`
@@ -82,9 +82,9 @@ func (o *Day) SetClose(v string) {
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *Day) GetCount() int32 {
+func (o *Day) GetCount() int64 {
 	if o == nil || IsNil(o.Count) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Count
@@ -92,7 +92,7 @@ func (o *Day) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Day) GetCountOk() (*int32, bool) {
+func (o *Day) GetCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -108,15 +108,15 @@ func (o *Day) HasCount() bool {
 	return false
 }
 
-// SetCount gets a reference to the given int32 and assigns it to the Count field.
-func (o *Day) SetCount(v int32) {
+// SetCount gets a reference to the given int64 and assigns it to the Count field.
+func (o *Day) SetCount(v int64) {
 	o.Count = &v
 }
 
 // GetDate returns the Date field value if set, zero value otherwise.
-func (o *Day) GetDate() int32 {
+func (o *Day) GetDate() int64 {
 	if o == nil || IsNil(o.Date) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Date
@@ -124,7 +124,7 @@ func (o *Day) GetDate() int32 {
 
 // GetDateOk returns a tuple with the Date field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Day) GetDateOk() (*int32, bool) {
+func (o *Day) GetDateOk() (*int64, bool) {
 	if o == nil || IsNil(o.Date) {
 		return nil, false
 	}
@@ -140,8 +140,8 @@ func (o *Day) HasDate() bool {
 	return false
 }
 
-// SetDate gets a reference to the given int32 and assigns it to the Date field.
-func (o *Day) SetDate(v int32) {
+// SetDate gets a reference to the given int64 and assigns it to the Date field.
+func (o *Day) SetDate(v int64) {
 	o.Date = &v
 }
 

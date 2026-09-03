@@ -5110,6 +5110,109 @@ func (a *IntegrationsAPIService) PostIntegrationsSlackEventsExecute(r Integratio
 	return localVarHTTPResponse, nil
 }
 
+type IntegrationsAPIPostIntegrationsSlackJoinRequest struct {
+	ctx        context.Context
+	ApiService *IntegrationsAPIService
+}
+
+func (r IntegrationsAPIPostIntegrationsSlackJoinRequest) Execute() (*SlackJoinOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationsSlackJoinExecute(r)
+}
+
+/*
+PostIntegrationsSlackJoin Joins every public channel in the caller org's workspace.
+
+Joins every public channel in the caller org's workspace.
+
+Org admin, because it changes what the whole workspace sees: after it the agent
+is a member of every public room and answers in all of them.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IntegrationsAPIPostIntegrationsSlackJoinRequest
+*/
+func (a *IntegrationsAPIService) PostIntegrationsSlackJoin(ctx context.Context) IntegrationsAPIPostIntegrationsSlackJoinRequest {
+	return IntegrationsAPIPostIntegrationsSlackJoinRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return SlackJoinOut
+func (a *IntegrationsAPIService) PostIntegrationsSlackJoinExecute(r IntegrationsAPIPostIntegrationsSlackJoinRequest) (*SlackJoinOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SlackJoinOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsSlackJoin")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/integrations/slack/join"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type IntegrationsAPIPostIntegrationsTeamsEventsRequest struct {
 	ctx        context.Context
 	ApiService *IntegrationsAPIService

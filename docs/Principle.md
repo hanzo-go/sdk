@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Change** | Pointer to **string** | the Book of Changes reading | [optional] 
 **Domain** | Pointer to **string** | the growth / go-to-market domain it governs | [optional] 
 **Hexagram** | Pointer to **string** | the I-Ching hexagram (pinyin + gloss) | [optional] 
-**N** | Pointer to **int32** | 1..64, the hexagram number + canonical order | [optional] 
+**N** | Pointer to **int64** | 1..64, the hexagram number + canonical order | [optional] 
 **Name** | Pointer to **string** | the principle&#39;s short name | [optional] 
 **Principle** | Pointer to **string** | the actionable growth law | [optional] 
 **Slug** | Pointer to **string** | stable identifier a tactic files under | [optional] 
@@ -109,20 +109,20 @@ HasHexagram returns a boolean if a field has been set.
 
 ### GetN
 
-`func (o *Principle) GetN() int32`
+`func (o *Principle) GetN() int64`
 
 GetN returns the N field if non-nil, zero value otherwise.
 
 ### GetNOk
 
-`func (o *Principle) GetNOk() (*int32, bool)`
+`func (o *Principle) GetNOk() (*int64, bool)`
 
 GetNOk returns a tuple with the N field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetN
 
-`func (o *Principle) SetN(v int32)`
+`func (o *Principle) SetN(v int64)`
 
 SetN sets N field to given value.
 

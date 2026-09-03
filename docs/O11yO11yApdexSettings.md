@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** | ID is the settings row&#39;s id. | [optional] 
 **OrgId** | Pointer to **string** | OrgID is the org the settings belong to. | [optional] 
 **ServiceName** | Pointer to **string** | ServiceName is the service. | [optional] 
-**Threshold** | Pointer to **float32** | Threshold is the satisfied-response time in seconds. | [optional] 
+**Threshold** | Pointer to **float64** | Threshold is the satisfied-response time in seconds. | [optional] 
 
 ## Methods
 
@@ -131,20 +131,20 @@ HasServiceName returns a boolean if a field has been set.
 
 ### GetThreshold
 
-`func (o *O11yO11yApdexSettings) GetThreshold() float32`
+`func (o *O11yO11yApdexSettings) GetThreshold() float64`
 
 GetThreshold returns the Threshold field if non-nil, zero value otherwise.
 
 ### GetThresholdOk
 
-`func (o *O11yO11yApdexSettings) GetThresholdOk() (*float32, bool)`
+`func (o *O11yO11yApdexSettings) GetThresholdOk() (*float64, bool)`
 
 GetThresholdOk returns a tuple with the Threshold field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetThreshold
 
-`func (o *O11yO11yApdexSettings) SetThreshold(v float32)`
+`func (o *O11yO11yApdexSettings) SetThreshold(v float64)`
 
 SetThreshold sets Threshold field to given value.
 

@@ -22,15 +22,15 @@ type ModelRow struct {
 	// Model is the model id, e.g. zen5-coder.
 	Model *string `json:"model,omitempty"`
 	// Pct is this model's share of the window's returned spend, 0..100, one decimal.
-	Pct *float32 `json:"pct,omitempty"`
+	Pct *float64 `json:"pct,omitempty"`
 	// Provider is who served it.
 	Provider *string `json:"provider,omitempty"`
 	// Requests is how many calls went to this model.
-	Requests *int32 `json:"requests,omitempty"`
+	Requests *int64 `json:"requests,omitempty"`
 	// SpendCents is what they cost, in cents.
-	SpendCents *int32 `json:"spendCents,omitempty"`
+	SpendCents *int64 `json:"spendCents,omitempty"`
 	// Tokens is prompt plus completion tokens over those calls.
-	Tokens *int32 `json:"tokens,omitempty"`
+	Tokens *int64 `json:"tokens,omitempty"`
 }
 
 // NewModelRow instantiates a new ModelRow object
@@ -83,9 +83,9 @@ func (o *ModelRow) SetModel(v string) {
 }
 
 // GetPct returns the Pct field value if set, zero value otherwise.
-func (o *ModelRow) GetPct() float32 {
+func (o *ModelRow) GetPct() float64 {
 	if o == nil || IsNil(o.Pct) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Pct
@@ -93,7 +93,7 @@ func (o *ModelRow) GetPct() float32 {
 
 // GetPctOk returns a tuple with the Pct field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ModelRow) GetPctOk() (*float32, bool) {
+func (o *ModelRow) GetPctOk() (*float64, bool) {
 	if o == nil || IsNil(o.Pct) {
 		return nil, false
 	}
@@ -109,8 +109,8 @@ func (o *ModelRow) HasPct() bool {
 	return false
 }
 
-// SetPct gets a reference to the given float32 and assigns it to the Pct field.
-func (o *ModelRow) SetPct(v float32) {
+// SetPct gets a reference to the given float64 and assigns it to the Pct field.
+func (o *ModelRow) SetPct(v float64) {
 	o.Pct = &v
 }
 
@@ -147,9 +147,9 @@ func (o *ModelRow) SetProvider(v string) {
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *ModelRow) GetRequests() int32 {
+func (o *ModelRow) GetRequests() int64 {
 	if o == nil || IsNil(o.Requests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Requests
@@ -157,7 +157,7 @@ func (o *ModelRow) GetRequests() int32 {
 
 // GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ModelRow) GetRequestsOk() (*int32, bool) {
+func (o *ModelRow) GetRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Requests) {
 		return nil, false
 	}
@@ -173,15 +173,15 @@ func (o *ModelRow) HasRequests() bool {
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *ModelRow) SetRequests(v int32) {
+// SetRequests gets a reference to the given int64 and assigns it to the Requests field.
+func (o *ModelRow) SetRequests(v int64) {
 	o.Requests = &v
 }
 
 // GetSpendCents returns the SpendCents field value if set, zero value otherwise.
-func (o *ModelRow) GetSpendCents() int32 {
+func (o *ModelRow) GetSpendCents() int64 {
 	if o == nil || IsNil(o.SpendCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SpendCents
@@ -189,7 +189,7 @@ func (o *ModelRow) GetSpendCents() int32 {
 
 // GetSpendCentsOk returns a tuple with the SpendCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ModelRow) GetSpendCentsOk() (*int32, bool) {
+func (o *ModelRow) GetSpendCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.SpendCents) {
 		return nil, false
 	}
@@ -205,15 +205,15 @@ func (o *ModelRow) HasSpendCents() bool {
 	return false
 }
 
-// SetSpendCents gets a reference to the given int32 and assigns it to the SpendCents field.
-func (o *ModelRow) SetSpendCents(v int32) {
+// SetSpendCents gets a reference to the given int64 and assigns it to the SpendCents field.
+func (o *ModelRow) SetSpendCents(v int64) {
 	o.SpendCents = &v
 }
 
 // GetTokens returns the Tokens field value if set, zero value otherwise.
-func (o *ModelRow) GetTokens() int32 {
+func (o *ModelRow) GetTokens() int64 {
 	if o == nil || IsNil(o.Tokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Tokens
@@ -221,7 +221,7 @@ func (o *ModelRow) GetTokens() int32 {
 
 // GetTokensOk returns a tuple with the Tokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ModelRow) GetTokensOk() (*int32, bool) {
+func (o *ModelRow) GetTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.Tokens) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *ModelRow) HasTokens() bool {
 	return false
 }
 
-// SetTokens gets a reference to the given int32 and assigns it to the Tokens field.
-func (o *ModelRow) SetTokens(v int32) {
+// SetTokens gets a reference to the given int64 and assigns it to the Tokens field.
+func (o *ModelRow) SetTokens(v int64) {
 	o.Tokens = &v
 }
 

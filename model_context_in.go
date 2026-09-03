@@ -20,7 +20,7 @@ var _ MappedNullable = &ContextIn{}
 // ContextIn struct for ContextIn
 type ContextIn struct {
 	// BudgetTokens caps the bundle's size. Clamped to [256, 32000]; 0 or absent uses 4000.
-	BudgetTokens *int32 `json:"budgetTokens,omitempty"`
+	BudgetTokens *int64 `json:"budgetTokens,omitempty"`
 	// Query is what to retrieve context for. Required, max 4000 bytes.
 	Query *string `json:"query,omitempty"`
 	// Repo narrows retrieval to one repository. Empty searches every repo the org has indexed.
@@ -45,9 +45,9 @@ func NewContextInWithDefaults() *ContextIn {
 }
 
 // GetBudgetTokens returns the BudgetTokens field value if set, zero value otherwise.
-func (o *ContextIn) GetBudgetTokens() int32 {
+func (o *ContextIn) GetBudgetTokens() int64 {
 	if o == nil || IsNil(o.BudgetTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.BudgetTokens
@@ -55,7 +55,7 @@ func (o *ContextIn) GetBudgetTokens() int32 {
 
 // GetBudgetTokensOk returns a tuple with the BudgetTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContextIn) GetBudgetTokensOk() (*int32, bool) {
+func (o *ContextIn) GetBudgetTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.BudgetTokens) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *ContextIn) HasBudgetTokens() bool {
 	return false
 }
 
-// SetBudgetTokens gets a reference to the given int32 and assigns it to the BudgetTokens field.
-func (o *ContextIn) SetBudgetTokens(v int32) {
+// SetBudgetTokens gets a reference to the given int64 and assigns it to the BudgetTokens field.
+func (o *ContextIn) SetBudgetTokens(v int64) {
 	o.BudgetTokens = &v
 }
 

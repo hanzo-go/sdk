@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MaxOperations** | Pointer to **int32** |  | [optional] 
-**MaxPayloadSize** | Pointer to **int32** |  | [optional] 
+**MaxOperations** | Pointer to **int64** |  | [optional] 
+**MaxPayloadSize** | Pointer to **int64** |  | [optional] 
 **Supported** | Pointer to **bool** |  | [optional] 
 
 ## Methods
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetMaxOperations
 
-`func (o *IamBulk) GetMaxOperations() int32`
+`func (o *IamBulk) GetMaxOperations() int64`
 
 GetMaxOperations returns the MaxOperations field if non-nil, zero value otherwise.
 
 ### GetMaxOperationsOk
 
-`func (o *IamBulk) GetMaxOperationsOk() (*int32, bool)`
+`func (o *IamBulk) GetMaxOperationsOk() (*int64, bool)`
 
 GetMaxOperationsOk returns a tuple with the MaxOperations field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxOperations
 
-`func (o *IamBulk) SetMaxOperations(v int32)`
+`func (o *IamBulk) SetMaxOperations(v int64)`
 
 SetMaxOperations sets MaxOperations field to given value.
 
@@ -54,20 +54,20 @@ HasMaxOperations returns a boolean if a field has been set.
 
 ### GetMaxPayloadSize
 
-`func (o *IamBulk) GetMaxPayloadSize() int32`
+`func (o *IamBulk) GetMaxPayloadSize() int64`
 
 GetMaxPayloadSize returns the MaxPayloadSize field if non-nil, zero value otherwise.
 
 ### GetMaxPayloadSizeOk
 
-`func (o *IamBulk) GetMaxPayloadSizeOk() (*int32, bool)`
+`func (o *IamBulk) GetMaxPayloadSizeOk() (*int64, bool)`
 
 GetMaxPayloadSizeOk returns a tuple with the MaxPayloadSize field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxPayloadSize
 
-`func (o *IamBulk) SetMaxPayloadSize(v int32)`
+`func (o *IamBulk) SetMaxPayloadSize(v int64)`
 
 SetMaxPayloadSize sets MaxPayloadSize field to given value.
 

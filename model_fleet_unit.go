@@ -28,11 +28,11 @@ type FleetUnit struct {
 	// Metrics is the unit's latest utilization: its own live snapshot when it keeps one (a run-target's heartbeat wins), else the newest sample from the series for the SAME source. Absent means nothing is known about this unit's load — which is deliberately not the same as a reading of zero.
 	Metrics *FleetMetrics `json:"metrics,omitempty"`
 	// Queued is how many renders are waiting on THIS GPU's own lane in the org's gpu-jobs queue. BYO units only — an agent run-target dispatches, it does not queue — and omitted when nothing is waiting.
-	Queued *int32 `json:"queued,omitempty"`
+	Queued *int64 `json:"queued,omitempty"`
 	// Running is what the unit is executing right now: agent sessions in flight for a run-target, claimed renders for a BYO GPU.
-	Running *int32 `json:"running,omitempty"`
+	Running *int64 `json:"running,omitempty"`
 	// Sessions is how many agent sessions are open on this unit. Always present, and 0 for a source that cannot host agent sessions at all — a fact about that plane, not a gap in the reading.
-	Sessions *int32 `json:"sessions,omitempty"`
+	Sessions *int64 `json:"sessions,omitempty"`
 	// Source is the plane this row came from: \"agent\" (a linked run-target), \"byo\" (a worker or cluster the org dialed in) or \"visor\" (a machine Hanzo provisioned). It is half the row's identity, and it says which face owns the unit — /v1/agents/targets, /v1/visor/fleet/workers, /v1/visor/machines.
 	Source *string `json:"source,omitempty"`
 	// Spec is the unit's static capability. Absent when the source reported none — unknown capability, never a zeroed one.
@@ -189,9 +189,9 @@ func (o *FleetUnit) SetMetrics(v FleetMetrics) {
 }
 
 // GetQueued returns the Queued field value if set, zero value otherwise.
-func (o *FleetUnit) GetQueued() int32 {
+func (o *FleetUnit) GetQueued() int64 {
 	if o == nil || IsNil(o.Queued) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Queued
@@ -199,7 +199,7 @@ func (o *FleetUnit) GetQueued() int32 {
 
 // GetQueuedOk returns a tuple with the Queued field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FleetUnit) GetQueuedOk() (*int32, bool) {
+func (o *FleetUnit) GetQueuedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Queued) {
 		return nil, false
 	}
@@ -215,15 +215,15 @@ func (o *FleetUnit) HasQueued() bool {
 	return false
 }
 
-// SetQueued gets a reference to the given int32 and assigns it to the Queued field.
-func (o *FleetUnit) SetQueued(v int32) {
+// SetQueued gets a reference to the given int64 and assigns it to the Queued field.
+func (o *FleetUnit) SetQueued(v int64) {
 	o.Queued = &v
 }
 
 // GetRunning returns the Running field value if set, zero value otherwise.
-func (o *FleetUnit) GetRunning() int32 {
+func (o *FleetUnit) GetRunning() int64 {
 	if o == nil || IsNil(o.Running) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Running
@@ -231,7 +231,7 @@ func (o *FleetUnit) GetRunning() int32 {
 
 // GetRunningOk returns a tuple with the Running field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FleetUnit) GetRunningOk() (*int32, bool) {
+func (o *FleetUnit) GetRunningOk() (*int64, bool) {
 	if o == nil || IsNil(o.Running) {
 		return nil, false
 	}
@@ -247,15 +247,15 @@ func (o *FleetUnit) HasRunning() bool {
 	return false
 }
 
-// SetRunning gets a reference to the given int32 and assigns it to the Running field.
-func (o *FleetUnit) SetRunning(v int32) {
+// SetRunning gets a reference to the given int64 and assigns it to the Running field.
+func (o *FleetUnit) SetRunning(v int64) {
 	o.Running = &v
 }
 
 // GetSessions returns the Sessions field value if set, zero value otherwise.
-func (o *FleetUnit) GetSessions() int32 {
+func (o *FleetUnit) GetSessions() int64 {
 	if o == nil || IsNil(o.Sessions) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Sessions
@@ -263,7 +263,7 @@ func (o *FleetUnit) GetSessions() int32 {
 
 // GetSessionsOk returns a tuple with the Sessions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FleetUnit) GetSessionsOk() (*int32, bool) {
+func (o *FleetUnit) GetSessionsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Sessions) {
 		return nil, false
 	}
@@ -279,8 +279,8 @@ func (o *FleetUnit) HasSessions() bool {
 	return false
 }
 
-// SetSessions gets a reference to the given int32 and assigns it to the Sessions field.
-func (o *FleetUnit) SetSessions(v int32) {
+// SetSessions gets a reference to the given int64 and assigns it to the Sessions field.
+func (o *FleetUnit) SetSessions(v int64) {
 	o.Sessions = &v
 }
 

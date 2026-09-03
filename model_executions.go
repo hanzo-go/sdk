@@ -22,7 +22,7 @@ var _ MappedNullable = &Executions{}
 type Executions struct {
 	FetchedAt *time.Time  `json:"fetchedAt,omitempty"`
 	Orgs      []string    `json:"orgs,omitempty"`
-	Repos     *int32      `json:"repos,omitempty"`
+	Repos     *int64      `json:"repos,omitempty"`
 	Runs      []Execution `json:"runs,omitempty"`
 	SourceErr *string     `json:"sourceErr,omitempty"`
 	Stale     *bool       `json:"stale,omitempty"`
@@ -110,9 +110,9 @@ func (o *Executions) SetOrgs(v []string) {
 }
 
 // GetRepos returns the Repos field value if set, zero value otherwise.
-func (o *Executions) GetRepos() int32 {
+func (o *Executions) GetRepos() int64 {
 	if o == nil || IsNil(o.Repos) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Repos
@@ -120,7 +120,7 @@ func (o *Executions) GetRepos() int32 {
 
 // GetReposOk returns a tuple with the Repos field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Executions) GetReposOk() (*int32, bool) {
+func (o *Executions) GetReposOk() (*int64, bool) {
 	if o == nil || IsNil(o.Repos) {
 		return nil, false
 	}
@@ -136,8 +136,8 @@ func (o *Executions) HasRepos() bool {
 	return false
 }
 
-// SetRepos gets a reference to the given int32 and assigns it to the Repos field.
-func (o *Executions) SetRepos(v int32) {
+// SetRepos gets a reference to the given int64 and assigns it to the Repos field.
+func (o *Executions) SetRepos(v int64) {
 	o.Repos = &v
 }
 

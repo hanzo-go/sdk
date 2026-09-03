@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Engines** | Pointer to [**[]WebEngine**](WebEngine.md) | Engines is one entry per engine asked, in the order they were asked. It is ADDITIVE to the SearXNG contract, which the LibreChat client ignores as an unknown field exactly as it ignores &#x60;engine&#x60; on a result. | [optional] 
-**NumberOfResults** | Pointer to **int32** | NumberOfResults is len(results) — what this answer carries, never an estimate of what the web holds. | [optional] 
+**NumberOfResults** | Pointer to **int64** | NumberOfResults is len(results) — what this answer carries, never an estimate of what the web holds. | [optional] 
 **Query** | Pointer to **string** | Query is the query that ran, echoed back. | [optional] 
 **Results** | Pointer to [**[]WebResult**](WebResult.md) | Results are the merged hits, deduplicated by normalised URL and capped at 30. Always an array and never null: no hits is an ANSWER, not a fault. | [optional] 
 
@@ -55,20 +55,20 @@ HasEngines returns a boolean if a field has been set.
 
 ### GetNumberOfResults
 
-`func (o *WebSearchResults) GetNumberOfResults() int32`
+`func (o *WebSearchResults) GetNumberOfResults() int64`
 
 GetNumberOfResults returns the NumberOfResults field if non-nil, zero value otherwise.
 
 ### GetNumberOfResultsOk
 
-`func (o *WebSearchResults) GetNumberOfResultsOk() (*int32, bool)`
+`func (o *WebSearchResults) GetNumberOfResultsOk() (*int64, bool)`
 
 GetNumberOfResultsOk returns a tuple with the NumberOfResults field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumberOfResults
 
-`func (o *WebSearchResults) SetNumberOfResults(v int32)`
+`func (o *WebSearchResults) SetNumberOfResults(v int64)`
 
 SetNumberOfResults sets NumberOfResults field to given value.
 

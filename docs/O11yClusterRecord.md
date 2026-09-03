@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ClusterCPU** | Pointer to **float32** |  | [optional] 
-**ClusterCPUAllocatable** | Pointer to **float32** |  | [optional] 
-**ClusterMemory** | Pointer to **float32** |  | [optional] 
-**ClusterMemoryAllocatable** | Pointer to **float32** |  | [optional] 
+**ClusterCPU** | Pointer to **float64** |  | [optional] 
+**ClusterCPUAllocatable** | Pointer to **float64** |  | [optional] 
+**ClusterMemory** | Pointer to **float64** |  | [optional] 
+**ClusterMemoryAllocatable** | Pointer to **float64** |  | [optional] 
 **ClusterName** | Pointer to **string** | TODO(nikhilmantri0902): once the underlying attr key is migrated to k8s.cluster.uid (see ClusterNameAttrKey), surface ClusterUID alongside (or replace) ClusterName. | [optional] 
 **Meta** | Pointer to **map[string]string** |  | [optional] 
 **NodeCountsByReadiness** | Pointer to [**O11yNodeCountsByReadiness**](O11yNodeCountsByReadiness.md) |  | [optional] 
@@ -34,20 +34,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetClusterCPU
 
-`func (o *O11yClusterRecord) GetClusterCPU() float32`
+`func (o *O11yClusterRecord) GetClusterCPU() float64`
 
 GetClusterCPU returns the ClusterCPU field if non-nil, zero value otherwise.
 
 ### GetClusterCPUOk
 
-`func (o *O11yClusterRecord) GetClusterCPUOk() (*float32, bool)`
+`func (o *O11yClusterRecord) GetClusterCPUOk() (*float64, bool)`
 
 GetClusterCPUOk returns a tuple with the ClusterCPU field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetClusterCPU
 
-`func (o *O11yClusterRecord) SetClusterCPU(v float32)`
+`func (o *O11yClusterRecord) SetClusterCPU(v float64)`
 
 SetClusterCPU sets ClusterCPU field to given value.
 
@@ -59,20 +59,20 @@ HasClusterCPU returns a boolean if a field has been set.
 
 ### GetClusterCPUAllocatable
 
-`func (o *O11yClusterRecord) GetClusterCPUAllocatable() float32`
+`func (o *O11yClusterRecord) GetClusterCPUAllocatable() float64`
 
 GetClusterCPUAllocatable returns the ClusterCPUAllocatable field if non-nil, zero value otherwise.
 
 ### GetClusterCPUAllocatableOk
 
-`func (o *O11yClusterRecord) GetClusterCPUAllocatableOk() (*float32, bool)`
+`func (o *O11yClusterRecord) GetClusterCPUAllocatableOk() (*float64, bool)`
 
 GetClusterCPUAllocatableOk returns a tuple with the ClusterCPUAllocatable field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetClusterCPUAllocatable
 
-`func (o *O11yClusterRecord) SetClusterCPUAllocatable(v float32)`
+`func (o *O11yClusterRecord) SetClusterCPUAllocatable(v float64)`
 
 SetClusterCPUAllocatable sets ClusterCPUAllocatable field to given value.
 
@@ -84,20 +84,20 @@ HasClusterCPUAllocatable returns a boolean if a field has been set.
 
 ### GetClusterMemory
 
-`func (o *O11yClusterRecord) GetClusterMemory() float32`
+`func (o *O11yClusterRecord) GetClusterMemory() float64`
 
 GetClusterMemory returns the ClusterMemory field if non-nil, zero value otherwise.
 
 ### GetClusterMemoryOk
 
-`func (o *O11yClusterRecord) GetClusterMemoryOk() (*float32, bool)`
+`func (o *O11yClusterRecord) GetClusterMemoryOk() (*float64, bool)`
 
 GetClusterMemoryOk returns a tuple with the ClusterMemory field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetClusterMemory
 
-`func (o *O11yClusterRecord) SetClusterMemory(v float32)`
+`func (o *O11yClusterRecord) SetClusterMemory(v float64)`
 
 SetClusterMemory sets ClusterMemory field to given value.
 
@@ -109,20 +109,20 @@ HasClusterMemory returns a boolean if a field has been set.
 
 ### GetClusterMemoryAllocatable
 
-`func (o *O11yClusterRecord) GetClusterMemoryAllocatable() float32`
+`func (o *O11yClusterRecord) GetClusterMemoryAllocatable() float64`
 
 GetClusterMemoryAllocatable returns the ClusterMemoryAllocatable field if non-nil, zero value otherwise.
 
 ### GetClusterMemoryAllocatableOk
 
-`func (o *O11yClusterRecord) GetClusterMemoryAllocatableOk() (*float32, bool)`
+`func (o *O11yClusterRecord) GetClusterMemoryAllocatableOk() (*float64, bool)`
 
 GetClusterMemoryAllocatableOk returns a tuple with the ClusterMemoryAllocatable field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetClusterMemoryAllocatable
 
-`func (o *O11yClusterRecord) SetClusterMemoryAllocatable(v float32)`
+`func (o *O11yClusterRecord) SetClusterMemoryAllocatable(v float64)`
 
 SetClusterMemoryAllocatable sets ClusterMemoryAllocatable field to given value.
 

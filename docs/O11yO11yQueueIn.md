@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**End** | Pointer to **int32** | End is the window&#39;s end, epoch nanoseconds. | [optional] 
-**EvalTime** | Pointer to **int32** | EvalTime bounds the span-evaluation scan, nanoseconds; only the span/evaluation view reads it. | [optional] 
-**Start** | Pointer to **int32** | Start is the window&#39;s start, epoch nanoseconds. | [optional] 
+**End** | Pointer to **int64** | End is the window&#39;s end, epoch nanoseconds. | [optional] 
+**EvalTime** | Pointer to **int64** | EvalTime bounds the span-evaluation scan, nanoseconds; only the span/evaluation view reads it. | [optional] 
+**Start** | Pointer to **int64** | Start is the window&#39;s start, epoch nanoseconds. | [optional] 
 **Variables** | Pointer to **map[string]string** | Variables name what the view drills into — topic, partition, service, consumer_group — keyed by the name the view expects. | [optional] 
 
 ## Methods
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetEnd
 
-`func (o *O11yO11yQueueIn) GetEnd() int32`
+`func (o *O11yO11yQueueIn) GetEnd() int64`
 
 GetEnd returns the End field if non-nil, zero value otherwise.
 
 ### GetEndOk
 
-`func (o *O11yO11yQueueIn) GetEndOk() (*int32, bool)`
+`func (o *O11yO11yQueueIn) GetEndOk() (*int64, bool)`
 
 GetEndOk returns a tuple with the End field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnd
 
-`func (o *O11yO11yQueueIn) SetEnd(v int32)`
+`func (o *O11yO11yQueueIn) SetEnd(v int64)`
 
 SetEnd sets End field to given value.
 
@@ -55,20 +55,20 @@ HasEnd returns a boolean if a field has been set.
 
 ### GetEvalTime
 
-`func (o *O11yO11yQueueIn) GetEvalTime() int32`
+`func (o *O11yO11yQueueIn) GetEvalTime() int64`
 
 GetEvalTime returns the EvalTime field if non-nil, zero value otherwise.
 
 ### GetEvalTimeOk
 
-`func (o *O11yO11yQueueIn) GetEvalTimeOk() (*int32, bool)`
+`func (o *O11yO11yQueueIn) GetEvalTimeOk() (*int64, bool)`
 
 GetEvalTimeOk returns a tuple with the EvalTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEvalTime
 
-`func (o *O11yO11yQueueIn) SetEvalTime(v int32)`
+`func (o *O11yO11yQueueIn) SetEvalTime(v int64)`
 
 SetEvalTime sets EvalTime field to given value.
 
@@ -80,20 +80,20 @@ HasEvalTime returns a boolean if a field has been set.
 
 ### GetStart
 
-`func (o *O11yO11yQueueIn) GetStart() int32`
+`func (o *O11yO11yQueueIn) GetStart() int64`
 
 GetStart returns the Start field if non-nil, zero value otherwise.
 
 ### GetStartOk
 
-`func (o *O11yO11yQueueIn) GetStartOk() (*int32, bool)`
+`func (o *O11yO11yQueueIn) GetStartOk() (*int64, bool)`
 
 GetStartOk returns a tuple with the Start field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStart
 
-`func (o *O11yO11yQueueIn) SetStart(v int32)`
+`func (o *O11yO11yQueueIn) SetStart(v int64)`
 
 SetStart sets Start field to given value.
 

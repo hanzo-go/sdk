@@ -20,21 +20,21 @@ var _ MappedNullable = &RiskSplitCounts{}
 // RiskSplitCounts struct for RiskSplitCounts
 type RiskSplitCounts struct {
 	// Judged is how many rows carry a disposition. It is zero until a label plane writes one, and reporting it plainly is what lets a model plane refuse to rank rather than name a winner it cannot justify.
-	Judged *int32 `json:"judged,omitempty"`
+	Judged *int64 `json:"judged,omitempty"`
 	// Productive is how many judged rows carry the one disposition.
-	Productive *int32 `json:"productive,omitempty"`
+	Productive *int64 `json:"productive,omitempty"`
 	// Rows is how many rows the version holds across every split. It is the size of the version, not of the source window — the horizon, the cuts and the row cap all bind before this number.
-	Rows *int32 `json:"rows,omitempty"`
+	Rows *int64 `json:"rows,omitempty"`
 	// Subjects is how many distinct subjects the rows belong to. Every row of one subject is in ONE split, so this is the real sample size — the row count flatters it whenever a subject is active.
-	Subjects *int32 `json:"subjects,omitempty"`
+	Subjects *int64 `json:"subjects,omitempty"`
 	// Test is how many fall after the second cut — the LATEST slice, and the only one a score is honest about, since the split is temporal.
-	Test *int32 `json:"test,omitempty"`
+	Test *int64 `json:"test,omitempty"`
 	// Train is how many rows fall before the first cut — the EARLIEST slice of the window, which is what a model is fitted on.
-	Train *int32 `json:"train,omitempty"`
+	Train *int64 `json:"train,omitempty"`
 	// Unproductive is how many carry the other. With Productive it accounts for Judged, so the class imbalance is visible before anyone trains on it; both stay 0 while Judged is 0.
-	Unproductive *int32 `json:"unproductive,omitempty"`
+	Unproductive *int64 `json:"unproductive,omitempty"`
 	// Val is how many fall between the two cuts, held out for tuning.
-	Val *int32 `json:"val,omitempty"`
+	Val *int64 `json:"val,omitempty"`
 }
 
 // NewRiskSplitCounts instantiates a new RiskSplitCounts object
@@ -55,9 +55,9 @@ func NewRiskSplitCountsWithDefaults() *RiskSplitCounts {
 }
 
 // GetJudged returns the Judged field value if set, zero value otherwise.
-func (o *RiskSplitCounts) GetJudged() int32 {
+func (o *RiskSplitCounts) GetJudged() int64 {
 	if o == nil || IsNil(o.Judged) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Judged
@@ -65,7 +65,7 @@ func (o *RiskSplitCounts) GetJudged() int32 {
 
 // GetJudgedOk returns a tuple with the Judged field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskSplitCounts) GetJudgedOk() (*int32, bool) {
+func (o *RiskSplitCounts) GetJudgedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Judged) {
 		return nil, false
 	}
@@ -81,15 +81,15 @@ func (o *RiskSplitCounts) HasJudged() bool {
 	return false
 }
 
-// SetJudged gets a reference to the given int32 and assigns it to the Judged field.
-func (o *RiskSplitCounts) SetJudged(v int32) {
+// SetJudged gets a reference to the given int64 and assigns it to the Judged field.
+func (o *RiskSplitCounts) SetJudged(v int64) {
 	o.Judged = &v
 }
 
 // GetProductive returns the Productive field value if set, zero value otherwise.
-func (o *RiskSplitCounts) GetProductive() int32 {
+func (o *RiskSplitCounts) GetProductive() int64 {
 	if o == nil || IsNil(o.Productive) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Productive
@@ -97,7 +97,7 @@ func (o *RiskSplitCounts) GetProductive() int32 {
 
 // GetProductiveOk returns a tuple with the Productive field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskSplitCounts) GetProductiveOk() (*int32, bool) {
+func (o *RiskSplitCounts) GetProductiveOk() (*int64, bool) {
 	if o == nil || IsNil(o.Productive) {
 		return nil, false
 	}
@@ -113,15 +113,15 @@ func (o *RiskSplitCounts) HasProductive() bool {
 	return false
 }
 
-// SetProductive gets a reference to the given int32 and assigns it to the Productive field.
-func (o *RiskSplitCounts) SetProductive(v int32) {
+// SetProductive gets a reference to the given int64 and assigns it to the Productive field.
+func (o *RiskSplitCounts) SetProductive(v int64) {
 	o.Productive = &v
 }
 
 // GetRows returns the Rows field value if set, zero value otherwise.
-func (o *RiskSplitCounts) GetRows() int32 {
+func (o *RiskSplitCounts) GetRows() int64 {
 	if o == nil || IsNil(o.Rows) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Rows
@@ -129,7 +129,7 @@ func (o *RiskSplitCounts) GetRows() int32 {
 
 // GetRowsOk returns a tuple with the Rows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskSplitCounts) GetRowsOk() (*int32, bool) {
+func (o *RiskSplitCounts) GetRowsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Rows) {
 		return nil, false
 	}
@@ -145,15 +145,15 @@ func (o *RiskSplitCounts) HasRows() bool {
 	return false
 }
 
-// SetRows gets a reference to the given int32 and assigns it to the Rows field.
-func (o *RiskSplitCounts) SetRows(v int32) {
+// SetRows gets a reference to the given int64 and assigns it to the Rows field.
+func (o *RiskSplitCounts) SetRows(v int64) {
 	o.Rows = &v
 }
 
 // GetSubjects returns the Subjects field value if set, zero value otherwise.
-func (o *RiskSplitCounts) GetSubjects() int32 {
+func (o *RiskSplitCounts) GetSubjects() int64 {
 	if o == nil || IsNil(o.Subjects) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Subjects
@@ -161,7 +161,7 @@ func (o *RiskSplitCounts) GetSubjects() int32 {
 
 // GetSubjectsOk returns a tuple with the Subjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskSplitCounts) GetSubjectsOk() (*int32, bool) {
+func (o *RiskSplitCounts) GetSubjectsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Subjects) {
 		return nil, false
 	}
@@ -177,15 +177,15 @@ func (o *RiskSplitCounts) HasSubjects() bool {
 	return false
 }
 
-// SetSubjects gets a reference to the given int32 and assigns it to the Subjects field.
-func (o *RiskSplitCounts) SetSubjects(v int32) {
+// SetSubjects gets a reference to the given int64 and assigns it to the Subjects field.
+func (o *RiskSplitCounts) SetSubjects(v int64) {
 	o.Subjects = &v
 }
 
 // GetTest returns the Test field value if set, zero value otherwise.
-func (o *RiskSplitCounts) GetTest() int32 {
+func (o *RiskSplitCounts) GetTest() int64 {
 	if o == nil || IsNil(o.Test) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Test
@@ -193,7 +193,7 @@ func (o *RiskSplitCounts) GetTest() int32 {
 
 // GetTestOk returns a tuple with the Test field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskSplitCounts) GetTestOk() (*int32, bool) {
+func (o *RiskSplitCounts) GetTestOk() (*int64, bool) {
 	if o == nil || IsNil(o.Test) {
 		return nil, false
 	}
@@ -209,15 +209,15 @@ func (o *RiskSplitCounts) HasTest() bool {
 	return false
 }
 
-// SetTest gets a reference to the given int32 and assigns it to the Test field.
-func (o *RiskSplitCounts) SetTest(v int32) {
+// SetTest gets a reference to the given int64 and assigns it to the Test field.
+func (o *RiskSplitCounts) SetTest(v int64) {
 	o.Test = &v
 }
 
 // GetTrain returns the Train field value if set, zero value otherwise.
-func (o *RiskSplitCounts) GetTrain() int32 {
+func (o *RiskSplitCounts) GetTrain() int64 {
 	if o == nil || IsNil(o.Train) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Train
@@ -225,7 +225,7 @@ func (o *RiskSplitCounts) GetTrain() int32 {
 
 // GetTrainOk returns a tuple with the Train field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskSplitCounts) GetTrainOk() (*int32, bool) {
+func (o *RiskSplitCounts) GetTrainOk() (*int64, bool) {
 	if o == nil || IsNil(o.Train) {
 		return nil, false
 	}
@@ -241,15 +241,15 @@ func (o *RiskSplitCounts) HasTrain() bool {
 	return false
 }
 
-// SetTrain gets a reference to the given int32 and assigns it to the Train field.
-func (o *RiskSplitCounts) SetTrain(v int32) {
+// SetTrain gets a reference to the given int64 and assigns it to the Train field.
+func (o *RiskSplitCounts) SetTrain(v int64) {
 	o.Train = &v
 }
 
 // GetUnproductive returns the Unproductive field value if set, zero value otherwise.
-func (o *RiskSplitCounts) GetUnproductive() int32 {
+func (o *RiskSplitCounts) GetUnproductive() int64 {
 	if o == nil || IsNil(o.Unproductive) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Unproductive
@@ -257,7 +257,7 @@ func (o *RiskSplitCounts) GetUnproductive() int32 {
 
 // GetUnproductiveOk returns a tuple with the Unproductive field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskSplitCounts) GetUnproductiveOk() (*int32, bool) {
+func (o *RiskSplitCounts) GetUnproductiveOk() (*int64, bool) {
 	if o == nil || IsNil(o.Unproductive) {
 		return nil, false
 	}
@@ -273,15 +273,15 @@ func (o *RiskSplitCounts) HasUnproductive() bool {
 	return false
 }
 
-// SetUnproductive gets a reference to the given int32 and assigns it to the Unproductive field.
-func (o *RiskSplitCounts) SetUnproductive(v int32) {
+// SetUnproductive gets a reference to the given int64 and assigns it to the Unproductive field.
+func (o *RiskSplitCounts) SetUnproductive(v int64) {
 	o.Unproductive = &v
 }
 
 // GetVal returns the Val field value if set, zero value otherwise.
-func (o *RiskSplitCounts) GetVal() int32 {
+func (o *RiskSplitCounts) GetVal() int64 {
 	if o == nil || IsNil(o.Val) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Val
@@ -289,7 +289,7 @@ func (o *RiskSplitCounts) GetVal() int32 {
 
 // GetValOk returns a tuple with the Val field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskSplitCounts) GetValOk() (*int32, bool) {
+func (o *RiskSplitCounts) GetValOk() (*int64, bool) {
 	if o == nil || IsNil(o.Val) {
 		return nil, false
 	}
@@ -305,8 +305,8 @@ func (o *RiskSplitCounts) HasVal() bool {
 	return false
 }
 
-// SetVal gets a reference to the given int32 and assigns it to the Val field.
-func (o *RiskSplitCounts) SetVal(v int32) {
+// SetVal gets a reference to the given int64 and assigns it to the Val field.
+func (o *RiskSplitCounts) SetVal(v int64) {
 	o.Val = &v
 }
 

@@ -19,10 +19,10 @@ var _ MappedNullable = &O11yMetricsResponseSummary{}
 
 // O11yMetricsResponseSummary Summary totals the window in one object, so a tile does not have to sum the series to render. errorRate is a RATIO of the window's requests, not a percentage, and p95Ms is over the window rather than the worst bucket.
 type O11yMetricsResponseSummary struct {
-	ErrorRate *float32 `json:"errorRate,omitempty"`
-	Errors    *int32   `json:"errors,omitempty"`
-	P95Ms     *float32 `json:"p95Ms,omitempty"`
-	Requests  *int32   `json:"requests,omitempty"`
+	ErrorRate *float64 `json:"errorRate,omitempty"`
+	Errors    *int64   `json:"errors,omitempty"`
+	P95Ms     *float64 `json:"p95Ms,omitempty"`
+	Requests  *int64   `json:"requests,omitempty"`
 }
 
 // NewO11yMetricsResponseSummary instantiates a new O11yMetricsResponseSummary object
@@ -43,9 +43,9 @@ func NewO11yMetricsResponseSummaryWithDefaults() *O11yMetricsResponseSummary {
 }
 
 // GetErrorRate returns the ErrorRate field value if set, zero value otherwise.
-func (o *O11yMetricsResponseSummary) GetErrorRate() float32 {
+func (o *O11yMetricsResponseSummary) GetErrorRate() float64 {
 	if o == nil || IsNil(o.ErrorRate) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.ErrorRate
@@ -53,7 +53,7 @@ func (o *O11yMetricsResponseSummary) GetErrorRate() float32 {
 
 // GetErrorRateOk returns a tuple with the ErrorRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yMetricsResponseSummary) GetErrorRateOk() (*float32, bool) {
+func (o *O11yMetricsResponseSummary) GetErrorRateOk() (*float64, bool) {
 	if o == nil || IsNil(o.ErrorRate) {
 		return nil, false
 	}
@@ -69,15 +69,15 @@ func (o *O11yMetricsResponseSummary) HasErrorRate() bool {
 	return false
 }
 
-// SetErrorRate gets a reference to the given float32 and assigns it to the ErrorRate field.
-func (o *O11yMetricsResponseSummary) SetErrorRate(v float32) {
+// SetErrorRate gets a reference to the given float64 and assigns it to the ErrorRate field.
+func (o *O11yMetricsResponseSummary) SetErrorRate(v float64) {
 	o.ErrorRate = &v
 }
 
 // GetErrors returns the Errors field value if set, zero value otherwise.
-func (o *O11yMetricsResponseSummary) GetErrors() int32 {
+func (o *O11yMetricsResponseSummary) GetErrors() int64 {
 	if o == nil || IsNil(o.Errors) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Errors
@@ -85,7 +85,7 @@ func (o *O11yMetricsResponseSummary) GetErrors() int32 {
 
 // GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yMetricsResponseSummary) GetErrorsOk() (*int32, bool) {
+func (o *O11yMetricsResponseSummary) GetErrorsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Errors) {
 		return nil, false
 	}
@@ -101,15 +101,15 @@ func (o *O11yMetricsResponseSummary) HasErrors() bool {
 	return false
 }
 
-// SetErrors gets a reference to the given int32 and assigns it to the Errors field.
-func (o *O11yMetricsResponseSummary) SetErrors(v int32) {
+// SetErrors gets a reference to the given int64 and assigns it to the Errors field.
+func (o *O11yMetricsResponseSummary) SetErrors(v int64) {
 	o.Errors = &v
 }
 
 // GetP95Ms returns the P95Ms field value if set, zero value otherwise.
-func (o *O11yMetricsResponseSummary) GetP95Ms() float32 {
+func (o *O11yMetricsResponseSummary) GetP95Ms() float64 {
 	if o == nil || IsNil(o.P95Ms) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.P95Ms
@@ -117,7 +117,7 @@ func (o *O11yMetricsResponseSummary) GetP95Ms() float32 {
 
 // GetP95MsOk returns a tuple with the P95Ms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yMetricsResponseSummary) GetP95MsOk() (*float32, bool) {
+func (o *O11yMetricsResponseSummary) GetP95MsOk() (*float64, bool) {
 	if o == nil || IsNil(o.P95Ms) {
 		return nil, false
 	}
@@ -133,15 +133,15 @@ func (o *O11yMetricsResponseSummary) HasP95Ms() bool {
 	return false
 }
 
-// SetP95Ms gets a reference to the given float32 and assigns it to the P95Ms field.
-func (o *O11yMetricsResponseSummary) SetP95Ms(v float32) {
+// SetP95Ms gets a reference to the given float64 and assigns it to the P95Ms field.
+func (o *O11yMetricsResponseSummary) SetP95Ms(v float64) {
 	o.P95Ms = &v
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *O11yMetricsResponseSummary) GetRequests() int32 {
+func (o *O11yMetricsResponseSummary) GetRequests() int64 {
 	if o == nil || IsNil(o.Requests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Requests
@@ -149,7 +149,7 @@ func (o *O11yMetricsResponseSummary) GetRequests() int32 {
 
 // GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yMetricsResponseSummary) GetRequestsOk() (*int32, bool) {
+func (o *O11yMetricsResponseSummary) GetRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Requests) {
 		return nil, false
 	}
@@ -165,8 +165,8 @@ func (o *O11yMetricsResponseSummary) HasRequests() bool {
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *O11yMetricsResponseSummary) SetRequests(v int32) {
+// SetRequests gets a reference to the given int64 and assigns it to the Requests field.
+func (o *O11yMetricsResponseSummary) SetRequests(v int64) {
 	o.Requests = &v
 }
 

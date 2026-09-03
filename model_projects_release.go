@@ -22,11 +22,11 @@ type ProjectsRelease struct {
 	// Active is whether this is the release the site is SERVING right now. Exactly one release of a site is active; the others are kept so they can be activated again, until retention reclaims them.
 	Active *bool `json:"active,omitempty"`
 	// Bytes is their total size in bytes.
-	Bytes *int32 `json:"bytes,omitempty"`
+	Bytes *int64 `json:"bytes,omitempty"`
 	// CreatedAt is when the release was cut, as Unix seconds — not when it was last activated.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Objects is how many files the release holds.
-	Objects *int32 `json:"objects,omitempty"`
+	Objects *int64 `json:"objects,omitempty"`
 	// ReleaseID is derived from a DIGEST of the release's own manifest, so identical content is the same release and a release can never be confused with another one. Activating an older id IS the rollback.
 	ReleaseId *string `json:"releaseId,omitempty"`
 	// Slug is the site this release belongs to.
@@ -87,9 +87,9 @@ func (o *ProjectsRelease) SetActive(v bool) {
 }
 
 // GetBytes returns the Bytes field value if set, zero value otherwise.
-func (o *ProjectsRelease) GetBytes() int32 {
+func (o *ProjectsRelease) GetBytes() int64 {
 	if o == nil || IsNil(o.Bytes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Bytes
@@ -97,7 +97,7 @@ func (o *ProjectsRelease) GetBytes() int32 {
 
 // GetBytesOk returns a tuple with the Bytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsRelease) GetBytesOk() (*int32, bool) {
+func (o *ProjectsRelease) GetBytesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Bytes) {
 		return nil, false
 	}
@@ -113,15 +113,15 @@ func (o *ProjectsRelease) HasBytes() bool {
 	return false
 }
 
-// SetBytes gets a reference to the given int32 and assigns it to the Bytes field.
-func (o *ProjectsRelease) SetBytes(v int32) {
+// SetBytes gets a reference to the given int64 and assigns it to the Bytes field.
+func (o *ProjectsRelease) SetBytes(v int64) {
 	o.Bytes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *ProjectsRelease) GetCreatedAt() int32 {
+func (o *ProjectsRelease) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -129,7 +129,7 @@ func (o *ProjectsRelease) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsRelease) GetCreatedAtOk() (*int32, bool) {
+func (o *ProjectsRelease) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -145,15 +145,15 @@ func (o *ProjectsRelease) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *ProjectsRelease) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *ProjectsRelease) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
 // GetObjects returns the Objects field value if set, zero value otherwise.
-func (o *ProjectsRelease) GetObjects() int32 {
+func (o *ProjectsRelease) GetObjects() int64 {
 	if o == nil || IsNil(o.Objects) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Objects
@@ -161,7 +161,7 @@ func (o *ProjectsRelease) GetObjects() int32 {
 
 // GetObjectsOk returns a tuple with the Objects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsRelease) GetObjectsOk() (*int32, bool) {
+func (o *ProjectsRelease) GetObjectsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Objects) {
 		return nil, false
 	}
@@ -177,8 +177,8 @@ func (o *ProjectsRelease) HasObjects() bool {
 	return false
 }
 
-// SetObjects gets a reference to the given int32 and assigns it to the Objects field.
-func (o *ProjectsRelease) SetObjects(v int32) {
+// SetObjects gets a reference to the given int64 and assigns it to the Objects field.
+func (o *ProjectsRelease) SetObjects(v int64) {
 	o.Objects = &v
 }
 

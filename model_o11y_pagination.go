@@ -19,10 +19,10 @@ var _ MappedNullable = &O11yPagination{}
 
 // O11yPagination struct for O11yPagination
 type O11yPagination struct {
-	Page    *int32 `json:"page,omitempty"`
-	Pages   *int32 `json:"pages,omitempty"`
-	PerPage *int32 `json:"per_page,omitempty"`
-	Total   *int32 `json:"total,omitempty"`
+	Page    *int64 `json:"page,omitempty"`
+	Pages   *int64 `json:"pages,omitempty"`
+	PerPage *int64 `json:"per_page,omitempty"`
+	Total   *int64 `json:"total,omitempty"`
 }
 
 // NewO11yPagination instantiates a new O11yPagination object
@@ -43,9 +43,9 @@ func NewO11yPaginationWithDefaults() *O11yPagination {
 }
 
 // GetPage returns the Page field value if set, zero value otherwise.
-func (o *O11yPagination) GetPage() int32 {
+func (o *O11yPagination) GetPage() int64 {
 	if o == nil || IsNil(o.Page) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Page
@@ -53,7 +53,7 @@ func (o *O11yPagination) GetPage() int32 {
 
 // GetPageOk returns a tuple with the Page field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPagination) GetPageOk() (*int32, bool) {
+func (o *O11yPagination) GetPageOk() (*int64, bool) {
 	if o == nil || IsNil(o.Page) {
 		return nil, false
 	}
@@ -69,15 +69,15 @@ func (o *O11yPagination) HasPage() bool {
 	return false
 }
 
-// SetPage gets a reference to the given int32 and assigns it to the Page field.
-func (o *O11yPagination) SetPage(v int32) {
+// SetPage gets a reference to the given int64 and assigns it to the Page field.
+func (o *O11yPagination) SetPage(v int64) {
 	o.Page = &v
 }
 
 // GetPages returns the Pages field value if set, zero value otherwise.
-func (o *O11yPagination) GetPages() int32 {
+func (o *O11yPagination) GetPages() int64 {
 	if o == nil || IsNil(o.Pages) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Pages
@@ -85,7 +85,7 @@ func (o *O11yPagination) GetPages() int32 {
 
 // GetPagesOk returns a tuple with the Pages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPagination) GetPagesOk() (*int32, bool) {
+func (o *O11yPagination) GetPagesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Pages) {
 		return nil, false
 	}
@@ -101,15 +101,15 @@ func (o *O11yPagination) HasPages() bool {
 	return false
 }
 
-// SetPages gets a reference to the given int32 and assigns it to the Pages field.
-func (o *O11yPagination) SetPages(v int32) {
+// SetPages gets a reference to the given int64 and assigns it to the Pages field.
+func (o *O11yPagination) SetPages(v int64) {
 	o.Pages = &v
 }
 
 // GetPerPage returns the PerPage field value if set, zero value otherwise.
-func (o *O11yPagination) GetPerPage() int32 {
+func (o *O11yPagination) GetPerPage() int64 {
 	if o == nil || IsNil(o.PerPage) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PerPage
@@ -117,7 +117,7 @@ func (o *O11yPagination) GetPerPage() int32 {
 
 // GetPerPageOk returns a tuple with the PerPage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPagination) GetPerPageOk() (*int32, bool) {
+func (o *O11yPagination) GetPerPageOk() (*int64, bool) {
 	if o == nil || IsNil(o.PerPage) {
 		return nil, false
 	}
@@ -133,15 +133,15 @@ func (o *O11yPagination) HasPerPage() bool {
 	return false
 }
 
-// SetPerPage gets a reference to the given int32 and assigns it to the PerPage field.
-func (o *O11yPagination) SetPerPage(v int32) {
+// SetPerPage gets a reference to the given int64 and assigns it to the PerPage field.
+func (o *O11yPagination) SetPerPage(v int64) {
 	o.PerPage = &v
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *O11yPagination) GetTotal() int32 {
+func (o *O11yPagination) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -149,7 +149,7 @@ func (o *O11yPagination) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPagination) GetTotalOk() (*int32, bool) {
+func (o *O11yPagination) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -165,8 +165,8 @@ func (o *O11yPagination) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *O11yPagination) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *O11yPagination) SetTotal(v int64) {
 	o.Total = &v
 }
 

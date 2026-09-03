@@ -19,11 +19,11 @@ var _ MappedNullable = &TierBalance{}
 
 // TierBalance struct for TierBalance
 type TierBalance struct {
-	CreditsRemaining   *int32  `json:"creditsRemaining,omitempty"`
+	CreditsRemaining   *int64  `json:"creditsRemaining,omitempty"`
 	Currency           *string `json:"currency,omitempty"`
-	DailyRemaining     *int32  `json:"dailyRemaining,omitempty"`
-	EffectiveAvailable *int32  `json:"effectiveAvailable,omitempty"`
-	PrepaidAvailable   *int32  `json:"prepaidAvailable,omitempty"`
+	DailyRemaining     *int64  `json:"dailyRemaining,omitempty"`
+	EffectiveAvailable *int64  `json:"effectiveAvailable,omitempty"`
+	PrepaidAvailable   *int64  `json:"prepaidAvailable,omitempty"`
 }
 
 // NewTierBalance instantiates a new TierBalance object
@@ -44,9 +44,9 @@ func NewTierBalanceWithDefaults() *TierBalance {
 }
 
 // GetCreditsRemaining returns the CreditsRemaining field value if set, zero value otherwise.
-func (o *TierBalance) GetCreditsRemaining() int32 {
+func (o *TierBalance) GetCreditsRemaining() int64 {
 	if o == nil || IsNil(o.CreditsRemaining) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreditsRemaining
@@ -54,7 +54,7 @@ func (o *TierBalance) GetCreditsRemaining() int32 {
 
 // GetCreditsRemainingOk returns a tuple with the CreditsRemaining field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TierBalance) GetCreditsRemainingOk() (*int32, bool) {
+func (o *TierBalance) GetCreditsRemainingOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreditsRemaining) {
 		return nil, false
 	}
@@ -70,8 +70,8 @@ func (o *TierBalance) HasCreditsRemaining() bool {
 	return false
 }
 
-// SetCreditsRemaining gets a reference to the given int32 and assigns it to the CreditsRemaining field.
-func (o *TierBalance) SetCreditsRemaining(v int32) {
+// SetCreditsRemaining gets a reference to the given int64 and assigns it to the CreditsRemaining field.
+func (o *TierBalance) SetCreditsRemaining(v int64) {
 	o.CreditsRemaining = &v
 }
 
@@ -108,9 +108,9 @@ func (o *TierBalance) SetCurrency(v string) {
 }
 
 // GetDailyRemaining returns the DailyRemaining field value if set, zero value otherwise.
-func (o *TierBalance) GetDailyRemaining() int32 {
+func (o *TierBalance) GetDailyRemaining() int64 {
 	if o == nil || IsNil(o.DailyRemaining) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DailyRemaining
@@ -118,7 +118,7 @@ func (o *TierBalance) GetDailyRemaining() int32 {
 
 // GetDailyRemainingOk returns a tuple with the DailyRemaining field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TierBalance) GetDailyRemainingOk() (*int32, bool) {
+func (o *TierBalance) GetDailyRemainingOk() (*int64, bool) {
 	if o == nil || IsNil(o.DailyRemaining) {
 		return nil, false
 	}
@@ -134,15 +134,15 @@ func (o *TierBalance) HasDailyRemaining() bool {
 	return false
 }
 
-// SetDailyRemaining gets a reference to the given int32 and assigns it to the DailyRemaining field.
-func (o *TierBalance) SetDailyRemaining(v int32) {
+// SetDailyRemaining gets a reference to the given int64 and assigns it to the DailyRemaining field.
+func (o *TierBalance) SetDailyRemaining(v int64) {
 	o.DailyRemaining = &v
 }
 
 // GetEffectiveAvailable returns the EffectiveAvailable field value if set, zero value otherwise.
-func (o *TierBalance) GetEffectiveAvailable() int32 {
+func (o *TierBalance) GetEffectiveAvailable() int64 {
 	if o == nil || IsNil(o.EffectiveAvailable) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.EffectiveAvailable
@@ -150,7 +150,7 @@ func (o *TierBalance) GetEffectiveAvailable() int32 {
 
 // GetEffectiveAvailableOk returns a tuple with the EffectiveAvailable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TierBalance) GetEffectiveAvailableOk() (*int32, bool) {
+func (o *TierBalance) GetEffectiveAvailableOk() (*int64, bool) {
 	if o == nil || IsNil(o.EffectiveAvailable) {
 		return nil, false
 	}
@@ -166,15 +166,15 @@ func (o *TierBalance) HasEffectiveAvailable() bool {
 	return false
 }
 
-// SetEffectiveAvailable gets a reference to the given int32 and assigns it to the EffectiveAvailable field.
-func (o *TierBalance) SetEffectiveAvailable(v int32) {
+// SetEffectiveAvailable gets a reference to the given int64 and assigns it to the EffectiveAvailable field.
+func (o *TierBalance) SetEffectiveAvailable(v int64) {
 	o.EffectiveAvailable = &v
 }
 
 // GetPrepaidAvailable returns the PrepaidAvailable field value if set, zero value otherwise.
-func (o *TierBalance) GetPrepaidAvailable() int32 {
+func (o *TierBalance) GetPrepaidAvailable() int64 {
 	if o == nil || IsNil(o.PrepaidAvailable) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PrepaidAvailable
@@ -182,7 +182,7 @@ func (o *TierBalance) GetPrepaidAvailable() int32 {
 
 // GetPrepaidAvailableOk returns a tuple with the PrepaidAvailable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TierBalance) GetPrepaidAvailableOk() (*int32, bool) {
+func (o *TierBalance) GetPrepaidAvailableOk() (*int64, bool) {
 	if o == nil || IsNil(o.PrepaidAvailable) {
 		return nil, false
 	}
@@ -198,8 +198,8 @@ func (o *TierBalance) HasPrepaidAvailable() bool {
 	return false
 }
 
-// SetPrepaidAvailable gets a reference to the given int32 and assigns it to the PrepaidAvailable field.
-func (o *TierBalance) SetPrepaidAvailable(v int32) {
+// SetPrepaidAvailable gets a reference to the given int64 and assigns it to the PrepaidAvailable field.
+func (o *TierBalance) SetPrepaidAvailable(v int64) {
 	o.PrepaidAvailable = &v
 }
 

@@ -22,15 +22,15 @@ type WebOverview struct {
 	// Available is false when the product-event table could not be read — the lens is reported missing rather than as zeros that look like real traffic.
 	Available *bool `json:"available,omitempty"`
 	// Pageviews is how many $pageview events landed in the window.
-	Pageviews *int32 `json:"pageviews,omitempty"`
+	Pageviews *int64 `json:"pageviews,omitempty"`
 	// Reason says why the lens is unavailable. Omitted when it is available.
 	Reason *string `json:"reason,omitempty"`
 	// Sessions is how many distinct visits they span.
-	Sessions *int32 `json:"sessions,omitempty"`
+	Sessions *int64 `json:"sessions,omitempty"`
 	// Source is the warehouse table the lens read.
 	Source *string `json:"source,omitempty"`
 	// Visitors is how many distinct people those pageviews came from.
-	Visitors *int32 `json:"visitors,omitempty"`
+	Visitors *int64 `json:"visitors,omitempty"`
 }
 
 // NewWebOverview instantiates a new WebOverview object
@@ -83,9 +83,9 @@ func (o *WebOverview) SetAvailable(v bool) {
 }
 
 // GetPageviews returns the Pageviews field value if set, zero value otherwise.
-func (o *WebOverview) GetPageviews() int32 {
+func (o *WebOverview) GetPageviews() int64 {
 	if o == nil || IsNil(o.Pageviews) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Pageviews
@@ -93,7 +93,7 @@ func (o *WebOverview) GetPageviews() int32 {
 
 // GetPageviewsOk returns a tuple with the Pageviews field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebOverview) GetPageviewsOk() (*int32, bool) {
+func (o *WebOverview) GetPageviewsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Pageviews) {
 		return nil, false
 	}
@@ -109,8 +109,8 @@ func (o *WebOverview) HasPageviews() bool {
 	return false
 }
 
-// SetPageviews gets a reference to the given int32 and assigns it to the Pageviews field.
-func (o *WebOverview) SetPageviews(v int32) {
+// SetPageviews gets a reference to the given int64 and assigns it to the Pageviews field.
+func (o *WebOverview) SetPageviews(v int64) {
 	o.Pageviews = &v
 }
 
@@ -147,9 +147,9 @@ func (o *WebOverview) SetReason(v string) {
 }
 
 // GetSessions returns the Sessions field value if set, zero value otherwise.
-func (o *WebOverview) GetSessions() int32 {
+func (o *WebOverview) GetSessions() int64 {
 	if o == nil || IsNil(o.Sessions) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Sessions
@@ -157,7 +157,7 @@ func (o *WebOverview) GetSessions() int32 {
 
 // GetSessionsOk returns a tuple with the Sessions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebOverview) GetSessionsOk() (*int32, bool) {
+func (o *WebOverview) GetSessionsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Sessions) {
 		return nil, false
 	}
@@ -173,8 +173,8 @@ func (o *WebOverview) HasSessions() bool {
 	return false
 }
 
-// SetSessions gets a reference to the given int32 and assigns it to the Sessions field.
-func (o *WebOverview) SetSessions(v int32) {
+// SetSessions gets a reference to the given int64 and assigns it to the Sessions field.
+func (o *WebOverview) SetSessions(v int64) {
 	o.Sessions = &v
 }
 
@@ -211,9 +211,9 @@ func (o *WebOverview) SetSource(v string) {
 }
 
 // GetVisitors returns the Visitors field value if set, zero value otherwise.
-func (o *WebOverview) GetVisitors() int32 {
+func (o *WebOverview) GetVisitors() int64 {
 	if o == nil || IsNil(o.Visitors) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Visitors
@@ -221,7 +221,7 @@ func (o *WebOverview) GetVisitors() int32 {
 
 // GetVisitorsOk returns a tuple with the Visitors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebOverview) GetVisitorsOk() (*int32, bool) {
+func (o *WebOverview) GetVisitorsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Visitors) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *WebOverview) HasVisitors() bool {
 	return false
 }
 
-// SetVisitors gets a reference to the given int32 and assigns it to the Visitors field.
-func (o *WebOverview) SetVisitors(v int32) {
+// SetVisitors gets a reference to the given int64 and assigns it to the Visitors field.
+func (o *WebOverview) SetVisitors(v int64) {
 	o.Visitors = &v
 }
 

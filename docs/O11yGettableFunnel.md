@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** |  | [optional] 
+**CreatedAt** | Pointer to **int64** |  | [optional] 
 **CreatedBy** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Funnel** | Pointer to [**O11yStorableFunnel**](O11yStorableFunnel.md) |  | [optional] 
@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **FunnelName** | Pointer to **string** |  | [optional] 
 **OrgId** | Pointer to **string** |  | [optional] 
 **Steps** | Pointer to [**[]O11yFunnelStep**](O11yFunnelStep.md) |  | [optional] 
-**UpdatedAt** | Pointer to **int32** |  | [optional] 
+**UpdatedAt** | Pointer to **int64** |  | [optional] 
 **UpdatedBy** | Pointer to **string** |  | [optional] 
 **UserEmail** | Pointer to **string** |  | [optional] 
 
@@ -37,20 +37,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreatedAt
 
-`func (o *O11yGettableFunnel) GetCreatedAt() int32`
+`func (o *O11yGettableFunnel) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *O11yGettableFunnel) GetCreatedAtOk() (*int32, bool)`
+`func (o *O11yGettableFunnel) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *O11yGettableFunnel) SetCreatedAt(v int32)`
+`func (o *O11yGettableFunnel) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -237,20 +237,20 @@ HasSteps returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *O11yGettableFunnel) GetUpdatedAt() int32`
+`func (o *O11yGettableFunnel) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *O11yGettableFunnel) GetUpdatedAtOk() (*int32, bool)`
+`func (o *O11yGettableFunnel) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *O11yGettableFunnel) SetUpdatedAt(v int32)`
+`func (o *O11yGettableFunnel) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

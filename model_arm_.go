@@ -25,7 +25,7 @@ type Arm struct {
 	Key     *string     `json:"key,omitempty"`
 	Payload interface{} `json:"payload,omitempty"`
 	// its share of the rollout; the arms sum to 100
-	Weight *float32 `json:"weight,omitempty"`
+	Weight *float64 `json:"weight,omitempty"`
 }
 
 // NewArm instantiates a new Arm object
@@ -143,9 +143,9 @@ func (o *Arm) SetPayload(v interface{}) {
 }
 
 // GetWeight returns the Weight field value if set, zero value otherwise.
-func (o *Arm) GetWeight() float32 {
+func (o *Arm) GetWeight() float64 {
 	if o == nil || IsNil(o.Weight) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Weight
@@ -153,7 +153,7 @@ func (o *Arm) GetWeight() float32 {
 
 // GetWeightOk returns a tuple with the Weight field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Arm) GetWeightOk() (*float32, bool) {
+func (o *Arm) GetWeightOk() (*float64, bool) {
 	if o == nil || IsNil(o.Weight) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *Arm) HasWeight() bool {
 	return false
 }
 
-// SetWeight gets a reference to the given float32 and assigns it to the Weight field.
-func (o *Arm) SetWeight(v float32) {
+// SetWeight gets a reference to the given float64 and assigns it to the Weight field.
+func (o *Arm) SetWeight(v float64) {
 	o.Weight = &v
 }
 

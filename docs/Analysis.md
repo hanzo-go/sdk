@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Alpha** | Pointer to **float32** | the two-tailed threshold significance was judged at | [optional] 
+**Alpha** | Pointer to **float64** | the two-tailed threshold significance was judged at | [optional] 
 **Experiment** | Pointer to **string** | the experiment that was analysed | [optional] 
-**ExposedTotal** | Pointer to **int32** | subjects enrolled across every arm | [optional] 
+**ExposedTotal** | Pointer to **int64** | subjects enrolled across every arm | [optional] 
 **Metric** | Pointer to **string** | the event a conversion is counted from | [optional] 
 **Results** | Pointer to [**[]Outcome**](Outcome.md) | one row per declared arm, control first | [optional] 
 **Winner** | Pointer to **string** | ADVISORY: the significant, control-beating arm with the highest rate, else empty | [optional] 
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAlpha
 
-`func (o *Analysis) GetAlpha() float32`
+`func (o *Analysis) GetAlpha() float64`
 
 GetAlpha returns the Alpha field if non-nil, zero value otherwise.
 
 ### GetAlphaOk
 
-`func (o *Analysis) GetAlphaOk() (*float32, bool)`
+`func (o *Analysis) GetAlphaOk() (*float64, bool)`
 
 GetAlphaOk returns a tuple with the Alpha field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAlpha
 
-`func (o *Analysis) SetAlpha(v float32)`
+`func (o *Analysis) SetAlpha(v float64)`
 
 SetAlpha sets Alpha field to given value.
 
@@ -82,20 +82,20 @@ HasExperiment returns a boolean if a field has been set.
 
 ### GetExposedTotal
 
-`func (o *Analysis) GetExposedTotal() int32`
+`func (o *Analysis) GetExposedTotal() int64`
 
 GetExposedTotal returns the ExposedTotal field if non-nil, zero value otherwise.
 
 ### GetExposedTotalOk
 
-`func (o *Analysis) GetExposedTotalOk() (*int32, bool)`
+`func (o *Analysis) GetExposedTotalOk() (*int64, bool)`
 
 GetExposedTotalOk returns a tuple with the ExposedTotal field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExposedTotal
 
-`func (o *Analysis) SetExposedTotal(v int32)`
+`func (o *Analysis) SetExposedTotal(v int64)`
 
 SetExposedTotal sets ExposedTotal field to given value.
 

@@ -27,7 +27,7 @@ type DefRow struct {
 	// UpdatedBy is the email of the principal who last wrote it. Empty when the write came from an in-process composer (an experiment registering its own assignment flag) rather than from a signed-in person.
 	UpdatedBy *string `json:"updated_by,omitempty"`
 	// Version is 1 when the key was created and rises by one on every overwrite. It counts writes, not content changes: re-storing an identical document bumps it.
-	Version *int32 `json:"version,omitempty"`
+	Version *int64 `json:"version,omitempty"`
 }
 
 // NewDefRow instantiates a new DefRow object
@@ -177,9 +177,9 @@ func (o *DefRow) SetUpdatedBy(v string) {
 }
 
 // GetVersion returns the Version field value if set, zero value otherwise.
-func (o *DefRow) GetVersion() int32 {
+func (o *DefRow) GetVersion() int64 {
 	if o == nil || IsNil(o.Version) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Version
@@ -187,7 +187,7 @@ func (o *DefRow) GetVersion() int32 {
 
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DefRow) GetVersionOk() (*int32, bool) {
+func (o *DefRow) GetVersionOk() (*int64, bool) {
 	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *DefRow) HasVersion() bool {
 	return false
 }
 
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
-func (o *DefRow) SetVersion(v int32) {
+// SetVersion gets a reference to the given int64 and assigns it to the Version field.
+func (o *DefRow) SetVersion(v int64) {
 	o.Version = &v
 }
 

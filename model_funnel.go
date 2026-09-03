@@ -22,17 +22,17 @@ type Funnel struct {
 	// Available separates \"this org has no traffic\" from \"we could not ask\". False means the warehouse was unreachable or the org has emitted nothing at all, and every count below is then a placeholder zero rather than a measurement — a caller must read this before reading any of them.
 	Available *bool `json:"available,omitempty"`
 	// Orders counts completed orders in the window — purchases, not carts started.
-	Orders *int32 `json:"orders,omitempty"`
+	Orders *int64 `json:"orders,omitempty"`
 	// Pageviews counts page events in the window, one per view rather than per person, so a single visitor reading ten pages counts ten.
-	Pageviews *int32 `json:"pageviews,omitempty"`
+	Pageviews *int64 `json:"pageviews,omitempty"`
 	// Revenue is the sum of the amounts those orders reported, in whatever currency the beacon stamped on them (major units, e.g. 49.5 for $49.50) — NOT cents, and not converted to a single currency. Contrast revenueCents on the profile, which is the money of record.
-	Revenue *float32 `json:"revenue,omitempty"`
+	Revenue *float64 `json:"revenue,omitempty"`
 	// Signups counts completed signups in the window, the step where an anonymous visitor becomes somebody with an account.
-	Signups *int32 `json:"signups,omitempty"`
+	Signups *int64 `json:"signups,omitempty"`
 	// Visitors is the number of DISTINCT people seen in the window, counted by the beacon's distinct id — so it is unique visitors, not sessions and not views.
-	Visitors *int32 `json:"visitors,omitempty"`
+	Visitors *int64 `json:"visitors,omitempty"`
 	// WindowDays is the length of the trailing window every count covers, so a reader knows whether 40 signups is a month or a day.
-	WindowDays *int32 `json:"windowDays,omitempty"`
+	WindowDays *int64 `json:"windowDays,omitempty"`
 }
 
 // NewFunnel instantiates a new Funnel object
@@ -85,9 +85,9 @@ func (o *Funnel) SetAvailable(v bool) {
 }
 
 // GetOrders returns the Orders field value if set, zero value otherwise.
-func (o *Funnel) GetOrders() int32 {
+func (o *Funnel) GetOrders() int64 {
 	if o == nil || IsNil(o.Orders) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Orders
@@ -95,7 +95,7 @@ func (o *Funnel) GetOrders() int32 {
 
 // GetOrdersOk returns a tuple with the Orders field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Funnel) GetOrdersOk() (*int32, bool) {
+func (o *Funnel) GetOrdersOk() (*int64, bool) {
 	if o == nil || IsNil(o.Orders) {
 		return nil, false
 	}
@@ -111,15 +111,15 @@ func (o *Funnel) HasOrders() bool {
 	return false
 }
 
-// SetOrders gets a reference to the given int32 and assigns it to the Orders field.
-func (o *Funnel) SetOrders(v int32) {
+// SetOrders gets a reference to the given int64 and assigns it to the Orders field.
+func (o *Funnel) SetOrders(v int64) {
 	o.Orders = &v
 }
 
 // GetPageviews returns the Pageviews field value if set, zero value otherwise.
-func (o *Funnel) GetPageviews() int32 {
+func (o *Funnel) GetPageviews() int64 {
 	if o == nil || IsNil(o.Pageviews) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Pageviews
@@ -127,7 +127,7 @@ func (o *Funnel) GetPageviews() int32 {
 
 // GetPageviewsOk returns a tuple with the Pageviews field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Funnel) GetPageviewsOk() (*int32, bool) {
+func (o *Funnel) GetPageviewsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Pageviews) {
 		return nil, false
 	}
@@ -143,15 +143,15 @@ func (o *Funnel) HasPageviews() bool {
 	return false
 }
 
-// SetPageviews gets a reference to the given int32 and assigns it to the Pageviews field.
-func (o *Funnel) SetPageviews(v int32) {
+// SetPageviews gets a reference to the given int64 and assigns it to the Pageviews field.
+func (o *Funnel) SetPageviews(v int64) {
 	o.Pageviews = &v
 }
 
 // GetRevenue returns the Revenue field value if set, zero value otherwise.
-func (o *Funnel) GetRevenue() float32 {
+func (o *Funnel) GetRevenue() float64 {
 	if o == nil || IsNil(o.Revenue) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Revenue
@@ -159,7 +159,7 @@ func (o *Funnel) GetRevenue() float32 {
 
 // GetRevenueOk returns a tuple with the Revenue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Funnel) GetRevenueOk() (*float32, bool) {
+func (o *Funnel) GetRevenueOk() (*float64, bool) {
 	if o == nil || IsNil(o.Revenue) {
 		return nil, false
 	}
@@ -175,15 +175,15 @@ func (o *Funnel) HasRevenue() bool {
 	return false
 }
 
-// SetRevenue gets a reference to the given float32 and assigns it to the Revenue field.
-func (o *Funnel) SetRevenue(v float32) {
+// SetRevenue gets a reference to the given float64 and assigns it to the Revenue field.
+func (o *Funnel) SetRevenue(v float64) {
 	o.Revenue = &v
 }
 
 // GetSignups returns the Signups field value if set, zero value otherwise.
-func (o *Funnel) GetSignups() int32 {
+func (o *Funnel) GetSignups() int64 {
 	if o == nil || IsNil(o.Signups) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Signups
@@ -191,7 +191,7 @@ func (o *Funnel) GetSignups() int32 {
 
 // GetSignupsOk returns a tuple with the Signups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Funnel) GetSignupsOk() (*int32, bool) {
+func (o *Funnel) GetSignupsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Signups) {
 		return nil, false
 	}
@@ -207,15 +207,15 @@ func (o *Funnel) HasSignups() bool {
 	return false
 }
 
-// SetSignups gets a reference to the given int32 and assigns it to the Signups field.
-func (o *Funnel) SetSignups(v int32) {
+// SetSignups gets a reference to the given int64 and assigns it to the Signups field.
+func (o *Funnel) SetSignups(v int64) {
 	o.Signups = &v
 }
 
 // GetVisitors returns the Visitors field value if set, zero value otherwise.
-func (o *Funnel) GetVisitors() int32 {
+func (o *Funnel) GetVisitors() int64 {
 	if o == nil || IsNil(o.Visitors) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Visitors
@@ -223,7 +223,7 @@ func (o *Funnel) GetVisitors() int32 {
 
 // GetVisitorsOk returns a tuple with the Visitors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Funnel) GetVisitorsOk() (*int32, bool) {
+func (o *Funnel) GetVisitorsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Visitors) {
 		return nil, false
 	}
@@ -239,15 +239,15 @@ func (o *Funnel) HasVisitors() bool {
 	return false
 }
 
-// SetVisitors gets a reference to the given int32 and assigns it to the Visitors field.
-func (o *Funnel) SetVisitors(v int32) {
+// SetVisitors gets a reference to the given int64 and assigns it to the Visitors field.
+func (o *Funnel) SetVisitors(v int64) {
 	o.Visitors = &v
 }
 
 // GetWindowDays returns the WindowDays field value if set, zero value otherwise.
-func (o *Funnel) GetWindowDays() int32 {
+func (o *Funnel) GetWindowDays() int64 {
 	if o == nil || IsNil(o.WindowDays) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.WindowDays
@@ -255,7 +255,7 @@ func (o *Funnel) GetWindowDays() int32 {
 
 // GetWindowDaysOk returns a tuple with the WindowDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Funnel) GetWindowDaysOk() (*int32, bool) {
+func (o *Funnel) GetWindowDaysOk() (*int64, bool) {
 	if o == nil || IsNil(o.WindowDays) {
 		return nil, false
 	}
@@ -271,8 +271,8 @@ func (o *Funnel) HasWindowDays() bool {
 	return false
 }
 
-// SetWindowDays gets a reference to the given int32 and assigns it to the WindowDays field.
-func (o *Funnel) SetWindowDays(v int32) {
+// SetWindowDays gets a reference to the given int64 and assigns it to the WindowDays field.
+func (o *Funnel) SetWindowDays(v int64) {
 	o.WindowDays = &v
 }
 

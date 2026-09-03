@@ -22,17 +22,17 @@ type RiskDisposeOut struct {
 	// Before echoes the retention boundary that was applied, RFC 3339 in UTC, as this plane parsed it from the request. What was disposed of is every record WRITTEN strictly before it and not under litigation hold — written, measured against the server clock at the write, and not against the event or observation times the asserting caller supplies, because a tenant that could back-date could delete a compliance record on demand. A boundary younger than the platform floor of five years is refused before anything is removed.
 	Before *string `json:"before,omitempty"`
 	// Disposed is how many whole records were removed. Records are disposed of whole, never redacted: a partially-erased compliance record is one nobody can attest to.
-	Disposed *int32 `json:"disposed,omitempty"`
+	Disposed *int64 `json:"disposed,omitempty"`
 	// Held is how many records inside the boundary were kept under litigation hold.
-	Held *int32 `json:"held,omitempty"`
+	Held *int64 `json:"held,omitempty"`
 	// Oldest is the WRITE time of the oldest assertion this tenant still holds after the sweep, RFC 3339, and it is omitted exactly when nothing remains at all. Still older than Before means records survived on purpose and says which mechanism kept them: a litigation hold (Held), or the per-call bound with more to sweep on the next call (Remaining).
 	Oldest *string `json:"oldest,omitempty"`
 	// Remaining is how many disposable records are still older than the boundary. A sweep is bounded per call, so a non-zero value here means call again rather than that something failed.
-	Remaining *int32 `json:"remaining,omitempty"`
+	Remaining *int64 `json:"remaining,omitempty"`
 	// Restored is how many records this sweep had already removed from the derived columnar copy and then did NOT dispose of, because a litigation hold arrived between the identify and the delete — and which were therefore written back to the derived copy before this answered.  It is a NAMED state and not a silent repair. The copy is swept before the record so nothing is orphaned in the warehouse, which means a record the delete declines to remove is one the warehouse has already lost, with its seq behind the delivery cursor and no retry that can reach it. Non-zero here says the collision happened and was repaired; a non-zero that keeps recurring says retention and hold are racing on the same records, which is worth an operator's attention rather than a debug line.
-	Restored *int32 `json:"restored,omitempty"`
+	Restored *int64 `json:"restored,omitempty"`
 	// Total and Oldest describe what the tenant still holds afterwards, so a disposal that removed nothing is distinguishable from a tenant that had nothing.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 }
 
 // NewRiskDisposeOut instantiates a new RiskDisposeOut object
@@ -85,9 +85,9 @@ func (o *RiskDisposeOut) SetBefore(v string) {
 }
 
 // GetDisposed returns the Disposed field value if set, zero value otherwise.
-func (o *RiskDisposeOut) GetDisposed() int32 {
+func (o *RiskDisposeOut) GetDisposed() int64 {
 	if o == nil || IsNil(o.Disposed) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Disposed
@@ -95,7 +95,7 @@ func (o *RiskDisposeOut) GetDisposed() int32 {
 
 // GetDisposedOk returns a tuple with the Disposed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskDisposeOut) GetDisposedOk() (*int32, bool) {
+func (o *RiskDisposeOut) GetDisposedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Disposed) {
 		return nil, false
 	}
@@ -111,15 +111,15 @@ func (o *RiskDisposeOut) HasDisposed() bool {
 	return false
 }
 
-// SetDisposed gets a reference to the given int32 and assigns it to the Disposed field.
-func (o *RiskDisposeOut) SetDisposed(v int32) {
+// SetDisposed gets a reference to the given int64 and assigns it to the Disposed field.
+func (o *RiskDisposeOut) SetDisposed(v int64) {
 	o.Disposed = &v
 }
 
 // GetHeld returns the Held field value if set, zero value otherwise.
-func (o *RiskDisposeOut) GetHeld() int32 {
+func (o *RiskDisposeOut) GetHeld() int64 {
 	if o == nil || IsNil(o.Held) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Held
@@ -127,7 +127,7 @@ func (o *RiskDisposeOut) GetHeld() int32 {
 
 // GetHeldOk returns a tuple with the Held field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskDisposeOut) GetHeldOk() (*int32, bool) {
+func (o *RiskDisposeOut) GetHeldOk() (*int64, bool) {
 	if o == nil || IsNil(o.Held) {
 		return nil, false
 	}
@@ -143,8 +143,8 @@ func (o *RiskDisposeOut) HasHeld() bool {
 	return false
 }
 
-// SetHeld gets a reference to the given int32 and assigns it to the Held field.
-func (o *RiskDisposeOut) SetHeld(v int32) {
+// SetHeld gets a reference to the given int64 and assigns it to the Held field.
+func (o *RiskDisposeOut) SetHeld(v int64) {
 	o.Held = &v
 }
 
@@ -181,9 +181,9 @@ func (o *RiskDisposeOut) SetOldest(v string) {
 }
 
 // GetRemaining returns the Remaining field value if set, zero value otherwise.
-func (o *RiskDisposeOut) GetRemaining() int32 {
+func (o *RiskDisposeOut) GetRemaining() int64 {
 	if o == nil || IsNil(o.Remaining) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Remaining
@@ -191,7 +191,7 @@ func (o *RiskDisposeOut) GetRemaining() int32 {
 
 // GetRemainingOk returns a tuple with the Remaining field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskDisposeOut) GetRemainingOk() (*int32, bool) {
+func (o *RiskDisposeOut) GetRemainingOk() (*int64, bool) {
 	if o == nil || IsNil(o.Remaining) {
 		return nil, false
 	}
@@ -207,15 +207,15 @@ func (o *RiskDisposeOut) HasRemaining() bool {
 	return false
 }
 
-// SetRemaining gets a reference to the given int32 and assigns it to the Remaining field.
-func (o *RiskDisposeOut) SetRemaining(v int32) {
+// SetRemaining gets a reference to the given int64 and assigns it to the Remaining field.
+func (o *RiskDisposeOut) SetRemaining(v int64) {
 	o.Remaining = &v
 }
 
 // GetRestored returns the Restored field value if set, zero value otherwise.
-func (o *RiskDisposeOut) GetRestored() int32 {
+func (o *RiskDisposeOut) GetRestored() int64 {
 	if o == nil || IsNil(o.Restored) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Restored
@@ -223,7 +223,7 @@ func (o *RiskDisposeOut) GetRestored() int32 {
 
 // GetRestoredOk returns a tuple with the Restored field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskDisposeOut) GetRestoredOk() (*int32, bool) {
+func (o *RiskDisposeOut) GetRestoredOk() (*int64, bool) {
 	if o == nil || IsNil(o.Restored) {
 		return nil, false
 	}
@@ -239,15 +239,15 @@ func (o *RiskDisposeOut) HasRestored() bool {
 	return false
 }
 
-// SetRestored gets a reference to the given int32 and assigns it to the Restored field.
-func (o *RiskDisposeOut) SetRestored(v int32) {
+// SetRestored gets a reference to the given int64 and assigns it to the Restored field.
+func (o *RiskDisposeOut) SetRestored(v int64) {
 	o.Restored = &v
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *RiskDisposeOut) GetTotal() int32 {
+func (o *RiskDisposeOut) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -255,7 +255,7 @@ func (o *RiskDisposeOut) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskDisposeOut) GetTotalOk() (*int32, bool) {
+func (o *RiskDisposeOut) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -271,8 +271,8 @@ func (o *RiskDisposeOut) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *RiskDisposeOut) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *RiskDisposeOut) SetTotal(v int64) {
 	o.Total = &v
 }
 

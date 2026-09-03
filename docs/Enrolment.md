@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Created** | Pointer to **bool** | Created reports whether this call enrolled the org (201) or found an existing enrolment (200). | [optional] 
 **GithubLogin** | Pointer to **string** | GithubLogin is the linked forge account. | [optional] 
 **Id** | Pointer to **string** | ID is the author record&#39;s server-minted handle, \&quot;aut_\&quot;-prefixed. | [optional] 
-**ShareBps** | Pointer to **int32** | ShareBps is this author&#39;s royalty share in basis points of the spend their deployed work generates. | [optional] 
+**ShareBps** | Pointer to **int64** | ShareBps is this author&#39;s royalty share in basis points of the spend their deployed work generates. | [optional] 
 **Status** | Pointer to **string** | Status is connected, approved or suspended. Only an approved author earns. | [optional] 
 **Verified** | Pointer to **bool** | Verified reports whether any repository or owner claim has been proven yet. | [optional] 
 **VerifyCode** | Pointer to **string** | VerifyCode is this author&#39;s stable proof token — the value a repository&#39;s verify file must carry. | [optional] 
@@ -110,20 +110,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetShareBps
 
-`func (o *Enrolment) GetShareBps() int32`
+`func (o *Enrolment) GetShareBps() int64`
 
 GetShareBps returns the ShareBps field if non-nil, zero value otherwise.
 
 ### GetShareBpsOk
 
-`func (o *Enrolment) GetShareBpsOk() (*int32, bool)`
+`func (o *Enrolment) GetShareBpsOk() (*int64, bool)`
 
 GetShareBpsOk returns a tuple with the ShareBps field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetShareBps
 
-`func (o *Enrolment) SetShareBps(v int32)`
+`func (o *Enrolment) SetShareBps(v int64)`
 
 SetShareBps sets ShareBps field to given value.
 

@@ -20,13 +20,13 @@ var _ MappedNullable = &CampaignUpdate{}
 // CampaignUpdate struct for CampaignUpdate
 type CampaignUpdate struct {
 	Audience *string       `json:"audience,omitempty"`
-	Budget   *int32        `json:"budget,omitempty"`
+	Budget   *int64        `json:"budget,omitempty"`
 	Channels []ChannelSpec `json:"channels,omitempty"`
 	Content  []string      `json:"content,omitempty"`
 	// ID is the campaign to update, from the path.
 	Id         *string `json:"id,omitempty"`
 	Name       *string `json:"name,omitempty"`
-	ScheduleAt *int32  `json:"scheduleAt,omitempty"`
+	ScheduleAt *int64  `json:"scheduleAt,omitempty"`
 }
 
 // NewCampaignUpdate instantiates a new CampaignUpdate object
@@ -79,9 +79,9 @@ func (o *CampaignUpdate) SetAudience(v string) {
 }
 
 // GetBudget returns the Budget field value if set, zero value otherwise.
-func (o *CampaignUpdate) GetBudget() int32 {
+func (o *CampaignUpdate) GetBudget() int64 {
 	if o == nil || IsNil(o.Budget) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Budget
@@ -89,7 +89,7 @@ func (o *CampaignUpdate) GetBudget() int32 {
 
 // GetBudgetOk returns a tuple with the Budget field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignUpdate) GetBudgetOk() (*int32, bool) {
+func (o *CampaignUpdate) GetBudgetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Budget) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *CampaignUpdate) HasBudget() bool {
 	return false
 }
 
-// SetBudget gets a reference to the given int32 and assigns it to the Budget field.
-func (o *CampaignUpdate) SetBudget(v int32) {
+// SetBudget gets a reference to the given int64 and assigns it to the Budget field.
+func (o *CampaignUpdate) SetBudget(v int64) {
 	o.Budget = &v
 }
 
@@ -239,9 +239,9 @@ func (o *CampaignUpdate) SetName(v string) {
 }
 
 // GetScheduleAt returns the ScheduleAt field value if set, zero value otherwise.
-func (o *CampaignUpdate) GetScheduleAt() int32 {
+func (o *CampaignUpdate) GetScheduleAt() int64 {
 	if o == nil || IsNil(o.ScheduleAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ScheduleAt
@@ -249,7 +249,7 @@ func (o *CampaignUpdate) GetScheduleAt() int32 {
 
 // GetScheduleAtOk returns a tuple with the ScheduleAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignUpdate) GetScheduleAtOk() (*int32, bool) {
+func (o *CampaignUpdate) GetScheduleAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.ScheduleAt) {
 		return nil, false
 	}
@@ -265,8 +265,8 @@ func (o *CampaignUpdate) HasScheduleAt() bool {
 	return false
 }
 
-// SetScheduleAt gets a reference to the given int32 and assigns it to the ScheduleAt field.
-func (o *CampaignUpdate) SetScheduleAt(v int32) {
+// SetScheduleAt gets a reference to the given int64 and assigns it to the ScheduleAt field.
+func (o *CampaignUpdate) SetScheduleAt(v int64) {
 	o.ScheduleAt = &v
 }
 

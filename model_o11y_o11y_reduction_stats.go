@@ -20,7 +20,7 @@ var _ MappedNullable = &O11yO11yReductionStats{}
 // O11yO11yReductionStats struct for O11yO11yReductionStats
 type O11yO11yReductionStats struct {
 	// EstimatedMonthlySavingsUsd is the estimated monthly savings, in USD.
-	EstimatedMonthlySavingsUsd *float32 `json:"estimatedMonthlySavingsUsd,omitempty"`
+	EstimatedMonthlySavingsUsd *float64 `json:"estimatedMonthlySavingsUsd,omitempty"`
 	// IngestedSamples is how many samples arrived across all rules.
 	IngestedSamples *int32 `json:"ingestedSamples,omitempty"`
 	// IngestedSeries is how many series arrived across all rules.
@@ -49,9 +49,9 @@ func NewO11yO11yReductionStatsWithDefaults() *O11yO11yReductionStats {
 }
 
 // GetEstimatedMonthlySavingsUsd returns the EstimatedMonthlySavingsUsd field value if set, zero value otherwise.
-func (o *O11yO11yReductionStats) GetEstimatedMonthlySavingsUsd() float32 {
+func (o *O11yO11yReductionStats) GetEstimatedMonthlySavingsUsd() float64 {
 	if o == nil || IsNil(o.EstimatedMonthlySavingsUsd) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.EstimatedMonthlySavingsUsd
@@ -59,7 +59,7 @@ func (o *O11yO11yReductionStats) GetEstimatedMonthlySavingsUsd() float32 {
 
 // GetEstimatedMonthlySavingsUsdOk returns a tuple with the EstimatedMonthlySavingsUsd field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yReductionStats) GetEstimatedMonthlySavingsUsdOk() (*float32, bool) {
+func (o *O11yO11yReductionStats) GetEstimatedMonthlySavingsUsdOk() (*float64, bool) {
 	if o == nil || IsNil(o.EstimatedMonthlySavingsUsd) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *O11yO11yReductionStats) HasEstimatedMonthlySavingsUsd() bool {
 	return false
 }
 
-// SetEstimatedMonthlySavingsUsd gets a reference to the given float32 and assigns it to the EstimatedMonthlySavingsUsd field.
-func (o *O11yO11yReductionStats) SetEstimatedMonthlySavingsUsd(v float32) {
+// SetEstimatedMonthlySavingsUsd gets a reference to the given float64 and assigns it to the EstimatedMonthlySavingsUsd field.
+func (o *O11yO11yReductionStats) SetEstimatedMonthlySavingsUsd(v float64) {
 	o.EstimatedMonthlySavingsUsd = &v
 }
 

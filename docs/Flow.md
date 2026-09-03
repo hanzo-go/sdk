@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **int32** |  | [optional] 
+**Created** | Pointer to **int64** |  | [optional] 
 **ExternalId** | Pointer to **string** |  | [optional] 
 **FolderId** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **ProjectId** | Pointer to **string** | projectId &#x3D;&#x3D; org (server-derived) | [optional] 
 **PublishedVersionId** | Pointer to **string** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
-**Updated** | Pointer to **int32** |  | [optional] 
+**Updated** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -35,20 +35,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreated
 
-`func (o *Flow) GetCreated() int32`
+`func (o *Flow) GetCreated() int64`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *Flow) GetCreatedOk() (*int32, bool)`
+`func (o *Flow) GetCreatedOk() (*int64, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *Flow) SetCreated(v int32)`
+`func (o *Flow) SetCreated(v int64)`
 
 SetCreated sets Created field to given value.
 
@@ -245,20 +245,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetUpdated
 
-`func (o *Flow) GetUpdated() int32`
+`func (o *Flow) GetUpdated() int64`
 
 GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
 ### GetUpdatedOk
 
-`func (o *Flow) GetUpdatedOk() (*int32, bool)`
+`func (o *Flow) GetUpdatedOk() (*int64, bool)`
 
 GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdated
 
-`func (o *Flow) SetUpdated(v int32)`
+`func (o *Flow) SetUpdated(v int64)`
 
 SetUpdated sets Updated field to given value.
 

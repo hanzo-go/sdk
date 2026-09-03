@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Attester** | Pointer to **string** | Attester is who vouched for it: self or auditor. | [optional] 
 **Body** | Pointer to **string** | Body is the item&#39;s content for the kinds that are text rather than a file. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when it was published, in unix milliseconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when it was published, in unix milliseconds. | [optional] 
 **Document** | Pointer to **string** | Document is the data-room document holding its bytes, empty when it has none. | [optional] 
 **Framework** | Pointer to **string** | Framework is the standard it speaks to, when it speaks to one. | [optional] 
 **Id** | Pointer to **string** | ID addresses the item. | [optional] 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **Retired** | Pointer to **bool** | Retired is whether it has been withdrawn. A retired item is absent from the public centre and cannot be granted; it is kept because a grant already made over it is part of the record. | [optional] 
 **Summary** | Pointer to **string** | Summary is a line about it. | [optional] 
 **Tier** | Pointer to **string** | Tier is public or gated. Gated is the default and an auditor-signed item can only ever be gated. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is when it last changed, in unix milliseconds. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is when it last changed, in unix milliseconds. | [optional] 
 
 ## Methods
 
@@ -88,20 +88,20 @@ HasBody returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *TrustItemView) GetCreatedAt() int32`
+`func (o *TrustItemView) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *TrustItemView) GetCreatedAtOk() (*int32, bool)`
+`func (o *TrustItemView) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *TrustItemView) SetCreatedAt(v int32)`
+`func (o *TrustItemView) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -313,20 +313,20 @@ HasTier returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *TrustItemView) GetUpdatedAt() int32`
+`func (o *TrustItemView) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *TrustItemView) GetUpdatedAtOk() (*int32, bool)`
+`func (o *TrustItemView) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *TrustItemView) SetUpdatedAt(v int32)`
+`func (o *TrustItemView) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

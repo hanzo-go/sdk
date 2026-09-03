@@ -20,7 +20,7 @@ var _ MappedNullable = &O11yAgentReport{}
 // O11yAgentReport struct for O11yAgentReport
 type O11yAgentReport struct {
 	Data            map[string]map[string]interface{} `json:"data,omitempty"`
-	TimestampMillis *int32                            `json:"timestampMillis,omitempty"`
+	TimestampMillis *int64                            `json:"timestampMillis,omitempty"`
 }
 
 // NewO11yAgentReport instantiates a new O11yAgentReport object
@@ -73,9 +73,9 @@ func (o *O11yAgentReport) SetData(v map[string]map[string]interface{}) {
 }
 
 // GetTimestampMillis returns the TimestampMillis field value if set, zero value otherwise.
-func (o *O11yAgentReport) GetTimestampMillis() int32 {
+func (o *O11yAgentReport) GetTimestampMillis() int64 {
 	if o == nil || IsNil(o.TimestampMillis) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TimestampMillis
@@ -83,7 +83,7 @@ func (o *O11yAgentReport) GetTimestampMillis() int32 {
 
 // GetTimestampMillisOk returns a tuple with the TimestampMillis field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yAgentReport) GetTimestampMillisOk() (*int32, bool) {
+func (o *O11yAgentReport) GetTimestampMillisOk() (*int64, bool) {
 	if o == nil || IsNil(o.TimestampMillis) {
 		return nil, false
 	}
@@ -99,8 +99,8 @@ func (o *O11yAgentReport) HasTimestampMillis() bool {
 	return false
 }
 
-// SetTimestampMillis gets a reference to the given int32 and assigns it to the TimestampMillis field.
-func (o *O11yAgentReport) SetTimestampMillis(v int32) {
+// SetTimestampMillis gets a reference to the given int64 and assigns it to the TimestampMillis field.
+func (o *O11yAgentReport) SetTimestampMillis(v int64) {
 	o.TimestampMillis = &v
 }
 

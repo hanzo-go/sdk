@@ -19,10 +19,10 @@ var _ MappedNullable = &O11yGettableFlamegraphTrace{}
 
 // O11yGettableFlamegraphTrace struct for O11yGettableFlamegraphTrace
 type O11yGettableFlamegraphTrace struct {
-	EndTimestampMillis   *int32                 `json:"endTimestampMillis,omitempty"`
+	EndTimestampMillis   *int64                 `json:"endTimestampMillis,omitempty"`
 	HasMore              *bool                  `json:"hasMore,omitempty"`
 	Spans                [][]O11yFlamegraphSpan `json:"spans,omitempty"`
-	StartTimestampMillis *int32                 `json:"startTimestampMillis,omitempty"`
+	StartTimestampMillis *int64                 `json:"startTimestampMillis,omitempty"`
 }
 
 // NewO11yGettableFlamegraphTrace instantiates a new O11yGettableFlamegraphTrace object
@@ -43,9 +43,9 @@ func NewO11yGettableFlamegraphTraceWithDefaults() *O11yGettableFlamegraphTrace {
 }
 
 // GetEndTimestampMillis returns the EndTimestampMillis field value if set, zero value otherwise.
-func (o *O11yGettableFlamegraphTrace) GetEndTimestampMillis() int32 {
+func (o *O11yGettableFlamegraphTrace) GetEndTimestampMillis() int64 {
 	if o == nil || IsNil(o.EndTimestampMillis) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.EndTimestampMillis
@@ -53,7 +53,7 @@ func (o *O11yGettableFlamegraphTrace) GetEndTimestampMillis() int32 {
 
 // GetEndTimestampMillisOk returns a tuple with the EndTimestampMillis field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yGettableFlamegraphTrace) GetEndTimestampMillisOk() (*int32, bool) {
+func (o *O11yGettableFlamegraphTrace) GetEndTimestampMillisOk() (*int64, bool) {
 	if o == nil || IsNil(o.EndTimestampMillis) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *O11yGettableFlamegraphTrace) HasEndTimestampMillis() bool {
 	return false
 }
 
-// SetEndTimestampMillis gets a reference to the given int32 and assigns it to the EndTimestampMillis field.
-func (o *O11yGettableFlamegraphTrace) SetEndTimestampMillis(v int32) {
+// SetEndTimestampMillis gets a reference to the given int64 and assigns it to the EndTimestampMillis field.
+func (o *O11yGettableFlamegraphTrace) SetEndTimestampMillis(v int64) {
 	o.EndTimestampMillis = &v
 }
 
@@ -139,9 +139,9 @@ func (o *O11yGettableFlamegraphTrace) SetSpans(v [][]O11yFlamegraphSpan) {
 }
 
 // GetStartTimestampMillis returns the StartTimestampMillis field value if set, zero value otherwise.
-func (o *O11yGettableFlamegraphTrace) GetStartTimestampMillis() int32 {
+func (o *O11yGettableFlamegraphTrace) GetStartTimestampMillis() int64 {
 	if o == nil || IsNil(o.StartTimestampMillis) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.StartTimestampMillis
@@ -149,7 +149,7 @@ func (o *O11yGettableFlamegraphTrace) GetStartTimestampMillis() int32 {
 
 // GetStartTimestampMillisOk returns a tuple with the StartTimestampMillis field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yGettableFlamegraphTrace) GetStartTimestampMillisOk() (*int32, bool) {
+func (o *O11yGettableFlamegraphTrace) GetStartTimestampMillisOk() (*int64, bool) {
 	if o == nil || IsNil(o.StartTimestampMillis) {
 		return nil, false
 	}
@@ -165,8 +165,8 @@ func (o *O11yGettableFlamegraphTrace) HasStartTimestampMillis() bool {
 	return false
 }
 
-// SetStartTimestampMillis gets a reference to the given int32 and assigns it to the StartTimestampMillis field.
-func (o *O11yGettableFlamegraphTrace) SetStartTimestampMillis(v int32) {
+// SetStartTimestampMillis gets a reference to the given int64 and assigns it to the StartTimestampMillis field.
+func (o *O11yGettableFlamegraphTrace) SetStartTimestampMillis(v int64) {
 	o.StartTimestampMillis = &v
 }
 

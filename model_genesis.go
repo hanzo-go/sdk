@@ -20,11 +20,11 @@ var _ MappedNullable = &Genesis{}
 // Genesis struct for Genesis
 type Genesis struct {
 	// At is the unix second the genesis root was computed.
-	At *int32 `json:"at,omitempty"`
+	At *int64 `json:"at,omitempty"`
 	// Block is the L1 block the anchoring transaction landed in. Set only once the receipt has been read; absent otherwise.
 	Block *int32 `json:"block,omitempty"`
 	// ChainID is the EVM chain the root is committed to — the Hanzo L1 by default.
-	ChainId *int32 `json:"chainId,omitempty"`
+	ChainId *int64 `json:"chainId,omitempty"`
 	// Note explains an unanchored genesis honestly — anchor wiring absent, or the submit error — rather than reporting a commit that did not happen.
 	Note *string `json:"note,omitempty"`
 	// Root is the 0x-prefixed keccak256 root of the founding allocation. It is ALWAYS computed, whether or not the on-chain anchor is wired, because the root is the tamper-evident witness.
@@ -53,9 +53,9 @@ func NewGenesisWithDefaults() *Genesis {
 }
 
 // GetAt returns the At field value if set, zero value otherwise.
-func (o *Genesis) GetAt() int32 {
+func (o *Genesis) GetAt() int64 {
 	if o == nil || IsNil(o.At) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.At
@@ -63,7 +63,7 @@ func (o *Genesis) GetAt() int32 {
 
 // GetAtOk returns a tuple with the At field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Genesis) GetAtOk() (*int32, bool) {
+func (o *Genesis) GetAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.At) {
 		return nil, false
 	}
@@ -79,8 +79,8 @@ func (o *Genesis) HasAt() bool {
 	return false
 }
 
-// SetAt gets a reference to the given int32 and assigns it to the At field.
-func (o *Genesis) SetAt(v int32) {
+// SetAt gets a reference to the given int64 and assigns it to the At field.
+func (o *Genesis) SetAt(v int64) {
 	o.At = &v
 }
 
@@ -117,9 +117,9 @@ func (o *Genesis) SetBlock(v int32) {
 }
 
 // GetChainId returns the ChainId field value if set, zero value otherwise.
-func (o *Genesis) GetChainId() int32 {
+func (o *Genesis) GetChainId() int64 {
 	if o == nil || IsNil(o.ChainId) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ChainId
@@ -127,7 +127,7 @@ func (o *Genesis) GetChainId() int32 {
 
 // GetChainIdOk returns a tuple with the ChainId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Genesis) GetChainIdOk() (*int32, bool) {
+func (o *Genesis) GetChainIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.ChainId) {
 		return nil, false
 	}
@@ -143,8 +143,8 @@ func (o *Genesis) HasChainId() bool {
 	return false
 }
 
-// SetChainId gets a reference to the given int32 and assigns it to the ChainId field.
-func (o *Genesis) SetChainId(v int32) {
+// SetChainId gets a reference to the given int64 and assigns it to the ChainId field.
+func (o *Genesis) SetChainId(v int64) {
 	o.ChainId = &v
 }
 

@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Etag** | Pointer to **string** | ETag is the store&#39;s entity tag for the bytes currently at this name, with the quotes the store wraps it in stripped. It is an opaque VERSION and not a checksum to verify against: a single-part upload&#39;s tag happens to be the MD5 of the content and a multipart upload&#39;s is not, and nothing here says which this was. Compare two reads of one file to learn whether it changed; absent for a folder, and for a file the store reports none for. | [optional] 
 **IsFolder** | Pointer to **bool** | Folder is true for a folder entry, which is emergent from \&quot;/\&quot; in the names beneath it rather than a thing that was created. | [optional] 
-**ModifiedAt** | Pointer to **int32** | ModifiedAt is when the file was last written, in unix seconds, and 0 for a folder. | [optional] 
+**ModifiedAt** | Pointer to **int64** | ModifiedAt is when the file was last written, in unix seconds, and 0 for a folder. | [optional] 
 **Name** | Pointer to **string** | Name is the entry&#39;s name RELATIVE to the folder that was listed. | [optional] 
-**Size** | Pointer to **int32** | Size is the file&#39;s size in bytes, and 0 for a folder. | [optional] 
+**Size** | Pointer to **int64** | Size is the file&#39;s size in bytes, and 0 for a folder. | [optional] 
 
 ## Methods
 
@@ -81,20 +81,20 @@ HasIsFolder returns a boolean if a field has been set.
 
 ### GetModifiedAt
 
-`func (o *FileItem) GetModifiedAt() int32`
+`func (o *FileItem) GetModifiedAt() int64`
 
 GetModifiedAt returns the ModifiedAt field if non-nil, zero value otherwise.
 
 ### GetModifiedAtOk
 
-`func (o *FileItem) GetModifiedAtOk() (*int32, bool)`
+`func (o *FileItem) GetModifiedAtOk() (*int64, bool)`
 
 GetModifiedAtOk returns a tuple with the ModifiedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModifiedAt
 
-`func (o *FileItem) SetModifiedAt(v int32)`
+`func (o *FileItem) SetModifiedAt(v int64)`
 
 SetModifiedAt sets ModifiedAt field to given value.
 
@@ -131,20 +131,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetSize
 
-`func (o *FileItem) GetSize() int32`
+`func (o *FileItem) GetSize() int64`
 
 GetSize returns the Size field if non-nil, zero value otherwise.
 
 ### GetSizeOk
 
-`func (o *FileItem) GetSizeOk() (*int32, bool)`
+`func (o *FileItem) GetSizeOk() (*int64, bool)`
 
 GetSizeOk returns a tuple with the Size field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSize
 
-`func (o *FileItem) SetSize(v int32)`
+`func (o *FileItem) SetSize(v int64)`
 
 SetSize sets Size field to given value.
 

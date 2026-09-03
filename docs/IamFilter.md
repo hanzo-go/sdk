@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MaxResults** | Pointer to **int32** |  | [optional] 
+**MaxResults** | Pointer to **int64** |  | [optional] 
 **Supported** | Pointer to **bool** |  | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetMaxResults
 
-`func (o *IamFilter) GetMaxResults() int32`
+`func (o *IamFilter) GetMaxResults() int64`
 
 GetMaxResults returns the MaxResults field if non-nil, zero value otherwise.
 
 ### GetMaxResultsOk
 
-`func (o *IamFilter) GetMaxResultsOk() (*int32, bool)`
+`func (o *IamFilter) GetMaxResultsOk() (*int64, bool)`
 
 GetMaxResultsOk returns a tuple with the MaxResults field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxResults
 
-`func (o *IamFilter) SetMaxResults(v int32)`
+`func (o *IamFilter) SetMaxResults(v int64)`
 
 SetMaxResults sets MaxResults field to given value.
 

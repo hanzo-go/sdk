@@ -26,7 +26,7 @@ type O11yIncidentioConfig struct {
 	// MaxAlerts is the maximum number of alerts to be sent per incident.io message. Alerts exceeding this threshold will be truncated. Setting this to 0 allows an unlimited number of alerts. Note that if the payload exceeds incident.io's size limits, you will receive a 429 response and alerts will not be ingested.
 	MaxAlerts *int32 `json:"max_alerts,omitempty"`
 	// Timeout is the maximum time allowed to invoke incident.io. Setting this to 0 does not impose a timeout.
-	Timeout *int32      `json:"timeout,omitempty"`
+	Timeout *int64      `json:"timeout,omitempty"`
 	Url     interface{} `json:"url,omitempty"`
 	UrlFile *string     `json:"url_file,omitempty"`
 }
@@ -210,9 +210,9 @@ func (o *O11yIncidentioConfig) SetMaxAlerts(v int32) {
 }
 
 // GetTimeout returns the Timeout field value if set, zero value otherwise.
-func (o *O11yIncidentioConfig) GetTimeout() int32 {
+func (o *O11yIncidentioConfig) GetTimeout() int64 {
 	if o == nil || IsNil(o.Timeout) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Timeout
@@ -220,7 +220,7 @@ func (o *O11yIncidentioConfig) GetTimeout() int32 {
 
 // GetTimeoutOk returns a tuple with the Timeout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yIncidentioConfig) GetTimeoutOk() (*int32, bool) {
+func (o *O11yIncidentioConfig) GetTimeoutOk() (*int64, bool) {
 	if o == nil || IsNil(o.Timeout) {
 		return nil, false
 	}
@@ -236,8 +236,8 @@ func (o *O11yIncidentioConfig) HasTimeout() bool {
 	return false
 }
 
-// SetTimeout gets a reference to the given int32 and assigns it to the Timeout field.
-func (o *O11yIncidentioConfig) SetTimeout(v int32) {
+// SetTimeout gets a reference to the given int64 and assigns it to the Timeout field.
+func (o *O11yIncidentioConfig) SetTimeout(v int64) {
 	o.Timeout = &v
 }
 

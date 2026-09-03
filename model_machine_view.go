@@ -46,7 +46,7 @@ type MachineView struct {
 	// Type is the provider SIZE SLUG the machine runs at (\"s-2vcpu-4gb\", \"gpu-h100x8-640gb\") — the value a launch asks for, and what Vcpu/Mem/GPU are read out of when the provider states them no other way. \"byo-gpu\" for a dialed-in machine, which was never bought from a size catalog.
 	Type *string `json:"type,omitempty"`
 	// Vcpu is logical cores — the provider's own cpuSize when that is a clean integer, else the count read out of the size slug (4 from \"s-4vcpu-8gb\"). ABSENT, never 0, when neither says. A BYO machine leaves it absent here; its real core count is on GET /v1/visor/fleet/workers.
-	Vcpu *int32 `json:"vcpu,omitempty"`
+	Vcpu *int64 `json:"vcpu,omitempty"`
 }
 
 // NewMachineView instantiates a new MachineView object
@@ -483,9 +483,9 @@ func (o *MachineView) SetType(v string) {
 }
 
 // GetVcpu returns the Vcpu field value if set, zero value otherwise.
-func (o *MachineView) GetVcpu() int32 {
+func (o *MachineView) GetVcpu() int64 {
 	if o == nil || IsNil(o.Vcpu) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Vcpu
@@ -493,7 +493,7 @@ func (o *MachineView) GetVcpu() int32 {
 
 // GetVcpuOk returns a tuple with the Vcpu field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MachineView) GetVcpuOk() (*int32, bool) {
+func (o *MachineView) GetVcpuOk() (*int64, bool) {
 	if o == nil || IsNil(o.Vcpu) {
 		return nil, false
 	}
@@ -509,8 +509,8 @@ func (o *MachineView) HasVcpu() bool {
 	return false
 }
 
-// SetVcpu gets a reference to the given int32 and assigns it to the Vcpu field.
-func (o *MachineView) SetVcpu(v int32) {
+// SetVcpu gets a reference to the given int64 and assigns it to the Vcpu field.
+func (o *MachineView) SetVcpu(v int64) {
 	o.Vcpu = &v
 }
 

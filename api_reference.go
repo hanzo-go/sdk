@@ -144,7 +144,7 @@ type ReferenceAPIRiskReferenceRequest struct {
 	ApiService *ReferenceAPIService
 	set        string
 	after      *string
-	limit      *int32
+	limit      *int64
 }
 
 // After pages the override listing: the last key of the previous page.
@@ -154,7 +154,7 @@ func (r ReferenceAPIRiskReferenceRequest) After(after string) ReferenceAPIRiskRe
 }
 
 // Limit caps the override listing: default 200, maximum 1000.
-func (r ReferenceAPIRiskReferenceRequest) Limit(limit int32) ReferenceAPIRiskReferenceRequest {
+func (r ReferenceAPIRiskReferenceRequest) Limit(limit int64) ReferenceAPIRiskReferenceRequest {
 	r.limit = &limit
 	return r
 }

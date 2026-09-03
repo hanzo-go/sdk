@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] 
 **Interval** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**Price** | Pointer to **int32** |  | [optional] 
+**Price** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -131,20 +131,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetPrice
 
-`func (o *SubscriptionPlan) GetPrice() int32`
+`func (o *SubscriptionPlan) GetPrice() int64`
 
 GetPrice returns the Price field if non-nil, zero value otherwise.
 
 ### GetPriceOk
 
-`func (o *SubscriptionPlan) GetPriceOk() (*int32, bool)`
+`func (o *SubscriptionPlan) GetPriceOk() (*int64, bool)`
 
 GetPriceOk returns a tuple with the Price field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrice
 
-`func (o *SubscriptionPlan) SetPrice(v int32)`
+`func (o *SubscriptionPlan) SetPrice(v int64)`
 
 SetPrice sets Price field to given value.
 

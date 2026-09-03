@@ -26,7 +26,7 @@ type Category struct {
 	// Label is the display name, e.g. \"Observe\".
 	Label *string `json:"label,omitempty"`
 	// Order is where the category sits among its siblings, ascending.
-	Order *int32 `json:"order,omitempty"`
+	Order *int64 `json:"order,omitempty"`
 	// Owner is the org this category belongs to: the platform's own org for a category every tenant sees, or your org for one you added. It tells a console which rows it may offer to edit.
 	Owner *string `json:"owner,omitempty"`
 	// Summary is the one line describing what the category groups, shown as the header copy on its landing page.
@@ -149,9 +149,9 @@ func (o *Category) SetLabel(v string) {
 }
 
 // GetOrder returns the Order field value if set, zero value otherwise.
-func (o *Category) GetOrder() int32 {
+func (o *Category) GetOrder() int64 {
 	if o == nil || IsNil(o.Order) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Order
@@ -159,7 +159,7 @@ func (o *Category) GetOrder() int32 {
 
 // GetOrderOk returns a tuple with the Order field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Category) GetOrderOk() (*int32, bool) {
+func (o *Category) GetOrderOk() (*int64, bool) {
 	if o == nil || IsNil(o.Order) {
 		return nil, false
 	}
@@ -175,8 +175,8 @@ func (o *Category) HasOrder() bool {
 	return false
 }
 
-// SetOrder gets a reference to the given int32 and assigns it to the Order field.
-func (o *Category) SetOrder(v int32) {
+// SetOrder gets a reference to the given int64 and assigns it to the Order field.
+func (o *Category) SetOrder(v int64) {
 	o.Order = &v
 }
 

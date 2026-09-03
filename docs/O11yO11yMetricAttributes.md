@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Attributes** | Pointer to [**[]O11yO11yMetricAttribute**](O11yO11yMetricAttribute.md) | Attributes are the keys, each with its values. | [optional] 
-**TotalKeys** | Pointer to **int32** | TotalKeys is how many keys the metric has. | [optional] 
+**TotalKeys** | Pointer to **int64** | TotalKeys is how many keys the metric has. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasAttributes returns a boolean if a field has been set.
 
 ### GetTotalKeys
 
-`func (o *O11yO11yMetricAttributes) GetTotalKeys() int32`
+`func (o *O11yO11yMetricAttributes) GetTotalKeys() int64`
 
 GetTotalKeys returns the TotalKeys field if non-nil, zero value otherwise.
 
 ### GetTotalKeysOk
 
-`func (o *O11yO11yMetricAttributes) GetTotalKeysOk() (*int32, bool)`
+`func (o *O11yO11yMetricAttributes) GetTotalKeysOk() (*int64, bool)`
 
 GetTotalKeysOk returns a tuple with the TotalKeys field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalKeys
 
-`func (o *O11yO11yMetricAttributes) SetTotalKeys(v int32)`
+`func (o *O11yO11yMetricAttributes) SetTotalKeys(v int64)`
 
 SetTotalKeys sets TotalKeys field to given value.
 

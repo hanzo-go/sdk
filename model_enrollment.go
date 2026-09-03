@@ -24,19 +24,19 @@ type Enrollment struct {
 	// Channel is the delivery surface the steps go out on.
 	Channel *string `json:"channel,omitempty"`
 	// CurrentStep is the index of the step that sends next.
-	CurrentStep *int32 `json:"currentStep,omitempty"`
+	CurrentStep *int64 `json:"currentStep,omitempty"`
 	// EnrolledAt is unix seconds when the contact joined the walk, and orders the enrollment list (newest first).
-	EnrolledAt *int32 `json:"enrolledAt,omitempty"`
+	EnrolledAt *int64 `json:"enrolledAt,omitempty"`
 	// ID is the server-assigned enrollment id (\"enr_\" + 128 random bits).
 	Id *string `json:"id,omitempty"`
 	// NextRunAt is the unix time the current step comes due; 0 once the walk has ended. It IS the schedule — durable in SQLite, so it survives restarts.
-	NextRunAt *int32 `json:"nextRunAt,omitempty"`
+	NextRunAt *int64 `json:"nextRunAt,omitempty"`
 	// SequenceID is the sequence being walked.
 	SequenceId *string `json:"sequenceId,omitempty"`
 	// Status is active, completed or canceled.
 	Status *string `json:"status,omitempty"`
 	// UpdatedAt is unix seconds of the last move: the drip engine writes it each time it advances the walk a step, completes it or cancels it. Together with Status it says when the walk last did anything, which is how a stalled enrollment is told from a finished one.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewEnrollment instantiates a new Enrollment object
@@ -121,9 +121,9 @@ func (o *Enrollment) SetChannel(v string) {
 }
 
 // GetCurrentStep returns the CurrentStep field value if set, zero value otherwise.
-func (o *Enrollment) GetCurrentStep() int32 {
+func (o *Enrollment) GetCurrentStep() int64 {
 	if o == nil || IsNil(o.CurrentStep) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CurrentStep
@@ -131,7 +131,7 @@ func (o *Enrollment) GetCurrentStep() int32 {
 
 // GetCurrentStepOk returns a tuple with the CurrentStep field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Enrollment) GetCurrentStepOk() (*int32, bool) {
+func (o *Enrollment) GetCurrentStepOk() (*int64, bool) {
 	if o == nil || IsNil(o.CurrentStep) {
 		return nil, false
 	}
@@ -147,15 +147,15 @@ func (o *Enrollment) HasCurrentStep() bool {
 	return false
 }
 
-// SetCurrentStep gets a reference to the given int32 and assigns it to the CurrentStep field.
-func (o *Enrollment) SetCurrentStep(v int32) {
+// SetCurrentStep gets a reference to the given int64 and assigns it to the CurrentStep field.
+func (o *Enrollment) SetCurrentStep(v int64) {
 	o.CurrentStep = &v
 }
 
 // GetEnrolledAt returns the EnrolledAt field value if set, zero value otherwise.
-func (o *Enrollment) GetEnrolledAt() int32 {
+func (o *Enrollment) GetEnrolledAt() int64 {
 	if o == nil || IsNil(o.EnrolledAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.EnrolledAt
@@ -163,7 +163,7 @@ func (o *Enrollment) GetEnrolledAt() int32 {
 
 // GetEnrolledAtOk returns a tuple with the EnrolledAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Enrollment) GetEnrolledAtOk() (*int32, bool) {
+func (o *Enrollment) GetEnrolledAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.EnrolledAt) {
 		return nil, false
 	}
@@ -179,8 +179,8 @@ func (o *Enrollment) HasEnrolledAt() bool {
 	return false
 }
 
-// SetEnrolledAt gets a reference to the given int32 and assigns it to the EnrolledAt field.
-func (o *Enrollment) SetEnrolledAt(v int32) {
+// SetEnrolledAt gets a reference to the given int64 and assigns it to the EnrolledAt field.
+func (o *Enrollment) SetEnrolledAt(v int64) {
 	o.EnrolledAt = &v
 }
 
@@ -217,9 +217,9 @@ func (o *Enrollment) SetId(v string) {
 }
 
 // GetNextRunAt returns the NextRunAt field value if set, zero value otherwise.
-func (o *Enrollment) GetNextRunAt() int32 {
+func (o *Enrollment) GetNextRunAt() int64 {
 	if o == nil || IsNil(o.NextRunAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NextRunAt
@@ -227,7 +227,7 @@ func (o *Enrollment) GetNextRunAt() int32 {
 
 // GetNextRunAtOk returns a tuple with the NextRunAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Enrollment) GetNextRunAtOk() (*int32, bool) {
+func (o *Enrollment) GetNextRunAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.NextRunAt) {
 		return nil, false
 	}
@@ -243,8 +243,8 @@ func (o *Enrollment) HasNextRunAt() bool {
 	return false
 }
 
-// SetNextRunAt gets a reference to the given int32 and assigns it to the NextRunAt field.
-func (o *Enrollment) SetNextRunAt(v int32) {
+// SetNextRunAt gets a reference to the given int64 and assigns it to the NextRunAt field.
+func (o *Enrollment) SetNextRunAt(v int64) {
 	o.NextRunAt = &v
 }
 
@@ -313,9 +313,9 @@ func (o *Enrollment) SetStatus(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *Enrollment) GetUpdatedAt() int32 {
+func (o *Enrollment) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -323,7 +323,7 @@ func (o *Enrollment) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Enrollment) GetUpdatedAtOk() (*int32, bool) {
+func (o *Enrollment) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -339,8 +339,8 @@ func (o *Enrollment) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *Enrollment) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *Enrollment) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

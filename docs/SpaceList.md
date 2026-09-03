@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Spaces** | Pointer to [**[]SpaceItem**](SpaceItem.md) | Spaces are the caller org&#39;s spaces, oldest first as the store returns them. | [optional] 
-**Total** | Pointer to **int32** | Total is how many spaces this org has. It equals len(spaces): the listing is not paged, because one bucket per (org, space) keeps an org&#39;s count small by construction, which is the whole reason a drive is a prefix and not a bucket. | [optional] 
+**Total** | Pointer to **int64** | Total is how many spaces this org has. It equals len(spaces): the listing is not paged, because one bucket per (org, space) keeps an org&#39;s count small by construction, which is the whole reason a drive is a prefix and not a bucket. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasSpaces returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *SpaceList) GetTotal() int32`
+`func (o *SpaceList) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *SpaceList) GetTotalOk() (*int32, bool)`
+`func (o *SpaceList) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *SpaceList) SetTotal(v int32)`
+`func (o *SpaceList) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

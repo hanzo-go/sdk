@@ -22,7 +22,7 @@ type O11yO11yLogAggregateBucket struct {
 	// GroupBy carries the group's key values when the aggregate grouped.
 	GroupBy map[string]interface{} `json:"groupBy,omitempty"`
 	// Timestamp is the start of the bucket.
-	Timestamp *int32      `json:"timestamp,omitempty"`
+	Timestamp *int64      `json:"timestamp,omitempty"`
 	Value     interface{} `json:"value,omitempty"`
 }
 
@@ -76,9 +76,9 @@ func (o *O11yO11yLogAggregateBucket) SetGroupBy(v map[string]interface{}) {
 }
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
-func (o *O11yO11yLogAggregateBucket) GetTimestamp() int32 {
+func (o *O11yO11yLogAggregateBucket) GetTimestamp() int64 {
 	if o == nil || IsNil(o.Timestamp) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Timestamp
@@ -86,7 +86,7 @@ func (o *O11yO11yLogAggregateBucket) GetTimestamp() int32 {
 
 // GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLogAggregateBucket) GetTimestampOk() (*int32, bool) {
+func (o *O11yO11yLogAggregateBucket) GetTimestampOk() (*int64, bool) {
 	if o == nil || IsNil(o.Timestamp) {
 		return nil, false
 	}
@@ -102,8 +102,8 @@ func (o *O11yO11yLogAggregateBucket) HasTimestamp() bool {
 	return false
 }
 
-// SetTimestamp gets a reference to the given int32 and assigns it to the Timestamp field.
-func (o *O11yO11yLogAggregateBucket) SetTimestamp(v int32) {
+// SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
+func (o *O11yO11yLogAggregateBucket) SetTimestamp(v int64) {
 	o.Timestamp = &v
 }
 

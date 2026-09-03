@@ -20,13 +20,13 @@ var _ MappedNullable = &O11yHostListRecord{}
 // O11yHostListRecord struct for O11yHostListRecord
 type O11yHostListRecord struct {
 	Active   *bool             `json:"active,omitempty"`
-	Cpu      *float32          `json:"cpu,omitempty"`
+	Cpu      *float64          `json:"cpu,omitempty"`
 	HostName *string           `json:"hostName,omitempty"`
-	Load15   *float32          `json:"load15,omitempty"`
-	Memory   *float32          `json:"memory,omitempty"`
+	Load15   *float64          `json:"load15,omitempty"`
+	Memory   *float64          `json:"memory,omitempty"`
 	Meta     map[string]string `json:"meta,omitempty"`
 	Os       *string           `json:"os,omitempty"`
-	Wait     *float32          `json:"wait,omitempty"`
+	Wait     *float64          `json:"wait,omitempty"`
 }
 
 // NewO11yHostListRecord instantiates a new O11yHostListRecord object
@@ -79,9 +79,9 @@ func (o *O11yHostListRecord) SetActive(v bool) {
 }
 
 // GetCpu returns the Cpu field value if set, zero value otherwise.
-func (o *O11yHostListRecord) GetCpu() float32 {
+func (o *O11yHostListRecord) GetCpu() float64 {
 	if o == nil || IsNil(o.Cpu) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Cpu
@@ -89,7 +89,7 @@ func (o *O11yHostListRecord) GetCpu() float32 {
 
 // GetCpuOk returns a tuple with the Cpu field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yHostListRecord) GetCpuOk() (*float32, bool) {
+func (o *O11yHostListRecord) GetCpuOk() (*float64, bool) {
 	if o == nil || IsNil(o.Cpu) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *O11yHostListRecord) HasCpu() bool {
 	return false
 }
 
-// SetCpu gets a reference to the given float32 and assigns it to the Cpu field.
-func (o *O11yHostListRecord) SetCpu(v float32) {
+// SetCpu gets a reference to the given float64 and assigns it to the Cpu field.
+func (o *O11yHostListRecord) SetCpu(v float64) {
 	o.Cpu = &v
 }
 
@@ -143,9 +143,9 @@ func (o *O11yHostListRecord) SetHostName(v string) {
 }
 
 // GetLoad15 returns the Load15 field value if set, zero value otherwise.
-func (o *O11yHostListRecord) GetLoad15() float32 {
+func (o *O11yHostListRecord) GetLoad15() float64 {
 	if o == nil || IsNil(o.Load15) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Load15
@@ -153,7 +153,7 @@ func (o *O11yHostListRecord) GetLoad15() float32 {
 
 // GetLoad15Ok returns a tuple with the Load15 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yHostListRecord) GetLoad15Ok() (*float32, bool) {
+func (o *O11yHostListRecord) GetLoad15Ok() (*float64, bool) {
 	if o == nil || IsNil(o.Load15) {
 		return nil, false
 	}
@@ -169,15 +169,15 @@ func (o *O11yHostListRecord) HasLoad15() bool {
 	return false
 }
 
-// SetLoad15 gets a reference to the given float32 and assigns it to the Load15 field.
-func (o *O11yHostListRecord) SetLoad15(v float32) {
+// SetLoad15 gets a reference to the given float64 and assigns it to the Load15 field.
+func (o *O11yHostListRecord) SetLoad15(v float64) {
 	o.Load15 = &v
 }
 
 // GetMemory returns the Memory field value if set, zero value otherwise.
-func (o *O11yHostListRecord) GetMemory() float32 {
+func (o *O11yHostListRecord) GetMemory() float64 {
 	if o == nil || IsNil(o.Memory) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Memory
@@ -185,7 +185,7 @@ func (o *O11yHostListRecord) GetMemory() float32 {
 
 // GetMemoryOk returns a tuple with the Memory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yHostListRecord) GetMemoryOk() (*float32, bool) {
+func (o *O11yHostListRecord) GetMemoryOk() (*float64, bool) {
 	if o == nil || IsNil(o.Memory) {
 		return nil, false
 	}
@@ -201,8 +201,8 @@ func (o *O11yHostListRecord) HasMemory() bool {
 	return false
 }
 
-// SetMemory gets a reference to the given float32 and assigns it to the Memory field.
-func (o *O11yHostListRecord) SetMemory(v float32) {
+// SetMemory gets a reference to the given float64 and assigns it to the Memory field.
+func (o *O11yHostListRecord) SetMemory(v float64) {
 	o.Memory = &v
 }
 
@@ -271,9 +271,9 @@ func (o *O11yHostListRecord) SetOs(v string) {
 }
 
 // GetWait returns the Wait field value if set, zero value otherwise.
-func (o *O11yHostListRecord) GetWait() float32 {
+func (o *O11yHostListRecord) GetWait() float64 {
 	if o == nil || IsNil(o.Wait) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Wait
@@ -281,7 +281,7 @@ func (o *O11yHostListRecord) GetWait() float32 {
 
 // GetWaitOk returns a tuple with the Wait field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yHostListRecord) GetWaitOk() (*float32, bool) {
+func (o *O11yHostListRecord) GetWaitOk() (*float64, bool) {
 	if o == nil || IsNil(o.Wait) {
 		return nil, false
 	}
@@ -297,8 +297,8 @@ func (o *O11yHostListRecord) HasWait() bool {
 	return false
 }
 
-// SetWait gets a reference to the given float32 and assigns it to the Wait field.
-func (o *O11yHostListRecord) SetWait(v float32) {
+// SetWait gets a reference to the given float64 and assigns it to the Wait field.
+func (o *O11yHostListRecord) SetWait(v float64) {
 	o.Wait = &v
 }
 

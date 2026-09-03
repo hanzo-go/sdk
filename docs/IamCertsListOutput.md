@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Certs** | Pointer to [**[]IamCert**](IamCert.md) |  | [optional] 
-**Total** | Pointer to **int32** |  | [optional] 
+**Total** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasCerts returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *IamCertsListOutput) GetTotal() int32`
+`func (o *IamCertsListOutput) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *IamCertsListOutput) GetTotalOk() (*int32, bool)`
+`func (o *IamCertsListOutput) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *IamCertsListOutput) SetTotal(v int32)`
+`func (o *IamCertsListOutput) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

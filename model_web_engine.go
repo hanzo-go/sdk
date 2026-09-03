@@ -24,7 +24,7 @@ type WebEngine struct {
 	// Outcome is \"answered\", \"blind\" or \"failed\" — see outcome.go. \"blind\" means the page came back and no results could be read out of it.
 	Outcome *string `json:"outcome,omitempty"`
 	// Results is how many hits this engine contributed, before the merge deduplicated them against the others.
-	Results *int32 `json:"results,omitempty"`
+	Results *int64 `json:"results,omitempty"`
 }
 
 // NewWebEngine instantiates a new WebEngine object
@@ -109,9 +109,9 @@ func (o *WebEngine) SetOutcome(v string) {
 }
 
 // GetResults returns the Results field value if set, zero value otherwise.
-func (o *WebEngine) GetResults() int32 {
+func (o *WebEngine) GetResults() int64 {
 	if o == nil || IsNil(o.Results) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Results
@@ -119,7 +119,7 @@ func (o *WebEngine) GetResults() int32 {
 
 // GetResultsOk returns a tuple with the Results field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebEngine) GetResultsOk() (*int32, bool) {
+func (o *WebEngine) GetResultsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Results) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *WebEngine) HasResults() bool {
 	return false
 }
 
-// SetResults gets a reference to the given int32 and assigns it to the Results field.
-func (o *WebEngine) SetResults(v int32) {
+// SetResults gets a reference to the given int64 and assigns it to the Results field.
+func (o *WebEngine) SetResults(v int64) {
 	o.Results = &v
 }
 

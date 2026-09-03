@@ -20,9 +20,9 @@ var _ MappedNullable = &VerificationTally{}
 // VerificationTally struct for VerificationTally
 type VerificationTally struct {
 	// ByStatus tallies the org's verifications by provider-reported status.
-	ByStatus map[string]int32 `json:"byStatus,omitempty"`
+	ByStatus map[string]int64 `json:"byStatus,omitempty"`
 	// Total is the sum over every status.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 }
 
 // NewVerificationTally instantiates a new VerificationTally object
@@ -43,9 +43,9 @@ func NewVerificationTallyWithDefaults() *VerificationTally {
 }
 
 // GetByStatus returns the ByStatus field value if set, zero value otherwise.
-func (o *VerificationTally) GetByStatus() map[string]int32 {
+func (o *VerificationTally) GetByStatus() map[string]int64 {
 	if o == nil || IsNil(o.ByStatus) {
-		var ret map[string]int32
+		var ret map[string]int64
 		return ret
 	}
 	return o.ByStatus
@@ -53,9 +53,9 @@ func (o *VerificationTally) GetByStatus() map[string]int32 {
 
 // GetByStatusOk returns a tuple with the ByStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VerificationTally) GetByStatusOk() (map[string]int32, bool) {
+func (o *VerificationTally) GetByStatusOk() (map[string]int64, bool) {
 	if o == nil || IsNil(o.ByStatus) {
-		return map[string]int32{}, false
+		return map[string]int64{}, false
 	}
 	return o.ByStatus, true
 }
@@ -69,15 +69,15 @@ func (o *VerificationTally) HasByStatus() bool {
 	return false
 }
 
-// SetByStatus gets a reference to the given map[string]int32 and assigns it to the ByStatus field.
-func (o *VerificationTally) SetByStatus(v map[string]int32) {
+// SetByStatus gets a reference to the given map[string]int64 and assigns it to the ByStatus field.
+func (o *VerificationTally) SetByStatus(v map[string]int64) {
 	o.ByStatus = v
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *VerificationTally) GetTotal() int32 {
+func (o *VerificationTally) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -85,7 +85,7 @@ func (o *VerificationTally) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VerificationTally) GetTotalOk() (*int32, bool) {
+func (o *VerificationTally) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *VerificationTally) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *VerificationTally) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *VerificationTally) SetTotal(v int64) {
 	o.Total = &v
 }
 

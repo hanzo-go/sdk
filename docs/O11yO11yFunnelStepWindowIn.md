@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EndTime** | Pointer to **int32** |  | [optional] 
-**StartTime** | Pointer to **int32** |  | [optional] 
-**StepEnd** | Pointer to **int32** |  | [optional] 
-**StepStart** | Pointer to **int32** |  | [optional] 
+**EndTime** | Pointer to **int64** |  | [optional] 
+**StartTime** | Pointer to **int64** |  | [optional] 
+**StepEnd** | Pointer to **int64** |  | [optional] 
+**StepStart** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetEndTime
 
-`func (o *O11yO11yFunnelStepWindowIn) GetEndTime() int32`
+`func (o *O11yO11yFunnelStepWindowIn) GetEndTime() int64`
 
 GetEndTime returns the EndTime field if non-nil, zero value otherwise.
 
 ### GetEndTimeOk
 
-`func (o *O11yO11yFunnelStepWindowIn) GetEndTimeOk() (*int32, bool)`
+`func (o *O11yO11yFunnelStepWindowIn) GetEndTimeOk() (*int64, bool)`
 
 GetEndTimeOk returns a tuple with the EndTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndTime
 
-`func (o *O11yO11yFunnelStepWindowIn) SetEndTime(v int32)`
+`func (o *O11yO11yFunnelStepWindowIn) SetEndTime(v int64)`
 
 SetEndTime sets EndTime field to given value.
 
@@ -55,20 +55,20 @@ HasEndTime returns a boolean if a field has been set.
 
 ### GetStartTime
 
-`func (o *O11yO11yFunnelStepWindowIn) GetStartTime() int32`
+`func (o *O11yO11yFunnelStepWindowIn) GetStartTime() int64`
 
 GetStartTime returns the StartTime field if non-nil, zero value otherwise.
 
 ### GetStartTimeOk
 
-`func (o *O11yO11yFunnelStepWindowIn) GetStartTimeOk() (*int32, bool)`
+`func (o *O11yO11yFunnelStepWindowIn) GetStartTimeOk() (*int64, bool)`
 
 GetStartTimeOk returns a tuple with the StartTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartTime
 
-`func (o *O11yO11yFunnelStepWindowIn) SetStartTime(v int32)`
+`func (o *O11yO11yFunnelStepWindowIn) SetStartTime(v int64)`
 
 SetStartTime sets StartTime field to given value.
 
@@ -80,20 +80,20 @@ HasStartTime returns a boolean if a field has been set.
 
 ### GetStepEnd
 
-`func (o *O11yO11yFunnelStepWindowIn) GetStepEnd() int32`
+`func (o *O11yO11yFunnelStepWindowIn) GetStepEnd() int64`
 
 GetStepEnd returns the StepEnd field if non-nil, zero value otherwise.
 
 ### GetStepEndOk
 
-`func (o *O11yO11yFunnelStepWindowIn) GetStepEndOk() (*int32, bool)`
+`func (o *O11yO11yFunnelStepWindowIn) GetStepEndOk() (*int64, bool)`
 
 GetStepEndOk returns a tuple with the StepEnd field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStepEnd
 
-`func (o *O11yO11yFunnelStepWindowIn) SetStepEnd(v int32)`
+`func (o *O11yO11yFunnelStepWindowIn) SetStepEnd(v int64)`
 
 SetStepEnd sets StepEnd field to given value.
 
@@ -105,20 +105,20 @@ HasStepEnd returns a boolean if a field has been set.
 
 ### GetStepStart
 
-`func (o *O11yO11yFunnelStepWindowIn) GetStepStart() int32`
+`func (o *O11yO11yFunnelStepWindowIn) GetStepStart() int64`
 
 GetStepStart returns the StepStart field if non-nil, zero value otherwise.
 
 ### GetStepStartOk
 
-`func (o *O11yO11yFunnelStepWindowIn) GetStepStartOk() (*int32, bool)`
+`func (o *O11yO11yFunnelStepWindowIn) GetStepStartOk() (*int64, bool)`
 
 GetStepStartOk returns a tuple with the StepStart field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStepStart
 
-`func (o *O11yO11yFunnelStepWindowIn) SetStepStart(v int32)`
+`func (o *O11yO11yFunnelStepWindowIn) SetStepStart(v int64)`
 
 SetStepStart sets StepStart field to given value.
 

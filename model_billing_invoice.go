@@ -19,19 +19,19 @@ var _ MappedNullable = &BillingInvoice{}
 
 // BillingInvoice struct for BillingInvoice
 type BillingInvoice struct {
-	AmountDue     *int32  `json:"amountDue,omitempty"`
-	AmountPaid    *int32  `json:"amountPaid,omitempty"`
-	AttemptCount  *int32  `json:"attemptCount,omitempty"`
+	AmountDue     *int64  `json:"amountDue,omitempty"`
+	AmountPaid    *int64  `json:"amountPaid,omitempty"`
+	AttemptCount  *int64  `json:"attemptCount,omitempty"`
 	CreatedAt     *string `json:"createdAt,omitempty"`
-	CreditApplied *int32  `json:"creditApplied,omitempty"`
+	CreditApplied *int64  `json:"creditApplied,omitempty"`
 	Currency      *string `json:"currency,omitempty"`
 	CustomerEmail *string `json:"customerEmail,omitempty"`
-	Discount      *int32  `json:"discount,omitempty"`
+	Discount      *int64  `json:"discount,omitempty"`
 	DueDate       *string `json:"dueDate,omitempty"`
 	Id            *string `json:"id,omitempty"`
 	// LineItems carries no omitempty and is never allocated empty, because the wire it reproduces sends `null` for an invoice with no lines. An empty array there would be a different answer to \"were there lines\".
 	LineItems      []InvoiceLineItem `json:"lineItems,omitempty"`
-	Number         *int32            `json:"number,omitempty"`
+	Number         *int64            `json:"number,omitempty"`
 	NumberStr      *string           `json:"numberStr,omitempty"`
 	PaidAt         *string           `json:"paidAt,omitempty"`
 	PaymentMethod  *string           `json:"paymentMethod,omitempty"`
@@ -40,8 +40,8 @@ type BillingInvoice struct {
 	PeriodStart    *string           `json:"periodStart,omitempty"`
 	Status         *string           `json:"status,omitempty"`
 	SubscriptionId *string           `json:"subscriptionId,omitempty"`
-	Subtotal       *int32            `json:"subtotal,omitempty"`
-	Tax            *int32            `json:"tax,omitempty"`
+	Subtotal       *int64            `json:"subtotal,omitempty"`
+	Tax            *int64            `json:"tax,omitempty"`
 	UpdatedAt      *string           `json:"updatedAt,omitempty"`
 	UserId         *string           `json:"userId,omitempty"`
 	VoidedAt       *string           `json:"voidedAt,omitempty"`
@@ -65,9 +65,9 @@ func NewBillingInvoiceWithDefaults() *BillingInvoice {
 }
 
 // GetAmountDue returns the AmountDue field value if set, zero value otherwise.
-func (o *BillingInvoice) GetAmountDue() int32 {
+func (o *BillingInvoice) GetAmountDue() int64 {
 	if o == nil || IsNil(o.AmountDue) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AmountDue
@@ -75,7 +75,7 @@ func (o *BillingInvoice) GetAmountDue() int32 {
 
 // GetAmountDueOk returns a tuple with the AmountDue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetAmountDueOk() (*int32, bool) {
+func (o *BillingInvoice) GetAmountDueOk() (*int64, bool) {
 	if o == nil || IsNil(o.AmountDue) {
 		return nil, false
 	}
@@ -91,15 +91,15 @@ func (o *BillingInvoice) HasAmountDue() bool {
 	return false
 }
 
-// SetAmountDue gets a reference to the given int32 and assigns it to the AmountDue field.
-func (o *BillingInvoice) SetAmountDue(v int32) {
+// SetAmountDue gets a reference to the given int64 and assigns it to the AmountDue field.
+func (o *BillingInvoice) SetAmountDue(v int64) {
 	o.AmountDue = &v
 }
 
 // GetAmountPaid returns the AmountPaid field value if set, zero value otherwise.
-func (o *BillingInvoice) GetAmountPaid() int32 {
+func (o *BillingInvoice) GetAmountPaid() int64 {
 	if o == nil || IsNil(o.AmountPaid) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AmountPaid
@@ -107,7 +107,7 @@ func (o *BillingInvoice) GetAmountPaid() int32 {
 
 // GetAmountPaidOk returns a tuple with the AmountPaid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetAmountPaidOk() (*int32, bool) {
+func (o *BillingInvoice) GetAmountPaidOk() (*int64, bool) {
 	if o == nil || IsNil(o.AmountPaid) {
 		return nil, false
 	}
@@ -123,15 +123,15 @@ func (o *BillingInvoice) HasAmountPaid() bool {
 	return false
 }
 
-// SetAmountPaid gets a reference to the given int32 and assigns it to the AmountPaid field.
-func (o *BillingInvoice) SetAmountPaid(v int32) {
+// SetAmountPaid gets a reference to the given int64 and assigns it to the AmountPaid field.
+func (o *BillingInvoice) SetAmountPaid(v int64) {
 	o.AmountPaid = &v
 }
 
 // GetAttemptCount returns the AttemptCount field value if set, zero value otherwise.
-func (o *BillingInvoice) GetAttemptCount() int32 {
+func (o *BillingInvoice) GetAttemptCount() int64 {
 	if o == nil || IsNil(o.AttemptCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AttemptCount
@@ -139,7 +139,7 @@ func (o *BillingInvoice) GetAttemptCount() int32 {
 
 // GetAttemptCountOk returns a tuple with the AttemptCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetAttemptCountOk() (*int32, bool) {
+func (o *BillingInvoice) GetAttemptCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.AttemptCount) {
 		return nil, false
 	}
@@ -155,8 +155,8 @@ func (o *BillingInvoice) HasAttemptCount() bool {
 	return false
 }
 
-// SetAttemptCount gets a reference to the given int32 and assigns it to the AttemptCount field.
-func (o *BillingInvoice) SetAttemptCount(v int32) {
+// SetAttemptCount gets a reference to the given int64 and assigns it to the AttemptCount field.
+func (o *BillingInvoice) SetAttemptCount(v int64) {
 	o.AttemptCount = &v
 }
 
@@ -193,9 +193,9 @@ func (o *BillingInvoice) SetCreatedAt(v string) {
 }
 
 // GetCreditApplied returns the CreditApplied field value if set, zero value otherwise.
-func (o *BillingInvoice) GetCreditApplied() int32 {
+func (o *BillingInvoice) GetCreditApplied() int64 {
 	if o == nil || IsNil(o.CreditApplied) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreditApplied
@@ -203,7 +203,7 @@ func (o *BillingInvoice) GetCreditApplied() int32 {
 
 // GetCreditAppliedOk returns a tuple with the CreditApplied field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetCreditAppliedOk() (*int32, bool) {
+func (o *BillingInvoice) GetCreditAppliedOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreditApplied) {
 		return nil, false
 	}
@@ -219,8 +219,8 @@ func (o *BillingInvoice) HasCreditApplied() bool {
 	return false
 }
 
-// SetCreditApplied gets a reference to the given int32 and assigns it to the CreditApplied field.
-func (o *BillingInvoice) SetCreditApplied(v int32) {
+// SetCreditApplied gets a reference to the given int64 and assigns it to the CreditApplied field.
+func (o *BillingInvoice) SetCreditApplied(v int64) {
 	o.CreditApplied = &v
 }
 
@@ -289,9 +289,9 @@ func (o *BillingInvoice) SetCustomerEmail(v string) {
 }
 
 // GetDiscount returns the Discount field value if set, zero value otherwise.
-func (o *BillingInvoice) GetDiscount() int32 {
+func (o *BillingInvoice) GetDiscount() int64 {
 	if o == nil || IsNil(o.Discount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Discount
@@ -299,7 +299,7 @@ func (o *BillingInvoice) GetDiscount() int32 {
 
 // GetDiscountOk returns a tuple with the Discount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetDiscountOk() (*int32, bool) {
+func (o *BillingInvoice) GetDiscountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Discount) {
 		return nil, false
 	}
@@ -315,8 +315,8 @@ func (o *BillingInvoice) HasDiscount() bool {
 	return false
 }
 
-// SetDiscount gets a reference to the given int32 and assigns it to the Discount field.
-func (o *BillingInvoice) SetDiscount(v int32) {
+// SetDiscount gets a reference to the given int64 and assigns it to the Discount field.
+func (o *BillingInvoice) SetDiscount(v int64) {
 	o.Discount = &v
 }
 
@@ -417,9 +417,9 @@ func (o *BillingInvoice) SetLineItems(v []InvoiceLineItem) {
 }
 
 // GetNumber returns the Number field value if set, zero value otherwise.
-func (o *BillingInvoice) GetNumber() int32 {
+func (o *BillingInvoice) GetNumber() int64 {
 	if o == nil || IsNil(o.Number) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Number
@@ -427,7 +427,7 @@ func (o *BillingInvoice) GetNumber() int32 {
 
 // GetNumberOk returns a tuple with the Number field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetNumberOk() (*int32, bool) {
+func (o *BillingInvoice) GetNumberOk() (*int64, bool) {
 	if o == nil || IsNil(o.Number) {
 		return nil, false
 	}
@@ -443,8 +443,8 @@ func (o *BillingInvoice) HasNumber() bool {
 	return false
 }
 
-// SetNumber gets a reference to the given int32 and assigns it to the Number field.
-func (o *BillingInvoice) SetNumber(v int32) {
+// SetNumber gets a reference to the given int64 and assigns it to the Number field.
+func (o *BillingInvoice) SetNumber(v int64) {
 	o.Number = &v
 }
 
@@ -705,9 +705,9 @@ func (o *BillingInvoice) SetSubscriptionId(v string) {
 }
 
 // GetSubtotal returns the Subtotal field value if set, zero value otherwise.
-func (o *BillingInvoice) GetSubtotal() int32 {
+func (o *BillingInvoice) GetSubtotal() int64 {
 	if o == nil || IsNil(o.Subtotal) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Subtotal
@@ -715,7 +715,7 @@ func (o *BillingInvoice) GetSubtotal() int32 {
 
 // GetSubtotalOk returns a tuple with the Subtotal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetSubtotalOk() (*int32, bool) {
+func (o *BillingInvoice) GetSubtotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Subtotal) {
 		return nil, false
 	}
@@ -731,15 +731,15 @@ func (o *BillingInvoice) HasSubtotal() bool {
 	return false
 }
 
-// SetSubtotal gets a reference to the given int32 and assigns it to the Subtotal field.
-func (o *BillingInvoice) SetSubtotal(v int32) {
+// SetSubtotal gets a reference to the given int64 and assigns it to the Subtotal field.
+func (o *BillingInvoice) SetSubtotal(v int64) {
 	o.Subtotal = &v
 }
 
 // GetTax returns the Tax field value if set, zero value otherwise.
-func (o *BillingInvoice) GetTax() int32 {
+func (o *BillingInvoice) GetTax() int64 {
 	if o == nil || IsNil(o.Tax) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Tax
@@ -747,7 +747,7 @@ func (o *BillingInvoice) GetTax() int32 {
 
 // GetTaxOk returns a tuple with the Tax field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetTaxOk() (*int32, bool) {
+func (o *BillingInvoice) GetTaxOk() (*int64, bool) {
 	if o == nil || IsNil(o.Tax) {
 		return nil, false
 	}
@@ -763,8 +763,8 @@ func (o *BillingInvoice) HasTax() bool {
 	return false
 }
 
-// SetTax gets a reference to the given int32 and assigns it to the Tax field.
-func (o *BillingInvoice) SetTax(v int32) {
+// SetTax gets a reference to the given int64 and assigns it to the Tax field.
+func (o *BillingInvoice) SetTax(v int64) {
 	o.Tax = &v
 }
 

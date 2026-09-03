@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Capital** | Pointer to **float32** | Capital is the principal the investor lent. | [optional] 
-**ConversionCap** | Pointer to **float32** | ConversionCap is the valuation cap on conversion, if any. | [optional] 
-**DiscountRate** | Pointer to **float32** | DiscountRate is the discount to the next round&#39;s price, if any. | [optional] 
+**Capital** | Pointer to **float64** | Capital is the principal the investor lent. | [optional] 
+**ConversionCap** | Pointer to **float64** | ConversionCap is the valuation cap on conversion, if any. | [optional] 
+**DiscountRate** | Pointer to **float64** | DiscountRate is the discount to the next round&#39;s price, if any. | [optional] 
 **Id** | Pointer to **string** | ID is the note id. | [optional] 
-**InterestRate** | Pointer to **float32** | InterestRate is the annual interest rate, if any. | [optional] 
+**InterestRate** | Pointer to **float64** | InterestRate is the annual interest rate, if any. | [optional] 
 **IssueDate** | Pointer to **string** | IssueDate is the ISO date the note was signed. | [optional] 
 **PublicId** | Pointer to **string** | PublicID is the note&#39;s shareable identifier, unique within the company. | [optional] 
 **StakeholderId** | Pointer to **string** | StakeholderID is the investor. | [optional] 
@@ -37,20 +37,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCapital
 
-`func (o *CaptableNote) GetCapital() float32`
+`func (o *CaptableNote) GetCapital() float64`
 
 GetCapital returns the Capital field if non-nil, zero value otherwise.
 
 ### GetCapitalOk
 
-`func (o *CaptableNote) GetCapitalOk() (*float32, bool)`
+`func (o *CaptableNote) GetCapitalOk() (*float64, bool)`
 
 GetCapitalOk returns a tuple with the Capital field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCapital
 
-`func (o *CaptableNote) SetCapital(v float32)`
+`func (o *CaptableNote) SetCapital(v float64)`
 
 SetCapital sets Capital field to given value.
 
@@ -62,20 +62,20 @@ HasCapital returns a boolean if a field has been set.
 
 ### GetConversionCap
 
-`func (o *CaptableNote) GetConversionCap() float32`
+`func (o *CaptableNote) GetConversionCap() float64`
 
 GetConversionCap returns the ConversionCap field if non-nil, zero value otherwise.
 
 ### GetConversionCapOk
 
-`func (o *CaptableNote) GetConversionCapOk() (*float32, bool)`
+`func (o *CaptableNote) GetConversionCapOk() (*float64, bool)`
 
 GetConversionCapOk returns a tuple with the ConversionCap field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConversionCap
 
-`func (o *CaptableNote) SetConversionCap(v float32)`
+`func (o *CaptableNote) SetConversionCap(v float64)`
 
 SetConversionCap sets ConversionCap field to given value.
 
@@ -87,20 +87,20 @@ HasConversionCap returns a boolean if a field has been set.
 
 ### GetDiscountRate
 
-`func (o *CaptableNote) GetDiscountRate() float32`
+`func (o *CaptableNote) GetDiscountRate() float64`
 
 GetDiscountRate returns the DiscountRate field if non-nil, zero value otherwise.
 
 ### GetDiscountRateOk
 
-`func (o *CaptableNote) GetDiscountRateOk() (*float32, bool)`
+`func (o *CaptableNote) GetDiscountRateOk() (*float64, bool)`
 
 GetDiscountRateOk returns a tuple with the DiscountRate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDiscountRate
 
-`func (o *CaptableNote) SetDiscountRate(v float32)`
+`func (o *CaptableNote) SetDiscountRate(v float64)`
 
 SetDiscountRate sets DiscountRate field to given value.
 
@@ -137,20 +137,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetInterestRate
 
-`func (o *CaptableNote) GetInterestRate() float32`
+`func (o *CaptableNote) GetInterestRate() float64`
 
 GetInterestRate returns the InterestRate field if non-nil, zero value otherwise.
 
 ### GetInterestRateOk
 
-`func (o *CaptableNote) GetInterestRateOk() (*float32, bool)`
+`func (o *CaptableNote) GetInterestRateOk() (*float64, bool)`
 
 GetInterestRateOk returns a tuple with the InterestRate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInterestRate
 
-`func (o *CaptableNote) SetInterestRate(v float32)`
+`func (o *CaptableNote) SetInterestRate(v float64)`
 
 SetInterestRate sets InterestRate field to given value.
 

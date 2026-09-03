@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Count** | Pointer to **int32** | Count is how many rows this page holds. | [optional] 
+**Count** | Pointer to **int64** | Count is how many rows this page holds. | [optional] 
 **Formations** | Pointer to [**[]Registration**](Registration.md) | Formations are the rows, newest activity first. | [optional] 
-**Limit** | Pointer to **int32** | Limit is the page size that was applied. | [optional] 
-**Offset** | Pointer to **int32** | Offset is the offset that was applied. | [optional] 
+**Limit** | Pointer to **int64** | Limit is the page size that was applied. | [optional] 
+**Offset** | Pointer to **int64** | Offset is the offset that was applied. | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCount
 
-`func (o *RegisterPage) GetCount() int32`
+`func (o *RegisterPage) GetCount() int64`
 
 GetCount returns the Count field if non-nil, zero value otherwise.
 
 ### GetCountOk
 
-`func (o *RegisterPage) GetCountOk() (*int32, bool)`
+`func (o *RegisterPage) GetCountOk() (*int64, bool)`
 
 GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCount
 
-`func (o *RegisterPage) SetCount(v int32)`
+`func (o *RegisterPage) SetCount(v int64)`
 
 SetCount sets Count field to given value.
 
@@ -80,20 +80,20 @@ HasFormations returns a boolean if a field has been set.
 
 ### GetLimit
 
-`func (o *RegisterPage) GetLimit() int32`
+`func (o *RegisterPage) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *RegisterPage) GetLimitOk() (*int32, bool)`
+`func (o *RegisterPage) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *RegisterPage) SetLimit(v int32)`
+`func (o *RegisterPage) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 
@@ -105,20 +105,20 @@ HasLimit returns a boolean if a field has been set.
 
 ### GetOffset
 
-`func (o *RegisterPage) GetOffset() int32`
+`func (o *RegisterPage) GetOffset() int64`
 
 GetOffset returns the Offset field if non-nil, zero value otherwise.
 
 ### GetOffsetOk
 
-`func (o *RegisterPage) GetOffsetOk() (*int32, bool)`
+`func (o *RegisterPage) GetOffsetOk() (*int64, bool)`
 
 GetOffsetOk returns a tuple with the Offset field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOffset
 
-`func (o *RegisterPage) SetOffset(v int32)`
+`func (o *RegisterPage) SetOffset(v int64)`
 
 SetOffset sets Offset field to given value.
 

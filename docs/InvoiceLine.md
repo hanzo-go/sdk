@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Amount** | Pointer to **int32** | Amount is the line total in whole cents (250000 is $2,500.00). | [optional] 
+**Amount** | Pointer to **int64** | Amount is the line total in whole cents (250000 is $2,500.00). | [optional] 
 **Description** | Pointer to **string** | Description is the human-readable line, e.g. \&quot;Advisory retainer — August\&quot;. | [optional] 
-**Quantity** | Pointer to **int32** | Quantity is the number of units, when the line is metered. Optional. | [optional] 
-**UnitPrice** | Pointer to **int32** | UnitPrice is the per-unit price in cents, when the line is metered. Optional. | [optional] 
+**Quantity** | Pointer to **int64** | Quantity is the number of units, when the line is metered. Optional. | [optional] 
+**UnitPrice** | Pointer to **int64** | UnitPrice is the per-unit price in cents, when the line is metered. Optional. | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAmount
 
-`func (o *InvoiceLine) GetAmount() int32`
+`func (o *InvoiceLine) GetAmount() int64`
 
 GetAmount returns the Amount field if non-nil, zero value otherwise.
 
 ### GetAmountOk
 
-`func (o *InvoiceLine) GetAmountOk() (*int32, bool)`
+`func (o *InvoiceLine) GetAmountOk() (*int64, bool)`
 
 GetAmountOk returns a tuple with the Amount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmount
 
-`func (o *InvoiceLine) SetAmount(v int32)`
+`func (o *InvoiceLine) SetAmount(v int64)`
 
 SetAmount sets Amount field to given value.
 
@@ -80,20 +80,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetQuantity
 
-`func (o *InvoiceLine) GetQuantity() int32`
+`func (o *InvoiceLine) GetQuantity() int64`
 
 GetQuantity returns the Quantity field if non-nil, zero value otherwise.
 
 ### GetQuantityOk
 
-`func (o *InvoiceLine) GetQuantityOk() (*int32, bool)`
+`func (o *InvoiceLine) GetQuantityOk() (*int64, bool)`
 
 GetQuantityOk returns a tuple with the Quantity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQuantity
 
-`func (o *InvoiceLine) SetQuantity(v int32)`
+`func (o *InvoiceLine) SetQuantity(v int64)`
 
 SetQuantity sets Quantity field to given value.
 
@@ -105,20 +105,20 @@ HasQuantity returns a boolean if a field has been set.
 
 ### GetUnitPrice
 
-`func (o *InvoiceLine) GetUnitPrice() int32`
+`func (o *InvoiceLine) GetUnitPrice() int64`
 
 GetUnitPrice returns the UnitPrice field if non-nil, zero value otherwise.
 
 ### GetUnitPriceOk
 
-`func (o *InvoiceLine) GetUnitPriceOk() (*int32, bool)`
+`func (o *InvoiceLine) GetUnitPriceOk() (*int64, bool)`
 
 GetUnitPriceOk returns a tuple with the UnitPrice field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUnitPrice
 
-`func (o *InvoiceLine) SetUnitPrice(v int32)`
+`func (o *InvoiceLine) SetUnitPrice(v int64)`
 
 SetUnitPrice sets UnitPrice field to given value.
 

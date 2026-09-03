@@ -32,7 +32,7 @@ type BuildTurn struct {
 	// Subject is that commit's subject line, from the same transcript, so a reader sees what the commit says without fetching the repository.
 	Subject *string `json:"subject,omitempty"`
 	// Seq is this turn's POSITION in the session's log — monotonic from 1, per session — and it is what a commit's `Hanzo-Turn:` trailer names. It is not a count of anything: the count is `turns` on the summary beside it.
-	Turn *int32 `json:"turn,omitempty"`
+	Turn *int64 `json:"turn,omitempty"`
 }
 
 // NewBuildTurn instantiates a new BuildTurn object
@@ -245,9 +245,9 @@ func (o *BuildTurn) SetSubject(v string) {
 }
 
 // GetTurn returns the Turn field value if set, zero value otherwise.
-func (o *BuildTurn) GetTurn() int32 {
+func (o *BuildTurn) GetTurn() int64 {
 	if o == nil || IsNil(o.Turn) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Turn
@@ -255,7 +255,7 @@ func (o *BuildTurn) GetTurn() int32 {
 
 // GetTurnOk returns a tuple with the Turn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BuildTurn) GetTurnOk() (*int32, bool) {
+func (o *BuildTurn) GetTurnOk() (*int64, bool) {
 	if o == nil || IsNil(o.Turn) {
 		return nil, false
 	}
@@ -271,8 +271,8 @@ func (o *BuildTurn) HasTurn() bool {
 	return false
 }
 
-// SetTurn gets a reference to the given int32 and assigns it to the Turn field.
-func (o *BuildTurn) SetTurn(v int32) {
+// SetTurn gets a reference to the given int64 and assigns it to the Turn field.
+func (o *BuildTurn) SetTurn(v int64) {
 	o.Turn = &v
 }
 

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | Name is the document&#39;s name in the framework store — the id to read or open it with. Unique per (org, doctype), so it identifies the document with DocType and not alone. | [optional] 
 **Project** | Pointer to **string** | Project is the project scope the document was saved under. Absent for a document saved with none, which is also why a project-scoped query cannot reach it. | [optional] 
 **Provider** | Pointer to **string** | Provider is the connector that ingested the document — github, slack, google or notion. Absent for a page or memory written in the product, which came from no connector. | [optional] 
-**Score** | Pointer to **float32** | Score is the cosine similarity between the query&#39;s embedding and the document&#39;s, from -1 to 1, higher being closer — the collection is created with Cosine distance. Hits arrive ordered by it, descending. There is no absolute cutoff: what counts as a good score moves with the query and the embedding model, so compare scores within one response and not across queries. | [optional] 
+**Score** | Pointer to **float64** | Score is the cosine similarity between the query&#39;s embedding and the document&#39;s, from -1 to 1, higher being closer — the collection is created with Cosine distance. Hits arrive ordered by it, descending. There is no absolute cutoff: what counts as a good score moves with the query and the embedding model, so compare scores within one response and not across queries. | [optional] 
 **Title** | Pointer to **string** | Title is the document&#39;s title as it was indexed. Empty for a document saved without one; it is a label to show, never the id (that is Name). | [optional] 
 **Url** | Pointer to **string** | URL is the document&#39;s link back into the app it was ingested from. Absent when the indexed payload carries none, which is the normal case for pages and memories. | [optional] 
 
@@ -133,20 +133,20 @@ HasProvider returns a boolean if a field has been set.
 
 ### GetScore
 
-`func (o *Hit) GetScore() float32`
+`func (o *Hit) GetScore() float64`
 
 GetScore returns the Score field if non-nil, zero value otherwise.
 
 ### GetScoreOk
 
-`func (o *Hit) GetScoreOk() (*float32, bool)`
+`func (o *Hit) GetScoreOk() (*float64, bool)`
 
 GetScoreOk returns a tuple with the Score field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScore
 
-`func (o *Hit) SetScore(v float32)`
+`func (o *Hit) SetScore(v float64)`
 
 SetScore sets Score field to given value.
 

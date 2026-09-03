@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FullyDiluted** | Pointer to **int32** | FullyDiluted is shares plus options. | [optional] 
+**FullyDiluted** | Pointer to **int64** | FullyDiluted is shares plus options. | [optional] 
 **Name** | Pointer to **string** | Name is the stakeholder&#39;s name. | [optional] 
-**Options** | Pointer to **int32** | Options is the shares under this stakeholder&#39;s non-terminal option grants. | [optional] 
-**OwnershipPct** | Pointer to **float32** | OwnershipPct is fullyDiluted as a percentage of the company&#39;s fullyDilutedShares, rounded to two decimals; 0 when nothing is issued. | [optional] 
-**Shares** | Pointer to **int32** | Shares is the shares this stakeholder holds by certificate. | [optional] 
+**Options** | Pointer to **int64** | Options is the shares under this stakeholder&#39;s non-terminal option grants. | [optional] 
+**OwnershipPct** | Pointer to **float64** | OwnershipPct is fullyDiluted as a percentage of the company&#39;s fullyDilutedShares, rounded to two decimals; 0 when nothing is issued. | [optional] 
+**Shares** | Pointer to **int64** | Shares is the shares this stakeholder holds by certificate. | [optional] 
 **StakeholderId** | Pointer to **string** | StakeholderID addresses the stakeholder these totals are for. | [optional] 
 
 ## Methods
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetFullyDiluted
 
-`func (o *CaptableHolding) GetFullyDiluted() int32`
+`func (o *CaptableHolding) GetFullyDiluted() int64`
 
 GetFullyDiluted returns the FullyDiluted field if non-nil, zero value otherwise.
 
 ### GetFullyDilutedOk
 
-`func (o *CaptableHolding) GetFullyDilutedOk() (*int32, bool)`
+`func (o *CaptableHolding) GetFullyDilutedOk() (*int64, bool)`
 
 GetFullyDilutedOk returns a tuple with the FullyDiluted field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFullyDiluted
 
-`func (o *CaptableHolding) SetFullyDiluted(v int32)`
+`func (o *CaptableHolding) SetFullyDiluted(v int64)`
 
 SetFullyDiluted sets FullyDiluted field to given value.
 
@@ -82,20 +82,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetOptions
 
-`func (o *CaptableHolding) GetOptions() int32`
+`func (o *CaptableHolding) GetOptions() int64`
 
 GetOptions returns the Options field if non-nil, zero value otherwise.
 
 ### GetOptionsOk
 
-`func (o *CaptableHolding) GetOptionsOk() (*int32, bool)`
+`func (o *CaptableHolding) GetOptionsOk() (*int64, bool)`
 
 GetOptionsOk returns a tuple with the Options field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOptions
 
-`func (o *CaptableHolding) SetOptions(v int32)`
+`func (o *CaptableHolding) SetOptions(v int64)`
 
 SetOptions sets Options field to given value.
 
@@ -107,20 +107,20 @@ HasOptions returns a boolean if a field has been set.
 
 ### GetOwnershipPct
 
-`func (o *CaptableHolding) GetOwnershipPct() float32`
+`func (o *CaptableHolding) GetOwnershipPct() float64`
 
 GetOwnershipPct returns the OwnershipPct field if non-nil, zero value otherwise.
 
 ### GetOwnershipPctOk
 
-`func (o *CaptableHolding) GetOwnershipPctOk() (*float32, bool)`
+`func (o *CaptableHolding) GetOwnershipPctOk() (*float64, bool)`
 
 GetOwnershipPctOk returns a tuple with the OwnershipPct field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOwnershipPct
 
-`func (o *CaptableHolding) SetOwnershipPct(v float32)`
+`func (o *CaptableHolding) SetOwnershipPct(v float64)`
 
 SetOwnershipPct sets OwnershipPct field to given value.
 
@@ -132,20 +132,20 @@ HasOwnershipPct returns a boolean if a field has been set.
 
 ### GetShares
 
-`func (o *CaptableHolding) GetShares() int32`
+`func (o *CaptableHolding) GetShares() int64`
 
 GetShares returns the Shares field if non-nil, zero value otherwise.
 
 ### GetSharesOk
 
-`func (o *CaptableHolding) GetSharesOk() (*int32, bool)`
+`func (o *CaptableHolding) GetSharesOk() (*int64, bool)`
 
 GetSharesOk returns a tuple with the Shares field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetShares
 
-`func (o *CaptableHolding) SetShares(v int32)`
+`func (o *CaptableHolding) SetShares(v int64)`
 
 SetShares sets Shares field to given value.
 

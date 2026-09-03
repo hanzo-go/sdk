@@ -24,7 +24,7 @@ type ClearReferenceOut struct {
 	// Key is the entry named.
 	Key *string `json:"key,omitempty"`
 	// Overrides is how many your org still holds in this set.
-	Overrides *int32 `json:"overrides,omitempty"`
+	Overrides *int64 `json:"overrides,omitempty"`
 	// Set is the set cleared in.
 	Set *string `json:"set,omitempty"`
 }
@@ -111,9 +111,9 @@ func (o *ClearReferenceOut) SetKey(v string) {
 }
 
 // GetOverrides returns the Overrides field value if set, zero value otherwise.
-func (o *ClearReferenceOut) GetOverrides() int32 {
+func (o *ClearReferenceOut) GetOverrides() int64 {
 	if o == nil || IsNil(o.Overrides) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Overrides
@@ -121,7 +121,7 @@ func (o *ClearReferenceOut) GetOverrides() int32 {
 
 // GetOverridesOk returns a tuple with the Overrides field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ClearReferenceOut) GetOverridesOk() (*int32, bool) {
+func (o *ClearReferenceOut) GetOverridesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Overrides) {
 		return nil, false
 	}
@@ -137,8 +137,8 @@ func (o *ClearReferenceOut) HasOverrides() bool {
 	return false
 }
 
-// SetOverrides gets a reference to the given int32 and assigns it to the Overrides field.
-func (o *ClearReferenceOut) SetOverrides(v int32) {
+// SetOverrides gets a reference to the given int64 and assigns it to the Overrides field.
+func (o *ClearReferenceOut) SetOverrides(v int64) {
 	o.Overrides = &v
 }
 

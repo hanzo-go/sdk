@@ -20,11 +20,11 @@ var _ MappedNullable = &DriftTally{}
 // DriftTally struct for DriftTally
 type DriftTally struct {
 	// OK is how many rows run what they declare.
-	Ok *int32 `json:"ok,omitempty"`
+	Ok *int64 `json:"ok,omitempty"`
 	// Red is how many have drifted badly.
-	Red *int32 `json:"red,omitempty"`
+	Red *int64 `json:"red,omitempty"`
 	// Yellow is how many have drifted within tolerance.
-	Yellow *int32 `json:"yellow,omitempty"`
+	Yellow *int64 `json:"yellow,omitempty"`
 }
 
 // NewDriftTally instantiates a new DriftTally object
@@ -45,9 +45,9 @@ func NewDriftTallyWithDefaults() *DriftTally {
 }
 
 // GetOk returns the Ok field value if set, zero value otherwise.
-func (o *DriftTally) GetOk() int32 {
+func (o *DriftTally) GetOk() int64 {
 	if o == nil || IsNil(o.Ok) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Ok
@@ -55,7 +55,7 @@ func (o *DriftTally) GetOk() int32 {
 
 // GetOkOk returns a tuple with the Ok field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DriftTally) GetOkOk() (*int32, bool) {
+func (o *DriftTally) GetOkOk() (*int64, bool) {
 	if o == nil || IsNil(o.Ok) {
 		return nil, false
 	}
@@ -71,15 +71,15 @@ func (o *DriftTally) HasOk() bool {
 	return false
 }
 
-// SetOk gets a reference to the given int32 and assigns it to the Ok field.
-func (o *DriftTally) SetOk(v int32) {
+// SetOk gets a reference to the given int64 and assigns it to the Ok field.
+func (o *DriftTally) SetOk(v int64) {
 	o.Ok = &v
 }
 
 // GetRed returns the Red field value if set, zero value otherwise.
-func (o *DriftTally) GetRed() int32 {
+func (o *DriftTally) GetRed() int64 {
 	if o == nil || IsNil(o.Red) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Red
@@ -87,7 +87,7 @@ func (o *DriftTally) GetRed() int32 {
 
 // GetRedOk returns a tuple with the Red field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DriftTally) GetRedOk() (*int32, bool) {
+func (o *DriftTally) GetRedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Red) {
 		return nil, false
 	}
@@ -103,15 +103,15 @@ func (o *DriftTally) HasRed() bool {
 	return false
 }
 
-// SetRed gets a reference to the given int32 and assigns it to the Red field.
-func (o *DriftTally) SetRed(v int32) {
+// SetRed gets a reference to the given int64 and assigns it to the Red field.
+func (o *DriftTally) SetRed(v int64) {
 	o.Red = &v
 }
 
 // GetYellow returns the Yellow field value if set, zero value otherwise.
-func (o *DriftTally) GetYellow() int32 {
+func (o *DriftTally) GetYellow() int64 {
 	if o == nil || IsNil(o.Yellow) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Yellow
@@ -119,7 +119,7 @@ func (o *DriftTally) GetYellow() int32 {
 
 // GetYellowOk returns a tuple with the Yellow field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DriftTally) GetYellowOk() (*int32, bool) {
+func (o *DriftTally) GetYellowOk() (*int64, bool) {
 	if o == nil || IsNil(o.Yellow) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *DriftTally) HasYellow() bool {
 	return false
 }
 
-// SetYellow gets a reference to the given int32 and assigns it to the Yellow field.
-func (o *DriftTally) SetYellow(v int32) {
+// SetYellow gets a reference to the given int64 and assigns it to the Yellow field.
+func (o *DriftTally) SetYellow(v int64) {
 	o.Yellow = &v
 }
 

@@ -5,15 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Active** | Pointer to **bool** |  | [optional] 
-**AmountCents** | Pointer to **int32** |  | [optional] 
+**AmountCents** | Pointer to **int64** |  | [optional] 
 **CreatedAt** | Pointer to **string** |  | [optional] 
 **Currency** | Pointer to **string** |  | [optional] 
 **EffectiveAt** | Pointer to **string** |  | [optional] 
 **ExpiresAt** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**Priority** | Pointer to **int32** |  | [optional] 
-**RemainingCents** | Pointer to **int32** |  | [optional] 
+**Priority** | Pointer to **int64** |  | [optional] 
+**RemainingCents** | Pointer to **int64** |  | [optional] 
 **Tags** | Pointer to **string** |  | [optional] 
 **UserId** | Pointer to **string** |  | [optional] 
 **Voided** | Pointer to **bool** |  | [optional] 
@@ -64,20 +64,20 @@ HasActive returns a boolean if a field has been set.
 
 ### GetAmountCents
 
-`func (o *CreditGrant) GetAmountCents() int32`
+`func (o *CreditGrant) GetAmountCents() int64`
 
 GetAmountCents returns the AmountCents field if non-nil, zero value otherwise.
 
 ### GetAmountCentsOk
 
-`func (o *CreditGrant) GetAmountCentsOk() (*int32, bool)`
+`func (o *CreditGrant) GetAmountCentsOk() (*int64, bool)`
 
 GetAmountCentsOk returns a tuple with the AmountCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmountCents
 
-`func (o *CreditGrant) SetAmountCents(v int32)`
+`func (o *CreditGrant) SetAmountCents(v int64)`
 
 SetAmountCents sets AmountCents field to given value.
 
@@ -239,20 +239,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetPriority
 
-`func (o *CreditGrant) GetPriority() int32`
+`func (o *CreditGrant) GetPriority() int64`
 
 GetPriority returns the Priority field if non-nil, zero value otherwise.
 
 ### GetPriorityOk
 
-`func (o *CreditGrant) GetPriorityOk() (*int32, bool)`
+`func (o *CreditGrant) GetPriorityOk() (*int64, bool)`
 
 GetPriorityOk returns a tuple with the Priority field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPriority
 
-`func (o *CreditGrant) SetPriority(v int32)`
+`func (o *CreditGrant) SetPriority(v int64)`
 
 SetPriority sets Priority field to given value.
 
@@ -264,20 +264,20 @@ HasPriority returns a boolean if a field has been set.
 
 ### GetRemainingCents
 
-`func (o *CreditGrant) GetRemainingCents() int32`
+`func (o *CreditGrant) GetRemainingCents() int64`
 
 GetRemainingCents returns the RemainingCents field if non-nil, zero value otherwise.
 
 ### GetRemainingCentsOk
 
-`func (o *CreditGrant) GetRemainingCentsOk() (*int32, bool)`
+`func (o *CreditGrant) GetRemainingCentsOk() (*int64, bool)`
 
 GetRemainingCentsOk returns a tuple with the RemainingCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRemainingCents
 
-`func (o *CreditGrant) SetRemainingCents(v int32)`
+`func (o *CreditGrant) SetRemainingCents(v int64)`
 
 SetRemainingCents sets RemainingCents field to given value.
 

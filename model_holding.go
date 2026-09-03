@@ -20,7 +20,7 @@ var _ MappedNullable = &Holding{}
 // Holding struct for Holding
 type Holding struct {
 	// wholesale cost
-	CostCents *int32 `json:"costCents,omitempty"`
+	CostCents *int64 `json:"costCents,omitempty"`
 	// the name owned
 	Domain *string `json:"domain,omitempty"`
 	// when the registration lapses, RFC3339
@@ -28,13 +28,13 @@ type Holding struct {
 	// the authoritative nameservers the name points at
 	Nameservers []string `json:"nameservers,omitempty"`
 	// registrar order id
-	Order *int32 `json:"order,omitempty"`
+	Order *int64 `json:"order,omitempty"`
 	// the org that owns the domain
 	Org *string `json:"org,omitempty"`
 	// what the customer paid (sell)
-	PriceCents *int32 `json:"priceCents,omitempty"`
+	PriceCents *int64 `json:"priceCents,omitempty"`
 	// unix seconds
-	RegisteredAt *int32 `json:"registeredAt,omitempty"`
+	RegisteredAt *int64 `json:"registeredAt,omitempty"`
 }
 
 // NewHolding instantiates a new Holding object
@@ -55,9 +55,9 @@ func NewHoldingWithDefaults() *Holding {
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *Holding) GetCostCents() int32 {
+func (o *Holding) GetCostCents() int64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostCents
@@ -65,7 +65,7 @@ func (o *Holding) GetCostCents() int32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Holding) GetCostCentsOk() (*int32, bool) {
+func (o *Holding) GetCostCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -81,8 +81,8 @@ func (o *Holding) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *Holding) SetCostCents(v int32) {
+// SetCostCents gets a reference to the given int64 and assigns it to the CostCents field.
+func (o *Holding) SetCostCents(v int64) {
 	o.CostCents = &v
 }
 
@@ -183,9 +183,9 @@ func (o *Holding) SetNameservers(v []string) {
 }
 
 // GetOrder returns the Order field value if set, zero value otherwise.
-func (o *Holding) GetOrder() int32 {
+func (o *Holding) GetOrder() int64 {
 	if o == nil || IsNil(o.Order) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Order
@@ -193,7 +193,7 @@ func (o *Holding) GetOrder() int32 {
 
 // GetOrderOk returns a tuple with the Order field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Holding) GetOrderOk() (*int32, bool) {
+func (o *Holding) GetOrderOk() (*int64, bool) {
 	if o == nil || IsNil(o.Order) {
 		return nil, false
 	}
@@ -209,8 +209,8 @@ func (o *Holding) HasOrder() bool {
 	return false
 }
 
-// SetOrder gets a reference to the given int32 and assigns it to the Order field.
-func (o *Holding) SetOrder(v int32) {
+// SetOrder gets a reference to the given int64 and assigns it to the Order field.
+func (o *Holding) SetOrder(v int64) {
 	o.Order = &v
 }
 
@@ -247,9 +247,9 @@ func (o *Holding) SetOrg(v string) {
 }
 
 // GetPriceCents returns the PriceCents field value if set, zero value otherwise.
-func (o *Holding) GetPriceCents() int32 {
+func (o *Holding) GetPriceCents() int64 {
 	if o == nil || IsNil(o.PriceCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PriceCents
@@ -257,7 +257,7 @@ func (o *Holding) GetPriceCents() int32 {
 
 // GetPriceCentsOk returns a tuple with the PriceCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Holding) GetPriceCentsOk() (*int32, bool) {
+func (o *Holding) GetPriceCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.PriceCents) {
 		return nil, false
 	}
@@ -273,15 +273,15 @@ func (o *Holding) HasPriceCents() bool {
 	return false
 }
 
-// SetPriceCents gets a reference to the given int32 and assigns it to the PriceCents field.
-func (o *Holding) SetPriceCents(v int32) {
+// SetPriceCents gets a reference to the given int64 and assigns it to the PriceCents field.
+func (o *Holding) SetPriceCents(v int64) {
 	o.PriceCents = &v
 }
 
 // GetRegisteredAt returns the RegisteredAt field value if set, zero value otherwise.
-func (o *Holding) GetRegisteredAt() int32 {
+func (o *Holding) GetRegisteredAt() int64 {
 	if o == nil || IsNil(o.RegisteredAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RegisteredAt
@@ -289,7 +289,7 @@ func (o *Holding) GetRegisteredAt() int32 {
 
 // GetRegisteredAtOk returns a tuple with the RegisteredAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Holding) GetRegisteredAtOk() (*int32, bool) {
+func (o *Holding) GetRegisteredAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.RegisteredAt) {
 		return nil, false
 	}
@@ -305,8 +305,8 @@ func (o *Holding) HasRegisteredAt() bool {
 	return false
 }
 
-// SetRegisteredAt gets a reference to the given int32 and assigns it to the RegisteredAt field.
-func (o *Holding) SetRegisteredAt(v int32) {
+// SetRegisteredAt gets a reference to the given int64 and assigns it to the RegisteredAt field.
+func (o *Holding) SetRegisteredAt(v int64) {
 	o.RegisteredAt = &v
 }
 

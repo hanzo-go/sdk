@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EstCentsPerMonth** | Pointer to **int32** | CentsPerMonth is the estimated compute cost of running the whole stack for one month, in USD cents, from the rate card GET /v1/blueprint/health echoes. | [optional] 
-**Services** | Pointer to **int32** | Services is how many compose services the stack runs. | [optional] 
+**EstCentsPerMonth** | Pointer to **int64** | CentsPerMonth is the estimated compute cost of running the whole stack for one month, in USD cents, from the rate card GET /v1/blueprint/health echoes. | [optional] 
+**Services** | Pointer to **int64** | Services is how many compose services the stack runs. | [optional] 
 **TemplateId** | Pointer to **string** | TemplateID is the blueprint slug — the id GET /v1/blueprint/sbom takes as ?template&#x3D; and the path under templates.hanzo.ai/blueprints/&lt;id&gt;/. | [optional] 
 
 ## Methods
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetEstCentsPerMonth
 
-`func (o *BlueprintRow) GetEstCentsPerMonth() int32`
+`func (o *BlueprintRow) GetEstCentsPerMonth() int64`
 
 GetEstCentsPerMonth returns the EstCentsPerMonth field if non-nil, zero value otherwise.
 
 ### GetEstCentsPerMonthOk
 
-`func (o *BlueprintRow) GetEstCentsPerMonthOk() (*int32, bool)`
+`func (o *BlueprintRow) GetEstCentsPerMonthOk() (*int64, bool)`
 
 GetEstCentsPerMonthOk returns a tuple with the EstCentsPerMonth field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEstCentsPerMonth
 
-`func (o *BlueprintRow) SetEstCentsPerMonth(v int32)`
+`func (o *BlueprintRow) SetEstCentsPerMonth(v int64)`
 
 SetEstCentsPerMonth sets EstCentsPerMonth field to given value.
 
@@ -54,20 +54,20 @@ HasEstCentsPerMonth returns a boolean if a field has been set.
 
 ### GetServices
 
-`func (o *BlueprintRow) GetServices() int32`
+`func (o *BlueprintRow) GetServices() int64`
 
 GetServices returns the Services field if non-nil, zero value otherwise.
 
 ### GetServicesOk
 
-`func (o *BlueprintRow) GetServicesOk() (*int32, bool)`
+`func (o *BlueprintRow) GetServicesOk() (*int64, bool)`
 
 GetServicesOk returns a tuple with the Services field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetServices
 
-`func (o *BlueprintRow) SetServices(v int32)`
+`func (o *BlueprintRow) SetServices(v int64)`
 
 SetServices sets Services field to given value.
 

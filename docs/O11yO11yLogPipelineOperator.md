@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **Mapping** | Pointer to **map[string][]string** | Mapping maps severity levels (or flattened keys) to the values that mean them. | [optional] 
 **Name** | Pointer to **string** | Name is the processor&#39;s display name. | [optional] 
 **OnError** | Pointer to **string** | OnError says what to do when the processor fails, e.g. send, drop. | [optional] 
-**OrderId** | Pointer to **int32** | OrderID is the processor&#39;s 1-based position in the pipeline. | [optional] 
+**OrderId** | Pointer to **int64** | OrderID is the processor&#39;s 1-based position in the pipeline. | [optional] 
 **Output** | Pointer to **string** | Output is the id of the processor that runs next. | [optional] 
 **OverwriteText** | Pointer to **bool** | OverwriteSeverityText rewrites the severity text alongside the number when true. | [optional] 
 **ParseFrom** | Pointer to **string** | ParseFrom is where a parser reads from. | [optional] 
@@ -431,20 +431,20 @@ HasOnError returns a boolean if a field has been set.
 
 ### GetOrderId
 
-`func (o *O11yO11yLogPipelineOperator) GetOrderId() int32`
+`func (o *O11yO11yLogPipelineOperator) GetOrderId() int64`
 
 GetOrderId returns the OrderId field if non-nil, zero value otherwise.
 
 ### GetOrderIdOk
 
-`func (o *O11yO11yLogPipelineOperator) GetOrderIdOk() (*int32, bool)`
+`func (o *O11yO11yLogPipelineOperator) GetOrderIdOk() (*int64, bool)`
 
 GetOrderIdOk returns a tuple with the OrderId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrderId
 
-`func (o *O11yO11yLogPipelineOperator) SetOrderId(v int32)`
+`func (o *O11yO11yLogPipelineOperator) SetOrderId(v int64)`
 
 SetOrderId sets OrderId field to given value.
 

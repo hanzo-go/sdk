@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Limit** | Pointer to **int32** |  | [optional] 
-**Remaining** | Pointer to **int32** |  | [optional] 
+**Limit** | Pointer to **int64** |  | [optional] 
+**Remaining** | Pointer to **int64** |  | [optional] 
 **Resets** | Pointer to **string** |  | [optional] 
 **Span** | Pointer to **string** |  | [optional] 
-**Used** | Pointer to **int32** |  | [optional] 
+**Used** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLimit
 
-`func (o *Window) GetLimit() int32`
+`func (o *Window) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *Window) GetLimitOk() (*int32, bool)`
+`func (o *Window) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *Window) SetLimit(v int32)`
+`func (o *Window) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 
@@ -56,20 +56,20 @@ HasLimit returns a boolean if a field has been set.
 
 ### GetRemaining
 
-`func (o *Window) GetRemaining() int32`
+`func (o *Window) GetRemaining() int64`
 
 GetRemaining returns the Remaining field if non-nil, zero value otherwise.
 
 ### GetRemainingOk
 
-`func (o *Window) GetRemainingOk() (*int32, bool)`
+`func (o *Window) GetRemainingOk() (*int64, bool)`
 
 GetRemainingOk returns a tuple with the Remaining field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRemaining
 
-`func (o *Window) SetRemaining(v int32)`
+`func (o *Window) SetRemaining(v int64)`
 
 SetRemaining sets Remaining field to given value.
 
@@ -131,20 +131,20 @@ HasSpan returns a boolean if a field has been set.
 
 ### GetUsed
 
-`func (o *Window) GetUsed() int32`
+`func (o *Window) GetUsed() int64`
 
 GetUsed returns the Used field if non-nil, zero value otherwise.
 
 ### GetUsedOk
 
-`func (o *Window) GetUsedOk() (*int32, bool)`
+`func (o *Window) GetUsedOk() (*int64, bool)`
 
 GetUsedOk returns a tuple with the Used field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUsed
 
-`func (o *Window) SetUsed(v int32)`
+`func (o *Window) SetUsed(v int64)`
 
 SetUsed sets Used field to given value.
 

@@ -20,7 +20,7 @@ var _ MappedNullable = &CaptableCompany{}
 // CaptableCompany struct for CaptableCompany
 type CaptableCompany struct {
 	// CreatedAt is when the company row was seeded, in unix milliseconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// ID is the company id, which is the tenant's own org id.
 	Id *string `json:"id,omitempty"`
 	// IncorporationCountry is the ISO country the entity is incorporated in.
@@ -34,7 +34,7 @@ type CaptableCompany struct {
 	// PublicID is the company's shareable public identifier.
 	PublicId *string `json:"publicId,omitempty"`
 	// UpdatedAt is when the company row last changed, in unix milliseconds.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewCaptableCompany instantiates a new CaptableCompany object
@@ -55,9 +55,9 @@ func NewCaptableCompanyWithDefaults() *CaptableCompany {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *CaptableCompany) GetCreatedAt() int32 {
+func (o *CaptableCompany) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -65,7 +65,7 @@ func (o *CaptableCompany) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableCompany) GetCreatedAtOk() (*int32, bool) {
+func (o *CaptableCompany) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -81,8 +81,8 @@ func (o *CaptableCompany) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *CaptableCompany) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *CaptableCompany) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -279,9 +279,9 @@ func (o *CaptableCompany) SetPublicId(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *CaptableCompany) GetUpdatedAt() int32 {
+func (o *CaptableCompany) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -289,7 +289,7 @@ func (o *CaptableCompany) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableCompany) GetUpdatedAtOk() (*int32, bool) {
+func (o *CaptableCompany) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -305,8 +305,8 @@ func (o *CaptableCompany) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *CaptableCompany) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *CaptableCompany) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

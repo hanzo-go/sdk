@@ -24,7 +24,7 @@ type Founder struct {
 	// Email is the founder's email, and the key a KYC decision addresses a founder by — POST /v1/company/kyc/decision matches on it.
 	Email *string `json:"email,omitempty"`
 	// EquityBps is the founder's ownership in basis points, 0–10000 (1% == 100 bps, so 10000 is the whole company). The founders' shares seed the cap-table genesis.
-	EquityBps *int32 `json:"equityBps,omitempty"`
+	EquityBps *int64 `json:"equityBps,omitempty"`
 	// KYCRef is the idv provider's session reference for this founder.
 	KycRef *string `json:"kycRef,omitempty"`
 	// KYCStatus is the founder's identity-verification state: pending, verified (a real idv provider reported a pass), reviewer_confirmed (a privileged reviewer confirmed out-of-band) or failed. The payment stage is unreachable until every founder passes.
@@ -115,9 +115,9 @@ func (o *Founder) SetEmail(v string) {
 }
 
 // GetEquityBps returns the EquityBps field value if set, zero value otherwise.
-func (o *Founder) GetEquityBps() int32 {
+func (o *Founder) GetEquityBps() int64 {
 	if o == nil || IsNil(o.EquityBps) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.EquityBps
@@ -125,7 +125,7 @@ func (o *Founder) GetEquityBps() int32 {
 
 // GetEquityBpsOk returns a tuple with the EquityBps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Founder) GetEquityBpsOk() (*int32, bool) {
+func (o *Founder) GetEquityBpsOk() (*int64, bool) {
 	if o == nil || IsNil(o.EquityBps) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *Founder) HasEquityBps() bool {
 	return false
 }
 
-// SetEquityBps gets a reference to the given int32 and assigns it to the EquityBps field.
-func (o *Founder) SetEquityBps(v int32) {
+// SetEquityBps gets a reference to the given int64 and assigns it to the EquityBps field.
+func (o *Founder) SetEquityBps(v int64) {
 	o.EquityBps = &v
 }
 

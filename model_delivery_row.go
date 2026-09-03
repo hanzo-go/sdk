@@ -20,19 +20,19 @@ var _ MappedNullable = &DeliveryRow{}
 // DeliveryRow struct for DeliveryRow
 type DeliveryRow struct {
 	// Attempt is which try this row is, starting at 1. The ladder waits 1s, then 5s, then 25s before the next one.
-	Attempt *int32 `json:"attempt,omitempty"`
+	Attempt *int64 `json:"attempt,omitempty"`
 	// Created is when the attempt was made, RFC3339 in UTC.
 	Created *string `json:"created,omitempty"`
 	// DeliveryID groups the attempts for ONE event to ONE endpoint. Rows sharing it are the same delivery being retried, not separate events.
 	Delivery *string `json:"delivery,omitempty"`
 	// DurationMs is how long this attempt took end to end, in MILLISECONDS.
-	DurationMs *int32 `json:"durationMs,omitempty"`
+	DurationMs *int64 `json:"durationMs,omitempty"`
 	// EndpointID is which subscriber this attempt was for.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Error says what went wrong on a non-ok attempt. Empty on success.
 	Error *string `json:"error,omitempty"`
 	// HTTPStatus is what the subscriber answered. ZERO means it never answered — a refused connection, a DNS failure or a timeout — which is why a zero here is not a 200.
-	HttpStatus *int32 `json:"httpStatus,omitempty"`
+	HttpStatus *int64 `json:"httpStatus,omitempty"`
 	// Status is \"ok\" when the subscriber accepted it, \"retrying\" while a further attempt will follow, and \"failed\" when none will. Exactly one row of a delivery is terminal.
 	Status *string `json:"status,omitempty"`
 	// Subject is the event that was delivered (\"commerce.order.created\"). A manual test send carries \"webhook.test\".
@@ -57,9 +57,9 @@ func NewDeliveryRowWithDefaults() *DeliveryRow {
 }
 
 // GetAttempt returns the Attempt field value if set, zero value otherwise.
-func (o *DeliveryRow) GetAttempt() int32 {
+func (o *DeliveryRow) GetAttempt() int64 {
 	if o == nil || IsNil(o.Attempt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Attempt
@@ -67,7 +67,7 @@ func (o *DeliveryRow) GetAttempt() int32 {
 
 // GetAttemptOk returns a tuple with the Attempt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeliveryRow) GetAttemptOk() (*int32, bool) {
+func (o *DeliveryRow) GetAttemptOk() (*int64, bool) {
 	if o == nil || IsNil(o.Attempt) {
 		return nil, false
 	}
@@ -83,8 +83,8 @@ func (o *DeliveryRow) HasAttempt() bool {
 	return false
 }
 
-// SetAttempt gets a reference to the given int32 and assigns it to the Attempt field.
-func (o *DeliveryRow) SetAttempt(v int32) {
+// SetAttempt gets a reference to the given int64 and assigns it to the Attempt field.
+func (o *DeliveryRow) SetAttempt(v int64) {
 	o.Attempt = &v
 }
 
@@ -153,9 +153,9 @@ func (o *DeliveryRow) SetDelivery(v string) {
 }
 
 // GetDurationMs returns the DurationMs field value if set, zero value otherwise.
-func (o *DeliveryRow) GetDurationMs() int32 {
+func (o *DeliveryRow) GetDurationMs() int64 {
 	if o == nil || IsNil(o.DurationMs) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DurationMs
@@ -163,7 +163,7 @@ func (o *DeliveryRow) GetDurationMs() int32 {
 
 // GetDurationMsOk returns a tuple with the DurationMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeliveryRow) GetDurationMsOk() (*int32, bool) {
+func (o *DeliveryRow) GetDurationMsOk() (*int64, bool) {
 	if o == nil || IsNil(o.DurationMs) {
 		return nil, false
 	}
@@ -179,8 +179,8 @@ func (o *DeliveryRow) HasDurationMs() bool {
 	return false
 }
 
-// SetDurationMs gets a reference to the given int32 and assigns it to the DurationMs field.
-func (o *DeliveryRow) SetDurationMs(v int32) {
+// SetDurationMs gets a reference to the given int64 and assigns it to the DurationMs field.
+func (o *DeliveryRow) SetDurationMs(v int64) {
 	o.DurationMs = &v
 }
 
@@ -249,9 +249,9 @@ func (o *DeliveryRow) SetError(v string) {
 }
 
 // GetHttpStatus returns the HttpStatus field value if set, zero value otherwise.
-func (o *DeliveryRow) GetHttpStatus() int32 {
+func (o *DeliveryRow) GetHttpStatus() int64 {
 	if o == nil || IsNil(o.HttpStatus) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.HttpStatus
@@ -259,7 +259,7 @@ func (o *DeliveryRow) GetHttpStatus() int32 {
 
 // GetHttpStatusOk returns a tuple with the HttpStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeliveryRow) GetHttpStatusOk() (*int32, bool) {
+func (o *DeliveryRow) GetHttpStatusOk() (*int64, bool) {
 	if o == nil || IsNil(o.HttpStatus) {
 		return nil, false
 	}
@@ -275,8 +275,8 @@ func (o *DeliveryRow) HasHttpStatus() bool {
 	return false
 }
 
-// SetHttpStatus gets a reference to the given int32 and assigns it to the HttpStatus field.
-func (o *DeliveryRow) SetHttpStatus(v int32) {
+// SetHttpStatus gets a reference to the given int64 and assigns it to the HttpStatus field.
+func (o *DeliveryRow) SetHttpStatus(v int64) {
 	o.HttpStatus = &v
 }
 

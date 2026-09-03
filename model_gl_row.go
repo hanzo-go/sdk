@@ -24,11 +24,11 @@ type GLRow struct {
 	// Against names the OTHER accounts in the same voucher — the contra side of this leg — so a single row reads as an entry rather than as half of one.
 	Against *string `json:"against,omitempty"`
 	// Credit is the amount credited to that account, in whole cents.
-	Credit *int32 `json:"credit,omitempty"`
+	Credit *int64 `json:"credit,omitempty"`
 	// Debit is the amount debited to that account, in whole cents. Exactly one of debit and credit is non-zero on a leg; a negative amount is never used to mean the other side.
-	Debit *int32 `json:"debit,omitempty"`
+	Debit *int64 `json:"debit,omitempty"`
 	// ID is the entry's position in the ledger. The ledger is append-only, so ids ascend with posting order and a higher id is a later entry.
-	Id *int32 `json:"id,omitempty"`
+	Id *int64 `json:"id,omitempty"`
 	// PostingAt is the accounting date this entry belongs to — what the reports window on, which need not be when the row was written.
 	PostingAt *string `json:"postingAt,omitempty"`
 	// Remarks is the memo carried onto the entry, for a human reading the ledger.
@@ -121,9 +121,9 @@ func (o *GLRow) SetAgainst(v string) {
 }
 
 // GetCredit returns the Credit field value if set, zero value otherwise.
-func (o *GLRow) GetCredit() int32 {
+func (o *GLRow) GetCredit() int64 {
 	if o == nil || IsNil(o.Credit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Credit
@@ -131,7 +131,7 @@ func (o *GLRow) GetCredit() int32 {
 
 // GetCreditOk returns a tuple with the Credit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GLRow) GetCreditOk() (*int32, bool) {
+func (o *GLRow) GetCreditOk() (*int64, bool) {
 	if o == nil || IsNil(o.Credit) {
 		return nil, false
 	}
@@ -147,15 +147,15 @@ func (o *GLRow) HasCredit() bool {
 	return false
 }
 
-// SetCredit gets a reference to the given int32 and assigns it to the Credit field.
-func (o *GLRow) SetCredit(v int32) {
+// SetCredit gets a reference to the given int64 and assigns it to the Credit field.
+func (o *GLRow) SetCredit(v int64) {
 	o.Credit = &v
 }
 
 // GetDebit returns the Debit field value if set, zero value otherwise.
-func (o *GLRow) GetDebit() int32 {
+func (o *GLRow) GetDebit() int64 {
 	if o == nil || IsNil(o.Debit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Debit
@@ -163,7 +163,7 @@ func (o *GLRow) GetDebit() int32 {
 
 // GetDebitOk returns a tuple with the Debit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GLRow) GetDebitOk() (*int32, bool) {
+func (o *GLRow) GetDebitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Debit) {
 		return nil, false
 	}
@@ -179,15 +179,15 @@ func (o *GLRow) HasDebit() bool {
 	return false
 }
 
-// SetDebit gets a reference to the given int32 and assigns it to the Debit field.
-func (o *GLRow) SetDebit(v int32) {
+// SetDebit gets a reference to the given int64 and assigns it to the Debit field.
+func (o *GLRow) SetDebit(v int64) {
 	o.Debit = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *GLRow) GetId() int32 {
+func (o *GLRow) GetId() int64 {
 	if o == nil || IsNil(o.Id) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Id
@@ -195,7 +195,7 @@ func (o *GLRow) GetId() int32 {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GLRow) GetIdOk() (*int32, bool) {
+func (o *GLRow) GetIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -211,8 +211,8 @@ func (o *GLRow) HasId() bool {
 	return false
 }
 
-// SetId gets a reference to the given int32 and assigns it to the Id field.
-func (o *GLRow) SetId(v int32) {
+// SetId gets a reference to the given int64 and assigns it to the Id field.
+func (o *GLRow) SetId(v int64) {
 	o.Id = &v
 }
 

@@ -20,9 +20,9 @@ var _ MappedNullable = &RegistryProject{}
 // RegistryProject struct for RegistryProject
 type RegistryProject struct {
 	// Images is how many of the org's repositories the OCI catalog holds.
-	Images *int32 `json:"images,omitempty"`
+	Images *int64 `json:"images,omitempty"`
 	// Packages is how many of the org's packages the npm registry reports.
-	Packages *int32 `json:"packages,omitempty"`
+	Packages *int64 `json:"packages,omitempty"`
 	// Project is the namespace: the org's slug, which prefixes its image names and scopes its npm packages.
 	Project *string `json:"project,omitempty"`
 }
@@ -45,9 +45,9 @@ func NewRegistryProjectWithDefaults() *RegistryProject {
 }
 
 // GetImages returns the Images field value if set, zero value otherwise.
-func (o *RegistryProject) GetImages() int32 {
+func (o *RegistryProject) GetImages() int64 {
 	if o == nil || IsNil(o.Images) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Images
@@ -55,7 +55,7 @@ func (o *RegistryProject) GetImages() int32 {
 
 // GetImagesOk returns a tuple with the Images field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RegistryProject) GetImagesOk() (*int32, bool) {
+func (o *RegistryProject) GetImagesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Images) {
 		return nil, false
 	}
@@ -71,15 +71,15 @@ func (o *RegistryProject) HasImages() bool {
 	return false
 }
 
-// SetImages gets a reference to the given int32 and assigns it to the Images field.
-func (o *RegistryProject) SetImages(v int32) {
+// SetImages gets a reference to the given int64 and assigns it to the Images field.
+func (o *RegistryProject) SetImages(v int64) {
 	o.Images = &v
 }
 
 // GetPackages returns the Packages field value if set, zero value otherwise.
-func (o *RegistryProject) GetPackages() int32 {
+func (o *RegistryProject) GetPackages() int64 {
 	if o == nil || IsNil(o.Packages) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Packages
@@ -87,7 +87,7 @@ func (o *RegistryProject) GetPackages() int32 {
 
 // GetPackagesOk returns a tuple with the Packages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RegistryProject) GetPackagesOk() (*int32, bool) {
+func (o *RegistryProject) GetPackagesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Packages) {
 		return nil, false
 	}
@@ -103,8 +103,8 @@ func (o *RegistryProject) HasPackages() bool {
 	return false
 }
 
-// SetPackages gets a reference to the given int32 and assigns it to the Packages field.
-func (o *RegistryProject) SetPackages(v int32) {
+// SetPackages gets a reference to the given int64 and assigns it to the Packages field.
+func (o *RegistryProject) SetPackages(v int64) {
 	o.Packages = &v
 }
 

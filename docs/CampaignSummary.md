@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Budget** | Pointer to **int32** | Budget is the sum of every campaign&#39;s budget, in CENTS. | [optional] 
-**Campaigns** | Pointer to **int32** | Campaigns is how many campaigns the org has, in any state. | [optional] 
+**Budget** | Pointer to **int64** | Budget is the sum of every campaign&#39;s budget, in CENTS. | [optional] 
+**Campaigns** | Pointer to **int64** | Campaigns is how many campaigns the org has, in any state. | [optional] 
 **Channels** | Pointer to **[]string** | Channels are the channel kinds this deployment has an executor wired for. A kind absent here is a kind a launch will honestly record as unavailable. | [optional] 
-**Live** | Pointer to **int32** | Live is how many of them are currently live. | [optional] 
+**Live** | Pointer to **int64** | Live is how many of them are currently live. | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetBudget
 
-`func (o *CampaignSummary) GetBudget() int32`
+`func (o *CampaignSummary) GetBudget() int64`
 
 GetBudget returns the Budget field if non-nil, zero value otherwise.
 
 ### GetBudgetOk
 
-`func (o *CampaignSummary) GetBudgetOk() (*int32, bool)`
+`func (o *CampaignSummary) GetBudgetOk() (*int64, bool)`
 
 GetBudgetOk returns a tuple with the Budget field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBudget
 
-`func (o *CampaignSummary) SetBudget(v int32)`
+`func (o *CampaignSummary) SetBudget(v int64)`
 
 SetBudget sets Budget field to given value.
 
@@ -55,20 +55,20 @@ HasBudget returns a boolean if a field has been set.
 
 ### GetCampaigns
 
-`func (o *CampaignSummary) GetCampaigns() int32`
+`func (o *CampaignSummary) GetCampaigns() int64`
 
 GetCampaigns returns the Campaigns field if non-nil, zero value otherwise.
 
 ### GetCampaignsOk
 
-`func (o *CampaignSummary) GetCampaignsOk() (*int32, bool)`
+`func (o *CampaignSummary) GetCampaignsOk() (*int64, bool)`
 
 GetCampaignsOk returns a tuple with the Campaigns field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCampaigns
 
-`func (o *CampaignSummary) SetCampaigns(v int32)`
+`func (o *CampaignSummary) SetCampaigns(v int64)`
 
 SetCampaigns sets Campaigns field to given value.
 
@@ -105,20 +105,20 @@ HasChannels returns a boolean if a field has been set.
 
 ### GetLive
 
-`func (o *CampaignSummary) GetLive() int32`
+`func (o *CampaignSummary) GetLive() int64`
 
 GetLive returns the Live field if non-nil, zero value otherwise.
 
 ### GetLiveOk
 
-`func (o *CampaignSummary) GetLiveOk() (*int32, bool)`
+`func (o *CampaignSummary) GetLiveOk() (*int64, bool)`
 
 GetLiveOk returns a tuple with the Live field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLive
 
-`func (o *CampaignSummary) SetLive(v int32)`
+`func (o *CampaignSummary) SetLive(v int64)`
 
 SetLive sets Live field to given value.
 

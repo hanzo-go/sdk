@@ -10,8 +10,8 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** |  | [optional] 
 **DurableName** | Pointer to **string** |  | [optional] 
 **FilterSubject** | Pointer to **string** |  | [optional] 
-**MaxAckPending** | Pointer to **int32** |  | [optional] 
-**MaxDeliver** | Pointer to **int32** |  | [optional] 
+**MaxAckPending** | Pointer to **int64** |  | [optional] 
+**MaxDeliver** | Pointer to **int64** |  | [optional] 
 **OptStartSeq** | Pointer to **int32** |  | [optional] 
 **OptStartTime** | Pointer to **time.Time** |  | [optional] 
 **ReplayPolicy** | Pointer to **string** |  | [optional] 
@@ -188,20 +188,20 @@ HasFilterSubject returns a boolean if a field has been set.
 
 ### GetMaxAckPending
 
-`func (o *MakeIn) GetMaxAckPending() int32`
+`func (o *MakeIn) GetMaxAckPending() int64`
 
 GetMaxAckPending returns the MaxAckPending field if non-nil, zero value otherwise.
 
 ### GetMaxAckPendingOk
 
-`func (o *MakeIn) GetMaxAckPendingOk() (*int32, bool)`
+`func (o *MakeIn) GetMaxAckPendingOk() (*int64, bool)`
 
 GetMaxAckPendingOk returns a tuple with the MaxAckPending field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxAckPending
 
-`func (o *MakeIn) SetMaxAckPending(v int32)`
+`func (o *MakeIn) SetMaxAckPending(v int64)`
 
 SetMaxAckPending sets MaxAckPending field to given value.
 
@@ -213,20 +213,20 @@ HasMaxAckPending returns a boolean if a field has been set.
 
 ### GetMaxDeliver
 
-`func (o *MakeIn) GetMaxDeliver() int32`
+`func (o *MakeIn) GetMaxDeliver() int64`
 
 GetMaxDeliver returns the MaxDeliver field if non-nil, zero value otherwise.
 
 ### GetMaxDeliverOk
 
-`func (o *MakeIn) GetMaxDeliverOk() (*int32, bool)`
+`func (o *MakeIn) GetMaxDeliverOk() (*int64, bool)`
 
 GetMaxDeliverOk returns a tuple with the MaxDeliver field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxDeliver
 
-`func (o *MakeIn) SetMaxDeliver(v int32)`
+`func (o *MakeIn) SetMaxDeliver(v int64)`
 
 SetMaxDeliver sets MaxDeliver field to given value.
 

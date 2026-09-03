@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CompletionTokens** | Pointer to **int32** | CompletionTokens is the conversation&#39;s total output tokens. | [optional] 
+**CompletionTokens** | Pointer to **int64** | CompletionTokens is the conversation&#39;s total output tokens. | [optional] 
 **Id** | Pointer to **string** | ID is the session id. | [optional] 
-**Observations** | Pointer to **int32** | Observations is how many observations the conversation holds. | [optional] 
-**PromptTokens** | Pointer to **int32** | PromptTokens is the conversation&#39;s total input tokens. | [optional] 
-**TotalCost** | Pointer to **float32** | TotalCost is the conversation&#39;s total cost. | [optional] 
-**TotalTokens** | Pointer to **int32** | TotalTokens is the conversation&#39;s total tokens. | [optional] 
-**Traces** | Pointer to **int32** | Traces is how many traces the conversation holds. | [optional] 
+**Observations** | Pointer to **int64** | Observations is how many observations the conversation holds. | [optional] 
+**PromptTokens** | Pointer to **int64** | PromptTokens is the conversation&#39;s total input tokens. | [optional] 
+**TotalCost** | Pointer to **float64** | TotalCost is the conversation&#39;s total cost. | [optional] 
+**TotalTokens** | Pointer to **int64** | TotalTokens is the conversation&#39;s total tokens. | [optional] 
+**Traces** | Pointer to **int64** | Traces is how many traces the conversation holds. | [optional] 
 **UserId** | Pointer to **string** | UserID is the end user the conversation is attributed to. | [optional] 
 
 ## Methods
@@ -34,20 +34,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCompletionTokens
 
-`func (o *O11yO11yLLMSession) GetCompletionTokens() int32`
+`func (o *O11yO11yLLMSession) GetCompletionTokens() int64`
 
 GetCompletionTokens returns the CompletionTokens field if non-nil, zero value otherwise.
 
 ### GetCompletionTokensOk
 
-`func (o *O11yO11yLLMSession) GetCompletionTokensOk() (*int32, bool)`
+`func (o *O11yO11yLLMSession) GetCompletionTokensOk() (*int64, bool)`
 
 GetCompletionTokensOk returns a tuple with the CompletionTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCompletionTokens
 
-`func (o *O11yO11yLLMSession) SetCompletionTokens(v int32)`
+`func (o *O11yO11yLLMSession) SetCompletionTokens(v int64)`
 
 SetCompletionTokens sets CompletionTokens field to given value.
 
@@ -84,20 +84,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetObservations
 
-`func (o *O11yO11yLLMSession) GetObservations() int32`
+`func (o *O11yO11yLLMSession) GetObservations() int64`
 
 GetObservations returns the Observations field if non-nil, zero value otherwise.
 
 ### GetObservationsOk
 
-`func (o *O11yO11yLLMSession) GetObservationsOk() (*int32, bool)`
+`func (o *O11yO11yLLMSession) GetObservationsOk() (*int64, bool)`
 
 GetObservationsOk returns a tuple with the Observations field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetObservations
 
-`func (o *O11yO11yLLMSession) SetObservations(v int32)`
+`func (o *O11yO11yLLMSession) SetObservations(v int64)`
 
 SetObservations sets Observations field to given value.
 
@@ -109,20 +109,20 @@ HasObservations returns a boolean if a field has been set.
 
 ### GetPromptTokens
 
-`func (o *O11yO11yLLMSession) GetPromptTokens() int32`
+`func (o *O11yO11yLLMSession) GetPromptTokens() int64`
 
 GetPromptTokens returns the PromptTokens field if non-nil, zero value otherwise.
 
 ### GetPromptTokensOk
 
-`func (o *O11yO11yLLMSession) GetPromptTokensOk() (*int32, bool)`
+`func (o *O11yO11yLLMSession) GetPromptTokensOk() (*int64, bool)`
 
 GetPromptTokensOk returns a tuple with the PromptTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPromptTokens
 
-`func (o *O11yO11yLLMSession) SetPromptTokens(v int32)`
+`func (o *O11yO11yLLMSession) SetPromptTokens(v int64)`
 
 SetPromptTokens sets PromptTokens field to given value.
 
@@ -134,20 +134,20 @@ HasPromptTokens returns a boolean if a field has been set.
 
 ### GetTotalCost
 
-`func (o *O11yO11yLLMSession) GetTotalCost() float32`
+`func (o *O11yO11yLLMSession) GetTotalCost() float64`
 
 GetTotalCost returns the TotalCost field if non-nil, zero value otherwise.
 
 ### GetTotalCostOk
 
-`func (o *O11yO11yLLMSession) GetTotalCostOk() (*float32, bool)`
+`func (o *O11yO11yLLMSession) GetTotalCostOk() (*float64, bool)`
 
 GetTotalCostOk returns a tuple with the TotalCost field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalCost
 
-`func (o *O11yO11yLLMSession) SetTotalCost(v float32)`
+`func (o *O11yO11yLLMSession) SetTotalCost(v float64)`
 
 SetTotalCost sets TotalCost field to given value.
 
@@ -159,20 +159,20 @@ HasTotalCost returns a boolean if a field has been set.
 
 ### GetTotalTokens
 
-`func (o *O11yO11yLLMSession) GetTotalTokens() int32`
+`func (o *O11yO11yLLMSession) GetTotalTokens() int64`
 
 GetTotalTokens returns the TotalTokens field if non-nil, zero value otherwise.
 
 ### GetTotalTokensOk
 
-`func (o *O11yO11yLLMSession) GetTotalTokensOk() (*int32, bool)`
+`func (o *O11yO11yLLMSession) GetTotalTokensOk() (*int64, bool)`
 
 GetTotalTokensOk returns a tuple with the TotalTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalTokens
 
-`func (o *O11yO11yLLMSession) SetTotalTokens(v int32)`
+`func (o *O11yO11yLLMSession) SetTotalTokens(v int64)`
 
 SetTotalTokens sets TotalTokens field to given value.
 
@@ -184,20 +184,20 @@ HasTotalTokens returns a boolean if a field has been set.
 
 ### GetTraces
 
-`func (o *O11yO11yLLMSession) GetTraces() int32`
+`func (o *O11yO11yLLMSession) GetTraces() int64`
 
 GetTraces returns the Traces field if non-nil, zero value otherwise.
 
 ### GetTracesOk
 
-`func (o *O11yO11yLLMSession) GetTracesOk() (*int32, bool)`
+`func (o *O11yO11yLLMSession) GetTracesOk() (*int64, bool)`
 
 GetTracesOk returns a tuple with the Traces field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTraces
 
-`func (o *O11yO11yLLMSession) SetTraces(v int32)`
+`func (o *O11yO11yLLMSession) SetTraces(v int64)`
 
 SetTraces sets Traces field to given value.
 

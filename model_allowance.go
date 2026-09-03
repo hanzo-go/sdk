@@ -20,15 +20,15 @@ var _ MappedNullable = &Allowance{}
 // Allowance struct for Allowance
 type Allowance struct {
 	// calls the plan allows per period; 0 = unbounded
-	Limit *int32 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 	// the tier the limit came from
 	Plan *string `json:"plan,omitempty"`
 	// unix seconds; when THAT window starts again
-	Resets *int32 `json:"resets,omitempty"`
+	Resets *int64 `json:"resets,omitempty"`
 	// the subject is at the limit
 	Spent *bool `json:"spent,omitempty"`
 	// Used is how many zero-priced calls this subject has been SERVED in the period ending at Resets — the UTC calendar day. Only a served call counts, so an admission check, a refusal, or a vendor that never answered leaves it where it stood. It stops AT Limit rather than climbing past it, so Limit-Used is what remains and never goes negative.
-	Used *int32 `json:"used,omitempty"`
+	Used *int64 `json:"used,omitempty"`
 	// Window is which ceiling these numbers describe — \"hour\" or \"day\" — because a caller is held to both and only one of them is the answer. It is the window that REFUSED where one did, and otherwise the one with least left, so Limit-Used is always the number that will actually stop them next. Empty where no window bounds the subject at all.
 	Window *string `json:"window,omitempty"`
 }
@@ -51,9 +51,9 @@ func NewAllowanceWithDefaults() *Allowance {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *Allowance) GetLimit() int32 {
+func (o *Allowance) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -61,7 +61,7 @@ func (o *Allowance) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Allowance) GetLimitOk() (*int32, bool) {
+func (o *Allowance) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -77,8 +77,8 @@ func (o *Allowance) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *Allowance) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *Allowance) SetLimit(v int64) {
 	o.Limit = &v
 }
 
@@ -115,9 +115,9 @@ func (o *Allowance) SetPlan(v string) {
 }
 
 // GetResets returns the Resets field value if set, zero value otherwise.
-func (o *Allowance) GetResets() int32 {
+func (o *Allowance) GetResets() int64 {
 	if o == nil || IsNil(o.Resets) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Resets
@@ -125,7 +125,7 @@ func (o *Allowance) GetResets() int32 {
 
 // GetResetsOk returns a tuple with the Resets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Allowance) GetResetsOk() (*int32, bool) {
+func (o *Allowance) GetResetsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Resets) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *Allowance) HasResets() bool {
 	return false
 }
 
-// SetResets gets a reference to the given int32 and assigns it to the Resets field.
-func (o *Allowance) SetResets(v int32) {
+// SetResets gets a reference to the given int64 and assigns it to the Resets field.
+func (o *Allowance) SetResets(v int64) {
 	o.Resets = &v
 }
 
@@ -179,9 +179,9 @@ func (o *Allowance) SetSpent(v bool) {
 }
 
 // GetUsed returns the Used field value if set, zero value otherwise.
-func (o *Allowance) GetUsed() int32 {
+func (o *Allowance) GetUsed() int64 {
 	if o == nil || IsNil(o.Used) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Used
@@ -189,7 +189,7 @@ func (o *Allowance) GetUsed() int32 {
 
 // GetUsedOk returns a tuple with the Used field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Allowance) GetUsedOk() (*int32, bool) {
+func (o *Allowance) GetUsedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Used) {
 		return nil, false
 	}
@@ -205,8 +205,8 @@ func (o *Allowance) HasUsed() bool {
 	return false
 }
 
-// SetUsed gets a reference to the given int32 and assigns it to the Used field.
-func (o *Allowance) SetUsed(v int32) {
+// SetUsed gets a reference to the given int64 and assigns it to the Used field.
+func (o *Allowance) SetUsed(v int64) {
 	o.Used = &v
 }
 

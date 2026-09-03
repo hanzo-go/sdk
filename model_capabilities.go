@@ -25,7 +25,7 @@ type Capabilities struct {
 	Dm *bool `json:"dm,omitempty"`
 	// Group is whether the transport carries multi-person rooms — a Discord guild channel, a Slack channel, a Teams channel or group chat, a Telegram group or supergroup. False on whatsapp alone, which has no such room to carry.
 	Group *bool `json:"group,omitempty"`
-	// Media is whether the transport renders an ATTACHMENT natively. False everywhere, and a send is not refused for it: renderText flattens each attachment to one `kind: url (mime)` line after the text rather than dropping it. A transport whose egress hands its door the raw text would drop the attachment instead, and an attachment-only send would reach the platform with nothing to say — which is why the flag and the flattening are pinned together.
+	// Media is whether the transport renders an ATTACHMENT natively. False everywhere, and a send is not refused for it: renderText flattens each attachment to one `kind: url (mime)` line after the text rather than dropping it. A transport whose egress passes the raw text straight through would drop the attachment instead, and an attachment-only send would reach the platform with nothing to say — which is why the flag and the flattening are pinned together.
 	Media *bool `json:"media,omitempty"`
 	// Thread is whether a reply can be threaded UNDER a specific message. True for slack alone: it is the only transport whose ingress reports a thread (thread_ts, published as the envelope's replyTo) and whose send posts back into it. Discord's replyTo makes an inline reply rather than a thread, Telegram's and WhatsApp's each quote one message, and Teams carries no reply target at all — a replyTo sent to it is ignored.
 	Thread *bool `json:"thread,omitempty"`

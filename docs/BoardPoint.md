@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CostCents** | Pointer to **int32** | what this bucket cost, in cents | [optional] 
-**Errors** | Pointer to **int32** | calls in this bucket that did not succeed | [optional] 
-**Generations** | Pointer to **int32** | model calls in this bucket | [optional] 
+**CostCents** | Pointer to **int64** | what this bucket cost, in cents | [optional] 
+**Errors** | Pointer to **int64** | calls in this bucket that did not succeed | [optional] 
+**Generations** | Pointer to **int64** | model calls in this bucket | [optional] 
 **T** | Pointer to **string** | RFC3339 (UTC) bucket start | [optional] 
-**TotalTokens** | Pointer to **int32** | tokens in this bucket | [optional] 
+**TotalTokens** | Pointer to **int64** | tokens in this bucket | [optional] 
 
 ## Methods
 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCostCents
 
-`func (o *BoardPoint) GetCostCents() int32`
+`func (o *BoardPoint) GetCostCents() int64`
 
 GetCostCents returns the CostCents field if non-nil, zero value otherwise.
 
 ### GetCostCentsOk
 
-`func (o *BoardPoint) GetCostCentsOk() (*int32, bool)`
+`func (o *BoardPoint) GetCostCentsOk() (*int64, bool)`
 
 GetCostCentsOk returns a tuple with the CostCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCostCents
 
-`func (o *BoardPoint) SetCostCents(v int32)`
+`func (o *BoardPoint) SetCostCents(v int64)`
 
 SetCostCents sets CostCents field to given value.
 
@@ -56,20 +56,20 @@ HasCostCents returns a boolean if a field has been set.
 
 ### GetErrors
 
-`func (o *BoardPoint) GetErrors() int32`
+`func (o *BoardPoint) GetErrors() int64`
 
 GetErrors returns the Errors field if non-nil, zero value otherwise.
 
 ### GetErrorsOk
 
-`func (o *BoardPoint) GetErrorsOk() (*int32, bool)`
+`func (o *BoardPoint) GetErrorsOk() (*int64, bool)`
 
 GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetErrors
 
-`func (o *BoardPoint) SetErrors(v int32)`
+`func (o *BoardPoint) SetErrors(v int64)`
 
 SetErrors sets Errors field to given value.
 
@@ -81,20 +81,20 @@ HasErrors returns a boolean if a field has been set.
 
 ### GetGenerations
 
-`func (o *BoardPoint) GetGenerations() int32`
+`func (o *BoardPoint) GetGenerations() int64`
 
 GetGenerations returns the Generations field if non-nil, zero value otherwise.
 
 ### GetGenerationsOk
 
-`func (o *BoardPoint) GetGenerationsOk() (*int32, bool)`
+`func (o *BoardPoint) GetGenerationsOk() (*int64, bool)`
 
 GetGenerationsOk returns a tuple with the Generations field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGenerations
 
-`func (o *BoardPoint) SetGenerations(v int32)`
+`func (o *BoardPoint) SetGenerations(v int64)`
 
 SetGenerations sets Generations field to given value.
 
@@ -131,20 +131,20 @@ HasT returns a boolean if a field has been set.
 
 ### GetTotalTokens
 
-`func (o *BoardPoint) GetTotalTokens() int32`
+`func (o *BoardPoint) GetTotalTokens() int64`
 
 GetTotalTokens returns the TotalTokens field if non-nil, zero value otherwise.
 
 ### GetTotalTokensOk
 
-`func (o *BoardPoint) GetTotalTokensOk() (*int32, bool)`
+`func (o *BoardPoint) GetTotalTokensOk() (*int64, bool)`
 
 GetTotalTokensOk returns a tuple with the TotalTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalTokens
 
-`func (o *BoardPoint) SetTotalTokens(v int32)`
+`func (o *BoardPoint) SetTotalTokens(v int64)`
 
 SetTotalTokens sets TotalTokens field to given value.
 

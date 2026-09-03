@@ -22,7 +22,7 @@ type BucketList struct {
 	// Buckets are the caller org's buckets, friendly names, oldest first as the store returns them.
 	Buckets []BucketItem `json:"buckets,omitempty"`
 	// Total is how many buckets this org has. It equals len(buckets): the listing is not paged, because an org's bucket count is small by construction.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 }
 
 // NewBucketList instantiates a new BucketList object
@@ -75,9 +75,9 @@ func (o *BucketList) SetBuckets(v []BucketItem) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *BucketList) GetTotal() int32 {
+func (o *BucketList) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -85,7 +85,7 @@ func (o *BucketList) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BucketList) GetTotalOk() (*int32, bool) {
+func (o *BucketList) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *BucketList) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *BucketList) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *BucketList) SetTotal(v int64) {
 	o.Total = &v
 }
 

@@ -311,7 +311,7 @@ type TodoAPIGetTodoIssuesRequest struct {
 	room       *string
 	source     *string
 	assignee   *string
-	limit      *int32
+	limit      *int64
 }
 
 // Q matches an issue&#39;s title or description. A word from the issue, which is what someone remembers — not its number, which is what they are looking up.
@@ -363,7 +363,7 @@ func (r TodoAPIGetTodoIssuesRequest) Assignee(assignee string) TodoAPIGetTodoIss
 }
 
 // Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess.
-func (r TodoAPIGetTodoIssuesRequest) Limit(limit int32) TodoAPIGetTodoIssuesRequest {
+func (r TodoAPIGetTodoIssuesRequest) Limit(limit int64) TodoAPIGetTodoIssuesRequest {
 	r.limit = &limit
 	return r
 }
@@ -896,7 +896,7 @@ type TodoAPIGetTodoProjectsByKeyIssuesByNumRequest struct {
 	ctx        context.Context
 	ApiService *TodoAPIService
 	key        string
-	num        int32
+	num        int64
 }
 
 func (r TodoAPIGetTodoProjectsByKeyIssuesByNumRequest) Execute() (*IssueView, *http.Response, error) {
@@ -924,7 +924,7 @@ to exist, so a caller does not have to know which store it is in to fetch it.
 	@param num Num is the issue's number on that board.
 	@return TodoAPIGetTodoProjectsByKeyIssuesByNumRequest
 */
-func (a *TodoAPIService) GetTodoProjectsByKeyIssuesByNum(ctx context.Context, key string, num int32) TodoAPIGetTodoProjectsByKeyIssuesByNumRequest {
+func (a *TodoAPIService) GetTodoProjectsByKeyIssuesByNum(ctx context.Context, key string, num int64) TodoAPIGetTodoProjectsByKeyIssuesByNumRequest {
 	return TodoAPIGetTodoProjectsByKeyIssuesByNumRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1226,7 +1226,7 @@ type TodoAPIPatchTodoProjectsByKeyIssuesByNumRequest struct {
 	ctx        context.Context
 	ApiService *TodoAPIService
 	key        string
-	num        int32
+	num        int64
 	issueEdit  *IssueEdit
 }
 
@@ -1255,7 +1255,7 @@ the forge, because a done card and an open issue are a contradiction.
 	@param num Num is the issue number on that repository, from the path.
 	@return TodoAPIPatchTodoProjectsByKeyIssuesByNumRequest
 */
-func (a *TodoAPIService) PatchTodoProjectsByKeyIssuesByNum(ctx context.Context, key string, num int32) TodoAPIPatchTodoProjectsByKeyIssuesByNumRequest {
+func (a *TodoAPIService) PatchTodoProjectsByKeyIssuesByNum(ctx context.Context, key string, num int64) TodoAPIPatchTodoProjectsByKeyIssuesByNumRequest {
 	return TodoAPIPatchTodoProjectsByKeyIssuesByNumRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1563,7 +1563,7 @@ type TodoAPIPostTodoProjectsByKeyIssuesByNumClaimRequest struct {
 	ctx        context.Context
 	ApiService *TodoAPIService
 	key        string
-	num        int32
+	num        int64
 }
 
 func (r TodoAPIPostTodoProjectsByKeyIssuesByNumClaimRequest) Execute() (*IssueHit, *http.Response, error) {
@@ -1588,7 +1588,7 @@ claim that quietly wins a race is worse than one that says no.
 	@param num
 	@return TodoAPIPostTodoProjectsByKeyIssuesByNumClaimRequest
 */
-func (a *TodoAPIService) PostTodoProjectsByKeyIssuesByNumClaim(ctx context.Context, key string, num int32) TodoAPIPostTodoProjectsByKeyIssuesByNumClaimRequest {
+func (a *TodoAPIService) PostTodoProjectsByKeyIssuesByNumClaim(ctx context.Context, key string, num int64) TodoAPIPostTodoProjectsByKeyIssuesByNumClaimRequest {
 	return TodoAPIPostTodoProjectsByKeyIssuesByNumClaimRequest{
 		ApiService: a,
 		ctx:        ctx,

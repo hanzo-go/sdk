@@ -20,9 +20,9 @@ var _ MappedNullable = &CheckView{}
 // CheckView struct for CheckView
 type CheckView struct {
 	// CreatedAt is the unix second the verification was started.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// DecidedAt is the unix second a terminal status was recorded.
-	DecidedAt *int32 `json:"decidedAt,omitempty"`
+	DecidedAt *int64 `json:"decidedAt,omitempty"`
 	// DecidedBy records who settled a terminal status: the provider name, or a reviewer's user id for a recorded manual decision.
 	DecidedBy *string `json:"decidedBy,omitempty"`
 	// ID is the verification's opaque id.
@@ -36,7 +36,7 @@ type CheckView struct {
 	// SubjectID is the opaque id of the subject under verification.
 	SubjectId *string `json:"subjectId,omitempty"`
 	// UpdatedAt is the unix second the verification last changed.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 	// VerifyURL is the provider's hosted verification flow for the subject, when one exists.
 	VerifyUrl *string `json:"verifyUrl,omitempty"`
 }
@@ -59,9 +59,9 @@ func NewCheckViewWithDefaults() *CheckView {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *CheckView) GetCreatedAt() int32 {
+func (o *CheckView) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -69,7 +69,7 @@ func (o *CheckView) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CheckView) GetCreatedAtOk() (*int32, bool) {
+func (o *CheckView) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -85,15 +85,15 @@ func (o *CheckView) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *CheckView) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *CheckView) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
 // GetDecidedAt returns the DecidedAt field value if set, zero value otherwise.
-func (o *CheckView) GetDecidedAt() int32 {
+func (o *CheckView) GetDecidedAt() int64 {
 	if o == nil || IsNil(o.DecidedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DecidedAt
@@ -101,7 +101,7 @@ func (o *CheckView) GetDecidedAt() int32 {
 
 // GetDecidedAtOk returns a tuple with the DecidedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CheckView) GetDecidedAtOk() (*int32, bool) {
+func (o *CheckView) GetDecidedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.DecidedAt) {
 		return nil, false
 	}
@@ -117,8 +117,8 @@ func (o *CheckView) HasDecidedAt() bool {
 	return false
 }
 
-// SetDecidedAt gets a reference to the given int32 and assigns it to the DecidedAt field.
-func (o *CheckView) SetDecidedAt(v int32) {
+// SetDecidedAt gets a reference to the given int64 and assigns it to the DecidedAt field.
+func (o *CheckView) SetDecidedAt(v int64) {
 	o.DecidedAt = &v
 }
 
@@ -315,9 +315,9 @@ func (o *CheckView) SetSubjectId(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *CheckView) GetUpdatedAt() int32 {
+func (o *CheckView) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -325,7 +325,7 @@ func (o *CheckView) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CheckView) GetUpdatedAtOk() (*int32, bool) {
+func (o *CheckView) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -341,8 +341,8 @@ func (o *CheckView) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *CheckView) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *CheckView) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

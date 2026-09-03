@@ -165,7 +165,7 @@ func main() {
 	relation := "relation_example" // string | Relation narrows to one relation. Absent matches every relation. (optional)
 	value := "value_example" // string | Value narrows to assertions pointing AT one value, which is how the edges into an entity are read. (optional)
 	asOf := "asOf_example" // string | AsOf bounds the read to what was knowable at an instant, RFC 3339. Absent reads everything this plane holds. (optional)
-	limit := int32(56) // int32 | Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. (optional)
+	limit := int64(789) // int64 | Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -194,7 +194,7 @@ Name | Type | Description  | Notes
  **relation** | **string** | Relation narrows to one relation. Absent matches every relation. | 
  **value** | **string** | Value narrows to assertions pointing AT one value, which is how the edges into an entity are read. | 
  **asOf** | **string** | AsOf bounds the read to what was knowable at an instant, RFC 3339. Absent reads everything this plane holds. | 
- **limit** | **int32** | Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. | 
+ **limit** | **int64** | Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. | 
 
 ### Return type
 
@@ -302,7 +302,7 @@ func main() {
 	q := "q_example" // string | Q is what to look for: words, matched as prefixes, all of them required. Punctuation is text here rather than syntax, so an entity key searches as itself. (optional)
 	relation := "relation_example" // string | Relation narrows to one relation. Absent matches every relation. (optional)
 	asOf := "asOf_example" // string | AsOf bounds the search to what was knowable at an instant, RFC 3339. Absent searches everything this plane holds. (optional)
-	limit := int32(56) // int32 | Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. (optional)
+	limit := int64(789) // int64 | Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -330,7 +330,7 @@ Name | Type | Description  | Notes
  **q** | **string** | Q is what to look for: words, matched as prefixes, all of them required. Punctuation is text here rather than syntax, so an entity key searches as itself. | 
  **relation** | **string** | Relation narrows to one relation. Absent matches every relation. | 
  **asOf** | **string** | AsOf bounds the search to what was knowable at an instant, RFC 3339. Absent searches everything this plane holds. | 
- **limit** | **int32** | Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. | 
+ **limit** | **int64** | Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. | 
 
 ### Return type
 

@@ -20,13 +20,13 @@ var _ MappedNullable = &O11yListMeta{}
 // O11yListMeta struct for O11yListMeta
 type O11yListMeta struct {
 	// Limit is how many rows one page holds.
-	Limit *int32 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 	// Page is the 1-based page this response is.
-	Page *int32 `json:"page,omitempty"`
+	Page *int64 `json:"page,omitempty"`
 	// TotalItems is how many rows match in total.
-	TotalItems *int32 `json:"totalItems,omitempty"`
+	TotalItems *int64 `json:"totalItems,omitempty"`
 	// TotalPages is ceil(totalItems/limit), at least 1.
-	TotalPages *int32 `json:"totalPages,omitempty"`
+	TotalPages *int64 `json:"totalPages,omitempty"`
 }
 
 // NewO11yListMeta instantiates a new O11yListMeta object
@@ -47,9 +47,9 @@ func NewO11yListMetaWithDefaults() *O11yListMeta {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *O11yListMeta) GetLimit() int32 {
+func (o *O11yListMeta) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -57,7 +57,7 @@ func (o *O11yListMeta) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yListMeta) GetLimitOk() (*int32, bool) {
+func (o *O11yListMeta) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -73,15 +73,15 @@ func (o *O11yListMeta) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *O11yListMeta) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *O11yListMeta) SetLimit(v int64) {
 	o.Limit = &v
 }
 
 // GetPage returns the Page field value if set, zero value otherwise.
-func (o *O11yListMeta) GetPage() int32 {
+func (o *O11yListMeta) GetPage() int64 {
 	if o == nil || IsNil(o.Page) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Page
@@ -89,7 +89,7 @@ func (o *O11yListMeta) GetPage() int32 {
 
 // GetPageOk returns a tuple with the Page field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yListMeta) GetPageOk() (*int32, bool) {
+func (o *O11yListMeta) GetPageOk() (*int64, bool) {
 	if o == nil || IsNil(o.Page) {
 		return nil, false
 	}
@@ -105,15 +105,15 @@ func (o *O11yListMeta) HasPage() bool {
 	return false
 }
 
-// SetPage gets a reference to the given int32 and assigns it to the Page field.
-func (o *O11yListMeta) SetPage(v int32) {
+// SetPage gets a reference to the given int64 and assigns it to the Page field.
+func (o *O11yListMeta) SetPage(v int64) {
 	o.Page = &v
 }
 
 // GetTotalItems returns the TotalItems field value if set, zero value otherwise.
-func (o *O11yListMeta) GetTotalItems() int32 {
+func (o *O11yListMeta) GetTotalItems() int64 {
 	if o == nil || IsNil(o.TotalItems) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalItems
@@ -121,7 +121,7 @@ func (o *O11yListMeta) GetTotalItems() int32 {
 
 // GetTotalItemsOk returns a tuple with the TotalItems field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yListMeta) GetTotalItemsOk() (*int32, bool) {
+func (o *O11yListMeta) GetTotalItemsOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalItems) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *O11yListMeta) HasTotalItems() bool {
 	return false
 }
 
-// SetTotalItems gets a reference to the given int32 and assigns it to the TotalItems field.
-func (o *O11yListMeta) SetTotalItems(v int32) {
+// SetTotalItems gets a reference to the given int64 and assigns it to the TotalItems field.
+func (o *O11yListMeta) SetTotalItems(v int64) {
 	o.TotalItems = &v
 }
 
 // GetTotalPages returns the TotalPages field value if set, zero value otherwise.
-func (o *O11yListMeta) GetTotalPages() int32 {
+func (o *O11yListMeta) GetTotalPages() int64 {
 	if o == nil || IsNil(o.TotalPages) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalPages
@@ -153,7 +153,7 @@ func (o *O11yListMeta) GetTotalPages() int32 {
 
 // GetTotalPagesOk returns a tuple with the TotalPages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yListMeta) GetTotalPagesOk() (*int32, bool) {
+func (o *O11yListMeta) GetTotalPagesOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalPages) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *O11yListMeta) HasTotalPages() bool {
 	return false
 }
 
-// SetTotalPages gets a reference to the given int32 and assigns it to the TotalPages field.
-func (o *O11yListMeta) SetTotalPages(v int32) {
+// SetTotalPages gets a reference to the given int64 and assigns it to the TotalPages field.
+func (o *O11yListMeta) SetTotalPages(v int64) {
 	o.TotalPages = &v
 }
 

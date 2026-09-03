@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Days** | Pointer to **int32** | Days is how long the grant stays open, from now. Optional; 14 by default and 365 at most — a longer release is describing a customer relationship rather than a document. | [optional] 
+**Days** | Pointer to **int64** | Days is how long the grant stays open, from now. Optional; 14 by default and 365 at most — a longer release is describing a customer relationship rather than a document. | [optional] 
 **Id** | Pointer to **string** | ID is the request to answer, taken from the path. | [optional] 
 **Note** | Pointer to **string** | Note is why. Recorded on the request either way, and it is what the record shows a year later. | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetDays
 
-`func (o *TrustDecision) GetDays() int32`
+`func (o *TrustDecision) GetDays() int64`
 
 GetDays returns the Days field if non-nil, zero value otherwise.
 
 ### GetDaysOk
 
-`func (o *TrustDecision) GetDaysOk() (*int32, bool)`
+`func (o *TrustDecision) GetDaysOk() (*int64, bool)`
 
 GetDaysOk returns a tuple with the Days field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDays
 
-`func (o *TrustDecision) SetDays(v int32)`
+`func (o *TrustDecision) SetDays(v int64)`
 
 SetDays sets Days field to given value.
 

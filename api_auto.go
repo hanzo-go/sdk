@@ -221,11 +221,11 @@ func (a *AutoAPIService) GetAutoConnectorsExecute(r AutoAPIGetAutoConnectorsRequ
 type AutoAPIGetAutoFlowsRequest struct {
 	ctx        context.Context
 	ApiService *AutoAPIService
-	limit      *int32
+	limit      *int64
 }
 
 // Limit bounds the page (default 200, maximum 1000).
-func (r AutoAPIGetAutoFlowsRequest) Limit(limit int32) AutoAPIGetAutoFlowsRequest {
+func (r AutoAPIGetAutoFlowsRequest) Limit(limit int64) AutoAPIGetAutoFlowsRequest {
 	r.limit = &limit
 	return r
 }
@@ -438,11 +438,11 @@ type AutoAPIGetAutoFlowsByIdVersionsRequest struct {
 	ctx        context.Context
 	ApiService *AutoAPIService
 	id         string
-	limit      *int32
+	limit      *int64
 }
 
 // Limit bounds the page (default 200, maximum 1000).
-func (r AutoAPIGetAutoFlowsByIdVersionsRequest) Limit(limit int32) AutoAPIGetAutoFlowsByIdVersionsRequest {
+func (r AutoAPIGetAutoFlowsByIdVersionsRequest) Limit(limit int64) AutoAPIGetAutoFlowsByIdVersionsRequest {
 	r.limit = &limit
 	return r
 }
@@ -553,7 +553,7 @@ type AutoAPIGetAutoRunsRequest struct {
 	ctx        context.Context
 	ApiService *AutoAPIService
 	flowId     *string
-	limit      *int32
+	limit      *int64
 }
 
 // FlowID narrows the history to one flow. Omit it for the whole org&#39;s runs.
@@ -563,7 +563,7 @@ func (r AutoAPIGetAutoRunsRequest) FlowId(flowId string) AutoAPIGetAutoRunsReque
 }
 
 // Limit bounds the page (default 200, maximum 1000).
-func (r AutoAPIGetAutoRunsRequest) Limit(limit int32) AutoAPIGetAutoRunsRequest {
+func (r AutoAPIGetAutoRunsRequest) Limit(limit int64) AutoAPIGetAutoRunsRequest {
 	r.limit = &limit
 	return r
 }

@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** | CreatedAt is the unix second the formation was opened. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is the unix second the formation was opened. | [optional] 
 **Name** | Pointer to **string** | Name is the company name the entity is being formed under. | [optional] 
 **Org** | Pointer to **string** | Org is the org whose formation this row projects. | [optional] 
 **Stage** | Pointer to **string** | Stage is the formation&#39;s current state — what the platform reads to see which formations are stalled and where. | [optional] 
 **Structure** | Pointer to **string** | Structure is the legal entity being formed: c-corp, llc or dao-llc. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is the unix second of the most recent write to the formation, and the key the register sorts on (newest activity first). | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is the unix second of the most recent write to the formation, and the key the register sorts on (newest activity first). | [optional] 
 
 ## Methods
 
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreatedAt
 
-`func (o *Registration) GetCreatedAt() int32`
+`func (o *Registration) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *Registration) GetCreatedAtOk() (*int32, bool)`
+`func (o *Registration) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *Registration) SetCreatedAt(v int32)`
+`func (o *Registration) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -157,20 +157,20 @@ HasStructure returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *Registration) GetUpdatedAt() int32`
+`func (o *Registration) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *Registration) GetUpdatedAtOk() (*int32, bool)`
+`func (o *Registration) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *Registration) SetUpdatedAt(v int32)`
+`func (o *Registration) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

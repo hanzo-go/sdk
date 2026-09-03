@@ -36,9 +36,9 @@ type TargetView struct {
 	// MetricsAt is when that heartbeat was recorded, RFC 3339 in UTC, and the SERVER stamps it — a client cannot backdate or forge the staleness clock. Absent means never beaten, which is exactly the case where Status is taken at its word.
 	MetricsAt *string `json:"metricsAt,omitempty"`
 	// Running is how many of those are in `running` right now — the number a dispatcher weighs against Capacity. paused sessions are in Sessions and not here.
-	Running *int32 `json:"running,omitempty"`
+	Running *int64 `json:"running,omitempty"`
 	// Sessions is how many of the org's sessions are mapped to this machine, by target id OR by matching Host. All of them, whatever their status.
-	Sessions *int32 `json:"sessions,omitempty"`
+	Sessions *int64 `json:"sessions,omitempty"`
 	// Spec is what the machine IS — os, arch, cores, RAM, accelerators — the static half, changed only when something reports it again. Absent when nothing has ever been reported, and a scheduler reads absence as \"cannot satisfy a floor\" rather than as \"no limits\".
 	Spec *Spec `json:"spec,omitempty"`
 	// Status is the EFFECTIVE liveness — online | offline | draining — not the stored one. offline and draining are operator INTENT and are reported as they stand; `online` is checked against the heartbeat, and a machine that has beaten before but not in the last 90 seconds reports offline whatever its row says. A target that has NEVER beaten keeps its stored status, because a hand-registered destination has no fact to check.
@@ -321,9 +321,9 @@ func (o *TargetView) SetMetricsAt(v string) {
 }
 
 // GetRunning returns the Running field value if set, zero value otherwise.
-func (o *TargetView) GetRunning() int32 {
+func (o *TargetView) GetRunning() int64 {
 	if o == nil || IsNil(o.Running) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Running
@@ -331,7 +331,7 @@ func (o *TargetView) GetRunning() int32 {
 
 // GetRunningOk returns a tuple with the Running field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TargetView) GetRunningOk() (*int32, bool) {
+func (o *TargetView) GetRunningOk() (*int64, bool) {
 	if o == nil || IsNil(o.Running) {
 		return nil, false
 	}
@@ -347,15 +347,15 @@ func (o *TargetView) HasRunning() bool {
 	return false
 }
 
-// SetRunning gets a reference to the given int32 and assigns it to the Running field.
-func (o *TargetView) SetRunning(v int32) {
+// SetRunning gets a reference to the given int64 and assigns it to the Running field.
+func (o *TargetView) SetRunning(v int64) {
 	o.Running = &v
 }
 
 // GetSessions returns the Sessions field value if set, zero value otherwise.
-func (o *TargetView) GetSessions() int32 {
+func (o *TargetView) GetSessions() int64 {
 	if o == nil || IsNil(o.Sessions) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Sessions
@@ -363,7 +363,7 @@ func (o *TargetView) GetSessions() int32 {
 
 // GetSessionsOk returns a tuple with the Sessions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TargetView) GetSessionsOk() (*int32, bool) {
+func (o *TargetView) GetSessionsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Sessions) {
 		return nil, false
 	}
@@ -379,8 +379,8 @@ func (o *TargetView) HasSessions() bool {
 	return false
 }
 
-// SetSessions gets a reference to the given int32 and assigns it to the Sessions field.
-func (o *TargetView) SetSessions(v int32) {
+// SetSessions gets a reference to the given int64 and assigns it to the Sessions field.
+func (o *TargetView) SetSessions(v int64) {
 	o.Sessions = &v
 }
 

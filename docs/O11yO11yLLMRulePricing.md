@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Cache** | Pointer to [**O11yO11yLLMPricingCacheCosts**](O11yO11yLLMPricingCacheCosts.md) | Cache is the cost of cached tokens, when the model prices them. | [optional] 
-**Input** | Pointer to **float32** | Input is the cost per unit of input tokens. | [optional] 
-**Output** | Pointer to **float32** | Output is the cost per unit of output tokens. | [optional] 
+**Input** | Pointer to **float64** | Input is the cost per unit of input tokens. | [optional] 
+**Output** | Pointer to **float64** | Output is the cost per unit of output tokens. | [optional] 
 
 ## Methods
 
@@ -54,20 +54,20 @@ HasCache returns a boolean if a field has been set.
 
 ### GetInput
 
-`func (o *O11yO11yLLMRulePricing) GetInput() float32`
+`func (o *O11yO11yLLMRulePricing) GetInput() float64`
 
 GetInput returns the Input field if non-nil, zero value otherwise.
 
 ### GetInputOk
 
-`func (o *O11yO11yLLMRulePricing) GetInputOk() (*float32, bool)`
+`func (o *O11yO11yLLMRulePricing) GetInputOk() (*float64, bool)`
 
 GetInputOk returns a tuple with the Input field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInput
 
-`func (o *O11yO11yLLMRulePricing) SetInput(v float32)`
+`func (o *O11yO11yLLMRulePricing) SetInput(v float64)`
 
 SetInput sets Input field to given value.
 
@@ -79,20 +79,20 @@ HasInput returns a boolean if a field has been set.
 
 ### GetOutput
 
-`func (o *O11yO11yLLMRulePricing) GetOutput() float32`
+`func (o *O11yO11yLLMRulePricing) GetOutput() float64`
 
 GetOutput returns the Output field if non-nil, zero value otherwise.
 
 ### GetOutputOk
 
-`func (o *O11yO11yLLMRulePricing) GetOutputOk() (*float32, bool)`
+`func (o *O11yO11yLLMRulePricing) GetOutputOk() (*float64, bool)`
 
 GetOutputOk returns a tuple with the Output field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOutput
 
-`func (o *O11yO11yLLMRulePricing) SetOutput(v float32)`
+`func (o *O11yO11yLLMRulePricing) SetOutput(v float64)`
 
 SetOutput sets Output field to given value.
 

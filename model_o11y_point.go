@@ -22,7 +22,7 @@ type O11yPoint struct {
 	// T is the bucket start, RFC3339 in UTC.
 	T *string `json:"t,omitempty"`
 	// V is the bucket's value.
-	V *float32 `json:"v,omitempty"`
+	V *float64 `json:"v,omitempty"`
 }
 
 // NewO11yPoint instantiates a new O11yPoint object
@@ -75,9 +75,9 @@ func (o *O11yPoint) SetT(v string) {
 }
 
 // GetV returns the V field value if set, zero value otherwise.
-func (o *O11yPoint) GetV() float32 {
+func (o *O11yPoint) GetV() float64 {
 	if o == nil || IsNil(o.V) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.V
@@ -85,7 +85,7 @@ func (o *O11yPoint) GetV() float32 {
 
 // GetVOk returns a tuple with the V field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPoint) GetVOk() (*float32, bool) {
+func (o *O11yPoint) GetVOk() (*float64, bool) {
 	if o == nil || IsNil(o.V) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *O11yPoint) HasV() bool {
 	return false
 }
 
-// SetV gets a reference to the given float32 and assigns it to the V field.
-func (o *O11yPoint) SetV(v float32) {
+// SetV gets a reference to the given float64 and assigns it to the V field.
+func (o *O11yPoint) SetV(v float64) {
 	o.V = &v
 }
 

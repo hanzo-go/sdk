@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ExpiresIn** | Pointer to **int32** | seconds until the URL expires | [optional] 
+**ExpiresIn** | Pointer to **int64** | seconds until the URL expires | [optional] 
 **Key** | Pointer to **string** | Key is the object key the URL was signed for, relative to the bucket root and path-cleaned — so it is what the store will actually read or write, which is not always the string the caller sent. The signature covers this one bucket and this one key: a URL minted here reaches nothing else. | [optional] 
 **Method** | Pointer to **string** | \&quot;PUT\&quot; (upload) or \&quot;GET\&quot; (download) | [optional] 
 **Url** | Pointer to **string** | presigned URL the browser follows directly | [optional] 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetExpiresIn
 
-`func (o *PresignResponse) GetExpiresIn() int32`
+`func (o *PresignResponse) GetExpiresIn() int64`
 
 GetExpiresIn returns the ExpiresIn field if non-nil, zero value otherwise.
 
 ### GetExpiresInOk
 
-`func (o *PresignResponse) GetExpiresInOk() (*int32, bool)`
+`func (o *PresignResponse) GetExpiresInOk() (*int64, bool)`
 
 GetExpiresInOk returns a tuple with the ExpiresIn field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpiresIn
 
-`func (o *PresignResponse) SetExpiresIn(v int32)`
+`func (o *PresignResponse) SetExpiresIn(v int64)`
 
 SetExpiresIn sets ExpiresIn field to given value.
 

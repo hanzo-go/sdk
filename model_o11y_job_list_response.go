@@ -20,7 +20,7 @@ var _ MappedNullable = &O11yJobListResponse{}
 // O11yJobListResponse struct for O11yJobListResponse
 type O11yJobListResponse struct {
 	Records []O11yJobListRecord `json:"records,omitempty"`
-	Total   *int32              `json:"total,omitempty"`
+	Total   *int64              `json:"total,omitempty"`
 	Type    *string             `json:"type,omitempty"`
 }
 
@@ -74,9 +74,9 @@ func (o *O11yJobListResponse) SetRecords(v []O11yJobListRecord) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *O11yJobListResponse) GetTotal() int32 {
+func (o *O11yJobListResponse) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -84,7 +84,7 @@ func (o *O11yJobListResponse) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yJobListResponse) GetTotalOk() (*int32, bool) {
+func (o *O11yJobListResponse) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -100,8 +100,8 @@ func (o *O11yJobListResponse) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *O11yJobListResponse) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *O11yJobListResponse) SetTotal(v int64) {
 	o.Total = &v
 }
 

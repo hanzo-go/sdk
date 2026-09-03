@@ -20,9 +20,9 @@ var _ MappedNullable = &ProjectView{}
 // ProjectView struct for ProjectView
 type ProjectView struct {
 	// Applications is how many platform apps this org has under the project, counted per request. It is the one fact IAM cannot answer about a project.
-	Applications *int32 `json:"applications,omitempty"`
+	Applications *int64 `json:"applications,omitempty"`
 	// CreatedAt is IAM's creation time as unix seconds. 0 when IAM's timestamp is absent or unparseable — never a fabricated time.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Description is IAM's free text about the project. Nothing derives from it.
 	Description *string `json:"description,omitempty"`
 	// Name is IAM's display name, falling back to the slug when the project has none, so this is never empty.
@@ -51,9 +51,9 @@ func NewProjectViewWithDefaults() *ProjectView {
 }
 
 // GetApplications returns the Applications field value if set, zero value otherwise.
-func (o *ProjectView) GetApplications() int32 {
+func (o *ProjectView) GetApplications() int64 {
 	if o == nil || IsNil(o.Applications) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Applications
@@ -61,7 +61,7 @@ func (o *ProjectView) GetApplications() int32 {
 
 // GetApplicationsOk returns a tuple with the Applications field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectView) GetApplicationsOk() (*int32, bool) {
+func (o *ProjectView) GetApplicationsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Applications) {
 		return nil, false
 	}
@@ -77,15 +77,15 @@ func (o *ProjectView) HasApplications() bool {
 	return false
 }
 
-// SetApplications gets a reference to the given int32 and assigns it to the Applications field.
-func (o *ProjectView) SetApplications(v int32) {
+// SetApplications gets a reference to the given int64 and assigns it to the Applications field.
+func (o *ProjectView) SetApplications(v int64) {
 	o.Applications = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *ProjectView) GetCreatedAt() int32 {
+func (o *ProjectView) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -93,7 +93,7 @@ func (o *ProjectView) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectView) GetCreatedAtOk() (*int32, bool) {
+func (o *ProjectView) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -109,8 +109,8 @@ func (o *ProjectView) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *ProjectView) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *ProjectView) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 

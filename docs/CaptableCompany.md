@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the company row was seeded, in unix milliseconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the company row was seeded, in unix milliseconds. | [optional] 
 **Id** | Pointer to **string** | ID is the company id, which is the tenant&#39;s own org id. | [optional] 
 **IncorporationCountry** | Pointer to **string** | IncorporationCountry is the ISO country the entity is incorporated in. | [optional] 
 **IncorporationState** | Pointer to **string** | IncorporationState is the state or province of incorporation. | [optional] 
 **IncorporationType** | Pointer to **string** | IncorporationType is the entity kind, e.g. LLC or C_CORP. | [optional] 
 **Name** | Pointer to **string** | Name is the company&#39;s legal name. | [optional] 
 **PublicId** | Pointer to **string** | PublicID is the company&#39;s shareable public identifier. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is when the company row last changed, in unix milliseconds. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is when the company row last changed, in unix milliseconds. | [optional] 
 
 ## Methods
 
@@ -34,20 +34,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreatedAt
 
-`func (o *CaptableCompany) GetCreatedAt() int32`
+`func (o *CaptableCompany) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *CaptableCompany) GetCreatedAtOk() (*int32, bool)`
+`func (o *CaptableCompany) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *CaptableCompany) SetCreatedAt(v int32)`
+`func (o *CaptableCompany) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -209,20 +209,20 @@ HasPublicId returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *CaptableCompany) GetUpdatedAt() int32`
+`func (o *CaptableCompany) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *CaptableCompany) GetUpdatedAtOk() (*int32, bool)`
+`func (o *CaptableCompany) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *CaptableCompany) SetUpdatedAt(v int32)`
+`func (o *CaptableCompany) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

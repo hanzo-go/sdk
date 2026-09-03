@@ -20,7 +20,7 @@ var _ MappedNullable = &ChallengeView{}
 // ChallengeView struct for ChallengeView
 type ChallengeView struct {
 	// ExpiresAt is when the nonce stops being redeemable, as a Unix timestamp.
-	ExpiresAt *int32 `json:"expiresAt,omitempty"`
+	ExpiresAt *int64 `json:"expiresAt,omitempty"`
 	// Message is the EXACT text to personal_sign. It is reconstructed server-side from the validated org, the slot and the nonce at redemption, so signing anything else cannot claim the slot.
 	Message *string `json:"message,omitempty"`
 	// Nonce is the single-use, org-bound challenge value to send back with the signature.
@@ -28,7 +28,7 @@ type ChallengeView struct {
 	// TokenID is the slot the challenge was issued for.
 	TokenId *int32 `json:"tokenId,omitempty"`
 	// TTLSeconds is the challenge lifetime in seconds.
-	TtlSeconds *int32 `json:"ttlSeconds,omitempty"`
+	TtlSeconds *int64 `json:"ttlSeconds,omitempty"`
 }
 
 // NewChallengeView instantiates a new ChallengeView object
@@ -49,9 +49,9 @@ func NewChallengeViewWithDefaults() *ChallengeView {
 }
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
-func (o *ChallengeView) GetExpiresAt() int32 {
+func (o *ChallengeView) GetExpiresAt() int64 {
 	if o == nil || IsNil(o.ExpiresAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ExpiresAt
@@ -59,7 +59,7 @@ func (o *ChallengeView) GetExpiresAt() int32 {
 
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ChallengeView) GetExpiresAtOk() (*int32, bool) {
+func (o *ChallengeView) GetExpiresAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *ChallengeView) HasExpiresAt() bool {
 	return false
 }
 
-// SetExpiresAt gets a reference to the given int32 and assigns it to the ExpiresAt field.
-func (o *ChallengeView) SetExpiresAt(v int32) {
+// SetExpiresAt gets a reference to the given int64 and assigns it to the ExpiresAt field.
+func (o *ChallengeView) SetExpiresAt(v int64) {
 	o.ExpiresAt = &v
 }
 
@@ -177,9 +177,9 @@ func (o *ChallengeView) SetTokenId(v int32) {
 }
 
 // GetTtlSeconds returns the TtlSeconds field value if set, zero value otherwise.
-func (o *ChallengeView) GetTtlSeconds() int32 {
+func (o *ChallengeView) GetTtlSeconds() int64 {
 	if o == nil || IsNil(o.TtlSeconds) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TtlSeconds
@@ -187,7 +187,7 @@ func (o *ChallengeView) GetTtlSeconds() int32 {
 
 // GetTtlSecondsOk returns a tuple with the TtlSeconds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ChallengeView) GetTtlSecondsOk() (*int32, bool) {
+func (o *ChallengeView) GetTtlSecondsOk() (*int64, bool) {
 	if o == nil || IsNil(o.TtlSeconds) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *ChallengeView) HasTtlSeconds() bool {
 	return false
 }
 
-// SetTtlSeconds gets a reference to the given int32 and assigns it to the TtlSeconds field.
-func (o *ChallengeView) SetTtlSeconds(v int32) {
+// SetTtlSeconds gets a reference to the given int64 and assigns it to the TtlSeconds field.
+func (o *ChallengeView) SetTtlSeconds(v int64) {
 	o.TtlSeconds = &v
 }
 

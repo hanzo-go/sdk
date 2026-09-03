@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**At** | Pointer to **int32** | At is the unix second the genesis root was computed. | [optional] 
+**At** | Pointer to **int64** | At is the unix second the genesis root was computed. | [optional] 
 **Block** | Pointer to **int32** | Block is the L1 block the anchoring transaction landed in. Set only once the receipt has been read; absent otherwise. | [optional] 
-**ChainId** | Pointer to **int32** | ChainID is the EVM chain the root is committed to — the Hanzo L1 by default. | [optional] 
+**ChainId** | Pointer to **int64** | ChainID is the EVM chain the root is committed to — the Hanzo L1 by default. | [optional] 
 **Note** | Pointer to **string** | Note explains an unanchored genesis honestly — anchor wiring absent, or the submit error — rather than reporting a commit that did not happen. | [optional] 
 **Root** | Pointer to **string** | Root is the 0x-prefixed keccak256 root of the founding allocation. It is ALWAYS computed, whether or not the on-chain anchor is wired, because the root is the tamper-evident witness. | [optional] 
 **Status** | Pointer to **string** | Status is pending (root computed, not yet on-chain) or anchored (committed). | [optional] 
@@ -33,20 +33,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAt
 
-`func (o *Genesis) GetAt() int32`
+`func (o *Genesis) GetAt() int64`
 
 GetAt returns the At field if non-nil, zero value otherwise.
 
 ### GetAtOk
 
-`func (o *Genesis) GetAtOk() (*int32, bool)`
+`func (o *Genesis) GetAtOk() (*int64, bool)`
 
 GetAtOk returns a tuple with the At field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAt
 
-`func (o *Genesis) SetAt(v int32)`
+`func (o *Genesis) SetAt(v int64)`
 
 SetAt sets At field to given value.
 
@@ -83,20 +83,20 @@ HasBlock returns a boolean if a field has been set.
 
 ### GetChainId
 
-`func (o *Genesis) GetChainId() int32`
+`func (o *Genesis) GetChainId() int64`
 
 GetChainId returns the ChainId field if non-nil, zero value otherwise.
 
 ### GetChainIdOk
 
-`func (o *Genesis) GetChainIdOk() (*int32, bool)`
+`func (o *Genesis) GetChainIdOk() (*int64, bool)`
 
 GetChainIdOk returns a tuple with the ChainId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetChainId
 
-`func (o *Genesis) SetChainId(v int32)`
+`func (o *Genesis) SetChainId(v int64)`
 
 SetChainId sets ChainId field to given value.
 

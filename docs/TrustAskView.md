@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the ask arrived, in unix milliseconds. | [optional] 
-**DecidedAt** | Pointer to **int32** | DecidedAt is when it was answered, in unix milliseconds; 0 while open. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the ask arrived, in unix milliseconds. | [optional] 
+**DecidedAt** | Pointer to **int64** | DecidedAt is when it was answered, in unix milliseconds; 0 while open. | [optional] 
 **DecidedBy** | Pointer to **string** | DecidedBy is who answered it. | [optional] 
 **Email** | Pointer to **string** | Email is the address that asked, as stated and UNVERIFIED — it names a party and proves nothing, which is why the grant is addressed to it rather than trusting it. | [optional] 
-**ExpiresAt** | Pointer to **int32** | ExpiresAt is when a granted ask closes, in unix milliseconds. | [optional] 
+**ExpiresAt** | Pointer to **int64** | ExpiresAt is when a granted ask closes, in unix milliseconds. | [optional] 
 **Id** | Pointer to **string** | ID is the request&#39;s id. | [optional] 
 **Item** | Pointer to **string** | Item is the item asked for, empty when the whole released tier was asked for. | [optional] 
 **Link** | Pointer to **string** | Link is the share link a granted ask became. | [optional] 
@@ -39,20 +39,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreatedAt
 
-`func (o *TrustAskView) GetCreatedAt() int32`
+`func (o *TrustAskView) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *TrustAskView) GetCreatedAtOk() (*int32, bool)`
+`func (o *TrustAskView) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *TrustAskView) SetCreatedAt(v int32)`
+`func (o *TrustAskView) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -64,20 +64,20 @@ HasCreatedAt returns a boolean if a field has been set.
 
 ### GetDecidedAt
 
-`func (o *TrustAskView) GetDecidedAt() int32`
+`func (o *TrustAskView) GetDecidedAt() int64`
 
 GetDecidedAt returns the DecidedAt field if non-nil, zero value otherwise.
 
 ### GetDecidedAtOk
 
-`func (o *TrustAskView) GetDecidedAtOk() (*int32, bool)`
+`func (o *TrustAskView) GetDecidedAtOk() (*int64, bool)`
 
 GetDecidedAtOk returns a tuple with the DecidedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDecidedAt
 
-`func (o *TrustAskView) SetDecidedAt(v int32)`
+`func (o *TrustAskView) SetDecidedAt(v int64)`
 
 SetDecidedAt sets DecidedAt field to given value.
 
@@ -139,20 +139,20 @@ HasEmail returns a boolean if a field has been set.
 
 ### GetExpiresAt
 
-`func (o *TrustAskView) GetExpiresAt() int32`
+`func (o *TrustAskView) GetExpiresAt() int64`
 
 GetExpiresAt returns the ExpiresAt field if non-nil, zero value otherwise.
 
 ### GetExpiresAtOk
 
-`func (o *TrustAskView) GetExpiresAtOk() (*int32, bool)`
+`func (o *TrustAskView) GetExpiresAtOk() (*int64, bool)`
 
 GetExpiresAtOk returns a tuple with the ExpiresAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpiresAt
 
-`func (o *TrustAskView) SetExpiresAt(v int32)`
+`func (o *TrustAskView) SetExpiresAt(v int64)`
 
 SetExpiresAt sets ExpiresAt field to given value.
 

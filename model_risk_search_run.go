@@ -20,9 +20,9 @@ var _ MappedNullable = &RiskSearchRun{}
 // RiskSearchRun struct for RiskSearchRun
 type RiskSearchRun struct {
 	// Candidates is how many model shapes will be tried.
-	Candidates *int32 `json:"candidates,omitempty"`
+	Candidates *int64 `json:"candidates,omitempty"`
 	// Events is how much of the organisation's own history the run will replay.
-	Events *int32 `json:"events,omitempty"`
+	Events *int64 `json:"events,omitempty"`
 	// ID addresses the run. Read the result back with it.
 	Id *string `json:"id,omitempty"`
 }
@@ -45,9 +45,9 @@ func NewRiskSearchRunWithDefaults() *RiskSearchRun {
 }
 
 // GetCandidates returns the Candidates field value if set, zero value otherwise.
-func (o *RiskSearchRun) GetCandidates() int32 {
+func (o *RiskSearchRun) GetCandidates() int64 {
 	if o == nil || IsNil(o.Candidates) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Candidates
@@ -55,7 +55,7 @@ func (o *RiskSearchRun) GetCandidates() int32 {
 
 // GetCandidatesOk returns a tuple with the Candidates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskSearchRun) GetCandidatesOk() (*int32, bool) {
+func (o *RiskSearchRun) GetCandidatesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Candidates) {
 		return nil, false
 	}
@@ -71,15 +71,15 @@ func (o *RiskSearchRun) HasCandidates() bool {
 	return false
 }
 
-// SetCandidates gets a reference to the given int32 and assigns it to the Candidates field.
-func (o *RiskSearchRun) SetCandidates(v int32) {
+// SetCandidates gets a reference to the given int64 and assigns it to the Candidates field.
+func (o *RiskSearchRun) SetCandidates(v int64) {
 	o.Candidates = &v
 }
 
 // GetEvents returns the Events field value if set, zero value otherwise.
-func (o *RiskSearchRun) GetEvents() int32 {
+func (o *RiskSearchRun) GetEvents() int64 {
 	if o == nil || IsNil(o.Events) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Events
@@ -87,7 +87,7 @@ func (o *RiskSearchRun) GetEvents() int32 {
 
 // GetEventsOk returns a tuple with the Events field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskSearchRun) GetEventsOk() (*int32, bool) {
+func (o *RiskSearchRun) GetEventsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Events) {
 		return nil, false
 	}
@@ -103,8 +103,8 @@ func (o *RiskSearchRun) HasEvents() bool {
 	return false
 }
 
-// SetEvents gets a reference to the given int32 and assigns it to the Events field.
-func (o *RiskSearchRun) SetEvents(v int32) {
+// SetEvents gets a reference to the given int64 and assigns it to the Events field.
+func (o *RiskSearchRun) SetEvents(v int64) {
 	o.Events = &v
 }
 

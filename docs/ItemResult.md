@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Error** | Pointer to **string** | Error is why this example produced no score — the model, the judge, or the run&#39;s deadline. A result carrying one is not counted in Scored. | [optional] 
 **ItemId** | Pointer to **string** | ItemID is the example that was scored. | [optional] 
 **Output** | Pointer to **string** | Output is what the model under test answered, truncated at 2000 characters. | [optional] 
-**Score** | Pointer to **float32** | Score is the judge&#39;s grade. | [optional] 
+**Score** | Pointer to **float64** | Score is the judge&#39;s grade. | [optional] 
 **TraceId** | Pointer to **string** | TraceID is the model call this result came from. | [optional] 
 
 ## Methods
@@ -106,20 +106,20 @@ HasOutput returns a boolean if a field has been set.
 
 ### GetScore
 
-`func (o *ItemResult) GetScore() float32`
+`func (o *ItemResult) GetScore() float64`
 
 GetScore returns the Score field if non-nil, zero value otherwise.
 
 ### GetScoreOk
 
-`func (o *ItemResult) GetScoreOk() (*float32, bool)`
+`func (o *ItemResult) GetScoreOk() (*float64, bool)`
 
 GetScoreOk returns a tuple with the Score field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScore
 
-`func (o *ItemResult) SetScore(v float32)`
+`func (o *ItemResult) SetScore(v float64)`
 
 SetScore sets Score field to given value.
 

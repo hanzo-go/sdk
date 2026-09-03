@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Competition** | Pointer to **float32** | Competition is how contested the advertising is, from 0 to 1. The upstream reports it as an index out of a hundred on one endpoint and as this fraction on another; it is the fraction here in both cases. | [optional] 
-**Cpc** | Pointer to **float32** | CPC is the average cost of one advertising click, in USD. It is a reported statistic about somebody else&#39;s auction, not an amount this API moves. | [optional] 
-**Difficulty** | Pointer to **int32** | Difficulty is how hard the first page is to reach organically, 0 to 100. Present on seoIdea, which measures it; absent on seoKeyword, which does not. | [optional] 
+**Competition** | Pointer to **float64** | Competition is how contested the advertising is, from 0 to 1. The upstream reports it as an index out of a hundred on one endpoint and as this fraction on another; it is the fraction here in both cases. | [optional] 
+**Cpc** | Pointer to **float64** | CPC is the average cost of one advertising click, in USD. It is a reported statistic about somebody else&#39;s auction, not an amount this API moves. | [optional] 
+**Difficulty** | Pointer to **int64** | Difficulty is how hard the first page is to reach organically, 0 to 100. Present on seoIdea, which measures it; absent on seoKeyword, which does not. | [optional] 
 **Keyword** | Pointer to **string** | Keyword is the phrase. | [optional] 
 **Level** | Pointer to **string** | Level is the same fact as a word: low, medium or high. | [optional] 
-**Volume** | Pointer to **int32** | Volume is the average monthly searches. | [optional] 
+**Volume** | Pointer to **int64** | Volume is the average monthly searches. | [optional] 
 
 ## Methods
 
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCompetition
 
-`func (o *SeoMetric) GetCompetition() float32`
+`func (o *SeoMetric) GetCompetition() float64`
 
 GetCompetition returns the Competition field if non-nil, zero value otherwise.
 
 ### GetCompetitionOk
 
-`func (o *SeoMetric) GetCompetitionOk() (*float32, bool)`
+`func (o *SeoMetric) GetCompetitionOk() (*float64, bool)`
 
 GetCompetitionOk returns a tuple with the Competition field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCompetition
 
-`func (o *SeoMetric) SetCompetition(v float32)`
+`func (o *SeoMetric) SetCompetition(v float64)`
 
 SetCompetition sets Competition field to given value.
 
@@ -57,20 +57,20 @@ HasCompetition returns a boolean if a field has been set.
 
 ### GetCpc
 
-`func (o *SeoMetric) GetCpc() float32`
+`func (o *SeoMetric) GetCpc() float64`
 
 GetCpc returns the Cpc field if non-nil, zero value otherwise.
 
 ### GetCpcOk
 
-`func (o *SeoMetric) GetCpcOk() (*float32, bool)`
+`func (o *SeoMetric) GetCpcOk() (*float64, bool)`
 
 GetCpcOk returns a tuple with the Cpc field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCpc
 
-`func (o *SeoMetric) SetCpc(v float32)`
+`func (o *SeoMetric) SetCpc(v float64)`
 
 SetCpc sets Cpc field to given value.
 
@@ -82,20 +82,20 @@ HasCpc returns a boolean if a field has been set.
 
 ### GetDifficulty
 
-`func (o *SeoMetric) GetDifficulty() int32`
+`func (o *SeoMetric) GetDifficulty() int64`
 
 GetDifficulty returns the Difficulty field if non-nil, zero value otherwise.
 
 ### GetDifficultyOk
 
-`func (o *SeoMetric) GetDifficultyOk() (*int32, bool)`
+`func (o *SeoMetric) GetDifficultyOk() (*int64, bool)`
 
 GetDifficultyOk returns a tuple with the Difficulty field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDifficulty
 
-`func (o *SeoMetric) SetDifficulty(v int32)`
+`func (o *SeoMetric) SetDifficulty(v int64)`
 
 SetDifficulty sets Difficulty field to given value.
 
@@ -157,20 +157,20 @@ HasLevel returns a boolean if a field has been set.
 
 ### GetVolume
 
-`func (o *SeoMetric) GetVolume() int32`
+`func (o *SeoMetric) GetVolume() int64`
 
 GetVolume returns the Volume field if non-nil, zero value otherwise.
 
 ### GetVolumeOk
 
-`func (o *SeoMetric) GetVolumeOk() (*int32, bool)`
+`func (o *SeoMetric) GetVolumeOk() (*int64, bool)`
 
 GetVolumeOk returns a tuple with the Volume field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVolume
 
-`func (o *SeoMetric) SetVolume(v int32)`
+`func (o *SeoMetric) SetVolume(v int64)`
 
 SetVolume sets Volume field to given value.
 

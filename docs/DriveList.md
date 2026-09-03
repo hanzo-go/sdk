@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Drives** | Pointer to [**[]DriveItem**](DriveItem.md) | Drives are the drives at the space&#39;s root. | [optional] 
 **Space** | Pointer to **string** | Space is the space that was listed. | [optional] 
-**Total** | Pointer to **int32** | Total is how many drives came back. The listing is BOUNDED, so it is what came back and not a count of what the space holds. | [optional] 
+**Total** | Pointer to **int64** | Total is how many drives came back. The listing is BOUNDED, so it is what came back and not a count of what the space holds. | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasSpace returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *DriveList) GetTotal() int32`
+`func (o *DriveList) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *DriveList) GetTotalOk() (*int32, bool)`
+`func (o *DriveList) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *DriveList) SetTotal(v int32)`
+`func (o *DriveList) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

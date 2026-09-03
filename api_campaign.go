@@ -236,7 +236,7 @@ type CampaignAPIGetCampaignRequest struct {
 	ctx        context.Context
 	ApiService *CampaignAPIService
 	status     *string
-	limit      *int32
+	limit      *int64
 }
 
 // Status keeps only campaigns in that state: draft, live, paused or failed. Empty means any.
@@ -246,7 +246,7 @@ func (r CampaignAPIGetCampaignRequest) Status(status string) CampaignAPIGetCampa
 }
 
 // Limit bounds the page. 0 or less means the default of 200; anything above 1000 is clamped to 1000.
-func (r CampaignAPIGetCampaignRequest) Limit(limit int32) CampaignAPIGetCampaignRequest {
+func (r CampaignAPIGetCampaignRequest) Limit(limit int64) CampaignAPIGetCampaignRequest {
 	r.limit = &limit
 	return r
 }

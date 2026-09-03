@@ -22,7 +22,7 @@ type DeviceView struct {
 	// Accounts is every account the caller has signed in on this machine.
 	Accounts []LinkView `json:"accounts,omitempty"`
 	// ActiveSessions is how many agent sessions the caller currently has running on this machine; 0 where the agent plane is not mounted.
-	ActiveSessions *int32 `json:"activeSessions,omitempty"`
+	ActiveSessions *int64 `json:"activeSessions,omitempty"`
 	// Host is the machine's hostname label, from its most-recently-seen account.
 	Host *string `json:"host,omitempty"`
 	// LastSeen is when any account on this machine last reported, RFC 3339 UTC.
@@ -83,9 +83,9 @@ func (o *DeviceView) SetAccounts(v []LinkView) {
 }
 
 // GetActiveSessions returns the ActiveSessions field value if set, zero value otherwise.
-func (o *DeviceView) GetActiveSessions() int32 {
+func (o *DeviceView) GetActiveSessions() int64 {
 	if o == nil || IsNil(o.ActiveSessions) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ActiveSessions
@@ -93,7 +93,7 @@ func (o *DeviceView) GetActiveSessions() int32 {
 
 // GetActiveSessionsOk returns a tuple with the ActiveSessions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeviceView) GetActiveSessionsOk() (*int32, bool) {
+func (o *DeviceView) GetActiveSessionsOk() (*int64, bool) {
 	if o == nil || IsNil(o.ActiveSessions) {
 		return nil, false
 	}
@@ -109,8 +109,8 @@ func (o *DeviceView) HasActiveSessions() bool {
 	return false
 }
 
-// SetActiveSessions gets a reference to the given int32 and assigns it to the ActiveSessions field.
-func (o *DeviceView) SetActiveSessions(v int32) {
+// SetActiveSessions gets a reference to the given int64 and assigns it to the ActiveSessions field.
+func (o *DeviceView) SetActiveSessions(v int64) {
 	o.ActiveSessions = &v
 }
 

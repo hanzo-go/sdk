@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Prompt** | Pointer to **string** | Prompt is the CURRENT version&#39;s template body — the only content this service returns. Earlier versions are listed in versionHistory by number and date, and their bodies are not served in bulk. | [optional] 
 **Tags** | Pointer to **[]string** | Tags is the second free-form taxonomy, same rules as Labels. | [optional] 
 **Type** | Pointer to **string** | Type labels the current version&#39;s kind; \&quot;text\&quot; unless the creator said otherwise. | [optional] 
-**Version** | Pointer to **int32** | Version is the current version number, starting at 1 and incremented by one on every create against an existing name. | [optional] 
+**Version** | Pointer to **int64** | Version is the current version number, starting at 1 and incremented by one on every create against an existing name. | [optional] 
 **VersionHistory** | Pointer to [**[]VersionView**](VersionView.md) | Versions is the history METADATA, newest first, capped at the last 100 — no bodies, so a long history cannot inflate this response. It always includes the current version as its first entry. | [optional] 
 
 ## Methods
@@ -210,20 +210,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetVersion
 
-`func (o *PromptDetail) GetVersion() int32`
+`func (o *PromptDetail) GetVersion() int64`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *PromptDetail) GetVersionOk() (*int32, bool)`
+`func (o *PromptDetail) GetVersionOk() (*int64, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *PromptDetail) SetVersion(v int32)`
+`func (o *PromptDetail) SetVersion(v int64)`
 
 SetVersion sets Version field to given value.
 

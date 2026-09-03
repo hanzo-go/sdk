@@ -22,9 +22,9 @@ type O11yO11yLLMRulePricing struct {
 	// Cache is the cost of cached tokens, when the model prices them.
 	Cache *O11yO11yLLMPricingCacheCosts `json:"cache,omitempty"`
 	// Input is the cost per unit of input tokens.
-	Input *float32 `json:"input,omitempty"`
+	Input *float64 `json:"input,omitempty"`
 	// Output is the cost per unit of output tokens.
-	Output *float32 `json:"output,omitempty"`
+	Output *float64 `json:"output,omitempty"`
 }
 
 // NewO11yO11yLLMRulePricing instantiates a new O11yO11yLLMRulePricing object
@@ -77,9 +77,9 @@ func (o *O11yO11yLLMRulePricing) SetCache(v O11yO11yLLMPricingCacheCosts) {
 }
 
 // GetInput returns the Input field value if set, zero value otherwise.
-func (o *O11yO11yLLMRulePricing) GetInput() float32 {
+func (o *O11yO11yLLMRulePricing) GetInput() float64 {
 	if o == nil || IsNil(o.Input) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Input
@@ -87,7 +87,7 @@ func (o *O11yO11yLLMRulePricing) GetInput() float32 {
 
 // GetInputOk returns a tuple with the Input field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLLMRulePricing) GetInputOk() (*float32, bool) {
+func (o *O11yO11yLLMRulePricing) GetInputOk() (*float64, bool) {
 	if o == nil || IsNil(o.Input) {
 		return nil, false
 	}
@@ -103,15 +103,15 @@ func (o *O11yO11yLLMRulePricing) HasInput() bool {
 	return false
 }
 
-// SetInput gets a reference to the given float32 and assigns it to the Input field.
-func (o *O11yO11yLLMRulePricing) SetInput(v float32) {
+// SetInput gets a reference to the given float64 and assigns it to the Input field.
+func (o *O11yO11yLLMRulePricing) SetInput(v float64) {
 	o.Input = &v
 }
 
 // GetOutput returns the Output field value if set, zero value otherwise.
-func (o *O11yO11yLLMRulePricing) GetOutput() float32 {
+func (o *O11yO11yLLMRulePricing) GetOutput() float64 {
 	if o == nil || IsNil(o.Output) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Output
@@ -119,7 +119,7 @@ func (o *O11yO11yLLMRulePricing) GetOutput() float32 {
 
 // GetOutputOk returns a tuple with the Output field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLLMRulePricing) GetOutputOk() (*float32, bool) {
+func (o *O11yO11yLLMRulePricing) GetOutputOk() (*float64, bool) {
 	if o == nil || IsNil(o.Output) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *O11yO11yLLMRulePricing) HasOutput() bool {
 	return false
 }
 
-// SetOutput gets a reference to the given float32 and assigns it to the Output field.
-func (o *O11yO11yLLMRulePricing) SetOutput(v float32) {
+// SetOutput gets a reference to the given float64 and assigns it to the Output field.
+func (o *O11yO11yLLMRulePricing) SetOutput(v float64) {
 	o.Output = &v
 }
 

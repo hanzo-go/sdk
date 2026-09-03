@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **End** | Pointer to **string** | End is the window end, as a nanosecond epoch spelled as a string. | [optional] 
 **ExceptionType** | Pointer to **string** | ExceptionType narrows to one exception type. | [optional] 
-**Limit** | Pointer to **int32** | Limit caps how many exception groups come back. Required, non-zero. | [optional] 
-**Offset** | Pointer to **int32** | Offset is how many groups to skip. | [optional] 
+**Limit** | Pointer to **int64** | Limit caps how many exception groups come back. Required, non-zero. | [optional] 
+**Offset** | Pointer to **int64** | Offset is how many groups to skip. | [optional] 
 **Order** | Pointer to **string** | Order is the direction: ascending or descending. | [optional] 
 **OrderParam** | Pointer to **string** | OrderParam is the column to order by, e.g. exceptionCount, lastSeen. | [optional] 
 **ServiceName** | Pointer to **string** | ServiceName narrows to one reporting service. | [optional] 
@@ -85,20 +85,20 @@ HasExceptionType returns a boolean if a field has been set.
 
 ### GetLimit
 
-`func (o *O11yO11yErrorsListIn) GetLimit() int32`
+`func (o *O11yO11yErrorsListIn) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *O11yO11yErrorsListIn) GetLimitOk() (*int32, bool)`
+`func (o *O11yO11yErrorsListIn) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *O11yO11yErrorsListIn) SetLimit(v int32)`
+`func (o *O11yO11yErrorsListIn) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 
@@ -110,20 +110,20 @@ HasLimit returns a boolean if a field has been set.
 
 ### GetOffset
 
-`func (o *O11yO11yErrorsListIn) GetOffset() int32`
+`func (o *O11yO11yErrorsListIn) GetOffset() int64`
 
 GetOffset returns the Offset field if non-nil, zero value otherwise.
 
 ### GetOffsetOk
 
-`func (o *O11yO11yErrorsListIn) GetOffsetOk() (*int32, bool)`
+`func (o *O11yO11yErrorsListIn) GetOffsetOk() (*int64, bool)`
 
 GetOffsetOk returns a tuple with the Offset field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOffset
 
-`func (o *O11yO11yErrorsListIn) SetOffset(v int32)`
+`func (o *O11yO11yErrorsListIn) SetOffset(v int64)`
 
 SetOffset sets Offset field to given value.
 

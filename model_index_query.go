@@ -21,9 +21,9 @@ var _ MappedNullable = &IndexQuery{}
 type IndexQuery struct {
 	Filter interface{} `json:"filter,omitempty"`
 	// Limit is how many hits to return. Absent means 20; the ceiling is 1000.
-	Limit *int32 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 	// Offset is where to start. Absent means 0.
-	Offset *int32 `json:"offset,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
 	// Q is the search text. Typos are forgiven. An empty Q matches everything, which is how a client lists an index by relevance rather than by insertion order.
 	Q *string `json:"q,omitempty"`
 }
@@ -79,9 +79,9 @@ func (o *IndexQuery) SetFilter(v interface{}) {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *IndexQuery) GetLimit() int32 {
+func (o *IndexQuery) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -89,7 +89,7 @@ func (o *IndexQuery) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexQuery) GetLimitOk() (*int32, bool) {
+func (o *IndexQuery) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -105,15 +105,15 @@ func (o *IndexQuery) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *IndexQuery) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *IndexQuery) SetLimit(v int64) {
 	o.Limit = &v
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
-func (o *IndexQuery) GetOffset() int32 {
+func (o *IndexQuery) GetOffset() int64 {
 	if o == nil || IsNil(o.Offset) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Offset
@@ -121,7 +121,7 @@ func (o *IndexQuery) GetOffset() int32 {
 
 // GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexQuery) GetOffsetOk() (*int32, bool) {
+func (o *IndexQuery) GetOffsetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Offset) {
 		return nil, false
 	}
@@ -137,8 +137,8 @@ func (o *IndexQuery) HasOffset() bool {
 	return false
 }
 
-// SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *IndexQuery) SetOffset(v int32) {
+// SetOffset gets a reference to the given int64 and assigns it to the Offset field.
+func (o *IndexQuery) SetOffset(v int64) {
 	o.Offset = &v
 }
 

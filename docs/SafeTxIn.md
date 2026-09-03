@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ChainId** | Pointer to **int32** | ChainID is the EVM chain the Safe transaction is bound to. 0 uses the wallet&#39;s own chain, or the Hanzo L1 (36963) when it is chain-agnostic. | [optional] 
+**ChainId** | Pointer to **int64** | ChainID is the EVM chain the Safe transaction is bound to. 0 uses the wallet&#39;s own chain, or the Hanzo L1 (36963) when it is chain-agnostic. | [optional] 
 **Data** | Pointer to **string** | Data is the call data, hex-encoded. | [optional] 
-**Nonce** | Pointer to **int32** | Nonce is the Safe&#39;s transaction nonce. | [optional] 
+**Nonce** | Pointer to **int64** | Nonce is the Safe&#39;s transaction nonce. | [optional] 
 **To** | Pointer to **string** | To is the transaction&#39;s target address. | [optional] 
 **Value** | Pointer to **string** | Value is the native-token amount to send, as a decimal string in wei. | [optional] 
 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetChainId
 
-`func (o *SafeTxIn) GetChainId() int32`
+`func (o *SafeTxIn) GetChainId() int64`
 
 GetChainId returns the ChainId field if non-nil, zero value otherwise.
 
 ### GetChainIdOk
 
-`func (o *SafeTxIn) GetChainIdOk() (*int32, bool)`
+`func (o *SafeTxIn) GetChainIdOk() (*int64, bool)`
 
 GetChainIdOk returns a tuple with the ChainId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetChainId
 
-`func (o *SafeTxIn) SetChainId(v int32)`
+`func (o *SafeTxIn) SetChainId(v int64)`
 
 SetChainId sets ChainId field to given value.
 
@@ -81,20 +81,20 @@ HasData returns a boolean if a field has been set.
 
 ### GetNonce
 
-`func (o *SafeTxIn) GetNonce() int32`
+`func (o *SafeTxIn) GetNonce() int64`
 
 GetNonce returns the Nonce field if non-nil, zero value otherwise.
 
 ### GetNonceOk
 
-`func (o *SafeTxIn) GetNonceOk() (*int32, bool)`
+`func (o *SafeTxIn) GetNonceOk() (*int64, bool)`
 
 GetNonceOk returns a tuple with the Nonce field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNonce
 
-`func (o *SafeTxIn) SetNonce(v int32)`
+`func (o *SafeTxIn) SetNonce(v int64)`
 
 SetNonce sets Nonce field to given value.
 

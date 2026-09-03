@@ -30,7 +30,7 @@ type Upkeep struct {
 	// Structure is the entity this prices.
 	Structure *string `json:"structure,omitempty"`
 	// YearlyCents is what the entity owes every year, all obligations summed.
-	YearlyCents *int32 `json:"yearlyCents,omitempty"`
+	YearlyCents *int64 `json:"yearlyCents,omitempty"`
 }
 
 // NewUpkeep instantiates a new Upkeep object
@@ -211,9 +211,9 @@ func (o *Upkeep) SetStructure(v string) {
 }
 
 // GetYearlyCents returns the YearlyCents field value if set, zero value otherwise.
-func (o *Upkeep) GetYearlyCents() int32 {
+func (o *Upkeep) GetYearlyCents() int64 {
 	if o == nil || IsNil(o.YearlyCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.YearlyCents
@@ -221,7 +221,7 @@ func (o *Upkeep) GetYearlyCents() int32 {
 
 // GetYearlyCentsOk returns a tuple with the YearlyCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Upkeep) GetYearlyCentsOk() (*int32, bool) {
+func (o *Upkeep) GetYearlyCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.YearlyCents) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *Upkeep) HasYearlyCents() bool {
 	return false
 }
 
-// SetYearlyCents gets a reference to the given int32 and assigns it to the YearlyCents field.
-func (o *Upkeep) SetYearlyCents(v int32) {
+// SetYearlyCents gets a reference to the given int64 and assigns it to the YearlyCents field.
+func (o *Upkeep) SetYearlyCents(v int64) {
 	o.YearlyCents = &v
 }
 

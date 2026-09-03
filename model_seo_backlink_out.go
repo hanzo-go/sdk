@@ -20,21 +20,21 @@ var _ MappedNullable = &SeoBacklinkOut{}
 // SeoBacklinkOut struct for SeoBacklinkOut
 type SeoBacklinkOut struct {
 	// Backlinks is how many links point at it.
-	Backlinks *int32 `json:"backlinks,omitempty"`
+	Backlinks *int64 `json:"backlinks,omitempty"`
 	// Broken is how many of those links point at something that no longer answers.
-	Broken *int32 `json:"broken,omitempty"`
+	Broken *int64 `json:"broken,omitempty"`
 	// Cost is what this call cost, in USD, as an exact decimal string.
 	Cost *string `json:"cost,omitempty"`
 	// Domains is how many distinct sites those links come from — the number that matters, since a thousand links from one site is one site.
-	Domains *int32 `json:"domains,omitempty"`
+	Domains *int64 `json:"domains,omitempty"`
 	// FirstSeen is when the upstream first saw a link to this target, RFC 3339.
 	FirstSeen *string `json:"firstSeen,omitempty"`
 	// Pages is how many distinct pages link in.
-	Pages *int32 `json:"pages,omitempty"`
+	Pages *int64 `json:"pages,omitempty"`
 	// Rank is the upstream's authority score for the target, 0 to 1000.
-	Rank *int32 `json:"rank,omitempty"`
+	Rank *int64 `json:"rank,omitempty"`
 	// Spam is the share of the profile judged spam, 0 to 100.
-	Spam *int32 `json:"spam,omitempty"`
+	Spam *int64 `json:"spam,omitempty"`
 	// Target is the target as the upstream resolved it.
 	Target *string `json:"target,omitempty"`
 }
@@ -57,9 +57,9 @@ func NewSeoBacklinkOutWithDefaults() *SeoBacklinkOut {
 }
 
 // GetBacklinks returns the Backlinks field value if set, zero value otherwise.
-func (o *SeoBacklinkOut) GetBacklinks() int32 {
+func (o *SeoBacklinkOut) GetBacklinks() int64 {
 	if o == nil || IsNil(o.Backlinks) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Backlinks
@@ -67,7 +67,7 @@ func (o *SeoBacklinkOut) GetBacklinks() int32 {
 
 // GetBacklinksOk returns a tuple with the Backlinks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoBacklinkOut) GetBacklinksOk() (*int32, bool) {
+func (o *SeoBacklinkOut) GetBacklinksOk() (*int64, bool) {
 	if o == nil || IsNil(o.Backlinks) {
 		return nil, false
 	}
@@ -83,15 +83,15 @@ func (o *SeoBacklinkOut) HasBacklinks() bool {
 	return false
 }
 
-// SetBacklinks gets a reference to the given int32 and assigns it to the Backlinks field.
-func (o *SeoBacklinkOut) SetBacklinks(v int32) {
+// SetBacklinks gets a reference to the given int64 and assigns it to the Backlinks field.
+func (o *SeoBacklinkOut) SetBacklinks(v int64) {
 	o.Backlinks = &v
 }
 
 // GetBroken returns the Broken field value if set, zero value otherwise.
-func (o *SeoBacklinkOut) GetBroken() int32 {
+func (o *SeoBacklinkOut) GetBroken() int64 {
 	if o == nil || IsNil(o.Broken) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Broken
@@ -99,7 +99,7 @@ func (o *SeoBacklinkOut) GetBroken() int32 {
 
 // GetBrokenOk returns a tuple with the Broken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoBacklinkOut) GetBrokenOk() (*int32, bool) {
+func (o *SeoBacklinkOut) GetBrokenOk() (*int64, bool) {
 	if o == nil || IsNil(o.Broken) {
 		return nil, false
 	}
@@ -115,8 +115,8 @@ func (o *SeoBacklinkOut) HasBroken() bool {
 	return false
 }
 
-// SetBroken gets a reference to the given int32 and assigns it to the Broken field.
-func (o *SeoBacklinkOut) SetBroken(v int32) {
+// SetBroken gets a reference to the given int64 and assigns it to the Broken field.
+func (o *SeoBacklinkOut) SetBroken(v int64) {
 	o.Broken = &v
 }
 
@@ -153,9 +153,9 @@ func (o *SeoBacklinkOut) SetCost(v string) {
 }
 
 // GetDomains returns the Domains field value if set, zero value otherwise.
-func (o *SeoBacklinkOut) GetDomains() int32 {
+func (o *SeoBacklinkOut) GetDomains() int64 {
 	if o == nil || IsNil(o.Domains) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Domains
@@ -163,7 +163,7 @@ func (o *SeoBacklinkOut) GetDomains() int32 {
 
 // GetDomainsOk returns a tuple with the Domains field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoBacklinkOut) GetDomainsOk() (*int32, bool) {
+func (o *SeoBacklinkOut) GetDomainsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Domains) {
 		return nil, false
 	}
@@ -179,8 +179,8 @@ func (o *SeoBacklinkOut) HasDomains() bool {
 	return false
 }
 
-// SetDomains gets a reference to the given int32 and assigns it to the Domains field.
-func (o *SeoBacklinkOut) SetDomains(v int32) {
+// SetDomains gets a reference to the given int64 and assigns it to the Domains field.
+func (o *SeoBacklinkOut) SetDomains(v int64) {
 	o.Domains = &v
 }
 
@@ -217,9 +217,9 @@ func (o *SeoBacklinkOut) SetFirstSeen(v string) {
 }
 
 // GetPages returns the Pages field value if set, zero value otherwise.
-func (o *SeoBacklinkOut) GetPages() int32 {
+func (o *SeoBacklinkOut) GetPages() int64 {
 	if o == nil || IsNil(o.Pages) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Pages
@@ -227,7 +227,7 @@ func (o *SeoBacklinkOut) GetPages() int32 {
 
 // GetPagesOk returns a tuple with the Pages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoBacklinkOut) GetPagesOk() (*int32, bool) {
+func (o *SeoBacklinkOut) GetPagesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Pages) {
 		return nil, false
 	}
@@ -243,15 +243,15 @@ func (o *SeoBacklinkOut) HasPages() bool {
 	return false
 }
 
-// SetPages gets a reference to the given int32 and assigns it to the Pages field.
-func (o *SeoBacklinkOut) SetPages(v int32) {
+// SetPages gets a reference to the given int64 and assigns it to the Pages field.
+func (o *SeoBacklinkOut) SetPages(v int64) {
 	o.Pages = &v
 }
 
 // GetRank returns the Rank field value if set, zero value otherwise.
-func (o *SeoBacklinkOut) GetRank() int32 {
+func (o *SeoBacklinkOut) GetRank() int64 {
 	if o == nil || IsNil(o.Rank) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Rank
@@ -259,7 +259,7 @@ func (o *SeoBacklinkOut) GetRank() int32 {
 
 // GetRankOk returns a tuple with the Rank field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoBacklinkOut) GetRankOk() (*int32, bool) {
+func (o *SeoBacklinkOut) GetRankOk() (*int64, bool) {
 	if o == nil || IsNil(o.Rank) {
 		return nil, false
 	}
@@ -275,15 +275,15 @@ func (o *SeoBacklinkOut) HasRank() bool {
 	return false
 }
 
-// SetRank gets a reference to the given int32 and assigns it to the Rank field.
-func (o *SeoBacklinkOut) SetRank(v int32) {
+// SetRank gets a reference to the given int64 and assigns it to the Rank field.
+func (o *SeoBacklinkOut) SetRank(v int64) {
 	o.Rank = &v
 }
 
 // GetSpam returns the Spam field value if set, zero value otherwise.
-func (o *SeoBacklinkOut) GetSpam() int32 {
+func (o *SeoBacklinkOut) GetSpam() int64 {
 	if o == nil || IsNil(o.Spam) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Spam
@@ -291,7 +291,7 @@ func (o *SeoBacklinkOut) GetSpam() int32 {
 
 // GetSpamOk returns a tuple with the Spam field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoBacklinkOut) GetSpamOk() (*int32, bool) {
+func (o *SeoBacklinkOut) GetSpamOk() (*int64, bool) {
 	if o == nil || IsNil(o.Spam) {
 		return nil, false
 	}
@@ -307,8 +307,8 @@ func (o *SeoBacklinkOut) HasSpam() bool {
 	return false
 }
 
-// SetSpam gets a reference to the given int32 and assigns it to the Spam field.
-func (o *SeoBacklinkOut) SetSpam(v int32) {
+// SetSpam gets a reference to the given int64 and assigns it to the Spam field.
+func (o *SeoBacklinkOut) SetSpam(v int64) {
 	o.Spam = &v
 }
 

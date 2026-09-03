@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Items** | Pointer to [**[]O11yO11yLLMUser**](O11yO11yLLMUser.md) | Items are the end users, newest first. | [optional] 
-**Limit** | Pointer to **int32** | Limit is the page cap the read ran with. | [optional] 
-**Offset** | Pointer to **int32** | Offset is the row offset this page started at. | [optional] 
+**Limit** | Pointer to **int64** | Limit is the page cap the read ran with. | [optional] 
+**Offset** | Pointer to **int64** | Offset is the row offset this page started at. | [optional] 
 
 ## Methods
 
@@ -54,20 +54,20 @@ HasItems returns a boolean if a field has been set.
 
 ### GetLimit
 
-`func (o *O11yO11yLLMUsersPage) GetLimit() int32`
+`func (o *O11yO11yLLMUsersPage) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *O11yO11yLLMUsersPage) GetLimitOk() (*int32, bool)`
+`func (o *O11yO11yLLMUsersPage) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *O11yO11yLLMUsersPage) SetLimit(v int32)`
+`func (o *O11yO11yLLMUsersPage) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 
@@ -79,20 +79,20 @@ HasLimit returns a boolean if a field has been set.
 
 ### GetOffset
 
-`func (o *O11yO11yLLMUsersPage) GetOffset() int32`
+`func (o *O11yO11yLLMUsersPage) GetOffset() int64`
 
 GetOffset returns the Offset field if non-nil, zero value otherwise.
 
 ### GetOffsetOk
 
-`func (o *O11yO11yLLMUsersPage) GetOffsetOk() (*int32, bool)`
+`func (o *O11yO11yLLMUsersPage) GetOffsetOk() (*int64, bool)`
 
 GetOffsetOk returns a tuple with the Offset field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOffset
 
-`func (o *O11yO11yLLMUsersPage) SetOffset(v int32)`
+`func (o *O11yO11yLLMUsersPage) SetOffset(v int64)`
 
 SetOffset sets Offset field to given value.
 

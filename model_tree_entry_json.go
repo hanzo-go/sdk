@@ -26,7 +26,7 @@ type TreeEntryJSON struct {
 	// Path is the entry's full repo-relative path.
 	Path *string `json:"path,omitempty"`
 	// Size is the file's byte length; 0 for a directory.
-	Size *int32 `json:"size,omitempty"`
+	Size *int64 `json:"size,omitempty"`
 	// Type is \"tree\" for a directory, \"blob\" for a file.
 	Type *string `json:"type,omitempty"`
 }
@@ -145,9 +145,9 @@ func (o *TreeEntryJSON) SetPath(v string) {
 }
 
 // GetSize returns the Size field value if set, zero value otherwise.
-func (o *TreeEntryJSON) GetSize() int32 {
+func (o *TreeEntryJSON) GetSize() int64 {
 	if o == nil || IsNil(o.Size) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Size
@@ -155,7 +155,7 @@ func (o *TreeEntryJSON) GetSize() int32 {
 
 // GetSizeOk returns a tuple with the Size field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TreeEntryJSON) GetSizeOk() (*int32, bool) {
+func (o *TreeEntryJSON) GetSizeOk() (*int64, bool) {
 	if o == nil || IsNil(o.Size) {
 		return nil, false
 	}
@@ -171,8 +171,8 @@ func (o *TreeEntryJSON) HasSize() bool {
 	return false
 }
 
-// SetSize gets a reference to the given int32 and assigns it to the Size field.
-func (o *TreeEntryJSON) SetSize(v int32) {
+// SetSize gets a reference to the given int64 and assigns it to the Size field.
+func (o *TreeEntryJSON) SetSize(v int64) {
 	o.Size = &v
 }
 

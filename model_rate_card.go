@@ -22,9 +22,9 @@ type RateCard struct {
 	// Basis names where the rates come from, so a published price can be explained rather than merely asserted.
 	Basis *string `json:"basis,omitempty"`
 	// MicroUSDPerGBHour is the price of one GiB of memory for one hour, in millionths of a US dollar.
-	MicroUsdPerGbHour *int32 `json:"microUsdPerGbHour,omitempty"`
+	MicroUsdPerGbHour *int64 `json:"microUsdPerGbHour,omitempty"`
 	// MicroUSDPerVCPUHour is the price of one vCPU for one hour, in millionths of a US dollar.
-	MicroUsdPerVcpuHour *int32 `json:"microUsdPerVcpuHour,omitempty"`
+	MicroUsdPerVcpuHour *int64 `json:"microUsdPerVcpuHour,omitempty"`
 }
 
 // NewRateCard instantiates a new RateCard object
@@ -77,9 +77,9 @@ func (o *RateCard) SetBasis(v string) {
 }
 
 // GetMicroUsdPerGbHour returns the MicroUsdPerGbHour field value if set, zero value otherwise.
-func (o *RateCard) GetMicroUsdPerGbHour() int32 {
+func (o *RateCard) GetMicroUsdPerGbHour() int64 {
 	if o == nil || IsNil(o.MicroUsdPerGbHour) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MicroUsdPerGbHour
@@ -87,7 +87,7 @@ func (o *RateCard) GetMicroUsdPerGbHour() int32 {
 
 // GetMicroUsdPerGbHourOk returns a tuple with the MicroUsdPerGbHour field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RateCard) GetMicroUsdPerGbHourOk() (*int32, bool) {
+func (o *RateCard) GetMicroUsdPerGbHourOk() (*int64, bool) {
 	if o == nil || IsNil(o.MicroUsdPerGbHour) {
 		return nil, false
 	}
@@ -103,15 +103,15 @@ func (o *RateCard) HasMicroUsdPerGbHour() bool {
 	return false
 }
 
-// SetMicroUsdPerGbHour gets a reference to the given int32 and assigns it to the MicroUsdPerGbHour field.
-func (o *RateCard) SetMicroUsdPerGbHour(v int32) {
+// SetMicroUsdPerGbHour gets a reference to the given int64 and assigns it to the MicroUsdPerGbHour field.
+func (o *RateCard) SetMicroUsdPerGbHour(v int64) {
 	o.MicroUsdPerGbHour = &v
 }
 
 // GetMicroUsdPerVcpuHour returns the MicroUsdPerVcpuHour field value if set, zero value otherwise.
-func (o *RateCard) GetMicroUsdPerVcpuHour() int32 {
+func (o *RateCard) GetMicroUsdPerVcpuHour() int64 {
 	if o == nil || IsNil(o.MicroUsdPerVcpuHour) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MicroUsdPerVcpuHour
@@ -119,7 +119,7 @@ func (o *RateCard) GetMicroUsdPerVcpuHour() int32 {
 
 // GetMicroUsdPerVcpuHourOk returns a tuple with the MicroUsdPerVcpuHour field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RateCard) GetMicroUsdPerVcpuHourOk() (*int32, bool) {
+func (o *RateCard) GetMicroUsdPerVcpuHourOk() (*int64, bool) {
 	if o == nil || IsNil(o.MicroUsdPerVcpuHour) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *RateCard) HasMicroUsdPerVcpuHour() bool {
 	return false
 }
 
-// SetMicroUsdPerVcpuHour gets a reference to the given int32 and assigns it to the MicroUsdPerVcpuHour field.
-func (o *RateCard) SetMicroUsdPerVcpuHour(v int32) {
+// SetMicroUsdPerVcpuHour gets a reference to the given int64 and assigns it to the MicroUsdPerVcpuHour field.
+func (o *RateCard) SetMicroUsdPerVcpuHour(v int64) {
 	o.MicroUsdPerVcpuHour = &v
 }
 

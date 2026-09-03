@@ -26,7 +26,7 @@ type ProjectsSite struct {
 	// Status is the project's state behind the site — whether it is serving, still building, or failed its last build. A site that is listed is not necessarily one that answers.
 	Status *string `json:"status,omitempty"`
 	// UpdatedAt is when the project last changed, as Unix seconds.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 	// URL is the pretty address readers use, not the object-store path behind it.
 	Url *string `json:"url,omitempty"`
 }
@@ -145,9 +145,9 @@ func (o *ProjectsSite) SetStatus(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *ProjectsSite) GetUpdatedAt() int32 {
+func (o *ProjectsSite) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -155,7 +155,7 @@ func (o *ProjectsSite) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsSite) GetUpdatedAtOk() (*int32, bool) {
+func (o *ProjectsSite) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -171,8 +171,8 @@ func (o *ProjectsSite) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *ProjectsSite) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *ProjectsSite) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

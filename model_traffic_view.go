@@ -20,33 +20,33 @@ var _ MappedNullable = &TrafficView{}
 // TrafficView struct for TrafficView
 type TrafficView struct {
 	// Blind is how many requests in the window carried no identity to attribute them to — no validated credential and no client address. Non-zero on a public plane means the client address is not reaching this process (a TCP load balancer with no PROXY protocol in front of it, typically), so this scope's callers cannot be told apart and nothing can be held against them.
-	Blind *int32 `json:"blind,omitempty"`
+	Blind *int64 `json:"blind,omitempty"`
 	// Callers is the scope's busiest callers this window. A credentialed caller appears as a FINGERPRINT — a per-process one-way digest: enough to recognise the same caller across requests, never enough to reconstruct the credential.
 	Callers []TrafficCaller `json:"callers,omitempty"`
 	// Ceiling is the most callers this scope may hold at once.
-	Ceiling *int32 `json:"ceiling,omitempty"`
+	Ceiling *int64 `json:"ceiling,omitempty"`
 	// Denied is how many of them the gate refused.
-	Denied *int32 `json:"denied,omitempty"`
+	Denied *int64 `json:"denied,omitempty"`
 	// Lanes is the request count per lane — agent, human, bot, unknown. This is the split that separates a customer's automation from a scraper.
-	Lanes map[string]int32 `json:"lanes,omitempty"`
+	Lanes map[string]int64 `json:"lanes,omitempty"`
 	// Mode is the abuse gate's posture for this scope: \"shadow\" records the scorer's action without enforcing it, \"live\" enforces it.
 	Mode *string `json:"mode,omitempty"`
 	// Org is the scope this view was taken for — the validated principal's own, never a value the caller supplied. Empty names the anonymous lane, the one scope that has no tenant.
 	Org *string `json:"org,omitempty"`
 	// Refused is how many callers this scope's ceilings turned away in the window.
-	Refused *int32 `json:"refused,omitempty"`
+	Refused *int64 `json:"refused,omitempty"`
 	// Requests is how many requests this scope made in the window.
-	Requests *int32 `json:"requests,omitempty"`
+	Requests *int64 `json:"requests,omitempty"`
 	// Screens is how many of them were put to the scorer — the billable unit of the risk product. Counted from the first request, whatever the SKU costs.
-	Screens *int32 `json:"screens,omitempty"`
+	Screens *int64 `json:"screens,omitempty"`
 	// Strain is what this scope's ceilings are doing: \"clear\" below them, \"full\" at them, \"refuse\" once a caller has been turned away inside this window — which means that caller is UNMEASURED and the numbers here are a sample rather than a census. It is reported rather than logged because the alternative — a bound that degrades a scope silently — is the failure this design exists to rule out. No other scope can move it.
 	Strain *string `json:"strain,omitempty"`
 	// Tracked is how many callers this scope holds state for right now, and Ceiling is the most it may hold. Tracked == Ceiling is the fact a bound that binds cannot hide.
-	Tracked *int32 `json:"tracked,omitempty"`
+	Tracked *int64 `json:"tracked,omitempty"`
 	// Unscored is how many of those screens got NO answer — the scorer was absent, stuck, slow, erroring or silent. An unanswered screen allows ordinary traffic, so this is the number that separates \"a quiet day\" from \"the judge stopped answering and nothing said so\".
-	Unscored *int32 `json:"unscored,omitempty"`
+	Unscored *int64 `json:"unscored,omitempty"`
 	// WindowSec is the span the counts cover, in seconds.
-	WindowSec *int32 `json:"window_sec,omitempty"`
+	WindowSec *int64 `json:"window_sec,omitempty"`
 }
 
 // NewTrafficView instantiates a new TrafficView object
@@ -67,9 +67,9 @@ func NewTrafficViewWithDefaults() *TrafficView {
 }
 
 // GetBlind returns the Blind field value if set, zero value otherwise.
-func (o *TrafficView) GetBlind() int32 {
+func (o *TrafficView) GetBlind() int64 {
 	if o == nil || IsNil(o.Blind) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Blind
@@ -77,7 +77,7 @@ func (o *TrafficView) GetBlind() int32 {
 
 // GetBlindOk returns a tuple with the Blind field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrafficView) GetBlindOk() (*int32, bool) {
+func (o *TrafficView) GetBlindOk() (*int64, bool) {
 	if o == nil || IsNil(o.Blind) {
 		return nil, false
 	}
@@ -93,8 +93,8 @@ func (o *TrafficView) HasBlind() bool {
 	return false
 }
 
-// SetBlind gets a reference to the given int32 and assigns it to the Blind field.
-func (o *TrafficView) SetBlind(v int32) {
+// SetBlind gets a reference to the given int64 and assigns it to the Blind field.
+func (o *TrafficView) SetBlind(v int64) {
 	o.Blind = &v
 }
 
@@ -131,9 +131,9 @@ func (o *TrafficView) SetCallers(v []TrafficCaller) {
 }
 
 // GetCeiling returns the Ceiling field value if set, zero value otherwise.
-func (o *TrafficView) GetCeiling() int32 {
+func (o *TrafficView) GetCeiling() int64 {
 	if o == nil || IsNil(o.Ceiling) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Ceiling
@@ -141,7 +141,7 @@ func (o *TrafficView) GetCeiling() int32 {
 
 // GetCeilingOk returns a tuple with the Ceiling field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrafficView) GetCeilingOk() (*int32, bool) {
+func (o *TrafficView) GetCeilingOk() (*int64, bool) {
 	if o == nil || IsNil(o.Ceiling) {
 		return nil, false
 	}
@@ -157,15 +157,15 @@ func (o *TrafficView) HasCeiling() bool {
 	return false
 }
 
-// SetCeiling gets a reference to the given int32 and assigns it to the Ceiling field.
-func (o *TrafficView) SetCeiling(v int32) {
+// SetCeiling gets a reference to the given int64 and assigns it to the Ceiling field.
+func (o *TrafficView) SetCeiling(v int64) {
 	o.Ceiling = &v
 }
 
 // GetDenied returns the Denied field value if set, zero value otherwise.
-func (o *TrafficView) GetDenied() int32 {
+func (o *TrafficView) GetDenied() int64 {
 	if o == nil || IsNil(o.Denied) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Denied
@@ -173,7 +173,7 @@ func (o *TrafficView) GetDenied() int32 {
 
 // GetDeniedOk returns a tuple with the Denied field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrafficView) GetDeniedOk() (*int32, bool) {
+func (o *TrafficView) GetDeniedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Denied) {
 		return nil, false
 	}
@@ -189,15 +189,15 @@ func (o *TrafficView) HasDenied() bool {
 	return false
 }
 
-// SetDenied gets a reference to the given int32 and assigns it to the Denied field.
-func (o *TrafficView) SetDenied(v int32) {
+// SetDenied gets a reference to the given int64 and assigns it to the Denied field.
+func (o *TrafficView) SetDenied(v int64) {
 	o.Denied = &v
 }
 
 // GetLanes returns the Lanes field value if set, zero value otherwise.
-func (o *TrafficView) GetLanes() map[string]int32 {
+func (o *TrafficView) GetLanes() map[string]int64 {
 	if o == nil || IsNil(o.Lanes) {
-		var ret map[string]int32
+		var ret map[string]int64
 		return ret
 	}
 	return o.Lanes
@@ -205,9 +205,9 @@ func (o *TrafficView) GetLanes() map[string]int32 {
 
 // GetLanesOk returns a tuple with the Lanes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrafficView) GetLanesOk() (map[string]int32, bool) {
+func (o *TrafficView) GetLanesOk() (map[string]int64, bool) {
 	if o == nil || IsNil(o.Lanes) {
-		return map[string]int32{}, false
+		return map[string]int64{}, false
 	}
 	return o.Lanes, true
 }
@@ -221,8 +221,8 @@ func (o *TrafficView) HasLanes() bool {
 	return false
 }
 
-// SetLanes gets a reference to the given map[string]int32 and assigns it to the Lanes field.
-func (o *TrafficView) SetLanes(v map[string]int32) {
+// SetLanes gets a reference to the given map[string]int64 and assigns it to the Lanes field.
+func (o *TrafficView) SetLanes(v map[string]int64) {
 	o.Lanes = v
 }
 
@@ -291,9 +291,9 @@ func (o *TrafficView) SetOrg(v string) {
 }
 
 // GetRefused returns the Refused field value if set, zero value otherwise.
-func (o *TrafficView) GetRefused() int32 {
+func (o *TrafficView) GetRefused() int64 {
 	if o == nil || IsNil(o.Refused) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Refused
@@ -301,7 +301,7 @@ func (o *TrafficView) GetRefused() int32 {
 
 // GetRefusedOk returns a tuple with the Refused field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrafficView) GetRefusedOk() (*int32, bool) {
+func (o *TrafficView) GetRefusedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Refused) {
 		return nil, false
 	}
@@ -317,15 +317,15 @@ func (o *TrafficView) HasRefused() bool {
 	return false
 }
 
-// SetRefused gets a reference to the given int32 and assigns it to the Refused field.
-func (o *TrafficView) SetRefused(v int32) {
+// SetRefused gets a reference to the given int64 and assigns it to the Refused field.
+func (o *TrafficView) SetRefused(v int64) {
 	o.Refused = &v
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *TrafficView) GetRequests() int32 {
+func (o *TrafficView) GetRequests() int64 {
 	if o == nil || IsNil(o.Requests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Requests
@@ -333,7 +333,7 @@ func (o *TrafficView) GetRequests() int32 {
 
 // GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrafficView) GetRequestsOk() (*int32, bool) {
+func (o *TrafficView) GetRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Requests) {
 		return nil, false
 	}
@@ -349,15 +349,15 @@ func (o *TrafficView) HasRequests() bool {
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *TrafficView) SetRequests(v int32) {
+// SetRequests gets a reference to the given int64 and assigns it to the Requests field.
+func (o *TrafficView) SetRequests(v int64) {
 	o.Requests = &v
 }
 
 // GetScreens returns the Screens field value if set, zero value otherwise.
-func (o *TrafficView) GetScreens() int32 {
+func (o *TrafficView) GetScreens() int64 {
 	if o == nil || IsNil(o.Screens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Screens
@@ -365,7 +365,7 @@ func (o *TrafficView) GetScreens() int32 {
 
 // GetScreensOk returns a tuple with the Screens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrafficView) GetScreensOk() (*int32, bool) {
+func (o *TrafficView) GetScreensOk() (*int64, bool) {
 	if o == nil || IsNil(o.Screens) {
 		return nil, false
 	}
@@ -381,8 +381,8 @@ func (o *TrafficView) HasScreens() bool {
 	return false
 }
 
-// SetScreens gets a reference to the given int32 and assigns it to the Screens field.
-func (o *TrafficView) SetScreens(v int32) {
+// SetScreens gets a reference to the given int64 and assigns it to the Screens field.
+func (o *TrafficView) SetScreens(v int64) {
 	o.Screens = &v
 }
 
@@ -419,9 +419,9 @@ func (o *TrafficView) SetStrain(v string) {
 }
 
 // GetTracked returns the Tracked field value if set, zero value otherwise.
-func (o *TrafficView) GetTracked() int32 {
+func (o *TrafficView) GetTracked() int64 {
 	if o == nil || IsNil(o.Tracked) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Tracked
@@ -429,7 +429,7 @@ func (o *TrafficView) GetTracked() int32 {
 
 // GetTrackedOk returns a tuple with the Tracked field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrafficView) GetTrackedOk() (*int32, bool) {
+func (o *TrafficView) GetTrackedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Tracked) {
 		return nil, false
 	}
@@ -445,15 +445,15 @@ func (o *TrafficView) HasTracked() bool {
 	return false
 }
 
-// SetTracked gets a reference to the given int32 and assigns it to the Tracked field.
-func (o *TrafficView) SetTracked(v int32) {
+// SetTracked gets a reference to the given int64 and assigns it to the Tracked field.
+func (o *TrafficView) SetTracked(v int64) {
 	o.Tracked = &v
 }
 
 // GetUnscored returns the Unscored field value if set, zero value otherwise.
-func (o *TrafficView) GetUnscored() int32 {
+func (o *TrafficView) GetUnscored() int64 {
 	if o == nil || IsNil(o.Unscored) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Unscored
@@ -461,7 +461,7 @@ func (o *TrafficView) GetUnscored() int32 {
 
 // GetUnscoredOk returns a tuple with the Unscored field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrafficView) GetUnscoredOk() (*int32, bool) {
+func (o *TrafficView) GetUnscoredOk() (*int64, bool) {
 	if o == nil || IsNil(o.Unscored) {
 		return nil, false
 	}
@@ -477,15 +477,15 @@ func (o *TrafficView) HasUnscored() bool {
 	return false
 }
 
-// SetUnscored gets a reference to the given int32 and assigns it to the Unscored field.
-func (o *TrafficView) SetUnscored(v int32) {
+// SetUnscored gets a reference to the given int64 and assigns it to the Unscored field.
+func (o *TrafficView) SetUnscored(v int64) {
 	o.Unscored = &v
 }
 
 // GetWindowSec returns the WindowSec field value if set, zero value otherwise.
-func (o *TrafficView) GetWindowSec() int32 {
+func (o *TrafficView) GetWindowSec() int64 {
 	if o == nil || IsNil(o.WindowSec) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.WindowSec
@@ -493,7 +493,7 @@ func (o *TrafficView) GetWindowSec() int32 {
 
 // GetWindowSecOk returns a tuple with the WindowSec field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrafficView) GetWindowSecOk() (*int32, bool) {
+func (o *TrafficView) GetWindowSecOk() (*int64, bool) {
 	if o == nil || IsNil(o.WindowSec) {
 		return nil, false
 	}
@@ -509,8 +509,8 @@ func (o *TrafficView) HasWindowSec() bool {
 	return false
 }
 
-// SetWindowSec gets a reference to the given int32 and assigns it to the WindowSec field.
-func (o *TrafficView) SetWindowSec(v int32) {
+// SetWindowSec gets a reference to the given int64 and assigns it to the WindowSec field.
+func (o *TrafficView) SetWindowSec(v int64) {
 	o.WindowSec = &v
 }
 

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **DurationNano** | Pointer to **int32** |  | [optional] 
 **Event** | Pointer to [**[]O11yEvent**](O11yEvent.md) |  | [optional] 
 **HasError** | Pointer to **bool** |  | [optional] 
-**Level** | Pointer to **int32** |  | [optional] 
+**Level** | Pointer to **int64** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **ParentSpanId** | Pointer to **string** |  | [optional] 
 **Resource** | Pointer to **map[string]string** |  | [optional] 
@@ -136,20 +136,20 @@ HasHasError returns a boolean if a field has been set.
 
 ### GetLevel
 
-`func (o *O11yFlamegraphSpan) GetLevel() int32`
+`func (o *O11yFlamegraphSpan) GetLevel() int64`
 
 GetLevel returns the Level field if non-nil, zero value otherwise.
 
 ### GetLevelOk
 
-`func (o *O11yFlamegraphSpan) GetLevelOk() (*int32, bool)`
+`func (o *O11yFlamegraphSpan) GetLevelOk() (*int64, bool)`
 
 GetLevelOk returns a tuple with the Level field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLevel
 
-`func (o *O11yFlamegraphSpan) SetLevel(v int32)`
+`func (o *O11yFlamegraphSpan) SetLevel(v int64)`
 
 SetLevel sets Level field to given value.
 

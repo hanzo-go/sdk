@@ -20,7 +20,7 @@ var _ MappedNullable = &SpaceItem{}
 // SpaceItem struct for SpaceItem
 type SpaceItem struct {
 	// CreatedAt is when the space was made, in unix seconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Name is the space's name, as the org created it.
 	Name *string `json:"name,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewSpaceItemWithDefaults() *SpaceItem {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *SpaceItem) GetCreatedAt() int32 {
+func (o *SpaceItem) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -53,7 +53,7 @@ func (o *SpaceItem) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SpaceItem) GetCreatedAtOk() (*int32, bool) {
+func (o *SpaceItem) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *SpaceItem) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *SpaceItem) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *SpaceItem) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 

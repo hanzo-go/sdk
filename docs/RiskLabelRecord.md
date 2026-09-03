@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **At** | Pointer to **string** | At is when the judged EVENT happened, RFC 3339 in UTC, truncated to the second. The filer supplies it, and it is what a maturity horizon measures from: this event&#39;s as-of is At plus the horizon. A resolve names it back exactly, to the second. | [optional] 
 **By** | Pointer to **string** | By is the identity that asserted, stamped server-side at the write. | [optional] 
-**Confidence** | Pointer to **float32** | Confidence is the filer&#39;s own confidence in [0,1] — 1 for a processor chargeback, less for an analyst&#39;s hunch. Zero is the ordinary value for a filer that stated none, and it means the weakest tie-break there is rather than \&quot;unknown\&quot;. It breaks a tie only WITHIN one precedence rank and can never lift a weak source above a strong one. | [optional] 
+**Confidence** | Pointer to **float64** | Confidence is the filer&#39;s own confidence in [0,1] — 1 for a processor chargeback, less for an analyst&#39;s hunch. Zero is the ordinary value for a filer that stated none, and it means the weakest tie-break there is rather than \&quot;unknown\&quot;. It breaks a tie only WITHIN one precedence rank and can never lift a weak source above a strong one. | [optional] 
 **Disposition** | Pointer to **string** | Disposition is what was concluded, from the closed set: &#x60;productive&#x60; — the event led somewhere, escalated, reported or charged back; &#x60;unproductive&#x60; — judged not suspicious; or the empty string for an explicit UNJUDGED, which is a real assertion (\&quot;we looked and could not say\&quot;) and not the absence of one. | [optional] 
 **Evidence** | Pointer to **string** | Evidence is the pointer to the record this conclusion came from: a dispute id, a case id, a decision id. At most 512 bytes, required at the write, and opaque to this plane — stored and returned verbatim, never resolved. It is what an adverse action is defended with, which is why an assertion carrying none is refused at the endpoint. | [optional] 
 **Hold** | Pointer to **bool** | Hold is true while a litigation hold is on this record: retention will not dispose of it, at any age. False — and it is omitted then — leaves the record disposable once it is older than the boundary a sweep names. It is a fact about the RECORD and not about the world, so it is not folded into ID, no write path can set it, and the hold op is the one way it moves in either direction. | [optional] 
@@ -89,20 +89,20 @@ HasBy returns a boolean if a field has been set.
 
 ### GetConfidence
 
-`func (o *RiskLabelRecord) GetConfidence() float32`
+`func (o *RiskLabelRecord) GetConfidence() float64`
 
 GetConfidence returns the Confidence field if non-nil, zero value otherwise.
 
 ### GetConfidenceOk
 
-`func (o *RiskLabelRecord) GetConfidenceOk() (*float32, bool)`
+`func (o *RiskLabelRecord) GetConfidenceOk() (*float64, bool)`
 
 GetConfidenceOk returns a tuple with the Confidence field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConfidence
 
-`func (o *RiskLabelRecord) SetConfidence(v float32)`
+`func (o *RiskLabelRecord) SetConfidence(v float64)`
 
 SetConfidence sets Confidence field to given value.
 

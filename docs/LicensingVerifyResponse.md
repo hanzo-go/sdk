@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AppId** | Pointer to **string** | AppID is the brand the token runs under. | [optional] 
-**Exp** | Pointer to **int32** | Exp is the token&#39;s expiry, Unix seconds. | [optional] 
+**Exp** | Pointer to **int64** | Exp is the token&#39;s expiry, Unix seconds. | [optional] 
 **Features** | Pointer to **[]string** | Features are the capability grants the token carries. | [optional] 
 **FingerprintBound** | Pointer to **bool** | Bound reports that the token carries a device binding. | [optional] 
 **Holder** | Pointer to **string** | Holder is who the token was issued to. | [optional] 
@@ -60,20 +60,20 @@ HasAppId returns a boolean if a field has been set.
 
 ### GetExp
 
-`func (o *LicensingVerifyResponse) GetExp() int32`
+`func (o *LicensingVerifyResponse) GetExp() int64`
 
 GetExp returns the Exp field if non-nil, zero value otherwise.
 
 ### GetExpOk
 
-`func (o *LicensingVerifyResponse) GetExpOk() (*int32, bool)`
+`func (o *LicensingVerifyResponse) GetExpOk() (*int64, bool)`
 
 GetExpOk returns a tuple with the Exp field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExp
 
-`func (o *LicensingVerifyResponse) SetExp(v int32)`
+`func (o *LicensingVerifyResponse) SetExp(v int64)`
 
 SetExp sets Exp field to given value.
 

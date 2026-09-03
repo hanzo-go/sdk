@@ -20,7 +20,7 @@ var _ MappedNullable = &O11yAnnQueueDetailView{}
 // O11yAnnQueueDetailView struct for O11yAnnQueueDetailView
 type O11yAnnQueueDetailView struct {
 	// CompletedCount is how many have been reviewed.
-	CompletedCount *int32 `json:"completedCount,omitempty"`
+	CompletedCount *int64 `json:"completedCount,omitempty"`
 	// CreatedAt is when it was created, RFC3339 in UTC.
 	CreatedAt *string `json:"createdAt,omitempty"`
 	// Description is its free text, omitted when empty.
@@ -32,7 +32,7 @@ type O11yAnnQueueDetailView struct {
 	// Name is its display handle.
 	Name *string `json:"name,omitempty"`
 	// PendingCount is how many of its items are still awaiting review.
-	PendingCount *int32 `json:"pendingCount,omitempty"`
+	PendingCount *int64 `json:"pendingCount,omitempty"`
 	// ScoreConfigIDs are the eval score-configs reviewers grade against.
 	ScoreConfigIds []string `json:"scoreConfigIds,omitempty"`
 	// UpdatedAt is when it last changed, RFC3339 in UTC.
@@ -57,9 +57,9 @@ func NewO11yAnnQueueDetailViewWithDefaults() *O11yAnnQueueDetailView {
 }
 
 // GetCompletedCount returns the CompletedCount field value if set, zero value otherwise.
-func (o *O11yAnnQueueDetailView) GetCompletedCount() int32 {
+func (o *O11yAnnQueueDetailView) GetCompletedCount() int64 {
 	if o == nil || IsNil(o.CompletedCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CompletedCount
@@ -67,7 +67,7 @@ func (o *O11yAnnQueueDetailView) GetCompletedCount() int32 {
 
 // GetCompletedCountOk returns a tuple with the CompletedCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yAnnQueueDetailView) GetCompletedCountOk() (*int32, bool) {
+func (o *O11yAnnQueueDetailView) GetCompletedCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.CompletedCount) {
 		return nil, false
 	}
@@ -83,8 +83,8 @@ func (o *O11yAnnQueueDetailView) HasCompletedCount() bool {
 	return false
 }
 
-// SetCompletedCount gets a reference to the given int32 and assigns it to the CompletedCount field.
-func (o *O11yAnnQueueDetailView) SetCompletedCount(v int32) {
+// SetCompletedCount gets a reference to the given int64 and assigns it to the CompletedCount field.
+func (o *O11yAnnQueueDetailView) SetCompletedCount(v int64) {
 	o.CompletedCount = &v
 }
 
@@ -249,9 +249,9 @@ func (o *O11yAnnQueueDetailView) SetName(v string) {
 }
 
 // GetPendingCount returns the PendingCount field value if set, zero value otherwise.
-func (o *O11yAnnQueueDetailView) GetPendingCount() int32 {
+func (o *O11yAnnQueueDetailView) GetPendingCount() int64 {
 	if o == nil || IsNil(o.PendingCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PendingCount
@@ -259,7 +259,7 @@ func (o *O11yAnnQueueDetailView) GetPendingCount() int32 {
 
 // GetPendingCountOk returns a tuple with the PendingCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yAnnQueueDetailView) GetPendingCountOk() (*int32, bool) {
+func (o *O11yAnnQueueDetailView) GetPendingCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.PendingCount) {
 		return nil, false
 	}
@@ -275,8 +275,8 @@ func (o *O11yAnnQueueDetailView) HasPendingCount() bool {
 	return false
 }
 
-// SetPendingCount gets a reference to the given int32 and assigns it to the PendingCount field.
-func (o *O11yAnnQueueDetailView) SetPendingCount(v int32) {
+// SetPendingCount gets a reference to the given int64 and assigns it to the PendingCount field.
+func (o *O11yAnnQueueDetailView) SetPendingCount(v int64) {
 	o.PendingCount = &v
 }
 

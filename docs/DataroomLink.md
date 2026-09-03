@@ -6,18 +6,18 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AllowDownload** | Pointer to **bool** | AllowDownload is whether a visitor may download, rather than only view. | [optional] 
 **AllowList** | Pointer to **[]string** | AllowList narrows which addresses pass the email gate. An entry may be a full address, an \&quot;@domain.com\&quot; suffix, or a bare \&quot;domain.com\&quot;. An EMPTY list admits everyone. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the link was minted, in unix milliseconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the link was minted, in unix milliseconds. | [optional] 
 **DataroomId** | Pointer to **string** | DataroomId is the room the link opens, null for a single-document link. | [optional] 
 **DenyList** | Pointer to **[]string** | DenyList rejects addresses, in the same three forms as the allow list, and is checked BEFORE it — so deny always wins. | [optional] 
 **DocumentId** | Pointer to **string** | DocumentId is the document the link opens, null for a room link. | [optional] 
 **EmailProtected** | Pointer to **bool** | EmailProtected is whether a visitor must state an address to enter. | [optional] 
-**ExpiresAt** | Pointer to **int32** | ExpiresAt is when the link closes, in unix milliseconds; null never expires. | [optional] 
+**ExpiresAt** | Pointer to **int64** | ExpiresAt is when the link closes, in unix milliseconds; null never expires. | [optional] 
 **HasPassword** | Pointer to **bool** | HasPassword reports THAT a password is set. The stored form is a bcrypt hash and no route returns it. | [optional] 
 **Id** | Pointer to **string** | ID is the link id — the public token a visitor opens the room with. | [optional] 
 **IsArchived** | Pointer to **bool** | IsArchived is whether the link has been retired. | [optional] 
 **LinkType** | Pointer to **string** | LinkType is DATAROOM_LINK or DOCUMENT_LINK. | [optional] 
 **Name** | Pointer to **string** | Name is the link&#39;s label, null when none was given. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is when the link last changed, in unix milliseconds. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is when the link last changed, in unix milliseconds. | [optional] 
 
 ## Methods
 
@@ -90,20 +90,20 @@ HasAllowList returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *DataroomLink) GetCreatedAt() int32`
+`func (o *DataroomLink) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *DataroomLink) GetCreatedAtOk() (*int32, bool)`
+`func (o *DataroomLink) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *DataroomLink) SetCreatedAt(v int32)`
+`func (o *DataroomLink) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -215,20 +215,20 @@ HasEmailProtected returns a boolean if a field has been set.
 
 ### GetExpiresAt
 
-`func (o *DataroomLink) GetExpiresAt() int32`
+`func (o *DataroomLink) GetExpiresAt() int64`
 
 GetExpiresAt returns the ExpiresAt field if non-nil, zero value otherwise.
 
 ### GetExpiresAtOk
 
-`func (o *DataroomLink) GetExpiresAtOk() (*int32, bool)`
+`func (o *DataroomLink) GetExpiresAtOk() (*int64, bool)`
 
 GetExpiresAtOk returns a tuple with the ExpiresAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpiresAt
 
-`func (o *DataroomLink) SetExpiresAt(v int32)`
+`func (o *DataroomLink) SetExpiresAt(v int64)`
 
 SetExpiresAt sets ExpiresAt field to given value.
 
@@ -365,20 +365,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *DataroomLink) GetUpdatedAt() int32`
+`func (o *DataroomLink) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *DataroomLink) GetUpdatedAtOk() (*int32, bool)`
+`func (o *DataroomLink) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *DataroomLink) SetUpdatedAt(v int32)`
+`func (o *DataroomLink) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

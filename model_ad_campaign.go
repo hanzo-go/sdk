@@ -22,9 +22,9 @@ type AdCampaign struct {
 	// Account is the provider ad-account the campaign runs under, in Meta's act_<id> form. Empty until the org supplies one or a launch resolves it.
 	Account *string `json:"account,omitempty"`
 	// Budget is the campaign's authorized spend in MINOR units (cents). Negative clamps to 0. It is the org's stored plan: a Meta launch creates the campaign object only, and the delivering budget lives on the ad set.
-	Budget *int32 `json:"budget,omitempty"`
+	Budget *int64 `json:"budget,omitempty"`
 	// CreatedAt is when the campaign was first stored, in unix seconds. It never changes, including across a full-replace update.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// ExternalID is the ad network's own campaign id, written by a successful launch and by nothing else — an update never touches it. Empty means this campaign has never reached its network.
 	ExternalId *string `json:"externalId,omitempty"`
 	// ID is the campaign's server-minted handle, \"camp_\" + 32 hex. A create body cannot choose it, and it is the id every other route addresses.
@@ -36,11 +36,11 @@ type AdCampaign struct {
 	// Platform is the ad network: meta, google, tiktok or x, and nothing else — a write naming another is 400. Empty stores as meta. Only meta executes today; launching any of the other three is 501.
 	Platform *string `json:"platform,omitempty"`
 	// Spend is spend-to-date in MINOR units (cents), as last written through create or update. Negative clamps to 0. It is NOT read back from the network — that is a separate insights call — so 0 means nothing was recorded here, not that nothing was spent.
-	Spend *int32 `json:"spend,omitempty"`
+	Spend *int64 `json:"spend,omitempty"`
 	// Status is the lifecycle: draft, active, paused or completed, and nothing else — a write naming another is 400. Empty stores as draft; a successful launch sets active. It records what this deployment did, not what the ad network currently reports.
 	Status *string `json:"status,omitempty"`
 	// UpdatedAt is when the row was last written, in unix seconds — set by create, update and launch. Listings are ordered by it, newest first.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewAdCampaign instantiates a new AdCampaign object
@@ -93,9 +93,9 @@ func (o *AdCampaign) SetAccount(v string) {
 }
 
 // GetBudget returns the Budget field value if set, zero value otherwise.
-func (o *AdCampaign) GetBudget() int32 {
+func (o *AdCampaign) GetBudget() int64 {
 	if o == nil || IsNil(o.Budget) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Budget
@@ -103,7 +103,7 @@ func (o *AdCampaign) GetBudget() int32 {
 
 // GetBudgetOk returns a tuple with the Budget field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AdCampaign) GetBudgetOk() (*int32, bool) {
+func (o *AdCampaign) GetBudgetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Budget) {
 		return nil, false
 	}
@@ -119,15 +119,15 @@ func (o *AdCampaign) HasBudget() bool {
 	return false
 }
 
-// SetBudget gets a reference to the given int32 and assigns it to the Budget field.
-func (o *AdCampaign) SetBudget(v int32) {
+// SetBudget gets a reference to the given int64 and assigns it to the Budget field.
+func (o *AdCampaign) SetBudget(v int64) {
 	o.Budget = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *AdCampaign) GetCreatedAt() int32 {
+func (o *AdCampaign) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -135,7 +135,7 @@ func (o *AdCampaign) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AdCampaign) GetCreatedAtOk() (*int32, bool) {
+func (o *AdCampaign) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -151,8 +151,8 @@ func (o *AdCampaign) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *AdCampaign) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *AdCampaign) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -317,9 +317,9 @@ func (o *AdCampaign) SetPlatform(v string) {
 }
 
 // GetSpend returns the Spend field value if set, zero value otherwise.
-func (o *AdCampaign) GetSpend() int32 {
+func (o *AdCampaign) GetSpend() int64 {
 	if o == nil || IsNil(o.Spend) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Spend
@@ -327,7 +327,7 @@ func (o *AdCampaign) GetSpend() int32 {
 
 // GetSpendOk returns a tuple with the Spend field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AdCampaign) GetSpendOk() (*int32, bool) {
+func (o *AdCampaign) GetSpendOk() (*int64, bool) {
 	if o == nil || IsNil(o.Spend) {
 		return nil, false
 	}
@@ -343,8 +343,8 @@ func (o *AdCampaign) HasSpend() bool {
 	return false
 }
 
-// SetSpend gets a reference to the given int32 and assigns it to the Spend field.
-func (o *AdCampaign) SetSpend(v int32) {
+// SetSpend gets a reference to the given int64 and assigns it to the Spend field.
+func (o *AdCampaign) SetSpend(v int64) {
 	o.Spend = &v
 }
 
@@ -381,9 +381,9 @@ func (o *AdCampaign) SetStatus(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *AdCampaign) GetUpdatedAt() int32 {
+func (o *AdCampaign) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -391,7 +391,7 @@ func (o *AdCampaign) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AdCampaign) GetUpdatedAtOk() (*int32, bool) {
+func (o *AdCampaign) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -407,8 +407,8 @@ func (o *AdCampaign) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *AdCampaign) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *AdCampaign) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

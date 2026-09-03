@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | Name is the round&#39;s name on the cap table, e.g. \&quot;Seed\&quot;. Required. | [optional] 
-**PreMoneyValuation** | Pointer to **float32** | PreMoneyValuation is the valuation the round prices off, before the new money. | [optional] 
-**PricePerShare** | Pointer to **float32** | PricePerShare is the per-share price of a priced round. | [optional] 
+**PreMoneyValuation** | Pointer to **float64** | PreMoneyValuation is the valuation the round prices off, before the new money. | [optional] 
+**PricePerShare** | Pointer to **float64** | PricePerShare is the per-share price of a priced round. | [optional] 
 **RoundType** | Pointer to **string** | RoundType is PRICED, SAFE or CONVERTIBLE_NOTE. Defaults to PRICED. | [optional] 
 **ShareClassId** | Pointer to **string** | ShareClassID is the cap table&#39;s share class the round issues into. | [optional] 
-**TargetAmount** | Pointer to **float32** | TargetAmount is the amount the round is raising, recorded verbatim on the canonical cap table&#39;s rounds.create contract. | [optional] 
+**TargetAmount** | Pointer to **float64** | TargetAmount is the amount the round is raising, recorded verbatim on the canonical cap table&#39;s rounds.create contract. | [optional] 
 
 ## Methods
 
@@ -57,20 +57,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetPreMoneyValuation
 
-`func (o *RoundInput) GetPreMoneyValuation() float32`
+`func (o *RoundInput) GetPreMoneyValuation() float64`
 
 GetPreMoneyValuation returns the PreMoneyValuation field if non-nil, zero value otherwise.
 
 ### GetPreMoneyValuationOk
 
-`func (o *RoundInput) GetPreMoneyValuationOk() (*float32, bool)`
+`func (o *RoundInput) GetPreMoneyValuationOk() (*float64, bool)`
 
 GetPreMoneyValuationOk returns a tuple with the PreMoneyValuation field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPreMoneyValuation
 
-`func (o *RoundInput) SetPreMoneyValuation(v float32)`
+`func (o *RoundInput) SetPreMoneyValuation(v float64)`
 
 SetPreMoneyValuation sets PreMoneyValuation field to given value.
 
@@ -82,20 +82,20 @@ HasPreMoneyValuation returns a boolean if a field has been set.
 
 ### GetPricePerShare
 
-`func (o *RoundInput) GetPricePerShare() float32`
+`func (o *RoundInput) GetPricePerShare() float64`
 
 GetPricePerShare returns the PricePerShare field if non-nil, zero value otherwise.
 
 ### GetPricePerShareOk
 
-`func (o *RoundInput) GetPricePerShareOk() (*float32, bool)`
+`func (o *RoundInput) GetPricePerShareOk() (*float64, bool)`
 
 GetPricePerShareOk returns a tuple with the PricePerShare field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPricePerShare
 
-`func (o *RoundInput) SetPricePerShare(v float32)`
+`func (o *RoundInput) SetPricePerShare(v float64)`
 
 SetPricePerShare sets PricePerShare field to given value.
 
@@ -157,20 +157,20 @@ HasShareClassId returns a boolean if a field has been set.
 
 ### GetTargetAmount
 
-`func (o *RoundInput) GetTargetAmount() float32`
+`func (o *RoundInput) GetTargetAmount() float64`
 
 GetTargetAmount returns the TargetAmount field if non-nil, zero value otherwise.
 
 ### GetTargetAmountOk
 
-`func (o *RoundInput) GetTargetAmountOk() (*float32, bool)`
+`func (o *RoundInput) GetTargetAmountOk() (*float64, bool)`
 
 GetTargetAmountOk returns a tuple with the TargetAmount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTargetAmount
 
-`func (o *RoundInput) SetTargetAmount(v float32)`
+`func (o *RoundInput) SetTargetAmount(v float64)`
 
 SetTargetAmount sets TargetAmount field to given value.
 

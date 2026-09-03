@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AmountCents** | Pointer to **int32** |  | [optional] 
+**AmountCents** | Pointer to **int64** |  | [optional] 
 **Currency** | Pointer to **string** |  | [optional] 
 **Enabled** | Pointer to **bool** |  | [optional] 
 **LastRechargedAt** | Pointer to **string** |  | [optional] 
 **Stored** | Pointer to **bool** |  | [optional] 
 **Subject** | Pointer to **string** |  | [optional] 
-**ThresholdCents** | Pointer to **int32** |  | [optional] 
+**ThresholdCents** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -33,20 +33,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAmountCents
 
-`func (o *AutoRecharge) GetAmountCents() int32`
+`func (o *AutoRecharge) GetAmountCents() int64`
 
 GetAmountCents returns the AmountCents field if non-nil, zero value otherwise.
 
 ### GetAmountCentsOk
 
-`func (o *AutoRecharge) GetAmountCentsOk() (*int32, bool)`
+`func (o *AutoRecharge) GetAmountCentsOk() (*int64, bool)`
 
 GetAmountCentsOk returns a tuple with the AmountCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmountCents
 
-`func (o *AutoRecharge) SetAmountCents(v int32)`
+`func (o *AutoRecharge) SetAmountCents(v int64)`
 
 SetAmountCents sets AmountCents field to given value.
 
@@ -183,20 +183,20 @@ HasSubject returns a boolean if a field has been set.
 
 ### GetThresholdCents
 
-`func (o *AutoRecharge) GetThresholdCents() int32`
+`func (o *AutoRecharge) GetThresholdCents() int64`
 
 GetThresholdCents returns the ThresholdCents field if non-nil, zero value otherwise.
 
 ### GetThresholdCentsOk
 
-`func (o *AutoRecharge) GetThresholdCentsOk() (*int32, bool)`
+`func (o *AutoRecharge) GetThresholdCentsOk() (*int64, bool)`
 
 GetThresholdCentsOk returns a tuple with the ThresholdCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetThresholdCents
 
-`func (o *AutoRecharge) SetThresholdCents(v int32)`
+`func (o *AutoRecharge) SetThresholdCents(v int64)`
 
 SetThresholdCents sets ThresholdCents field to given value.
 

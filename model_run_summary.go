@@ -20,11 +20,11 @@ var _ MappedNullable = &RunSummary{}
 // RunSummary struct for RunSummary
 type RunSummary struct {
 	// AvgScore is the mean over the scored examples, 0 when none scored.
-	AvgScore *float32 `json:"avgScore,omitempty"`
+	AvgScore *float64 `json:"avgScore,omitempty"`
 	// Dataset is the set that was scored.
 	Dataset *string `json:"dataset,omitempty"`
 	// Items is how many examples the run attempted.
-	Items *int32 `json:"items,omitempty"`
+	Items *int64 `json:"items,omitempty"`
 	// JudgeModel is the model that graded.
 	JudgeModel *string `json:"judgeModel,omitempty"`
 	// Model is the model under test.
@@ -34,7 +34,7 @@ type RunSummary struct {
 	// RunName is the run's label, which scores and traces are filed under.
 	RunName *string `json:"runName,omitempty"`
 	// Scored is how many produced a real score. It counts successes only, so a partial run is honest about what it achieved.
-	Scored *int32 `json:"scored,omitempty"`
+	Scored *int64 `json:"scored,omitempty"`
 }
 
 // NewRunSummary instantiates a new RunSummary object
@@ -55,9 +55,9 @@ func NewRunSummaryWithDefaults() *RunSummary {
 }
 
 // GetAvgScore returns the AvgScore field value if set, zero value otherwise.
-func (o *RunSummary) GetAvgScore() float32 {
+func (o *RunSummary) GetAvgScore() float64 {
 	if o == nil || IsNil(o.AvgScore) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.AvgScore
@@ -65,7 +65,7 @@ func (o *RunSummary) GetAvgScore() float32 {
 
 // GetAvgScoreOk returns a tuple with the AvgScore field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RunSummary) GetAvgScoreOk() (*float32, bool) {
+func (o *RunSummary) GetAvgScoreOk() (*float64, bool) {
 	if o == nil || IsNil(o.AvgScore) {
 		return nil, false
 	}
@@ -81,8 +81,8 @@ func (o *RunSummary) HasAvgScore() bool {
 	return false
 }
 
-// SetAvgScore gets a reference to the given float32 and assigns it to the AvgScore field.
-func (o *RunSummary) SetAvgScore(v float32) {
+// SetAvgScore gets a reference to the given float64 and assigns it to the AvgScore field.
+func (o *RunSummary) SetAvgScore(v float64) {
 	o.AvgScore = &v
 }
 
@@ -119,9 +119,9 @@ func (o *RunSummary) SetDataset(v string) {
 }
 
 // GetItems returns the Items field value if set, zero value otherwise.
-func (o *RunSummary) GetItems() int32 {
+func (o *RunSummary) GetItems() int64 {
 	if o == nil || IsNil(o.Items) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Items
@@ -129,7 +129,7 @@ func (o *RunSummary) GetItems() int32 {
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RunSummary) GetItemsOk() (*int32, bool) {
+func (o *RunSummary) GetItemsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
@@ -145,8 +145,8 @@ func (o *RunSummary) HasItems() bool {
 	return false
 }
 
-// SetItems gets a reference to the given int32 and assigns it to the Items field.
-func (o *RunSummary) SetItems(v int32) {
+// SetItems gets a reference to the given int64 and assigns it to the Items field.
+func (o *RunSummary) SetItems(v int64) {
 	o.Items = &v
 }
 
@@ -279,9 +279,9 @@ func (o *RunSummary) SetRunName(v string) {
 }
 
 // GetScored returns the Scored field value if set, zero value otherwise.
-func (o *RunSummary) GetScored() int32 {
+func (o *RunSummary) GetScored() int64 {
 	if o == nil || IsNil(o.Scored) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Scored
@@ -289,7 +289,7 @@ func (o *RunSummary) GetScored() int32 {
 
 // GetScoredOk returns a tuple with the Scored field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RunSummary) GetScoredOk() (*int32, bool) {
+func (o *RunSummary) GetScoredOk() (*int64, bool) {
 	if o == nil || IsNil(o.Scored) {
 		return nil, false
 	}
@@ -305,8 +305,8 @@ func (o *RunSummary) HasScored() bool {
 	return false
 }
 
-// SetScored gets a reference to the given int32 and assigns it to the Scored field.
-func (o *RunSummary) SetScored(v int32) {
+// SetScored gets a reference to the given int64 and assigns it to the Scored field.
+func (o *RunSummary) SetScored(v int64) {
 	o.Scored = &v
 }
 

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Filter** | Pointer to [**O11yFilterSet**](O11yFilterSet.md) |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**OrderId** | Pointer to **int32** |  | [optional] 
+**OrderId** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -209,20 +209,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetOrderId
 
-`func (o *O11yPostablePipeline) GetOrderId() int32`
+`func (o *O11yPostablePipeline) GetOrderId() int64`
 
 GetOrderId returns the OrderId field if non-nil, zero value otherwise.
 
 ### GetOrderIdOk
 
-`func (o *O11yPostablePipeline) GetOrderIdOk() (*int32, bool)`
+`func (o *O11yPostablePipeline) GetOrderIdOk() (*int64, bool)`
 
 GetOrderIdOk returns a tuple with the OrderId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrderId
 
-`func (o *O11yPostablePipeline) SetOrderId(v int32)`
+`func (o *O11yPostablePipeline) SetOrderId(v int64)`
 
 SetOrderId sets OrderId field to given value.
 

@@ -40,7 +40,7 @@ import (
 )
 
 func main() {
-	limit := int32(100) // int32 | Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default. (optional)
+	limit := int64(100) // int64 | Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -65,7 +65,7 @@ Other parameters are passed through a pointer to a apiGetEventErrorsRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default. | 
+ **limit** | **int64** | Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default. | 
 
 ### Return type
 
@@ -167,7 +167,7 @@ import (
 )
 
 func main() {
-	limit := int32(100) // int32 | Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default. (optional)
+	limit := int64(100) // int64 | Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -192,7 +192,7 @@ Other parameters are passed through a pointer to a apiGetEventInsightsEventsRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default. | 
+ **limit** | **int64** | Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default. | 
 
 ### Return type
 
@@ -498,7 +498,7 @@ func main() {
 	range_ := "7d" // string | Range is a relative window: a count and a unit — 24h, 7d, 90d, any <N>h or <N>d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400. (optional)
 	start := "start_example" // string | Start is the inclusive lower bound of a custom window, RFC3339. Requires end. (optional)
 	end := "end_example" // string | End is the exclusive upper bound of a custom window, RFC3339. Requires start. (optional)
-	limit := int32(25) // int32 | Limit bounds every ranked lens in the response. Default 10, maximum 100; a value at or below zero, or one that is not a number, takes the default. (optional)
+	limit := int64(25) // int64 | Limit bounds every ranked lens in the response. Default 10, maximum 100; a value at or below zero, or one that is not a number, takes the default. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -526,7 +526,7 @@ Name | Type | Description  | Notes
  **range_** | **string** | Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400. | 
  **start** | **string** | Start is the inclusive lower bound of a custom window, RFC3339. Requires end. | 
  **end** | **string** | End is the exclusive upper bound of a custom window, RFC3339. Requires start. | 
- **limit** | **int32** | Limit bounds every ranked lens in the response. Default 10, maximum 100; a value at or below zero, or one that is not a number, takes the default. | 
+ **limit** | **int64** | Limit bounds every ranked lens in the response. Default 10, maximum 100; a value at or below zero, or one that is not a number, takes the default. | 
 
 ### Return type
 

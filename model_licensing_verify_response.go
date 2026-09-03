@@ -22,7 +22,7 @@ type LicensingVerifyResponse struct {
 	// AppID is the brand the token runs under.
 	AppId *string `json:"app_id,omitempty"`
 	// Exp is the token's expiry, Unix seconds.
-	Exp *int32 `json:"exp,omitempty"`
+	Exp *int64 `json:"exp,omitempty"`
 	// Features are the capability grants the token carries.
 	Features []string `json:"features,omitempty"`
 	// Bound reports that the token carries a device binding.
@@ -89,9 +89,9 @@ func (o *LicensingVerifyResponse) SetAppId(v string) {
 }
 
 // GetExp returns the Exp field value if set, zero value otherwise.
-func (o *LicensingVerifyResponse) GetExp() int32 {
+func (o *LicensingVerifyResponse) GetExp() int64 {
 	if o == nil || IsNil(o.Exp) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Exp
@@ -99,7 +99,7 @@ func (o *LicensingVerifyResponse) GetExp() int32 {
 
 // GetExpOk returns a tuple with the Exp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LicensingVerifyResponse) GetExpOk() (*int32, bool) {
+func (o *LicensingVerifyResponse) GetExpOk() (*int64, bool) {
 	if o == nil || IsNil(o.Exp) {
 		return nil, false
 	}
@@ -115,8 +115,8 @@ func (o *LicensingVerifyResponse) HasExp() bool {
 	return false
 }
 
-// SetExp gets a reference to the given int32 and assigns it to the Exp field.
-func (o *LicensingVerifyResponse) SetExp(v int32) {
+// SetExp gets a reference to the given int64 and assigns it to the Exp field.
+func (o *LicensingVerifyResponse) SetExp(v int64) {
 	o.Exp = &v
 }
 

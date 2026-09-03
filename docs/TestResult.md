@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Delivered** | Pointer to **bool** | Delivered is whether the subscriber accepted the test POST. It is the whole answer: the send is synchronous and is not retried. | [optional] 
-**DurationMs** | Pointer to **int32** | DurationMs is how long the single attempt took, in MILLISECONDS. | [optional] 
+**DurationMs** | Pointer to **int64** | DurationMs is how long the single attempt took, in MILLISECONDS. | [optional] 
 **Error** | Pointer to **string** | Error says what stopped it. Empty when delivered. | [optional] 
-**HttpStatus** | Pointer to **int32** | HTTPStatus is what the subscriber answered, or 0 if it never answered. | [optional] 
+**HttpStatus** | Pointer to **int64** | HTTPStatus is what the subscriber answered, or 0 if it never answered. | [optional] 
 
 ## Methods
 
@@ -55,20 +55,20 @@ HasDelivered returns a boolean if a field has been set.
 
 ### GetDurationMs
 
-`func (o *TestResult) GetDurationMs() int32`
+`func (o *TestResult) GetDurationMs() int64`
 
 GetDurationMs returns the DurationMs field if non-nil, zero value otherwise.
 
 ### GetDurationMsOk
 
-`func (o *TestResult) GetDurationMsOk() (*int32, bool)`
+`func (o *TestResult) GetDurationMsOk() (*int64, bool)`
 
 GetDurationMsOk returns a tuple with the DurationMs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDurationMs
 
-`func (o *TestResult) SetDurationMs(v int32)`
+`func (o *TestResult) SetDurationMs(v int64)`
 
 SetDurationMs sets DurationMs field to given value.
 
@@ -105,20 +105,20 @@ HasError returns a boolean if a field has been set.
 
 ### GetHttpStatus
 
-`func (o *TestResult) GetHttpStatus() int32`
+`func (o *TestResult) GetHttpStatus() int64`
 
 GetHttpStatus returns the HttpStatus field if non-nil, zero value otherwise.
 
 ### GetHttpStatusOk
 
-`func (o *TestResult) GetHttpStatusOk() (*int32, bool)`
+`func (o *TestResult) GetHttpStatusOk() (*int64, bool)`
 
 GetHttpStatusOk returns a tuple with the HttpStatus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHttpStatus
 
-`func (o *TestResult) SetHttpStatus(v int32)`
+`func (o *TestResult) SetHttpStatus(v int64)`
 
 SetHttpStatus sets HttpStatus field to given value.
 

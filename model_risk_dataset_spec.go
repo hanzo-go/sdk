@@ -26,13 +26,13 @@ type RiskDatasetSpec struct {
 	// From is where the event window opens, RFC 3339, INCLUSIVE. The window may not be longer than the source's own retention: past that, its older half is already gone and the dataset would silently be shorter than it says.
 	From *string `json:"from,omitempty"`
 	// Horizon is how many days a row must have aged before it may be admitted. It is what keeps a fact that was not yet knowable at scoring time out of a training set: a chargeback lands 30 to 120 days after the transaction it condemns, so 120 for the payment lane and 14 for signup abuse. Zero admits the whole window and is honest only where the outcome is immediate.
-	Horizon *int32 `json:"horizon,omitempty"`
+	Horizon *int64 `json:"horizon,omitempty"`
 	// Kind narrows to one subject kind — person, session or account. Empty takes every kind.
 	Kind *string `json:"kind,omitempty"`
 	// Name identifies the dataset across its versions: lower-case letters, digits and hyphens, starting with a letter.
 	Name *string `json:"name,omitempty"`
 	// Rows caps the materialisation. Zero takes the plane's own bound.
-	Rows *int32 `json:"rows,omitempty"`
+	Rows *int64 `json:"rows,omitempty"`
 	// Seed decides WHICH subjects are admitted when the window holds more rows than the cap allows. It is recorded on the version, so a capped dataset is reproducible rather than being whichever rows the store returned first. Omit it to seed from the dataset's name.
 	Seed *string `json:"seed,omitempty"`
 	// To is where the window ends, EXCLUSIVE, so two datasets meeting at one instant share no row. A materialisation reads less than this — the end is pulled back by Horizon, and the lineage reports the window it actually read.
@@ -153,9 +153,9 @@ func (o *RiskDatasetSpec) SetFrom(v string) {
 }
 
 // GetHorizon returns the Horizon field value if set, zero value otherwise.
-func (o *RiskDatasetSpec) GetHorizon() int32 {
+func (o *RiskDatasetSpec) GetHorizon() int64 {
 	if o == nil || IsNil(o.Horizon) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Horizon
@@ -163,7 +163,7 @@ func (o *RiskDatasetSpec) GetHorizon() int32 {
 
 // GetHorizonOk returns a tuple with the Horizon field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskDatasetSpec) GetHorizonOk() (*int32, bool) {
+func (o *RiskDatasetSpec) GetHorizonOk() (*int64, bool) {
 	if o == nil || IsNil(o.Horizon) {
 		return nil, false
 	}
@@ -179,8 +179,8 @@ func (o *RiskDatasetSpec) HasHorizon() bool {
 	return false
 }
 
-// SetHorizon gets a reference to the given int32 and assigns it to the Horizon field.
-func (o *RiskDatasetSpec) SetHorizon(v int32) {
+// SetHorizon gets a reference to the given int64 and assigns it to the Horizon field.
+func (o *RiskDatasetSpec) SetHorizon(v int64) {
 	o.Horizon = &v
 }
 
@@ -249,9 +249,9 @@ func (o *RiskDatasetSpec) SetName(v string) {
 }
 
 // GetRows returns the Rows field value if set, zero value otherwise.
-func (o *RiskDatasetSpec) GetRows() int32 {
+func (o *RiskDatasetSpec) GetRows() int64 {
 	if o == nil || IsNil(o.Rows) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Rows
@@ -259,7 +259,7 @@ func (o *RiskDatasetSpec) GetRows() int32 {
 
 // GetRowsOk returns a tuple with the Rows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskDatasetSpec) GetRowsOk() (*int32, bool) {
+func (o *RiskDatasetSpec) GetRowsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Rows) {
 		return nil, false
 	}
@@ -275,8 +275,8 @@ func (o *RiskDatasetSpec) HasRows() bool {
 	return false
 }
 
-// SetRows gets a reference to the given int32 and assigns it to the Rows field.
-func (o *RiskDatasetSpec) SetRows(v int32) {
+// SetRows gets a reference to the given int64 and assigns it to the Rows field.
+func (o *RiskDatasetSpec) SetRows(v int64) {
 	o.Rows = &v
 }
 

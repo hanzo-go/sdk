@@ -26,12 +26,12 @@ type IamToken struct {
 	Code                *string    `json:"code,omitempty"`
 	CodeChallenge       *string    `json:"codeChallenge,omitempty"`
 	CodeChallengeMethod *string    `json:"codeChallengeMethod,omitempty"`
-	CodeExpireIn        *int32     `json:"codeExpireIn,omitempty"`
+	CodeExpireIn        *int64     `json:"codeExpireIn,omitempty"`
 	CodeIsUsed          *bool      `json:"codeIsUsed,omitempty"`
 	CreatedAt           *time.Time `json:"createdAt,omitempty"`
 	CreatedTime         *string    `json:"createdTime,omitempty"`
 	Deleted             *bool      `json:"deleted,omitempty"`
-	ExpiresIn           *int32     `json:"expiresIn,omitempty"`
+	ExpiresIn           *int64     `json:"expiresIn,omitempty"`
 	Id                  *string    `json:"id,omitempty"`
 	Name                *string    `json:"name,omitempty"`
 	// Nonce is the OIDC authorize nonce, stored on the code and echoed into the id_token minted at the exchange (OIDC Core §3.1.3.6) so a relying party binds the id_token to its own request and detects replay.
@@ -43,7 +43,7 @@ type IamToken struct {
 	// RedirectUri binds the authorization code to the exact redirect URI of the authorize request (RFC 6749 §4.1.3): the token endpoint refuses a code redeemed with a different redirect_uri, closing code-injection across a client's registered URIs.
 	RedirectUri     *string `json:"redirectUri,omitempty"`
 	RefreshConsumed *bool   `json:"refreshConsumed,omitempty"`
-	RefreshExpireIn *int32  `json:"refreshExpireIn,omitempty"`
+	RefreshExpireIn *int64  `json:"refreshExpireIn,omitempty"`
 	// Refresh-token rotation state (v2). Each refresh belongs to a family (the grant); rotation mints a new row in the same family and marks the prior one consumed. Presenting a consumed refresh is reuse — the whole family is revoked (RFC 9700 §4.14.2). RefreshExpireIn is the refresh token's own absolute expiry (unix), independent of the access token's shorter life.
 	RefreshFamily    *string `json:"refreshFamily,omitempty"`
 	RefreshToken     *string `json:"refreshToken,omitempty"`
@@ -267,9 +267,9 @@ func (o *IamToken) SetCodeChallengeMethod(v string) {
 }
 
 // GetCodeExpireIn returns the CodeExpireIn field value if set, zero value otherwise.
-func (o *IamToken) GetCodeExpireIn() int32 {
+func (o *IamToken) GetCodeExpireIn() int64 {
 	if o == nil || IsNil(o.CodeExpireIn) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CodeExpireIn
@@ -277,7 +277,7 @@ func (o *IamToken) GetCodeExpireIn() int32 {
 
 // GetCodeExpireInOk returns a tuple with the CodeExpireIn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamToken) GetCodeExpireInOk() (*int32, bool) {
+func (o *IamToken) GetCodeExpireInOk() (*int64, bool) {
 	if o == nil || IsNil(o.CodeExpireIn) {
 		return nil, false
 	}
@@ -293,8 +293,8 @@ func (o *IamToken) HasCodeExpireIn() bool {
 	return false
 }
 
-// SetCodeExpireIn gets a reference to the given int32 and assigns it to the CodeExpireIn field.
-func (o *IamToken) SetCodeExpireIn(v int32) {
+// SetCodeExpireIn gets a reference to the given int64 and assigns it to the CodeExpireIn field.
+func (o *IamToken) SetCodeExpireIn(v int64) {
 	o.CodeExpireIn = &v
 }
 
@@ -427,9 +427,9 @@ func (o *IamToken) SetDeleted(v bool) {
 }
 
 // GetExpiresIn returns the ExpiresIn field value if set, zero value otherwise.
-func (o *IamToken) GetExpiresIn() int32 {
+func (o *IamToken) GetExpiresIn() int64 {
 	if o == nil || IsNil(o.ExpiresIn) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ExpiresIn
@@ -437,7 +437,7 @@ func (o *IamToken) GetExpiresIn() int32 {
 
 // GetExpiresInOk returns a tuple with the ExpiresIn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamToken) GetExpiresInOk() (*int32, bool) {
+func (o *IamToken) GetExpiresInOk() (*int64, bool) {
 	if o == nil || IsNil(o.ExpiresIn) {
 		return nil, false
 	}
@@ -453,8 +453,8 @@ func (o *IamToken) HasExpiresIn() bool {
 	return false
 }
 
-// SetExpiresIn gets a reference to the given int32 and assigns it to the ExpiresIn field.
-func (o *IamToken) SetExpiresIn(v int32) {
+// SetExpiresIn gets a reference to the given int64 and assigns it to the ExpiresIn field.
+func (o *IamToken) SetExpiresIn(v int64) {
 	o.ExpiresIn = &v
 }
 
@@ -715,9 +715,9 @@ func (o *IamToken) SetRefreshConsumed(v bool) {
 }
 
 // GetRefreshExpireIn returns the RefreshExpireIn field value if set, zero value otherwise.
-func (o *IamToken) GetRefreshExpireIn() int32 {
+func (o *IamToken) GetRefreshExpireIn() int64 {
 	if o == nil || IsNil(o.RefreshExpireIn) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RefreshExpireIn
@@ -725,7 +725,7 @@ func (o *IamToken) GetRefreshExpireIn() int32 {
 
 // GetRefreshExpireInOk returns a tuple with the RefreshExpireIn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamToken) GetRefreshExpireInOk() (*int32, bool) {
+func (o *IamToken) GetRefreshExpireInOk() (*int64, bool) {
 	if o == nil || IsNil(o.RefreshExpireIn) {
 		return nil, false
 	}
@@ -741,8 +741,8 @@ func (o *IamToken) HasRefreshExpireIn() bool {
 	return false
 }
 
-// SetRefreshExpireIn gets a reference to the given int32 and assigns it to the RefreshExpireIn field.
-func (o *IamToken) SetRefreshExpireIn(v int32) {
+// SetRefreshExpireIn gets a reference to the given int64 and assigns it to the RefreshExpireIn field.
+func (o *IamToken) SetRefreshExpireIn(v int64) {
 	o.RefreshExpireIn = &v
 }
 

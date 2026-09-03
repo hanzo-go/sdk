@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AmountCents** | Pointer to **int32** | AmountCents is what the payer intends to send, for the record. Optional — the credit is what actually arrives, never what was announced. | [optional] 
+**AmountCents** | Pointer to **int64** | AmountCents is what the payer intends to send, for the record. Optional — the credit is what actually arrives, never what was announced. | [optional] 
 **Chain** | Pointer to **string** | Chain is the network to receive on. Empty takes the rail&#39;s default. | [optional] 
 **Token** | Pointer to **string** | Token is the asset on that chain. Empty takes the chain&#39;s native one. | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAmountCents
 
-`func (o *CryptoAsset) GetAmountCents() int32`
+`func (o *CryptoAsset) GetAmountCents() int64`
 
 GetAmountCents returns the AmountCents field if non-nil, zero value otherwise.
 
 ### GetAmountCentsOk
 
-`func (o *CryptoAsset) GetAmountCentsOk() (*int32, bool)`
+`func (o *CryptoAsset) GetAmountCentsOk() (*int64, bool)`
 
 GetAmountCentsOk returns a tuple with the AmountCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmountCents
 
-`func (o *CryptoAsset) SetAmountCents(v int32)`
+`func (o *CryptoAsset) SetAmountCents(v int64)`
 
 SetAmountCents sets AmountCents field to given value.
 

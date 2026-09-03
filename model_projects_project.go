@@ -26,7 +26,7 @@ type ProjectsProject struct {
 	// CacheControl is the Cache-Control policy the edge serves this site's HTML under — how long a reader may hold a stale page before asking again. Assets are content-addressed and are not governed by it.
 	CacheControl *string `json:"cacheControl,omitempty"`
 	// CreatedAt is when the project was created, as Unix seconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// CurrentDeploymentID names the deployment currently serving, so a caller can ask what is live without scanning the history.
 	CurrentDeploymentId *string `json:"currentDeploymentId,omitempty"`
 	// Description is the one-line summary, which is copied onto forks of this project and shown on a gallery card.
@@ -44,7 +44,7 @@ type ProjectsProject struct {
 	// Key is the project's publishable ingest key, minted at create. It is the value the injected beacon carries and the ONE thing that attributes this site's events; the static-builder reads it beside analytics.  Publishable means it belongs in a page's source: it names a write scope and mints no principal, so it is returned in full rather than masked. Masking it would only mean every caller needed a second endpoint to get the thing the page already ships.
 	Key *string `json:"key,omitempty"`
 	// LastPurgeAt is when the edge cache was last cleared, as Unix seconds, so a console can say how fresh what readers see actually is. Absent means never.
-	LastPurgeAt *int32 `json:"lastPurgeAt,omitempty"`
+	LastPurgeAt *int64 `json:"lastPurgeAt,omitempty"`
 	// License is the terms that upstream work carries. Absent has the same reading: undeclared, not unencumbered.
 	License *string `json:"license,omitempty"`
 	// LiveURL is where the site answers today. Absent until something has been deployed.
@@ -66,7 +66,7 @@ type ProjectsProject struct {
 	// Tags is the site's browser tag config: platform slug → non-secret pixel id (GA measurement, Meta pixel, …) — what track.js injects and the server CAPI reads, per site. Omitted when none are set. The API SECRET is never here (KMS).
 	Tags map[string]string `json:"tags,omitempty"`
 	// UpdatedAt is when the project's own record last changed, as Unix seconds. A deploy is not an edit of the project, so this does not move on every publish.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 	// Upstream credits the third-party work this project was published from — a free-text line, because the honest answer is a name and a title that no enum could hold. Absent means NOBODY HAS SAID, not that there is nothing to say.
 	Upstream *string `json:"upstream,omitempty"`
 	// Visibility is \"public\" or \"private\", and Hidden reports platform moderation. Both are always present (never omitempty) so a consumer can tell a real answer from \"this API is too old to say\" — and so a console never renders a project as public because a field was missing.  Authorship is deliberately absent: it is Org, above.
@@ -187,9 +187,9 @@ func (o *ProjectsProject) SetCacheControl(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *ProjectsProject) GetCreatedAt() int32 {
+func (o *ProjectsProject) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -197,7 +197,7 @@ func (o *ProjectsProject) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsProject) GetCreatedAtOk() (*int32, bool) {
+func (o *ProjectsProject) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -213,8 +213,8 @@ func (o *ProjectsProject) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *ProjectsProject) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *ProjectsProject) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -475,9 +475,9 @@ func (o *ProjectsProject) SetKey(v string) {
 }
 
 // GetLastPurgeAt returns the LastPurgeAt field value if set, zero value otherwise.
-func (o *ProjectsProject) GetLastPurgeAt() int32 {
+func (o *ProjectsProject) GetLastPurgeAt() int64 {
 	if o == nil || IsNil(o.LastPurgeAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.LastPurgeAt
@@ -485,7 +485,7 @@ func (o *ProjectsProject) GetLastPurgeAt() int32 {
 
 // GetLastPurgeAtOk returns a tuple with the LastPurgeAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsProject) GetLastPurgeAtOk() (*int32, bool) {
+func (o *ProjectsProject) GetLastPurgeAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.LastPurgeAt) {
 		return nil, false
 	}
@@ -501,8 +501,8 @@ func (o *ProjectsProject) HasLastPurgeAt() bool {
 	return false
 }
 
-// SetLastPurgeAt gets a reference to the given int32 and assigns it to the LastPurgeAt field.
-func (o *ProjectsProject) SetLastPurgeAt(v int32) {
+// SetLastPurgeAt gets a reference to the given int64 and assigns it to the LastPurgeAt field.
+func (o *ProjectsProject) SetLastPurgeAt(v int64) {
 	o.LastPurgeAt = &v
 }
 
@@ -827,9 +827,9 @@ func (o *ProjectsProject) SetTags(v map[string]string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *ProjectsProject) GetUpdatedAt() int32 {
+func (o *ProjectsProject) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -837,7 +837,7 @@ func (o *ProjectsProject) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsProject) GetUpdatedAtOk() (*int32, bool) {
+func (o *ProjectsProject) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -853,8 +853,8 @@ func (o *ProjectsProject) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *ProjectsProject) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *ProjectsProject) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

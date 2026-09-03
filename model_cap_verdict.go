@@ -20,10 +20,10 @@ var _ MappedNullable = &CapVerdict{}
 // CapVerdict struct for CapVerdict
 type CapVerdict struct {
 	Allow      *bool   `json:"allow,omitempty"`
-	CapCents   *int32  `json:"capCents,omitempty"`
+	CapCents   *int64  `json:"capCents,omitempty"`
 	Reason     *string `json:"reason,omitempty"`
-	SpentCents *int32  `json:"spentCents,omitempty"`
-	WarnPct    *int32  `json:"warnPct,omitempty"`
+	SpentCents *int64  `json:"spentCents,omitempty"`
+	WarnPct    *int64  `json:"warnPct,omitempty"`
 }
 
 // NewCapVerdict instantiates a new CapVerdict object
@@ -76,9 +76,9 @@ func (o *CapVerdict) SetAllow(v bool) {
 }
 
 // GetCapCents returns the CapCents field value if set, zero value otherwise.
-func (o *CapVerdict) GetCapCents() int32 {
+func (o *CapVerdict) GetCapCents() int64 {
 	if o == nil || IsNil(o.CapCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CapCents
@@ -86,7 +86,7 @@ func (o *CapVerdict) GetCapCents() int32 {
 
 // GetCapCentsOk returns a tuple with the CapCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CapVerdict) GetCapCentsOk() (*int32, bool) {
+func (o *CapVerdict) GetCapCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CapCents) {
 		return nil, false
 	}
@@ -102,8 +102,8 @@ func (o *CapVerdict) HasCapCents() bool {
 	return false
 }
 
-// SetCapCents gets a reference to the given int32 and assigns it to the CapCents field.
-func (o *CapVerdict) SetCapCents(v int32) {
+// SetCapCents gets a reference to the given int64 and assigns it to the CapCents field.
+func (o *CapVerdict) SetCapCents(v int64) {
 	o.CapCents = &v
 }
 
@@ -140,9 +140,9 @@ func (o *CapVerdict) SetReason(v string) {
 }
 
 // GetSpentCents returns the SpentCents field value if set, zero value otherwise.
-func (o *CapVerdict) GetSpentCents() int32 {
+func (o *CapVerdict) GetSpentCents() int64 {
 	if o == nil || IsNil(o.SpentCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SpentCents
@@ -150,7 +150,7 @@ func (o *CapVerdict) GetSpentCents() int32 {
 
 // GetSpentCentsOk returns a tuple with the SpentCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CapVerdict) GetSpentCentsOk() (*int32, bool) {
+func (o *CapVerdict) GetSpentCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.SpentCents) {
 		return nil, false
 	}
@@ -166,15 +166,15 @@ func (o *CapVerdict) HasSpentCents() bool {
 	return false
 }
 
-// SetSpentCents gets a reference to the given int32 and assigns it to the SpentCents field.
-func (o *CapVerdict) SetSpentCents(v int32) {
+// SetSpentCents gets a reference to the given int64 and assigns it to the SpentCents field.
+func (o *CapVerdict) SetSpentCents(v int64) {
 	o.SpentCents = &v
 }
 
 // GetWarnPct returns the WarnPct field value if set, zero value otherwise.
-func (o *CapVerdict) GetWarnPct() int32 {
+func (o *CapVerdict) GetWarnPct() int64 {
 	if o == nil || IsNil(o.WarnPct) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.WarnPct
@@ -182,7 +182,7 @@ func (o *CapVerdict) GetWarnPct() int32 {
 
 // GetWarnPctOk returns a tuple with the WarnPct field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CapVerdict) GetWarnPctOk() (*int32, bool) {
+func (o *CapVerdict) GetWarnPctOk() (*int64, bool) {
 	if o == nil || IsNil(o.WarnPct) {
 		return nil, false
 	}
@@ -198,8 +198,8 @@ func (o *CapVerdict) HasWarnPct() bool {
 	return false
 }
 
-// SetWarnPct gets a reference to the given int32 and assigns it to the WarnPct field.
-func (o *CapVerdict) SetWarnPct(v int32) {
+// SetWarnPct gets a reference to the given int64 and assigns it to the WarnPct field.
+func (o *CapVerdict) SetWarnPct(v int64) {
 	o.WarnPct = &v
 }
 

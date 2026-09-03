@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Active** | Pointer to **bool** | Active is whether this is the release the site is SERVING right now. Exactly one release of a site is active; the others are kept so they can be activated again, until retention reclaims them. | [optional] 
-**Bytes** | Pointer to **int32** | Bytes is their total size in bytes. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the release was cut, as Unix seconds — not when it was last activated. | [optional] 
-**Objects** | Pointer to **int32** | Objects is how many files the release holds. | [optional] 
+**Bytes** | Pointer to **int64** | Bytes is their total size in bytes. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the release was cut, as Unix seconds — not when it was last activated. | [optional] 
+**Objects** | Pointer to **int64** | Objects is how many files the release holds. | [optional] 
 **ReleaseId** | Pointer to **string** | ReleaseID is derived from a DIGEST of the release&#39;s own manifest, so identical content is the same release and a release can never be confused with another one. Activating an older id IS the rollback. | [optional] 
 **Slug** | Pointer to **string** | Slug is the site this release belongs to. | [optional] 
 **Source** | Pointer to **string** | Source is what the release was cut from — the build output or upload it was promoted out of. | [optional] 
@@ -59,20 +59,20 @@ HasActive returns a boolean if a field has been set.
 
 ### GetBytes
 
-`func (o *ProjectsRelease) GetBytes() int32`
+`func (o *ProjectsRelease) GetBytes() int64`
 
 GetBytes returns the Bytes field if non-nil, zero value otherwise.
 
 ### GetBytesOk
 
-`func (o *ProjectsRelease) GetBytesOk() (*int32, bool)`
+`func (o *ProjectsRelease) GetBytesOk() (*int64, bool)`
 
 GetBytesOk returns a tuple with the Bytes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBytes
 
-`func (o *ProjectsRelease) SetBytes(v int32)`
+`func (o *ProjectsRelease) SetBytes(v int64)`
 
 SetBytes sets Bytes field to given value.
 
@@ -84,20 +84,20 @@ HasBytes returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *ProjectsRelease) GetCreatedAt() int32`
+`func (o *ProjectsRelease) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *ProjectsRelease) GetCreatedAtOk() (*int32, bool)`
+`func (o *ProjectsRelease) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *ProjectsRelease) SetCreatedAt(v int32)`
+`func (o *ProjectsRelease) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -109,20 +109,20 @@ HasCreatedAt returns a boolean if a field has been set.
 
 ### GetObjects
 
-`func (o *ProjectsRelease) GetObjects() int32`
+`func (o *ProjectsRelease) GetObjects() int64`
 
 GetObjects returns the Objects field if non-nil, zero value otherwise.
 
 ### GetObjectsOk
 
-`func (o *ProjectsRelease) GetObjectsOk() (*int32, bool)`
+`func (o *ProjectsRelease) GetObjectsOk() (*int64, bool)`
 
 GetObjectsOk returns a tuple with the Objects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetObjects
 
-`func (o *ProjectsRelease) SetObjects(v int32)`
+`func (o *ProjectsRelease) SetObjects(v int64)`
 
 SetObjects sets Objects field to given value.
 

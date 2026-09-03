@@ -19,8 +19,8 @@ var _ MappedNullable = &O11yLimitMetricValue{}
 
 // O11yLimitMetricValue struct for O11yLimitMetricValue
 type O11yLimitMetricValue struct {
-	Count *int32 `json:"count,omitempty"`
-	Size  *int32 `json:"size,omitempty"`
+	Count *int64 `json:"count,omitempty"`
+	Size  *int64 `json:"size,omitempty"`
 }
 
 // NewO11yLimitMetricValue instantiates a new O11yLimitMetricValue object
@@ -41,9 +41,9 @@ func NewO11yLimitMetricValueWithDefaults() *O11yLimitMetricValue {
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *O11yLimitMetricValue) GetCount() int32 {
+func (o *O11yLimitMetricValue) GetCount() int64 {
 	if o == nil || IsNil(o.Count) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Count
@@ -51,7 +51,7 @@ func (o *O11yLimitMetricValue) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yLimitMetricValue) GetCountOk() (*int32, bool) {
+func (o *O11yLimitMetricValue) GetCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -67,15 +67,15 @@ func (o *O11yLimitMetricValue) HasCount() bool {
 	return false
 }
 
-// SetCount gets a reference to the given int32 and assigns it to the Count field.
-func (o *O11yLimitMetricValue) SetCount(v int32) {
+// SetCount gets a reference to the given int64 and assigns it to the Count field.
+func (o *O11yLimitMetricValue) SetCount(v int64) {
 	o.Count = &v
 }
 
 // GetSize returns the Size field value if set, zero value otherwise.
-func (o *O11yLimitMetricValue) GetSize() int32 {
+func (o *O11yLimitMetricValue) GetSize() int64 {
 	if o == nil || IsNil(o.Size) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Size
@@ -83,7 +83,7 @@ func (o *O11yLimitMetricValue) GetSize() int32 {
 
 // GetSizeOk returns a tuple with the Size field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yLimitMetricValue) GetSizeOk() (*int32, bool) {
+func (o *O11yLimitMetricValue) GetSizeOk() (*int64, bool) {
 	if o == nil || IsNil(o.Size) {
 		return nil, false
 	}
@@ -99,8 +99,8 @@ func (o *O11yLimitMetricValue) HasSize() bool {
 	return false
 }
 
-// SetSize gets a reference to the given int32 and assigns it to the Size field.
-func (o *O11yLimitMetricValue) SetSize(v int32) {
+// SetSize gets a reference to the given int64 and assigns it to the Size field.
+func (o *O11yLimitMetricValue) SetSize(v int64) {
 	o.Size = &v
 }
 

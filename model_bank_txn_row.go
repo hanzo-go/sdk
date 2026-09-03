@@ -20,7 +20,7 @@ var _ MappedNullable = &BankTxnRow{}
 // BankTxnRow struct for BankTxnRow
 type BankTxnRow struct {
 	// AmountCents is the size of the movement in whole cents, always POSITIVE — direction carries the sign, so a caller must read both to know which way money went.
-	AmountCents *int32 `json:"amountCents,omitempty"`
+	AmountCents *int64 `json:"amountCents,omitempty"`
 	// Connector names the feed this row arrived on — which bank or processor connection it was synced from. With externalId it is the row's identity, so re-syncing the same statement never books a second copy.
 	Connector *string `json:"connector,omitempty"`
 	// Currency is the ISO code the bank reported the line in.
@@ -59,9 +59,9 @@ func NewBankTxnRowWithDefaults() *BankTxnRow {
 }
 
 // GetAmountCents returns the AmountCents field value if set, zero value otherwise.
-func (o *BankTxnRow) GetAmountCents() int32 {
+func (o *BankTxnRow) GetAmountCents() int64 {
 	if o == nil || IsNil(o.AmountCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AmountCents
@@ -69,7 +69,7 @@ func (o *BankTxnRow) GetAmountCents() int32 {
 
 // GetAmountCentsOk returns a tuple with the AmountCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BankTxnRow) GetAmountCentsOk() (*int32, bool) {
+func (o *BankTxnRow) GetAmountCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AmountCents) {
 		return nil, false
 	}
@@ -85,8 +85,8 @@ func (o *BankTxnRow) HasAmountCents() bool {
 	return false
 }
 
-// SetAmountCents gets a reference to the given int32 and assigns it to the AmountCents field.
-func (o *BankTxnRow) SetAmountCents(v int32) {
+// SetAmountCents gets a reference to the given int64 and assigns it to the AmountCents field.
+func (o *BankTxnRow) SetAmountCents(v int64) {
 	o.AmountCents = &v
 }
 

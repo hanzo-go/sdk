@@ -28,7 +28,7 @@ type TelAPIDeleteTelCallsByIdRequest struct {
 	id         string
 }
 
-func (r TelAPIDeleteTelCallsByIdRequest) Execute() (map[string]interface{}, *http.Response, error) {
+func (r TelAPIDeleteTelCallsByIdRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteTelCallsByIdExecute(r)
 }
 
@@ -52,19 +52,16 @@ func (a *TelAPIService) DeleteTelCallsById(ctx context.Context, id string) TelAP
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
-func (a *TelAPIService) DeleteTelCallsByIdExecute(r TelAPIDeleteTelCallsByIdRequest) (map[string]interface{}, *http.Response, error) {
+func (a *TelAPIService) DeleteTelCallsByIdExecute(r TelAPIDeleteTelCallsByIdRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TelAPIService.DeleteTelCallsById")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/tel/calls/{id}"
@@ -84,7 +81,7 @@ func (a *TelAPIService) DeleteTelCallsByIdExecute(r TelAPIDeleteTelCallsByIdRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -93,19 +90,19 @@ func (a *TelAPIService) DeleteTelCallsByIdExecute(r TelAPIDeleteTelCallsByIdRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -113,19 +110,10 @@ func (a *TelAPIService) DeleteTelCallsByIdExecute(r TelAPIDeleteTelCallsByIdRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type TelAPIDeleteTelNumbersByIdRequest struct {
@@ -134,7 +122,7 @@ type TelAPIDeleteTelNumbersByIdRequest struct {
 	id         string
 }
 
-func (r TelAPIDeleteTelNumbersByIdRequest) Execute() (map[string]interface{}, *http.Response, error) {
+func (r TelAPIDeleteTelNumbersByIdRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteTelNumbersByIdExecute(r)
 }
 
@@ -158,19 +146,16 @@ func (a *TelAPIService) DeleteTelNumbersById(ctx context.Context, id string) Tel
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
-func (a *TelAPIService) DeleteTelNumbersByIdExecute(r TelAPIDeleteTelNumbersByIdRequest) (map[string]interface{}, *http.Response, error) {
+func (a *TelAPIService) DeleteTelNumbersByIdExecute(r TelAPIDeleteTelNumbersByIdRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TelAPIService.DeleteTelNumbersById")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/tel/numbers/{id}"
@@ -190,7 +175,7 @@ func (a *TelAPIService) DeleteTelNumbersByIdExecute(r TelAPIDeleteTelNumbersById
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -199,19 +184,19 @@ func (a *TelAPIService) DeleteTelNumbersByIdExecute(r TelAPIDeleteTelNumbersById
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -219,19 +204,10 @@ func (a *TelAPIService) DeleteTelNumbersByIdExecute(r TelAPIDeleteTelNumbersById
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type TelAPIGetTelCallsRequest struct {
@@ -547,7 +523,7 @@ type TelAPIGetTelNumbersAvailableRequest struct {
 	country    *string
 	area       *string
 	type_      *string
-	limit      *int32
+	limit      *int64
 }
 
 func (r TelAPIGetTelNumbersAvailableRequest) Country(country string) TelAPIGetTelNumbersAvailableRequest {
@@ -565,7 +541,7 @@ func (r TelAPIGetTelNumbersAvailableRequest) Type_(type_ string) TelAPIGetTelNum
 	return r
 }
 
-func (r TelAPIGetTelNumbersAvailableRequest) Limit(limit int32) TelAPIGetTelNumbersAvailableRequest {
+func (r TelAPIGetTelNumbersAvailableRequest) Limit(limit int64) TelAPIGetTelNumbersAvailableRequest {
 	r.limit = &limit
 	return r
 }

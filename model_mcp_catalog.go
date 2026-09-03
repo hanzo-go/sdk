@@ -22,11 +22,11 @@ type McpCatalog struct {
 	// Catalog is this page of listings, featured first, then by name.
 	Catalog []MCPListing `json:"catalog,omitempty"`
 	// Limit is the page size that was actually applied — the default or the clamp, when the request asked for neither or for too much.
-	Limit *int32 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 	// Offset is where this page started, so a caller pages from what the server did rather than from what it asked for.
-	Offset *int32 `json:"offset,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
 	// Total is how many listings the filter matched, which is more than this page holds whenever there is a next one.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 }
 
 // NewMcpCatalog instantiates a new McpCatalog object
@@ -79,9 +79,9 @@ func (o *McpCatalog) SetCatalog(v []MCPListing) {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *McpCatalog) GetLimit() int32 {
+func (o *McpCatalog) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -89,7 +89,7 @@ func (o *McpCatalog) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *McpCatalog) GetLimitOk() (*int32, bool) {
+func (o *McpCatalog) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -105,15 +105,15 @@ func (o *McpCatalog) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *McpCatalog) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *McpCatalog) SetLimit(v int64) {
 	o.Limit = &v
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
-func (o *McpCatalog) GetOffset() int32 {
+func (o *McpCatalog) GetOffset() int64 {
 	if o == nil || IsNil(o.Offset) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Offset
@@ -121,7 +121,7 @@ func (o *McpCatalog) GetOffset() int32 {
 
 // GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *McpCatalog) GetOffsetOk() (*int32, bool) {
+func (o *McpCatalog) GetOffsetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Offset) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *McpCatalog) HasOffset() bool {
 	return false
 }
 
-// SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *McpCatalog) SetOffset(v int32) {
+// SetOffset gets a reference to the given int64 and assigns it to the Offset field.
+func (o *McpCatalog) SetOffset(v int64) {
 	o.Offset = &v
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *McpCatalog) GetTotal() int32 {
+func (o *McpCatalog) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -153,7 +153,7 @@ func (o *McpCatalog) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *McpCatalog) GetTotalOk() (*int32, bool) {
+func (o *McpCatalog) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *McpCatalog) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *McpCatalog) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *McpCatalog) SetTotal(v int64) {
 	o.Total = &v
 }
 

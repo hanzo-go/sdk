@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AuthHeader** | Pointer to **string** | AuthHeader is the request header the KMS-held credential is injected into, e.g. \&quot;Authorization\&quot;. Absent when the server needs no credential. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the server was registered, Unix seconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the server was registered, Unix seconds. | [optional] 
 **HasSecret** | Pointer to **bool** | HasSecret is whether a credential is sealed in KMS for this server. The VALUE is never returned by any route. | [optional] 
 **Id** | Pointer to **string** | ID is the server&#39;s id within the org. It also PREFIXES every tool name the server contributes, which is what keeps two servers&#39; \&quot;search\&quot; apart. | [optional] 
 **Listing** | Pointer to **string** | Listing is the catalog entry this server was enabled from, when it was. Empty means the org typed the URL in itself. | [optional] 
@@ -60,20 +60,20 @@ HasAuthHeader returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *MCPServer) GetCreatedAt() int32`
+`func (o *MCPServer) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *MCPServer) GetCreatedAtOk() (*int32, bool)`
+`func (o *MCPServer) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *MCPServer) SetCreatedAt(v int32)`
+`func (o *MCPServer) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 

@@ -20,7 +20,7 @@ var _ MappedNullable = &InvocationView{}
 // InvocationView struct for InvocationView
 type InvocationView struct {
 	// how long it took
-	DurationMs *int32 `json:"durationMs,omitempty"`
+	DurationMs *int64 `json:"durationMs,omitempty"`
 	// the invocation's handle
 	Id *string `json:"id,omitempty"`
 	// the HTTP method that triggered it
@@ -28,7 +28,7 @@ type InvocationView struct {
 	// how the run ended: ok, error or timeout
 	Status *string `json:"status,omitempty"`
 	// Code is the status the function's OWN code answered with, which is not the status of the reply — a program can answer 500 through a healthy sandbox.
-	StatusCode *int32 `json:"statusCode,omitempty"`
+	StatusCode *int64 `json:"statusCode,omitempty"`
 	// when it ran, RFC3339
 	Time *string `json:"time,omitempty"`
 }
@@ -51,9 +51,9 @@ func NewInvocationViewWithDefaults() *InvocationView {
 }
 
 // GetDurationMs returns the DurationMs field value if set, zero value otherwise.
-func (o *InvocationView) GetDurationMs() int32 {
+func (o *InvocationView) GetDurationMs() int64 {
 	if o == nil || IsNil(o.DurationMs) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DurationMs
@@ -61,7 +61,7 @@ func (o *InvocationView) GetDurationMs() int32 {
 
 // GetDurationMsOk returns a tuple with the DurationMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InvocationView) GetDurationMsOk() (*int32, bool) {
+func (o *InvocationView) GetDurationMsOk() (*int64, bool) {
 	if o == nil || IsNil(o.DurationMs) {
 		return nil, false
 	}
@@ -77,8 +77,8 @@ func (o *InvocationView) HasDurationMs() bool {
 	return false
 }
 
-// SetDurationMs gets a reference to the given int32 and assigns it to the DurationMs field.
-func (o *InvocationView) SetDurationMs(v int32) {
+// SetDurationMs gets a reference to the given int64 and assigns it to the DurationMs field.
+func (o *InvocationView) SetDurationMs(v int64) {
 	o.DurationMs = &v
 }
 
@@ -179,9 +179,9 @@ func (o *InvocationView) SetStatus(v string) {
 }
 
 // GetStatusCode returns the StatusCode field value if set, zero value otherwise.
-func (o *InvocationView) GetStatusCode() int32 {
+func (o *InvocationView) GetStatusCode() int64 {
 	if o == nil || IsNil(o.StatusCode) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.StatusCode
@@ -189,7 +189,7 @@ func (o *InvocationView) GetStatusCode() int32 {
 
 // GetStatusCodeOk returns a tuple with the StatusCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InvocationView) GetStatusCodeOk() (*int32, bool) {
+func (o *InvocationView) GetStatusCodeOk() (*int64, bool) {
 	if o == nil || IsNil(o.StatusCode) {
 		return nil, false
 	}
@@ -205,8 +205,8 @@ func (o *InvocationView) HasStatusCode() bool {
 	return false
 }
 
-// SetStatusCode gets a reference to the given int32 and assigns it to the StatusCode field.
-func (o *InvocationView) SetStatusCode(v int32) {
+// SetStatusCode gets a reference to the given int64 and assigns it to the StatusCode field.
+func (o *InvocationView) SetStatusCode(v int64) {
 	o.StatusCode = &v
 }
 

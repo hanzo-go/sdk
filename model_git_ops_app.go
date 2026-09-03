@@ -40,7 +40,7 @@ type GitOpsApp struct {
 	// RepoURL is the git repository CD polls for this Application's desired state.
 	RepoURL *string `json:"repoURL,omitempty"`
 	// Resources is how MANY objects CD manages for this Application (len(status.resources)) — a count, not the objects. Zero for an Application CD has not reconciled.
-	Resources *int32 `json:"resources,omitempty"`
+	Resources *int64 `json:"resources,omitempty"`
 	// Revision is the commit CD last APPLIED (status.sync.revision). Empty means it has applied none — never read that as the head of TargetRevision.
 	Revision *string `json:"revision,omitempty"`
 	// SelfHeal is whether CD also reverts changes made directly in the cluster (syncPolicy.automated.selfHeal). Meaningless unless Automated.
@@ -389,9 +389,9 @@ func (o *GitOpsApp) SetRepoURL(v string) {
 }
 
 // GetResources returns the Resources field value if set, zero value otherwise.
-func (o *GitOpsApp) GetResources() int32 {
+func (o *GitOpsApp) GetResources() int64 {
 	if o == nil || IsNil(o.Resources) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Resources
@@ -399,7 +399,7 @@ func (o *GitOpsApp) GetResources() int32 {
 
 // GetResourcesOk returns a tuple with the Resources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GitOpsApp) GetResourcesOk() (*int32, bool) {
+func (o *GitOpsApp) GetResourcesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Resources) {
 		return nil, false
 	}
@@ -415,8 +415,8 @@ func (o *GitOpsApp) HasResources() bool {
 	return false
 }
 
-// SetResources gets a reference to the given int32 and assigns it to the Resources field.
-func (o *GitOpsApp) SetResources(v int32) {
+// SetResources gets a reference to the given int64 and assigns it to the Resources field.
+func (o *GitOpsApp) SetResources(v int64) {
 	o.Resources = &v
 }
 

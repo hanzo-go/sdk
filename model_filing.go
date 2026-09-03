@@ -20,7 +20,7 @@ var _ MappedNullable = &Filing{}
 // Filing struct for Filing
 type Filing struct {
 	// At is the unix second the filing record was written.
-	At *int32 `json:"at,omitempty"`
+	At *int64 `json:"at,omitempty"`
 	// Note explains a filing Hanzo did not perform itself: what remains to be done and by whom.
 	Note *string `json:"note,omitempty"`
 	// Provider is the filing partner that performed the filing, or \"manual\" when no partner is wired.
@@ -49,9 +49,9 @@ func NewFilingWithDefaults() *Filing {
 }
 
 // GetAt returns the At field value if set, zero value otherwise.
-func (o *Filing) GetAt() int32 {
+func (o *Filing) GetAt() int64 {
 	if o == nil || IsNil(o.At) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.At
@@ -59,7 +59,7 @@ func (o *Filing) GetAt() int32 {
 
 // GetAtOk returns a tuple with the At field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Filing) GetAtOk() (*int32, bool) {
+func (o *Filing) GetAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.At) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *Filing) HasAt() bool {
 	return false
 }
 
-// SetAt gets a reference to the given int32 and assigns it to the At field.
-func (o *Filing) SetAt(v int32) {
+// SetAt gets a reference to the given int64 and assigns it to the At field.
+func (o *Filing) SetAt(v int64) {
 	o.At = &v
 }
 

@@ -19,12 +19,12 @@ var _ MappedNullable = &Provenance{}
 
 // Provenance struct for Provenance
 type Provenance struct {
-	// Backend is the leg that contributed this match: \"index\" (lexical), \"vector\" (semantic) or \"code\" (the org's repositories). It is the same name that leg reports itself under in Fusion.Backends, so a hit can be traced to a status.
+	// Backend is the leg that contributed this match: \"index\" (lexical), \"vector\" (semantic), \"code\" (the org's repositories) or \"rerank\" (the cross-encoder pass, whose Score is the relevance it assigned). It is the same name that leg reports itself under in Fusion.Backends, so a hit can be traced to a status.
 	Backend *string `json:"backend,omitempty"`
 	// Rank is this document's 1-based position in THAT leg's own result list, before fusion — 1 is the leg's best hit. It is the only input to the fused score: RRF adds 1/(60+rank) per leg, which is why a document two legs ranked second beats one a single leg ranked first.
-	Rank *int32 `json:"rank,omitempty"`
+	Rank *int64 `json:"rank,omitempty"`
 	// Score is the leg's NATIVE score, on that leg's own scale, reported for explanation and never used in ranking — the scales are incomparable (a cosine similarity against a term-match count), which is why fusion works on ranks. The vector leg reports Qdrant's cosine similarity; the lexical leg exposes no per-row score and reports 0, meaning \"unscored\", not \"scored zero\".
-	Score *float32 `json:"score,omitempty"`
+	Score *float64 `json:"score,omitempty"`
 }
 
 // NewProvenance instantiates a new Provenance object
@@ -77,9 +77,9 @@ func (o *Provenance) SetBackend(v string) {
 }
 
 // GetRank returns the Rank field value if set, zero value otherwise.
-func (o *Provenance) GetRank() int32 {
+func (o *Provenance) GetRank() int64 {
 	if o == nil || IsNil(o.Rank) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Rank
@@ -87,7 +87,7 @@ func (o *Provenance) GetRank() int32 {
 
 // GetRankOk returns a tuple with the Rank field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Provenance) GetRankOk() (*int32, bool) {
+func (o *Provenance) GetRankOk() (*int64, bool) {
 	if o == nil || IsNil(o.Rank) {
 		return nil, false
 	}
@@ -103,15 +103,15 @@ func (o *Provenance) HasRank() bool {
 	return false
 }
 
-// SetRank gets a reference to the given int32 and assigns it to the Rank field.
-func (o *Provenance) SetRank(v int32) {
+// SetRank gets a reference to the given int64 and assigns it to the Rank field.
+func (o *Provenance) SetRank(v int64) {
 	o.Rank = &v
 }
 
 // GetScore returns the Score field value if set, zero value otherwise.
-func (o *Provenance) GetScore() float32 {
+func (o *Provenance) GetScore() float64 {
 	if o == nil || IsNil(o.Score) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Score
@@ -119,7 +119,7 @@ func (o *Provenance) GetScore() float32 {
 
 // GetScoreOk returns a tuple with the Score field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Provenance) GetScoreOk() (*float32, bool) {
+func (o *Provenance) GetScoreOk() (*float64, bool) {
 	if o == nil || IsNil(o.Score) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *Provenance) HasScore() bool {
 	return false
 }
 
-// SetScore gets a reference to the given float32 and assigns it to the Score field.
-func (o *Provenance) SetScore(v float32) {
+// SetScore gets a reference to the given float64 and assigns it to the Score field.
+func (o *Provenance) SetScore(v float64) {
 	o.Score = &v
 }
 

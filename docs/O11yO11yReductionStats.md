@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EstimatedMonthlySavingsUsd** | Pointer to **float32** | EstimatedMonthlySavingsUsd is the estimated monthly savings, in USD. | [optional] 
+**EstimatedMonthlySavingsUsd** | Pointer to **float64** | EstimatedMonthlySavingsUsd is the estimated monthly savings, in USD. | [optional] 
 **IngestedSamples** | Pointer to **int32** | IngestedSamples is how many samples arrived across all rules. | [optional] 
 **IngestedSeries** | Pointer to **int32** | IngestedSeries is how many series arrived across all rules. | [optional] 
 **RetainedSamples** | Pointer to **int32** | RetainedSamples is how many of them were kept. | [optional] 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetEstimatedMonthlySavingsUsd
 
-`func (o *O11yO11yReductionStats) GetEstimatedMonthlySavingsUsd() float32`
+`func (o *O11yO11yReductionStats) GetEstimatedMonthlySavingsUsd() float64`
 
 GetEstimatedMonthlySavingsUsd returns the EstimatedMonthlySavingsUsd field if non-nil, zero value otherwise.
 
 ### GetEstimatedMonthlySavingsUsdOk
 
-`func (o *O11yO11yReductionStats) GetEstimatedMonthlySavingsUsdOk() (*float32, bool)`
+`func (o *O11yO11yReductionStats) GetEstimatedMonthlySavingsUsdOk() (*float64, bool)`
 
 GetEstimatedMonthlySavingsUsdOk returns a tuple with the EstimatedMonthlySavingsUsd field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEstimatedMonthlySavingsUsd
 
-`func (o *O11yO11yReductionStats) SetEstimatedMonthlySavingsUsd(v float32)`
+`func (o *O11yO11yReductionStats) SetEstimatedMonthlySavingsUsd(v float64)`
 
 SetEstimatedMonthlySavingsUsd sets EstimatedMonthlySavingsUsd field to given value.
 

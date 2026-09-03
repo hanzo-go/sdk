@@ -5,11 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Content** | Pointer to **string** | Content is the SKILL.md body, markdown. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the skill was last written, Unix seconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the skill was last written, Unix seconds. | [optional] 
 **Description** | Pointer to **string** | Description is the one-line summary discovery shows for the skill. | [optional] 
 **Id** | Pointer to **string** | ID is the skill&#39;s id within the org. It is DERIVED from Name, so writing the same name again revises that skill rather than adding another. | [optional] 
 **Name** | Pointer to **string** | Name is the skill&#39;s name: one lowercase path segment (a-z0-9, _ or -). | [optional] 
 **Org** | Pointer to **string** | Org is the org that authored the skill — the validated caller&#39;s, never a value the body supplied. | [optional] 
+**Source** | Pointer to **string** | Source is the repository the skill was read from, \&quot;&lt;project&gt;/&lt;name&gt;\&quot; or \&quot;&lt;name&gt;\&quot;; empty for a skill written through the API. A push replaces every skill of its source at once, so a skill leaves when its file does. | [optional] 
 
 ## Methods
 
@@ -57,20 +58,20 @@ HasContent returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *Skill) GetCreatedAt() int32`
+`func (o *Skill) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *Skill) GetCreatedAtOk() (*int32, bool)`
+`func (o *Skill) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *Skill) SetCreatedAt(v int32)`
+`func (o *Skill) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -179,6 +180,31 @@ SetOrg sets Org field to given value.
 `func (o *Skill) HasOrg() bool`
 
 HasOrg returns a boolean if a field has been set.
+
+### GetSource
+
+`func (o *Skill) GetSource() string`
+
+GetSource returns the Source field if non-nil, zero value otherwise.
+
+### GetSourceOk
+
+`func (o *Skill) GetSourceOk() (*string, bool)`
+
+GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSource
+
+`func (o *Skill) SetSource(v string)`
+
+SetSource sets Source field to given value.
+
+### HasSource
+
+`func (o *Skill) HasSource() bool`
+
+HasSource returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

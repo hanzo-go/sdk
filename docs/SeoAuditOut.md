@@ -7,11 +7,11 @@ Name | Type | Description | Notes
 **Checks** | Pointer to **map[string]bool** | Checks is every named finding, each a yes or no — \&quot;is_https\&quot;, \&quot;no_h1_tag\&quot;, \&quot;high_loading_time\&quot;, around fifty of them. It is an OPEN set the upstream adds to, so it is published as an object of booleans rather than as fifty declared fields that would be wrong the next time they name a fifty-first. | [optional] 
 **Cost** | Pointer to **string** | Cost is what this call cost, in USD, as an exact decimal string. | [optional] 
 **Description** | Pointer to **string** | Description is its meta description. | [optional] 
-**Score** | Pointer to **float32** | Score is the upstream&#39;s on-page score, 0 to 100. | [optional] 
-**Status** | Pointer to **int32** | Status is the HTTP status the page answered with. | [optional] 
+**Score** | Pointer to **float64** | Score is the upstream&#39;s on-page score, 0 to 100. | [optional] 
+**Status** | Pointer to **int64** | Status is the HTTP status the page answered with. | [optional] 
 **Title** | Pointer to **string** | Title is the page&#39;s title. | [optional] 
 **Url** | Pointer to **string** | URL is the address actually read, after redirects. | [optional] 
-**Words** | Pointer to **int32** | Words is how many words of readable text the page carries. | [optional] 
+**Words** | Pointer to **int64** | Words is how many words of readable text the page carries. | [optional] 
 
 ## Methods
 
@@ -109,20 +109,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetScore
 
-`func (o *SeoAuditOut) GetScore() float32`
+`func (o *SeoAuditOut) GetScore() float64`
 
 GetScore returns the Score field if non-nil, zero value otherwise.
 
 ### GetScoreOk
 
-`func (o *SeoAuditOut) GetScoreOk() (*float32, bool)`
+`func (o *SeoAuditOut) GetScoreOk() (*float64, bool)`
 
 GetScoreOk returns a tuple with the Score field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScore
 
-`func (o *SeoAuditOut) SetScore(v float32)`
+`func (o *SeoAuditOut) SetScore(v float64)`
 
 SetScore sets Score field to given value.
 
@@ -134,20 +134,20 @@ HasScore returns a boolean if a field has been set.
 
 ### GetStatus
 
-`func (o *SeoAuditOut) GetStatus() int32`
+`func (o *SeoAuditOut) GetStatus() int64`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *SeoAuditOut) GetStatusOk() (*int32, bool)`
+`func (o *SeoAuditOut) GetStatusOk() (*int64, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *SeoAuditOut) SetStatus(v int32)`
+`func (o *SeoAuditOut) SetStatus(v int64)`
 
 SetStatus sets Status field to given value.
 
@@ -209,20 +209,20 @@ HasUrl returns a boolean if a field has been set.
 
 ### GetWords
 
-`func (o *SeoAuditOut) GetWords() int32`
+`func (o *SeoAuditOut) GetWords() int64`
 
 GetWords returns the Words field if non-nil, zero value otherwise.
 
 ### GetWordsOk
 
-`func (o *SeoAuditOut) GetWordsOk() (*int32, bool)`
+`func (o *SeoAuditOut) GetWordsOk() (*int64, bool)`
 
 GetWordsOk returns a tuple with the Words field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWords
 
-`func (o *SeoAuditOut) SetWords(v int32)`
+`func (o *SeoAuditOut) SetWords(v int64)`
 
 SetWords sets Words field to given value.
 

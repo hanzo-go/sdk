@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Attempt** | Pointer to **int32** | Attempt is which try this is, counting from 1. Above 1 means the job was retried after a failed or abandoned run. | [optional] 
+**Attempt** | Pointer to **int64** | Attempt is which try this is, counting from 1. Above 1 means the job was retried after a failed or abandoned run. | [optional] 
 **CloseTime** | Pointer to **string** | CloseTime is when the job reached a terminal state, RFC 3339. Empty means it is still live — queued, running or stalled. | [optional] 
 **FailureCause** | Pointer to **string** | FailureCause is the engine&#39;s reason the job failed. Empty unless it did. | [optional] 
 **Gpu** | Pointer to **string** | GPU is the node this job is aimed AT — the lane \&quot;gpu:&lt;node&gt;\&quot; it was submitted on. Empty means the shared any-GPU lane: it was not aimed anywhere and the first free worker takes it. | [optional] 
@@ -39,20 +39,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAttempt
 
-`func (o *GpuJob) GetAttempt() int32`
+`func (o *GpuJob) GetAttempt() int64`
 
 GetAttempt returns the Attempt field if non-nil, zero value otherwise.
 
 ### GetAttemptOk
 
-`func (o *GpuJob) GetAttemptOk() (*int32, bool)`
+`func (o *GpuJob) GetAttemptOk() (*int64, bool)`
 
 GetAttemptOk returns a tuple with the Attempt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAttempt
 
-`func (o *GpuJob) SetAttempt(v int32)`
+`func (o *GpuJob) SetAttempt(v int64)`
 
 SetAttempt sets Attempt field to given value.
 

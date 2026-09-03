@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Content** | Pointer to **string** | Content is the file&#39;s bytes, empty when Truncated. | [optional] 
 **Encoding** | Pointer to **string** | Encoding is how Content is carried: \&quot;utf8\&quot; verbatim, or \&quot;base64\&quot;. | [optional] 
 **Path** | Pointer to **string** | Path is the file&#39;s repo-relative path. | [optional] 
-**Size** | Pointer to **int32** | Size is the file&#39;s byte length in the repo, whatever was returned below. | [optional] 
+**Size** | Pointer to **int64** | Size is the file&#39;s byte length in the repo, whatever was returned below. | [optional] 
 **Truncated** | Pointer to **bool** | Truncated marks a file past the 1 MiB view cap. No content is sent — clone the repo for it. | [optional] 
 
 ## Methods
@@ -132,20 +132,20 @@ HasPath returns a boolean if a field has been set.
 
 ### GetSize
 
-`func (o *BlobJSON) GetSize() int32`
+`func (o *BlobJSON) GetSize() int64`
 
 GetSize returns the Size field if non-nil, zero value otherwise.
 
 ### GetSizeOk
 
-`func (o *BlobJSON) GetSizeOk() (*int32, bool)`
+`func (o *BlobJSON) GetSizeOk() (*int64, bool)`
 
 GetSizeOk returns a tuple with the Size field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSize
 
-`func (o *BlobJSON) SetSize(v int32)`
+`func (o *BlobJSON) SetSize(v int64)`
 
 SetSize sets Size field to given value.
 

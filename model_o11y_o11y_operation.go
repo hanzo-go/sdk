@@ -26,11 +26,11 @@ type O11yO11yOperation struct {
 	// NumCalls is how many times it ran in the window.
 	NumCalls *int32 `json:"numCalls,omitempty"`
 	// P50 is its median latency, nanoseconds.
-	P50 *float32 `json:"p50,omitempty"`
+	P50 *float64 `json:"p50,omitempty"`
 	// P95 is its p95 latency, nanoseconds.
-	P95 *float32 `json:"p95,omitempty"`
+	P95 *float64 `json:"p95,omitempty"`
 	// P99 is its p99 latency, nanoseconds.
-	P99 *float32 `json:"p99,omitempty"`
+	P99 *float64 `json:"p99,omitempty"`
 }
 
 // NewO11yO11yOperation instantiates a new O11yO11yOperation object
@@ -147,9 +147,9 @@ func (o *O11yO11yOperation) SetNumCalls(v int32) {
 }
 
 // GetP50 returns the P50 field value if set, zero value otherwise.
-func (o *O11yO11yOperation) GetP50() float32 {
+func (o *O11yO11yOperation) GetP50() float64 {
 	if o == nil || IsNil(o.P50) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.P50
@@ -157,7 +157,7 @@ func (o *O11yO11yOperation) GetP50() float32 {
 
 // GetP50Ok returns a tuple with the P50 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yOperation) GetP50Ok() (*float32, bool) {
+func (o *O11yO11yOperation) GetP50Ok() (*float64, bool) {
 	if o == nil || IsNil(o.P50) {
 		return nil, false
 	}
@@ -173,15 +173,15 @@ func (o *O11yO11yOperation) HasP50() bool {
 	return false
 }
 
-// SetP50 gets a reference to the given float32 and assigns it to the P50 field.
-func (o *O11yO11yOperation) SetP50(v float32) {
+// SetP50 gets a reference to the given float64 and assigns it to the P50 field.
+func (o *O11yO11yOperation) SetP50(v float64) {
 	o.P50 = &v
 }
 
 // GetP95 returns the P95 field value if set, zero value otherwise.
-func (o *O11yO11yOperation) GetP95() float32 {
+func (o *O11yO11yOperation) GetP95() float64 {
 	if o == nil || IsNil(o.P95) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.P95
@@ -189,7 +189,7 @@ func (o *O11yO11yOperation) GetP95() float32 {
 
 // GetP95Ok returns a tuple with the P95 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yOperation) GetP95Ok() (*float32, bool) {
+func (o *O11yO11yOperation) GetP95Ok() (*float64, bool) {
 	if o == nil || IsNil(o.P95) {
 		return nil, false
 	}
@@ -205,15 +205,15 @@ func (o *O11yO11yOperation) HasP95() bool {
 	return false
 }
 
-// SetP95 gets a reference to the given float32 and assigns it to the P95 field.
-func (o *O11yO11yOperation) SetP95(v float32) {
+// SetP95 gets a reference to the given float64 and assigns it to the P95 field.
+func (o *O11yO11yOperation) SetP95(v float64) {
 	o.P95 = &v
 }
 
 // GetP99 returns the P99 field value if set, zero value otherwise.
-func (o *O11yO11yOperation) GetP99() float32 {
+func (o *O11yO11yOperation) GetP99() float64 {
 	if o == nil || IsNil(o.P99) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.P99
@@ -221,7 +221,7 @@ func (o *O11yO11yOperation) GetP99() float32 {
 
 // GetP99Ok returns a tuple with the P99 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yOperation) GetP99Ok() (*float32, bool) {
+func (o *O11yO11yOperation) GetP99Ok() (*float64, bool) {
 	if o == nil || IsNil(o.P99) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *O11yO11yOperation) HasP99() bool {
 	return false
 }
 
-// SetP99 gets a reference to the given float32 and assigns it to the P99 field.
-func (o *O11yO11yOperation) SetP99(v float32) {
+// SetP99 gets a reference to the given float64 and assigns it to the P99 field.
+func (o *O11yO11yOperation) SetP99(v float64) {
 	o.P99 = &v
 }
 

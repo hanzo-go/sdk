@@ -22,7 +22,7 @@ type Completion struct {
 	// Detail is the server's short elaboration, typically the type or signature.
 	Detail *string `json:"detail,omitempty"`
 	// Kind is the LSP CompletionItemKind number (2 method, 3 function, 5 field, 6 variable, …), passed through as the protocol spells it.
-	Kind *int32 `json:"kind,omitempty"`
+	Kind *int64 `json:"kind,omitempty"`
 	// Label is the text a client would insert, and what an editor lists.
 	Label *string `json:"label,omitempty"`
 }
@@ -77,9 +77,9 @@ func (o *Completion) SetDetail(v string) {
 }
 
 // GetKind returns the Kind field value if set, zero value otherwise.
-func (o *Completion) GetKind() int32 {
+func (o *Completion) GetKind() int64 {
 	if o == nil || IsNil(o.Kind) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Kind
@@ -87,7 +87,7 @@ func (o *Completion) GetKind() int32 {
 
 // GetKindOk returns a tuple with the Kind field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Completion) GetKindOk() (*int32, bool) {
+func (o *Completion) GetKindOk() (*int64, bool) {
 	if o == nil || IsNil(o.Kind) {
 		return nil, false
 	}
@@ -103,8 +103,8 @@ func (o *Completion) HasKind() bool {
 	return false
 }
 
-// SetKind gets a reference to the given int32 and assigns it to the Kind field.
-func (o *Completion) SetKind(v int32) {
+// SetKind gets a reference to the given int64 and assigns it to the Kind field.
+func (o *Completion) SetKind(v int64) {
 	o.Kind = &v
 }
 

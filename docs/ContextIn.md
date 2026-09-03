@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BudgetTokens** | Pointer to **int32** | BudgetTokens caps the bundle&#39;s size. Clamped to [256, 32000]; 0 or absent uses 4000. | [optional] 
+**BudgetTokens** | Pointer to **int64** | BudgetTokens caps the bundle&#39;s size. Clamped to [256, 32000]; 0 or absent uses 4000. | [optional] 
 **Query** | Pointer to **string** | Query is what to retrieve context for. Required, max 4000 bytes. | [optional] 
 **Repo** | Pointer to **string** | Repo narrows retrieval to one repository. Empty searches every repo the org has indexed. | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetBudgetTokens
 
-`func (o *ContextIn) GetBudgetTokens() int32`
+`func (o *ContextIn) GetBudgetTokens() int64`
 
 GetBudgetTokens returns the BudgetTokens field if non-nil, zero value otherwise.
 
 ### GetBudgetTokensOk
 
-`func (o *ContextIn) GetBudgetTokensOk() (*int32, bool)`
+`func (o *ContextIn) GetBudgetTokensOk() (*int64, bool)`
 
 GetBudgetTokensOk returns a tuple with the BudgetTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBudgetTokens
 
-`func (o *ContextIn) SetBudgetTokens(v int32)`
+`func (o *ContextIn) SetBudgetTokens(v int64)`
 
 SetBudgetTokens sets BudgetTokens field to given value.
 

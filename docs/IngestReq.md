@@ -5,24 +5,24 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Account** | Pointer to **string** |  | [optional] 
-**CachedInputTokens** | Pointer to **int32** |  | [optional] 
+**CachedInputTokens** | Pointer to **int64** |  | [optional] 
 **Confidence** | Pointer to **string** |  | [optional] 
-**CostCents** | Pointer to **int32** |  | [optional] 
-**CostLimitCents** | Pointer to **int32** |  | [optional] 
+**CostCents** | Pointer to **int64** |  | [optional] 
+**CostLimitCents** | Pointer to **int64** |  | [optional] 
 **Currency** | Pointer to **string** |  | [optional] 
-**InputTokens** | Pointer to **int32** |  | [optional] 
+**InputTokens** | Pointer to **int64** |  | [optional] 
 **Kind** | Pointer to **string** |  | [optional] 
 **Lane** | Pointer to **string** |  | [optional] 
 **Machine** | Pointer to **string** |  | [optional] 
-**OutputTokens** | Pointer to **int32** |  | [optional] 
+**OutputTokens** | Pointer to **int64** |  | [optional] 
 **Plan** | Pointer to **string** |  | [optional] 
 **Provider** | Pointer to **string** |  | [optional] 
-**Requests** | Pointer to **int32** |  | [optional] 
+**Requests** | Pointer to **int64** |  | [optional] 
 **ResetsAt** | Pointer to **string** |  | [optional] 
 **Samples** | Pointer to [**[]ReadingReq**](ReadingReq.md) | Samples is the batch form, up to 256 samples; leave it empty to send one sample inline on the same fields. | [optional] 
 **Synthetic** | Pointer to **bool** |  | [optional] 
-**TotalTokens** | Pointer to **int32** |  | [optional] 
-**UsedPct** | Pointer to **float32** |  | [optional] 
+**TotalTokens** | Pointer to **int64** |  | [optional] 
+**UsedPct** | Pointer to **float64** |  | [optional] 
 **Window** | Pointer to **string** |  | [optional] 
 **WindowMinutes** | Pointer to **int32** |  | [optional] 
 **WindowStart** | Pointer to **string** |  | [optional] 
@@ -73,20 +73,20 @@ HasAccount returns a boolean if a field has been set.
 
 ### GetCachedInputTokens
 
-`func (o *IngestReq) GetCachedInputTokens() int32`
+`func (o *IngestReq) GetCachedInputTokens() int64`
 
 GetCachedInputTokens returns the CachedInputTokens field if non-nil, zero value otherwise.
 
 ### GetCachedInputTokensOk
 
-`func (o *IngestReq) GetCachedInputTokensOk() (*int32, bool)`
+`func (o *IngestReq) GetCachedInputTokensOk() (*int64, bool)`
 
 GetCachedInputTokensOk returns a tuple with the CachedInputTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCachedInputTokens
 
-`func (o *IngestReq) SetCachedInputTokens(v int32)`
+`func (o *IngestReq) SetCachedInputTokens(v int64)`
 
 SetCachedInputTokens sets CachedInputTokens field to given value.
 
@@ -123,20 +123,20 @@ HasConfidence returns a boolean if a field has been set.
 
 ### GetCostCents
 
-`func (o *IngestReq) GetCostCents() int32`
+`func (o *IngestReq) GetCostCents() int64`
 
 GetCostCents returns the CostCents field if non-nil, zero value otherwise.
 
 ### GetCostCentsOk
 
-`func (o *IngestReq) GetCostCentsOk() (*int32, bool)`
+`func (o *IngestReq) GetCostCentsOk() (*int64, bool)`
 
 GetCostCentsOk returns a tuple with the CostCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCostCents
 
-`func (o *IngestReq) SetCostCents(v int32)`
+`func (o *IngestReq) SetCostCents(v int64)`
 
 SetCostCents sets CostCents field to given value.
 
@@ -148,20 +148,20 @@ HasCostCents returns a boolean if a field has been set.
 
 ### GetCostLimitCents
 
-`func (o *IngestReq) GetCostLimitCents() int32`
+`func (o *IngestReq) GetCostLimitCents() int64`
 
 GetCostLimitCents returns the CostLimitCents field if non-nil, zero value otherwise.
 
 ### GetCostLimitCentsOk
 
-`func (o *IngestReq) GetCostLimitCentsOk() (*int32, bool)`
+`func (o *IngestReq) GetCostLimitCentsOk() (*int64, bool)`
 
 GetCostLimitCentsOk returns a tuple with the CostLimitCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCostLimitCents
 
-`func (o *IngestReq) SetCostLimitCents(v int32)`
+`func (o *IngestReq) SetCostLimitCents(v int64)`
 
 SetCostLimitCents sets CostLimitCents field to given value.
 
@@ -198,20 +198,20 @@ HasCurrency returns a boolean if a field has been set.
 
 ### GetInputTokens
 
-`func (o *IngestReq) GetInputTokens() int32`
+`func (o *IngestReq) GetInputTokens() int64`
 
 GetInputTokens returns the InputTokens field if non-nil, zero value otherwise.
 
 ### GetInputTokensOk
 
-`func (o *IngestReq) GetInputTokensOk() (*int32, bool)`
+`func (o *IngestReq) GetInputTokensOk() (*int64, bool)`
 
 GetInputTokensOk returns a tuple with the InputTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInputTokens
 
-`func (o *IngestReq) SetInputTokens(v int32)`
+`func (o *IngestReq) SetInputTokens(v int64)`
 
 SetInputTokens sets InputTokens field to given value.
 
@@ -298,20 +298,20 @@ HasMachine returns a boolean if a field has been set.
 
 ### GetOutputTokens
 
-`func (o *IngestReq) GetOutputTokens() int32`
+`func (o *IngestReq) GetOutputTokens() int64`
 
 GetOutputTokens returns the OutputTokens field if non-nil, zero value otherwise.
 
 ### GetOutputTokensOk
 
-`func (o *IngestReq) GetOutputTokensOk() (*int32, bool)`
+`func (o *IngestReq) GetOutputTokensOk() (*int64, bool)`
 
 GetOutputTokensOk returns a tuple with the OutputTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOutputTokens
 
-`func (o *IngestReq) SetOutputTokens(v int32)`
+`func (o *IngestReq) SetOutputTokens(v int64)`
 
 SetOutputTokens sets OutputTokens field to given value.
 
@@ -373,20 +373,20 @@ HasProvider returns a boolean if a field has been set.
 
 ### GetRequests
 
-`func (o *IngestReq) GetRequests() int32`
+`func (o *IngestReq) GetRequests() int64`
 
 GetRequests returns the Requests field if non-nil, zero value otherwise.
 
 ### GetRequestsOk
 
-`func (o *IngestReq) GetRequestsOk() (*int32, bool)`
+`func (o *IngestReq) GetRequestsOk() (*int64, bool)`
 
 GetRequestsOk returns a tuple with the Requests field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRequests
 
-`func (o *IngestReq) SetRequests(v int32)`
+`func (o *IngestReq) SetRequests(v int64)`
 
 SetRequests sets Requests field to given value.
 
@@ -473,20 +473,20 @@ HasSynthetic returns a boolean if a field has been set.
 
 ### GetTotalTokens
 
-`func (o *IngestReq) GetTotalTokens() int32`
+`func (o *IngestReq) GetTotalTokens() int64`
 
 GetTotalTokens returns the TotalTokens field if non-nil, zero value otherwise.
 
 ### GetTotalTokensOk
 
-`func (o *IngestReq) GetTotalTokensOk() (*int32, bool)`
+`func (o *IngestReq) GetTotalTokensOk() (*int64, bool)`
 
 GetTotalTokensOk returns a tuple with the TotalTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalTokens
 
-`func (o *IngestReq) SetTotalTokens(v int32)`
+`func (o *IngestReq) SetTotalTokens(v int64)`
 
 SetTotalTokens sets TotalTokens field to given value.
 
@@ -498,20 +498,20 @@ HasTotalTokens returns a boolean if a field has been set.
 
 ### GetUsedPct
 
-`func (o *IngestReq) GetUsedPct() float32`
+`func (o *IngestReq) GetUsedPct() float64`
 
 GetUsedPct returns the UsedPct field if non-nil, zero value otherwise.
 
 ### GetUsedPctOk
 
-`func (o *IngestReq) GetUsedPctOk() (*float32, bool)`
+`func (o *IngestReq) GetUsedPctOk() (*float64, bool)`
 
 GetUsedPctOk returns a tuple with the UsedPct field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUsedPct
 
-`func (o *IngestReq) SetUsedPct(v float32)`
+`func (o *IngestReq) SetUsedPct(v float64)`
 
 SetUsedPct sets UsedPct field to given value.
 

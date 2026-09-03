@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **CreatedAt** | Pointer to **string** | CreatedAt is RFC 3339 UTC. | [optional] 
 **Head** | Pointer to **string** | Head is the branch holding the work. | [optional] 
 **MergedRev** | Pointer to **string** | MergedRev is what base points at now that the merge landed. Empty while the proposal is open. | [optional] 
-**Number** | Pointer to **int32** | Number is the proposal&#39;s per-repo handle, dense from 1. | [optional] 
+**Number** | Pointer to **int64** | Number is the proposal&#39;s per-repo handle, dense from 1. | [optional] 
 **Repo** | Pointer to **string** | Repo is the repository the proposal belongs to. | [optional] 
 **State** | Pointer to **string** | State is \&quot;open\&quot; or \&quot;merged\&quot;. | [optional] 
 **Title** | Pointer to **string** | Title is the one-line summary. | [optional] 
@@ -187,20 +187,20 @@ HasMergedRev returns a boolean if a field has been set.
 
 ### GetNumber
 
-`func (o *PullView) GetNumber() int32`
+`func (o *PullView) GetNumber() int64`
 
 GetNumber returns the Number field if non-nil, zero value otherwise.
 
 ### GetNumberOk
 
-`func (o *PullView) GetNumberOk() (*int32, bool)`
+`func (o *PullView) GetNumberOk() (*int64, bool)`
 
 GetNumberOk returns a tuple with the Number field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumber
 
-`func (o *PullView) SetNumber(v int32)`
+`func (o *PullView) SetNumber(v int64)`
 
 SetNumber sets Number field to given value.
 

@@ -6,8 +6,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteGitKeysById**](GitAPI.md#DeleteGitKeysById) | **Delete** /v1/git/keys/{id} | Removes a registered SSH key, scoped to the caller&#39;s org: an org can only delete its own, and a key id it does not own is not found.
 [**DeleteGitReposByName**](GitAPI.md#DeleteGitReposByName) | **Delete** /v1/git/repos/{name} | Removes a repo&#39;s metadata and purges its storage.
-[**DeleteGitReposByNameMirrorsById**](GitAPI.md#DeleteGitReposByNameMirrorsById) | **Delete** /v1/git/repos/{name}/mirrors/{id} | Removes one outbound mirror target; later pushes stop being forwarded to it.
 [**DeleteGitReposByNameSubscriptionsById**](GitAPI.md#DeleteGitReposByNameSubscriptionsById) | **Delete** /v1/git/repos/{name}/subscriptions/{id} | Removes one Slack subscription from a repo; the notifier stops posting that repo&#39;s events to that channel.
+[**DeleteGitReposByNameTargetsById**](GitAPI.md#DeleteGitReposByNameTargetsById) | **Delete** /v1/git/repos/{name}/targets/{id} | Removes one outbound mirror target; later pushes stop being forwarded to it.
 [**GetGit**](GitAPI.md#GetGit) | **Get** /v1/git | Browse your org&#39;s repositories
 [**GetGitByOrgByProjectByRepoInfoRefs**](GitAPI.md#GetGitByOrgByProjectByRepoInfoRefs) | **Get** /v1/git/{org}/{project}/{repo}/info/refs | Advertise a repository&#39;s refs to a git client
 [**GetGitByOrgByRepo**](GitAPI.md#GetGitByOrgByRepo) | **Get** /v1/git/{org}/{repo} | Open a repository&#39;s home page
@@ -20,12 +20,12 @@ Method | HTTP request | Description
 [**GetGitReposByNameBlob**](GitAPI.md#GetGitReposByNameBlob) | **Get** /v1/git/repos/{name}/blob | Returns one file&#39;s bytes at one revision.
 [**GetGitReposByNameCommits**](GitAPI.md#GetGitReposByNameCommits) | **Get** /v1/git/repos/{name}/commits | Walks a ref&#39;s history newest first, or one path&#39;s history when a path is given.
 [**GetGitReposByNameFiles**](GitAPI.md#GetGitReposByNameFiles) | **Get** /v1/git/repos/{name}/files | Returns every file a glob selects at one revision, WITH its bytes and the revision they came from.
-[**GetGitReposByNameMirrors**](GitAPI.md#GetGitReposByNameMirrors) | **Get** /v1/git/repos/{name}/mirrors | Returns a repo&#39;s outbound mirror targets — the downstream remotes the mirror reactor pushes to whenever a push lands here.
 [**GetGitReposByNamePulls**](GitAPI.md#GetGitReposByNamePulls) | **Get** /v1/git/repos/{name}/pulls | Returns a repo&#39;s pull requests, newest number first — what is waiting to be reviewed, and what has already landed.
 [**GetGitReposByNamePullsByNumber**](GitAPI.md#GetGitReposByNamePullsByNumber) | **Get** /v1/git/repos/{name}/pulls/{number} | Returns one pull request by its per-repo number.
 [**GetGitReposByNameReadme**](GitAPI.md#GetGitReposByNameReadme) | **Get** /v1/git/repos/{name}/readme | Returns the README at the tree root as plain text — unrendered, so the caller decides how to present it.
 [**GetGitReposByNameRefs**](GitAPI.md#GetGitReposByNameRefs) | **Get** /v1/git/repos/{name}/refs | Lists a repo&#39;s branches, tags and default branch — what a branch picker needs in one call.
 [**GetGitReposByNameSubscriptions**](GitAPI.md#GetGitReposByNameSubscriptions) | **Get** /v1/git/repos/{name}/subscriptions | Returns a repo&#39;s Slack subscriptions — which channels the lifecycle notifier posts this repo&#39;s push and deploy events to.
+[**GetGitReposByNameTargets**](GitAPI.md#GetGitReposByNameTargets) | **Get** /v1/git/repos/{name}/targets | Returns a repo&#39;s outbound mirror targets — the downstream remotes the mirror reactor pushes to whenever a push lands here.
 [**GetGitReposByNameTree**](GitAPI.md#GetGitReposByNameTree) | **Get** /v1/git/repos/{name}/tree | Lists the immediate children of one directory at one revision, directories before files.
 [**GetGitUsage**](GitAPI.md#GetGitUsage) | **Get** /v1/git/usage | Returns per-repo and total storage bytes for the caller&#39;s org — the queryable, per-tenant number commerce and o11y meter on.
 [**PatchGitReposByName**](GitAPI.md#PatchGitReposByName) | **Patch** /v1/git/repos/{name} | Flips a repo&#39;s public bit, the one mutable repo setting today.
@@ -37,17 +37,12 @@ Method | HTTP request | Description
 [**PostGitRepos**](GitAPI.md#PostGitRepos) | **Post** /v1/git/repos | Provisions an empty bare repository in the caller&#39;s scope and returns it with its clone URLs.
 [**PostGitReposByNameGc**](GitAPI.md#PostGitReposByNameGc) | **Post** /v1/git/repos/{name}/gc | Repacks a repo into one bitmapped pack and rewrites its commit-graph, so the next clone reuses the bitmap instead of walking the whole object graph.
 [**PostGitReposByNameMirror**](GitAPI.md#PostGitReposByNameMirror) | **Post** /v1/git/repos/{name}/mirror | Imports an external git repository into the caller&#39;s repo, provisioning it on first use.
-[**PostGitReposByNameMirrors**](GitAPI.md#PostGitReposByNameMirrors) | **Post** /v1/git/repos/{name}/mirrors | Registers a downstream remote the repo&#39;s advanced refs are pushed to whenever a push lands here.
 [**PostGitReposByNamePulls**](GitAPI.md#PostGitReposByNamePulls) | **Post** /v1/git/repos/{name}/pulls | Proposes a branch for merging and returns it with its number.
 [**PostGitReposByNamePullsByNumberMerge**](GitAPI.md#PostGitReposByNamePullsByNumberMerge) | **Post** /v1/git/repos/{name}/pulls/{number}/merge | Merges an open pull request by FAST-FORWARDING base to head, and answers the proposal in its merged state with the revision base now points at.
 [**PostGitReposByNamePush**](GitAPI.md#PostGitReposByNamePush) | **Post** /v1/git/repos/{name}/push | Lands a set of files as one commit without a git client — the hanzo.app builder&#39;s push.
 [**PostGitReposByNameSubscriptions**](GitAPI.md#PostGitReposByNameSubscriptions) | **Post** /v1/git/repos/{name}/subscriptions | Binds a Slack channel to a repo, so the lifecycle notifier posts that repo&#39;s push and deploy events there.
+[**PostGitReposByNameTargets**](GitAPI.md#PostGitReposByNameTargets) | **Post** /v1/git/repos/{name}/targets | Registers a downstream remote the repo&#39;s advanced refs are pushed to whenever a push lands here.
 [**PostGitWebhook**](GitAPI.md#PostGitWebhook) | **Post** /v1/git/webhook | Retired — forge pushes build via platform.hanzo.ai
-[**PostGitZapCreaterepo**](GitAPI.md#PostGitZapCreaterepo) | **Post** /v1/git/zap/createRepo | Create a repository over the ZAP transport
-[**PostGitZapDeleterepo**](GitAPI.md#PostGitZapDeleterepo) | **Post** /v1/git/zap/deleteRepo | Delete a repository over the ZAP transport
-[**PostGitZapGetrepo**](GitAPI.md#PostGitZapGetrepo) | **Post** /v1/git/zap/getRepo | Read one repository over the ZAP transport
-[**PostGitZapListrepos**](GitAPI.md#PostGitZapListrepos) | **Post** /v1/git/zap/listRepos | List your repositories over the ZAP transport
-[**PostGitZapUsage**](GitAPI.md#PostGitZapUsage) | **Post** /v1/git/zap/usage | Report your org&#39;s git storage footprint over the ZAP transport
 
 
 
@@ -187,77 +182,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DeleteGitReposByNameMirrorsById
-
-> DeleteGitReposByNameMirrorsById(ctx, name, id).Execute()
-
-Removes one outbound mirror target; later pushes stop being forwarded to it.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	name := "widgets" // string | Name is the repo, from the :name path segment.
-	id := "mir_2d90" // string | ID is the row to remove, from the :id path segment.
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GitAPI.DeleteGitReposByNameMirrorsById(context.Background(), name, id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.DeleteGitReposByNameMirrorsById``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | Name is the repo, from the :name path segment. | 
-**id** | **string** | ID is the row to remove, from the :id path segment. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteGitReposByNameMirrorsByIdRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## DeleteGitReposByNameSubscriptionsById
 
 > DeleteGitReposByNameSubscriptionsById(ctx, name, id).Execute()
@@ -304,6 +228,77 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiDeleteGitReposByNameSubscriptionsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteGitReposByNameTargetsById
+
+> DeleteGitReposByNameTargetsById(ctx, name, id).Execute()
+
+Removes one outbound mirror target; later pushes stop being forwarded to it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	name := "widgets" // string | Name is the repo, from the :name path segment.
+	id := "mir_2d90" // string | ID is the row to remove, from the :id path segment.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.GitAPI.DeleteGitReposByNameTargetsById(context.Background(), name, id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.DeleteGitReposByNameTargetsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** | Name is the repo, from the :name path segment. | 
+**id** | **string** | ID is the row to remove, from the :id path segment. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteGitReposByNameTargetsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1024,7 +1019,7 @@ func main() {
 	name := "widgets" // string | Name is the repo to read, from the :name path segment.
 	ref := "main" // string | Ref is the branch, tag or commit to walk back from; empty means HEAD. (optional)
 	path := "path_example" // string | Path narrows the history to commits touching it; empty walks the whole ref. (optional)
-	limit := int32(2) // int32 | Limit caps the page. Anything not positive means 50; the cap is 100. (optional)
+	limit := int64(2) // int64 | Limit caps the page. Anything not positive means 50; the cap is 100. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1056,7 +1051,7 @@ Name | Type | Description  | Notes
 
  **ref** | **string** | Ref is the branch, tag or commit to walk back from; empty means HEAD. | 
  **path** | **string** | Path narrows the history to commits touching it; empty walks the whole ref. | 
- **limit** | **int32** | Limit caps the page. Anything not positive means 50; the cap is 100. | 
+ **limit** | **int64** | Limit caps the page. Anything not positive means 50; the cap is 100. | 
 
 ### Return type
 
@@ -1135,76 +1130,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**FilesJSON**](FilesJSON.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetGitReposByNameMirrors
-
-> MirrorList GetGitReposByNameMirrors(ctx, name).Execute()
-
-Returns a repo's outbound mirror targets — the downstream remotes the mirror reactor pushes to whenever a push lands here.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	name := "widgets" // string | Name is the repo's org-unique handle, from the :name path segment. A trailing \".git\" is stripped.
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.GetGitReposByNameMirrors(context.Background(), name).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNameMirrors``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetGitReposByNameMirrors`: MirrorList
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNameMirrors`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | Name is the repo&#39;s org-unique handle, from the :name path segment. A trailing \&quot;.git\&quot; is stripped. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetGitReposByNameMirrorsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**MirrorList**](MirrorList.md)
 
 ### Authorization
 
@@ -1314,7 +1239,7 @@ import (
 
 func main() {
 	name := "widgets" // string | Name is the repo, from the :name path segment.
-	number := int32(4) // int32 | Number is the proposal's per-repo number, from the :number path segment.
+	number := int64(4) // int64 | Number is the proposal's per-repo number, from the :number path segment.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1335,7 +1260,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **name** | **string** | Name is the repo, from the :name path segment. | 
-**number** | **int32** | Number is the proposal&#39;s per-repo number, from the :number path segment. | 
+**number** | **int64** | Number is the proposal&#39;s per-repo number, from the :number path segment. | 
 
 ### Other Parameters
 
@@ -1562,6 +1487,76 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SubscriptionList**](SubscriptionList.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetGitReposByNameTargets
+
+> MirrorList GetGitReposByNameTargets(ctx, name).Execute()
+
+Returns a repo's outbound mirror targets — the downstream remotes the mirror reactor pushes to whenever a push lands here.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	name := "widgets" // string | Name is the repo's org-unique handle, from the :name path segment. A trailing \".git\" is stripped.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.GetGitReposByNameTargets(context.Background(), name).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNameTargets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetGitReposByNameTargets`: MirrorList
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNameTargets`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** | Name is the repo&#39;s org-unique handle, from the :name path segment. A trailing \&quot;.git\&quot; is stripped. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGitReposByNameTargetsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**MirrorList**](MirrorList.md)
 
 ### Authorization
 
@@ -2356,78 +2351,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostGitReposByNameMirrors
-
-> MirrorTargetView PostGitReposByNameMirrors(ctx, name).MirrorTargetReq(mirrorTargetReq).Execute()
-
-Registers a downstream remote the repo's advanced refs are pushed to whenever a push lands here.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	name := "widgets" // string | Name is the repo whose advanced refs are pushed downstream, from the :name path segment.
-	mirrorTargetReq := *openapiclient.NewMirrorTargetReq() // MirrorTargetReq | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.PostGitReposByNameMirrors(context.Background(), name).MirrorTargetReq(mirrorTargetReq).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitReposByNameMirrors``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostGitReposByNameMirrors`: MirrorTargetView
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitReposByNameMirrors`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | Name is the repo whose advanced refs are pushed downstream, from the :name path segment. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostGitReposByNameMirrorsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **mirrorTargetReq** | [**MirrorTargetReq**](MirrorTargetReq.md) |  | 
-
-### Return type
-
-[**MirrorTargetView**](MirrorTargetView.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## PostGitReposByNamePulls
 
 > PullView PostGitReposByNamePulls(ctx, name).OpenReq(openReq).Execute()
@@ -2522,7 +2445,7 @@ import (
 
 func main() {
 	name := "widgets" // string | Name is the repo, from the :name path segment.
-	number := int32(4) // int32 | Number is the proposal's per-repo number, from the :number path segment.
+	number := int64(4) // int64 | Number is the proposal's per-repo number, from the :number path segment.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -2543,7 +2466,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **name** | **string** | Name is the repo, from the :name path segment. | 
-**number** | **int32** | Number is the proposal&#39;s per-repo number, from the :number path segment. | 
+**number** | **int64** | Number is the proposal&#39;s per-repo number, from the :number path segment. | 
 
 ### Other Parameters
 
@@ -2717,6 +2640,78 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PostGitReposByNameTargets
+
+> MirrorTargetView PostGitReposByNameTargets(ctx, name).MirrorTargetReq(mirrorTargetReq).Execute()
+
+Registers a downstream remote the repo's advanced refs are pushed to whenever a push lands here.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	name := "widgets" // string | Name is the repo whose advanced refs are pushed downstream, from the :name path segment.
+	mirrorTargetReq := *openapiclient.NewMirrorTargetReq() // MirrorTargetReq | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.PostGitReposByNameTargets(context.Background(), name).MirrorTargetReq(mirrorTargetReq).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitReposByNameTargets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostGitReposByNameTargets`: MirrorTargetView
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitReposByNameTargets`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** | Name is the repo whose advanced refs are pushed downstream, from the :name path segment. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostGitReposByNameTargetsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **mirrorTargetReq** | [**MirrorTargetReq**](MirrorTargetReq.md) |  | 
+
+### Return type
+
+[**MirrorTargetView**](MirrorTargetView.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostGitWebhook
 
 > PostGitWebhook(ctx).Execute()
@@ -2756,316 +2751,6 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostGitWebhookRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostGitZapCreaterepo
-
-> PostGitZapCreaterepo(ctx).ZapProcReq(zapProcReq).Execute()
-
-Create a repository over the ZAP transport
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	zapProcReq := *openapiclient.NewZapProcReq() // ZapProcReq |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GitAPI.PostGitZapCreaterepo(context.Background()).ZapProcReq(zapProcReq).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitZapCreaterepo``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostGitZapCreaterepoRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **zapProcReq** | [**ZapProcReq**](ZapProcReq.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostGitZapDeleterepo
-
-> PostGitZapDeleterepo(ctx).ZapProcReq(zapProcReq).Execute()
-
-Delete a repository over the ZAP transport
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	zapProcReq := *openapiclient.NewZapProcReq() // ZapProcReq |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GitAPI.PostGitZapDeleterepo(context.Background()).ZapProcReq(zapProcReq).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitZapDeleterepo``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostGitZapDeleterepoRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **zapProcReq** | [**ZapProcReq**](ZapProcReq.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostGitZapGetrepo
-
-> PostGitZapGetrepo(ctx).ZapProcReq(zapProcReq).Execute()
-
-Read one repository over the ZAP transport
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	zapProcReq := *openapiclient.NewZapProcReq() // ZapProcReq |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GitAPI.PostGitZapGetrepo(context.Background()).ZapProcReq(zapProcReq).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitZapGetrepo``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostGitZapGetrepoRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **zapProcReq** | [**ZapProcReq**](ZapProcReq.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostGitZapListrepos
-
-> PostGitZapListrepos(ctx).Execute()
-
-List your repositories over the ZAP transport
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GitAPI.PostGitZapListrepos(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitZapListrepos``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostGitZapListreposRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostGitZapUsage
-
-> PostGitZapUsage(ctx).Execute()
-
-Report your org's git storage footprint over the ZAP transport
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GitAPI.PostGitZapUsage(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitZapUsage``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostGitZapUsageRequest struct via the builder pattern
 
 
 ### Return type

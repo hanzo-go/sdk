@@ -19,7 +19,7 @@ var _ MappedNullable = &Payout{}
 
 // Payout struct for Payout
 type Payout struct {
-	Amount          *int32      `json:"amount,omitempty"`
+	Amount          *int64      `json:"amount,omitempty"`
 	ArrivalDate     *string     `json:"arrivalDate,omitempty"`
 	Created         *string     `json:"created,omitempty"`
 	Currency        *string     `json:"currency,omitempty"`
@@ -52,9 +52,9 @@ func NewPayoutWithDefaults() *Payout {
 }
 
 // GetAmount returns the Amount field value if set, zero value otherwise.
-func (o *Payout) GetAmount() int32 {
+func (o *Payout) GetAmount() int64 {
 	if o == nil || IsNil(o.Amount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Amount
@@ -62,7 +62,7 @@ func (o *Payout) GetAmount() int32 {
 
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Payout) GetAmountOk() (*int32, bool) {
+func (o *Payout) GetAmountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Amount) {
 		return nil, false
 	}
@@ -78,8 +78,8 @@ func (o *Payout) HasAmount() bool {
 	return false
 }
 
-// SetAmount gets a reference to the given int32 and assigns it to the Amount field.
-func (o *Payout) SetAmount(v int32) {
+// SetAmount gets a reference to the given int64 and assigns it to the Amount field.
+func (o *Payout) SetAmount(v int64) {
 	o.Amount = &v
 }
 

@@ -22,7 +22,7 @@ type WebSearchResults struct {
 	// Engines is one entry per engine asked, in the order they were asked. It is ADDITIVE to the SearXNG contract, which the LibreChat client ignores as an unknown field exactly as it ignores `engine` on a result.
 	Engines []WebEngine `json:"engines,omitempty"`
 	// NumberOfResults is len(results) — what this answer carries, never an estimate of what the web holds.
-	NumberOfResults *int32 `json:"number_of_results,omitempty"`
+	NumberOfResults *int64 `json:"number_of_results,omitempty"`
 	// Query is the query that ran, echoed back.
 	Query *string `json:"query,omitempty"`
 	// Results are the merged hits, deduplicated by normalised URL and capped at 30. Always an array and never null: no hits is an ANSWER, not a fault.
@@ -79,9 +79,9 @@ func (o *WebSearchResults) SetEngines(v []WebEngine) {
 }
 
 // GetNumberOfResults returns the NumberOfResults field value if set, zero value otherwise.
-func (o *WebSearchResults) GetNumberOfResults() int32 {
+func (o *WebSearchResults) GetNumberOfResults() int64 {
 	if o == nil || IsNil(o.NumberOfResults) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NumberOfResults
@@ -89,7 +89,7 @@ func (o *WebSearchResults) GetNumberOfResults() int32 {
 
 // GetNumberOfResultsOk returns a tuple with the NumberOfResults field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebSearchResults) GetNumberOfResultsOk() (*int32, bool) {
+func (o *WebSearchResults) GetNumberOfResultsOk() (*int64, bool) {
 	if o == nil || IsNil(o.NumberOfResults) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *WebSearchResults) HasNumberOfResults() bool {
 	return false
 }
 
-// SetNumberOfResults gets a reference to the given int32 and assigns it to the NumberOfResults field.
-func (o *WebSearchResults) SetNumberOfResults(v int32) {
+// SetNumberOfResults gets a reference to the given int64 and assigns it to the NumberOfResults field.
+func (o *WebSearchResults) SetNumberOfResults(v int64) {
 	o.NumberOfResults = &v
 }
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**At** | Pointer to **int32** |  | [optional] 
+**At** | Pointer to **int64** |  | [optional] 
 **By** | Pointer to **string** |  | [optional] 
 **Reason** | Pointer to **string** |  | [optional] 
 **Scope** | Pointer to **string** |  | [optional] 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAt
 
-`func (o *LicensingRevocationEntry) GetAt() int32`
+`func (o *LicensingRevocationEntry) GetAt() int64`
 
 GetAt returns the At field if non-nil, zero value otherwise.
 
 ### GetAtOk
 
-`func (o *LicensingRevocationEntry) GetAtOk() (*int32, bool)`
+`func (o *LicensingRevocationEntry) GetAtOk() (*int64, bool)`
 
 GetAtOk returns a tuple with the At field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAt
 
-`func (o *LicensingRevocationEntry) SetAt(v int32)`
+`func (o *LicensingRevocationEntry) SetAt(v int64)`
 
 SetAt sets At field to given value.
 

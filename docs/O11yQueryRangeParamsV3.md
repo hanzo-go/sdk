@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CompositeQuery** | Pointer to [**O11yCompositeQuery**](O11yCompositeQuery.md) |  | [optional] 
-**End** | Pointer to **int32** |  | [optional] 
+**End** | Pointer to **int64** |  | [optional] 
 **FormatForWeb** | Pointer to **bool** |  | [optional] 
 **NoCache** | Pointer to **bool** |  | [optional] 
-**Start** | Pointer to **int32** |  | [optional] 
-**Step** | Pointer to **int32** | step is in seconds; used for prometheus queries | [optional] 
+**Start** | Pointer to **int64** |  | [optional] 
+**Step** | Pointer to **int64** | step is in seconds; used for prometheus queries | [optional] 
 **Variables** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 
 ## Methods
@@ -58,20 +58,20 @@ HasCompositeQuery returns a boolean if a field has been set.
 
 ### GetEnd
 
-`func (o *O11yQueryRangeParamsV3) GetEnd() int32`
+`func (o *O11yQueryRangeParamsV3) GetEnd() int64`
 
 GetEnd returns the End field if non-nil, zero value otherwise.
 
 ### GetEndOk
 
-`func (o *O11yQueryRangeParamsV3) GetEndOk() (*int32, bool)`
+`func (o *O11yQueryRangeParamsV3) GetEndOk() (*int64, bool)`
 
 GetEndOk returns a tuple with the End field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnd
 
-`func (o *O11yQueryRangeParamsV3) SetEnd(v int32)`
+`func (o *O11yQueryRangeParamsV3) SetEnd(v int64)`
 
 SetEnd sets End field to given value.
 
@@ -133,20 +133,20 @@ HasNoCache returns a boolean if a field has been set.
 
 ### GetStart
 
-`func (o *O11yQueryRangeParamsV3) GetStart() int32`
+`func (o *O11yQueryRangeParamsV3) GetStart() int64`
 
 GetStart returns the Start field if non-nil, zero value otherwise.
 
 ### GetStartOk
 
-`func (o *O11yQueryRangeParamsV3) GetStartOk() (*int32, bool)`
+`func (o *O11yQueryRangeParamsV3) GetStartOk() (*int64, bool)`
 
 GetStartOk returns a tuple with the Start field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStart
 
-`func (o *O11yQueryRangeParamsV3) SetStart(v int32)`
+`func (o *O11yQueryRangeParamsV3) SetStart(v int64)`
 
 SetStart sets Start field to given value.
 
@@ -158,20 +158,20 @@ HasStart returns a boolean if a field has been set.
 
 ### GetStep
 
-`func (o *O11yQueryRangeParamsV3) GetStep() int32`
+`func (o *O11yQueryRangeParamsV3) GetStep() int64`
 
 GetStep returns the Step field if non-nil, zero value otherwise.
 
 ### GetStepOk
 
-`func (o *O11yQueryRangeParamsV3) GetStepOk() (*int32, bool)`
+`func (o *O11yQueryRangeParamsV3) GetStepOk() (*int64, bool)`
 
 GetStepOk returns a tuple with the Step field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStep
 
-`func (o *O11yQueryRangeParamsV3) SetStep(v int32)`
+`func (o *O11yQueryRangeParamsV3) SetStep(v int64)`
 
 SetStep sets Step field to given value.
 

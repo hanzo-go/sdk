@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ColdStorageDurationDays** | Pointer to **int32** | ColdStorageDurationDays is how old data must be before it moves, in days. | [optional] 
+**ColdStorageDurationDays** | Pointer to **int64** | ColdStorageDurationDays is how old data must be before it moves, in days. | [optional] 
 **ColdStorageVolume** | Pointer to **string** | ColdStorageVolume names the volume aged data moves to, when set. | [optional] 
-**DefaultTTLDays** | Pointer to **int32** | DefaultTTLDays is the retention for data no rule matches, in days. | [optional] 
+**DefaultTTLDays** | Pointer to **int64** | DefaultTTLDays is the retention for data no rule matches, in days. | [optional] 
 **TtlConditions** | Pointer to [**[]O11yO11yRetentionRule**](O11yO11yRetentionRule.md) | TTLConditions are ordered per-label rules; the first matching rule wins. | [optional] 
 **Type** | Pointer to **string** | Type is the signal the policy applies to — traces, metrics or logs. | [optional] 
 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetColdStorageDurationDays
 
-`func (o *O11yO11yRetentionSetIn) GetColdStorageDurationDays() int32`
+`func (o *O11yO11yRetentionSetIn) GetColdStorageDurationDays() int64`
 
 GetColdStorageDurationDays returns the ColdStorageDurationDays field if non-nil, zero value otherwise.
 
 ### GetColdStorageDurationDaysOk
 
-`func (o *O11yO11yRetentionSetIn) GetColdStorageDurationDaysOk() (*int32, bool)`
+`func (o *O11yO11yRetentionSetIn) GetColdStorageDurationDaysOk() (*int64, bool)`
 
 GetColdStorageDurationDaysOk returns a tuple with the ColdStorageDurationDays field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetColdStorageDurationDays
 
-`func (o *O11yO11yRetentionSetIn) SetColdStorageDurationDays(v int32)`
+`func (o *O11yO11yRetentionSetIn) SetColdStorageDurationDays(v int64)`
 
 SetColdStorageDurationDays sets ColdStorageDurationDays field to given value.
 
@@ -81,20 +81,20 @@ HasColdStorageVolume returns a boolean if a field has been set.
 
 ### GetDefaultTTLDays
 
-`func (o *O11yO11yRetentionSetIn) GetDefaultTTLDays() int32`
+`func (o *O11yO11yRetentionSetIn) GetDefaultTTLDays() int64`
 
 GetDefaultTTLDays returns the DefaultTTLDays field if non-nil, zero value otherwise.
 
 ### GetDefaultTTLDaysOk
 
-`func (o *O11yO11yRetentionSetIn) GetDefaultTTLDaysOk() (*int32, bool)`
+`func (o *O11yO11yRetentionSetIn) GetDefaultTTLDaysOk() (*int64, bool)`
 
 GetDefaultTTLDaysOk returns a tuple with the DefaultTTLDays field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDefaultTTLDays
 
-`func (o *O11yO11yRetentionSetIn) SetDefaultTTLDays(v int32)`
+`func (o *O11yO11yRetentionSetIn) SetDefaultTTLDays(v int64)`
 
 SetDefaultTTLDays sets DefaultTTLDays field to given value.
 

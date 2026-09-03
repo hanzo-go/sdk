@@ -27,7 +27,7 @@ type SecurityAPIGetSecurityFindingsRequest struct {
 	ApiService  *SecurityAPIService
 	scanId      *string
 	minSeverity *string
-	limit       *int32
+	limit       *int64
 }
 
 // ScanID narrows to a single scan.
@@ -43,7 +43,7 @@ func (r SecurityAPIGetSecurityFindingsRequest) MinSeverity(minSeverity string) S
 }
 
 // Limit caps the page.
-func (r SecurityAPIGetSecurityFindingsRequest) Limit(limit int32) SecurityAPIGetSecurityFindingsRequest {
+func (r SecurityAPIGetSecurityFindingsRequest) Limit(limit int64) SecurityAPIGetSecurityFindingsRequest {
 	r.limit = &limit
 	return r
 }
@@ -479,11 +479,11 @@ func (a *SecurityAPIService) GetSecurityRulesExecute(r SecurityAPIGetSecurityRul
 type SecurityAPIGetSecurityScansRequest struct {
 	ctx        context.Context
 	ApiService *SecurityAPIService
-	limit      *int32
+	limit      *int64
 }
 
 // Limit caps the page.
-func (r SecurityAPIGetSecurityScansRequest) Limit(limit int32) SecurityAPIGetSecurityScansRequest {
+func (r SecurityAPIGetSecurityScansRequest) Limit(limit int64) SecurityAPIGetSecurityScansRequest {
 	r.limit = &limit
 	return r
 }

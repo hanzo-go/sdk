@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RevenueShareBps** | Pointer to **int32** |  | [optional] 
-**UpdatedAt** | Pointer to **int32** |  | [optional] 
+**RevenueShareBps** | Pointer to **int64** |  | [optional] 
+**UpdatedAt** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetRevenueShareBps
 
-`func (o *SharePolicy) GetRevenueShareBps() int32`
+`func (o *SharePolicy) GetRevenueShareBps() int64`
 
 GetRevenueShareBps returns the RevenueShareBps field if non-nil, zero value otherwise.
 
 ### GetRevenueShareBpsOk
 
-`func (o *SharePolicy) GetRevenueShareBpsOk() (*int32, bool)`
+`func (o *SharePolicy) GetRevenueShareBpsOk() (*int64, bool)`
 
 GetRevenueShareBpsOk returns a tuple with the RevenueShareBps field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRevenueShareBps
 
-`func (o *SharePolicy) SetRevenueShareBps(v int32)`
+`func (o *SharePolicy) SetRevenueShareBps(v int64)`
 
 SetRevenueShareBps sets RevenueShareBps field to given value.
 
@@ -53,20 +53,20 @@ HasRevenueShareBps returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *SharePolicy) GetUpdatedAt() int32`
+`func (o *SharePolicy) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *SharePolicy) GetUpdatedAtOk() (*int32, bool)`
+`func (o *SharePolicy) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *SharePolicy) SetUpdatedAt(v int32)`
+`func (o *SharePolicy) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

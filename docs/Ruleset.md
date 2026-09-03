@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Rules** | Pointer to **int32** | Rules is how many detection rules the engine holds. | [optional] 
+**Rules** | Pointer to **int64** | Rules is how many detection rules the engine holds. | [optional] 
 **Status** | Pointer to **string** | Status is \&quot;ok\&quot; whenever the findings store opened. | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetRules
 
-`func (o *Ruleset) GetRules() int32`
+`func (o *Ruleset) GetRules() int64`
 
 GetRules returns the Rules field if non-nil, zero value otherwise.
 
 ### GetRulesOk
 
-`func (o *Ruleset) GetRulesOk() (*int32, bool)`
+`func (o *Ruleset) GetRulesOk() (*int64, bool)`
 
 GetRulesOk returns a tuple with the Rules field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRules
 
-`func (o *Ruleset) SetRules(v int32)`
+`func (o *Ruleset) SetRules(v int64)`
 
 SetRules sets Rules field to given value.
 

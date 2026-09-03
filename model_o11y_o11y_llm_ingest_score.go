@@ -34,7 +34,7 @@ type O11yO11yLLMIngestScore struct {
 	// TraceID is the trace the score attaches to. Required.
 	TraceId *string `json:"traceId,omitempty"`
 	// Value is the numeric score.
-	Value *float32 `json:"value,omitempty"`
+	Value *float64 `json:"value,omitempty"`
 }
 
 // NewO11yO11yLLMIngestScore instantiates a new O11yO11yLLMIngestScore object
@@ -279,9 +279,9 @@ func (o *O11yO11yLLMIngestScore) SetTraceId(v string) {
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
-func (o *O11yO11yLLMIngestScore) GetValue() float32 {
+func (o *O11yO11yLLMIngestScore) GetValue() float64 {
 	if o == nil || IsNil(o.Value) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Value
@@ -289,7 +289,7 @@ func (o *O11yO11yLLMIngestScore) GetValue() float32 {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLLMIngestScore) GetValueOk() (*float32, bool) {
+func (o *O11yO11yLLMIngestScore) GetValueOk() (*float64, bool) {
 	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
@@ -305,8 +305,8 @@ func (o *O11yO11yLLMIngestScore) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given float32 and assigns it to the Value field.
-func (o *O11yO11yLLMIngestScore) SetValue(v float32) {
+// SetValue gets a reference to the given float64 and assigns it to the Value field.
+func (o *O11yO11yLLMIngestScore) SetValue(v float64) {
 	o.Value = &v
 }
 

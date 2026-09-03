@@ -22,9 +22,9 @@ type ImportCapTableOut struct {
 	// Formation is the org's incorporation record, now marked cap-table-imported.
 	Formation *Formation `json:"formation,omitempty"`
 	// Rows is how many rows were read from the sheet, header included.
-	Rows *int32 `json:"rows,omitempty"`
+	Rows *int64 `json:"rows,omitempty"`
 	// StakeholdersImported is how many stakeholders the cap table accepted.
-	StakeholdersImported *int32 `json:"stakeholdersImported,omitempty"`
+	StakeholdersImported *int64 `json:"stakeholdersImported,omitempty"`
 }
 
 // NewImportCapTableOut instantiates a new ImportCapTableOut object
@@ -77,9 +77,9 @@ func (o *ImportCapTableOut) SetFormation(v Formation) {
 }
 
 // GetRows returns the Rows field value if set, zero value otherwise.
-func (o *ImportCapTableOut) GetRows() int32 {
+func (o *ImportCapTableOut) GetRows() int64 {
 	if o == nil || IsNil(o.Rows) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Rows
@@ -87,7 +87,7 @@ func (o *ImportCapTableOut) GetRows() int32 {
 
 // GetRowsOk returns a tuple with the Rows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportCapTableOut) GetRowsOk() (*int32, bool) {
+func (o *ImportCapTableOut) GetRowsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Rows) {
 		return nil, false
 	}
@@ -103,15 +103,15 @@ func (o *ImportCapTableOut) HasRows() bool {
 	return false
 }
 
-// SetRows gets a reference to the given int32 and assigns it to the Rows field.
-func (o *ImportCapTableOut) SetRows(v int32) {
+// SetRows gets a reference to the given int64 and assigns it to the Rows field.
+func (o *ImportCapTableOut) SetRows(v int64) {
 	o.Rows = &v
 }
 
 // GetStakeholdersImported returns the StakeholdersImported field value if set, zero value otherwise.
-func (o *ImportCapTableOut) GetStakeholdersImported() int32 {
+func (o *ImportCapTableOut) GetStakeholdersImported() int64 {
 	if o == nil || IsNil(o.StakeholdersImported) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.StakeholdersImported
@@ -119,7 +119,7 @@ func (o *ImportCapTableOut) GetStakeholdersImported() int32 {
 
 // GetStakeholdersImportedOk returns a tuple with the StakeholdersImported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportCapTableOut) GetStakeholdersImportedOk() (*int32, bool) {
+func (o *ImportCapTableOut) GetStakeholdersImportedOk() (*int64, bool) {
 	if o == nil || IsNil(o.StakeholdersImported) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *ImportCapTableOut) HasStakeholdersImported() bool {
 	return false
 }
 
-// SetStakeholdersImported gets a reference to the given int32 and assigns it to the StakeholdersImported field.
-func (o *ImportCapTableOut) SetStakeholdersImported(v int32) {
+// SetStakeholdersImported gets a reference to the given int64 and assigns it to the StakeholdersImported field.
+func (o *ImportCapTableOut) SetStakeholdersImported(v int64) {
 	o.StakeholdersImported = &v
 }
 

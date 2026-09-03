@@ -25,11 +25,11 @@ type ComplianceAPIService service
 type ComplianceAPIGetComplianceAccreditationRequest struct {
 	ctx        context.Context
 	ApiService *ComplianceAPIService
-	limit      *int32
+	limit      *int64
 }
 
 // Limit caps the rows returned; non-positive means the server default.
-func (r ComplianceAPIGetComplianceAccreditationRequest) Limit(limit int32) ComplianceAPIGetComplianceAccreditationRequest {
+func (r ComplianceAPIGetComplianceAccreditationRequest) Limit(limit int64) ComplianceAPIGetComplianceAccreditationRequest {
 	r.limit = &limit
 	return r
 }
@@ -456,11 +456,11 @@ func (a *ComplianceAPIService) GetComplianceHealthExecute(r ComplianceAPIGetComp
 type ComplianceAPIGetComplianceRecordsRequest struct {
 	ctx        context.Context
 	ApiService *ComplianceAPIService
-	limit      *int32
+	limit      *int64
 }
 
 // Limit caps the rows returned; non-positive means the server default.
-func (r ComplianceAPIGetComplianceRecordsRequest) Limit(limit int32) ComplianceAPIGetComplianceRecordsRequest {
+func (r ComplianceAPIGetComplianceRecordsRequest) Limit(limit int64) ComplianceAPIGetComplianceRecordsRequest {
 	r.limit = &limit
 	return r
 }
@@ -671,11 +671,11 @@ func (a *ComplianceAPIService) GetComplianceStatusExecute(r ComplianceAPIGetComp
 type ComplianceAPIGetComplianceSubjectsRequest struct {
 	ctx        context.Context
 	ApiService *ComplianceAPIService
-	limit      *int32
+	limit      *int64
 }
 
 // Limit caps the rows returned; non-positive means the server default.
-func (r ComplianceAPIGetComplianceSubjectsRequest) Limit(limit int32) ComplianceAPIGetComplianceSubjectsRequest {
+func (r ComplianceAPIGetComplianceSubjectsRequest) Limit(limit int64) ComplianceAPIGetComplianceSubjectsRequest {
 	r.limit = &limit
 	return r
 }
@@ -889,11 +889,11 @@ func (a *ComplianceAPIService) GetComplianceSubjectsByIdExecute(r ComplianceAPIG
 type ComplianceAPIGetComplianceVerificationsRequest struct {
 	ctx        context.Context
 	ApiService *ComplianceAPIService
-	limit      *int32
+	limit      *int64
 }
 
 // Limit caps the rows returned; non-positive means the server default.
-func (r ComplianceAPIGetComplianceVerificationsRequest) Limit(limit int32) ComplianceAPIGetComplianceVerificationsRequest {
+func (r ComplianceAPIGetComplianceVerificationsRequest) Limit(limit int64) ComplianceAPIGetComplianceVerificationsRequest {
 	r.limit = &limit
 	return r
 }

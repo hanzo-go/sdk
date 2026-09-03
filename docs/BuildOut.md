@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Bytes** | Pointer to **int32** | Bytes is the size of the bundled CommonJS the runtime will execute. | [optional] 
+**Bytes** | Pointer to **int64** | Bytes is the size of the bundled CommonJS the runtime will execute. | [optional] 
 **Generated** | Pointer to **bool** | Generated is whether a model wrote the source from a spec, rather than the caller posting the source itself. | [optional] 
 **Plugin** | Pointer to [**AuthoredPlugin**](AuthoredPlugin.md) | Plugin is the plugin as stored, with its derived id and build time. | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetBytes
 
-`func (o *BuildOut) GetBytes() int32`
+`func (o *BuildOut) GetBytes() int64`
 
 GetBytes returns the Bytes field if non-nil, zero value otherwise.
 
 ### GetBytesOk
 
-`func (o *BuildOut) GetBytesOk() (*int32, bool)`
+`func (o *BuildOut) GetBytesOk() (*int64, bool)`
 
 GetBytesOk returns a tuple with the Bytes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBytes
 
-`func (o *BuildOut) SetBytes(v int32)`
+`func (o *BuildOut) SetBytes(v int64)`
 
 SetBytes sets Bytes field to given value.
 

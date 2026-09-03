@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**End** | **int32** | End is the end of the window as a Unix timestamp in milliseconds. Required. | 
+**End** | **int64** | End is the end of the window as a Unix timestamp in milliseconds. Required. | 
 **Filter** | Pointer to [**O11yO11yMetricFilter**](O11yO11yMetricFilter.md) | Filter narrows the metrics counted. | [optional] 
-**Limit** | **int32** | Limit caps how many metrics come back, between 1 and 5000. Required. | 
-**Offset** | Pointer to **int32** | Offset is how many metrics to skip, for paging. | [optional] 
+**Limit** | **int64** | Limit caps how many metrics come back, between 1 and 5000. Required. | 
+**Offset** | Pointer to **int64** | Offset is how many metrics to skip, for paging. | [optional] 
 **OrderBy** | Pointer to [**O11yO11yMetricOrder**](O11yO11yMetricOrder.md) | OrderBy sorts the page, by samples or timeseries. | [optional] 
-**Start** | **int32** | Start is the start of the window as a Unix timestamp in milliseconds. Required. | 
+**Start** | **int64** | Start is the start of the window as a Unix timestamp in milliseconds. Required. | 
 
 ## Methods
 
 ### NewO11yO11yMetricStatsIn
 
-`func NewO11yO11yMetricStatsIn(end int32, limit int32, start int32, ) *O11yO11yMetricStatsIn`
+`func NewO11yO11yMetricStatsIn(end int64, limit int64, start int64, ) *O11yO11yMetricStatsIn`
 
 NewO11yO11yMetricStatsIn instantiates a new O11yO11yMetricStatsIn object
 This constructor will assign default values to properties that have it defined,
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetEnd
 
-`func (o *O11yO11yMetricStatsIn) GetEnd() int32`
+`func (o *O11yO11yMetricStatsIn) GetEnd() int64`
 
 GetEnd returns the End field if non-nil, zero value otherwise.
 
 ### GetEndOk
 
-`func (o *O11yO11yMetricStatsIn) GetEndOk() (*int32, bool)`
+`func (o *O11yO11yMetricStatsIn) GetEndOk() (*int64, bool)`
 
 GetEndOk returns a tuple with the End field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnd
 
-`func (o *O11yO11yMetricStatsIn) SetEnd(v int32)`
+`func (o *O11yO11yMetricStatsIn) SetEnd(v int64)`
 
 SetEnd sets End field to given value.
 
@@ -77,40 +77,40 @@ HasFilter returns a boolean if a field has been set.
 
 ### GetLimit
 
-`func (o *O11yO11yMetricStatsIn) GetLimit() int32`
+`func (o *O11yO11yMetricStatsIn) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *O11yO11yMetricStatsIn) GetLimitOk() (*int32, bool)`
+`func (o *O11yO11yMetricStatsIn) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *O11yO11yMetricStatsIn) SetLimit(v int32)`
+`func (o *O11yO11yMetricStatsIn) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 
 
 ### GetOffset
 
-`func (o *O11yO11yMetricStatsIn) GetOffset() int32`
+`func (o *O11yO11yMetricStatsIn) GetOffset() int64`
 
 GetOffset returns the Offset field if non-nil, zero value otherwise.
 
 ### GetOffsetOk
 
-`func (o *O11yO11yMetricStatsIn) GetOffsetOk() (*int32, bool)`
+`func (o *O11yO11yMetricStatsIn) GetOffsetOk() (*int64, bool)`
 
 GetOffsetOk returns a tuple with the Offset field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOffset
 
-`func (o *O11yO11yMetricStatsIn) SetOffset(v int32)`
+`func (o *O11yO11yMetricStatsIn) SetOffset(v int64)`
 
 SetOffset sets Offset field to given value.
 
@@ -147,20 +147,20 @@ HasOrderBy returns a boolean if a field has been set.
 
 ### GetStart
 
-`func (o *O11yO11yMetricStatsIn) GetStart() int32`
+`func (o *O11yO11yMetricStatsIn) GetStart() int64`
 
 GetStart returns the Start field if non-nil, zero value otherwise.
 
 ### GetStartOk
 
-`func (o *O11yO11yMetricStatsIn) GetStartOk() (*int32, bool)`
+`func (o *O11yO11yMetricStatsIn) GetStartOk() (*int64, bool)`
 
 GetStartOk returns a tuple with the Start field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStart
 
-`func (o *O11yO11yMetricStatsIn) SetStart(v int32)`
+`func (o *O11yO11yMetricStatsIn) SetStart(v int64)`
 
 SetStart sets Start field to given value.
 

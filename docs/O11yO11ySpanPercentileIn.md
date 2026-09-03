@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Name** | **string** | Name is the span name whose peers are compared. Required. | 
 **ResourceAttributes** | Pointer to **map[string]string** | ResourceAttributes narrow the peer group to spans carrying them all. | [optional] 
 **ServiceName** | **string** | ServiceName is the service the span belongs to. Required. | 
-**SpanDuration** | Pointer to **int32** | SpanDuration is the span&#39;s duration in nanoseconds. | [optional] 
+**SpanDuration** | Pointer to **int64** | SpanDuration is the span&#39;s duration in nanoseconds. | [optional] 
 **Start** | Pointer to **int32** | Start is the window start, as epoch nanoseconds. | [optional] 
 
 ## Methods
@@ -122,20 +122,20 @@ SetServiceName sets ServiceName field to given value.
 
 ### GetSpanDuration
 
-`func (o *O11yO11ySpanPercentileIn) GetSpanDuration() int32`
+`func (o *O11yO11ySpanPercentileIn) GetSpanDuration() int64`
 
 GetSpanDuration returns the SpanDuration field if non-nil, zero value otherwise.
 
 ### GetSpanDurationOk
 
-`func (o *O11yO11ySpanPercentileIn) GetSpanDurationOk() (*int32, bool)`
+`func (o *O11yO11ySpanPercentileIn) GetSpanDurationOk() (*int64, bool)`
 
 GetSpanDurationOk returns a tuple with the SpanDuration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSpanDuration
 
-`func (o *O11yO11ySpanPercentileIn) SetSpanDuration(v int32)`
+`func (o *O11yO11ySpanPercentileIn) SetSpanDuration(v int64)`
 
 SetSpanDuration sets SpanDuration field to given value.
 

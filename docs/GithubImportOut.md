@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Queued** | Pointer to **int32** | Queued is how many repositories were handed to the background importer. | [optional] 
+**Queued** | Pointer to **int64** | Queued is how many repositories were handed to the background importer. | [optional] 
 **Repos** | Pointer to **[]string** | Repos names those repositories, in the installation&#39;s listing order. | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetQueued
 
-`func (o *GithubImportOut) GetQueued() int32`
+`func (o *GithubImportOut) GetQueued() int64`
 
 GetQueued returns the Queued field if non-nil, zero value otherwise.
 
 ### GetQueuedOk
 
-`func (o *GithubImportOut) GetQueuedOk() (*int32, bool)`
+`func (o *GithubImportOut) GetQueuedOk() (*int64, bool)`
 
 GetQueuedOk returns a tuple with the Queued field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueued
 
-`func (o *GithubImportOut) SetQueued(v int32)`
+`func (o *GithubImportOut) SetQueued(v int64)`
 
 SetQueued sets Queued field to given value.
 

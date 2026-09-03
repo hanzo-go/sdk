@@ -23,13 +23,13 @@ type RunPoint struct {
 	// At is when the run was recorded.
 	At *time.Time `json:"at,omitempty"`
 	// Delta is the change in score from the previous run for this model, absent on the first. It is the number the whole surface exists to make visible.
-	Delta *float32 `json:"delta,omitempty"`
+	Delta *float64 `json:"delta,omitempty"`
 	// N is how many items the run covered. Two runs are only comparable at the same n, which is why it travels with every point rather than being assumed.
-	N *int32 `json:"n,omitempty"`
+	N *int64 `json:"n,omitempty"`
 	// Run is the measurement id these attempts were recorded under.
 	Run *string `json:"run,omitempty"`
 	// Score is accuracy over the items this run covered, as a percentage.
-	Score *float32 `json:"score,omitempty"`
+	Score *float64 `json:"score,omitempty"`
 }
 
 // NewRunPoint instantiates a new RunPoint object
@@ -82,9 +82,9 @@ func (o *RunPoint) SetAt(v time.Time) {
 }
 
 // GetDelta returns the Delta field value if set, zero value otherwise.
-func (o *RunPoint) GetDelta() float32 {
+func (o *RunPoint) GetDelta() float64 {
 	if o == nil || IsNil(o.Delta) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Delta
@@ -92,7 +92,7 @@ func (o *RunPoint) GetDelta() float32 {
 
 // GetDeltaOk returns a tuple with the Delta field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RunPoint) GetDeltaOk() (*float32, bool) {
+func (o *RunPoint) GetDeltaOk() (*float64, bool) {
 	if o == nil || IsNil(o.Delta) {
 		return nil, false
 	}
@@ -108,15 +108,15 @@ func (o *RunPoint) HasDelta() bool {
 	return false
 }
 
-// SetDelta gets a reference to the given float32 and assigns it to the Delta field.
-func (o *RunPoint) SetDelta(v float32) {
+// SetDelta gets a reference to the given float64 and assigns it to the Delta field.
+func (o *RunPoint) SetDelta(v float64) {
 	o.Delta = &v
 }
 
 // GetN returns the N field value if set, zero value otherwise.
-func (o *RunPoint) GetN() int32 {
+func (o *RunPoint) GetN() int64 {
 	if o == nil || IsNil(o.N) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.N
@@ -124,7 +124,7 @@ func (o *RunPoint) GetN() int32 {
 
 // GetNOk returns a tuple with the N field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RunPoint) GetNOk() (*int32, bool) {
+func (o *RunPoint) GetNOk() (*int64, bool) {
 	if o == nil || IsNil(o.N) {
 		return nil, false
 	}
@@ -140,8 +140,8 @@ func (o *RunPoint) HasN() bool {
 	return false
 }
 
-// SetN gets a reference to the given int32 and assigns it to the N field.
-func (o *RunPoint) SetN(v int32) {
+// SetN gets a reference to the given int64 and assigns it to the N field.
+func (o *RunPoint) SetN(v int64) {
 	o.N = &v
 }
 
@@ -178,9 +178,9 @@ func (o *RunPoint) SetRun(v string) {
 }
 
 // GetScore returns the Score field value if set, zero value otherwise.
-func (o *RunPoint) GetScore() float32 {
+func (o *RunPoint) GetScore() float64 {
 	if o == nil || IsNil(o.Score) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Score
@@ -188,7 +188,7 @@ func (o *RunPoint) GetScore() float32 {
 
 // GetScoreOk returns a tuple with the Score field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RunPoint) GetScoreOk() (*float32, bool) {
+func (o *RunPoint) GetScoreOk() (*float64, bool) {
 	if o == nil || IsNil(o.Score) {
 		return nil, false
 	}
@@ -204,8 +204,8 @@ func (o *RunPoint) HasScore() bool {
 	return false
 }
 
-// SetScore gets a reference to the given float32 and assigns it to the Score field.
-func (o *RunPoint) SetScore(v float32) {
+// SetScore gets a reference to the given float64 and assigns it to the Score field.
+func (o *RunPoint) SetScore(v float64) {
 	o.Score = &v
 }
 

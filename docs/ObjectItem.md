@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **Etag** | Pointer to **string** | ETag is the store&#39;s entity tag for the bytes currently at this key, with the quotes the store wraps it in stripped. It is an opaque VERSION and not a checksum to verify against: a single-part upload&#39;s tag happens to be the MD5 of the content and a multipart upload&#39;s is not, and nothing here says which this was. Compare two reads of one key to learn whether the object changed; absent for a folder entry, and for an object the store reports none for. | [optional] 
 **IsDir** | Pointer to **bool** | true for a folder (common prefix) | [optional] 
 **Key** | Pointer to **string** | key RELATIVE to the requested prefix | [optional] 
-**LastModified** | Pointer to **int32** | unix seconds (0 for a folder) | [optional] 
-**Size** | Pointer to **int32** | bytes (0 for a folder) | [optional] 
+**LastModified** | Pointer to **int64** | unix seconds (0 for a folder) | [optional] 
+**Size** | Pointer to **int64** | bytes (0 for a folder) | [optional] 
 
 ## Methods
 
@@ -106,20 +106,20 @@ HasKey returns a boolean if a field has been set.
 
 ### GetLastModified
 
-`func (o *ObjectItem) GetLastModified() int32`
+`func (o *ObjectItem) GetLastModified() int64`
 
 GetLastModified returns the LastModified field if non-nil, zero value otherwise.
 
 ### GetLastModifiedOk
 
-`func (o *ObjectItem) GetLastModifiedOk() (*int32, bool)`
+`func (o *ObjectItem) GetLastModifiedOk() (*int64, bool)`
 
 GetLastModifiedOk returns a tuple with the LastModified field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastModified
 
-`func (o *ObjectItem) SetLastModified(v int32)`
+`func (o *ObjectItem) SetLastModified(v int64)`
 
 SetLastModified sets LastModified field to given value.
 
@@ -131,20 +131,20 @@ HasLastModified returns a boolean if a field has been set.
 
 ### GetSize
 
-`func (o *ObjectItem) GetSize() int32`
+`func (o *ObjectItem) GetSize() int64`
 
 GetSize returns the Size field if non-nil, zero value otherwise.
 
 ### GetSizeOk
 
-`func (o *ObjectItem) GetSizeOk() (*int32, bool)`
+`func (o *ObjectItem) GetSizeOk() (*int64, bool)`
 
 GetSizeOk returns a tuple with the Size field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSize
 
-`func (o *ObjectItem) SetSize(v int32)`
+`func (o *ObjectItem) SetSize(v int64)`
 
 SetSize sets Size field to given value.
 

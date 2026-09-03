@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Account** | Pointer to **string** | Account is the chart-of-accounts number this line reports on. | [optional] 
-**Amount** | Pointer to **int32** | Amount is the account&#39;s movement over the period in whole cents, in its NATURAL sign: positive when the account behaved normally, for income and expense alike. Income is credit-normal so its stored net is flipped once here for display; the ledger underneath is never sign-flipped. A negative amount therefore means the account ran backwards — a refunded sale, a reversed cost. | [optional] 
+**Amount** | Pointer to **int64** | Amount is the account&#39;s movement over the period in whole cents, in its NATURAL sign: positive when the account behaved normally, for income and expense alike. Income is credit-normal so its stored net is flipped once here for display; the ledger underneath is never sign-flipped. A negative amount therefore means the account ran backwards — a refunded sale, a reversed cost. | [optional] 
 **Name** | Pointer to **string** | Name is that account&#39;s human name from the fixed chart. | [optional] 
 **Type** | Pointer to **string** | Type is the account&#39;s fundamental class, which on this statement is always income or expense — it tells a reader which half of the statement the line came from without re-deriving it from the array it arrived in. | [optional] 
 
@@ -55,20 +55,20 @@ HasAccount returns a boolean if a field has been set.
 
 ### GetAmount
 
-`func (o *PnLLine) GetAmount() int32`
+`func (o *PnLLine) GetAmount() int64`
 
 GetAmount returns the Amount field if non-nil, zero value otherwise.
 
 ### GetAmountOk
 
-`func (o *PnLLine) GetAmountOk() (*int32, bool)`
+`func (o *PnLLine) GetAmountOk() (*int64, bool)`
 
 GetAmountOk returns a tuple with the Amount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmount
 
-`func (o *PnLLine) SetAmount(v int32)`
+`func (o *PnLLine) SetAmount(v int64)`
 
 SetAmount sets Amount field to given value.
 

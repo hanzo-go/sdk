@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **ServiceKeyFile** | Pointer to **string** |  | [optional] 
 **Severity** | Pointer to **string** |  | [optional] 
 **Source** | Pointer to **string** |  | [optional] 
-**Timeout** | Pointer to **int32** | Timeout is the maximum time allowed to invoke the pagerduty. Setting this to 0 does not impose a timeout. | [optional] 
+**Timeout** | Pointer to **int64** | Timeout is the maximum time allowed to invoke the pagerduty. Setting this to 0 does not impose a timeout. | [optional] 
 **Url** | Pointer to **interface{}** |  | [optional] 
 
 ## Methods
@@ -490,20 +490,20 @@ HasSource returns a boolean if a field has been set.
 
 ### GetTimeout
 
-`func (o *O11yPagerdutyConfig) GetTimeout() int32`
+`func (o *O11yPagerdutyConfig) GetTimeout() int64`
 
 GetTimeout returns the Timeout field if non-nil, zero value otherwise.
 
 ### GetTimeoutOk
 
-`func (o *O11yPagerdutyConfig) GetTimeoutOk() (*int32, bool)`
+`func (o *O11yPagerdutyConfig) GetTimeoutOk() (*int64, bool)`
 
 GetTimeoutOk returns a tuple with the Timeout field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeout
 
-`func (o *O11yPagerdutyConfig) SetTimeout(v int32)`
+`func (o *O11yPagerdutyConfig) SetTimeout(v int64)`
 
 SetTimeout sets Timeout field to given value.
 

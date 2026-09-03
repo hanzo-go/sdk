@@ -20,13 +20,13 @@ var _ MappedNullable = &ProductRow{}
 // ProductRow struct for ProductRow
 type ProductRow struct {
 	// Orders is how many order_completed events carried it.
-	Orders *int32 `json:"orders,omitempty"`
+	Orders *int64 `json:"orders,omitempty"`
 	// ProductID is the product the order events named.
 	ProductId *string `json:"productId,omitempty"`
 	// Revenue is the total they carried, in the events' own currency unit.
-	Revenue *float32 `json:"revenue,omitempty"`
+	Revenue *float64 `json:"revenue,omitempty"`
 	// Units is the summed quantity sold.
-	Units *int32 `json:"units,omitempty"`
+	Units *int64 `json:"units,omitempty"`
 }
 
 // NewProductRow instantiates a new ProductRow object
@@ -47,9 +47,9 @@ func NewProductRowWithDefaults() *ProductRow {
 }
 
 // GetOrders returns the Orders field value if set, zero value otherwise.
-func (o *ProductRow) GetOrders() int32 {
+func (o *ProductRow) GetOrders() int64 {
 	if o == nil || IsNil(o.Orders) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Orders
@@ -57,7 +57,7 @@ func (o *ProductRow) GetOrders() int32 {
 
 // GetOrdersOk returns a tuple with the Orders field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProductRow) GetOrdersOk() (*int32, bool) {
+func (o *ProductRow) GetOrdersOk() (*int64, bool) {
 	if o == nil || IsNil(o.Orders) {
 		return nil, false
 	}
@@ -73,8 +73,8 @@ func (o *ProductRow) HasOrders() bool {
 	return false
 }
 
-// SetOrders gets a reference to the given int32 and assigns it to the Orders field.
-func (o *ProductRow) SetOrders(v int32) {
+// SetOrders gets a reference to the given int64 and assigns it to the Orders field.
+func (o *ProductRow) SetOrders(v int64) {
 	o.Orders = &v
 }
 
@@ -111,9 +111,9 @@ func (o *ProductRow) SetProductId(v string) {
 }
 
 // GetRevenue returns the Revenue field value if set, zero value otherwise.
-func (o *ProductRow) GetRevenue() float32 {
+func (o *ProductRow) GetRevenue() float64 {
 	if o == nil || IsNil(o.Revenue) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Revenue
@@ -121,7 +121,7 @@ func (o *ProductRow) GetRevenue() float32 {
 
 // GetRevenueOk returns a tuple with the Revenue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProductRow) GetRevenueOk() (*float32, bool) {
+func (o *ProductRow) GetRevenueOk() (*float64, bool) {
 	if o == nil || IsNil(o.Revenue) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *ProductRow) HasRevenue() bool {
 	return false
 }
 
-// SetRevenue gets a reference to the given float32 and assigns it to the Revenue field.
-func (o *ProductRow) SetRevenue(v float32) {
+// SetRevenue gets a reference to the given float64 and assigns it to the Revenue field.
+func (o *ProductRow) SetRevenue(v float64) {
 	o.Revenue = &v
 }
 
 // GetUnits returns the Units field value if set, zero value otherwise.
-func (o *ProductRow) GetUnits() int32 {
+func (o *ProductRow) GetUnits() int64 {
 	if o == nil || IsNil(o.Units) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Units
@@ -153,7 +153,7 @@ func (o *ProductRow) GetUnits() int32 {
 
 // GetUnitsOk returns a tuple with the Units field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProductRow) GetUnitsOk() (*int32, bool) {
+func (o *ProductRow) GetUnitsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Units) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *ProductRow) HasUnits() bool {
 	return false
 }
 
-// SetUnits gets a reference to the given int32 and assigns it to the Units field.
-func (o *ProductRow) SetUnits(v int32) {
+// SetUnits gets a reference to the given int64 and assigns it to the Units field.
+func (o *ProductRow) SetUnits(v int64) {
 	o.Units = &v
 }
 

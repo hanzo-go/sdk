@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CompletedCount** | Pointer to **int32** | CompletedCount is how many have been reviewed. | [optional] 
+**CompletedCount** | Pointer to **int64** | CompletedCount is how many have been reviewed. | [optional] 
 **CreatedAt** | Pointer to **string** | CreatedAt is when it was created, RFC3339 in UTC. | [optional] 
 **Description** | Pointer to **string** | Description is its free text, omitted when empty. | [optional] 
 **Id** | Pointer to **string** | ID is the queue&#39;s id. | [optional] 
 **Items** | Pointer to [**[]O11yAnnItemView**](O11yAnnItemView.md) | Items is the queue&#39;s first page of items (up to 100). | [optional] 
 **Name** | Pointer to **string** | Name is its display handle. | [optional] 
-**PendingCount** | Pointer to **int32** | PendingCount is how many of its items are still awaiting review. | [optional] 
+**PendingCount** | Pointer to **int64** | PendingCount is how many of its items are still awaiting review. | [optional] 
 **ScoreConfigIds** | Pointer to **[]string** | ScoreConfigIDs are the eval score-configs reviewers grade against. | [optional] 
 **UpdatedAt** | Pointer to **string** | UpdatedAt is when it last changed, RFC3339 in UTC. | [optional] 
 
@@ -35,20 +35,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCompletedCount
 
-`func (o *O11yAnnQueueDetailView) GetCompletedCount() int32`
+`func (o *O11yAnnQueueDetailView) GetCompletedCount() int64`
 
 GetCompletedCount returns the CompletedCount field if non-nil, zero value otherwise.
 
 ### GetCompletedCountOk
 
-`func (o *O11yAnnQueueDetailView) GetCompletedCountOk() (*int32, bool)`
+`func (o *O11yAnnQueueDetailView) GetCompletedCountOk() (*int64, bool)`
 
 GetCompletedCountOk returns a tuple with the CompletedCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCompletedCount
 
-`func (o *O11yAnnQueueDetailView) SetCompletedCount(v int32)`
+`func (o *O11yAnnQueueDetailView) SetCompletedCount(v int64)`
 
 SetCompletedCount sets CompletedCount field to given value.
 
@@ -185,20 +185,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetPendingCount
 
-`func (o *O11yAnnQueueDetailView) GetPendingCount() int32`
+`func (o *O11yAnnQueueDetailView) GetPendingCount() int64`
 
 GetPendingCount returns the PendingCount field if non-nil, zero value otherwise.
 
 ### GetPendingCountOk
 
-`func (o *O11yAnnQueueDetailView) GetPendingCountOk() (*int32, bool)`
+`func (o *O11yAnnQueueDetailView) GetPendingCountOk() (*int64, bool)`
 
 GetPendingCountOk returns a tuple with the PendingCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPendingCount
 
-`func (o *O11yAnnQueueDetailView) SetPendingCount(v int32)`
+`func (o *O11yAnnQueueDetailView) SetPendingCount(v int64)`
 
 SetPendingCount sets PendingCount field to given value.
 

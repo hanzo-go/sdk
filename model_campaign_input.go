@@ -22,7 +22,7 @@ type CampaignInput struct {
 	// Account is the provider ad-account this campaign runs on (Meta act_<id>). Optional.
 	Account *string `json:"account,omitempty"`
 	// Budget is the campaign budget in MINOR units (cents). Negative values clamp to 0.
-	Budget *int32 `json:"budget,omitempty"`
+	Budget *int64 `json:"budget,omitempty"`
 	// Name is the campaign's display label. Required; trimmed and bounded to 1024 bytes.
 	Name *string `json:"name,omitempty"`
 	// Objective is the campaign goal as the provider names it. Optional, bounded to 1024 bytes.
@@ -30,7 +30,7 @@ type CampaignInput struct {
 	// Platform is the ad network: meta, google, tiktok or x. Empty defaults to meta.
 	Platform *string `json:"platform,omitempty"`
 	// Spend is the amount spent so far in MINOR units (cents). Negative values clamp to 0.
-	Spend *int32 `json:"spend,omitempty"`
+	Spend *int64 `json:"spend,omitempty"`
 	// Status is the lifecycle state: draft, active, paused or completed. Empty defaults to draft.
 	Status *string `json:"status,omitempty"`
 }
@@ -85,9 +85,9 @@ func (o *CampaignInput) SetAccount(v string) {
 }
 
 // GetBudget returns the Budget field value if set, zero value otherwise.
-func (o *CampaignInput) GetBudget() int32 {
+func (o *CampaignInput) GetBudget() int64 {
 	if o == nil || IsNil(o.Budget) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Budget
@@ -95,7 +95,7 @@ func (o *CampaignInput) GetBudget() int32 {
 
 // GetBudgetOk returns a tuple with the Budget field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignInput) GetBudgetOk() (*int32, bool) {
+func (o *CampaignInput) GetBudgetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Budget) {
 		return nil, false
 	}
@@ -111,8 +111,8 @@ func (o *CampaignInput) HasBudget() bool {
 	return false
 }
 
-// SetBudget gets a reference to the given int32 and assigns it to the Budget field.
-func (o *CampaignInput) SetBudget(v int32) {
+// SetBudget gets a reference to the given int64 and assigns it to the Budget field.
+func (o *CampaignInput) SetBudget(v int64) {
 	o.Budget = &v
 }
 
@@ -213,9 +213,9 @@ func (o *CampaignInput) SetPlatform(v string) {
 }
 
 // GetSpend returns the Spend field value if set, zero value otherwise.
-func (o *CampaignInput) GetSpend() int32 {
+func (o *CampaignInput) GetSpend() int64 {
 	if o == nil || IsNil(o.Spend) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Spend
@@ -223,7 +223,7 @@ func (o *CampaignInput) GetSpend() int32 {
 
 // GetSpendOk returns a tuple with the Spend field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignInput) GetSpendOk() (*int32, bool) {
+func (o *CampaignInput) GetSpendOk() (*int64, bool) {
 	if o == nil || IsNil(o.Spend) {
 		return nil, false
 	}
@@ -239,8 +239,8 @@ func (o *CampaignInput) HasSpend() bool {
 	return false
 }
 
-// SetSpend gets a reference to the given int32 and assigns it to the Spend field.
-func (o *CampaignInput) SetSpend(v int32) {
+// SetSpend gets a reference to the given int64 and assigns it to the Spend field.
+func (o *CampaignInput) SetSpend(v int64) {
 	o.Spend = &v
 }
 

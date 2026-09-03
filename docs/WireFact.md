@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **At** | Pointer to **string** | At is when the thing was so, RFC 3339, as the asserter gave it. | [optional] 
 **By** | Pointer to **string** | By is the identity that filed it — &#x60;owner&#x60; or &#x60;owner/user&#x60; — stamped from the validated principal at the write, never from the body. | [optional] 
-**Confidence** | Pointer to **float32** | Confidence in [0,1] as the asserter gave it; absent is 0. It breaks a tie between two assertions equally knowable and decides nothing else. | [optional] 
+**Confidence** | Pointer to **float64** | Confidence in [0,1] as the asserter gave it; absent is 0. It breaks a tie between two assertions equally knowable and decides nothing else. | [optional] 
 **Entity** | Pointer to **string** | Entity is the thing described, in the organization&#39;s own namespace. | [optional] 
 **Evidence** | Pointer to **string** | Evidence points at the record the claim came from. Absent when the asserter gave none. | [optional] 
 **Id** | Pointer to **string** | ID is the assertion&#39;s content address, minted by the server from what was asserted. Two callers who assert the identical thing land on one ID and one row; changing any asserted field makes a different ID and a second row. | [optional] 
@@ -88,20 +88,20 @@ HasBy returns a boolean if a field has been set.
 
 ### GetConfidence
 
-`func (o *WireFact) GetConfidence() float32`
+`func (o *WireFact) GetConfidence() float64`
 
 GetConfidence returns the Confidence field if non-nil, zero value otherwise.
 
 ### GetConfidenceOk
 
-`func (o *WireFact) GetConfidenceOk() (*float32, bool)`
+`func (o *WireFact) GetConfidenceOk() (*float64, bool)`
 
 GetConfidenceOk returns a tuple with the Confidence field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConfidence
 
-`func (o *WireFact) SetConfidence(v float32)`
+`func (o *WireFact) SetConfidence(v float64)`
 
 SetConfidence sets Confidence field to given value.
 

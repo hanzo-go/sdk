@@ -19,18 +19,18 @@ var _ MappedNullable = &ClusterDetailView{}
 
 // ClusterDetailView struct for ClusterDetailView
 type ClusterDetailView struct {
-	AmdGpu        *int32         `json:"amdGpu,omitempty"`
+	AmdGpu        *int64         `json:"amdGpu,omitempty"`
 	CreatedAt     *string        `json:"createdAt,omitempty"`
 	DoClusterId   *string        `json:"doClusterId,omitempty"`
 	DoksClusterId *string        `json:"doksClusterId,omitempty"`
 	Kind          *string        `json:"kind,omitempty"`
 	Name          *string        `json:"name,omitempty"`
-	NodeCount     *int32         `json:"nodeCount,omitempty"`
+	NodeCount     *int64         `json:"nodeCount,omitempty"`
 	NodePools     []NodePoolView `json:"nodePools,omitempty"`
 	NodeSize      *string        `json:"nodeSize,omitempty"`
 	// Nodes is every worker node in the cluster, each in the same shape the machines surface uses — a node IS a machine, addressable by its own id. This is the individual hardware behind the pool counts above.
 	Nodes     []MachineView `json:"nodes,omitempty"`
-	NvidiaGpu *int32        `json:"nvidiaGpu,omitempty"`
+	NvidiaGpu *int64        `json:"nvidiaGpu,omitempty"`
 	Region    *string       `json:"region,omitempty"`
 	Status    *string       `json:"status,omitempty"`
 }
@@ -53,9 +53,9 @@ func NewClusterDetailViewWithDefaults() *ClusterDetailView {
 }
 
 // GetAmdGpu returns the AmdGpu field value if set, zero value otherwise.
-func (o *ClusterDetailView) GetAmdGpu() int32 {
+func (o *ClusterDetailView) GetAmdGpu() int64 {
 	if o == nil || IsNil(o.AmdGpu) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AmdGpu
@@ -63,7 +63,7 @@ func (o *ClusterDetailView) GetAmdGpu() int32 {
 
 // GetAmdGpuOk returns a tuple with the AmdGpu field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ClusterDetailView) GetAmdGpuOk() (*int32, bool) {
+func (o *ClusterDetailView) GetAmdGpuOk() (*int64, bool) {
 	if o == nil || IsNil(o.AmdGpu) {
 		return nil, false
 	}
@@ -79,8 +79,8 @@ func (o *ClusterDetailView) HasAmdGpu() bool {
 	return false
 }
 
-// SetAmdGpu gets a reference to the given int32 and assigns it to the AmdGpu field.
-func (o *ClusterDetailView) SetAmdGpu(v int32) {
+// SetAmdGpu gets a reference to the given int64 and assigns it to the AmdGpu field.
+func (o *ClusterDetailView) SetAmdGpu(v int64) {
 	o.AmdGpu = &v
 }
 
@@ -245,9 +245,9 @@ func (o *ClusterDetailView) SetName(v string) {
 }
 
 // GetNodeCount returns the NodeCount field value if set, zero value otherwise.
-func (o *ClusterDetailView) GetNodeCount() int32 {
+func (o *ClusterDetailView) GetNodeCount() int64 {
 	if o == nil || IsNil(o.NodeCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NodeCount
@@ -255,7 +255,7 @@ func (o *ClusterDetailView) GetNodeCount() int32 {
 
 // GetNodeCountOk returns a tuple with the NodeCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ClusterDetailView) GetNodeCountOk() (*int32, bool) {
+func (o *ClusterDetailView) GetNodeCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.NodeCount) {
 		return nil, false
 	}
@@ -271,8 +271,8 @@ func (o *ClusterDetailView) HasNodeCount() bool {
 	return false
 }
 
-// SetNodeCount gets a reference to the given int32 and assigns it to the NodeCount field.
-func (o *ClusterDetailView) SetNodeCount(v int32) {
+// SetNodeCount gets a reference to the given int64 and assigns it to the NodeCount field.
+func (o *ClusterDetailView) SetNodeCount(v int64) {
 	o.NodeCount = &v
 }
 
@@ -373,9 +373,9 @@ func (o *ClusterDetailView) SetNodes(v []MachineView) {
 }
 
 // GetNvidiaGpu returns the NvidiaGpu field value if set, zero value otherwise.
-func (o *ClusterDetailView) GetNvidiaGpu() int32 {
+func (o *ClusterDetailView) GetNvidiaGpu() int64 {
 	if o == nil || IsNil(o.NvidiaGpu) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NvidiaGpu
@@ -383,7 +383,7 @@ func (o *ClusterDetailView) GetNvidiaGpu() int32 {
 
 // GetNvidiaGpuOk returns a tuple with the NvidiaGpu field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ClusterDetailView) GetNvidiaGpuOk() (*int32, bool) {
+func (o *ClusterDetailView) GetNvidiaGpuOk() (*int64, bool) {
 	if o == nil || IsNil(o.NvidiaGpu) {
 		return nil, false
 	}
@@ -399,8 +399,8 @@ func (o *ClusterDetailView) HasNvidiaGpu() bool {
 	return false
 }
 
-// SetNvidiaGpu gets a reference to the given int32 and assigns it to the NvidiaGpu field.
-func (o *ClusterDetailView) SetNvidiaGpu(v int32) {
+// SetNvidiaGpu gets a reference to the given int64 and assigns it to the NvidiaGpu field.
+func (o *ClusterDetailView) SetNvidiaGpu(v int64) {
 	o.NvidiaGpu = &v
 }
 

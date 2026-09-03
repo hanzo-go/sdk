@@ -20,7 +20,7 @@ var _ MappedNullable = &CoverRow{}
 // CoverRow struct for CoverRow
 type CoverRow struct {
 	// Automated is how many clauses have an automated control behind them that something can fail on behalf of.
-	Automated *int32 `json:"automated,omitempty"`
+	Automated *int64 `json:"automated,omitempty"`
 	// Edition is which edition the clause list is taken from.
 	Edition *string `json:"edition,omitempty"`
 	// Framework is the framework id — \"soc2\", \"iso27001\", \"nist80053\".
@@ -28,17 +28,17 @@ type CoverRow struct {
 	// Name is the published standard's name.
 	Name *string `json:"name,omitempty"`
 	// None is how many have nothing behind them. It stays visible rather than dropping out of the fraction.
-	None *int32 `json:"none,omitempty"`
+	None *int64 `json:"none,omitempty"`
 	// Note is what the clause list itself is scoped to, when the framework's catalog says something a count alone would misrepresent.
 	Note *string `json:"note,omitempty"`
 	// Partial is how many are answered in part.
-	Partial *int32 `json:"partial,omitempty"`
+	Partial *int64 `json:"partial,omitempty"`
 	// Publisher is who publishes it — AICPA, ISO/IEC, NIST.
 	Publisher *string `json:"publisher,omitempty"`
 	// Statement is the counts as one sentence, carrying the unit.
 	Statement *string `json:"statement,omitempty"`
 	// Total is the framework's WHOLE published clause list — the denominator. Counting only the clauses some control happened to name would report 100% every time.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 	// Unit is what ONE clause is — \"criterion\", \"control\", \"family\". A count without its unit is not a fact, so it travels with every number here.
 	Unit *string `json:"unit,omitempty"`
 	// Units is the plural of Unit, for rendering a sentence.
@@ -63,9 +63,9 @@ func NewCoverRowWithDefaults() *CoverRow {
 }
 
 // GetAutomated returns the Automated field value if set, zero value otherwise.
-func (o *CoverRow) GetAutomated() int32 {
+func (o *CoverRow) GetAutomated() int64 {
 	if o == nil || IsNil(o.Automated) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Automated
@@ -73,7 +73,7 @@ func (o *CoverRow) GetAutomated() int32 {
 
 // GetAutomatedOk returns a tuple with the Automated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CoverRow) GetAutomatedOk() (*int32, bool) {
+func (o *CoverRow) GetAutomatedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Automated) {
 		return nil, false
 	}
@@ -89,8 +89,8 @@ func (o *CoverRow) HasAutomated() bool {
 	return false
 }
 
-// SetAutomated gets a reference to the given int32 and assigns it to the Automated field.
-func (o *CoverRow) SetAutomated(v int32) {
+// SetAutomated gets a reference to the given int64 and assigns it to the Automated field.
+func (o *CoverRow) SetAutomated(v int64) {
 	o.Automated = &v
 }
 
@@ -191,9 +191,9 @@ func (o *CoverRow) SetName(v string) {
 }
 
 // GetNone returns the None field value if set, zero value otherwise.
-func (o *CoverRow) GetNone() int32 {
+func (o *CoverRow) GetNone() int64 {
 	if o == nil || IsNil(o.None) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.None
@@ -201,7 +201,7 @@ func (o *CoverRow) GetNone() int32 {
 
 // GetNoneOk returns a tuple with the None field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CoverRow) GetNoneOk() (*int32, bool) {
+func (o *CoverRow) GetNoneOk() (*int64, bool) {
 	if o == nil || IsNil(o.None) {
 		return nil, false
 	}
@@ -217,8 +217,8 @@ func (o *CoverRow) HasNone() bool {
 	return false
 }
 
-// SetNone gets a reference to the given int32 and assigns it to the None field.
-func (o *CoverRow) SetNone(v int32) {
+// SetNone gets a reference to the given int64 and assigns it to the None field.
+func (o *CoverRow) SetNone(v int64) {
 	o.None = &v
 }
 
@@ -255,9 +255,9 @@ func (o *CoverRow) SetNote(v string) {
 }
 
 // GetPartial returns the Partial field value if set, zero value otherwise.
-func (o *CoverRow) GetPartial() int32 {
+func (o *CoverRow) GetPartial() int64 {
 	if o == nil || IsNil(o.Partial) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Partial
@@ -265,7 +265,7 @@ func (o *CoverRow) GetPartial() int32 {
 
 // GetPartialOk returns a tuple with the Partial field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CoverRow) GetPartialOk() (*int32, bool) {
+func (o *CoverRow) GetPartialOk() (*int64, bool) {
 	if o == nil || IsNil(o.Partial) {
 		return nil, false
 	}
@@ -281,8 +281,8 @@ func (o *CoverRow) HasPartial() bool {
 	return false
 }
 
-// SetPartial gets a reference to the given int32 and assigns it to the Partial field.
-func (o *CoverRow) SetPartial(v int32) {
+// SetPartial gets a reference to the given int64 and assigns it to the Partial field.
+func (o *CoverRow) SetPartial(v int64) {
 	o.Partial = &v
 }
 
@@ -351,9 +351,9 @@ func (o *CoverRow) SetStatement(v string) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *CoverRow) GetTotal() int32 {
+func (o *CoverRow) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -361,7 +361,7 @@ func (o *CoverRow) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CoverRow) GetTotalOk() (*int32, bool) {
+func (o *CoverRow) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -377,8 +377,8 @@ func (o *CoverRow) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *CoverRow) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *CoverRow) SetTotal(v int64) {
 	o.Total = &v
 }
 

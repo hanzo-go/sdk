@@ -5,10 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Class** | Pointer to **string** | Class is what the sandbox is FOR: \&quot;exec\&quot; for a code-interpreter call, \&quot;dev\&quot; for a workspace bound to a project, \&quot;desktop\&quot; for one with a screen. It decides the image, the working directory and the isolation. | [optional] 
+**Cluster** | Pointer to **string** | Cluster names one of the org&#39;s attached clusters to run the sandbox on — the fleet-local name it was registered under. Empty runs on the home cluster. The named cluster must carry the sandbox namespace and the gvisor runtime class; a name the org has not attached is 404. | [optional] 
 **Image** | Pointer to **string** | Image overrides the image the class would pick. Honoured only for a caller the policy admits, and the sandbox that comes back names the image it GOT. | [optional] 
 **Project** | Pointer to **string** | Project binds the sandbox to one of the org&#39;s projects. Required for a dev or desktop class, which are single-attach per project; an exec sandbox carries none. | [optional] 
 **Runtime** | Pointer to **string** | Runtime asks for an isolation: runc, gvisor, kata-clh or kata-fc. It is a REQUEST, not a guarantee — the sandbox that comes back carries the runtime it was actually given, which is the field to read. | [optional] 
-**TtlSec** | Pointer to **int32** | TTLSec is how long the lease runs before the reaper may take it, in seconds. Zero takes the class&#39;s own default. | [optional] 
+**TtlSec** | Pointer to **int64** | TTLSec is how long the lease runs before the reaper may take it, in seconds. Zero takes the class&#39;s own default. | [optional] 
 
 ## Methods
 
@@ -53,6 +54,31 @@ SetClass sets Class field to given value.
 `func (o *LeaseIn) HasClass() bool`
 
 HasClass returns a boolean if a field has been set.
+
+### GetCluster
+
+`func (o *LeaseIn) GetCluster() string`
+
+GetCluster returns the Cluster field if non-nil, zero value otherwise.
+
+### GetClusterOk
+
+`func (o *LeaseIn) GetClusterOk() (*string, bool)`
+
+GetClusterOk returns a tuple with the Cluster field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCluster
+
+`func (o *LeaseIn) SetCluster(v string)`
+
+SetCluster sets Cluster field to given value.
+
+### HasCluster
+
+`func (o *LeaseIn) HasCluster() bool`
+
+HasCluster returns a boolean if a field has been set.
 
 ### GetImage
 
@@ -131,20 +157,20 @@ HasRuntime returns a boolean if a field has been set.
 
 ### GetTtlSec
 
-`func (o *LeaseIn) GetTtlSec() int32`
+`func (o *LeaseIn) GetTtlSec() int64`
 
 GetTtlSec returns the TtlSec field if non-nil, zero value otherwise.
 
 ### GetTtlSecOk
 
-`func (o *LeaseIn) GetTtlSecOk() (*int32, bool)`
+`func (o *LeaseIn) GetTtlSecOk() (*int64, bool)`
 
 GetTtlSecOk returns a tuple with the TtlSec field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTtlSec
 
-`func (o *LeaseIn) SetTtlSec(v int32)`
+`func (o *LeaseIn) SetTtlSec(v int64)`
 
 SetTtlSec sets TtlSec field to given value.
 

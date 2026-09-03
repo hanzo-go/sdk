@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccessToken** | Pointer to **string** | AccessToken is IAM&#39;s own JWT, verbatim. Its &#x60;owner&#x60; claim scopes it to exactly one org, which is what every secret operation then reads. | [optional] 
-**ExpiresIn** | Pointer to **int32** | ExpiresIn is the token&#39;s lifetime in seconds, as IAM reported it. | [optional] 
+**ExpiresIn** | Pointer to **int64** | ExpiresIn is the token&#39;s lifetime in seconds, as IAM reported it. | [optional] 
 **TokenType** | Pointer to **string** | TokenType is &#x60;Bearer&#x60;. | [optional] 
 
 ## Methods
@@ -54,20 +54,20 @@ HasAccessToken returns a boolean if a field has been set.
 
 ### GetExpiresIn
 
-`func (o *KmsToken) GetExpiresIn() int32`
+`func (o *KmsToken) GetExpiresIn() int64`
 
 GetExpiresIn returns the ExpiresIn field if non-nil, zero value otherwise.
 
 ### GetExpiresInOk
 
-`func (o *KmsToken) GetExpiresInOk() (*int32, bool)`
+`func (o *KmsToken) GetExpiresInOk() (*int64, bool)`
 
 GetExpiresInOk returns a tuple with the ExpiresIn field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpiresIn
 
-`func (o *KmsToken) SetExpiresIn(v int32)`
+`func (o *KmsToken) SetExpiresIn(v int64)`
 
 SetExpiresIn sets ExpiresIn field to given value.
 

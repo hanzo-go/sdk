@@ -20,7 +20,7 @@ var _ MappedNullable = &O11yTelemetryFieldValues{}
 // O11yTelemetryFieldValues struct for O11yTelemetryFieldValues
 type O11yTelemetryFieldValues struct {
 	BoolValues    []bool    `json:"boolValues,omitempty"`
-	NumberValues  []float32 `json:"numberValues,omitempty"`
+	NumberValues  []float64 `json:"numberValues,omitempty"`
 	RelatedValues []string  `json:"relatedValues,omitempty"`
 	StringValues  []string  `json:"stringValues,omitempty"`
 }
@@ -75,9 +75,9 @@ func (o *O11yTelemetryFieldValues) SetBoolValues(v []bool) {
 }
 
 // GetNumberValues returns the NumberValues field value if set, zero value otherwise.
-func (o *O11yTelemetryFieldValues) GetNumberValues() []float32 {
+func (o *O11yTelemetryFieldValues) GetNumberValues() []float64 {
 	if o == nil || IsNil(o.NumberValues) {
-		var ret []float32
+		var ret []float64
 		return ret
 	}
 	return o.NumberValues
@@ -85,7 +85,7 @@ func (o *O11yTelemetryFieldValues) GetNumberValues() []float32 {
 
 // GetNumberValuesOk returns a tuple with the NumberValues field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yTelemetryFieldValues) GetNumberValuesOk() ([]float32, bool) {
+func (o *O11yTelemetryFieldValues) GetNumberValuesOk() ([]float64, bool) {
 	if o == nil || IsNil(o.NumberValues) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *O11yTelemetryFieldValues) HasNumberValues() bool {
 	return false
 }
 
-// SetNumberValues gets a reference to the given []float32 and assigns it to the NumberValues field.
-func (o *O11yTelemetryFieldValues) SetNumberValues(v []float32) {
+// SetNumberValues gets a reference to the given []float64 and assigns it to the NumberValues field.
+func (o *O11yTelemetryFieldValues) SetNumberValues(v []float64) {
 	o.NumberValues = v
 }
 

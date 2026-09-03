@@ -24,13 +24,13 @@ type CaptableEquityPlan struct {
 	// Comments is free-form notes on the plan.
 	Comments *string `json:"comments,omitempty"`
 	// CreatedAt is when the plan was recorded, in unix milliseconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// DefaultCancellatonBehavior is what happens to cancelled grants, RETIRE or RETURN_TO_POOL. The key is spelled as the cap-table wire spells it.
 	DefaultCancellatonBehavior *string `json:"defaultCancellatonBehavior,omitempty"`
 	// ID is the equity plan id.
 	Id *string `json:"id,omitempty"`
 	// InitialSharesReserved is how many shares the plan reserves.
-	InitialSharesReserved *int32 `json:"initialSharesReserved,omitempty"`
+	InitialSharesReserved *int64 `json:"initialSharesReserved,omitempty"`
 	// Name is the plan name, e.g. \"2026 Stock Option Plan\".
 	Name *string `json:"name,omitempty"`
 	// PlanEffectiveDate is the ISO date the plan takes effect.
@@ -121,9 +121,9 @@ func (o *CaptableEquityPlan) SetComments(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *CaptableEquityPlan) GetCreatedAt() int32 {
+func (o *CaptableEquityPlan) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -131,7 +131,7 @@ func (o *CaptableEquityPlan) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableEquityPlan) GetCreatedAtOk() (*int32, bool) {
+func (o *CaptableEquityPlan) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -147,8 +147,8 @@ func (o *CaptableEquityPlan) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *CaptableEquityPlan) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *CaptableEquityPlan) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -217,9 +217,9 @@ func (o *CaptableEquityPlan) SetId(v string) {
 }
 
 // GetInitialSharesReserved returns the InitialSharesReserved field value if set, zero value otherwise.
-func (o *CaptableEquityPlan) GetInitialSharesReserved() int32 {
+func (o *CaptableEquityPlan) GetInitialSharesReserved() int64 {
 	if o == nil || IsNil(o.InitialSharesReserved) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.InitialSharesReserved
@@ -227,7 +227,7 @@ func (o *CaptableEquityPlan) GetInitialSharesReserved() int32 {
 
 // GetInitialSharesReservedOk returns a tuple with the InitialSharesReserved field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableEquityPlan) GetInitialSharesReservedOk() (*int32, bool) {
+func (o *CaptableEquityPlan) GetInitialSharesReservedOk() (*int64, bool) {
 	if o == nil || IsNil(o.InitialSharesReserved) {
 		return nil, false
 	}
@@ -243,8 +243,8 @@ func (o *CaptableEquityPlan) HasInitialSharesReserved() bool {
 	return false
 }
 
-// SetInitialSharesReserved gets a reference to the given int32 and assigns it to the InitialSharesReserved field.
-func (o *CaptableEquityPlan) SetInitialSharesReserved(v int32) {
+// SetInitialSharesReserved gets a reference to the given int64 and assigns it to the InitialSharesReserved field.
+func (o *CaptableEquityPlan) SetInitialSharesReserved(v int64) {
 	o.InitialSharesReserved = &v
 }
 

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Org** | Pointer to **string** | Org the rollup is for. | [optional] 
 **Repos** | Pointer to [**[]UsageRepo**](UsageRepo.md) | Repos is every repo the org owns, across every project sub-scope. | [optional] 
-**TotalBytes** | Pointer to **int32** | TotalBytes is the sum over Repos — the org&#39;s whole git footprint. | [optional] 
+**TotalBytes** | Pointer to **int64** | TotalBytes is the sum over Repos — the org&#39;s whole git footprint. | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasRepos returns a boolean if a field has been set.
 
 ### GetTotalBytes
 
-`func (o *UsageView) GetTotalBytes() int32`
+`func (o *UsageView) GetTotalBytes() int64`
 
 GetTotalBytes returns the TotalBytes field if non-nil, zero value otherwise.
 
 ### GetTotalBytesOk
 
-`func (o *UsageView) GetTotalBytesOk() (*int32, bool)`
+`func (o *UsageView) GetTotalBytesOk() (*int64, bool)`
 
 GetTotalBytesOk returns a tuple with the TotalBytes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalBytes
 
-`func (o *UsageView) SetTotalBytes(v int32)`
+`func (o *UsageView) SetTotalBytes(v int64)`
 
 SetTotalBytes sets TotalBytes field to given value.
 

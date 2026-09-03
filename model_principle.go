@@ -26,7 +26,7 @@ type Principle struct {
 	// the I-Ching hexagram (pinyin + gloss)
 	Hexagram *string `json:"hexagram,omitempty"`
 	// 1..64, the hexagram number + canonical order
-	N *int32 `json:"n,omitempty"`
+	N *int64 `json:"n,omitempty"`
 	// the principle's short name
 	Name *string `json:"name,omitempty"`
 	// the actionable growth law
@@ -151,9 +151,9 @@ func (o *Principle) SetHexagram(v string) {
 }
 
 // GetN returns the N field value if set, zero value otherwise.
-func (o *Principle) GetN() int32 {
+func (o *Principle) GetN() int64 {
 	if o == nil || IsNil(o.N) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.N
@@ -161,7 +161,7 @@ func (o *Principle) GetN() int32 {
 
 // GetNOk returns a tuple with the N field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Principle) GetNOk() (*int32, bool) {
+func (o *Principle) GetNOk() (*int64, bool) {
 	if o == nil || IsNil(o.N) {
 		return nil, false
 	}
@@ -177,8 +177,8 @@ func (o *Principle) HasN() bool {
 	return false
 }
 
-// SetN gets a reference to the given int32 and assigns it to the N field.
-func (o *Principle) SetN(v int32) {
+// SetN gets a reference to the given int64 and assigns it to the N field.
+func (o *Principle) SetN(v int64) {
 	o.N = &v
 }
 

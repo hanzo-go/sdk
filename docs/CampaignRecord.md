@@ -5,15 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Audience** | Pointer to **string** | Audience is an opaque reference to the segment this campaign targets. It is stored and echoed but not yet handed to the executors — a channel targets through the provider account it runs under — so it is documentation for now. Absent when never set. | [optional] 
-**Budget** | Pointer to **int32** | Budget is the campaign&#39;s total budget in CENTS, handed to each executor as the budget for its channel. 0 means none was set. | [optional] 
+**Budget** | Pointer to **int64** | Budget is the campaign&#39;s total budget in CENTS, handed to each executor as the budget for its channel. 0 means none was set. | [optional] 
 **Channels** | Pointer to [**[]ChannelSpec**](ChannelSpec.md) | Channels are the fan-out targets, at most one per kind and at most 12, each carrying its own post-launch state. Empty means nothing to launch, which is what makes a launch of this campaign a 400. | [optional] 
 **Content** | Pointer to **[]string** | Content is the ordered creative set, at most 32, empty entries dropped. Content[0] is the creative that runs; the rest are A/B variants a wired experiment can assign per launch. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the campaign was created, in unix seconds. Server-set. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the campaign was created, in unix seconds. Server-set. | [optional] 
 **Id** | Pointer to **string** | ID is the campaign&#39;s server-minted handle — \&quot;cmp_\&quot; and 128 random bits — and the id every other campaign call is addressed by. Never read off the wire: a create that sends one has it ignored. | [optional] 
 **Name** | Pointer to **string** | Name is the campaign&#39;s display name. Required on write, trimmed, and capped at 2048 characters. | [optional] 
-**ScheduleAt** | Pointer to **int32** | ScheduleAt is when the campaign should run, in unix seconds. 0 (absent) means launch immediately. It is passed to each executor; nothing in this service wakes up to launch it for you. | [optional] 
+**ScheduleAt** | Pointer to **int64** | ScheduleAt is when the campaign should run, in unix seconds. 0 (absent) means launch immediately. It is passed to each executor; nothing in this service wakes up to launch it for you. | [optional] 
 **Status** | Pointer to **string** | Status is the lifecycle state, server-owned and never accepted from a caller. Four values actually occur: draft (inert and fully mutable — nothing is sent and no budget is committed), live, paused and failed. After a fan-out live means AT LEAST ONE channel launched — read the channel rows for the rest — and failed means none did. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is the last write in unix seconds — an edit, a launch or a pause. Server-set on every save. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is the last write in unix seconds — an edit, a launch or a pause. Server-set on every save. | [optional] 
 
 ## Methods
 
@@ -61,20 +61,20 @@ HasAudience returns a boolean if a field has been set.
 
 ### GetBudget
 
-`func (o *CampaignRecord) GetBudget() int32`
+`func (o *CampaignRecord) GetBudget() int64`
 
 GetBudget returns the Budget field if non-nil, zero value otherwise.
 
 ### GetBudgetOk
 
-`func (o *CampaignRecord) GetBudgetOk() (*int32, bool)`
+`func (o *CampaignRecord) GetBudgetOk() (*int64, bool)`
 
 GetBudgetOk returns a tuple with the Budget field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBudget
 
-`func (o *CampaignRecord) SetBudget(v int32)`
+`func (o *CampaignRecord) SetBudget(v int64)`
 
 SetBudget sets Budget field to given value.
 
@@ -136,20 +136,20 @@ HasContent returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *CampaignRecord) GetCreatedAt() int32`
+`func (o *CampaignRecord) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *CampaignRecord) GetCreatedAtOk() (*int32, bool)`
+`func (o *CampaignRecord) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *CampaignRecord) SetCreatedAt(v int32)`
+`func (o *CampaignRecord) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -211,20 +211,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetScheduleAt
 
-`func (o *CampaignRecord) GetScheduleAt() int32`
+`func (o *CampaignRecord) GetScheduleAt() int64`
 
 GetScheduleAt returns the ScheduleAt field if non-nil, zero value otherwise.
 
 ### GetScheduleAtOk
 
-`func (o *CampaignRecord) GetScheduleAtOk() (*int32, bool)`
+`func (o *CampaignRecord) GetScheduleAtOk() (*int64, bool)`
 
 GetScheduleAtOk returns a tuple with the ScheduleAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScheduleAt
 
-`func (o *CampaignRecord) SetScheduleAt(v int32)`
+`func (o *CampaignRecord) SetScheduleAt(v int64)`
 
 SetScheduleAt sets ScheduleAt field to given value.
 
@@ -261,20 +261,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *CampaignRecord) GetUpdatedAt() int32`
+`func (o *CampaignRecord) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *CampaignRecord) GetUpdatedAtOk() (*int32, bool)`
+`func (o *CampaignRecord) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *CampaignRecord) SetUpdatedAt(v int32)`
+`func (o *CampaignRecord) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

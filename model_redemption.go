@@ -22,13 +22,13 @@ type Redemption struct {
 	// Code is the promo redeemed.
 	Code *string `json:"code,omitempty"`
 	// DiscountCents is the month-one discount this redemption CLAIMS, in USD cents. It is a recorded figure, NOT a balance: nothing was credited and no wallet moved. An admin granting against this claim is what would make it money, and that decision happens on the admin surface, not here.
-	DiscountCents *int32 `json:"discountCents,omitempty"`
+	DiscountCents *int64 `json:"discountCents,omitempty"`
 	// Plan is the tier redeemed against: pro, max or team. It is DERIVED from the org's live ACTIVE/TRIALING subscription, never read from the request, so it is what the org actually holds rather than what it claimed.
 	Plan *string `json:"plan,omitempty"`
 	// RedeemedAt is unix seconds.
-	RedeemedAt *int32 `json:"redeemedAt,omitempty"`
+	RedeemedAt *int64 `json:"redeemedAt,omitempty"`
 	// Seats is the seat count the claim was priced at, and it is ALWAYS 1. No server-side authority on this surface answers \"how many seats\", and the caller's own number is exactly the input that once inflated these claims, so a redemption records the single-seat floor and an admin resolves the real count against subscription data at grant time.
-	Seats *int32 `json:"seats,omitempty"`
+	Seats *int64 `json:"seats,omitempty"`
 }
 
 // NewRedemption instantiates a new Redemption object
@@ -81,9 +81,9 @@ func (o *Redemption) SetCode(v string) {
 }
 
 // GetDiscountCents returns the DiscountCents field value if set, zero value otherwise.
-func (o *Redemption) GetDiscountCents() int32 {
+func (o *Redemption) GetDiscountCents() int64 {
 	if o == nil || IsNil(o.DiscountCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DiscountCents
@@ -91,7 +91,7 @@ func (o *Redemption) GetDiscountCents() int32 {
 
 // GetDiscountCentsOk returns a tuple with the DiscountCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Redemption) GetDiscountCentsOk() (*int32, bool) {
+func (o *Redemption) GetDiscountCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.DiscountCents) {
 		return nil, false
 	}
@@ -107,8 +107,8 @@ func (o *Redemption) HasDiscountCents() bool {
 	return false
 }
 
-// SetDiscountCents gets a reference to the given int32 and assigns it to the DiscountCents field.
-func (o *Redemption) SetDiscountCents(v int32) {
+// SetDiscountCents gets a reference to the given int64 and assigns it to the DiscountCents field.
+func (o *Redemption) SetDiscountCents(v int64) {
 	o.DiscountCents = &v
 }
 
@@ -145,9 +145,9 @@ func (o *Redemption) SetPlan(v string) {
 }
 
 // GetRedeemedAt returns the RedeemedAt field value if set, zero value otherwise.
-func (o *Redemption) GetRedeemedAt() int32 {
+func (o *Redemption) GetRedeemedAt() int64 {
 	if o == nil || IsNil(o.RedeemedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RedeemedAt
@@ -155,7 +155,7 @@ func (o *Redemption) GetRedeemedAt() int32 {
 
 // GetRedeemedAtOk returns a tuple with the RedeemedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Redemption) GetRedeemedAtOk() (*int32, bool) {
+func (o *Redemption) GetRedeemedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.RedeemedAt) {
 		return nil, false
 	}
@@ -171,15 +171,15 @@ func (o *Redemption) HasRedeemedAt() bool {
 	return false
 }
 
-// SetRedeemedAt gets a reference to the given int32 and assigns it to the RedeemedAt field.
-func (o *Redemption) SetRedeemedAt(v int32) {
+// SetRedeemedAt gets a reference to the given int64 and assigns it to the RedeemedAt field.
+func (o *Redemption) SetRedeemedAt(v int64) {
 	o.RedeemedAt = &v
 }
 
 // GetSeats returns the Seats field value if set, zero value otherwise.
-func (o *Redemption) GetSeats() int32 {
+func (o *Redemption) GetSeats() int64 {
 	if o == nil || IsNil(o.Seats) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Seats
@@ -187,7 +187,7 @@ func (o *Redemption) GetSeats() int32 {
 
 // GetSeatsOk returns a tuple with the Seats field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Redemption) GetSeatsOk() (*int32, bool) {
+func (o *Redemption) GetSeatsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Seats) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *Redemption) HasSeats() bool {
 	return false
 }
 
-// SetSeats gets a reference to the given int32 and assigns it to the Seats field.
-func (o *Redemption) SetSeats(v int32) {
+// SetSeats gets a reference to the given int64 and assigns it to the Seats field.
+func (o *Redemption) SetSeats(v int64) {
 	o.Seats = &v
 }
 

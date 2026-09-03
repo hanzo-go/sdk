@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Available** | Pointer to **int32** |  | [optional] 
+**Available** | Pointer to **int64** |  | [optional] 
 **Currency** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAvailable
 
-`func (o *CreditEntry) GetAvailable() int32`
+`func (o *CreditEntry) GetAvailable() int64`
 
 GetAvailable returns the Available field if non-nil, zero value otherwise.
 
 ### GetAvailableOk
 
-`func (o *CreditEntry) GetAvailableOk() (*int32, bool)`
+`func (o *CreditEntry) GetAvailableOk() (*int64, bool)`
 
 GetAvailableOk returns a tuple with the Available field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAvailable
 
-`func (o *CreditEntry) SetAvailable(v int32)`
+`func (o *CreditEntry) SetAvailable(v int64)`
 
 SetAvailable sets Available field to given value.
 

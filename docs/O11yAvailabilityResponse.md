@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **Range** | Pointer to [**O11yAvailabilityResponseRange**](O11yAvailabilityResponseRange.md) |  | [optional] 
 **Series** | Pointer to [**[]O11yAvailabilityPoint**](O11yAvailabilityPoint.md) | Series is the trend, oldest bucket first. | [optional] 
 **Services** | Pointer to [**[]O11yServiceUp**](O11yServiceUp.md) | Services is the current inventory, sorted by name so two reads of an unchanged fleet are byte-identical. | [optional] 
-**Total** | Pointer to **int32** | Total is how many services the prober currently watches. | [optional] 
-**Up** | Pointer to **int32** | Up is how many services are up right now. | [optional] 
+**Total** | Pointer to **int64** | Total is how many services the prober currently watches. | [optional] 
+**Up** | Pointer to **int64** | Up is how many services are up right now. | [optional] 
 
 ## Methods
 
@@ -106,20 +106,20 @@ HasServices returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *O11yAvailabilityResponse) GetTotal() int32`
+`func (o *O11yAvailabilityResponse) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *O11yAvailabilityResponse) GetTotalOk() (*int32, bool)`
+`func (o *O11yAvailabilityResponse) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *O11yAvailabilityResponse) SetTotal(v int32)`
+`func (o *O11yAvailabilityResponse) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 
@@ -131,20 +131,20 @@ HasTotal returns a boolean if a field has been set.
 
 ### GetUp
 
-`func (o *O11yAvailabilityResponse) GetUp() int32`
+`func (o *O11yAvailabilityResponse) GetUp() int64`
 
 GetUp returns the Up field if non-nil, zero value otherwise.
 
 ### GetUpOk
 
-`func (o *O11yAvailabilityResponse) GetUpOk() (*int32, bool)`
+`func (o *O11yAvailabilityResponse) GetUpOk() (*int64, bool)`
 
 GetUpOk returns a tuple with the Up field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUp
 
-`func (o *O11yAvailabilityResponse) SetUp(v int32)`
+`func (o *O11yAvailabilityResponse) SetUp(v int64)`
 
 SetUp sets Up field to given value.
 

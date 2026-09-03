@@ -563,8 +563,8 @@ type ToolsAPIGetToolsCatalogRequest struct {
 	q          *string
 	featured   *string
 	official   *string
-	limit      *int32
-	offset     *int32
+	limit      *int64
+	offset     *int64
 }
 
 // Q matches the name, title or description, case-insensitively.
@@ -586,13 +586,13 @@ func (r ToolsAPIGetToolsCatalogRequest) Official(official string) ToolsAPIGetToo
 }
 
 // Limit bounds the page: default 50, maximum 200. A value that is not a positive integer reads as the default.
-func (r ToolsAPIGetToolsCatalogRequest) Limit(limit int32) ToolsAPIGetToolsCatalogRequest {
+func (r ToolsAPIGetToolsCatalogRequest) Limit(limit int64) ToolsAPIGetToolsCatalogRequest {
 	r.limit = &limit
 	return r
 }
 
 // Offset skips that many listings.
-func (r ToolsAPIGetToolsCatalogRequest) Offset(offset int32) ToolsAPIGetToolsCatalogRequest {
+func (r ToolsAPIGetToolsCatalogRequest) Offset(offset int64) ToolsAPIGetToolsCatalogRequest {
 	r.offset = &offset
 	return r
 }

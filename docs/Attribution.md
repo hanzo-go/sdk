@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Code** | Pointer to **string** | Code is the affiliate code the edge was recorded under, normalized to lower case. On a re-post it is the code of the STANDING edge, which may differ from the one just sent — first touch wins. | [optional] 
 **Created** | Pointer to **bool** | Created says whether THIS call made the edge. false means the caller org was already attributed and nothing moved. The HTTP status says the same: 201 when true, 200 when false. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the edge was FIRST recorded, Unix seconds UTC. On a re-post it is the original time, not now. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the edge was FIRST recorded, Unix seconds UTC. On a re-post it is the original time, not now. | [optional] 
 **Id** | Pointer to **string** | ID is the attribution edge&#39;s server-minted handle, \&quot;afr_\&quot;-prefixed. | [optional] 
 
 ## Methods
@@ -80,20 +80,20 @@ HasCreated returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *Attribution) GetCreatedAt() int32`
+`func (o *Attribution) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *Attribution) GetCreatedAtOk() (*int32, bool)`
+`func (o *Attribution) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *Attribution) SetCreatedAt(v int32)`
+`func (o *Attribution) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 

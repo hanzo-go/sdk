@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Names** | Pointer to **[]string** | Names is the same listing reduced to bare names, which is the shape the KMS operator reads. Both are emitted so either consumer keeps working. | [optional] 
 **Secrets** | Pointer to [**[]SecretMeta**](SecretMeta.md) | Secrets are the descriptors: name, path, environment and sealing scheme. No value and no ciphertext appears here. | [optional] 
-**Total** | Pointer to **int32** | Total is how many descriptors this listing carries. | [optional] 
+**Total** | Pointer to **int64** | Total is how many descriptors this listing carries. | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasSecrets returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *KmsSecrets) GetTotal() int32`
+`func (o *KmsSecrets) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *KmsSecrets) GetTotalOk() (*int32, bool)`
+`func (o *KmsSecrets) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *KmsSecrets) SetTotal(v int32)`
+`func (o *KmsSecrets) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

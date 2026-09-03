@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Limit** | Pointer to **int32** | Limit is how many documents this page could hold. | [optional] 
-**Offset** | Pointer to **int32** | Offset is where this page starts. | [optional] 
+**Limit** | Pointer to **int64** | Limit is how many documents this page could hold. | [optional] 
+**Offset** | Pointer to **int64** | Offset is where this page starts. | [optional] 
 **Results** | Pointer to **[]interface{}** | Results are the documents themselves, exactly as they were stored. | [optional] 
-**Total** | Pointer to **int32** | Total is how many documents the index holds altogether. | [optional] 
+**Total** | Pointer to **int64** | Total is how many documents the index holds altogether. | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLimit
 
-`func (o *IndexDocuments) GetLimit() int32`
+`func (o *IndexDocuments) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *IndexDocuments) GetLimitOk() (*int32, bool)`
+`func (o *IndexDocuments) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *IndexDocuments) SetLimit(v int32)`
+`func (o *IndexDocuments) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 
@@ -55,20 +55,20 @@ HasLimit returns a boolean if a field has been set.
 
 ### GetOffset
 
-`func (o *IndexDocuments) GetOffset() int32`
+`func (o *IndexDocuments) GetOffset() int64`
 
 GetOffset returns the Offset field if non-nil, zero value otherwise.
 
 ### GetOffsetOk
 
-`func (o *IndexDocuments) GetOffsetOk() (*int32, bool)`
+`func (o *IndexDocuments) GetOffsetOk() (*int64, bool)`
 
 GetOffsetOk returns a tuple with the Offset field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOffset
 
-`func (o *IndexDocuments) SetOffset(v int32)`
+`func (o *IndexDocuments) SetOffset(v int64)`
 
 SetOffset sets Offset field to given value.
 
@@ -105,20 +105,20 @@ HasResults returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *IndexDocuments) GetTotal() int32`
+`func (o *IndexDocuments) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *IndexDocuments) GetTotalOk() (*int32, bool)`
+`func (o *IndexDocuments) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *IndexDocuments) SetTotal(v int32)`
+`func (o *IndexDocuments) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

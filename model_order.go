@@ -26,7 +26,7 @@ type Order struct {
 	// Domain is the name to buy. It is required.
 	Domain string `json:"domain"`
 	// Years is the term to buy, defaulting to 1.
-	Years *int32 `json:"years,omitempty"`
+	Years *int64 `json:"years,omitempty"`
 }
 
 type _Order Order
@@ -106,9 +106,9 @@ func (o *Order) SetDomain(v string) {
 }
 
 // GetYears returns the Years field value if set, zero value otherwise.
-func (o *Order) GetYears() int32 {
+func (o *Order) GetYears() int64 {
 	if o == nil || IsNil(o.Years) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Years
@@ -116,7 +116,7 @@ func (o *Order) GetYears() int32 {
 
 // GetYearsOk returns a tuple with the Years field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Order) GetYearsOk() (*int32, bool) {
+func (o *Order) GetYearsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Years) {
 		return nil, false
 	}
@@ -132,8 +132,8 @@ func (o *Order) HasYears() bool {
 	return false
 }
 
-// SetYears gets a reference to the given int32 and assigns it to the Years field.
-func (o *Order) SetYears(v int32) {
+// SetYears gets a reference to the given int64 and assigns it to the Years field.
+func (o *Order) SetYears(v int64) {
 	o.Years = &v
 }
 

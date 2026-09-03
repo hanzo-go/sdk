@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Controls** | Pointer to [**TrustTally**](TrustTally.md) | Controls is how the controls stand, independent of any framework. | [optional] 
 **Frameworks** | Pointer to [**[]CoverRow**](CoverRow.md) | Frameworks is the per-framework counts. | [optional] 
-**Generated** | Pointer to **int32** | Generated is when this was computed, unix milliseconds. | [optional] 
+**Generated** | Pointer to **int64** | Generated is when this was computed, unix milliseconds. | [optional] 
 **Version** | Pointer to **string** | Version is the embedded inventory&#39;s version. | [optional] 
 
 ## Methods
@@ -80,20 +80,20 @@ HasFrameworks returns a boolean if a field has been set.
 
 ### GetGenerated
 
-`func (o *TrustCoverage) GetGenerated() int32`
+`func (o *TrustCoverage) GetGenerated() int64`
 
 GetGenerated returns the Generated field if non-nil, zero value otherwise.
 
 ### GetGeneratedOk
 
-`func (o *TrustCoverage) GetGeneratedOk() (*int32, bool)`
+`func (o *TrustCoverage) GetGeneratedOk() (*int64, bool)`
 
 GetGeneratedOk returns a tuple with the Generated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGenerated
 
-`func (o *TrustCoverage) SetGenerated(v int32)`
+`func (o *TrustCoverage) SetGenerated(v int64)`
 
 SetGenerated sets Generated field to given value.
 

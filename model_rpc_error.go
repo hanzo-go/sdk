@@ -20,7 +20,7 @@ var _ MappedNullable = &RpcError{}
 // RpcError struct for RpcError
 type RpcError struct {
 	// Code is the JSON-RPC error code the chain reported, passed through as it came. -32603 (internal error) is the one value this deployment mints itself, for an upstream that could not be reached at all.
-	Code *int32 `json:"code,omitempty"`
+	Code *int64 `json:"code,omitempty"`
 	// Message is the chain's own explanation, e.g. \"execution reverted\". It is \"upstream unavailable\" when the deployment minted the error rather than the chain — that is the one message this side writes.
 	Message *string `json:"message,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewRpcErrorWithDefaults() *RpcError {
 }
 
 // GetCode returns the Code field value if set, zero value otherwise.
-func (o *RpcError) GetCode() int32 {
+func (o *RpcError) GetCode() int64 {
 	if o == nil || IsNil(o.Code) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Code
@@ -53,7 +53,7 @@ func (o *RpcError) GetCode() int32 {
 
 // GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RpcError) GetCodeOk() (*int32, bool) {
+func (o *RpcError) GetCodeOk() (*int64, bool) {
 	if o == nil || IsNil(o.Code) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *RpcError) HasCode() bool {
 	return false
 }
 
-// SetCode gets a reference to the given int32 and assigns it to the Code field.
-func (o *RpcError) SetCode(v int32) {
+// SetCode gets a reference to the given int64 and assigns it to the Code field.
+func (o *RpcError) SetCode(v int64) {
 	o.Code = &v
 }
 

@@ -26,7 +26,7 @@ type RiskDatasetRow struct {
 	// Kind is the subject kind: person, session or account.
 	Kind *string `json:"kind,omitempty"`
 	// Point is the coordinates, in the order the version's spec names its dims.
-	Point []float32 `json:"point,omitempty"`
+	Point []float64 `json:"point,omitempty"`
 	// Split is train, val or test.
 	Split *string `json:"split,omitempty"`
 	// Subject is the identity within that kind — whose row this is. Every row of one subject is in ONE split, decided by that subject's earliest instant, so a subject is never on both sides of a cut.
@@ -147,9 +147,9 @@ func (o *RiskDatasetRow) SetKind(v string) {
 }
 
 // GetPoint returns the Point field value if set, zero value otherwise.
-func (o *RiskDatasetRow) GetPoint() []float32 {
+func (o *RiskDatasetRow) GetPoint() []float64 {
 	if o == nil || IsNil(o.Point) {
-		var ret []float32
+		var ret []float64
 		return ret
 	}
 	return o.Point
@@ -157,7 +157,7 @@ func (o *RiskDatasetRow) GetPoint() []float32 {
 
 // GetPointOk returns a tuple with the Point field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskDatasetRow) GetPointOk() ([]float32, bool) {
+func (o *RiskDatasetRow) GetPointOk() ([]float64, bool) {
 	if o == nil || IsNil(o.Point) {
 		return nil, false
 	}
@@ -173,8 +173,8 @@ func (o *RiskDatasetRow) HasPoint() bool {
 	return false
 }
 
-// SetPoint gets a reference to the given []float32 and assigns it to the Point field.
-func (o *RiskDatasetRow) SetPoint(v []float32) {
+// SetPoint gets a reference to the given []float64 and assigns it to the Point field.
+func (o *RiskDatasetRow) SetPoint(v []float64) {
 	o.Point = v
 }
 

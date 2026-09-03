@@ -20,7 +20,7 @@ var _ MappedNullable = &AffiliateEarnings{}
 // AffiliateEarnings struct for AffiliateEarnings
 type AffiliateEarnings struct {
 	// AccruedCents is lifetime commission accrued, in cents.
-	AccruedCents *int32 `json:"accruedCents,omitempty"`
+	AccruedCents *int64 `json:"accruedCents,omitempty"`
 	// ByPeriod is the per-period ledger: the margin earned against and the commission taken from it.
 	ByPeriod []PeriodEarningView `json:"byPeriod,omitempty"`
 	// ByReferredOrg is each referral's aggregate contribution — the affiliate's OWN share, never the referred org's spend.
@@ -28,11 +28,11 @@ type AffiliateEarnings struct {
 	// IsAffiliate says whether the caller org has an affiliate record. On false it is the ONLY field present — there is no ledger to report, and the zeros you might expect are absent rather than reported as earnings of nothing.
 	IsAffiliate *bool `json:"isAffiliate,omitempty"`
 	// MarginBps is the platform gross-margin fraction commission is a rate OF.
-	MarginBps *int32 `json:"marginBps,omitempty"`
+	MarginBps *int64 `json:"marginBps,omitempty"`
 	// PaidCents is lifetime commission already paid out, in cents.
-	PaidCents *int32 `json:"paidCents,omitempty"`
+	PaidCents *int64 `json:"paidCents,omitempty"`
 	// PendingCents is accrued minus paid — what the platform still owes.
-	PendingCents *int32 `json:"pendingCents,omitempty"`
+	PendingCents *int64 `json:"pendingCents,omitempty"`
 }
 
 // NewAffiliateEarnings instantiates a new AffiliateEarnings object
@@ -53,9 +53,9 @@ func NewAffiliateEarningsWithDefaults() *AffiliateEarnings {
 }
 
 // GetAccruedCents returns the AccruedCents field value if set, zero value otherwise.
-func (o *AffiliateEarnings) GetAccruedCents() int32 {
+func (o *AffiliateEarnings) GetAccruedCents() int64 {
 	if o == nil || IsNil(o.AccruedCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AccruedCents
@@ -63,7 +63,7 @@ func (o *AffiliateEarnings) GetAccruedCents() int32 {
 
 // GetAccruedCentsOk returns a tuple with the AccruedCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AffiliateEarnings) GetAccruedCentsOk() (*int32, bool) {
+func (o *AffiliateEarnings) GetAccruedCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AccruedCents) {
 		return nil, false
 	}
@@ -79,8 +79,8 @@ func (o *AffiliateEarnings) HasAccruedCents() bool {
 	return false
 }
 
-// SetAccruedCents gets a reference to the given int32 and assigns it to the AccruedCents field.
-func (o *AffiliateEarnings) SetAccruedCents(v int32) {
+// SetAccruedCents gets a reference to the given int64 and assigns it to the AccruedCents field.
+func (o *AffiliateEarnings) SetAccruedCents(v int64) {
 	o.AccruedCents = &v
 }
 
@@ -181,9 +181,9 @@ func (o *AffiliateEarnings) SetIsAffiliate(v bool) {
 }
 
 // GetMarginBps returns the MarginBps field value if set, zero value otherwise.
-func (o *AffiliateEarnings) GetMarginBps() int32 {
+func (o *AffiliateEarnings) GetMarginBps() int64 {
 	if o == nil || IsNil(o.MarginBps) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MarginBps
@@ -191,7 +191,7 @@ func (o *AffiliateEarnings) GetMarginBps() int32 {
 
 // GetMarginBpsOk returns a tuple with the MarginBps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AffiliateEarnings) GetMarginBpsOk() (*int32, bool) {
+func (o *AffiliateEarnings) GetMarginBpsOk() (*int64, bool) {
 	if o == nil || IsNil(o.MarginBps) {
 		return nil, false
 	}
@@ -207,15 +207,15 @@ func (o *AffiliateEarnings) HasMarginBps() bool {
 	return false
 }
 
-// SetMarginBps gets a reference to the given int32 and assigns it to the MarginBps field.
-func (o *AffiliateEarnings) SetMarginBps(v int32) {
+// SetMarginBps gets a reference to the given int64 and assigns it to the MarginBps field.
+func (o *AffiliateEarnings) SetMarginBps(v int64) {
 	o.MarginBps = &v
 }
 
 // GetPaidCents returns the PaidCents field value if set, zero value otherwise.
-func (o *AffiliateEarnings) GetPaidCents() int32 {
+func (o *AffiliateEarnings) GetPaidCents() int64 {
 	if o == nil || IsNil(o.PaidCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PaidCents
@@ -223,7 +223,7 @@ func (o *AffiliateEarnings) GetPaidCents() int32 {
 
 // GetPaidCentsOk returns a tuple with the PaidCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AffiliateEarnings) GetPaidCentsOk() (*int32, bool) {
+func (o *AffiliateEarnings) GetPaidCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.PaidCents) {
 		return nil, false
 	}
@@ -239,15 +239,15 @@ func (o *AffiliateEarnings) HasPaidCents() bool {
 	return false
 }
 
-// SetPaidCents gets a reference to the given int32 and assigns it to the PaidCents field.
-func (o *AffiliateEarnings) SetPaidCents(v int32) {
+// SetPaidCents gets a reference to the given int64 and assigns it to the PaidCents field.
+func (o *AffiliateEarnings) SetPaidCents(v int64) {
 	o.PaidCents = &v
 }
 
 // GetPendingCents returns the PendingCents field value if set, zero value otherwise.
-func (o *AffiliateEarnings) GetPendingCents() int32 {
+func (o *AffiliateEarnings) GetPendingCents() int64 {
 	if o == nil || IsNil(o.PendingCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PendingCents
@@ -255,7 +255,7 @@ func (o *AffiliateEarnings) GetPendingCents() int32 {
 
 // GetPendingCentsOk returns a tuple with the PendingCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AffiliateEarnings) GetPendingCentsOk() (*int32, bool) {
+func (o *AffiliateEarnings) GetPendingCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.PendingCents) {
 		return nil, false
 	}
@@ -271,8 +271,8 @@ func (o *AffiliateEarnings) HasPendingCents() bool {
 	return false
 }
 
-// SetPendingCents gets a reference to the given int32 and assigns it to the PendingCents field.
-func (o *AffiliateEarnings) SetPendingCents(v int32) {
+// SetPendingCents gets a reference to the given int64 and assigns it to the PendingCents field.
+func (o *AffiliateEarnings) SetPendingCents(v int64) {
 	o.PendingCents = &v
 }
 

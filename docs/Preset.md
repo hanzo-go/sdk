@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | served as enso-&lt;name&gt; | [optional] 
 **Note** | Pointer to **string** | why this blend (audit) | [optional] 
 **Owner** | Pointer to **string** | scoping org (never cross-tenant) | [optional] 
-**Panel** | Pointer to **int32** | fan-out width (&gt;&#x3D;1) | [optional] 
+**Panel** | Pointer to **int64** | fan-out width (&gt;&#x3D;1) | [optional] 
 **Rank** | Pointer to **[]string** | escalation order over arms | [optional] 
 
 ## Methods
@@ -132,20 +132,20 @@ HasOwner returns a boolean if a field has been set.
 
 ### GetPanel
 
-`func (o *Preset) GetPanel() int32`
+`func (o *Preset) GetPanel() int64`
 
 GetPanel returns the Panel field if non-nil, zero value otherwise.
 
 ### GetPanelOk
 
-`func (o *Preset) GetPanelOk() (*int32, bool)`
+`func (o *Preset) GetPanelOk() (*int64, bool)`
 
 GetPanelOk returns a tuple with the Panel field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPanel
 
-`func (o *Preset) SetPanel(v int32)`
+`func (o *Preset) SetPanel(v int64)`
 
 SetPanel sets Panel field to given value.
 

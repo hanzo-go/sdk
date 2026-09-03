@@ -20,7 +20,7 @@ var _ MappedNullable = &Audience{}
 // Audience struct for Audience
 type Audience struct {
 	// CreatedAt is unix seconds when the filter was saved, server-assigned.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Event is the analytics event a member must have fired. EMPTY MEANS NO FILTER: the audience is then every mailable customer in the org, and no warehouse is consulted.
 	Event *string `json:"event,omitempty"`
 	// ID is the server-assigned audience id (\"aud_\" + 128 random bits).
@@ -28,9 +28,9 @@ type Audience struct {
 	// Name is the audience's label. Required, trimmed, capped at 1024 bytes.
 	Name *string `json:"name,omitempty"`
 	// UpdatedAt is unix seconds of the last write, server-assigned, and the key the audience list is ordered by (newest first). A saved audience has no update route, so in practice it stays equal to CreatedAt: to change a filter you save another one.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 	// WindowDays is how far back the event counts, ending now. 0 means 30 and nothing above 3650 is honoured. Ignored when Event is empty.
-	WindowDays *int32 `json:"windowDays,omitempty"`
+	WindowDays *int64 `json:"windowDays,omitempty"`
 }
 
 // NewAudience instantiates a new Audience object
@@ -51,9 +51,9 @@ func NewAudienceWithDefaults() *Audience {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *Audience) GetCreatedAt() int32 {
+func (o *Audience) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -61,7 +61,7 @@ func (o *Audience) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Audience) GetCreatedAtOk() (*int32, bool) {
+func (o *Audience) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -77,8 +77,8 @@ func (o *Audience) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *Audience) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *Audience) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -179,9 +179,9 @@ func (o *Audience) SetName(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *Audience) GetUpdatedAt() int32 {
+func (o *Audience) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -189,7 +189,7 @@ func (o *Audience) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Audience) GetUpdatedAtOk() (*int32, bool) {
+func (o *Audience) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -205,15 +205,15 @@ func (o *Audience) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *Audience) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *Audience) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 
 // GetWindowDays returns the WindowDays field value if set, zero value otherwise.
-func (o *Audience) GetWindowDays() int32 {
+func (o *Audience) GetWindowDays() int64 {
 	if o == nil || IsNil(o.WindowDays) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.WindowDays
@@ -221,7 +221,7 @@ func (o *Audience) GetWindowDays() int32 {
 
 // GetWindowDaysOk returns a tuple with the WindowDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Audience) GetWindowDaysOk() (*int32, bool) {
+func (o *Audience) GetWindowDaysOk() (*int64, bool) {
 	if o == nil || IsNil(o.WindowDays) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *Audience) HasWindowDays() bool {
 	return false
 }
 
-// SetWindowDays gets a reference to the given int32 and assigns it to the WindowDays field.
-func (o *Audience) SetWindowDays(v int32) {
+// SetWindowDays gets a reference to the given int64 and assigns it to the WindowDays field.
+func (o *Audience) SetWindowDays(v int64) {
 	o.WindowDays = &v
 }
 

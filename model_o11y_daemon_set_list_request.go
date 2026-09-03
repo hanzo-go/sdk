@@ -20,14 +20,14 @@ var _ MappedNullable = &O11yDaemonSetListRequest{}
 // O11yDaemonSetListRequest struct for O11yDaemonSetListRequest
 type O11yDaemonSetListRequest struct {
 	// epoch time in ms
-	End     *int32             `json:"end,omitempty"`
+	End     *int64             `json:"end,omitempty"`
 	Filters *O11yFilterSet     `json:"filters,omitempty"`
 	GroupBy []O11yAttributeKey `json:"groupBy,omitempty"`
-	Limit   *int32             `json:"limit,omitempty"`
-	Offset  *int32             `json:"offset,omitempty"`
+	Limit   *int64             `json:"limit,omitempty"`
+	Offset  *int64             `json:"offset,omitempty"`
 	OrderBy *O11yOrderBy       `json:"orderBy,omitempty"`
 	// epoch time in ms
-	Start *int32 `json:"start,omitempty"`
+	Start *int64 `json:"start,omitempty"`
 }
 
 // NewO11yDaemonSetListRequest instantiates a new O11yDaemonSetListRequest object
@@ -48,9 +48,9 @@ func NewO11yDaemonSetListRequestWithDefaults() *O11yDaemonSetListRequest {
 }
 
 // GetEnd returns the End field value if set, zero value otherwise.
-func (o *O11yDaemonSetListRequest) GetEnd() int32 {
+func (o *O11yDaemonSetListRequest) GetEnd() int64 {
 	if o == nil || IsNil(o.End) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.End
@@ -58,7 +58,7 @@ func (o *O11yDaemonSetListRequest) GetEnd() int32 {
 
 // GetEndOk returns a tuple with the End field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDaemonSetListRequest) GetEndOk() (*int32, bool) {
+func (o *O11yDaemonSetListRequest) GetEndOk() (*int64, bool) {
 	if o == nil || IsNil(o.End) {
 		return nil, false
 	}
@@ -74,8 +74,8 @@ func (o *O11yDaemonSetListRequest) HasEnd() bool {
 	return false
 }
 
-// SetEnd gets a reference to the given int32 and assigns it to the End field.
-func (o *O11yDaemonSetListRequest) SetEnd(v int32) {
+// SetEnd gets a reference to the given int64 and assigns it to the End field.
+func (o *O11yDaemonSetListRequest) SetEnd(v int64) {
 	o.End = &v
 }
 
@@ -144,9 +144,9 @@ func (o *O11yDaemonSetListRequest) SetGroupBy(v []O11yAttributeKey) {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *O11yDaemonSetListRequest) GetLimit() int32 {
+func (o *O11yDaemonSetListRequest) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -154,7 +154,7 @@ func (o *O11yDaemonSetListRequest) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDaemonSetListRequest) GetLimitOk() (*int32, bool) {
+func (o *O11yDaemonSetListRequest) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -170,15 +170,15 @@ func (o *O11yDaemonSetListRequest) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *O11yDaemonSetListRequest) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *O11yDaemonSetListRequest) SetLimit(v int64) {
 	o.Limit = &v
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
-func (o *O11yDaemonSetListRequest) GetOffset() int32 {
+func (o *O11yDaemonSetListRequest) GetOffset() int64 {
 	if o == nil || IsNil(o.Offset) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Offset
@@ -186,7 +186,7 @@ func (o *O11yDaemonSetListRequest) GetOffset() int32 {
 
 // GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDaemonSetListRequest) GetOffsetOk() (*int32, bool) {
+func (o *O11yDaemonSetListRequest) GetOffsetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Offset) {
 		return nil, false
 	}
@@ -202,8 +202,8 @@ func (o *O11yDaemonSetListRequest) HasOffset() bool {
 	return false
 }
 
-// SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *O11yDaemonSetListRequest) SetOffset(v int32) {
+// SetOffset gets a reference to the given int64 and assigns it to the Offset field.
+func (o *O11yDaemonSetListRequest) SetOffset(v int64) {
 	o.Offset = &v
 }
 
@@ -240,9 +240,9 @@ func (o *O11yDaemonSetListRequest) SetOrderBy(v O11yOrderBy) {
 }
 
 // GetStart returns the Start field value if set, zero value otherwise.
-func (o *O11yDaemonSetListRequest) GetStart() int32 {
+func (o *O11yDaemonSetListRequest) GetStart() int64 {
 	if o == nil || IsNil(o.Start) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Start
@@ -250,7 +250,7 @@ func (o *O11yDaemonSetListRequest) GetStart() int32 {
 
 // GetStartOk returns a tuple with the Start field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDaemonSetListRequest) GetStartOk() (*int32, bool) {
+func (o *O11yDaemonSetListRequest) GetStartOk() (*int64, bool) {
 	if o == nil || IsNil(o.Start) {
 		return nil, false
 	}
@@ -266,8 +266,8 @@ func (o *O11yDaemonSetListRequest) HasStart() bool {
 	return false
 }
 
-// SetStart gets a reference to the given int32 and assigns it to the Start field.
-func (o *O11yDaemonSetListRequest) SetStart(v int32) {
+// SetStart gets a reference to the given int64 and assigns it to the Start field.
+func (o *O11yDaemonSetListRequest) SetStart(v int64) {
 	o.Start = &v
 }
 

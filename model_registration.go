@@ -20,7 +20,7 @@ var _ MappedNullable = &Registration{}
 // Registration struct for Registration
 type Registration struct {
 	// CreatedAt is the unix second the formation was opened.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Name is the company name the entity is being formed under.
 	Name *string `json:"name,omitempty"`
 	// Org is the org whose formation this row projects.
@@ -30,7 +30,7 @@ type Registration struct {
 	// Structure is the legal entity being formed: c-corp, llc or dao-llc.
 	Structure *string `json:"structure,omitempty"`
 	// UpdatedAt is the unix second of the most recent write to the formation, and the key the register sorts on (newest activity first).
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewRegistration instantiates a new Registration object
@@ -51,9 +51,9 @@ func NewRegistrationWithDefaults() *Registration {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *Registration) GetCreatedAt() int32 {
+func (o *Registration) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -61,7 +61,7 @@ func (o *Registration) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Registration) GetCreatedAtOk() (*int32, bool) {
+func (o *Registration) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -77,8 +77,8 @@ func (o *Registration) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *Registration) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *Registration) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -211,9 +211,9 @@ func (o *Registration) SetStructure(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *Registration) GetUpdatedAt() int32 {
+func (o *Registration) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -221,7 +221,7 @@ func (o *Registration) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Registration) GetUpdatedAtOk() (*int32, bool) {
+func (o *Registration) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *Registration) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *Registration) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *Registration) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

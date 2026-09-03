@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Accounts** | Pointer to [**[]LinkView**](LinkView.md) | Accounts is every account the caller has signed in on this machine. | [optional] 
-**ActiveSessions** | Pointer to **int32** | ActiveSessions is how many agent sessions the caller currently has running on this machine; 0 where the agent plane is not mounted. | [optional] 
+**ActiveSessions** | Pointer to **int64** | ActiveSessions is how many agent sessions the caller currently has running on this machine; 0 where the agent plane is not mounted. | [optional] 
 **Host** | Pointer to **string** | Host is the machine&#39;s hostname label, from its most-recently-seen account. | [optional] 
 **LastSeen** | Pointer to **string** | LastSeen is when any account on this machine last reported, RFC 3339 UTC. | [optional] 
 **Machine** | Pointer to **string** | Machine is the stable machine identifier. | [optional] 
@@ -57,20 +57,20 @@ HasAccounts returns a boolean if a field has been set.
 
 ### GetActiveSessions
 
-`func (o *DeviceView) GetActiveSessions() int32`
+`func (o *DeviceView) GetActiveSessions() int64`
 
 GetActiveSessions returns the ActiveSessions field if non-nil, zero value otherwise.
 
 ### GetActiveSessionsOk
 
-`func (o *DeviceView) GetActiveSessionsOk() (*int32, bool)`
+`func (o *DeviceView) GetActiveSessionsOk() (*int64, bool)`
 
 GetActiveSessionsOk returns a tuple with the ActiveSessions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetActiveSessions
 
-`func (o *DeviceView) SetActiveSessions(v int32)`
+`func (o *DeviceView) SetActiveSessions(v int64)`
 
 SetActiveSessions sets ActiveSessions field to given value.
 

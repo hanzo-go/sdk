@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Domain** | Pointer to **string** | Domain is the site, with or without a subdomain — \&quot;hanzo.ai\&quot;, \&quot;docs.hanzo.ai\&quot;. | [optional] 
 **Language** | Pointer to **string** | Language is the ISO code. Defaults to \&quot;en\&quot;. | [optional] 
-**Limit** | Pointer to **int32** | Limit is how many placements to return, 1 to 1000. Defaults to 100. | [optional] 
-**Location** | Pointer to **int32** | Location is the market, as the upstream&#39;s numeric code. Defaults to 2840. | [optional] 
+**Limit** | Pointer to **int64** | Limit is how many placements to return, 1 to 1000. Defaults to 100. | [optional] 
+**Location** | Pointer to **int64** | Location is the market, as the upstream&#39;s numeric code. Defaults to 2840. | [optional] 
 
 ## Methods
 
@@ -80,20 +80,20 @@ HasLanguage returns a boolean if a field has been set.
 
 ### GetLimit
 
-`func (o *SeoRankIn) GetLimit() int32`
+`func (o *SeoRankIn) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *SeoRankIn) GetLimitOk() (*int32, bool)`
+`func (o *SeoRankIn) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *SeoRankIn) SetLimit(v int32)`
+`func (o *SeoRankIn) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 
@@ -105,20 +105,20 @@ HasLimit returns a boolean if a field has been set.
 
 ### GetLocation
 
-`func (o *SeoRankIn) GetLocation() int32`
+`func (o *SeoRankIn) GetLocation() int64`
 
 GetLocation returns the Location field if non-nil, zero value otherwise.
 
 ### GetLocationOk
 
-`func (o *SeoRankIn) GetLocationOk() (*int32, bool)`
+`func (o *SeoRankIn) GetLocationOk() (*int64, bool)`
 
 GetLocationOk returns a tuple with the Location field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLocation
 
-`func (o *SeoRankIn) SetLocation(v int32)`
+`func (o *SeoRankIn) SetLocation(v int64)`
 
 SetLocation sets Location field to given value.
 

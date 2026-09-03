@@ -28,7 +28,7 @@ type ContentAPIGetContentBoardRequest struct {
 	status     *string
 	project    *string
 	doctype    *string
-	limit      *int32
+	limit      *int64
 }
 
 // Status keeps only items in one lifecycle state (draft, in_review, approved, queued, published, archived). An undefined state is refused.
@@ -50,7 +50,7 @@ func (r ContentAPIGetContentBoardRequest) Doctype(doctype string) ContentAPIGetC
 }
 
 // Limit caps the rows returned, clamped to 1000. Defaults to 200, which is also what a non-positive or unparseable value takes.
-func (r ContentAPIGetContentBoardRequest) Limit(limit int32) ContentAPIGetContentBoardRequest {
+func (r ContentAPIGetContentBoardRequest) Limit(limit int64) ContentAPIGetContentBoardRequest {
 	r.limit = &limit
 	return r
 }

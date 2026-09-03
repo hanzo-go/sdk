@@ -26,11 +26,11 @@ type RiskPolicyVersion struct {
 	// Live is whether the model was permitted to change an outcome under it.
 	Live *bool `json:"live,omitempty"`
 	// Review is the share of the stream the regime states may be examined. The threshold in force is derived from it, which is why a decision is only defensible against the version that produced it.
-	Review *float32 `json:"review,omitempty"`
+	Review *float64 `json:"review,omitempty"`
 	// Sample is the share of below-the-line events the regime retains for review.
-	Sample *float32 `json:"sample,omitempty"`
+	Sample *float64 `json:"sample,omitempty"`
 	// Version names this regime in this organisation's history.
-	Version *int32 `json:"version,omitempty"`
+	Version *int64 `json:"version,omitempty"`
 }
 
 // NewRiskPolicyVersion instantiates a new RiskPolicyVersion object
@@ -147,9 +147,9 @@ func (o *RiskPolicyVersion) SetLive(v bool) {
 }
 
 // GetReview returns the Review field value if set, zero value otherwise.
-func (o *RiskPolicyVersion) GetReview() float32 {
+func (o *RiskPolicyVersion) GetReview() float64 {
 	if o == nil || IsNil(o.Review) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Review
@@ -157,7 +157,7 @@ func (o *RiskPolicyVersion) GetReview() float32 {
 
 // GetReviewOk returns a tuple with the Review field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskPolicyVersion) GetReviewOk() (*float32, bool) {
+func (o *RiskPolicyVersion) GetReviewOk() (*float64, bool) {
 	if o == nil || IsNil(o.Review) {
 		return nil, false
 	}
@@ -173,15 +173,15 @@ func (o *RiskPolicyVersion) HasReview() bool {
 	return false
 }
 
-// SetReview gets a reference to the given float32 and assigns it to the Review field.
-func (o *RiskPolicyVersion) SetReview(v float32) {
+// SetReview gets a reference to the given float64 and assigns it to the Review field.
+func (o *RiskPolicyVersion) SetReview(v float64) {
 	o.Review = &v
 }
 
 // GetSample returns the Sample field value if set, zero value otherwise.
-func (o *RiskPolicyVersion) GetSample() float32 {
+func (o *RiskPolicyVersion) GetSample() float64 {
 	if o == nil || IsNil(o.Sample) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Sample
@@ -189,7 +189,7 @@ func (o *RiskPolicyVersion) GetSample() float32 {
 
 // GetSampleOk returns a tuple with the Sample field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskPolicyVersion) GetSampleOk() (*float32, bool) {
+func (o *RiskPolicyVersion) GetSampleOk() (*float64, bool) {
 	if o == nil || IsNil(o.Sample) {
 		return nil, false
 	}
@@ -205,15 +205,15 @@ func (o *RiskPolicyVersion) HasSample() bool {
 	return false
 }
 
-// SetSample gets a reference to the given float32 and assigns it to the Sample field.
-func (o *RiskPolicyVersion) SetSample(v float32) {
+// SetSample gets a reference to the given float64 and assigns it to the Sample field.
+func (o *RiskPolicyVersion) SetSample(v float64) {
 	o.Sample = &v
 }
 
 // GetVersion returns the Version field value if set, zero value otherwise.
-func (o *RiskPolicyVersion) GetVersion() int32 {
+func (o *RiskPolicyVersion) GetVersion() int64 {
 	if o == nil || IsNil(o.Version) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Version
@@ -221,7 +221,7 @@ func (o *RiskPolicyVersion) GetVersion() int32 {
 
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskPolicyVersion) GetVersionOk() (*int32, bool) {
+func (o *RiskPolicyVersion) GetVersionOk() (*int64, bool) {
 	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *RiskPolicyVersion) HasVersion() bool {
 	return false
 }
 
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
-func (o *RiskPolicyVersion) SetVersion(v int32) {
+// SetVersion gets a reference to the given int64 and assigns it to the Version field.
+func (o *RiskPolicyVersion) SetVersion(v int64) {
 	o.Version = &v
 }
 

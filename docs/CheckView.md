@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** | CreatedAt is the unix second the verification was started. | [optional] 
-**DecidedAt** | Pointer to **int32** | DecidedAt is the unix second a terminal status was recorded. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is the unix second the verification was started. | [optional] 
+**DecidedAt** | Pointer to **int64** | DecidedAt is the unix second a terminal status was recorded. | [optional] 
 **DecidedBy** | Pointer to **string** | DecidedBy records who settled a terminal status: the provider name, or a reviewer&#39;s user id for a recorded manual decision. | [optional] 
 **Id** | Pointer to **string** | ID is the verification&#39;s opaque id. | [optional] 
 **Kind** | Pointer to **string** | Kind is the party type: \&quot;individual\&quot; (KYC) or \&quot;business\&quot; (KYB). | [optional] 
 **Provider** | Pointer to **string** | Provider is the verification provider this check runs through. | [optional] 
 **Status** | Pointer to **string** | Status is the check&#39;s state: pending, provider_verified, provider_rejected, manual_review, or expired (provider-reported), or reviewer_confirmed — the one value a privileged human reviewer records, never a provider. | [optional] 
 **SubjectId** | Pointer to **string** | SubjectID is the opaque id of the subject under verification. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is the unix second the verification last changed. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is the unix second the verification last changed. | [optional] 
 **VerifyUrl** | Pointer to **string** | VerifyURL is the provider&#39;s hosted verification flow for the subject, when one exists. | [optional] 
 
 ## Methods
@@ -36,20 +36,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreatedAt
 
-`func (o *CheckView) GetCreatedAt() int32`
+`func (o *CheckView) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *CheckView) GetCreatedAtOk() (*int32, bool)`
+`func (o *CheckView) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *CheckView) SetCreatedAt(v int32)`
+`func (o *CheckView) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -61,20 +61,20 @@ HasCreatedAt returns a boolean if a field has been set.
 
 ### GetDecidedAt
 
-`func (o *CheckView) GetDecidedAt() int32`
+`func (o *CheckView) GetDecidedAt() int64`
 
 GetDecidedAt returns the DecidedAt field if non-nil, zero value otherwise.
 
 ### GetDecidedAtOk
 
-`func (o *CheckView) GetDecidedAtOk() (*int32, bool)`
+`func (o *CheckView) GetDecidedAtOk() (*int64, bool)`
 
 GetDecidedAtOk returns a tuple with the DecidedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDecidedAt
 
-`func (o *CheckView) SetDecidedAt(v int32)`
+`func (o *CheckView) SetDecidedAt(v int64)`
 
 SetDecidedAt sets DecidedAt field to given value.
 
@@ -236,20 +236,20 @@ HasSubjectId returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *CheckView) GetUpdatedAt() int32`
+`func (o *CheckView) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *CheckView) GetUpdatedAtOk() (*int32, bool)`
+`func (o *CheckView) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *CheckView) SetUpdatedAt(v int32)`
+`func (o *CheckView) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

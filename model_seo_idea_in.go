@@ -24,9 +24,9 @@ type SeoIdeaIn struct {
 	// Language is the ISO code. Defaults to \"en\".
 	Language *string `json:"language,omitempty"`
 	// Limit is how many phrases to return, 1 to 1000. Defaults to 100. It is what this call is priced on, because the upstream charges per row.
-	Limit *int32 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 	// Location is the market, as the upstream's numeric code. Defaults to 2840.
-	Location *int32 `json:"location,omitempty"`
+	Location *int64 `json:"location,omitempty"`
 }
 
 // NewSeoIdeaIn instantiates a new SeoIdeaIn object
@@ -111,9 +111,9 @@ func (o *SeoIdeaIn) SetLanguage(v string) {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *SeoIdeaIn) GetLimit() int32 {
+func (o *SeoIdeaIn) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -121,7 +121,7 @@ func (o *SeoIdeaIn) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoIdeaIn) GetLimitOk() (*int32, bool) {
+func (o *SeoIdeaIn) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *SeoIdeaIn) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *SeoIdeaIn) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *SeoIdeaIn) SetLimit(v int64) {
 	o.Limit = &v
 }
 
 // GetLocation returns the Location field value if set, zero value otherwise.
-func (o *SeoIdeaIn) GetLocation() int32 {
+func (o *SeoIdeaIn) GetLocation() int64 {
 	if o == nil || IsNil(o.Location) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Location
@@ -153,7 +153,7 @@ func (o *SeoIdeaIn) GetLocation() int32 {
 
 // GetLocationOk returns a tuple with the Location field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoIdeaIn) GetLocationOk() (*int32, bool) {
+func (o *SeoIdeaIn) GetLocationOk() (*int64, bool) {
 	if o == nil || IsNil(o.Location) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *SeoIdeaIn) HasLocation() bool {
 	return false
 }
 
-// SetLocation gets a reference to the given int32 and assigns it to the Location field.
-func (o *SeoIdeaIn) SetLocation(v int32) {
+// SetLocation gets a reference to the given int64 and assigns it to the Location field.
+func (o *SeoIdeaIn) SetLocation(v int64) {
 	o.Location = &v
 }
 

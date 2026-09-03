@@ -22,21 +22,21 @@ type DataroomDocument struct {
 	// ContentType is the mime type recorded at upload, null when none was sent.
 	ContentType *string `json:"contentType,omitempty"`
 	// CreatedAt is when the document was uploaded, in unix milliseconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// FileKey is the opaque object-storage key the bytes are stored under. It is scoped to the tenant's own key prefix and is not a URL.
 	FileKey *string `json:"fileKey,omitempty"`
 	// FileSize is the stored byte count, null when it was not recorded.
-	FileSize *int32 `json:"fileSize,omitempty"`
+	FileSize *int64 `json:"fileSize,omitempty"`
 	// ID is the document id.
 	Id *string `json:"id,omitempty"`
 	// Name is the document's display name.
 	Name *string `json:"name,omitempty"`
 	// NumPages is the page count, null when it was not supplied at upload.
-	NumPages *int32 `json:"numPages,omitempty"`
+	NumPages *int64 `json:"numPages,omitempty"`
 	// Type is the document's kind, null when it was not recorded.
 	Type *string `json:"type,omitempty"`
 	// UpdatedAt is when the document row last changed, in unix milliseconds.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewDataroomDocument instantiates a new DataroomDocument object
@@ -89,9 +89,9 @@ func (o *DataroomDocument) SetContentType(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *DataroomDocument) GetCreatedAt() int32 {
+func (o *DataroomDocument) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -99,7 +99,7 @@ func (o *DataroomDocument) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DataroomDocument) GetCreatedAtOk() (*int32, bool) {
+func (o *DataroomDocument) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -115,8 +115,8 @@ func (o *DataroomDocument) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *DataroomDocument) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *DataroomDocument) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -153,9 +153,9 @@ func (o *DataroomDocument) SetFileKey(v string) {
 }
 
 // GetFileSize returns the FileSize field value if set, zero value otherwise.
-func (o *DataroomDocument) GetFileSize() int32 {
+func (o *DataroomDocument) GetFileSize() int64 {
 	if o == nil || IsNil(o.FileSize) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.FileSize
@@ -163,7 +163,7 @@ func (o *DataroomDocument) GetFileSize() int32 {
 
 // GetFileSizeOk returns a tuple with the FileSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DataroomDocument) GetFileSizeOk() (*int32, bool) {
+func (o *DataroomDocument) GetFileSizeOk() (*int64, bool) {
 	if o == nil || IsNil(o.FileSize) {
 		return nil, false
 	}
@@ -179,8 +179,8 @@ func (o *DataroomDocument) HasFileSize() bool {
 	return false
 }
 
-// SetFileSize gets a reference to the given int32 and assigns it to the FileSize field.
-func (o *DataroomDocument) SetFileSize(v int32) {
+// SetFileSize gets a reference to the given int64 and assigns it to the FileSize field.
+func (o *DataroomDocument) SetFileSize(v int64) {
 	o.FileSize = &v
 }
 
@@ -249,9 +249,9 @@ func (o *DataroomDocument) SetName(v string) {
 }
 
 // GetNumPages returns the NumPages field value if set, zero value otherwise.
-func (o *DataroomDocument) GetNumPages() int32 {
+func (o *DataroomDocument) GetNumPages() int64 {
 	if o == nil || IsNil(o.NumPages) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NumPages
@@ -259,7 +259,7 @@ func (o *DataroomDocument) GetNumPages() int32 {
 
 // GetNumPagesOk returns a tuple with the NumPages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DataroomDocument) GetNumPagesOk() (*int32, bool) {
+func (o *DataroomDocument) GetNumPagesOk() (*int64, bool) {
 	if o == nil || IsNil(o.NumPages) {
 		return nil, false
 	}
@@ -275,8 +275,8 @@ func (o *DataroomDocument) HasNumPages() bool {
 	return false
 }
 
-// SetNumPages gets a reference to the given int32 and assigns it to the NumPages field.
-func (o *DataroomDocument) SetNumPages(v int32) {
+// SetNumPages gets a reference to the given int64 and assigns it to the NumPages field.
+func (o *DataroomDocument) SetNumPages(v int64) {
 	o.NumPages = &v
 }
 
@@ -313,9 +313,9 @@ func (o *DataroomDocument) SetType(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *DataroomDocument) GetUpdatedAt() int32 {
+func (o *DataroomDocument) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -323,7 +323,7 @@ func (o *DataroomDocument) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DataroomDocument) GetUpdatedAtOk() (*int32, bool) {
+func (o *DataroomDocument) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -339,8 +339,8 @@ func (o *DataroomDocument) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *DataroomDocument) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *DataroomDocument) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

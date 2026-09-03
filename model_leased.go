@@ -21,6 +21,8 @@ var _ MappedNullable = &Leased{}
 type Leased struct {
 	// Class is what was actually leased, from the closed set LeaseIn.Class names: exec | dev | desktop | android. A request that named none leased an `exec`, so this is where a caller learns which kind of computer it is holding, and it is what Workdir below follows from.
 	Class *string `json:"class,omitempty"`
+	// Cluster is the attached cluster this sandbox runs on, when one was named. Empty is the home cluster.
+	Cluster *string `json:"cluster,omitempty"`
 	// ID names this computer for every later call — run, read, write, stop and end all take it, and a LeaseIn carrying it resumes THIS sandbox instead of leasing a second one. Minted here; a caller cannot choose it, and a resumed lease that had expired comes back under a new one.
 	Id *string `json:"id,omitempty"`
 	// Runtime is the boundary this sandbox GOT, which need not be the one asked for — carried for the same reason Workdir is, that it is a fact only the owner knows and a caller assuming it would be holding a second copy. Empty is the node's default runtime, and a real answer.
@@ -78,6 +80,38 @@ func (o *Leased) HasClass() bool {
 // SetClass gets a reference to the given string and assigns it to the Class field.
 func (o *Leased) SetClass(v string) {
 	o.Class = &v
+}
+
+// GetCluster returns the Cluster field value if set, zero value otherwise.
+func (o *Leased) GetCluster() string {
+	if o == nil || IsNil(o.Cluster) {
+		var ret string
+		return ret
+	}
+	return *o.Cluster
+}
+
+// GetClusterOk returns a tuple with the Cluster field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Leased) GetClusterOk() (*string, bool) {
+	if o == nil || IsNil(o.Cluster) {
+		return nil, false
+	}
+	return o.Cluster, true
+}
+
+// HasCluster returns a boolean if a field has been set.
+func (o *Leased) HasCluster() bool {
+	if o != nil && !IsNil(o.Cluster) {
+		return true
+	}
+
+	return false
+}
+
+// SetCluster gets a reference to the given string and assigns it to the Cluster field.
+func (o *Leased) SetCluster(v string) {
+	o.Cluster = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -220,6 +254,9 @@ func (o Leased) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Class) {
 		toSerialize["class"] = o.Class
+	}
+	if !IsNil(o.Cluster) {
+		toSerialize["cluster"] = o.Cluster
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id

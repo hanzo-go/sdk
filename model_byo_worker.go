@@ -26,7 +26,7 @@ type ByoWorker struct {
 	// CPUModel is the processor as the host names it (\"Apple M3 Max\"), for display.
 	CpuModel *string `json:"cpuModel,omitempty"`
 	// CPUs is the host's logical core count.
-	Cpus *int32 `json:"cpus,omitempty"`
+	Cpus *int64 `json:"cpus,omitempty"`
 	// Cuda is the host's CUDA toolkit version. NVIDIA hosts report it.
 	Cuda *string `json:"cuda,omitempty"`
 	// Driver is the host's NVIDIA kernel driver version — distinct from Cuda, and the one that bounds which CUDA versions can run on this box.
@@ -50,7 +50,7 @@ type ByoWorker struct {
 	// Location is always \"on-prem\" — a machine that dialed in has no cloud region, and inventing one would put it somewhere it is not.
 	Location *string `json:"location,omitempty"`
 	// Memory is the host's total RAM in BYTES.
-	Memory *int32 `json:"memory,omitempty"`
+	Memory *int64 `json:"memory,omitempty"`
 	// Os is the host's operating system: linux, darwin or windows.
 	Os *string `json:"os,omitempty"`
 	// Provider is always \"byo\": this machine is the operator's, not one Hanzo provisioned. It exists so a fold into the machines/GPUs pages says which rows are rented and which are the customer's own.
@@ -177,9 +177,9 @@ func (o *ByoWorker) SetCpuModel(v string) {
 }
 
 // GetCpus returns the Cpus field value if set, zero value otherwise.
-func (o *ByoWorker) GetCpus() int32 {
+func (o *ByoWorker) GetCpus() int64 {
 	if o == nil || IsNil(o.Cpus) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Cpus
@@ -187,7 +187,7 @@ func (o *ByoWorker) GetCpus() int32 {
 
 // GetCpusOk returns a tuple with the Cpus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ByoWorker) GetCpusOk() (*int32, bool) {
+func (o *ByoWorker) GetCpusOk() (*int64, bool) {
 	if o == nil || IsNil(o.Cpus) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *ByoWorker) HasCpus() bool {
 	return false
 }
 
-// SetCpus gets a reference to the given int32 and assigns it to the Cpus field.
-func (o *ByoWorker) SetCpus(v int32) {
+// SetCpus gets a reference to the given int64 and assigns it to the Cpus field.
+func (o *ByoWorker) SetCpus(v int64) {
 	o.Cpus = &v
 }
 
@@ -561,9 +561,9 @@ func (o *ByoWorker) SetLocation(v string) {
 }
 
 // GetMemory returns the Memory field value if set, zero value otherwise.
-func (o *ByoWorker) GetMemory() int32 {
+func (o *ByoWorker) GetMemory() int64 {
 	if o == nil || IsNil(o.Memory) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Memory
@@ -571,7 +571,7 @@ func (o *ByoWorker) GetMemory() int32 {
 
 // GetMemoryOk returns a tuple with the Memory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ByoWorker) GetMemoryOk() (*int32, bool) {
+func (o *ByoWorker) GetMemoryOk() (*int64, bool) {
 	if o == nil || IsNil(o.Memory) {
 		return nil, false
 	}
@@ -587,8 +587,8 @@ func (o *ByoWorker) HasMemory() bool {
 	return false
 }
 
-// SetMemory gets a reference to the given int32 and assigns it to the Memory field.
-func (o *ByoWorker) SetMemory(v int32) {
+// SetMemory gets a reference to the given int64 and assigns it to the Memory field.
+func (o *ByoWorker) SetMemory(v int64) {
 	o.Memory = &v
 }
 

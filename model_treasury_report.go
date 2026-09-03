@@ -20,15 +20,15 @@ var _ MappedNullable = &TreasuryReport{}
 // TreasuryReport struct for TreasuryReport
 type TreasuryReport struct {
 	// lifetime revenue-share into the fund
-	AccruedCents *int32 `json:"accruedCents,omitempty"`
+	AccruedCents *int64 `json:"accruedCents,omitempty"`
 	// program → lifetime paid
-	ByProgramCents map[string]int32 `json:"byProgramCents,omitempty"`
+	ByProgramCents map[string]int64 `json:"byProgramCents,omitempty"`
 	// lifetime backed payouts out of the fund
-	PaidCents *int32 `json:"paidCents,omitempty"`
+	PaidCents *int64 `json:"paidCents,omitempty"`
 	// current revenue-share policy
 	Policy *SharePolicy `json:"policy,omitempty"`
 	// fund:reserve balance (available now)
-	ReserveCents *int32 `json:"reserveCents,omitempty"`
+	ReserveCents *int64 `json:"reserveCents,omitempty"`
 	// reserve > 0: at least some payout is backable
 	SolventForPayout *bool `json:"solventForPayout,omitempty"`
 }
@@ -51,9 +51,9 @@ func NewTreasuryReportWithDefaults() *TreasuryReport {
 }
 
 // GetAccruedCents returns the AccruedCents field value if set, zero value otherwise.
-func (o *TreasuryReport) GetAccruedCents() int32 {
+func (o *TreasuryReport) GetAccruedCents() int64 {
 	if o == nil || IsNil(o.AccruedCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AccruedCents
@@ -61,7 +61,7 @@ func (o *TreasuryReport) GetAccruedCents() int32 {
 
 // GetAccruedCentsOk returns a tuple with the AccruedCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TreasuryReport) GetAccruedCentsOk() (*int32, bool) {
+func (o *TreasuryReport) GetAccruedCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AccruedCents) {
 		return nil, false
 	}
@@ -77,15 +77,15 @@ func (o *TreasuryReport) HasAccruedCents() bool {
 	return false
 }
 
-// SetAccruedCents gets a reference to the given int32 and assigns it to the AccruedCents field.
-func (o *TreasuryReport) SetAccruedCents(v int32) {
+// SetAccruedCents gets a reference to the given int64 and assigns it to the AccruedCents field.
+func (o *TreasuryReport) SetAccruedCents(v int64) {
 	o.AccruedCents = &v
 }
 
 // GetByProgramCents returns the ByProgramCents field value if set, zero value otherwise.
-func (o *TreasuryReport) GetByProgramCents() map[string]int32 {
+func (o *TreasuryReport) GetByProgramCents() map[string]int64 {
 	if o == nil || IsNil(o.ByProgramCents) {
-		var ret map[string]int32
+		var ret map[string]int64
 		return ret
 	}
 	return o.ByProgramCents
@@ -93,9 +93,9 @@ func (o *TreasuryReport) GetByProgramCents() map[string]int32 {
 
 // GetByProgramCentsOk returns a tuple with the ByProgramCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TreasuryReport) GetByProgramCentsOk() (map[string]int32, bool) {
+func (o *TreasuryReport) GetByProgramCentsOk() (map[string]int64, bool) {
 	if o == nil || IsNil(o.ByProgramCents) {
-		return map[string]int32{}, false
+		return map[string]int64{}, false
 	}
 	return o.ByProgramCents, true
 }
@@ -109,15 +109,15 @@ func (o *TreasuryReport) HasByProgramCents() bool {
 	return false
 }
 
-// SetByProgramCents gets a reference to the given map[string]int32 and assigns it to the ByProgramCents field.
-func (o *TreasuryReport) SetByProgramCents(v map[string]int32) {
+// SetByProgramCents gets a reference to the given map[string]int64 and assigns it to the ByProgramCents field.
+func (o *TreasuryReport) SetByProgramCents(v map[string]int64) {
 	o.ByProgramCents = v
 }
 
 // GetPaidCents returns the PaidCents field value if set, zero value otherwise.
-func (o *TreasuryReport) GetPaidCents() int32 {
+func (o *TreasuryReport) GetPaidCents() int64 {
 	if o == nil || IsNil(o.PaidCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PaidCents
@@ -125,7 +125,7 @@ func (o *TreasuryReport) GetPaidCents() int32 {
 
 // GetPaidCentsOk returns a tuple with the PaidCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TreasuryReport) GetPaidCentsOk() (*int32, bool) {
+func (o *TreasuryReport) GetPaidCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.PaidCents) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *TreasuryReport) HasPaidCents() bool {
 	return false
 }
 
-// SetPaidCents gets a reference to the given int32 and assigns it to the PaidCents field.
-func (o *TreasuryReport) SetPaidCents(v int32) {
+// SetPaidCents gets a reference to the given int64 and assigns it to the PaidCents field.
+func (o *TreasuryReport) SetPaidCents(v int64) {
 	o.PaidCents = &v
 }
 
@@ -179,9 +179,9 @@ func (o *TreasuryReport) SetPolicy(v SharePolicy) {
 }
 
 // GetReserveCents returns the ReserveCents field value if set, zero value otherwise.
-func (o *TreasuryReport) GetReserveCents() int32 {
+func (o *TreasuryReport) GetReserveCents() int64 {
 	if o == nil || IsNil(o.ReserveCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ReserveCents
@@ -189,7 +189,7 @@ func (o *TreasuryReport) GetReserveCents() int32 {
 
 // GetReserveCentsOk returns a tuple with the ReserveCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TreasuryReport) GetReserveCentsOk() (*int32, bool) {
+func (o *TreasuryReport) GetReserveCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.ReserveCents) {
 		return nil, false
 	}
@@ -205,8 +205,8 @@ func (o *TreasuryReport) HasReserveCents() bool {
 	return false
 }
 
-// SetReserveCents gets a reference to the given int32 and assigns it to the ReserveCents field.
-func (o *TreasuryReport) SetReserveCents(v int32) {
+// SetReserveCents gets a reference to the given int64 and assigns it to the ReserveCents field.
+func (o *TreasuryReport) SetReserveCents(v int64) {
 	o.ReserveCents = &v
 }
 

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Icon** | Pointer to **string** | Icon names the icon the surface renders, e.g. \&quot;Database\&quot;. | [optional] 
 **Id** | Pointer to **string** | ID is the taxon slug to write, from the path. | [optional] 
 **Name** | Pointer to **string** | Name is the display name. Required. | [optional] 
-**Order** | Pointer to **int32** | Order is where it sits within its category, ascending. | [optional] 
+**Order** | Pointer to **int64** | Order is where it sits within its category, ascending. | [optional] 
 **Published** | Pointer to **bool** | Published is whether it is shown. Omitted means published — a taxon someone took the trouble to write is meant to be seen, and hiding one is the deliberate act. | [optional] 
 **Route** | Pointer to **string** | Route is the in-console path it opens, e.g. \&quot;/vector\&quot;. Give this or href, never both. | [optional] 
 **Tags** | Pointer to **[]string** | Tags are free-form labels for search and grouping across categories. | [optional] 
@@ -212,20 +212,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetOrder
 
-`func (o *TaxonIn) GetOrder() int32`
+`func (o *TaxonIn) GetOrder() int64`
 
 GetOrder returns the Order field if non-nil, zero value otherwise.
 
 ### GetOrderOk
 
-`func (o *TaxonIn) GetOrderOk() (*int32, bool)`
+`func (o *TaxonIn) GetOrderOk() (*int64, bool)`
 
 GetOrderOk returns a tuple with the Order field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrder
 
-`func (o *TaxonIn) SetOrder(v int32)`
+`func (o *TaxonIn) SetOrder(v int64)`
 
 SetOrder sets Order field to given value.
 

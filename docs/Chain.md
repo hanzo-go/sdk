@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ChainId** | Pointer to **int32** | ChainID is the EIP-155 id, so a caller can check it matches the wallet they are about to sign with. | [optional] 
+**ChainId** | Pointer to **int64** | ChainID is the EIP-155 id, so a caller can check it matches the wallet they are about to sign with. | [optional] 
 **Id** | Pointer to **string** | ID is the URL name: the value of :chain. | [optional] 
 **Name** | Pointer to **string** | Name is for humans. | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetChainId
 
-`func (o *Chain) GetChainId() int32`
+`func (o *Chain) GetChainId() int64`
 
 GetChainId returns the ChainId field if non-nil, zero value otherwise.
 
 ### GetChainIdOk
 
-`func (o *Chain) GetChainIdOk() (*int32, bool)`
+`func (o *Chain) GetChainIdOk() (*int64, bool)`
 
 GetChainIdOk returns a tuple with the ChainId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetChainId
 
-`func (o *Chain) SetChainId(v int32)`
+`func (o *Chain) SetChainId(v int64)`
 
 SetChainId sets ChainId field to given value.
 

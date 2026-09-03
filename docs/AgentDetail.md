@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **Model** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **RecentRuns** | Pointer to [**[]AgentRunView**](AgentRunView.md) | RecentRuns is the agent&#39;s 20 most recent executions, newest first. It is a window on the history, not the history: the count beside it is &#x60;runs&#x60;. | [optional] 
-**Runs** | Pointer to **int32** |  | [optional] 
+**Runs** | Pointer to **int64** |  | [optional] 
 **Schedule** | Pointer to **string** |  | [optional] 
 **ServiceAccountId** | Pointer to **string** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
@@ -318,20 +318,20 @@ HasRecentRuns returns a boolean if a field has been set.
 
 ### GetRuns
 
-`func (o *AgentDetail) GetRuns() int32`
+`func (o *AgentDetail) GetRuns() int64`
 
 GetRuns returns the Runs field if non-nil, zero value otherwise.
 
 ### GetRunsOk
 
-`func (o *AgentDetail) GetRunsOk() (*int32, bool)`
+`func (o *AgentDetail) GetRunsOk() (*int64, bool)`
 
 GetRunsOk returns a tuple with the Runs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRuns
 
-`func (o *AgentDetail) SetRuns(v int32)`
+`func (o *AgentDetail) SetRuns(v int64)`
 
 SetRuns sets Runs field to given value.
 

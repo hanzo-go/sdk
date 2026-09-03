@@ -26,7 +26,7 @@ type Diagnostic struct {
 	// Range is the span the problem is about.
 	Range *Range `json:"range,omitempty"`
 	// Severity is the LSP's: 1 error, 2 warning, 3 information, 4 hint. A file with only 3s and 4s still compiles.
-	Severity *int32 `json:"severity,omitempty"`
+	Severity *int64 `json:"severity,omitempty"`
 	// Source is which checker reported it (\"compiler\", \"go vet\", a linter's name), which is what separates a build error from a style opinion.
 	Source *string `json:"source,omitempty"`
 }
@@ -145,9 +145,9 @@ func (o *Diagnostic) SetRange(v Range) {
 }
 
 // GetSeverity returns the Severity field value if set, zero value otherwise.
-func (o *Diagnostic) GetSeverity() int32 {
+func (o *Diagnostic) GetSeverity() int64 {
 	if o == nil || IsNil(o.Severity) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Severity
@@ -155,7 +155,7 @@ func (o *Diagnostic) GetSeverity() int32 {
 
 // GetSeverityOk returns a tuple with the Severity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Diagnostic) GetSeverityOk() (*int32, bool) {
+func (o *Diagnostic) GetSeverityOk() (*int64, bool) {
 	if o == nil || IsNil(o.Severity) {
 		return nil, false
 	}
@@ -171,8 +171,8 @@ func (o *Diagnostic) HasSeverity() bool {
 	return false
 }
 
-// SetSeverity gets a reference to the given int32 and assigns it to the Severity field.
-func (o *Diagnostic) SetSeverity(v int32) {
+// SetSeverity gets a reference to the given int64 and assigns it to the Severity field.
+func (o *Diagnostic) SetSeverity(v int64) {
 	o.Severity = &v
 }
 

@@ -28,7 +28,7 @@ type Preset struct {
 	// scoping org (never cross-tenant)
 	Owner *string `json:"owner,omitempty"`
 	// fan-out width (>=1)
-	Panel *int32 `json:"panel,omitempty"`
+	Panel *int64 `json:"panel,omitempty"`
 	// escalation order over arms
 	Rank []string `json:"rank,omitempty"`
 }
@@ -179,9 +179,9 @@ func (o *Preset) SetOwner(v string) {
 }
 
 // GetPanel returns the Panel field value if set, zero value otherwise.
-func (o *Preset) GetPanel() int32 {
+func (o *Preset) GetPanel() int64 {
 	if o == nil || IsNil(o.Panel) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Panel
@@ -189,7 +189,7 @@ func (o *Preset) GetPanel() int32 {
 
 // GetPanelOk returns a tuple with the Panel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Preset) GetPanelOk() (*int32, bool) {
+func (o *Preset) GetPanelOk() (*int64, bool) {
 	if o == nil || IsNil(o.Panel) {
 		return nil, false
 	}
@@ -205,8 +205,8 @@ func (o *Preset) HasPanel() bool {
 	return false
 }
 
-// SetPanel gets a reference to the given int32 and assigns it to the Panel field.
-func (o *Preset) SetPanel(v int32) {
+// SetPanel gets a reference to the given int64 and assigns it to the Panel field.
+func (o *Preset) SetPanel(v int64) {
 	o.Panel = &v
 }
 

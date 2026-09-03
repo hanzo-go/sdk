@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Product** | **string** | Product is the licensed commerce product the caller wants a token for. | 
 **Release** | Pointer to **string** | Release scopes the token to one signed binary release, recorded as a \&quot;release:&lt;id&gt;\&quot; feature so a single bad release can be revoked on its own. | [optional] 
 **Signals** | Pointer to [**LicensingDeviceSignals**](LicensingDeviceSignals.md) | Signals binds the device at issue time, as an alternative to a pre-registered fingerprint. The raw signals are never stored or echoed — they are folded immediately into the one-way binding value. | [optional] 
-**TtlSeconds** | Pointer to **int32** | TTLSeconds requests a token lifetime in seconds. It is clamped to the deployment maximum AND to the entitlement&#39;s own expiry — a token never outlives the subscription that paid for it. | [optional] 
+**TtlSeconds** | Pointer to **int64** | TTLSeconds requests a token lifetime in seconds. It is clamped to the deployment maximum AND to the entitlement&#39;s own expiry — a token never outlives the subscription that paid for it. | [optional] 
 
 ## Methods
 
@@ -152,20 +152,20 @@ HasSignals returns a boolean if a field has been set.
 
 ### GetTtlSeconds
 
-`func (o *LicensingIssueRequest) GetTtlSeconds() int32`
+`func (o *LicensingIssueRequest) GetTtlSeconds() int64`
 
 GetTtlSeconds returns the TtlSeconds field if non-nil, zero value otherwise.
 
 ### GetTtlSecondsOk
 
-`func (o *LicensingIssueRequest) GetTtlSecondsOk() (*int32, bool)`
+`func (o *LicensingIssueRequest) GetTtlSecondsOk() (*int64, bool)`
 
 GetTtlSecondsOk returns a tuple with the TtlSeconds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTtlSeconds
 
-`func (o *LicensingIssueRequest) SetTtlSeconds(v int32)`
+`func (o *LicensingIssueRequest) SetTtlSeconds(v int64)`
 
 SetTtlSeconds sets TtlSeconds field to given value.
 

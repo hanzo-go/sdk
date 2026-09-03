@@ -6,15 +6,15 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CustomText** | Pointer to **string** | CustomText is the value a non-signature field was filled with, empty until it is. A signature&#39;s value is not here: it is stored separately and rendered onto the page at sealing. | [optional] 
 **FieldMeta** | Pointer to **interface{}** |  | [optional] 
-**Height** | Pointer to **float32** | Height is the field&#39;s height, -1 when the renderer is to choose one. | [optional] 
+**Height** | Pointer to **float64** | Height is the field&#39;s height, -1 when the renderer is to choose one. | [optional] 
 **Id** | Pointer to **string** | ID is the field id. | [optional] 
 **Inserted** | Pointer to **bool** | Inserted is whether this field has been filled in. | [optional] 
-**Page** | Pointer to **float32** | Page is the 1-based page the field sits on. | [optional] 
-**PositionX** | Pointer to **float32** | PositionX is the field&#39;s horizontal position on that page. | [optional] 
-**PositionY** | Pointer to **float32** | PositionY is the field&#39;s vertical position on that page. | [optional] 
+**Page** | Pointer to **float64** | Page is the 1-based page the field sits on. | [optional] 
+**PositionX** | Pointer to **float64** | PositionX is the field&#39;s horizontal position on that page. | [optional] 
+**PositionY** | Pointer to **float64** | PositionY is the field&#39;s vertical position on that page. | [optional] 
 **RecipientId** | Pointer to **string** | RecipientID is who must fill this field. It is absent on a signer&#39;s own view of a document, where every field returned is already theirs. | [optional] 
 **Type** | Pointer to **string** | Type is what the field collects — SIGNATURE, DATE, NAME, EMAIL, TEXT and the rest. | [optional] 
-**Width** | Pointer to **float32** | Width is the field&#39;s width, -1 when the renderer is to choose one. | [optional] 
+**Width** | Pointer to **float64** | Width is the field&#39;s width, -1 when the renderer is to choose one. | [optional] 
 
 ## Methods
 
@@ -97,20 +97,20 @@ HasFieldMeta returns a boolean if a field has been set.
 UnsetFieldMeta ensures that no value is present for FieldMeta, not even an explicit nil
 ### GetHeight
 
-`func (o *EsignField) GetHeight() float32`
+`func (o *EsignField) GetHeight() float64`
 
 GetHeight returns the Height field if non-nil, zero value otherwise.
 
 ### GetHeightOk
 
-`func (o *EsignField) GetHeightOk() (*float32, bool)`
+`func (o *EsignField) GetHeightOk() (*float64, bool)`
 
 GetHeightOk returns a tuple with the Height field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHeight
 
-`func (o *EsignField) SetHeight(v float32)`
+`func (o *EsignField) SetHeight(v float64)`
 
 SetHeight sets Height field to given value.
 
@@ -172,20 +172,20 @@ HasInserted returns a boolean if a field has been set.
 
 ### GetPage
 
-`func (o *EsignField) GetPage() float32`
+`func (o *EsignField) GetPage() float64`
 
 GetPage returns the Page field if non-nil, zero value otherwise.
 
 ### GetPageOk
 
-`func (o *EsignField) GetPageOk() (*float32, bool)`
+`func (o *EsignField) GetPageOk() (*float64, bool)`
 
 GetPageOk returns a tuple with the Page field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPage
 
-`func (o *EsignField) SetPage(v float32)`
+`func (o *EsignField) SetPage(v float64)`
 
 SetPage sets Page field to given value.
 
@@ -197,20 +197,20 @@ HasPage returns a boolean if a field has been set.
 
 ### GetPositionX
 
-`func (o *EsignField) GetPositionX() float32`
+`func (o *EsignField) GetPositionX() float64`
 
 GetPositionX returns the PositionX field if non-nil, zero value otherwise.
 
 ### GetPositionXOk
 
-`func (o *EsignField) GetPositionXOk() (*float32, bool)`
+`func (o *EsignField) GetPositionXOk() (*float64, bool)`
 
 GetPositionXOk returns a tuple with the PositionX field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPositionX
 
-`func (o *EsignField) SetPositionX(v float32)`
+`func (o *EsignField) SetPositionX(v float64)`
 
 SetPositionX sets PositionX field to given value.
 
@@ -222,20 +222,20 @@ HasPositionX returns a boolean if a field has been set.
 
 ### GetPositionY
 
-`func (o *EsignField) GetPositionY() float32`
+`func (o *EsignField) GetPositionY() float64`
 
 GetPositionY returns the PositionY field if non-nil, zero value otherwise.
 
 ### GetPositionYOk
 
-`func (o *EsignField) GetPositionYOk() (*float32, bool)`
+`func (o *EsignField) GetPositionYOk() (*float64, bool)`
 
 GetPositionYOk returns a tuple with the PositionY field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPositionY
 
-`func (o *EsignField) SetPositionY(v float32)`
+`func (o *EsignField) SetPositionY(v float64)`
 
 SetPositionY sets PositionY field to given value.
 
@@ -297,20 +297,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetWidth
 
-`func (o *EsignField) GetWidth() float32`
+`func (o *EsignField) GetWidth() float64`
 
 GetWidth returns the Width field if non-nil, zero value otherwise.
 
 ### GetWidthOk
 
-`func (o *EsignField) GetWidthOk() (*float32, bool)`
+`func (o *EsignField) GetWidthOk() (*float64, bool)`
 
 GetWidthOk returns a tuple with the Width field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWidth
 
-`func (o *EsignField) SetWidth(v float32)`
+`func (o *EsignField) SetWidth(v float64)`
 
 SetWidth sets Width field to given value.
 

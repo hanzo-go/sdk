@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Formation** | Pointer to [**Formation**](Formation.md) | Formation is the org&#39;s incorporation record, now marked cap-table-imported. | [optional] 
-**Rows** | Pointer to **int32** | Rows is how many rows were read from the sheet, header included. | [optional] 
-**StakeholdersImported** | Pointer to **int32** | StakeholdersImported is how many stakeholders the cap table accepted. | [optional] 
+**Rows** | Pointer to **int64** | Rows is how many rows were read from the sheet, header included. | [optional] 
+**StakeholdersImported** | Pointer to **int64** | StakeholdersImported is how many stakeholders the cap table accepted. | [optional] 
 
 ## Methods
 
@@ -54,20 +54,20 @@ HasFormation returns a boolean if a field has been set.
 
 ### GetRows
 
-`func (o *ImportCapTableOut) GetRows() int32`
+`func (o *ImportCapTableOut) GetRows() int64`
 
 GetRows returns the Rows field if non-nil, zero value otherwise.
 
 ### GetRowsOk
 
-`func (o *ImportCapTableOut) GetRowsOk() (*int32, bool)`
+`func (o *ImportCapTableOut) GetRowsOk() (*int64, bool)`
 
 GetRowsOk returns a tuple with the Rows field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRows
 
-`func (o *ImportCapTableOut) SetRows(v int32)`
+`func (o *ImportCapTableOut) SetRows(v int64)`
 
 SetRows sets Rows field to given value.
 
@@ -79,20 +79,20 @@ HasRows returns a boolean if a field has been set.
 
 ### GetStakeholdersImported
 
-`func (o *ImportCapTableOut) GetStakeholdersImported() int32`
+`func (o *ImportCapTableOut) GetStakeholdersImported() int64`
 
 GetStakeholdersImported returns the StakeholdersImported field if non-nil, zero value otherwise.
 
 ### GetStakeholdersImportedOk
 
-`func (o *ImportCapTableOut) GetStakeholdersImportedOk() (*int32, bool)`
+`func (o *ImportCapTableOut) GetStakeholdersImportedOk() (*int64, bool)`
 
 GetStakeholdersImportedOk returns a tuple with the StakeholdersImported field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStakeholdersImported
 
-`func (o *ImportCapTableOut) SetStakeholdersImported(v int32)`
+`func (o *ImportCapTableOut) SetStakeholdersImported(v int64)`
 
 SetStakeholdersImported sets StakeholdersImported field to given value.
 

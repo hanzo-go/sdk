@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Audience** | Pointer to **string** |  | [optional] 
-**Budget** | Pointer to **int32** |  | [optional] 
+**Budget** | Pointer to **int64** |  | [optional] 
 **Channels** | Pointer to [**[]ChannelSpec**](ChannelSpec.md) |  | [optional] 
 **Content** | Pointer to **[]string** |  | [optional] 
 **Id** | Pointer to **string** | ID is the campaign to update, from the path. | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**ScheduleAt** | Pointer to **int32** |  | [optional] 
+**ScheduleAt** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -58,20 +58,20 @@ HasAudience returns a boolean if a field has been set.
 
 ### GetBudget
 
-`func (o *CampaignUpdate) GetBudget() int32`
+`func (o *CampaignUpdate) GetBudget() int64`
 
 GetBudget returns the Budget field if non-nil, zero value otherwise.
 
 ### GetBudgetOk
 
-`func (o *CampaignUpdate) GetBudgetOk() (*int32, bool)`
+`func (o *CampaignUpdate) GetBudgetOk() (*int64, bool)`
 
 GetBudgetOk returns a tuple with the Budget field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBudget
 
-`func (o *CampaignUpdate) SetBudget(v int32)`
+`func (o *CampaignUpdate) SetBudget(v int64)`
 
 SetBudget sets Budget field to given value.
 
@@ -183,20 +183,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetScheduleAt
 
-`func (o *CampaignUpdate) GetScheduleAt() int32`
+`func (o *CampaignUpdate) GetScheduleAt() int64`
 
 GetScheduleAt returns the ScheduleAt field if non-nil, zero value otherwise.
 
 ### GetScheduleAtOk
 
-`func (o *CampaignUpdate) GetScheduleAtOk() (*int32, bool)`
+`func (o *CampaignUpdate) GetScheduleAtOk() (*int64, bool)`
 
 GetScheduleAtOk returns a tuple with the ScheduleAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScheduleAt
 
-`func (o *CampaignUpdate) SetScheduleAt(v int32)`
+`func (o *CampaignUpdate) SetScheduleAt(v int64)`
 
 SetScheduleAt sets ScheduleAt field to given value.
 

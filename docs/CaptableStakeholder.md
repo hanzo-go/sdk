@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **City** | Pointer to **string** | City is the stakeholder&#39;s city, if recorded. | [optional] 
 **CompanyName** | Pointer to **string** | CompanyName is the name of the company whose cap table this is. | [optional] 
 **Country** | Pointer to **string** | Country is the stakeholder&#39;s two-letter country code. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the stakeholder was added, in unix milliseconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the stakeholder was added, in unix milliseconds. | [optional] 
 **CurrentRelationship** | Pointer to **string** | CurrentRelationship is how the stakeholder relates to the company, e.g. FOUNDER, INVESTOR or EMPLOYEE. | [optional] 
 **Email** | Pointer to **string** | Email is the stakeholder&#39;s email, unique within the company. | [optional] 
 **Id** | Pointer to **string** | ID is the stakeholder id. | [optional] 
@@ -115,20 +115,20 @@ HasCountry returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *CaptableStakeholder) GetCreatedAt() int32`
+`func (o *CaptableStakeholder) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *CaptableStakeholder) GetCreatedAtOk() (*int32, bool)`
+`func (o *CaptableStakeholder) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *CaptableStakeholder) SetCreatedAt(v int32)`
+`func (o *CaptableStakeholder) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 

@@ -20,15 +20,15 @@ var _ MappedNullable = &BoardPoint{}
 // BoardPoint struct for BoardPoint
 type BoardPoint struct {
 	// what this bucket cost, in cents
-	CostCents *int32 `json:"costCents,omitempty"`
+	CostCents *int64 `json:"costCents,omitempty"`
 	// calls in this bucket that did not succeed
-	Errors *int32 `json:"errors,omitempty"`
+	Errors *int64 `json:"errors,omitempty"`
 	// model calls in this bucket
-	Generations *int32 `json:"generations,omitempty"`
+	Generations *int64 `json:"generations,omitempty"`
 	// RFC3339 (UTC) bucket start
 	T *string `json:"t,omitempty"`
 	// tokens in this bucket
-	TotalTokens *int32 `json:"totalTokens,omitempty"`
+	TotalTokens *int64 `json:"totalTokens,omitempty"`
 }
 
 // NewBoardPoint instantiates a new BoardPoint object
@@ -49,9 +49,9 @@ func NewBoardPointWithDefaults() *BoardPoint {
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *BoardPoint) GetCostCents() int32 {
+func (o *BoardPoint) GetCostCents() int64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostCents
@@ -59,7 +59,7 @@ func (o *BoardPoint) GetCostCents() int32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BoardPoint) GetCostCentsOk() (*int32, bool) {
+func (o *BoardPoint) GetCostCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -75,15 +75,15 @@ func (o *BoardPoint) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *BoardPoint) SetCostCents(v int32) {
+// SetCostCents gets a reference to the given int64 and assigns it to the CostCents field.
+func (o *BoardPoint) SetCostCents(v int64) {
 	o.CostCents = &v
 }
 
 // GetErrors returns the Errors field value if set, zero value otherwise.
-func (o *BoardPoint) GetErrors() int32 {
+func (o *BoardPoint) GetErrors() int64 {
 	if o == nil || IsNil(o.Errors) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Errors
@@ -91,7 +91,7 @@ func (o *BoardPoint) GetErrors() int32 {
 
 // GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BoardPoint) GetErrorsOk() (*int32, bool) {
+func (o *BoardPoint) GetErrorsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Errors) {
 		return nil, false
 	}
@@ -107,15 +107,15 @@ func (o *BoardPoint) HasErrors() bool {
 	return false
 }
 
-// SetErrors gets a reference to the given int32 and assigns it to the Errors field.
-func (o *BoardPoint) SetErrors(v int32) {
+// SetErrors gets a reference to the given int64 and assigns it to the Errors field.
+func (o *BoardPoint) SetErrors(v int64) {
 	o.Errors = &v
 }
 
 // GetGenerations returns the Generations field value if set, zero value otherwise.
-func (o *BoardPoint) GetGenerations() int32 {
+func (o *BoardPoint) GetGenerations() int64 {
 	if o == nil || IsNil(o.Generations) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Generations
@@ -123,7 +123,7 @@ func (o *BoardPoint) GetGenerations() int32 {
 
 // GetGenerationsOk returns a tuple with the Generations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BoardPoint) GetGenerationsOk() (*int32, bool) {
+func (o *BoardPoint) GetGenerationsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Generations) {
 		return nil, false
 	}
@@ -139,8 +139,8 @@ func (o *BoardPoint) HasGenerations() bool {
 	return false
 }
 
-// SetGenerations gets a reference to the given int32 and assigns it to the Generations field.
-func (o *BoardPoint) SetGenerations(v int32) {
+// SetGenerations gets a reference to the given int64 and assigns it to the Generations field.
+func (o *BoardPoint) SetGenerations(v int64) {
 	o.Generations = &v
 }
 
@@ -177,9 +177,9 @@ func (o *BoardPoint) SetT(v string) {
 }
 
 // GetTotalTokens returns the TotalTokens field value if set, zero value otherwise.
-func (o *BoardPoint) GetTotalTokens() int32 {
+func (o *BoardPoint) GetTotalTokens() int64 {
 	if o == nil || IsNil(o.TotalTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalTokens
@@ -187,7 +187,7 @@ func (o *BoardPoint) GetTotalTokens() int32 {
 
 // GetTotalTokensOk returns a tuple with the TotalTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BoardPoint) GetTotalTokensOk() (*int32, bool) {
+func (o *BoardPoint) GetTotalTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalTokens) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *BoardPoint) HasTotalTokens() bool {
 	return false
 }
 
-// SetTotalTokens gets a reference to the given int32 and assigns it to the TotalTokens field.
-func (o *BoardPoint) SetTotalTokens(v int32) {
+// SetTotalTokens gets a reference to the given int64 and assigns it to the TotalTokens field.
+func (o *BoardPoint) SetTotalTokens(v int64) {
 	o.TotalTokens = &v
 }
 

@@ -21,7 +21,7 @@ var _ MappedNullable = &O11yNodes{}
 type O11yNodes struct {
 	EndTimeBeforeRetention *bool              `json:"endTimeBeforeRetention,omitempty"`
 	Records                []O11yNodeRecord   `json:"records,omitempty"`
-	Total                  *int32             `json:"total,omitempty"`
+	Total                  *int64             `json:"total,omitempty"`
 	Type                   interface{}        `json:"type,omitempty"`
 	Warning                *O11yQueryWarnData `json:"warning,omitempty"`
 }
@@ -108,9 +108,9 @@ func (o *O11yNodes) SetRecords(v []O11yNodeRecord) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *O11yNodes) GetTotal() int32 {
+func (o *O11yNodes) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -118,7 +118,7 @@ func (o *O11yNodes) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yNodes) GetTotalOk() (*int32, bool) {
+func (o *O11yNodes) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -134,8 +134,8 @@ func (o *O11yNodes) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *O11yNodes) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *O11yNodes) SetTotal(v int64) {
 	o.Total = &v
 }
 

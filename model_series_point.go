@@ -22,7 +22,7 @@ type SeriesPoint struct {
 	// bucket start, RFC3339 UTC
 	T *string `json:"t,omitempty"`
 	// real invocation count in the bucket
-	V *int32 `json:"v,omitempty"`
+	V *int64 `json:"v,omitempty"`
 }
 
 // NewSeriesPoint instantiates a new SeriesPoint object
@@ -75,9 +75,9 @@ func (o *SeriesPoint) SetT(v string) {
 }
 
 // GetV returns the V field value if set, zero value otherwise.
-func (o *SeriesPoint) GetV() int32 {
+func (o *SeriesPoint) GetV() int64 {
 	if o == nil || IsNil(o.V) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.V
@@ -85,7 +85,7 @@ func (o *SeriesPoint) GetV() int32 {
 
 // GetVOk returns a tuple with the V field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeriesPoint) GetVOk() (*int32, bool) {
+func (o *SeriesPoint) GetVOk() (*int64, bool) {
 	if o == nil || IsNil(o.V) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *SeriesPoint) HasV() bool {
 	return false
 }
 
-// SetV gets a reference to the given int32 and assigns it to the V field.
-func (o *SeriesPoint) SetV(v int32) {
+// SetV gets a reference to the given int64 and assigns it to the V field.
+func (o *SeriesPoint) SetV(v int64) {
 	o.V = &v
 }
 

@@ -26,13 +26,13 @@ type RiskDatasetRows struct {
 	// Dims names what each coordinate of Point means, in Point's own order.
 	Dims []string `json:"dims,omitempty"`
 	// Limit is the page size actually served: the one asked for, clamped to the plane's own bound of 5000. Fewer rows than Limit means the version ended.
-	Limit *int32 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 	// Offset is where this page starts in the version's own row order, which is by row id and therefore stable forever.
-	Offset *int32 `json:"offset,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
 	// Rows is the page. Never null.
 	Rows []RiskDatasetRow `json:"rows,omitempty"`
 	// Version is which published version it was read from — the one asked for, or the newest published one when the request named none.
-	Version *int32 `json:"version,omitempty"`
+	Version *int64 `json:"version,omitempty"`
 }
 
 // NewRiskDatasetRows instantiates a new RiskDatasetRows object
@@ -149,9 +149,9 @@ func (o *RiskDatasetRows) SetDims(v []string) {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *RiskDatasetRows) GetLimit() int32 {
+func (o *RiskDatasetRows) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -159,7 +159,7 @@ func (o *RiskDatasetRows) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskDatasetRows) GetLimitOk() (*int32, bool) {
+func (o *RiskDatasetRows) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -175,15 +175,15 @@ func (o *RiskDatasetRows) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *RiskDatasetRows) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *RiskDatasetRows) SetLimit(v int64) {
 	o.Limit = &v
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
-func (o *RiskDatasetRows) GetOffset() int32 {
+func (o *RiskDatasetRows) GetOffset() int64 {
 	if o == nil || IsNil(o.Offset) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Offset
@@ -191,7 +191,7 @@ func (o *RiskDatasetRows) GetOffset() int32 {
 
 // GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskDatasetRows) GetOffsetOk() (*int32, bool) {
+func (o *RiskDatasetRows) GetOffsetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Offset) {
 		return nil, false
 	}
@@ -207,8 +207,8 @@ func (o *RiskDatasetRows) HasOffset() bool {
 	return false
 }
 
-// SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *RiskDatasetRows) SetOffset(v int32) {
+// SetOffset gets a reference to the given int64 and assigns it to the Offset field.
+func (o *RiskDatasetRows) SetOffset(v int64) {
 	o.Offset = &v
 }
 
@@ -245,9 +245,9 @@ func (o *RiskDatasetRows) SetRows(v []RiskDatasetRow) {
 }
 
 // GetVersion returns the Version field value if set, zero value otherwise.
-func (o *RiskDatasetRows) GetVersion() int32 {
+func (o *RiskDatasetRows) GetVersion() int64 {
 	if o == nil || IsNil(o.Version) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Version
@@ -255,7 +255,7 @@ func (o *RiskDatasetRows) GetVersion() int32 {
 
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskDatasetRows) GetVersionOk() (*int32, bool) {
+func (o *RiskDatasetRows) GetVersionOk() (*int64, bool) {
 	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
@@ -271,8 +271,8 @@ func (o *RiskDatasetRows) HasVersion() bool {
 	return false
 }
 
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
-func (o *RiskDatasetRows) SetVersion(v int32) {
+// SetVersion gets a reference to the given int64 and assigns it to the Version field.
+func (o *RiskDatasetRows) SetVersion(v int64) {
 	o.Version = &v
 }
 

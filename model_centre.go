@@ -30,7 +30,7 @@ type Centre struct {
 	// Frameworks are the clause universes the coverage is computed against.
 	Frameworks []FrameworkRow `json:"frameworks,omitempty"`
 	// Generated is when this answer was computed, unix milliseconds.
-	Generated *int32 `json:"generated,omitempty"`
+	Generated *int64 `json:"generated,omitempty"`
 	// Inventory is how the controls themselves stand, independent of framework.
 	Inventory *TrustTally `json:"inventory,omitempty"`
 	// Org is whose centre this is.
@@ -225,9 +225,9 @@ func (o *Centre) SetFrameworks(v []FrameworkRow) {
 }
 
 // GetGenerated returns the Generated field value if set, zero value otherwise.
-func (o *Centre) GetGenerated() int32 {
+func (o *Centre) GetGenerated() int64 {
 	if o == nil || IsNil(o.Generated) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Generated
@@ -235,7 +235,7 @@ func (o *Centre) GetGenerated() int32 {
 
 // GetGeneratedOk returns a tuple with the Generated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Centre) GetGeneratedOk() (*int32, bool) {
+func (o *Centre) GetGeneratedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Generated) {
 		return nil, false
 	}
@@ -251,8 +251,8 @@ func (o *Centre) HasGenerated() bool {
 	return false
 }
 
-// SetGenerated gets a reference to the given int32 and assigns it to the Generated field.
-func (o *Centre) SetGenerated(v int32) {
+// SetGenerated gets a reference to the given int64 and assigns it to the Generated field.
+func (o *Centre) SetGenerated(v int64) {
 	o.Generated = &v
 }
 

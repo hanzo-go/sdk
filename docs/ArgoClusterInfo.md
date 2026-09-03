@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ApplicationsCount** | Pointer to **int32** | ApplicationsCount is how many of THE CALLER&#39;S applications reconcile into this cluster, so a tenant sees its own count and a SuperAdmin the fleet&#39;s. It is zero for the in-cluster destination when the caller owns nothing, since that destination is listed whether or not anything targets it. | [optional] 
+**ApplicationsCount** | Pointer to **int64** | ApplicationsCount is how many of THE CALLER&#39;S applications reconcile into this cluster, so a tenant sees its own count and a SuperAdmin the fleet&#39;s. It is zero for the in-cluster destination when the caller owns nothing, since that destination is listed whether or not anything targets it. | [optional] 
 **ConnectionState** | Pointer to [**ArgoConnectionState**](ArgoConnectionState.md) | ConnectionState repeats the cluster&#39;s own connection state, which is where ArgoCD&#39;s UI reads it from on this object. | [optional] 
 **ServerVersion** | Pointer to **string** | ServerVersion is the kubernetes version of the destination. Always absent: nothing here queries the API server for it. | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetApplicationsCount
 
-`func (o *ArgoClusterInfo) GetApplicationsCount() int32`
+`func (o *ArgoClusterInfo) GetApplicationsCount() int64`
 
 GetApplicationsCount returns the ApplicationsCount field if non-nil, zero value otherwise.
 
 ### GetApplicationsCountOk
 
-`func (o *ArgoClusterInfo) GetApplicationsCountOk() (*int32, bool)`
+`func (o *ArgoClusterInfo) GetApplicationsCountOk() (*int64, bool)`
 
 GetApplicationsCountOk returns a tuple with the ApplicationsCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetApplicationsCount
 
-`func (o *ArgoClusterInfo) SetApplicationsCount(v int32)`
+`func (o *ArgoClusterInfo) SetApplicationsCount(v int64)`
 
 SetApplicationsCount sets ApplicationsCount field to given value.
 

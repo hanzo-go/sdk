@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Recorded** | Pointer to **int32** | Recorded is how many rows were written. | [optional] 
+**Recorded** | Pointer to **int64** | Recorded is how many rows were written. | [optional] 
 **Rejected** | Pointer to **[]string** | Rejected names the rows that were not, and why. | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetRecorded
 
-`func (o *PutClaimsOut) GetRecorded() int32`
+`func (o *PutClaimsOut) GetRecorded() int64`
 
 GetRecorded returns the Recorded field if non-nil, zero value otherwise.
 
 ### GetRecordedOk
 
-`func (o *PutClaimsOut) GetRecordedOk() (*int32, bool)`
+`func (o *PutClaimsOut) GetRecordedOk() (*int64, bool)`
 
 GetRecordedOk returns a tuple with the Recorded field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRecorded
 
-`func (o *PutClaimsOut) SetRecorded(v int32)`
+`func (o *PutClaimsOut) SetRecorded(v int64)`
 
 SetRecorded sets Recorded field to given value.
 

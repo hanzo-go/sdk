@@ -20,15 +20,15 @@ var _ MappedNullable = &BlueprintCounts{}
 // BlueprintCounts struct for BlueprintCounts
 type BlueprintCounts struct {
 	// Principles is how many spine archetypes the playbook carries (64 in the shipped corpus).
-	Principles *int32 `json:"principles,omitempty"`
+	Principles *int64 `json:"principles,omitempty"`
 	// Sections is how many phases the journey has.
-	Sections *int32 `json:"sections,omitempty"`
+	Sections *int64 `json:"sections,omitempty"`
 	// Steps is how many checklist items the playbook holds, DISABLED ONES INCLUDED — this counts the authored document, not the journey an org runs, so it is normally larger than the `total` on a progress view.
-	Steps *int32 `json:"steps,omitempty"`
+	Steps *int64 `json:"steps,omitempty"`
 	// Strategies is how many tactics the corpus holds, again counting disabled ones.
-	Strategies *int32 `json:"strategies,omitempty"`
+	Strategies *int64 `json:"strategies,omitempty"`
 	// Templates is how many reusable prompts the playbook carries.
-	Templates *int32 `json:"templates,omitempty"`
+	Templates *int64 `json:"templates,omitempty"`
 }
 
 // NewBlueprintCounts instantiates a new BlueprintCounts object
@@ -49,9 +49,9 @@ func NewBlueprintCountsWithDefaults() *BlueprintCounts {
 }
 
 // GetPrinciples returns the Principles field value if set, zero value otherwise.
-func (o *BlueprintCounts) GetPrinciples() int32 {
+func (o *BlueprintCounts) GetPrinciples() int64 {
 	if o == nil || IsNil(o.Principles) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Principles
@@ -59,7 +59,7 @@ func (o *BlueprintCounts) GetPrinciples() int32 {
 
 // GetPrinciplesOk returns a tuple with the Principles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BlueprintCounts) GetPrinciplesOk() (*int32, bool) {
+func (o *BlueprintCounts) GetPrinciplesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Principles) {
 		return nil, false
 	}
@@ -75,15 +75,15 @@ func (o *BlueprintCounts) HasPrinciples() bool {
 	return false
 }
 
-// SetPrinciples gets a reference to the given int32 and assigns it to the Principles field.
-func (o *BlueprintCounts) SetPrinciples(v int32) {
+// SetPrinciples gets a reference to the given int64 and assigns it to the Principles field.
+func (o *BlueprintCounts) SetPrinciples(v int64) {
 	o.Principles = &v
 }
 
 // GetSections returns the Sections field value if set, zero value otherwise.
-func (o *BlueprintCounts) GetSections() int32 {
+func (o *BlueprintCounts) GetSections() int64 {
 	if o == nil || IsNil(o.Sections) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Sections
@@ -91,7 +91,7 @@ func (o *BlueprintCounts) GetSections() int32 {
 
 // GetSectionsOk returns a tuple with the Sections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BlueprintCounts) GetSectionsOk() (*int32, bool) {
+func (o *BlueprintCounts) GetSectionsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Sections) {
 		return nil, false
 	}
@@ -107,15 +107,15 @@ func (o *BlueprintCounts) HasSections() bool {
 	return false
 }
 
-// SetSections gets a reference to the given int32 and assigns it to the Sections field.
-func (o *BlueprintCounts) SetSections(v int32) {
+// SetSections gets a reference to the given int64 and assigns it to the Sections field.
+func (o *BlueprintCounts) SetSections(v int64) {
 	o.Sections = &v
 }
 
 // GetSteps returns the Steps field value if set, zero value otherwise.
-func (o *BlueprintCounts) GetSteps() int32 {
+func (o *BlueprintCounts) GetSteps() int64 {
 	if o == nil || IsNil(o.Steps) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Steps
@@ -123,7 +123,7 @@ func (o *BlueprintCounts) GetSteps() int32 {
 
 // GetStepsOk returns a tuple with the Steps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BlueprintCounts) GetStepsOk() (*int32, bool) {
+func (o *BlueprintCounts) GetStepsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Steps) {
 		return nil, false
 	}
@@ -139,15 +139,15 @@ func (o *BlueprintCounts) HasSteps() bool {
 	return false
 }
 
-// SetSteps gets a reference to the given int32 and assigns it to the Steps field.
-func (o *BlueprintCounts) SetSteps(v int32) {
+// SetSteps gets a reference to the given int64 and assigns it to the Steps field.
+func (o *BlueprintCounts) SetSteps(v int64) {
 	o.Steps = &v
 }
 
 // GetStrategies returns the Strategies field value if set, zero value otherwise.
-func (o *BlueprintCounts) GetStrategies() int32 {
+func (o *BlueprintCounts) GetStrategies() int64 {
 	if o == nil || IsNil(o.Strategies) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Strategies
@@ -155,7 +155,7 @@ func (o *BlueprintCounts) GetStrategies() int32 {
 
 // GetStrategiesOk returns a tuple with the Strategies field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BlueprintCounts) GetStrategiesOk() (*int32, bool) {
+func (o *BlueprintCounts) GetStrategiesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Strategies) {
 		return nil, false
 	}
@@ -171,15 +171,15 @@ func (o *BlueprintCounts) HasStrategies() bool {
 	return false
 }
 
-// SetStrategies gets a reference to the given int32 and assigns it to the Strategies field.
-func (o *BlueprintCounts) SetStrategies(v int32) {
+// SetStrategies gets a reference to the given int64 and assigns it to the Strategies field.
+func (o *BlueprintCounts) SetStrategies(v int64) {
 	o.Strategies = &v
 }
 
 // GetTemplates returns the Templates field value if set, zero value otherwise.
-func (o *BlueprintCounts) GetTemplates() int32 {
+func (o *BlueprintCounts) GetTemplates() int64 {
 	if o == nil || IsNil(o.Templates) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Templates
@@ -187,7 +187,7 @@ func (o *BlueprintCounts) GetTemplates() int32 {
 
 // GetTemplatesOk returns a tuple with the Templates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BlueprintCounts) GetTemplatesOk() (*int32, bool) {
+func (o *BlueprintCounts) GetTemplatesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Templates) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *BlueprintCounts) HasTemplates() bool {
 	return false
 }
 
-// SetTemplates gets a reference to the given int32 and assigns it to the Templates field.
-func (o *BlueprintCounts) SetTemplates(v int32) {
+// SetTemplates gets a reference to the given int64 and assigns it to the Templates field.
+func (o *BlueprintCounts) SetTemplates(v int64) {
 	o.Templates = &v
 }
 

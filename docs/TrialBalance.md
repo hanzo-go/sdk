@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **From** | Pointer to **string** | From is the posting time the window opens at, as it was asked for. Absent means the report runs from the beginning of the ledger. | [optional] 
 **Rows** | Pointer to [**[]TrialBalanceRow**](TrialBalanceRow.md) | Rows are the accounts that MOVED in one of the windows. An account that never moved is omitted rather than listed at zero, so this is shorter than the chart. | [optional] 
 **To** | Pointer to **string** | To is the posting time the window closes at, inclusive. Absent means \&quot;up to now\&quot; — every posting the ledger holds. | [optional] 
-**TotalCredit** | Pointer to **int32** | TotalCredit is the sum of every row&#39;s closing credit column, in cents. | [optional] 
-**TotalDebit** | Pointer to **int32** | TotalDebit is the sum of every row&#39;s CLOSING debit column, in cents. | [optional] 
+**TotalCredit** | Pointer to **int64** | TotalCredit is the sum of every row&#39;s closing credit column, in cents. | [optional] 
+**TotalDebit** | Pointer to **int64** | TotalDebit is the sum of every row&#39;s CLOSING debit column, in cents. | [optional] 
 
 ## Methods
 
@@ -132,20 +132,20 @@ HasTo returns a boolean if a field has been set.
 
 ### GetTotalCredit
 
-`func (o *TrialBalance) GetTotalCredit() int32`
+`func (o *TrialBalance) GetTotalCredit() int64`
 
 GetTotalCredit returns the TotalCredit field if non-nil, zero value otherwise.
 
 ### GetTotalCreditOk
 
-`func (o *TrialBalance) GetTotalCreditOk() (*int32, bool)`
+`func (o *TrialBalance) GetTotalCreditOk() (*int64, bool)`
 
 GetTotalCreditOk returns a tuple with the TotalCredit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalCredit
 
-`func (o *TrialBalance) SetTotalCredit(v int32)`
+`func (o *TrialBalance) SetTotalCredit(v int64)`
 
 SetTotalCredit sets TotalCredit field to given value.
 
@@ -157,20 +157,20 @@ HasTotalCredit returns a boolean if a field has been set.
 
 ### GetTotalDebit
 
-`func (o *TrialBalance) GetTotalDebit() int32`
+`func (o *TrialBalance) GetTotalDebit() int64`
 
 GetTotalDebit returns the TotalDebit field if non-nil, zero value otherwise.
 
 ### GetTotalDebitOk
 
-`func (o *TrialBalance) GetTotalDebitOk() (*int32, bool)`
+`func (o *TrialBalance) GetTotalDebitOk() (*int64, bool)`
 
 GetTotalDebitOk returns a tuple with the TotalDebit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalDebit
 
-`func (o *TrialBalance) SetTotalDebit(v int32)`
+`func (o *TrialBalance) SetTotalDebit(v int64)`
 
 SetTotalDebit sets TotalDebit field to given value.
 

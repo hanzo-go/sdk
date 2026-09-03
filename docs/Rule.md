@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Category** | Pointer to **string** | Category is the COA expense account a matching bill books to. An upsert normalizes a slug (\&quot;cloud\&quot;) to its account number. | [optional] 
 **Pattern** | Pointer to **string** | Pattern is the merchant substring the rule matches on, case-insensitively. It is also the key an upsert writes by. | [optional] 
-**Priority** | Pointer to **int32** | Priority breaks ties: when several patterns match, the highest wins. | [optional] 
+**Priority** | Pointer to **int64** | Priority breaks ties: when several patterns match, the highest wins. | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasPattern returns a boolean if a field has been set.
 
 ### GetPriority
 
-`func (o *Rule) GetPriority() int32`
+`func (o *Rule) GetPriority() int64`
 
 GetPriority returns the Priority field if non-nil, zero value otherwise.
 
 ### GetPriorityOk
 
-`func (o *Rule) GetPriorityOk() (*int32, bool)`
+`func (o *Rule) GetPriorityOk() (*int64, bool)`
 
 GetPriorityOk returns a tuple with the Priority field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPriority
 
-`func (o *Rule) SetPriority(v int32)`
+`func (o *Rule) SetPriority(v int64)`
 
 SetPriority sets Priority field to given value.
 

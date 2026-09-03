@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Blind** | Pointer to **int32** | Blind is how often this dimension took that neutral value for THIS organisation. | [optional] 
+**Blind** | Pointer to **int64** | Blind is how often this dimension took that neutral value for THIS organisation. | [optional] 
 **Citation** | Pointer to **string** | Citation is where those words come from, so the claim is checkable rather than asserted. | [optional] 
 **Indicator** | Pointer to **string** | Indicator is the supervisor&#39;s own words for the thing being looked for. | [optional] 
 **Name** | Pointer to **string** | Name is the dimension. | [optional] 
-**Neutral** | Pointer to **float32** | Neutral is the value the coordinate takes when the data cannot support it. | [optional] 
+**Neutral** | Pointer to **float64** | Neutral is the value the coordinate takes when the data cannot support it. | [optional] 
 **Severity** | Pointer to **string** | Severity is how much weight an alert on it carries. | [optional] 
 **Typology** | Pointer to **string** | Typology is the pattern this dimension detects. | [optional] 
 **Unit** | Pointer to **string** | Unit is how to read the raw number, which is what turns a coordinate into a sentence an investigator can put in a file. | [optional] 
@@ -35,20 +35,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetBlind
 
-`func (o *RiskModelFeature) GetBlind() int32`
+`func (o *RiskModelFeature) GetBlind() int64`
 
 GetBlind returns the Blind field if non-nil, zero value otherwise.
 
 ### GetBlindOk
 
-`func (o *RiskModelFeature) GetBlindOk() (*int32, bool)`
+`func (o *RiskModelFeature) GetBlindOk() (*int64, bool)`
 
 GetBlindOk returns a tuple with the Blind field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBlind
 
-`func (o *RiskModelFeature) SetBlind(v int32)`
+`func (o *RiskModelFeature) SetBlind(v int64)`
 
 SetBlind sets Blind field to given value.
 
@@ -135,20 +135,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetNeutral
 
-`func (o *RiskModelFeature) GetNeutral() float32`
+`func (o *RiskModelFeature) GetNeutral() float64`
 
 GetNeutral returns the Neutral field if non-nil, zero value otherwise.
 
 ### GetNeutralOk
 
-`func (o *RiskModelFeature) GetNeutralOk() (*float32, bool)`
+`func (o *RiskModelFeature) GetNeutralOk() (*float64, bool)`
 
 GetNeutralOk returns a tuple with the Neutral field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNeutral
 
-`func (o *RiskModelFeature) SetNeutral(v float32)`
+`func (o *RiskModelFeature) SetNeutral(v float64)`
 
 SetNeutral sets Neutral field to given value.
 

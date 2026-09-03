@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the account was connected, as a unix timestamp in seconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the account was connected, as a unix timestamp in seconds. | [optional] 
 **Handle** | Pointer to **string** | Handle is the account&#39;s public name on the network, as the customer knows it. Trimmed and bounded at 1024 characters.  Example: \&quot;@acme\&quot; | [optional] 
 **Id** | Pointer to **string** | ID is the account&#39;s identifier, minted on connect and the id every later call addresses it by.  Example: \&quot;acct_7f3c1a\&quot; | [optional] 
 **Provider** | Pointer to **string** | Provider is the network this account is on: x, facebook, instagram, linkedin, tiktok, youtube or threads.  Example: \&quot;x\&quot; | [optional] 
 **Status** | Pointer to **string** | Status is the connection lifecycle: connected, disconnected or error. Only a connected account is a publish target. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is when the account row last changed, as a unix timestamp in seconds. The listing is ordered by it, newest first. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is when the account row last changed, as a unix timestamp in seconds. The listing is ordered by it, newest first. | [optional] 
 
 ## Methods
 
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreatedAt
 
-`func (o *SocialAccount) GetCreatedAt() int32`
+`func (o *SocialAccount) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *SocialAccount) GetCreatedAtOk() (*int32, bool)`
+`func (o *SocialAccount) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *SocialAccount) SetCreatedAt(v int32)`
+`func (o *SocialAccount) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -157,20 +157,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *SocialAccount) GetUpdatedAt() int32`
+`func (o *SocialAccount) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *SocialAccount) GetUpdatedAtOk() (*int32, bool)`
+`func (o *SocialAccount) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *SocialAccount) SetUpdatedAt(v int32)`
+`func (o *SocialAccount) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

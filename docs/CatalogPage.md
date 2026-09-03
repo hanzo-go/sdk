@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Data** | Pointer to [**[]Entry**](Entry.md) | Data is the page of matching entries, most recently updated first. | [optional] 
-**Facets** | Pointer to **map[string]map[string]int32** | Facets counts the whole matching set along every browse axis, so a rail a client renders is a rail that has results behind it. Keyed axis → value → count. | [optional] 
-**Total** | Pointer to **int32** | Total is how many entries matched BEFORE paging — what a pager sizes itself on. | [optional] 
+**Facets** | Pointer to **map[string]map[string]int64** | Facets counts the whole matching set along every browse axis, so a rail a client renders is a rail that has results behind it. Keyed axis → value → count. | [optional] 
+**Total** | Pointer to **int64** | Total is how many entries matched BEFORE paging — what a pager sizes itself on. | [optional] 
 
 ## Methods
 
@@ -54,20 +54,20 @@ HasData returns a boolean if a field has been set.
 
 ### GetFacets
 
-`func (o *CatalogPage) GetFacets() map[string]map[string]int32`
+`func (o *CatalogPage) GetFacets() map[string]map[string]int64`
 
 GetFacets returns the Facets field if non-nil, zero value otherwise.
 
 ### GetFacetsOk
 
-`func (o *CatalogPage) GetFacetsOk() (*map[string]map[string]int32, bool)`
+`func (o *CatalogPage) GetFacetsOk() (*map[string]map[string]int64, bool)`
 
 GetFacetsOk returns a tuple with the Facets field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFacets
 
-`func (o *CatalogPage) SetFacets(v map[string]map[string]int32)`
+`func (o *CatalogPage) SetFacets(v map[string]map[string]int64)`
 
 SetFacets sets Facets field to given value.
 
@@ -79,20 +79,20 @@ HasFacets returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *CatalogPage) GetTotal() int32`
+`func (o *CatalogPage) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *CatalogPage) GetTotalOk() (*int32, bool)`
+`func (o *CatalogPage) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *CatalogPage) SetTotal(v int32)`
+`func (o *CatalogPage) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

@@ -24,7 +24,7 @@ type O11yO11yTagFilter struct {
 	// Key is the tag to test.
 	Key *string `json:"key,omitempty"`
 	// NumberValues are the values matched when the tag holds numbers.
-	NumberValues []float32 `json:"numberValues,omitempty"`
+	NumberValues []float64 `json:"numberValues,omitempty"`
 	// Operator is the comparison to apply — in, not_in, equals, contains and the other operators the trace filter grammar names.
 	Operator *string `json:"operator,omitempty"`
 	// StringValues are the values matched when the tag holds strings.
@@ -115,9 +115,9 @@ func (o *O11yO11yTagFilter) SetKey(v string) {
 }
 
 // GetNumberValues returns the NumberValues field value if set, zero value otherwise.
-func (o *O11yO11yTagFilter) GetNumberValues() []float32 {
+func (o *O11yO11yTagFilter) GetNumberValues() []float64 {
 	if o == nil || IsNil(o.NumberValues) {
-		var ret []float32
+		var ret []float64
 		return ret
 	}
 	return o.NumberValues
@@ -125,7 +125,7 @@ func (o *O11yO11yTagFilter) GetNumberValues() []float32 {
 
 // GetNumberValuesOk returns a tuple with the NumberValues field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yTagFilter) GetNumberValuesOk() ([]float32, bool) {
+func (o *O11yO11yTagFilter) GetNumberValuesOk() ([]float64, bool) {
 	if o == nil || IsNil(o.NumberValues) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *O11yO11yTagFilter) HasNumberValues() bool {
 	return false
 }
 
-// SetNumberValues gets a reference to the given []float32 and assigns it to the NumberValues field.
-func (o *O11yO11yTagFilter) SetNumberValues(v []float32) {
+// SetNumberValues gets a reference to the given []float64 and assigns it to the NumberValues field.
+func (o *O11yO11yTagFilter) SetNumberValues(v []float64) {
 	o.NumberValues = v
 }
 

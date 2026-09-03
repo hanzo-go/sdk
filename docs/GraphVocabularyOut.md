@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Bound** | Pointer to **int32** | Bound is the ceiling on one walk. | [optional] 
+**Bound** | Pointer to **int64** | Bound is the ceiling on one walk. | [optional] 
 **Relations** | Pointer to **[]string** | Relations is what this organization has actually asserted, which is the only vocabulary there is: this plane declares none of its own. | [optional] 
 **Rule** | Pointer to **[]string** | Rule names the terms of the precedence order, in the order they apply. A reader who is told a winner without the rule cannot check it. | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetBound
 
-`func (o *GraphVocabularyOut) GetBound() int32`
+`func (o *GraphVocabularyOut) GetBound() int64`
 
 GetBound returns the Bound field if non-nil, zero value otherwise.
 
 ### GetBoundOk
 
-`func (o *GraphVocabularyOut) GetBoundOk() (*int32, bool)`
+`func (o *GraphVocabularyOut) GetBoundOk() (*int64, bool)`
 
 GetBoundOk returns a tuple with the Bound field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBound
 
-`func (o *GraphVocabularyOut) SetBound(v int32)`
+`func (o *GraphVocabularyOut) SetBound(v int64)`
 
 SetBound sets Bound field to given value.
 

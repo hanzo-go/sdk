@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Alerted** | Pointer to **int32** | Alerted is how many of those it would have raised. | [optional] 
-**Curve** | Pointer to **[]float32** | Curve is the realised alert rate over successive tenths of the history — the learning curve, which says whether the shape settled or is still moving. | [optional] 
-**Fit** | Pointer to **float32** | Fit ranks the shape, smaller being better: the relative miss of the stated appetite, plus flat penalties for never warming and for saturating, plus the share of coordinates that were blind. | [optional] 
-**Learned** | Pointer to **int32** | Learned is how many events the shape learned from during the replay. | [optional] 
-**Realised** | Pointer to **float32** | Realised is what that appetite actually produced. The distance between the two is what the search is searching over. | [optional] 
+**Alerted** | Pointer to **int64** | Alerted is how many of those it would have raised. | [optional] 
+**Curve** | Pointer to **[]float64** | Curve is the realised alert rate over successive tenths of the history — the learning curve, which says whether the shape settled or is still moving. | [optional] 
+**Fit** | Pointer to **float64** | Fit ranks the shape, smaller being better: the relative miss of the stated appetite, plus flat penalties for never warming and for saturating, plus the share of coordinates that were blind. | [optional] 
+**Learned** | Pointer to **int64** | Learned is how many events the shape learned from during the replay. | [optional] 
+**Realised** | Pointer to **float64** | Realised is what that appetite actually produced. The distance between the two is what the search is searching over. | [optional] 
 **Saturated** | Pointer to **bool** | Saturated is whether the appetite could not be honoured by any threshold, which is a shape that alerts on nothing and reads like a quiet one. | [optional] 
-**Scored** | Pointer to **int32** | Scored is how many it was able to score. | [optional] 
-**Stated** | Pointer to **float32** | Stated is the appetite the shape was tried at. | [optional] 
+**Scored** | Pointer to **int64** | Scored is how many it was able to score. | [optional] 
+**Stated** | Pointer to **float64** | Stated is the appetite the shape was tried at. | [optional] 
 **Topology** | Pointer to [**RiskTopology**](RiskTopology.md) | Topology is the shape. | [optional] 
 **Warm** | Pointer to **bool** | Warm is whether the shape learned enough to have an opinion at all over this organisation&#39;s whole history. | [optional] 
 
@@ -36,20 +36,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAlerted
 
-`func (o *RiskTrial) GetAlerted() int32`
+`func (o *RiskTrial) GetAlerted() int64`
 
 GetAlerted returns the Alerted field if non-nil, zero value otherwise.
 
 ### GetAlertedOk
 
-`func (o *RiskTrial) GetAlertedOk() (*int32, bool)`
+`func (o *RiskTrial) GetAlertedOk() (*int64, bool)`
 
 GetAlertedOk returns a tuple with the Alerted field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAlerted
 
-`func (o *RiskTrial) SetAlerted(v int32)`
+`func (o *RiskTrial) SetAlerted(v int64)`
 
 SetAlerted sets Alerted field to given value.
 
@@ -61,20 +61,20 @@ HasAlerted returns a boolean if a field has been set.
 
 ### GetCurve
 
-`func (o *RiskTrial) GetCurve() []float32`
+`func (o *RiskTrial) GetCurve() []float64`
 
 GetCurve returns the Curve field if non-nil, zero value otherwise.
 
 ### GetCurveOk
 
-`func (o *RiskTrial) GetCurveOk() (*[]float32, bool)`
+`func (o *RiskTrial) GetCurveOk() (*[]float64, bool)`
 
 GetCurveOk returns a tuple with the Curve field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCurve
 
-`func (o *RiskTrial) SetCurve(v []float32)`
+`func (o *RiskTrial) SetCurve(v []float64)`
 
 SetCurve sets Curve field to given value.
 
@@ -86,20 +86,20 @@ HasCurve returns a boolean if a field has been set.
 
 ### GetFit
 
-`func (o *RiskTrial) GetFit() float32`
+`func (o *RiskTrial) GetFit() float64`
 
 GetFit returns the Fit field if non-nil, zero value otherwise.
 
 ### GetFitOk
 
-`func (o *RiskTrial) GetFitOk() (*float32, bool)`
+`func (o *RiskTrial) GetFitOk() (*float64, bool)`
 
 GetFitOk returns a tuple with the Fit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFit
 
-`func (o *RiskTrial) SetFit(v float32)`
+`func (o *RiskTrial) SetFit(v float64)`
 
 SetFit sets Fit field to given value.
 
@@ -111,20 +111,20 @@ HasFit returns a boolean if a field has been set.
 
 ### GetLearned
 
-`func (o *RiskTrial) GetLearned() int32`
+`func (o *RiskTrial) GetLearned() int64`
 
 GetLearned returns the Learned field if non-nil, zero value otherwise.
 
 ### GetLearnedOk
 
-`func (o *RiskTrial) GetLearnedOk() (*int32, bool)`
+`func (o *RiskTrial) GetLearnedOk() (*int64, bool)`
 
 GetLearnedOk returns a tuple with the Learned field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLearned
 
-`func (o *RiskTrial) SetLearned(v int32)`
+`func (o *RiskTrial) SetLearned(v int64)`
 
 SetLearned sets Learned field to given value.
 
@@ -136,20 +136,20 @@ HasLearned returns a boolean if a field has been set.
 
 ### GetRealised
 
-`func (o *RiskTrial) GetRealised() float32`
+`func (o *RiskTrial) GetRealised() float64`
 
 GetRealised returns the Realised field if non-nil, zero value otherwise.
 
 ### GetRealisedOk
 
-`func (o *RiskTrial) GetRealisedOk() (*float32, bool)`
+`func (o *RiskTrial) GetRealisedOk() (*float64, bool)`
 
 GetRealisedOk returns a tuple with the Realised field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRealised
 
-`func (o *RiskTrial) SetRealised(v float32)`
+`func (o *RiskTrial) SetRealised(v float64)`
 
 SetRealised sets Realised field to given value.
 
@@ -186,20 +186,20 @@ HasSaturated returns a boolean if a field has been set.
 
 ### GetScored
 
-`func (o *RiskTrial) GetScored() int32`
+`func (o *RiskTrial) GetScored() int64`
 
 GetScored returns the Scored field if non-nil, zero value otherwise.
 
 ### GetScoredOk
 
-`func (o *RiskTrial) GetScoredOk() (*int32, bool)`
+`func (o *RiskTrial) GetScoredOk() (*int64, bool)`
 
 GetScoredOk returns a tuple with the Scored field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScored
 
-`func (o *RiskTrial) SetScored(v int32)`
+`func (o *RiskTrial) SetScored(v int64)`
 
 SetScored sets Scored field to given value.
 
@@ -211,20 +211,20 @@ HasScored returns a boolean if a field has been set.
 
 ### GetStated
 
-`func (o *RiskTrial) GetStated() float32`
+`func (o *RiskTrial) GetStated() float64`
 
 GetStated returns the Stated field if non-nil, zero value otherwise.
 
 ### GetStatedOk
 
-`func (o *RiskTrial) GetStatedOk() (*float32, bool)`
+`func (o *RiskTrial) GetStatedOk() (*float64, bool)`
 
 GetStatedOk returns a tuple with the Stated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStated
 
-`func (o *RiskTrial) SetStated(v float32)`
+`func (o *RiskTrial) SetStated(v float64)`
 
 SetStated sets Stated field to given value.
 

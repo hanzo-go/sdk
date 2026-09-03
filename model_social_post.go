@@ -26,7 +26,7 @@ type SocialPost struct {
 	// Content is the post's text, bounded at 8192 characters.  Example: \"Shipping today.\"
 	Content *string `json:"content,omitempty"`
 	// CreatedAt is when the post was created, as a unix timestamp in seconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Error is why the last publish attempt failed, verbatim and bounded. Absent when no attempt has failed; cleared by a later success.
 	Error *string `json:"error,omitempty"`
 	// ExternalID is the id the network returned for the published post, which is what reconciles this row against the post on the network. Absent until a publish succeeds.
@@ -36,11 +36,11 @@ type SocialPost struct {
 	// Media is the post's attached media as a list of URLs (images today; the composer's URL field now, an S3 picker later, populate it). Stored as a JSON array in the media TEXT column and ALWAYS serialized as an array (never null), so a client can rely on `media` being present. Bounded at the write layer (normMedia in social.go): each URL clipped to maxField, the list to maxMedia.
 	Media []string `json:"media,omitempty"`
 	// ScheduleAt is when the post is due, as a unix timestamp in SECONDS. 0 means unscheduled. It is meaningful only while the status is scheduled — a scheduled post whose time has arrived is published by the scheduler.
-	ScheduleAt *int32 `json:"scheduleAt,omitempty"`
+	ScheduleAt *int64 `json:"scheduleAt,omitempty"`
 	// Status is the post's lifecycle state: draft, scheduled, published or failed. A fifth, transient publishing state exists while a publish attempt holds the claim; it is never settable from a request and a caller sees it only if it reads a post mid-attempt.
 	Status *string `json:"status,omitempty"`
 	// UpdatedAt is when the post row last changed, as a unix timestamp in seconds. The listing is ordered by it, newest first.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewSocialPost instantiates a new SocialPost object
@@ -157,9 +157,9 @@ func (o *SocialPost) SetContent(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *SocialPost) GetCreatedAt() int32 {
+func (o *SocialPost) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -167,7 +167,7 @@ func (o *SocialPost) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SocialPost) GetCreatedAtOk() (*int32, bool) {
+func (o *SocialPost) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -183,8 +183,8 @@ func (o *SocialPost) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *SocialPost) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *SocialPost) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -317,9 +317,9 @@ func (o *SocialPost) SetMedia(v []string) {
 }
 
 // GetScheduleAt returns the ScheduleAt field value if set, zero value otherwise.
-func (o *SocialPost) GetScheduleAt() int32 {
+func (o *SocialPost) GetScheduleAt() int64 {
 	if o == nil || IsNil(o.ScheduleAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ScheduleAt
@@ -327,7 +327,7 @@ func (o *SocialPost) GetScheduleAt() int32 {
 
 // GetScheduleAtOk returns a tuple with the ScheduleAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SocialPost) GetScheduleAtOk() (*int32, bool) {
+func (o *SocialPost) GetScheduleAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.ScheduleAt) {
 		return nil, false
 	}
@@ -343,8 +343,8 @@ func (o *SocialPost) HasScheduleAt() bool {
 	return false
 }
 
-// SetScheduleAt gets a reference to the given int32 and assigns it to the ScheduleAt field.
-func (o *SocialPost) SetScheduleAt(v int32) {
+// SetScheduleAt gets a reference to the given int64 and assigns it to the ScheduleAt field.
+func (o *SocialPost) SetScheduleAt(v int64) {
 	o.ScheduleAt = &v
 }
 
@@ -381,9 +381,9 @@ func (o *SocialPost) SetStatus(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *SocialPost) GetUpdatedAt() int32 {
+func (o *SocialPost) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -391,7 +391,7 @@ func (o *SocialPost) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SocialPost) GetUpdatedAtOk() (*int32, bool) {
+func (o *SocialPost) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -407,8 +407,8 @@ func (o *SocialPost) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *SocialPost) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *SocialPost) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

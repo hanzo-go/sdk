@@ -20,37 +20,37 @@ var _ MappedNullable = &MetricsResponse{}
 // MetricsResponse struct for MetricsResponse
 type MetricsResponse struct {
 	// ARR is annualized recurring revenue in cents (MRR × 12).
-	Arr *int32 `json:"arr,omitempty"`
+	Arr *int64 `json:"arr,omitempty"`
 	// Burn is total expense in cents over the period.
-	Burn *int32 `json:"burn,omitempty"`
+	Burn *int64 `json:"burn,omitempty"`
 	// Cash is the bank + processor-clearing balance in cents as of To.
-	Cash *int32 `json:"cash,omitempty"`
+	Cash *int64 `json:"cash,omitempty"`
 	// COGS is cost of goods sold in cents over the period.
-	Cogs *int32 `json:"cogs,omitempty"`
+	Cogs *int64 `json:"cogs,omitempty"`
 	// DeferredRevenue is the customer-wallet liability in cents as of To.
-	DeferredRevenue *int32 `json:"deferredRevenue,omitempty"`
+	DeferredRevenue *int64 `json:"deferredRevenue,omitempty"`
 	// Figures is the same snapshot rendered through books' one money formatter.
 	Figures []Figure `json:"figures,omitempty"`
 	// From is the RFC3339 start of the reporting window, exclusive; absent for all time.
 	From *string `json:"from,omitempty"`
 	// GrossMarginBps is GrossProfit / Revenue in basis points (7000 = 70%).
-	GrossMarginBps *int32 `json:"grossMarginBps,omitempty"`
+	GrossMarginBps *int64 `json:"grossMarginBps,omitempty"`
 	// GrossProfit is Revenue − COGS, in cents.
-	GrossProfit *int32 `json:"grossProfit,omitempty"`
+	GrossProfit *int64 `json:"grossProfit,omitempty"`
 	// MonthlyBurn is net cash burned per month in cents; 0 when not losing cash.
-	MonthlyBurn *int32 `json:"monthlyBurn,omitempty"`
+	MonthlyBurn *int64 `json:"monthlyBurn,omitempty"`
 	// Months is the window length in whole months used to normalize MRR and burn.
-	Months *int32 `json:"months,omitempty"`
+	Months *int64 `json:"months,omitempty"`
 	// MRR is monthly recurring revenue in cents.
-	Mrr *int32 `json:"mrr,omitempty"`
+	Mrr *int64 `json:"mrr,omitempty"`
 	// NetIncome is Revenue − Burn, in cents.
-	NetIncome *int32 `json:"netIncome,omitempty"`
+	NetIncome *int64 `json:"netIncome,omitempty"`
 	// Period is the human window label, e.g. \"2026-07\" or \"all-time\".
 	Period *string `json:"period,omitempty"`
 	// Revenue is recognized revenue in cents over the period.
-	Revenue *int32 `json:"revenue,omitempty"`
+	Revenue *int64 `json:"revenue,omitempty"`
 	// RunwayMonths is Cash / MonthlyBurn; -1 means infinite (the org is not burning).
-	RunwayMonths *int32 `json:"runwayMonths,omitempty"`
+	RunwayMonths *int64 `json:"runwayMonths,omitempty"`
 	// To is the RFC3339 end of the reporting window, inclusive; absent for up to now.
 	To *string `json:"to,omitempty"`
 }
@@ -73,9 +73,9 @@ func NewMetricsResponseWithDefaults() *MetricsResponse {
 }
 
 // GetArr returns the Arr field value if set, zero value otherwise.
-func (o *MetricsResponse) GetArr() int32 {
+func (o *MetricsResponse) GetArr() int64 {
 	if o == nil || IsNil(o.Arr) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Arr
@@ -83,7 +83,7 @@ func (o *MetricsResponse) GetArr() int32 {
 
 // GetArrOk returns a tuple with the Arr field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricsResponse) GetArrOk() (*int32, bool) {
+func (o *MetricsResponse) GetArrOk() (*int64, bool) {
 	if o == nil || IsNil(o.Arr) {
 		return nil, false
 	}
@@ -99,15 +99,15 @@ func (o *MetricsResponse) HasArr() bool {
 	return false
 }
 
-// SetArr gets a reference to the given int32 and assigns it to the Arr field.
-func (o *MetricsResponse) SetArr(v int32) {
+// SetArr gets a reference to the given int64 and assigns it to the Arr field.
+func (o *MetricsResponse) SetArr(v int64) {
 	o.Arr = &v
 }
 
 // GetBurn returns the Burn field value if set, zero value otherwise.
-func (o *MetricsResponse) GetBurn() int32 {
+func (o *MetricsResponse) GetBurn() int64 {
 	if o == nil || IsNil(o.Burn) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Burn
@@ -115,7 +115,7 @@ func (o *MetricsResponse) GetBurn() int32 {
 
 // GetBurnOk returns a tuple with the Burn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricsResponse) GetBurnOk() (*int32, bool) {
+func (o *MetricsResponse) GetBurnOk() (*int64, bool) {
 	if o == nil || IsNil(o.Burn) {
 		return nil, false
 	}
@@ -131,15 +131,15 @@ func (o *MetricsResponse) HasBurn() bool {
 	return false
 }
 
-// SetBurn gets a reference to the given int32 and assigns it to the Burn field.
-func (o *MetricsResponse) SetBurn(v int32) {
+// SetBurn gets a reference to the given int64 and assigns it to the Burn field.
+func (o *MetricsResponse) SetBurn(v int64) {
 	o.Burn = &v
 }
 
 // GetCash returns the Cash field value if set, zero value otherwise.
-func (o *MetricsResponse) GetCash() int32 {
+func (o *MetricsResponse) GetCash() int64 {
 	if o == nil || IsNil(o.Cash) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Cash
@@ -147,7 +147,7 @@ func (o *MetricsResponse) GetCash() int32 {
 
 // GetCashOk returns a tuple with the Cash field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricsResponse) GetCashOk() (*int32, bool) {
+func (o *MetricsResponse) GetCashOk() (*int64, bool) {
 	if o == nil || IsNil(o.Cash) {
 		return nil, false
 	}
@@ -163,15 +163,15 @@ func (o *MetricsResponse) HasCash() bool {
 	return false
 }
 
-// SetCash gets a reference to the given int32 and assigns it to the Cash field.
-func (o *MetricsResponse) SetCash(v int32) {
+// SetCash gets a reference to the given int64 and assigns it to the Cash field.
+func (o *MetricsResponse) SetCash(v int64) {
 	o.Cash = &v
 }
 
 // GetCogs returns the Cogs field value if set, zero value otherwise.
-func (o *MetricsResponse) GetCogs() int32 {
+func (o *MetricsResponse) GetCogs() int64 {
 	if o == nil || IsNil(o.Cogs) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Cogs
@@ -179,7 +179,7 @@ func (o *MetricsResponse) GetCogs() int32 {
 
 // GetCogsOk returns a tuple with the Cogs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricsResponse) GetCogsOk() (*int32, bool) {
+func (o *MetricsResponse) GetCogsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Cogs) {
 		return nil, false
 	}
@@ -195,15 +195,15 @@ func (o *MetricsResponse) HasCogs() bool {
 	return false
 }
 
-// SetCogs gets a reference to the given int32 and assigns it to the Cogs field.
-func (o *MetricsResponse) SetCogs(v int32) {
+// SetCogs gets a reference to the given int64 and assigns it to the Cogs field.
+func (o *MetricsResponse) SetCogs(v int64) {
 	o.Cogs = &v
 }
 
 // GetDeferredRevenue returns the DeferredRevenue field value if set, zero value otherwise.
-func (o *MetricsResponse) GetDeferredRevenue() int32 {
+func (o *MetricsResponse) GetDeferredRevenue() int64 {
 	if o == nil || IsNil(o.DeferredRevenue) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DeferredRevenue
@@ -211,7 +211,7 @@ func (o *MetricsResponse) GetDeferredRevenue() int32 {
 
 // GetDeferredRevenueOk returns a tuple with the DeferredRevenue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricsResponse) GetDeferredRevenueOk() (*int32, bool) {
+func (o *MetricsResponse) GetDeferredRevenueOk() (*int64, bool) {
 	if o == nil || IsNil(o.DeferredRevenue) {
 		return nil, false
 	}
@@ -227,8 +227,8 @@ func (o *MetricsResponse) HasDeferredRevenue() bool {
 	return false
 }
 
-// SetDeferredRevenue gets a reference to the given int32 and assigns it to the DeferredRevenue field.
-func (o *MetricsResponse) SetDeferredRevenue(v int32) {
+// SetDeferredRevenue gets a reference to the given int64 and assigns it to the DeferredRevenue field.
+func (o *MetricsResponse) SetDeferredRevenue(v int64) {
 	o.DeferredRevenue = &v
 }
 
@@ -297,9 +297,9 @@ func (o *MetricsResponse) SetFrom(v string) {
 }
 
 // GetGrossMarginBps returns the GrossMarginBps field value if set, zero value otherwise.
-func (o *MetricsResponse) GetGrossMarginBps() int32 {
+func (o *MetricsResponse) GetGrossMarginBps() int64 {
 	if o == nil || IsNil(o.GrossMarginBps) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.GrossMarginBps
@@ -307,7 +307,7 @@ func (o *MetricsResponse) GetGrossMarginBps() int32 {
 
 // GetGrossMarginBpsOk returns a tuple with the GrossMarginBps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricsResponse) GetGrossMarginBpsOk() (*int32, bool) {
+func (o *MetricsResponse) GetGrossMarginBpsOk() (*int64, bool) {
 	if o == nil || IsNil(o.GrossMarginBps) {
 		return nil, false
 	}
@@ -323,15 +323,15 @@ func (o *MetricsResponse) HasGrossMarginBps() bool {
 	return false
 }
 
-// SetGrossMarginBps gets a reference to the given int32 and assigns it to the GrossMarginBps field.
-func (o *MetricsResponse) SetGrossMarginBps(v int32) {
+// SetGrossMarginBps gets a reference to the given int64 and assigns it to the GrossMarginBps field.
+func (o *MetricsResponse) SetGrossMarginBps(v int64) {
 	o.GrossMarginBps = &v
 }
 
 // GetGrossProfit returns the GrossProfit field value if set, zero value otherwise.
-func (o *MetricsResponse) GetGrossProfit() int32 {
+func (o *MetricsResponse) GetGrossProfit() int64 {
 	if o == nil || IsNil(o.GrossProfit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.GrossProfit
@@ -339,7 +339,7 @@ func (o *MetricsResponse) GetGrossProfit() int32 {
 
 // GetGrossProfitOk returns a tuple with the GrossProfit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricsResponse) GetGrossProfitOk() (*int32, bool) {
+func (o *MetricsResponse) GetGrossProfitOk() (*int64, bool) {
 	if o == nil || IsNil(o.GrossProfit) {
 		return nil, false
 	}
@@ -355,15 +355,15 @@ func (o *MetricsResponse) HasGrossProfit() bool {
 	return false
 }
 
-// SetGrossProfit gets a reference to the given int32 and assigns it to the GrossProfit field.
-func (o *MetricsResponse) SetGrossProfit(v int32) {
+// SetGrossProfit gets a reference to the given int64 and assigns it to the GrossProfit field.
+func (o *MetricsResponse) SetGrossProfit(v int64) {
 	o.GrossProfit = &v
 }
 
 // GetMonthlyBurn returns the MonthlyBurn field value if set, zero value otherwise.
-func (o *MetricsResponse) GetMonthlyBurn() int32 {
+func (o *MetricsResponse) GetMonthlyBurn() int64 {
 	if o == nil || IsNil(o.MonthlyBurn) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MonthlyBurn
@@ -371,7 +371,7 @@ func (o *MetricsResponse) GetMonthlyBurn() int32 {
 
 // GetMonthlyBurnOk returns a tuple with the MonthlyBurn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricsResponse) GetMonthlyBurnOk() (*int32, bool) {
+func (o *MetricsResponse) GetMonthlyBurnOk() (*int64, bool) {
 	if o == nil || IsNil(o.MonthlyBurn) {
 		return nil, false
 	}
@@ -387,15 +387,15 @@ func (o *MetricsResponse) HasMonthlyBurn() bool {
 	return false
 }
 
-// SetMonthlyBurn gets a reference to the given int32 and assigns it to the MonthlyBurn field.
-func (o *MetricsResponse) SetMonthlyBurn(v int32) {
+// SetMonthlyBurn gets a reference to the given int64 and assigns it to the MonthlyBurn field.
+func (o *MetricsResponse) SetMonthlyBurn(v int64) {
 	o.MonthlyBurn = &v
 }
 
 // GetMonths returns the Months field value if set, zero value otherwise.
-func (o *MetricsResponse) GetMonths() int32 {
+func (o *MetricsResponse) GetMonths() int64 {
 	if o == nil || IsNil(o.Months) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Months
@@ -403,7 +403,7 @@ func (o *MetricsResponse) GetMonths() int32 {
 
 // GetMonthsOk returns a tuple with the Months field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricsResponse) GetMonthsOk() (*int32, bool) {
+func (o *MetricsResponse) GetMonthsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Months) {
 		return nil, false
 	}
@@ -419,15 +419,15 @@ func (o *MetricsResponse) HasMonths() bool {
 	return false
 }
 
-// SetMonths gets a reference to the given int32 and assigns it to the Months field.
-func (o *MetricsResponse) SetMonths(v int32) {
+// SetMonths gets a reference to the given int64 and assigns it to the Months field.
+func (o *MetricsResponse) SetMonths(v int64) {
 	o.Months = &v
 }
 
 // GetMrr returns the Mrr field value if set, zero value otherwise.
-func (o *MetricsResponse) GetMrr() int32 {
+func (o *MetricsResponse) GetMrr() int64 {
 	if o == nil || IsNil(o.Mrr) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Mrr
@@ -435,7 +435,7 @@ func (o *MetricsResponse) GetMrr() int32 {
 
 // GetMrrOk returns a tuple with the Mrr field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricsResponse) GetMrrOk() (*int32, bool) {
+func (o *MetricsResponse) GetMrrOk() (*int64, bool) {
 	if o == nil || IsNil(o.Mrr) {
 		return nil, false
 	}
@@ -451,15 +451,15 @@ func (o *MetricsResponse) HasMrr() bool {
 	return false
 }
 
-// SetMrr gets a reference to the given int32 and assigns it to the Mrr field.
-func (o *MetricsResponse) SetMrr(v int32) {
+// SetMrr gets a reference to the given int64 and assigns it to the Mrr field.
+func (o *MetricsResponse) SetMrr(v int64) {
 	o.Mrr = &v
 }
 
 // GetNetIncome returns the NetIncome field value if set, zero value otherwise.
-func (o *MetricsResponse) GetNetIncome() int32 {
+func (o *MetricsResponse) GetNetIncome() int64 {
 	if o == nil || IsNil(o.NetIncome) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NetIncome
@@ -467,7 +467,7 @@ func (o *MetricsResponse) GetNetIncome() int32 {
 
 // GetNetIncomeOk returns a tuple with the NetIncome field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricsResponse) GetNetIncomeOk() (*int32, bool) {
+func (o *MetricsResponse) GetNetIncomeOk() (*int64, bool) {
 	if o == nil || IsNil(o.NetIncome) {
 		return nil, false
 	}
@@ -483,8 +483,8 @@ func (o *MetricsResponse) HasNetIncome() bool {
 	return false
 }
 
-// SetNetIncome gets a reference to the given int32 and assigns it to the NetIncome field.
-func (o *MetricsResponse) SetNetIncome(v int32) {
+// SetNetIncome gets a reference to the given int64 and assigns it to the NetIncome field.
+func (o *MetricsResponse) SetNetIncome(v int64) {
 	o.NetIncome = &v
 }
 
@@ -521,9 +521,9 @@ func (o *MetricsResponse) SetPeriod(v string) {
 }
 
 // GetRevenue returns the Revenue field value if set, zero value otherwise.
-func (o *MetricsResponse) GetRevenue() int32 {
+func (o *MetricsResponse) GetRevenue() int64 {
 	if o == nil || IsNil(o.Revenue) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Revenue
@@ -531,7 +531,7 @@ func (o *MetricsResponse) GetRevenue() int32 {
 
 // GetRevenueOk returns a tuple with the Revenue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricsResponse) GetRevenueOk() (*int32, bool) {
+func (o *MetricsResponse) GetRevenueOk() (*int64, bool) {
 	if o == nil || IsNil(o.Revenue) {
 		return nil, false
 	}
@@ -547,15 +547,15 @@ func (o *MetricsResponse) HasRevenue() bool {
 	return false
 }
 
-// SetRevenue gets a reference to the given int32 and assigns it to the Revenue field.
-func (o *MetricsResponse) SetRevenue(v int32) {
+// SetRevenue gets a reference to the given int64 and assigns it to the Revenue field.
+func (o *MetricsResponse) SetRevenue(v int64) {
 	o.Revenue = &v
 }
 
 // GetRunwayMonths returns the RunwayMonths field value if set, zero value otherwise.
-func (o *MetricsResponse) GetRunwayMonths() int32 {
+func (o *MetricsResponse) GetRunwayMonths() int64 {
 	if o == nil || IsNil(o.RunwayMonths) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RunwayMonths
@@ -563,7 +563,7 @@ func (o *MetricsResponse) GetRunwayMonths() int32 {
 
 // GetRunwayMonthsOk returns a tuple with the RunwayMonths field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricsResponse) GetRunwayMonthsOk() (*int32, bool) {
+func (o *MetricsResponse) GetRunwayMonthsOk() (*int64, bool) {
 	if o == nil || IsNil(o.RunwayMonths) {
 		return nil, false
 	}
@@ -579,8 +579,8 @@ func (o *MetricsResponse) HasRunwayMonths() bool {
 	return false
 }
 
-// SetRunwayMonths gets a reference to the given int32 and assigns it to the RunwayMonths field.
-func (o *MetricsResponse) SetRunwayMonths(v int32) {
+// SetRunwayMonths gets a reference to the given int64 and assigns it to the RunwayMonths field.
+func (o *MetricsResponse) SetRunwayMonths(v int64) {
 	o.RunwayMonths = &v
 }
 

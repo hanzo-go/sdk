@@ -20,13 +20,13 @@ var _ MappedNullable = &ProviderRow{}
 // ProviderRow struct for ProviderRow
 type ProviderRow struct {
 	// CostCents is what they cost the org, in US cents.
-	CostCents *int32 `json:"costCents,omitempty"`
+	CostCents *int64 `json:"costCents,omitempty"`
 	// Provider is the upstream the requests were routed to, e.g. anthropic.
 	Provider *string `json:"provider,omitempty"`
 	// Requests is how many completions the org made against that provider.
-	Requests *int32 `json:"requests,omitempty"`
+	Requests *int64 `json:"requests,omitempty"`
 	// Tokens is the total tokens those completions consumed, prompt plus completion.
-	Tokens *int32 `json:"tokens,omitempty"`
+	Tokens *int64 `json:"tokens,omitempty"`
 }
 
 // NewProviderRow instantiates a new ProviderRow object
@@ -47,9 +47,9 @@ func NewProviderRowWithDefaults() *ProviderRow {
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *ProviderRow) GetCostCents() int32 {
+func (o *ProviderRow) GetCostCents() int64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostCents
@@ -57,7 +57,7 @@ func (o *ProviderRow) GetCostCents() int32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProviderRow) GetCostCentsOk() (*int32, bool) {
+func (o *ProviderRow) GetCostCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -73,8 +73,8 @@ func (o *ProviderRow) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *ProviderRow) SetCostCents(v int32) {
+// SetCostCents gets a reference to the given int64 and assigns it to the CostCents field.
+func (o *ProviderRow) SetCostCents(v int64) {
 	o.CostCents = &v
 }
 
@@ -111,9 +111,9 @@ func (o *ProviderRow) SetProvider(v string) {
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *ProviderRow) GetRequests() int32 {
+func (o *ProviderRow) GetRequests() int64 {
 	if o == nil || IsNil(o.Requests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Requests
@@ -121,7 +121,7 @@ func (o *ProviderRow) GetRequests() int32 {
 
 // GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProviderRow) GetRequestsOk() (*int32, bool) {
+func (o *ProviderRow) GetRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Requests) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *ProviderRow) HasRequests() bool {
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *ProviderRow) SetRequests(v int32) {
+// SetRequests gets a reference to the given int64 and assigns it to the Requests field.
+func (o *ProviderRow) SetRequests(v int64) {
 	o.Requests = &v
 }
 
 // GetTokens returns the Tokens field value if set, zero value otherwise.
-func (o *ProviderRow) GetTokens() int32 {
+func (o *ProviderRow) GetTokens() int64 {
 	if o == nil || IsNil(o.Tokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Tokens
@@ -153,7 +153,7 @@ func (o *ProviderRow) GetTokens() int32 {
 
 // GetTokensOk returns a tuple with the Tokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProviderRow) GetTokensOk() (*int32, bool) {
+func (o *ProviderRow) GetTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.Tokens) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *ProviderRow) HasTokens() bool {
 	return false
 }
 
-// SetTokens gets a reference to the given int32 and assigns it to the Tokens field.
-func (o *ProviderRow) SetTokens(v int32) {
+// SetTokens gets a reference to the given int64 and assigns it to the Tokens field.
+func (o *ProviderRow) SetTokens(v int64) {
 	o.Tokens = &v
 }
 

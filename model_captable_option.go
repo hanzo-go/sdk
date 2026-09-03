@@ -20,13 +20,13 @@ var _ MappedNullable = &CaptableOption{}
 // CaptableOption struct for CaptableOption
 type CaptableOption struct {
 	// CliffYears is how many years before any of the grant vests.
-	CliffYears *int32 `json:"cliffYears,omitempty"`
+	CliffYears *int64 `json:"cliffYears,omitempty"`
 	// EquityPlanID is the plan the grant draws from.
 	EquityPlanId *string `json:"equityPlanId,omitempty"`
 	// EquityPlanName is that plan's name.
 	EquityPlanName *string `json:"equityPlanName,omitempty"`
 	// ExercisePrice is the strike price per share.
-	ExercisePrice *float32 `json:"exercisePrice,omitempty"`
+	ExercisePrice *float64 `json:"exercisePrice,omitempty"`
 	// ExpirationDate is the ISO date the grant expires.
 	ExpirationDate *string `json:"expirationDate,omitempty"`
 	// GrantID is the grant number, unique within the company.
@@ -36,7 +36,7 @@ type CaptableOption struct {
 	// IssueDate is the ISO date the grant was issued.
 	IssueDate *string `json:"issueDate,omitempty"`
 	// Quantity is how many shares the grant covers.
-	Quantity *int32 `json:"quantity,omitempty"`
+	Quantity *int64 `json:"quantity,omitempty"`
 	// StakeholderID is the grantee.
 	StakeholderId *string `json:"stakeholderId,omitempty"`
 	// StakeholderName is that grantee's name.
@@ -46,7 +46,7 @@ type CaptableOption struct {
 	// Type is the grant kind, ISO or NSO.
 	Type *string `json:"type,omitempty"`
 	// VestingYears is the total vesting period in years.
-	VestingYears *int32 `json:"vestingYears,omitempty"`
+	VestingYears *int64 `json:"vestingYears,omitempty"`
 }
 
 // NewCaptableOption instantiates a new CaptableOption object
@@ -67,9 +67,9 @@ func NewCaptableOptionWithDefaults() *CaptableOption {
 }
 
 // GetCliffYears returns the CliffYears field value if set, zero value otherwise.
-func (o *CaptableOption) GetCliffYears() int32 {
+func (o *CaptableOption) GetCliffYears() int64 {
 	if o == nil || IsNil(o.CliffYears) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CliffYears
@@ -77,7 +77,7 @@ func (o *CaptableOption) GetCliffYears() int32 {
 
 // GetCliffYearsOk returns a tuple with the CliffYears field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableOption) GetCliffYearsOk() (*int32, bool) {
+func (o *CaptableOption) GetCliffYearsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CliffYears) {
 		return nil, false
 	}
@@ -93,8 +93,8 @@ func (o *CaptableOption) HasCliffYears() bool {
 	return false
 }
 
-// SetCliffYears gets a reference to the given int32 and assigns it to the CliffYears field.
-func (o *CaptableOption) SetCliffYears(v int32) {
+// SetCliffYears gets a reference to the given int64 and assigns it to the CliffYears field.
+func (o *CaptableOption) SetCliffYears(v int64) {
 	o.CliffYears = &v
 }
 
@@ -163,9 +163,9 @@ func (o *CaptableOption) SetEquityPlanName(v string) {
 }
 
 // GetExercisePrice returns the ExercisePrice field value if set, zero value otherwise.
-func (o *CaptableOption) GetExercisePrice() float32 {
+func (o *CaptableOption) GetExercisePrice() float64 {
 	if o == nil || IsNil(o.ExercisePrice) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.ExercisePrice
@@ -173,7 +173,7 @@ func (o *CaptableOption) GetExercisePrice() float32 {
 
 // GetExercisePriceOk returns a tuple with the ExercisePrice field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableOption) GetExercisePriceOk() (*float32, bool) {
+func (o *CaptableOption) GetExercisePriceOk() (*float64, bool) {
 	if o == nil || IsNil(o.ExercisePrice) {
 		return nil, false
 	}
@@ -189,8 +189,8 @@ func (o *CaptableOption) HasExercisePrice() bool {
 	return false
 }
 
-// SetExercisePrice gets a reference to the given float32 and assigns it to the ExercisePrice field.
-func (o *CaptableOption) SetExercisePrice(v float32) {
+// SetExercisePrice gets a reference to the given float64 and assigns it to the ExercisePrice field.
+func (o *CaptableOption) SetExercisePrice(v float64) {
 	o.ExercisePrice = &v
 }
 
@@ -323,9 +323,9 @@ func (o *CaptableOption) SetIssueDate(v string) {
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise.
-func (o *CaptableOption) GetQuantity() int32 {
+func (o *CaptableOption) GetQuantity() int64 {
 	if o == nil || IsNil(o.Quantity) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Quantity
@@ -333,7 +333,7 @@ func (o *CaptableOption) GetQuantity() int32 {
 
 // GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableOption) GetQuantityOk() (*int32, bool) {
+func (o *CaptableOption) GetQuantityOk() (*int64, bool) {
 	if o == nil || IsNil(o.Quantity) {
 		return nil, false
 	}
@@ -349,8 +349,8 @@ func (o *CaptableOption) HasQuantity() bool {
 	return false
 }
 
-// SetQuantity gets a reference to the given int32 and assigns it to the Quantity field.
-func (o *CaptableOption) SetQuantity(v int32) {
+// SetQuantity gets a reference to the given int64 and assigns it to the Quantity field.
+func (o *CaptableOption) SetQuantity(v int64) {
 	o.Quantity = &v
 }
 
@@ -483,9 +483,9 @@ func (o *CaptableOption) SetType(v string) {
 }
 
 // GetVestingYears returns the VestingYears field value if set, zero value otherwise.
-func (o *CaptableOption) GetVestingYears() int32 {
+func (o *CaptableOption) GetVestingYears() int64 {
 	if o == nil || IsNil(o.VestingYears) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.VestingYears
@@ -493,7 +493,7 @@ func (o *CaptableOption) GetVestingYears() int32 {
 
 // GetVestingYearsOk returns a tuple with the VestingYears field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableOption) GetVestingYearsOk() (*int32, bool) {
+func (o *CaptableOption) GetVestingYearsOk() (*int64, bool) {
 	if o == nil || IsNil(o.VestingYears) {
 		return nil, false
 	}
@@ -509,8 +509,8 @@ func (o *CaptableOption) HasVestingYears() bool {
 	return false
 }
 
-// SetVestingYears gets a reference to the given int32 and assigns it to the VestingYears field.
-func (o *CaptableOption) SetVestingYears(v int32) {
+// SetVestingYears gets a reference to the given int64 and assigns it to the VestingYears field.
+func (o *CaptableOption) SetVestingYears(v int64) {
 	o.VestingYears = &v
 }
 

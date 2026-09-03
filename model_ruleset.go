@@ -20,7 +20,7 @@ var _ MappedNullable = &Ruleset{}
 // Ruleset struct for Ruleset
 type Ruleset struct {
 	// Rules is how many detection rules the engine holds.
-	Rules *int32 `json:"rules,omitempty"`
+	Rules *int64 `json:"rules,omitempty"`
 	// Status is \"ok\" whenever the findings store opened.
 	Status *string `json:"status,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewRulesetWithDefaults() *Ruleset {
 }
 
 // GetRules returns the Rules field value if set, zero value otherwise.
-func (o *Ruleset) GetRules() int32 {
+func (o *Ruleset) GetRules() int64 {
 	if o == nil || IsNil(o.Rules) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Rules
@@ -53,7 +53,7 @@ func (o *Ruleset) GetRules() int32 {
 
 // GetRulesOk returns a tuple with the Rules field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Ruleset) GetRulesOk() (*int32, bool) {
+func (o *Ruleset) GetRulesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Rules) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *Ruleset) HasRules() bool {
 	return false
 }
 
-// SetRules gets a reference to the given int32 and assigns it to the Rules field.
-func (o *Ruleset) SetRules(v int32) {
+// SetRules gets a reference to the given int64 and assigns it to the Rules field.
+func (o *Ruleset) SetRules(v int64) {
 	o.Rules = &v
 }
 

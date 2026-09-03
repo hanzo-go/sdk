@@ -19,7 +19,7 @@ var _ MappedNullable = &IamFaceId{}
 
 // IamFaceId struct for IamFaceId
 type IamFaceId struct {
-	FaceIdData []float32 `json:"faceIdData,omitempty"`
+	FaceIdData []float64 `json:"faceIdData,omitempty"`
 	ImageUrl   *string   `json:"imageUrl,omitempty"`
 	Name       *string   `json:"name,omitempty"`
 }
@@ -42,9 +42,9 @@ func NewIamFaceIdWithDefaults() *IamFaceId {
 }
 
 // GetFaceIdData returns the FaceIdData field value if set, zero value otherwise.
-func (o *IamFaceId) GetFaceIdData() []float32 {
+func (o *IamFaceId) GetFaceIdData() []float64 {
 	if o == nil || IsNil(o.FaceIdData) {
-		var ret []float32
+		var ret []float64
 		return ret
 	}
 	return o.FaceIdData
@@ -52,7 +52,7 @@ func (o *IamFaceId) GetFaceIdData() []float32 {
 
 // GetFaceIdDataOk returns a tuple with the FaceIdData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamFaceId) GetFaceIdDataOk() ([]float32, bool) {
+func (o *IamFaceId) GetFaceIdDataOk() ([]float64, bool) {
 	if o == nil || IsNil(o.FaceIdData) {
 		return nil, false
 	}
@@ -68,8 +68,8 @@ func (o *IamFaceId) HasFaceIdData() bool {
 	return false
 }
 
-// SetFaceIdData gets a reference to the given []float32 and assigns it to the FaceIdData field.
-func (o *IamFaceId) SetFaceIdData(v []float32) {
+// SetFaceIdData gets a reference to the given []float64 and assigns it to the FaceIdData field.
+func (o *IamFaceId) SetFaceIdData(v []float64) {
 	o.FaceIdData = v
 }
 

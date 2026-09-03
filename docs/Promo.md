@@ -6,12 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Active** | Pointer to **bool** | Active is false for a promo that is no longer offered; an inactive promo quotes as ineligible and refuses to redeem. | [optional] 
 **Code** | Pointer to **string** | Code is the promo id, e.g. \&quot;first1000\&quot;. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is unix seconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is unix seconds. | [optional] 
 **Description** | Pointer to **string** | Description is the human-readable offer. | [optional] 
-**MaxRedemptions** | Pointer to **int32** | MaxRedemptions is the hard fleet-wide cap; the redemption past it is declined. | [optional] 
-**PercentOff** | Pointer to **int32** | PercentOff is the discount applied to ONE month&#39;s list price. | [optional] 
+**MaxRedemptions** | Pointer to **int64** | MaxRedemptions is the hard fleet-wide cap; the redemption past it is declined. | [optional] 
+**PercentOff** | Pointer to **int64** | PercentOff is the discount applied to ONE month&#39;s list price. | [optional] 
 **Plans** | Pointer to **string** | Plans is the csv of eligible plan ids (\&quot;pro,max,team\&quot;). | [optional] 
-**TeamSeatCap** | Pointer to **int32** | TeamSeatCap is how many Team seats bill at the promo rate; seats beyond it bill at list. | [optional] 
+**TeamSeatCap** | Pointer to **int64** | TeamSeatCap is how many Team seats bill at the promo rate; seats beyond it bill at list. | [optional] 
 
 ## Methods
 
@@ -84,20 +84,20 @@ HasCode returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *Promo) GetCreatedAt() int32`
+`func (o *Promo) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *Promo) GetCreatedAtOk() (*int32, bool)`
+`func (o *Promo) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *Promo) SetCreatedAt(v int32)`
+`func (o *Promo) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -134,20 +134,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetMaxRedemptions
 
-`func (o *Promo) GetMaxRedemptions() int32`
+`func (o *Promo) GetMaxRedemptions() int64`
 
 GetMaxRedemptions returns the MaxRedemptions field if non-nil, zero value otherwise.
 
 ### GetMaxRedemptionsOk
 
-`func (o *Promo) GetMaxRedemptionsOk() (*int32, bool)`
+`func (o *Promo) GetMaxRedemptionsOk() (*int64, bool)`
 
 GetMaxRedemptionsOk returns a tuple with the MaxRedemptions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxRedemptions
 
-`func (o *Promo) SetMaxRedemptions(v int32)`
+`func (o *Promo) SetMaxRedemptions(v int64)`
 
 SetMaxRedemptions sets MaxRedemptions field to given value.
 
@@ -159,20 +159,20 @@ HasMaxRedemptions returns a boolean if a field has been set.
 
 ### GetPercentOff
 
-`func (o *Promo) GetPercentOff() int32`
+`func (o *Promo) GetPercentOff() int64`
 
 GetPercentOff returns the PercentOff field if non-nil, zero value otherwise.
 
 ### GetPercentOffOk
 
-`func (o *Promo) GetPercentOffOk() (*int32, bool)`
+`func (o *Promo) GetPercentOffOk() (*int64, bool)`
 
 GetPercentOffOk returns a tuple with the PercentOff field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPercentOff
 
-`func (o *Promo) SetPercentOff(v int32)`
+`func (o *Promo) SetPercentOff(v int64)`
 
 SetPercentOff sets PercentOff field to given value.
 
@@ -209,20 +209,20 @@ HasPlans returns a boolean if a field has been set.
 
 ### GetTeamSeatCap
 
-`func (o *Promo) GetTeamSeatCap() int32`
+`func (o *Promo) GetTeamSeatCap() int64`
 
 GetTeamSeatCap returns the TeamSeatCap field if non-nil, zero value otherwise.
 
 ### GetTeamSeatCapOk
 
-`func (o *Promo) GetTeamSeatCapOk() (*int32, bool)`
+`func (o *Promo) GetTeamSeatCapOk() (*int64, bool)`
 
 GetTeamSeatCapOk returns a tuple with the TeamSeatCap field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTeamSeatCap
 
-`func (o *Promo) SetTeamSeatCap(v int32)`
+`func (o *Promo) SetTeamSeatCap(v int64)`
 
 SetTeamSeatCap sets TeamSeatCap field to given value.
 

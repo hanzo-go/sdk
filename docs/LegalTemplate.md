@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] 
 **Origin** | Pointer to **string** |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
-**Version** | Pointer to **int32** |  | [optional] 
+**Version** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -209,20 +209,20 @@ HasTitle returns a boolean if a field has been set.
 
 ### GetVersion
 
-`func (o *LegalTemplate) GetVersion() int32`
+`func (o *LegalTemplate) GetVersion() int64`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *LegalTemplate) GetVersionOk() (*int32, bool)`
+`func (o *LegalTemplate) GetVersionOk() (*int64, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *LegalTemplate) SetVersion(v int32)`
+`func (o *LegalTemplate) SetVersion(v int64)`
 
 SetVersion sets Version field to given value.
 

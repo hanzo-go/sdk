@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Account** | Pointer to **string** | Account names the connected external account. Absent until the org connects. | [optional] 
 **Configured** | Pointer to **bool** | Configured is true when this deployment holds OAuth credentials for the provider. | [optional] 
-**DocCount** | Pointer to **int32** | DocCount is the live count of this provider&#39;s documents in the org&#39;s store. | [optional] 
+**DocCount** | Pointer to **int64** | DocCount is the live count of this provider&#39;s documents in the org&#39;s store. | [optional] 
 **Error** | Pointer to **string** | Error is the last sync failure, if any. Absent until the org connects. | [optional] 
 **Kind** | Pointer to **string** | Kind is \&quot;native\&quot; for a first-party Go connector, \&quot;piece\&quot; for a long-tail one. | [optional] 
 **LastSync** | Pointer to **string** | LastSync is when the last pull finished. Absent until the org connects. | [optional] 
@@ -84,20 +84,20 @@ HasConfigured returns a boolean if a field has been set.
 
 ### GetDocCount
 
-`func (o *ConnectorView) GetDocCount() int32`
+`func (o *ConnectorView) GetDocCount() int64`
 
 GetDocCount returns the DocCount field if non-nil, zero value otherwise.
 
 ### GetDocCountOk
 
-`func (o *ConnectorView) GetDocCountOk() (*int32, bool)`
+`func (o *ConnectorView) GetDocCountOk() (*int64, bool)`
 
 GetDocCountOk returns a tuple with the DocCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDocCount
 
-`func (o *ConnectorView) SetDocCount(v int32)`
+`func (o *ConnectorView) SetDocCount(v int64)`
 
 SetDocCount sets DocCount field to given value.
 

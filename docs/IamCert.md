@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccessKey** | Pointer to **string** |  | [optional] 
 **AccessSecret** | Pointer to **string** |  | [optional] 
 **Account** | Pointer to **string** |  | [optional] 
-**BitSize** | Pointer to **int32** |  | [optional] 
+**BitSize** | Pointer to **int64** |  | [optional] 
 **Certificate** | Pointer to **string** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **CreatedTime** | Pointer to **string** |  | [optional] 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **Deleted** | Pointer to **bool** |  | [optional] 
 **DisplayName** | Pointer to **string** |  | [optional] 
 **DomainExpireTime** | Pointer to **string** |  | [optional] 
-**ExpireInYears** | Pointer to **int32** |  | [optional] 
+**ExpireInYears** | Pointer to **int64** |  | [optional] 
 **ExpireTime** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
@@ -121,20 +121,20 @@ HasAccount returns a boolean if a field has been set.
 
 ### GetBitSize
 
-`func (o *IamCert) GetBitSize() int32`
+`func (o *IamCert) GetBitSize() int64`
 
 GetBitSize returns the BitSize field if non-nil, zero value otherwise.
 
 ### GetBitSizeOk
 
-`func (o *IamCert) GetBitSizeOk() (*int32, bool)`
+`func (o *IamCert) GetBitSizeOk() (*int64, bool)`
 
 GetBitSizeOk returns a tuple with the BitSize field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBitSize
 
-`func (o *IamCert) SetBitSize(v int32)`
+`func (o *IamCert) SetBitSize(v int64)`
 
 SetBitSize sets BitSize field to given value.
 
@@ -321,20 +321,20 @@ HasDomainExpireTime returns a boolean if a field has been set.
 
 ### GetExpireInYears
 
-`func (o *IamCert) GetExpireInYears() int32`
+`func (o *IamCert) GetExpireInYears() int64`
 
 GetExpireInYears returns the ExpireInYears field if non-nil, zero value otherwise.
 
 ### GetExpireInYearsOk
 
-`func (o *IamCert) GetExpireInYearsOk() (*int32, bool)`
+`func (o *IamCert) GetExpireInYearsOk() (*int64, bool)`
 
 GetExpireInYearsOk returns a tuple with the ExpireInYears field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpireInYears
 
-`func (o *IamCert) SetExpireInYears(v int32)`
+`func (o *IamCert) SetExpireInYears(v int64)`
 
 SetExpireInYears sets ExpireInYears field to given value.
 

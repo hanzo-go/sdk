@@ -38,7 +38,7 @@ type ScoreReq struct {
 	// TraceID attaches the score to one model call.
 	TraceId *string `json:"traceId,omitempty"`
 	// Value is the numeric score, which must be finite: NaN and Inf are refused. A BOOLEAN score takes 0 or 1.
-	Value *float32 `json:"value,omitempty"`
+	Value *float64 `json:"value,omitempty"`
 }
 
 type _ScoreReq ScoreReq
@@ -310,9 +310,9 @@ func (o *ScoreReq) SetTraceId(v string) {
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
-func (o *ScoreReq) GetValue() float32 {
+func (o *ScoreReq) GetValue() float64 {
 	if o == nil || IsNil(o.Value) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Value
@@ -320,7 +320,7 @@ func (o *ScoreReq) GetValue() float32 {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ScoreReq) GetValueOk() (*float32, bool) {
+func (o *ScoreReq) GetValueOk() (*float64, bool) {
 	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
@@ -336,8 +336,8 @@ func (o *ScoreReq) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given float32 and assigns it to the Value field.
-func (o *ScoreReq) SetValue(v float32) {
+// SetValue gets a reference to the given float64 and assigns it to the Value field.
+func (o *ScoreReq) SetValue(v float64) {
 	o.Value = &v
 }
 

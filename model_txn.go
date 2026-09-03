@@ -20,7 +20,7 @@ var _ MappedNullable = &Txn{}
 // Txn struct for Txn
 type Txn struct {
 	// AmountCents is the voucher's total, in whole cents — its total debit, which equals its total credit because every voucher balances. It is the size of the entry and carries no direction; the category says which way it went.
-	AmountCents *int32 `json:"amountCents,omitempty"`
+	AmountCents *int64 `json:"amountCents,omitempty"`
 	// Category is the chart-of-accounts NUMBER of the income or expense account this voucher touched — where it lands on the P&L, not a free-text label.
 	Category *string `json:"category,omitempty"`
 	// CategoryName is that account's human name, so a caller need not carry the chart to render the row.
@@ -34,7 +34,7 @@ type Txn struct {
 	// Vendor is the counterparty, resolved from whatever the source knew — a bank row's merchant, a scanned bill's supplier. Absent when the source named none.
 	Vendor *string `json:"vendor,omitempty"`
 	// VoucherID identifies the underlying double-entry voucher, so a caller can open the full set of legs behind this single register line.
-	VoucherId *int32 `json:"voucherId,omitempty"`
+	VoucherId *int64 `json:"voucherId,omitempty"`
 }
 
 // NewTxn instantiates a new Txn object
@@ -55,9 +55,9 @@ func NewTxnWithDefaults() *Txn {
 }
 
 // GetAmountCents returns the AmountCents field value if set, zero value otherwise.
-func (o *Txn) GetAmountCents() int32 {
+func (o *Txn) GetAmountCents() int64 {
 	if o == nil || IsNil(o.AmountCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AmountCents
@@ -65,7 +65,7 @@ func (o *Txn) GetAmountCents() int32 {
 
 // GetAmountCentsOk returns a tuple with the AmountCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Txn) GetAmountCentsOk() (*int32, bool) {
+func (o *Txn) GetAmountCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AmountCents) {
 		return nil, false
 	}
@@ -81,8 +81,8 @@ func (o *Txn) HasAmountCents() bool {
 	return false
 }
 
-// SetAmountCents gets a reference to the given int32 and assigns it to the AmountCents field.
-func (o *Txn) SetAmountCents(v int32) {
+// SetAmountCents gets a reference to the given int64 and assigns it to the AmountCents field.
+func (o *Txn) SetAmountCents(v int64) {
 	o.AmountCents = &v
 }
 
@@ -279,9 +279,9 @@ func (o *Txn) SetVendor(v string) {
 }
 
 // GetVoucherId returns the VoucherId field value if set, zero value otherwise.
-func (o *Txn) GetVoucherId() int32 {
+func (o *Txn) GetVoucherId() int64 {
 	if o == nil || IsNil(o.VoucherId) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.VoucherId
@@ -289,7 +289,7 @@ func (o *Txn) GetVoucherId() int32 {
 
 // GetVoucherIdOk returns a tuple with the VoucherId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Txn) GetVoucherIdOk() (*int32, bool) {
+func (o *Txn) GetVoucherIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.VoucherId) {
 		return nil, false
 	}
@@ -305,8 +305,8 @@ func (o *Txn) HasVoucherId() bool {
 	return false
 }
 
-// SetVoucherId gets a reference to the given int32 and assigns it to the VoucherId field.
-func (o *Txn) SetVoucherId(v int32) {
+// SetVoucherId gets a reference to the given int64 and assigns it to the VoucherId field.
+func (o *Txn) SetVoucherId(v int64) {
 	o.VoucherId = &v
 }
 

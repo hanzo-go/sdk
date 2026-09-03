@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AsOf** | Pointer to **string** | AsOf is the instant this answer was true at: the event time plus the horizon. Nothing seen after it was visible to this resolution. | [optional] 
 **At** | Pointer to **string** | At is the event&#39;s instant, RFC 3339, echoed. It is what the horizon is measured from, so At plus the horizon is AsOf. | [optional] 
 **By** | Pointer to **string** | By is the identity that filed the WINNING assertion, &#x60;&lt;home org&gt;/&lt;user&gt;&#x60;, stamped server-side from the validated principal at the write and never taken from a body — an attribution the caller chose is not attribution. It is the winner&#39;s alone; every losing assertion keeps its own and is returned whole in Conflicts. | [optional] 
-**Confidence** | Pointer to **float32** | Confidence is the winning assertion&#39;s own confidence in [0,1], zero when its filer stated none. It is reported because it is a term of the rule that picked the winner, and it is the weakest term but one: it breaks a tie inside one rank and never lifts a weak source above a strong one. | [optional] 
+**Confidence** | Pointer to **float64** | Confidence is the winning assertion&#39;s own confidence in [0,1], zero when its filer stated none. It is reported because it is a term of the rule that picked the winner, and it is the weakest term but one: it breaks a tie inside one rank and never lifts a weak source above a strong one. | [optional] 
 **Conflicts** | Pointer to [**[]RiskLabelRecord**](RiskLabelRecord.md) | Conflicts is every other visible assertion, strongest first, whole. They are kept and returned rather than dropped, so an adverse action can show that the plane knew of a contrary claim and say why it lost. They are horizon-filtered exactly like the winner: an assertion that was not knowable yet cannot even be named here, because naming it would leak its existence into a past decision. | [optional] 
 **Contested** | Pointer to **bool** | Contested is true when a visible assertion claimed a DIFFERENT disposition. Two sources agreeing is corroboration, not conflict. | [optional] 
 **Disposition** | Pointer to **string** | Disposition is the claim IN FORCE at AsOf: productive, unproductive, or the empty string for an explicit unjudged. It is the winning assertion&#39;s own claim, never a vote or an average — an average of two adjudications is a third claim nobody made. A matured event nobody judged is not answered here at all; it is counted in Unlabelled, because manufacturing a negative there is how a fraud model comes to describe the incumbent block list. | [optional] 
@@ -113,20 +113,20 @@ HasBy returns a boolean if a field has been set.
 
 ### GetConfidence
 
-`func (o *RiskResolved) GetConfidence() float32`
+`func (o *RiskResolved) GetConfidence() float64`
 
 GetConfidence returns the Confidence field if non-nil, zero value otherwise.
 
 ### GetConfidenceOk
 
-`func (o *RiskResolved) GetConfidenceOk() (*float32, bool)`
+`func (o *RiskResolved) GetConfidenceOk() (*float64, bool)`
 
 GetConfidenceOk returns a tuple with the Confidence field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConfidence
 
-`func (o *RiskResolved) SetConfidence(v float32)`
+`func (o *RiskResolved) SetConfidence(v float64)`
 
 SetConfidence sets Confidence field to given value.
 

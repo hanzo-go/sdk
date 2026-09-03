@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Requests** | Pointer to **int32** | Requests is how many LLM calls fell in this bucket. | [optional] 
-**SpendCents** | Pointer to **int32** | SpendCents is what they cost, in cents. | [optional] 
+**Requests** | Pointer to **int64** | Requests is how many LLM calls fell in this bucket. | [optional] 
+**SpendCents** | Pointer to **int64** | SpendCents is what they cost, in cents. | [optional] 
 **T** | Pointer to **string** | T is the bucket&#39;s start, RFC3339 UTC, aligned to the interval. | [optional] 
-**Tokens** | Pointer to **int32** | Tokens is prompt plus completion tokens over those calls. | [optional] 
+**Tokens** | Pointer to **int64** | Tokens is prompt plus completion tokens over those calls. | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetRequests
 
-`func (o *UsagePoint) GetRequests() int32`
+`func (o *UsagePoint) GetRequests() int64`
 
 GetRequests returns the Requests field if non-nil, zero value otherwise.
 
 ### GetRequestsOk
 
-`func (o *UsagePoint) GetRequestsOk() (*int32, bool)`
+`func (o *UsagePoint) GetRequestsOk() (*int64, bool)`
 
 GetRequestsOk returns a tuple with the Requests field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRequests
 
-`func (o *UsagePoint) SetRequests(v int32)`
+`func (o *UsagePoint) SetRequests(v int64)`
 
 SetRequests sets Requests field to given value.
 
@@ -55,20 +55,20 @@ HasRequests returns a boolean if a field has been set.
 
 ### GetSpendCents
 
-`func (o *UsagePoint) GetSpendCents() int32`
+`func (o *UsagePoint) GetSpendCents() int64`
 
 GetSpendCents returns the SpendCents field if non-nil, zero value otherwise.
 
 ### GetSpendCentsOk
 
-`func (o *UsagePoint) GetSpendCentsOk() (*int32, bool)`
+`func (o *UsagePoint) GetSpendCentsOk() (*int64, bool)`
 
 GetSpendCentsOk returns a tuple with the SpendCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSpendCents
 
-`func (o *UsagePoint) SetSpendCents(v int32)`
+`func (o *UsagePoint) SetSpendCents(v int64)`
 
 SetSpendCents sets SpendCents field to given value.
 
@@ -105,20 +105,20 @@ HasT returns a boolean if a field has been set.
 
 ### GetTokens
 
-`func (o *UsagePoint) GetTokens() int32`
+`func (o *UsagePoint) GetTokens() int64`
 
 GetTokens returns the Tokens field if non-nil, zero value otherwise.
 
 ### GetTokensOk
 
-`func (o *UsagePoint) GetTokensOk() (*int32, bool)`
+`func (o *UsagePoint) GetTokensOk() (*int64, bool)`
 
 GetTokensOk returns a tuple with the Tokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTokens
 
-`func (o *UsagePoint) SetTokens(v int32)`
+`func (o *UsagePoint) SetTokens(v int64)`
 
 SetTokens sets Tokens field to given value.
 

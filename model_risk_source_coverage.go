@@ -20,11 +20,11 @@ var _ MappedNullable = &RiskSourceCoverage{}
 // RiskSourceCoverage struct for RiskSourceCoverage
 type RiskSourceCoverage struct {
 	// Facts is how many assertions this source filed; Won is how many judged events it was the assertion in force for. A source with many facts and few wins is one that is being outranked, which is worth knowing before concluding it is wired correctly.
-	Facts *int32 `json:"facts,omitempty"`
+	Facts *int64 `json:"facts,omitempty"`
 	// Source is the asserter these two counts are for — chargeoff, dispute, case, refund, review or sample. There is one entry per source that either filed in the window or won in it, in precedence order, strongest first. A source no longer in the vocabulary still has rows and is reported after the known ones rather than dropped out of a total that is supposed to add up.
 	Source *string `json:"source,omitempty"`
 	// Won is how many JUDGED events this source's assertion was the one IN FORCE for, at that event's own as-of — it beat every other visible claim under the precedence rule. Summed over the sources it is Judged. Read against Facts it is the ratio that matters: many filed and few won is a source being outranked, not a source that is broken, and one source winning nearly everything is a plane that looks labelled because one noisy filer dominates it.
-	Won *int32 `json:"won,omitempty"`
+	Won *int64 `json:"won,omitempty"`
 }
 
 // NewRiskSourceCoverage instantiates a new RiskSourceCoverage object
@@ -45,9 +45,9 @@ func NewRiskSourceCoverageWithDefaults() *RiskSourceCoverage {
 }
 
 // GetFacts returns the Facts field value if set, zero value otherwise.
-func (o *RiskSourceCoverage) GetFacts() int32 {
+func (o *RiskSourceCoverage) GetFacts() int64 {
 	if o == nil || IsNil(o.Facts) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Facts
@@ -55,7 +55,7 @@ func (o *RiskSourceCoverage) GetFacts() int32 {
 
 // GetFactsOk returns a tuple with the Facts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskSourceCoverage) GetFactsOk() (*int32, bool) {
+func (o *RiskSourceCoverage) GetFactsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Facts) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *RiskSourceCoverage) HasFacts() bool {
 	return false
 }
 
-// SetFacts gets a reference to the given int32 and assigns it to the Facts field.
-func (o *RiskSourceCoverage) SetFacts(v int32) {
+// SetFacts gets a reference to the given int64 and assigns it to the Facts field.
+func (o *RiskSourceCoverage) SetFacts(v int64) {
 	o.Facts = &v
 }
 
@@ -109,9 +109,9 @@ func (o *RiskSourceCoverage) SetSource(v string) {
 }
 
 // GetWon returns the Won field value if set, zero value otherwise.
-func (o *RiskSourceCoverage) GetWon() int32 {
+func (o *RiskSourceCoverage) GetWon() int64 {
 	if o == nil || IsNil(o.Won) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Won
@@ -119,7 +119,7 @@ func (o *RiskSourceCoverage) GetWon() int32 {
 
 // GetWonOk returns a tuple with the Won field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskSourceCoverage) GetWonOk() (*int32, bool) {
+func (o *RiskSourceCoverage) GetWonOk() (*int64, bool) {
 	if o == nil || IsNil(o.Won) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *RiskSourceCoverage) HasWon() bool {
 	return false
 }
 
-// SetWon gets a reference to the given int32 and assigns it to the Won field.
-func (o *RiskSourceCoverage) SetWon(v int32) {
+// SetWon gets a reference to the given int64 and assigns it to the Won field.
+func (o *RiskSourceCoverage) SetWon(v int64) {
 	o.Won = &v
 }
 

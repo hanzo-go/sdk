@@ -20,25 +20,25 @@ var _ MappedNullable = &IngestReq{}
 // IngestReq struct for IngestReq
 type IngestReq struct {
 	Account           *string `json:"account,omitempty"`
-	CachedInputTokens *int32  `json:"cachedInputTokens,omitempty"`
+	CachedInputTokens *int64  `json:"cachedInputTokens,omitempty"`
 	Confidence        *string `json:"confidence,omitempty"`
-	CostCents         *int32  `json:"costCents,omitempty"`
-	CostLimitCents    *int32  `json:"costLimitCents,omitempty"`
+	CostCents         *int64  `json:"costCents,omitempty"`
+	CostLimitCents    *int64  `json:"costLimitCents,omitempty"`
 	Currency          *string `json:"currency,omitempty"`
-	InputTokens       *int32  `json:"inputTokens,omitempty"`
+	InputTokens       *int64  `json:"inputTokens,omitempty"`
 	Kind              *string `json:"kind,omitempty"`
 	Lane              *string `json:"lane,omitempty"`
 	Machine           *string `json:"machine,omitempty"`
-	OutputTokens      *int32  `json:"outputTokens,omitempty"`
+	OutputTokens      *int64  `json:"outputTokens,omitempty"`
 	Plan              *string `json:"plan,omitempty"`
 	Provider          *string `json:"provider,omitempty"`
-	Requests          *int32  `json:"requests,omitempty"`
+	Requests          *int64  `json:"requests,omitempty"`
 	ResetsAt          *string `json:"resetsAt,omitempty"`
 	// Samples is the batch form, up to 256 samples; leave it empty to send one sample inline on the same fields.
 	Samples       []ReadingReq `json:"samples,omitempty"`
 	Synthetic     *bool        `json:"synthetic,omitempty"`
-	TotalTokens   *int32       `json:"totalTokens,omitempty"`
-	UsedPct       *float32     `json:"usedPct,omitempty"`
+	TotalTokens   *int64       `json:"totalTokens,omitempty"`
+	UsedPct       *float64     `json:"usedPct,omitempty"`
 	Window        *string      `json:"window,omitempty"`
 	WindowMinutes *int32       `json:"windowMinutes,omitempty"`
 	WindowStart   *string      `json:"windowStart,omitempty"`
@@ -94,9 +94,9 @@ func (o *IngestReq) SetAccount(v string) {
 }
 
 // GetCachedInputTokens returns the CachedInputTokens field value if set, zero value otherwise.
-func (o *IngestReq) GetCachedInputTokens() int32 {
+func (o *IngestReq) GetCachedInputTokens() int64 {
 	if o == nil || IsNil(o.CachedInputTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CachedInputTokens
@@ -104,7 +104,7 @@ func (o *IngestReq) GetCachedInputTokens() int32 {
 
 // GetCachedInputTokensOk returns a tuple with the CachedInputTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IngestReq) GetCachedInputTokensOk() (*int32, bool) {
+func (o *IngestReq) GetCachedInputTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.CachedInputTokens) {
 		return nil, false
 	}
@@ -120,8 +120,8 @@ func (o *IngestReq) HasCachedInputTokens() bool {
 	return false
 }
 
-// SetCachedInputTokens gets a reference to the given int32 and assigns it to the CachedInputTokens field.
-func (o *IngestReq) SetCachedInputTokens(v int32) {
+// SetCachedInputTokens gets a reference to the given int64 and assigns it to the CachedInputTokens field.
+func (o *IngestReq) SetCachedInputTokens(v int64) {
 	o.CachedInputTokens = &v
 }
 
@@ -158,9 +158,9 @@ func (o *IngestReq) SetConfidence(v string) {
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *IngestReq) GetCostCents() int32 {
+func (o *IngestReq) GetCostCents() int64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostCents
@@ -168,7 +168,7 @@ func (o *IngestReq) GetCostCents() int32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IngestReq) GetCostCentsOk() (*int32, bool) {
+func (o *IngestReq) GetCostCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -184,15 +184,15 @@ func (o *IngestReq) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *IngestReq) SetCostCents(v int32) {
+// SetCostCents gets a reference to the given int64 and assigns it to the CostCents field.
+func (o *IngestReq) SetCostCents(v int64) {
 	o.CostCents = &v
 }
 
 // GetCostLimitCents returns the CostLimitCents field value if set, zero value otherwise.
-func (o *IngestReq) GetCostLimitCents() int32 {
+func (o *IngestReq) GetCostLimitCents() int64 {
 	if o == nil || IsNil(o.CostLimitCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostLimitCents
@@ -200,7 +200,7 @@ func (o *IngestReq) GetCostLimitCents() int32 {
 
 // GetCostLimitCentsOk returns a tuple with the CostLimitCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IngestReq) GetCostLimitCentsOk() (*int32, bool) {
+func (o *IngestReq) GetCostLimitCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostLimitCents) {
 		return nil, false
 	}
@@ -216,8 +216,8 @@ func (o *IngestReq) HasCostLimitCents() bool {
 	return false
 }
 
-// SetCostLimitCents gets a reference to the given int32 and assigns it to the CostLimitCents field.
-func (o *IngestReq) SetCostLimitCents(v int32) {
+// SetCostLimitCents gets a reference to the given int64 and assigns it to the CostLimitCents field.
+func (o *IngestReq) SetCostLimitCents(v int64) {
 	o.CostLimitCents = &v
 }
 
@@ -254,9 +254,9 @@ func (o *IngestReq) SetCurrency(v string) {
 }
 
 // GetInputTokens returns the InputTokens field value if set, zero value otherwise.
-func (o *IngestReq) GetInputTokens() int32 {
+func (o *IngestReq) GetInputTokens() int64 {
 	if o == nil || IsNil(o.InputTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.InputTokens
@@ -264,7 +264,7 @@ func (o *IngestReq) GetInputTokens() int32 {
 
 // GetInputTokensOk returns a tuple with the InputTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IngestReq) GetInputTokensOk() (*int32, bool) {
+func (o *IngestReq) GetInputTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.InputTokens) {
 		return nil, false
 	}
@@ -280,8 +280,8 @@ func (o *IngestReq) HasInputTokens() bool {
 	return false
 }
 
-// SetInputTokens gets a reference to the given int32 and assigns it to the InputTokens field.
-func (o *IngestReq) SetInputTokens(v int32) {
+// SetInputTokens gets a reference to the given int64 and assigns it to the InputTokens field.
+func (o *IngestReq) SetInputTokens(v int64) {
 	o.InputTokens = &v
 }
 
@@ -382,9 +382,9 @@ func (o *IngestReq) SetMachine(v string) {
 }
 
 // GetOutputTokens returns the OutputTokens field value if set, zero value otherwise.
-func (o *IngestReq) GetOutputTokens() int32 {
+func (o *IngestReq) GetOutputTokens() int64 {
 	if o == nil || IsNil(o.OutputTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.OutputTokens
@@ -392,7 +392,7 @@ func (o *IngestReq) GetOutputTokens() int32 {
 
 // GetOutputTokensOk returns a tuple with the OutputTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IngestReq) GetOutputTokensOk() (*int32, bool) {
+func (o *IngestReq) GetOutputTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.OutputTokens) {
 		return nil, false
 	}
@@ -408,8 +408,8 @@ func (o *IngestReq) HasOutputTokens() bool {
 	return false
 }
 
-// SetOutputTokens gets a reference to the given int32 and assigns it to the OutputTokens field.
-func (o *IngestReq) SetOutputTokens(v int32) {
+// SetOutputTokens gets a reference to the given int64 and assigns it to the OutputTokens field.
+func (o *IngestReq) SetOutputTokens(v int64) {
 	o.OutputTokens = &v
 }
 
@@ -478,9 +478,9 @@ func (o *IngestReq) SetProvider(v string) {
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *IngestReq) GetRequests() int32 {
+func (o *IngestReq) GetRequests() int64 {
 	if o == nil || IsNil(o.Requests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Requests
@@ -488,7 +488,7 @@ func (o *IngestReq) GetRequests() int32 {
 
 // GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IngestReq) GetRequestsOk() (*int32, bool) {
+func (o *IngestReq) GetRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Requests) {
 		return nil, false
 	}
@@ -504,8 +504,8 @@ func (o *IngestReq) HasRequests() bool {
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *IngestReq) SetRequests(v int32) {
+// SetRequests gets a reference to the given int64 and assigns it to the Requests field.
+func (o *IngestReq) SetRequests(v int64) {
 	o.Requests = &v
 }
 
@@ -606,9 +606,9 @@ func (o *IngestReq) SetSynthetic(v bool) {
 }
 
 // GetTotalTokens returns the TotalTokens field value if set, zero value otherwise.
-func (o *IngestReq) GetTotalTokens() int32 {
+func (o *IngestReq) GetTotalTokens() int64 {
 	if o == nil || IsNil(o.TotalTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalTokens
@@ -616,7 +616,7 @@ func (o *IngestReq) GetTotalTokens() int32 {
 
 // GetTotalTokensOk returns a tuple with the TotalTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IngestReq) GetTotalTokensOk() (*int32, bool) {
+func (o *IngestReq) GetTotalTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalTokens) {
 		return nil, false
 	}
@@ -632,15 +632,15 @@ func (o *IngestReq) HasTotalTokens() bool {
 	return false
 }
 
-// SetTotalTokens gets a reference to the given int32 and assigns it to the TotalTokens field.
-func (o *IngestReq) SetTotalTokens(v int32) {
+// SetTotalTokens gets a reference to the given int64 and assigns it to the TotalTokens field.
+func (o *IngestReq) SetTotalTokens(v int64) {
 	o.TotalTokens = &v
 }
 
 // GetUsedPct returns the UsedPct field value if set, zero value otherwise.
-func (o *IngestReq) GetUsedPct() float32 {
+func (o *IngestReq) GetUsedPct() float64 {
 	if o == nil || IsNil(o.UsedPct) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.UsedPct
@@ -648,7 +648,7 @@ func (o *IngestReq) GetUsedPct() float32 {
 
 // GetUsedPctOk returns a tuple with the UsedPct field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IngestReq) GetUsedPctOk() (*float32, bool) {
+func (o *IngestReq) GetUsedPctOk() (*float64, bool) {
 	if o == nil || IsNil(o.UsedPct) {
 		return nil, false
 	}
@@ -664,8 +664,8 @@ func (o *IngestReq) HasUsedPct() bool {
 	return false
 }
 
-// SetUsedPct gets a reference to the given float32 and assigns it to the UsedPct field.
-func (o *IngestReq) SetUsedPct(v float32) {
+// SetUsedPct gets a reference to the given float64 and assigns it to the UsedPct field.
+func (o *IngestReq) SetUsedPct(v float64) {
 	o.UsedPct = &v
 }
 

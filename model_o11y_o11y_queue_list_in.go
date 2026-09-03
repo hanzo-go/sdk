@@ -20,13 +20,13 @@ var _ MappedNullable = &O11yO11yQueueListIn{}
 // O11yO11yQueueListIn struct for O11yO11yQueueListIn
 type O11yO11yQueueListIn struct {
 	// End is the window's end, epoch nanoseconds.
-	End *int32 `json:"end,omitempty"`
+	End *int64 `json:"end,omitempty"`
 	// Filters narrow the rows by span attribute; null means all rows.
 	Filters *O11yO11yQueueFilterSet `json:"filters,omitempty"`
 	// Limit caps how many rows come back.
-	Limit *int32 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 	// Start is the window's start, epoch nanoseconds.
-	Start *int32 `json:"start,omitempty"`
+	Start *int64 `json:"start,omitempty"`
 }
 
 // NewO11yO11yQueueListIn instantiates a new O11yO11yQueueListIn object
@@ -47,9 +47,9 @@ func NewO11yO11yQueueListInWithDefaults() *O11yO11yQueueListIn {
 }
 
 // GetEnd returns the End field value if set, zero value otherwise.
-func (o *O11yO11yQueueListIn) GetEnd() int32 {
+func (o *O11yO11yQueueListIn) GetEnd() int64 {
 	if o == nil || IsNil(o.End) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.End
@@ -57,7 +57,7 @@ func (o *O11yO11yQueueListIn) GetEnd() int32 {
 
 // GetEndOk returns a tuple with the End field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yQueueListIn) GetEndOk() (*int32, bool) {
+func (o *O11yO11yQueueListIn) GetEndOk() (*int64, bool) {
 	if o == nil || IsNil(o.End) {
 		return nil, false
 	}
@@ -73,8 +73,8 @@ func (o *O11yO11yQueueListIn) HasEnd() bool {
 	return false
 }
 
-// SetEnd gets a reference to the given int32 and assigns it to the End field.
-func (o *O11yO11yQueueListIn) SetEnd(v int32) {
+// SetEnd gets a reference to the given int64 and assigns it to the End field.
+func (o *O11yO11yQueueListIn) SetEnd(v int64) {
 	o.End = &v
 }
 
@@ -111,9 +111,9 @@ func (o *O11yO11yQueueListIn) SetFilters(v O11yO11yQueueFilterSet) {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *O11yO11yQueueListIn) GetLimit() int32 {
+func (o *O11yO11yQueueListIn) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -121,7 +121,7 @@ func (o *O11yO11yQueueListIn) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yQueueListIn) GetLimitOk() (*int32, bool) {
+func (o *O11yO11yQueueListIn) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *O11yO11yQueueListIn) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *O11yO11yQueueListIn) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *O11yO11yQueueListIn) SetLimit(v int64) {
 	o.Limit = &v
 }
 
 // GetStart returns the Start field value if set, zero value otherwise.
-func (o *O11yO11yQueueListIn) GetStart() int32 {
+func (o *O11yO11yQueueListIn) GetStart() int64 {
 	if o == nil || IsNil(o.Start) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Start
@@ -153,7 +153,7 @@ func (o *O11yO11yQueueListIn) GetStart() int32 {
 
 // GetStartOk returns a tuple with the Start field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yQueueListIn) GetStartOk() (*int32, bool) {
+func (o *O11yO11yQueueListIn) GetStartOk() (*int64, bool) {
 	if o == nil || IsNil(o.Start) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *O11yO11yQueueListIn) HasStart() bool {
 	return false
 }
 
-// SetStart gets a reference to the given int32 and assigns it to the Start field.
-func (o *O11yO11yQueueListIn) SetStart(v int32) {
+// SetStart gets a reference to the given int64 and assigns it to the Start field.
+func (o *O11yO11yQueueListIn) SetStart(v int64) {
 	o.Start = &v
 }
 

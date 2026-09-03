@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ComponentCount** | Pointer to **int32** | ComponentCount is how many components the CycloneDX document yielded and this call persisted. | [optional] 
+**ComponentCount** | Pointer to **int64** | ComponentCount is how many components the CycloneDX document yielded and this call persisted. | [optional] 
 **ImageDigest** | Pointer to **string** | ImageDigest is the content-addressed digest the components were keyed under. | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetComponentCount
 
-`func (o *SbomIngested) GetComponentCount() int32`
+`func (o *SbomIngested) GetComponentCount() int64`
 
 GetComponentCount returns the ComponentCount field if non-nil, zero value otherwise.
 
 ### GetComponentCountOk
 
-`func (o *SbomIngested) GetComponentCountOk() (*int32, bool)`
+`func (o *SbomIngested) GetComponentCountOk() (*int64, bool)`
 
 GetComponentCountOk returns a tuple with the ComponentCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetComponentCount
 
-`func (o *SbomIngested) SetComponentCount(v int32)`
+`func (o *SbomIngested) SetComponentCount(v int64)`
 
 SetComponentCount sets ComponentCount field to given value.
 

@@ -21,14 +21,16 @@ var _ MappedNullable = &Sandbox{}
 type Sandbox struct {
 	// Class is what the sandbox is FOR, and it decides the image, the working directory and the isolation: \"exec\" for a code-interpreter call (workdir /mnt/data, no project, bounded per org), \"dev\" for a workspace bound to a project (workdir /work, single-attach), \"desktop\" for one with a screen.
 	Class *string `json:"class,omitempty"`
+	// Cluster is the attached cluster this sandbox runs on — the fleet-local name the lease named — or empty for the home cluster. Immutable for the life of the lease, like the pod it locates: every later call into the sandbox reads it to reach the right apiserver.
+	Cluster *string `json:"cluster,omitempty"`
 	// ConnectedAt is when somebody was last known to have this sandbox's project OPEN, Unix seconds. It is a fact with an EXPIRY rather than a flag: a watcher restamps it every beat of its stream, and it goes stale on its own when the stream dies, so nothing has to be turned off by a process that may not be there any more. The reaper reads it to choose WHICH idle allowance applies — see lifecycle.go.  Zero means nobody has said so, which puts the sandbox on the short clock.
-	ConnectedAt *int32 `json:"connectedAt,omitempty"`
+	ConnectedAt *int64 `json:"connectedAt,omitempty"`
 	// CreatedAt is when the lease was first taken, Unix seconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Error is why the sandbox could not come up, in plain words. Present only with status \"error\", and it is the field to read rather than inferring a cause from the absence of a pod.
 	Error *string `json:"error,omitempty"`
 	// ExpiresAt is when the lease ends, Unix seconds. Past it the reaper may take the sandbox at any time; it is a deadline, not a guarantee of survival until then, since an idle sandbox goes sooner.
-	ExpiresAt *int32 `json:"expiresAt,omitempty"`
+	ExpiresAt *int64 `json:"expiresAt,omitempty"`
 	// ID is the sandbox's server-minted handle and what every operation addresses it by. The caller does not choose it.
 	Id *string `json:"id,omitempty"`
 	// Image is the container image this sandbox is actually running — the one the class chose, or an override the policy admitted. It is what ran, not what was asked for.
@@ -36,7 +38,7 @@ type Sandbox struct {
 	// Kind is the resource family this row belongs to. Always \"sandbox\" here; it exists because the store this shares is keyed across kinds.
 	Kind *string `json:"kind,omitempty"`
 	// LastUsedAt is when the sandbox last did work, Unix seconds. The reaper reads it: a sandbox idle past the idle window is reclaimed even inside its TTL, because an idle lease is capacity nobody is using.
-	LastUsedAt *int32 `json:"lastUsedAt,omitempty"`
+	LastUsedAt *int64 `json:"lastUsedAt,omitempty"`
 	// Org is the org that holds the lease — the validated caller's, never a value a request supplied. It is also the store's key, so a sandbox is not merely filtered out of another org's answers; it is unreachable from them.
 	Org *string `json:"org,omitempty"`
 	// Project is the project this sandbox is bound to. A dev or desktop sandbox has one and is SINGLE-ATTACH under it, so asking twice resumes rather than leasing a second; an exec sandbox has none.
@@ -98,10 +100,42 @@ func (o *Sandbox) SetClass(v string) {
 	o.Class = &v
 }
 
+// GetCluster returns the Cluster field value if set, zero value otherwise.
+func (o *Sandbox) GetCluster() string {
+	if o == nil || IsNil(o.Cluster) {
+		var ret string
+		return ret
+	}
+	return *o.Cluster
+}
+
+// GetClusterOk returns a tuple with the Cluster field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Sandbox) GetClusterOk() (*string, bool) {
+	if o == nil || IsNil(o.Cluster) {
+		return nil, false
+	}
+	return o.Cluster, true
+}
+
+// HasCluster returns a boolean if a field has been set.
+func (o *Sandbox) HasCluster() bool {
+	if o != nil && !IsNil(o.Cluster) {
+		return true
+	}
+
+	return false
+}
+
+// SetCluster gets a reference to the given string and assigns it to the Cluster field.
+func (o *Sandbox) SetCluster(v string) {
+	o.Cluster = &v
+}
+
 // GetConnectedAt returns the ConnectedAt field value if set, zero value otherwise.
-func (o *Sandbox) GetConnectedAt() int32 {
+func (o *Sandbox) GetConnectedAt() int64 {
 	if o == nil || IsNil(o.ConnectedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ConnectedAt
@@ -109,7 +143,7 @@ func (o *Sandbox) GetConnectedAt() int32 {
 
 // GetConnectedAtOk returns a tuple with the ConnectedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Sandbox) GetConnectedAtOk() (*int32, bool) {
+func (o *Sandbox) GetConnectedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.ConnectedAt) {
 		return nil, false
 	}
@@ -125,15 +159,15 @@ func (o *Sandbox) HasConnectedAt() bool {
 	return false
 }
 
-// SetConnectedAt gets a reference to the given int32 and assigns it to the ConnectedAt field.
-func (o *Sandbox) SetConnectedAt(v int32) {
+// SetConnectedAt gets a reference to the given int64 and assigns it to the ConnectedAt field.
+func (o *Sandbox) SetConnectedAt(v int64) {
 	o.ConnectedAt = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *Sandbox) GetCreatedAt() int32 {
+func (o *Sandbox) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -141,7 +175,7 @@ func (o *Sandbox) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Sandbox) GetCreatedAtOk() (*int32, bool) {
+func (o *Sandbox) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -157,8 +191,8 @@ func (o *Sandbox) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *Sandbox) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *Sandbox) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -195,9 +229,9 @@ func (o *Sandbox) SetError(v string) {
 }
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
-func (o *Sandbox) GetExpiresAt() int32 {
+func (o *Sandbox) GetExpiresAt() int64 {
 	if o == nil || IsNil(o.ExpiresAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ExpiresAt
@@ -205,7 +239,7 @@ func (o *Sandbox) GetExpiresAt() int32 {
 
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Sandbox) GetExpiresAtOk() (*int32, bool) {
+func (o *Sandbox) GetExpiresAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
@@ -221,8 +255,8 @@ func (o *Sandbox) HasExpiresAt() bool {
 	return false
 }
 
-// SetExpiresAt gets a reference to the given int32 and assigns it to the ExpiresAt field.
-func (o *Sandbox) SetExpiresAt(v int32) {
+// SetExpiresAt gets a reference to the given int64 and assigns it to the ExpiresAt field.
+func (o *Sandbox) SetExpiresAt(v int64) {
 	o.ExpiresAt = &v
 }
 
@@ -323,9 +357,9 @@ func (o *Sandbox) SetKind(v string) {
 }
 
 // GetLastUsedAt returns the LastUsedAt field value if set, zero value otherwise.
-func (o *Sandbox) GetLastUsedAt() int32 {
+func (o *Sandbox) GetLastUsedAt() int64 {
 	if o == nil || IsNil(o.LastUsedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.LastUsedAt
@@ -333,7 +367,7 @@ func (o *Sandbox) GetLastUsedAt() int32 {
 
 // GetLastUsedAtOk returns a tuple with the LastUsedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Sandbox) GetLastUsedAtOk() (*int32, bool) {
+func (o *Sandbox) GetLastUsedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.LastUsedAt) {
 		return nil, false
 	}
@@ -349,8 +383,8 @@ func (o *Sandbox) HasLastUsedAt() bool {
 	return false
 }
 
-// SetLastUsedAt gets a reference to the given int32 and assigns it to the LastUsedAt field.
-func (o *Sandbox) SetLastUsedAt(v int32) {
+// SetLastUsedAt gets a reference to the given int64 and assigns it to the LastUsedAt field.
+func (o *Sandbox) SetLastUsedAt(v int64) {
 	o.LastUsedAt = &v
 }
 
@@ -526,6 +560,9 @@ func (o Sandbox) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Class) {
 		toSerialize["class"] = o.Class
+	}
+	if !IsNil(o.Cluster) {
+		toSerialize["cluster"] = o.Cluster
 	}
 	if !IsNil(o.ConnectedAt) {
 		toSerialize["connectedAt"] = o.ConnectedAt

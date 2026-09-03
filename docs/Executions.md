@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FetchedAt** | Pointer to **time.Time** |  | [optional] 
 **Orgs** | Pointer to **[]string** |  | [optional] 
-**Repos** | Pointer to **int32** |  | [optional] 
+**Repos** | Pointer to **int64** |  | [optional] 
 **Runs** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
 **SourceErr** | Pointer to **string** |  | [optional] 
 **Stale** | Pointer to **bool** |  | [optional] 
@@ -82,20 +82,20 @@ HasOrgs returns a boolean if a field has been set.
 
 ### GetRepos
 
-`func (o *Executions) GetRepos() int32`
+`func (o *Executions) GetRepos() int64`
 
 GetRepos returns the Repos field if non-nil, zero value otherwise.
 
 ### GetReposOk
 
-`func (o *Executions) GetReposOk() (*int32, bool)`
+`func (o *Executions) GetReposOk() (*int64, bool)`
 
 GetReposOk returns a tuple with the Repos field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRepos
 
-`func (o *Executions) SetRepos(v int32)`
+`func (o *Executions) SetRepos(v int64)`
 
 SetRepos sets Repos field to given value.
 

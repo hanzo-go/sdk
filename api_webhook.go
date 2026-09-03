@@ -331,12 +331,12 @@ type WebhookAPIGetWebhookByIdDeliveriesRequest struct {
 	ctx        context.Context
 	ApiService *WebhookAPIService
 	id         string
-	limit      *int32
+	limit      *int64
 	status     *string
 }
 
 // Limit caps how many attempts come back: default 50, maximum 200. A value that is not a positive integer reads as the default.
-func (r WebhookAPIGetWebhookByIdDeliveriesRequest) Limit(limit int32) WebhookAPIGetWebhookByIdDeliveriesRequest {
+func (r WebhookAPIGetWebhookByIdDeliveriesRequest) Limit(limit int64) WebhookAPIGetWebhookByIdDeliveriesRequest {
 	r.limit = &limit
 	return r
 }

@@ -20,15 +20,15 @@ var _ MappedNullable = &RoomWork{}
 // RoomWork struct for RoomWork
 type RoomWork struct {
 	// Open is how many items are still work: everything whose status does not end it. It is the number a channel header shows.
-	Open *int32 `json:"open,omitempty"`
+	Open *int64 `json:"open,omitempty"`
 	// Room is the room these counts are for, echoed back as it was resolved.
 	Room *string `json:"room,omitempty"`
 	// Status is the count per board column, carrying EVERY column this surface knows — an empty column reads 0 rather than being absent, so a caller can render the board without inventing the vocabulary. The keys are the same closed set every other operation here validates against.
-	Status map[string]int32 `json:"status,omitempty"`
+	Status map[string]int64 `json:"status,omitempty"`
 	// Total is every item bound to this room, settled ones included, so Total minus Open is what the room has finished.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 	// Updated is when anything in this room's work last moved, in unix seconds. ABSENT when the room has no work at all: zero would read as the epoch, and a room nobody has filed anything in has no last activity rather than an infinitely old one. Total is 0 in exactly that case.
-	Updated *int32 `json:"updated,omitempty"`
+	Updated *int64 `json:"updated,omitempty"`
 }
 
 // NewRoomWork instantiates a new RoomWork object
@@ -49,9 +49,9 @@ func NewRoomWorkWithDefaults() *RoomWork {
 }
 
 // GetOpen returns the Open field value if set, zero value otherwise.
-func (o *RoomWork) GetOpen() int32 {
+func (o *RoomWork) GetOpen() int64 {
 	if o == nil || IsNil(o.Open) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Open
@@ -59,7 +59,7 @@ func (o *RoomWork) GetOpen() int32 {
 
 // GetOpenOk returns a tuple with the Open field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RoomWork) GetOpenOk() (*int32, bool) {
+func (o *RoomWork) GetOpenOk() (*int64, bool) {
 	if o == nil || IsNil(o.Open) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *RoomWork) HasOpen() bool {
 	return false
 }
 
-// SetOpen gets a reference to the given int32 and assigns it to the Open field.
-func (o *RoomWork) SetOpen(v int32) {
+// SetOpen gets a reference to the given int64 and assigns it to the Open field.
+func (o *RoomWork) SetOpen(v int64) {
 	o.Open = &v
 }
 
@@ -113,9 +113,9 @@ func (o *RoomWork) SetRoom(v string) {
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *RoomWork) GetStatus() map[string]int32 {
+func (o *RoomWork) GetStatus() map[string]int64 {
 	if o == nil || IsNil(o.Status) {
-		var ret map[string]int32
+		var ret map[string]int64
 		return ret
 	}
 	return o.Status
@@ -123,9 +123,9 @@ func (o *RoomWork) GetStatus() map[string]int32 {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RoomWork) GetStatusOk() (map[string]int32, bool) {
+func (o *RoomWork) GetStatusOk() (map[string]int64, bool) {
 	if o == nil || IsNil(o.Status) {
-		return map[string]int32{}, false
+		return map[string]int64{}, false
 	}
 	return o.Status, true
 }
@@ -139,15 +139,15 @@ func (o *RoomWork) HasStatus() bool {
 	return false
 }
 
-// SetStatus gets a reference to the given map[string]int32 and assigns it to the Status field.
-func (o *RoomWork) SetStatus(v map[string]int32) {
+// SetStatus gets a reference to the given map[string]int64 and assigns it to the Status field.
+func (o *RoomWork) SetStatus(v map[string]int64) {
 	o.Status = v
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *RoomWork) GetTotal() int32 {
+func (o *RoomWork) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -155,7 +155,7 @@ func (o *RoomWork) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RoomWork) GetTotalOk() (*int32, bool) {
+func (o *RoomWork) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -171,15 +171,15 @@ func (o *RoomWork) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *RoomWork) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *RoomWork) SetTotal(v int64) {
 	o.Total = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *RoomWork) GetUpdated() int32 {
+func (o *RoomWork) GetUpdated() int64 {
 	if o == nil || IsNil(o.Updated) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Updated
@@ -187,7 +187,7 @@ func (o *RoomWork) GetUpdated() int32 {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RoomWork) GetUpdatedOk() (*int32, bool) {
+func (o *RoomWork) GetUpdatedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *RoomWork) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given int32 and assigns it to the Updated field.
-func (o *RoomWork) SetUpdated(v int32) {
+// SetUpdated gets a reference to the given int64 and assigns it to the Updated field.
+func (o *RoomWork) SetUpdated(v int64) {
 	o.Updated = &v
 }
 

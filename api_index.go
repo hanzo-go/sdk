@@ -1055,7 +1055,7 @@ func (a *IndexAPIService) GetIndexStatsExecute(r IndexAPIGetIndexStatsRequest) (
 type IndexAPIGetIndexTasksByUidRequest struct {
 	ctx        context.Context
 	ApiService *IndexAPIService
-	uid        int32
+	uid        int64
 }
 
 func (r IndexAPIGetIndexTasksByUidRequest) Execute() (*IndexTask, *http.Response, error) {
@@ -1079,7 +1079,7 @@ echoes was minted by this process and names nothing about any org.
 	@param uid
 	@return IndexAPIGetIndexTasksByUidRequest
 */
-func (a *IndexAPIService) GetIndexTasksByUid(ctx context.Context, uid int32) IndexAPIGetIndexTasksByUidRequest {
+func (a *IndexAPIService) GetIndexTasksByUid(ctx context.Context, uid int64) IndexAPIGetIndexTasksByUidRequest {
 	return IndexAPIGetIndexTasksByUidRequest{
 		ApiService: a,
 		ctx:        ctx,

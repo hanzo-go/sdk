@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the resource was provisioned, in unix seconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the resource was provisioned, in unix seconds. | [optional] 
 **Host** | Pointer to **string** | Host is the address that actually routes to this resource — a dedicated instance&#39;s own in-cluster Service, or the public gateway for a shared one. Never the internal admin address of a shared backend. | [optional] 
 **Id** | Pointer to **string** | ID is the resource&#39;s server-minted handle, \&quot;rs_\&quot;-prefixed. | [optional] 
 **Kind** | Pointer to **string** | Kind is the product: sql, vector, datastore, kv, search, s3 or docdb. | [optional] 
 **Name** | Pointer to **string** | Name is the org-unique slug the caller provisioned the resource under. | [optional] 
-**Port** | Pointer to **int32** | Port is the port a client connects to on Host. | [optional] 
+**Port** | Pointer to **int64** | Port is the port a client connects to on Host. | [optional] 
 **Status** | Pointer to **string** | Status is \&quot;ready\&quot;, or \&quot;provisioning\&quot; while a dedicated instance is still being materialized by the operator. | [optional] 
 
 ## Methods
@@ -33,20 +33,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreatedAt
 
-`func (o *ProvisionedSummary) GetCreatedAt() int32`
+`func (o *ProvisionedSummary) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *ProvisionedSummary) GetCreatedAtOk() (*int32, bool)`
+`func (o *ProvisionedSummary) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *ProvisionedSummary) SetCreatedAt(v int32)`
+`func (o *ProvisionedSummary) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -158,20 +158,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetPort
 
-`func (o *ProvisionedSummary) GetPort() int32`
+`func (o *ProvisionedSummary) GetPort() int64`
 
 GetPort returns the Port field if non-nil, zero value otherwise.
 
 ### GetPortOk
 
-`func (o *ProvisionedSummary) GetPortOk() (*int32, bool)`
+`func (o *ProvisionedSummary) GetPortOk() (*int64, bool)`
 
 GetPortOk returns a tuple with the Port field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPort
 
-`func (o *ProvisionedSummary) SetPort(v int32)`
+`func (o *ProvisionedSummary) SetPort(v int64)`
 
 SetPort sets Port field to given value.
 

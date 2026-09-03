@@ -24,7 +24,7 @@ type TrustItemView struct {
 	// Body is the item's content for the kinds that are text rather than a file.
 	Body *string `json:"body,omitempty"`
 	// CreatedAt is when it was published, in unix milliseconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Document is the data-room document holding its bytes, empty when it has none.
 	Document *string `json:"document,omitempty"`
 	// Framework is the standard it speaks to, when it speaks to one.
@@ -42,7 +42,7 @@ type TrustItemView struct {
 	// Tier is public or gated. Gated is the default and an auditor-signed item can only ever be gated.
 	Tier *string `json:"tier,omitempty"`
 	// UpdatedAt is when it last changed, in unix milliseconds.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewTrustItemView instantiates a new TrustItemView object
@@ -127,9 +127,9 @@ func (o *TrustItemView) SetBody(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *TrustItemView) GetCreatedAt() int32 {
+func (o *TrustItemView) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -137,7 +137,7 @@ func (o *TrustItemView) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrustItemView) GetCreatedAtOk() (*int32, bool) {
+func (o *TrustItemView) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -153,8 +153,8 @@ func (o *TrustItemView) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *TrustItemView) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *TrustItemView) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -415,9 +415,9 @@ func (o *TrustItemView) SetTier(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *TrustItemView) GetUpdatedAt() int32 {
+func (o *TrustItemView) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -425,7 +425,7 @@ func (o *TrustItemView) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrustItemView) GetUpdatedAtOk() (*int32, bool) {
+func (o *TrustItemView) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -441,8 +441,8 @@ func (o *TrustItemView) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *TrustItemView) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *TrustItemView) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **PayeeOrg** | Pointer to **string** | PayeeOrg is the tenant that owns the recipient wallet, resolved at settlement. It is who got PAID, as Payer is who paid. | [optional] 
 **Payer** | Pointer to **string** | Payer is the payer ORG — the tenant whose ledger was debited — and not an address. It is the org the request was authenticated as, so it answers who is billed, which the payer address alone cannot. | [optional] 
 **Resource** | Pointer to **string** | Resource is what was paid for, in the same spelling the price table and the challenge used: the request path for a priced route, \&quot;tool:&lt;id&gt;\&quot; for a priced tool. | [optional] 
-**SettledAt** | Pointer to **int32** | SettledAt is when this settlement was CLAIMED, in unix seconds — the moment the authorization was accepted, which is also the moment the time window it carried stopped applying. A settlement finished later by reconciliation keeps this instant. | [optional] 
+**SettledAt** | Pointer to **int64** | SettledAt is when this settlement was CLAIMED, in unix seconds — the moment the authorization was accepted, which is also the moment the time window it carried stopped applying. A settlement finished later by reconciliation keeps this instant. | [optional] 
 **SettledVia** | Pointer to **string** | SettledVia is which rail moved the money: \&quot;ledger\&quot;, the live default, or \&quot;chain\&quot; when the authorization is broadcast. Those two values and no others. | [optional] 
 **TxHash** | Pointer to **string** | TxHash is the chain transaction hash, present only for a \&quot;chain\&quot; settlement. Empty on a ledger settlement — that is the normal case today, and it means the money moved without a chain, not that it failed. The wire&#39;s PAYMENT-RESPONSE &#x60;transaction&#x60; falls back to ID when this is empty. | [optional] 
 
@@ -263,20 +263,20 @@ HasResource returns a boolean if a field has been set.
 
 ### GetSettledAt
 
-`func (o *Receipt) GetSettledAt() int32`
+`func (o *Receipt) GetSettledAt() int64`
 
 GetSettledAt returns the SettledAt field if non-nil, zero value otherwise.
 
 ### GetSettledAtOk
 
-`func (o *Receipt) GetSettledAtOk() (*int32, bool)`
+`func (o *Receipt) GetSettledAtOk() (*int64, bool)`
 
 GetSettledAtOk returns a tuple with the SettledAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSettledAt
 
-`func (o *Receipt) SetSettledAt(v int32)`
+`func (o *Receipt) SetSettledAt(v int64)`
 
 SetSettledAt sets SettledAt field to given value.
 

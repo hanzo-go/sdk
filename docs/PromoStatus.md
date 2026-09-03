@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Promo** | Pointer to [**Promo**](Promo.md) | Promo is the offer itself. It is fleet-wide, identical for every org — only the two counters beside it move. | [optional] 
-**Redeemed** | Pointer to **int32** | Redeemed is how many orgs have taken it, Remaining how many are left under the fleet-wide cap. | [optional] 
-**Remaining** | Pointer to **int32** | Remaining is MaxRedemptions minus Redeemed, floored at 0. At 0 the next redeem is declined, and a quote reports ineligible rather than pricing an offer that cannot be taken. | [optional] 
+**Redeemed** | Pointer to **int64** | Redeemed is how many orgs have taken it, Remaining how many are left under the fleet-wide cap. | [optional] 
+**Remaining** | Pointer to **int64** | Remaining is MaxRedemptions minus Redeemed, floored at 0. At 0 the next redeem is declined, and a quote reports ineligible rather than pricing an offer that cannot be taken. | [optional] 
 
 ## Methods
 
@@ -54,20 +54,20 @@ HasPromo returns a boolean if a field has been set.
 
 ### GetRedeemed
 
-`func (o *PromoStatus) GetRedeemed() int32`
+`func (o *PromoStatus) GetRedeemed() int64`
 
 GetRedeemed returns the Redeemed field if non-nil, zero value otherwise.
 
 ### GetRedeemedOk
 
-`func (o *PromoStatus) GetRedeemedOk() (*int32, bool)`
+`func (o *PromoStatus) GetRedeemedOk() (*int64, bool)`
 
 GetRedeemedOk returns a tuple with the Redeemed field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRedeemed
 
-`func (o *PromoStatus) SetRedeemed(v int32)`
+`func (o *PromoStatus) SetRedeemed(v int64)`
 
 SetRedeemed sets Redeemed field to given value.
 
@@ -79,20 +79,20 @@ HasRedeemed returns a boolean if a field has been set.
 
 ### GetRemaining
 
-`func (o *PromoStatus) GetRemaining() int32`
+`func (o *PromoStatus) GetRemaining() int64`
 
 GetRemaining returns the Remaining field if non-nil, zero value otherwise.
 
 ### GetRemainingOk
 
-`func (o *PromoStatus) GetRemainingOk() (*int32, bool)`
+`func (o *PromoStatus) GetRemainingOk() (*int64, bool)`
 
 GetRemainingOk returns a tuple with the Remaining field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRemaining
 
-`func (o *PromoStatus) SetRemaining(v int32)`
+`func (o *PromoStatus) SetRemaining(v int64)`
 
 SetRemaining sets Remaining field to given value.
 

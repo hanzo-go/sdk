@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **int32** |  | [optional] 
+**Created** | Pointer to **int64** |  | [optional] 
 **DisplayName** | Pointer to **string** |  | [optional] 
 **FlowId** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **SchemaVersion** | Pointer to **string** |  | [optional] 
 **State** | Pointer to **string** |  | [optional] 
 **Trigger** | Pointer to [**FlowTrigger**](FlowTrigger.md) |  | [optional] 
-**Updated** | Pointer to **int32** |  | [optional] 
+**Updated** | Pointer to **int64** |  | [optional] 
 **Valid** | Pointer to **bool** |  | [optional] 
 
 ## Methods
@@ -35,20 +35,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreated
 
-`func (o *FlowVersion) GetCreated() int32`
+`func (o *FlowVersion) GetCreated() int64`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *FlowVersion) GetCreatedOk() (*int32, bool)`
+`func (o *FlowVersion) GetCreatedOk() (*int64, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *FlowVersion) SetCreated(v int32)`
+`func (o *FlowVersion) SetCreated(v int64)`
 
 SetCreated sets Created field to given value.
 
@@ -210,20 +210,20 @@ HasTrigger returns a boolean if a field has been set.
 
 ### GetUpdated
 
-`func (o *FlowVersion) GetUpdated() int32`
+`func (o *FlowVersion) GetUpdated() int64`
 
 GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
 ### GetUpdatedOk
 
-`func (o *FlowVersion) GetUpdatedOk() (*int32, bool)`
+`func (o *FlowVersion) GetUpdatedOk() (*int64, bool)`
 
 GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdated
 
-`func (o *FlowVersion) SetUpdated(v int32)`
+`func (o *FlowVersion) SetUpdated(v int64)`
 
 SetUpdated sets Updated field to given value.
 

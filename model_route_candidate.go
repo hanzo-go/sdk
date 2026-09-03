@@ -26,7 +26,7 @@ type RouteCandidate struct {
 	// Billing is the cost consequence of dialing this candidate: plan (the user's own subscription) or commerce (the metered gateway path).
 	Billing *string `json:"billing,omitempty"`
 	// HeadroomPct is the remaining rate-limit capacity, 0..100. A link with no snapshot counts as full headroom.
-	HeadroomPct *float32 `json:"headroomPct,omitempty"`
+	HeadroomPct *float64 `json:"headroomPct,omitempty"`
 	// Host is that machine's hostname label.
 	Host *string `json:"host,omitempty"`
 	// Kind is how the account authenticates: subscription or apikey.
@@ -157,9 +157,9 @@ func (o *RouteCandidate) SetBilling(v string) {
 }
 
 // GetHeadroomPct returns the HeadroomPct field value if set, zero value otherwise.
-func (o *RouteCandidate) GetHeadroomPct() float32 {
+func (o *RouteCandidate) GetHeadroomPct() float64 {
 	if o == nil || IsNil(o.HeadroomPct) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.HeadroomPct
@@ -167,7 +167,7 @@ func (o *RouteCandidate) GetHeadroomPct() float32 {
 
 // GetHeadroomPctOk returns a tuple with the HeadroomPct field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RouteCandidate) GetHeadroomPctOk() (*float32, bool) {
+func (o *RouteCandidate) GetHeadroomPctOk() (*float64, bool) {
 	if o == nil || IsNil(o.HeadroomPct) {
 		return nil, false
 	}
@@ -183,8 +183,8 @@ func (o *RouteCandidate) HasHeadroomPct() bool {
 	return false
 }
 
-// SetHeadroomPct gets a reference to the given float32 and assigns it to the HeadroomPct field.
-func (o *RouteCandidate) SetHeadroomPct(v float32) {
+// SetHeadroomPct gets a reference to the given float64 and assigns it to the HeadroomPct field.
+func (o *RouteCandidate) SetHeadroomPct(v float64) {
 	o.HeadroomPct = &v
 }
 

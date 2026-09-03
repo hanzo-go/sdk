@@ -20,17 +20,17 @@ var _ MappedNullable = &RiskValue{}
 // RiskValue struct for RiskValue
 type RiskValue struct {
 	// Baseline is what Observed was measured against: this organisation's own history for this subject.
-	Baseline *float32 `json:"baseline,omitempty"`
+	Baseline *float64 `json:"baseline,omitempty"`
 	// Blind marks a coordinate that could not be computed and took its neutral value. A model silently reading neutral for a dimension it never has data for is indistinguishable from one reading a genuine absence of risk.
 	Blind *bool `json:"blind,omitempty"`
 	// Feature is the dimension.
 	Feature *string `json:"feature,omitempty"`
 	// Observed is the raw number X was computed from, quoted so the coordinate reads back as a sentence rather than a bare ratio.
-	Observed *float32 `json:"observed,omitempty"`
+	Observed *float64 `json:"observed,omitempty"`
 	// Unit is how to read Observed.
 	Unit *string `json:"unit,omitempty"`
 	// X is the coordinate in the model space, always dimensionless.
-	X *float32 `json:"x,omitempty"`
+	X *float64 `json:"x,omitempty"`
 }
 
 // NewRiskValue instantiates a new RiskValue object
@@ -51,9 +51,9 @@ func NewRiskValueWithDefaults() *RiskValue {
 }
 
 // GetBaseline returns the Baseline field value if set, zero value otherwise.
-func (o *RiskValue) GetBaseline() float32 {
+func (o *RiskValue) GetBaseline() float64 {
 	if o == nil || IsNil(o.Baseline) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Baseline
@@ -61,7 +61,7 @@ func (o *RiskValue) GetBaseline() float32 {
 
 // GetBaselineOk returns a tuple with the Baseline field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskValue) GetBaselineOk() (*float32, bool) {
+func (o *RiskValue) GetBaselineOk() (*float64, bool) {
 	if o == nil || IsNil(o.Baseline) {
 		return nil, false
 	}
@@ -77,8 +77,8 @@ func (o *RiskValue) HasBaseline() bool {
 	return false
 }
 
-// SetBaseline gets a reference to the given float32 and assigns it to the Baseline field.
-func (o *RiskValue) SetBaseline(v float32) {
+// SetBaseline gets a reference to the given float64 and assigns it to the Baseline field.
+func (o *RiskValue) SetBaseline(v float64) {
 	o.Baseline = &v
 }
 
@@ -147,9 +147,9 @@ func (o *RiskValue) SetFeature(v string) {
 }
 
 // GetObserved returns the Observed field value if set, zero value otherwise.
-func (o *RiskValue) GetObserved() float32 {
+func (o *RiskValue) GetObserved() float64 {
 	if o == nil || IsNil(o.Observed) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Observed
@@ -157,7 +157,7 @@ func (o *RiskValue) GetObserved() float32 {
 
 // GetObservedOk returns a tuple with the Observed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskValue) GetObservedOk() (*float32, bool) {
+func (o *RiskValue) GetObservedOk() (*float64, bool) {
 	if o == nil || IsNil(o.Observed) {
 		return nil, false
 	}
@@ -173,8 +173,8 @@ func (o *RiskValue) HasObserved() bool {
 	return false
 }
 
-// SetObserved gets a reference to the given float32 and assigns it to the Observed field.
-func (o *RiskValue) SetObserved(v float32) {
+// SetObserved gets a reference to the given float64 and assigns it to the Observed field.
+func (o *RiskValue) SetObserved(v float64) {
 	o.Observed = &v
 }
 
@@ -211,9 +211,9 @@ func (o *RiskValue) SetUnit(v string) {
 }
 
 // GetX returns the X field value if set, zero value otherwise.
-func (o *RiskValue) GetX() float32 {
+func (o *RiskValue) GetX() float64 {
 	if o == nil || IsNil(o.X) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.X
@@ -221,7 +221,7 @@ func (o *RiskValue) GetX() float32 {
 
 // GetXOk returns a tuple with the X field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskValue) GetXOk() (*float32, bool) {
+func (o *RiskValue) GetXOk() (*float64, bool) {
 	if o == nil || IsNil(o.X) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *RiskValue) HasX() bool {
 	return false
 }
 
-// SetX gets a reference to the given float32 and assigns it to the X field.
-func (o *RiskValue) SetX(v float32) {
+// SetX gets a reference to the given float64 and assigns it to the X field.
+func (o *RiskValue) SetX(v float64) {
 	o.X = &v
 }
 

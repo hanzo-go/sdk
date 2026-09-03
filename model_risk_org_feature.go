@@ -22,15 +22,15 @@ type RiskOrgFeature struct {
 	// Blind is true when the dimension is present in no bucket at all: this organisation's surface does not carry it, and saying so is the difference between no risk and no data.
 	Blind *bool `json:"blind,omitempty"`
 	// Buckets is how many five-minute buckets of this organisation's surface were measured.
-	Buckets *int32 `json:"buckets,omitempty"`
+	Buckets *int64 `json:"buckets,omitempty"`
 	// Max is the largest value it reached in the window.
-	Max *float32 `json:"max,omitempty"`
+	Max *float64 `json:"max,omitempty"`
 	// Mean is the dimension's average where it was present.
-	Mean *float32 `json:"mean,omitempty"`
+	Mean *float64 `json:"mean,omitempty"`
 	// Name is the dimension as this API publishes it.
 	Name *string `json:"name,omitempty"`
 	// Present is in how many of them the dimension carried a value at all.
-	Present *int32 `json:"present,omitempty"`
+	Present *int64 `json:"present,omitempty"`
 	// Source names the plane it is rolled up from, so a dimension that reads zero everywhere traces to a plane the organisation does not use rather than to a defect.
 	Source *string `json:"source,omitempty"`
 	// Unit is how to read the numbers below.
@@ -87,9 +87,9 @@ func (o *RiskOrgFeature) SetBlind(v bool) {
 }
 
 // GetBuckets returns the Buckets field value if set, zero value otherwise.
-func (o *RiskOrgFeature) GetBuckets() int32 {
+func (o *RiskOrgFeature) GetBuckets() int64 {
 	if o == nil || IsNil(o.Buckets) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Buckets
@@ -97,7 +97,7 @@ func (o *RiskOrgFeature) GetBuckets() int32 {
 
 // GetBucketsOk returns a tuple with the Buckets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskOrgFeature) GetBucketsOk() (*int32, bool) {
+func (o *RiskOrgFeature) GetBucketsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Buckets) {
 		return nil, false
 	}
@@ -113,15 +113,15 @@ func (o *RiskOrgFeature) HasBuckets() bool {
 	return false
 }
 
-// SetBuckets gets a reference to the given int32 and assigns it to the Buckets field.
-func (o *RiskOrgFeature) SetBuckets(v int32) {
+// SetBuckets gets a reference to the given int64 and assigns it to the Buckets field.
+func (o *RiskOrgFeature) SetBuckets(v int64) {
 	o.Buckets = &v
 }
 
 // GetMax returns the Max field value if set, zero value otherwise.
-func (o *RiskOrgFeature) GetMax() float32 {
+func (o *RiskOrgFeature) GetMax() float64 {
 	if o == nil || IsNil(o.Max) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Max
@@ -129,7 +129,7 @@ func (o *RiskOrgFeature) GetMax() float32 {
 
 // GetMaxOk returns a tuple with the Max field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskOrgFeature) GetMaxOk() (*float32, bool) {
+func (o *RiskOrgFeature) GetMaxOk() (*float64, bool) {
 	if o == nil || IsNil(o.Max) {
 		return nil, false
 	}
@@ -145,15 +145,15 @@ func (o *RiskOrgFeature) HasMax() bool {
 	return false
 }
 
-// SetMax gets a reference to the given float32 and assigns it to the Max field.
-func (o *RiskOrgFeature) SetMax(v float32) {
+// SetMax gets a reference to the given float64 and assigns it to the Max field.
+func (o *RiskOrgFeature) SetMax(v float64) {
 	o.Max = &v
 }
 
 // GetMean returns the Mean field value if set, zero value otherwise.
-func (o *RiskOrgFeature) GetMean() float32 {
+func (o *RiskOrgFeature) GetMean() float64 {
 	if o == nil || IsNil(o.Mean) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Mean
@@ -161,7 +161,7 @@ func (o *RiskOrgFeature) GetMean() float32 {
 
 // GetMeanOk returns a tuple with the Mean field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskOrgFeature) GetMeanOk() (*float32, bool) {
+func (o *RiskOrgFeature) GetMeanOk() (*float64, bool) {
 	if o == nil || IsNil(o.Mean) {
 		return nil, false
 	}
@@ -177,8 +177,8 @@ func (o *RiskOrgFeature) HasMean() bool {
 	return false
 }
 
-// SetMean gets a reference to the given float32 and assigns it to the Mean field.
-func (o *RiskOrgFeature) SetMean(v float32) {
+// SetMean gets a reference to the given float64 and assigns it to the Mean field.
+func (o *RiskOrgFeature) SetMean(v float64) {
 	o.Mean = &v
 }
 
@@ -215,9 +215,9 @@ func (o *RiskOrgFeature) SetName(v string) {
 }
 
 // GetPresent returns the Present field value if set, zero value otherwise.
-func (o *RiskOrgFeature) GetPresent() int32 {
+func (o *RiskOrgFeature) GetPresent() int64 {
 	if o == nil || IsNil(o.Present) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Present
@@ -225,7 +225,7 @@ func (o *RiskOrgFeature) GetPresent() int32 {
 
 // GetPresentOk returns a tuple with the Present field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskOrgFeature) GetPresentOk() (*int32, bool) {
+func (o *RiskOrgFeature) GetPresentOk() (*int64, bool) {
 	if o == nil || IsNil(o.Present) {
 		return nil, false
 	}
@@ -241,8 +241,8 @@ func (o *RiskOrgFeature) HasPresent() bool {
 	return false
 }
 
-// SetPresent gets a reference to the given int32 and assigns it to the Present field.
-func (o *RiskOrgFeature) SetPresent(v int32) {
+// SetPresent gets a reference to the given int64 and assigns it to the Present field.
+func (o *RiskOrgFeature) SetPresent(v int64) {
 	o.Present = &v
 }
 

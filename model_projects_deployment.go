@@ -22,13 +22,13 @@ type ProjectsDeployment struct {
 	// Bucket is the object-store bucket its files were written to.
 	Bucket *string `json:"bucket,omitempty"`
 	// Bytes is their total size in bytes.
-	Bytes *int32 `json:"bytes,omitempty"`
+	Bytes *int64 `json:"bytes,omitempty"`
 	// Commit is the revision that was built, for a deployment that came from a repository. Absent for an uploaded artifact, which has no revision.
 	Commit *string `json:"commit,omitempty"`
 	// CreatedAt is when the deployment was queued, as Unix seconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Files is how many objects the deployment published.
-	Files *int32 `json:"files,omitempty"`
+	Files *int64 `json:"files,omitempty"`
 	// ID identifies this one deployment attempt, and is what CI quotes back to complete it.
 	Id *string `json:"id,omitempty"`
 	// LiveURL is where this deployment serves, once it is live.
@@ -44,11 +44,11 @@ type ProjectsDeployment struct {
 	// Status is where the attempt got to — queued, live, or failed. A deployment that is live is not necessarily the one SERVING: the project's own currentDeploymentId says which is.
 	Status *string `json:"status,omitempty"`
 	// UpdatedAt is when it last changed state, as Unix seconds — so the gap between the two is how long the build took.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 	// Upload is the prefix-scoped, short-lived S3 write grant handed to CI with a queued git deployment, so it needs no bucket credential (grant.go). Present ONLY on the 202 that creates the deployment — it is never stored and never replayed on a later read, so a grant cannot outlive the build it was minted for by being fetched again.
 	Upload *ProjectsUploadGrant `json:"upload,omitempty"`
 	// Version counts deployments of this project from 1, so the history reads as an ordered sequence rather than by timestamp. It is per project, not global.
-	Version *int32 `json:"version,omitempty"`
+	Version *int64 `json:"version,omitempty"`
 }
 
 // NewProjectsDeployment instantiates a new ProjectsDeployment object
@@ -101,9 +101,9 @@ func (o *ProjectsDeployment) SetBucket(v string) {
 }
 
 // GetBytes returns the Bytes field value if set, zero value otherwise.
-func (o *ProjectsDeployment) GetBytes() int32 {
+func (o *ProjectsDeployment) GetBytes() int64 {
 	if o == nil || IsNil(o.Bytes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Bytes
@@ -111,7 +111,7 @@ func (o *ProjectsDeployment) GetBytes() int32 {
 
 // GetBytesOk returns a tuple with the Bytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsDeployment) GetBytesOk() (*int32, bool) {
+func (o *ProjectsDeployment) GetBytesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Bytes) {
 		return nil, false
 	}
@@ -127,8 +127,8 @@ func (o *ProjectsDeployment) HasBytes() bool {
 	return false
 }
 
-// SetBytes gets a reference to the given int32 and assigns it to the Bytes field.
-func (o *ProjectsDeployment) SetBytes(v int32) {
+// SetBytes gets a reference to the given int64 and assigns it to the Bytes field.
+func (o *ProjectsDeployment) SetBytes(v int64) {
 	o.Bytes = &v
 }
 
@@ -165,9 +165,9 @@ func (o *ProjectsDeployment) SetCommit(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *ProjectsDeployment) GetCreatedAt() int32 {
+func (o *ProjectsDeployment) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -175,7 +175,7 @@ func (o *ProjectsDeployment) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsDeployment) GetCreatedAtOk() (*int32, bool) {
+func (o *ProjectsDeployment) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -191,15 +191,15 @@ func (o *ProjectsDeployment) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *ProjectsDeployment) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *ProjectsDeployment) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
 // GetFiles returns the Files field value if set, zero value otherwise.
-func (o *ProjectsDeployment) GetFiles() int32 {
+func (o *ProjectsDeployment) GetFiles() int64 {
 	if o == nil || IsNil(o.Files) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Files
@@ -207,7 +207,7 @@ func (o *ProjectsDeployment) GetFiles() int32 {
 
 // GetFilesOk returns a tuple with the Files field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsDeployment) GetFilesOk() (*int32, bool) {
+func (o *ProjectsDeployment) GetFilesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Files) {
 		return nil, false
 	}
@@ -223,8 +223,8 @@ func (o *ProjectsDeployment) HasFiles() bool {
 	return false
 }
 
-// SetFiles gets a reference to the given int32 and assigns it to the Files field.
-func (o *ProjectsDeployment) SetFiles(v int32) {
+// SetFiles gets a reference to the given int64 and assigns it to the Files field.
+func (o *ProjectsDeployment) SetFiles(v int64) {
 	o.Files = &v
 }
 
@@ -453,9 +453,9 @@ func (o *ProjectsDeployment) SetStatus(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *ProjectsDeployment) GetUpdatedAt() int32 {
+func (o *ProjectsDeployment) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -463,7 +463,7 @@ func (o *ProjectsDeployment) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsDeployment) GetUpdatedAtOk() (*int32, bool) {
+func (o *ProjectsDeployment) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -479,8 +479,8 @@ func (o *ProjectsDeployment) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *ProjectsDeployment) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *ProjectsDeployment) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 
@@ -517,9 +517,9 @@ func (o *ProjectsDeployment) SetUpload(v ProjectsUploadGrant) {
 }
 
 // GetVersion returns the Version field value if set, zero value otherwise.
-func (o *ProjectsDeployment) GetVersion() int32 {
+func (o *ProjectsDeployment) GetVersion() int64 {
 	if o == nil || IsNil(o.Version) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Version
@@ -527,7 +527,7 @@ func (o *ProjectsDeployment) GetVersion() int32 {
 
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsDeployment) GetVersionOk() (*int32, bool) {
+func (o *ProjectsDeployment) GetVersionOk() (*int64, bool) {
 	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
@@ -543,8 +543,8 @@ func (o *ProjectsDeployment) HasVersion() bool {
 	return false
 }
 
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
-func (o *ProjectsDeployment) SetVersion(v int32) {
+// SetVersion gets a reference to the given int64 and assigns it to the Version field.
+func (o *ProjectsDeployment) SetVersion(v int64) {
 	o.Version = &v
 }
 

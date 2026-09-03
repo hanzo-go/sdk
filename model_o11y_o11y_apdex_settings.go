@@ -28,7 +28,7 @@ type O11yO11yApdexSettings struct {
 	// ServiceName is the service.
 	ServiceName *string `json:"serviceName,omitempty"`
 	// Threshold is the satisfied-response time in seconds.
-	Threshold *float32 `json:"threshold,omitempty"`
+	Threshold *float64 `json:"threshold,omitempty"`
 }
 
 // NewO11yO11yApdexSettings instantiates a new O11yO11yApdexSettings object
@@ -177,9 +177,9 @@ func (o *O11yO11yApdexSettings) SetServiceName(v string) {
 }
 
 // GetThreshold returns the Threshold field value if set, zero value otherwise.
-func (o *O11yO11yApdexSettings) GetThreshold() float32 {
+func (o *O11yO11yApdexSettings) GetThreshold() float64 {
 	if o == nil || IsNil(o.Threshold) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Threshold
@@ -187,7 +187,7 @@ func (o *O11yO11yApdexSettings) GetThreshold() float32 {
 
 // GetThresholdOk returns a tuple with the Threshold field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yApdexSettings) GetThresholdOk() (*float32, bool) {
+func (o *O11yO11yApdexSettings) GetThresholdOk() (*float64, bool) {
 	if o == nil || IsNil(o.Threshold) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *O11yO11yApdexSettings) HasThreshold() bool {
 	return false
 }
 
-// SetThreshold gets a reference to the given float32 and assigns it to the Threshold field.
-func (o *O11yO11yApdexSettings) SetThreshold(v float32) {
+// SetThreshold gets a reference to the given float64 and assigns it to the Threshold field.
+func (o *O11yO11yApdexSettings) SetThreshold(v float64) {
 	o.Threshold = &v
 }
 

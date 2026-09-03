@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** | ID is the agent&#39;s stable handle, minted here as \&quot;agent_\&quot; + 32 hex characters of crypto/rand. A caller cannot choose it, and it never changes — unlike Name, which is the other way to address the same agent. | [optional] 
 **Model** | Pointer to **string** | Model is the Zen model this agent runs on, and it is always OUR name for it: writes normalize through cloud.ZenModel and the read normalizes again, so an upstream family name never leaves here even from a row written before that rule existed. A create that named none took the deployment&#39;s configured default, so this is where a caller learns which model it actually got. | [optional] 
 **Name** | Pointer to **string** | Name is the agent&#39;s org-unique handle, matching ^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$. It addresses the agent everywhere ID does, it is what a run row records, and it is the suffix of the &#x60;agent_&lt;name&gt;&#x60; tool other agents call this one by. Set once at create; no update route moves it, because moving it would orphan that history. | [optional] 
-**Runs** | Pointer to **int32** | Runs is how many executions the org has recorded against this agent, counted at read time. The list and update reads count the WHOLE history; the detail read reports the size of the RecentRuns page it carries, which stops at 20 — so a detail row saying 20 means \&quot;at least 20\&quot;, not \&quot;exactly 20\&quot;. | [optional] 
+**Runs** | Pointer to **int64** | Runs is how many executions the org has recorded against this agent, counted at read time. The list and update reads count the WHOLE history; the detail read reports the size of the RecentRuns page it carries, which stops at 20 — so a detail row saying 20 means \&quot;at least 20\&quot;, not \&quot;exactly 20\&quot;. | [optional] 
 **Schedule** | Pointer to **string** | Schedule is the 5-field cron the scheduler fires a long-running agent on, evaluated once a minute. Required for long-running and DROPPED for one-shot — a one-shot agent&#39;s schedule is not stored, so absence here is the mode&#39;s answer rather than a value nobody set. | [optional] 
 **ServiceAccountId** | Pointer to **string** | ServiceAccountID is the IAM agent service account (&lt;org&gt;-&lt;agent&gt;) a scheduled run is billed AS. It is what makes an autonomous run attributable to a principal rather than only to the org; empty means the org itself wears the spend. | [optional] 
 **Status** | Pointer to **string** | Status is the agent&#39;s readiness, and today it is \&quot;ready\&quot; on every row: an agent is a definition rather than a provisioned thing, so nothing transitions it. Server-set at create; no route accepts it. | [optional] 
@@ -266,20 +266,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetRuns
 
-`func (o *AgentView) GetRuns() int32`
+`func (o *AgentView) GetRuns() int64`
 
 GetRuns returns the Runs field if non-nil, zero value otherwise.
 
 ### GetRunsOk
 
-`func (o *AgentView) GetRunsOk() (*int32, bool)`
+`func (o *AgentView) GetRunsOk() (*int64, bool)`
 
 GetRunsOk returns a tuple with the Runs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRuns
 
-`func (o *AgentView) SetRuns(v int32)`
+`func (o *AgentView) SetRuns(v int64)`
 
 SetRuns sets Runs field to given value.
 

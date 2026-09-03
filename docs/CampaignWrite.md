@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Audience** | Pointer to **string** | Audience is the segment or audience selector this campaign targets. | [optional] 
-**Budget** | Pointer to **int32** | Budget is the campaign&#39;s total budget in CENTS. Negative reads as 0. | [optional] 
+**Budget** | Pointer to **int64** | Budget is the campaign&#39;s total budget in CENTS. Negative reads as 0. | [optional] 
 **Channels** | Pointer to [**[]ChannelSpec**](ChannelSpec.md) | Channels are the fan-out targets, at most one per kind (paid, organic, email) and at most 12. A channel&#39;s status and provider id are server-owned: whatever the caller sends for them is replaced with \&quot;pending\&quot;. | [optional] 
 **Content** | Pointer to **[]string** | Content is the ordered creative set. Content[0] is the active creative and the rest are A/B variants; at most 32, empty entries dropped. | [optional] 
 **Name** | Pointer to **string** | Name is the campaign&#39;s display name. Required; trimmed and capped at 2048 characters. | [optional] 
-**ScheduleAt** | Pointer to **int32** | ScheduleAt is when the campaign should run, in unix seconds. Negative reads as 0 (immediately). | [optional] 
+**ScheduleAt** | Pointer to **int64** | ScheduleAt is when the campaign should run, in unix seconds. Negative reads as 0 (immediately). | [optional] 
 
 ## Methods
 
@@ -57,20 +57,20 @@ HasAudience returns a boolean if a field has been set.
 
 ### GetBudget
 
-`func (o *CampaignWrite) GetBudget() int32`
+`func (o *CampaignWrite) GetBudget() int64`
 
 GetBudget returns the Budget field if non-nil, zero value otherwise.
 
 ### GetBudgetOk
 
-`func (o *CampaignWrite) GetBudgetOk() (*int32, bool)`
+`func (o *CampaignWrite) GetBudgetOk() (*int64, bool)`
 
 GetBudgetOk returns a tuple with the Budget field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBudget
 
-`func (o *CampaignWrite) SetBudget(v int32)`
+`func (o *CampaignWrite) SetBudget(v int64)`
 
 SetBudget sets Budget field to given value.
 
@@ -157,20 +157,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetScheduleAt
 
-`func (o *CampaignWrite) GetScheduleAt() int32`
+`func (o *CampaignWrite) GetScheduleAt() int64`
 
 GetScheduleAt returns the ScheduleAt field if non-nil, zero value otherwise.
 
 ### GetScheduleAtOk
 
-`func (o *CampaignWrite) GetScheduleAtOk() (*int32, bool)`
+`func (o *CampaignWrite) GetScheduleAtOk() (*int64, bool)`
 
 GetScheduleAtOk returns a tuple with the ScheduleAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScheduleAt
 
-`func (o *CampaignWrite) SetScheduleAt(v int32)`
+`func (o *CampaignWrite) SetScheduleAt(v int64)`
 
 SetScheduleAt sets ScheduleAt field to given value.
 

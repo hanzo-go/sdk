@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Count** | Pointer to **int32** | Count is how many tactics survived every filter. | [optional] 
+**Count** | Pointer to **int64** | Count is how many tactics survived every filter. | [optional] 
 **Stage** | Pointer to **string** | Stage is the growth stage the tag join ran at — the org&#39;s observed stage, or the one ?stage&#x3D; previewed. | [optional] 
 **Strategies** | Pointer to [**[]StrategyView**](StrategyView.md) | Strategies are the surviving tactics, in corpus authoring order. | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCount
 
-`func (o *CorpusView) GetCount() int32`
+`func (o *CorpusView) GetCount() int64`
 
 GetCount returns the Count field if non-nil, zero value otherwise.
 
 ### GetCountOk
 
-`func (o *CorpusView) GetCountOk() (*int32, bool)`
+`func (o *CorpusView) GetCountOk() (*int64, bool)`
 
 GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCount
 
-`func (o *CorpusView) SetCount(v int32)`
+`func (o *CorpusView) SetCount(v int64)`
 
 SetCount sets Count field to given value.
 

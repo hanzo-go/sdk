@@ -54,7 +54,7 @@ type Wire struct {
 	// SourceIP is the client address the edge resolved for the request, after the proxy chain — the address a responder would act on, not the socket peer.
 	SourceIp *string `json:"sourceIp,omitempty"`
 	// Status is the HTTP status the caller received. It is the outcome as the client saw it, so a 200 carrying a domain refusal still reads 200 here.
-	Status *int32 `json:"status,omitempty"`
+	Status *int64 `json:"status,omitempty"`
 	// Sub is the acting user (the IAM subject). Empty for a machine principal or an anonymous request, which is how a service action is told from a person's.
 	Sub *string `json:"sub,omitempty"`
 	// Time is when the action happened, RFC3339Nano in UTC. The stored column has the same precision and sorts the same way, so a client can range and order on this string verbatim.
@@ -625,9 +625,9 @@ func (o *Wire) SetSourceIp(v string) {
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *Wire) GetStatus() int32 {
+func (o *Wire) GetStatus() int64 {
 	if o == nil || IsNil(o.Status) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Status
@@ -635,7 +635,7 @@ func (o *Wire) GetStatus() int32 {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Wire) GetStatusOk() (*int32, bool) {
+func (o *Wire) GetStatusOk() (*int64, bool) {
 	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
@@ -651,8 +651,8 @@ func (o *Wire) HasStatus() bool {
 	return false
 }
 
-// SetStatus gets a reference to the given int32 and assigns it to the Status field.
-func (o *Wire) SetStatus(v int32) {
+// SetStatus gets a reference to the given int64 and assigns it to the Status field.
+func (o *Wire) SetStatus(v int64) {
 	o.Status = &v
 }
 

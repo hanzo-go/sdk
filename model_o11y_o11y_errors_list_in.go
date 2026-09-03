@@ -24,9 +24,9 @@ type O11yO11yErrorsListIn struct {
 	// ExceptionType narrows to one exception type.
 	ExceptionType *string `json:"exceptionType,omitempty"`
 	// Limit caps how many exception groups come back. Required, non-zero.
-	Limit *int32 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 	// Offset is how many groups to skip.
-	Offset *int32 `json:"offset,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
 	// Order is the direction: ascending or descending.
 	Order *string `json:"order,omitempty"`
 	// OrderParam is the column to order by, e.g. exceptionCount, lastSeen.
@@ -121,9 +121,9 @@ func (o *O11yO11yErrorsListIn) SetExceptionType(v string) {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *O11yO11yErrorsListIn) GetLimit() int32 {
+func (o *O11yO11yErrorsListIn) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -131,7 +131,7 @@ func (o *O11yO11yErrorsListIn) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yErrorsListIn) GetLimitOk() (*int32, bool) {
+func (o *O11yO11yErrorsListIn) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -147,15 +147,15 @@ func (o *O11yO11yErrorsListIn) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *O11yO11yErrorsListIn) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *O11yO11yErrorsListIn) SetLimit(v int64) {
 	o.Limit = &v
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
-func (o *O11yO11yErrorsListIn) GetOffset() int32 {
+func (o *O11yO11yErrorsListIn) GetOffset() int64 {
 	if o == nil || IsNil(o.Offset) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Offset
@@ -163,7 +163,7 @@ func (o *O11yO11yErrorsListIn) GetOffset() int32 {
 
 // GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yErrorsListIn) GetOffsetOk() (*int32, bool) {
+func (o *O11yO11yErrorsListIn) GetOffsetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Offset) {
 		return nil, false
 	}
@@ -179,8 +179,8 @@ func (o *O11yO11yErrorsListIn) HasOffset() bool {
 	return false
 }
 
-// SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *O11yO11yErrorsListIn) SetOffset(v int32) {
+// SetOffset gets a reference to the given int64 and assigns it to the Offset field.
+func (o *O11yO11yErrorsListIn) SetOffset(v int64) {
 	o.Offset = &v
 }
 

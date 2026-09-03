@@ -23,41 +23,41 @@ type CampaignResults struct {
 	// Available is false when the analytics warehouse is not connected or the query failed: the funnel below is then zero because nothing could be read, not because nothing happened. Spend and Channels are still real — they come from the connectors, not the warehouse.
 	Available *bool `json:"available,omitempty"`
 	// CAC is customer acquisition cost: spend DOLLARS per conversion, rounded to cents. 0 when nothing converted — that is \"not yet computable\", not \"free\".
-	Cac *float32 `json:"cac,omitempty"`
+	Cac *float64 `json:"cac,omitempty"`
 	// CampaignID is the campaign these results are for, echoed from the request.
 	CampaignId *string `json:"campaignId,omitempty"`
 	// Channels is the per-channel spend breakdown that SpendCents sums, one row per channel on the campaign including the ones that never launched.
 	Channels []ChannelMetric `json:"channels,omitempty"`
 	// Clicks is the campaign's click events over the window.
-	Clicks *int32 `json:"clicks,omitempty"`
+	Clicks *int64 `json:"clicks,omitempty"`
 	// Conversions is the terminal funnel events attributed to the campaign — orders completed, signups completed, explicit conversion events.
-	Conversions *int32 `json:"conversions,omitempty"`
+	Conversions *int64 `json:"conversions,omitempty"`
 	// CTR is clicks per impression, a fraction rounded to 4 places (0.0123 = 1.23%), not a percentage. 0 when there were no impressions to divide by.
-	Ctr *float32 `json:"ctr,omitempty"`
+	Ctr *float64 `json:"ctr,omitempty"`
 	// CVR is conversions per click, a fraction rounded to 4 places. 0 when there were no clicks.
-	Cvr *float32 `json:"cvr,omitempty"`
+	Cvr *float64 `json:"cvr,omitempty"`
 	// End is the window's end, RFC3339 UTC — the read's own clock unless an explicit pair was given. The window is a LOOKBACK, not the campaign's own lifetime.
 	End *string `json:"end,omitempty"`
 	// Impressions is how many times the campaign's creatives were shown, counted from its utm_campaign-tagged impression events.
-	Impressions *int32 `json:"impressions,omitempty"`
+	Impressions *int64 `json:"impressions,omitempty"`
 	// Name is the campaign's display name at read time, so a result can be labelled without a second fetch.
 	Name *string `json:"name,omitempty"`
 	// Range is the window actually used: 24h, 7d, 30d, 90d, or \"custom\" when an explicit start/end pair was honored. An unparseable or absent range reads 30d, so this is the value to trust, not the one that was sent.
 	Range *string `json:"range,omitempty"`
 	// Revenue is the summed revenue attribute of the campaign's events, in whole CURRENCY UNITS (dollars) — the one money value here that is not in cents.
-	Revenue *float32 `json:"revenue,omitempty"`
+	Revenue *float64 `json:"revenue,omitempty"`
 	// ROAS is return on ad spend: revenue per spend DOLLAR, rounded to 2 places (2.5 = $2.50 back per $1). 0 when nothing was spent.
-	Roas *float32 `json:"roas,omitempty"`
+	Roas *float64 `json:"roas,omitempty"`
 	// Source names the analytics table the funnel was read from, so an operator can see exactly what was counted. Set even when Available is false.
 	Source *string `json:"source,omitempty"`
 	// SpendCents is the campaign's total spend in CENTS: the sum of what each live channel's provider reports. A channel whose spend could not be read contributes 0 and says so on its own row.
-	SpendCents *int32 `json:"spendCents,omitempty"`
+	SpendCents *int64 `json:"spendCents,omitempty"`
 	// Start is the window's inclusive start, RFC3339 UTC.
 	Start *string `json:"start,omitempty"`
 	// Status is the campaign's lifecycle state at read time — draft, live, paused, completed or failed. A draft has never run, so its funnel is legitimately zero.
 	Status *string `json:"status,omitempty"`
 	// Visitors is how many distinct people the campaign reached, counted by event identity across ALL its events in the window — not a subset of Impressions, so it can exceed them for a campaign whose provider reports clicks but not views.
-	Visitors *int32 `json:"visitors,omitempty"`
+	Visitors *int64 `json:"visitors,omitempty"`
 }
 
 // NewCampaignResults instantiates a new CampaignResults object
@@ -143,9 +143,9 @@ func (o *CampaignResults) SetAvailable(v bool) {
 }
 
 // GetCac returns the Cac field value if set, zero value otherwise.
-func (o *CampaignResults) GetCac() float32 {
+func (o *CampaignResults) GetCac() float64 {
 	if o == nil || IsNil(o.Cac) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Cac
@@ -153,7 +153,7 @@ func (o *CampaignResults) GetCac() float32 {
 
 // GetCacOk returns a tuple with the Cac field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignResults) GetCacOk() (*float32, bool) {
+func (o *CampaignResults) GetCacOk() (*float64, bool) {
 	if o == nil || IsNil(o.Cac) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *CampaignResults) HasCac() bool {
 	return false
 }
 
-// SetCac gets a reference to the given float32 and assigns it to the Cac field.
-func (o *CampaignResults) SetCac(v float32) {
+// SetCac gets a reference to the given float64 and assigns it to the Cac field.
+func (o *CampaignResults) SetCac(v float64) {
 	o.Cac = &v
 }
 
@@ -239,9 +239,9 @@ func (o *CampaignResults) SetChannels(v []ChannelMetric) {
 }
 
 // GetClicks returns the Clicks field value if set, zero value otherwise.
-func (o *CampaignResults) GetClicks() int32 {
+func (o *CampaignResults) GetClicks() int64 {
 	if o == nil || IsNil(o.Clicks) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Clicks
@@ -249,7 +249,7 @@ func (o *CampaignResults) GetClicks() int32 {
 
 // GetClicksOk returns a tuple with the Clicks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignResults) GetClicksOk() (*int32, bool) {
+func (o *CampaignResults) GetClicksOk() (*int64, bool) {
 	if o == nil || IsNil(o.Clicks) {
 		return nil, false
 	}
@@ -265,15 +265,15 @@ func (o *CampaignResults) HasClicks() bool {
 	return false
 }
 
-// SetClicks gets a reference to the given int32 and assigns it to the Clicks field.
-func (o *CampaignResults) SetClicks(v int32) {
+// SetClicks gets a reference to the given int64 and assigns it to the Clicks field.
+func (o *CampaignResults) SetClicks(v int64) {
 	o.Clicks = &v
 }
 
 // GetConversions returns the Conversions field value if set, zero value otherwise.
-func (o *CampaignResults) GetConversions() int32 {
+func (o *CampaignResults) GetConversions() int64 {
 	if o == nil || IsNil(o.Conversions) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Conversions
@@ -281,7 +281,7 @@ func (o *CampaignResults) GetConversions() int32 {
 
 // GetConversionsOk returns a tuple with the Conversions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignResults) GetConversionsOk() (*int32, bool) {
+func (o *CampaignResults) GetConversionsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Conversions) {
 		return nil, false
 	}
@@ -297,15 +297,15 @@ func (o *CampaignResults) HasConversions() bool {
 	return false
 }
 
-// SetConversions gets a reference to the given int32 and assigns it to the Conversions field.
-func (o *CampaignResults) SetConversions(v int32) {
+// SetConversions gets a reference to the given int64 and assigns it to the Conversions field.
+func (o *CampaignResults) SetConversions(v int64) {
 	o.Conversions = &v
 }
 
 // GetCtr returns the Ctr field value if set, zero value otherwise.
-func (o *CampaignResults) GetCtr() float32 {
+func (o *CampaignResults) GetCtr() float64 {
 	if o == nil || IsNil(o.Ctr) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Ctr
@@ -313,7 +313,7 @@ func (o *CampaignResults) GetCtr() float32 {
 
 // GetCtrOk returns a tuple with the Ctr field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignResults) GetCtrOk() (*float32, bool) {
+func (o *CampaignResults) GetCtrOk() (*float64, bool) {
 	if o == nil || IsNil(o.Ctr) {
 		return nil, false
 	}
@@ -329,15 +329,15 @@ func (o *CampaignResults) HasCtr() bool {
 	return false
 }
 
-// SetCtr gets a reference to the given float32 and assigns it to the Ctr field.
-func (o *CampaignResults) SetCtr(v float32) {
+// SetCtr gets a reference to the given float64 and assigns it to the Ctr field.
+func (o *CampaignResults) SetCtr(v float64) {
 	o.Ctr = &v
 }
 
 // GetCvr returns the Cvr field value if set, zero value otherwise.
-func (o *CampaignResults) GetCvr() float32 {
+func (o *CampaignResults) GetCvr() float64 {
 	if o == nil || IsNil(o.Cvr) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Cvr
@@ -345,7 +345,7 @@ func (o *CampaignResults) GetCvr() float32 {
 
 // GetCvrOk returns a tuple with the Cvr field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignResults) GetCvrOk() (*float32, bool) {
+func (o *CampaignResults) GetCvrOk() (*float64, bool) {
 	if o == nil || IsNil(o.Cvr) {
 		return nil, false
 	}
@@ -361,8 +361,8 @@ func (o *CampaignResults) HasCvr() bool {
 	return false
 }
 
-// SetCvr gets a reference to the given float32 and assigns it to the Cvr field.
-func (o *CampaignResults) SetCvr(v float32) {
+// SetCvr gets a reference to the given float64 and assigns it to the Cvr field.
+func (o *CampaignResults) SetCvr(v float64) {
 	o.Cvr = &v
 }
 
@@ -399,9 +399,9 @@ func (o *CampaignResults) SetEnd(v string) {
 }
 
 // GetImpressions returns the Impressions field value if set, zero value otherwise.
-func (o *CampaignResults) GetImpressions() int32 {
+func (o *CampaignResults) GetImpressions() int64 {
 	if o == nil || IsNil(o.Impressions) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Impressions
@@ -409,7 +409,7 @@ func (o *CampaignResults) GetImpressions() int32 {
 
 // GetImpressionsOk returns a tuple with the Impressions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignResults) GetImpressionsOk() (*int32, bool) {
+func (o *CampaignResults) GetImpressionsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Impressions) {
 		return nil, false
 	}
@@ -425,8 +425,8 @@ func (o *CampaignResults) HasImpressions() bool {
 	return false
 }
 
-// SetImpressions gets a reference to the given int32 and assigns it to the Impressions field.
-func (o *CampaignResults) SetImpressions(v int32) {
+// SetImpressions gets a reference to the given int64 and assigns it to the Impressions field.
+func (o *CampaignResults) SetImpressions(v int64) {
 	o.Impressions = &v
 }
 
@@ -495,9 +495,9 @@ func (o *CampaignResults) SetRange(v string) {
 }
 
 // GetRevenue returns the Revenue field value if set, zero value otherwise.
-func (o *CampaignResults) GetRevenue() float32 {
+func (o *CampaignResults) GetRevenue() float64 {
 	if o == nil || IsNil(o.Revenue) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Revenue
@@ -505,7 +505,7 @@ func (o *CampaignResults) GetRevenue() float32 {
 
 // GetRevenueOk returns a tuple with the Revenue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignResults) GetRevenueOk() (*float32, bool) {
+func (o *CampaignResults) GetRevenueOk() (*float64, bool) {
 	if o == nil || IsNil(o.Revenue) {
 		return nil, false
 	}
@@ -521,15 +521,15 @@ func (o *CampaignResults) HasRevenue() bool {
 	return false
 }
 
-// SetRevenue gets a reference to the given float32 and assigns it to the Revenue field.
-func (o *CampaignResults) SetRevenue(v float32) {
+// SetRevenue gets a reference to the given float64 and assigns it to the Revenue field.
+func (o *CampaignResults) SetRevenue(v float64) {
 	o.Revenue = &v
 }
 
 // GetRoas returns the Roas field value if set, zero value otherwise.
-func (o *CampaignResults) GetRoas() float32 {
+func (o *CampaignResults) GetRoas() float64 {
 	if o == nil || IsNil(o.Roas) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Roas
@@ -537,7 +537,7 @@ func (o *CampaignResults) GetRoas() float32 {
 
 // GetRoasOk returns a tuple with the Roas field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignResults) GetRoasOk() (*float32, bool) {
+func (o *CampaignResults) GetRoasOk() (*float64, bool) {
 	if o == nil || IsNil(o.Roas) {
 		return nil, false
 	}
@@ -553,8 +553,8 @@ func (o *CampaignResults) HasRoas() bool {
 	return false
 }
 
-// SetRoas gets a reference to the given float32 and assigns it to the Roas field.
-func (o *CampaignResults) SetRoas(v float32) {
+// SetRoas gets a reference to the given float64 and assigns it to the Roas field.
+func (o *CampaignResults) SetRoas(v float64) {
 	o.Roas = &v
 }
 
@@ -591,9 +591,9 @@ func (o *CampaignResults) SetSource(v string) {
 }
 
 // GetSpendCents returns the SpendCents field value if set, zero value otherwise.
-func (o *CampaignResults) GetSpendCents() int32 {
+func (o *CampaignResults) GetSpendCents() int64 {
 	if o == nil || IsNil(o.SpendCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SpendCents
@@ -601,7 +601,7 @@ func (o *CampaignResults) GetSpendCents() int32 {
 
 // GetSpendCentsOk returns a tuple with the SpendCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignResults) GetSpendCentsOk() (*int32, bool) {
+func (o *CampaignResults) GetSpendCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.SpendCents) {
 		return nil, false
 	}
@@ -617,8 +617,8 @@ func (o *CampaignResults) HasSpendCents() bool {
 	return false
 }
 
-// SetSpendCents gets a reference to the given int32 and assigns it to the SpendCents field.
-func (o *CampaignResults) SetSpendCents(v int32) {
+// SetSpendCents gets a reference to the given int64 and assigns it to the SpendCents field.
+func (o *CampaignResults) SetSpendCents(v int64) {
 	o.SpendCents = &v
 }
 
@@ -687,9 +687,9 @@ func (o *CampaignResults) SetStatus(v string) {
 }
 
 // GetVisitors returns the Visitors field value if set, zero value otherwise.
-func (o *CampaignResults) GetVisitors() int32 {
+func (o *CampaignResults) GetVisitors() int64 {
 	if o == nil || IsNil(o.Visitors) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Visitors
@@ -697,7 +697,7 @@ func (o *CampaignResults) GetVisitors() int32 {
 
 // GetVisitorsOk returns a tuple with the Visitors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignResults) GetVisitorsOk() (*int32, bool) {
+func (o *CampaignResults) GetVisitorsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Visitors) {
 		return nil, false
 	}
@@ -713,8 +713,8 @@ func (o *CampaignResults) HasVisitors() bool {
 	return false
 }
 
-// SetVisitors gets a reference to the given int32 and assigns it to the Visitors field.
-func (o *CampaignResults) SetVisitors(v int32) {
+// SetVisitors gets a reference to the given int64 and assigns it to the Visitors field.
+func (o *CampaignResults) SetVisitors(v int64) {
 	o.Visitors = &v
 }
 

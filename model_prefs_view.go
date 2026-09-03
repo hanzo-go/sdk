@@ -21,7 +21,7 @@ var _ MappedNullable = &PrefsView{}
 type PrefsView struct {
 	Prefs interface{} `json:"prefs,omitempty"`
 	// UpdatedAt is when the document was last written, unix seconds. Absent when nothing has been saved.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewPrefsView instantiates a new PrefsView object
@@ -75,9 +75,9 @@ func (o *PrefsView) SetPrefs(v interface{}) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *PrefsView) GetUpdatedAt() int32 {
+func (o *PrefsView) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -85,7 +85,7 @@ func (o *PrefsView) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PrefsView) GetUpdatedAtOk() (*int32, bool) {
+func (o *PrefsView) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *PrefsView) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *PrefsView) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *PrefsView) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

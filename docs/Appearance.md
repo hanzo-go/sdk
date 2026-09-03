@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Accent** | Pointer to **string** | Accent is the one hue — a CSS colour token (a hex, or a bounded functional colour like rgb()/oklch()). Anything else is dropped rather than stored. | [optional] 
 **Density** | Pointer to **string** | Density is the spacing step: \&quot;compact\&quot;, \&quot;default\&quot; or \&quot;comfortable\&quot;. | [optional] 
-**Type** | Pointer to **float32** | Type is the text-size multiplier, clamped to the ramp window [0.85, 1.4]. Absent (0) leaves the published default. | [optional] 
+**Type** | Pointer to **float64** | Type is the text-size multiplier, clamped to the ramp window [0.85, 1.4]. Absent (0) leaves the published default. | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasDensity returns a boolean if a field has been set.
 
 ### GetType
 
-`func (o *Appearance) GetType() float32`
+`func (o *Appearance) GetType() float64`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *Appearance) GetTypeOk() (*float32, bool)`
+`func (o *Appearance) GetTypeOk() (*float64, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *Appearance) SetType(v float32)`
+`func (o *Appearance) SetType(v float64)`
 
 SetType sets Type field to given value.
 

@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccruedCents** | Pointer to **int32** | AccruedCents is lifetime commission accrued, in cents. | [optional] 
+**AccruedCents** | Pointer to **int64** | AccruedCents is lifetime commission accrued, in cents. | [optional] 
 **Code** | Pointer to **string** | Code is the minted referral code; empty until staff approve. | [optional] 
-**DefaultRateBps** | Pointer to **int32** | DefaultRateBps is the direct rate a new affiliate would get, answered only to a caller that has not applied. | [optional] 
+**DefaultRateBps** | Pointer to **int64** | DefaultRateBps is the direct rate a new affiliate would get, answered only to a caller that has not applied. | [optional] 
 **Handle** | Pointer to **string** | Handle is the opt-in public leaderboard name; empty means opted out. | [optional] 
 **Id** | Pointer to **string** | ID is the affiliate&#39;s server-minted handle, \&quot;aff_\&quot;-prefixed — what staff approve, suspend, re-rate and pay against. Absent until the org applies. | [optional] 
 **IsAffiliate** | Pointer to **bool** | IsAffiliate says whether the caller org has an affiliate record at all. It is the ONE field an org that never applied gets besides defaultRateBps: on false, read nothing else here — every other field is absent, not zero. | [optional] 
 **Link** | Pointer to **string** | Link is the shareable ?aff URL; empty until a code is minted. | [optional] 
-**MarginBps** | Pointer to **int32** | MarginBps is the platform gross-margin fraction commission is a rate OF. | [optional] 
-**PaidCents** | Pointer to **int32** | PaidCents is lifetime commission already paid out, in cents. | [optional] 
+**MarginBps** | Pointer to **int64** | MarginBps is the platform gross-margin fraction commission is a rate OF. | [optional] 
+**PaidCents** | Pointer to **int64** | PaidCents is lifetime commission already paid out, in cents. | [optional] 
 **Payouts** | Pointer to [**[]Remittance**](Remittance.md) | Payouts is the payout history, newest rows bounded. | [optional] 
-**PendingCents** | Pointer to **int32** | PendingCents is accrued minus paid — what the platform still owes. | [optional] 
-**RateBps** | Pointer to **int32** | RateBps is the affiliate&#39;s own direct commission rate, in basis points. | [optional] 
-**ReferredCount** | Pointer to **int32** | ReferredCount is how many orgs this affiliate has referred. | [optional] 
+**PendingCents** | Pointer to **int64** | PendingCents is accrued minus paid — what the platform still owes. | [optional] 
+**RateBps** | Pointer to **int64** | RateBps is the affiliate&#39;s own direct commission rate, in basis points. | [optional] 
+**ReferredCount** | Pointer to **int64** | ReferredCount is how many orgs this affiliate has referred. | [optional] 
 **RequestedCode** | Pointer to **string** | RequestedCode is the vanity code asked for at apply time — a request, not an allocation. Approval mints &#x60;code&#x60;, which may be a different slug if this one was already taken. | [optional] 
 **Status** | Pointer to **string** | Status is \&quot;applied\&quot;, \&quot;approved\&quot; or \&quot;suspended\&quot;. Only an approved affiliate has a code that resolves for attribution and accrues commission; suspended keeps what it already earned but stops earning more. | [optional] 
 
@@ -41,20 +41,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAccruedCents
 
-`func (o *AffiliateStanding) GetAccruedCents() int32`
+`func (o *AffiliateStanding) GetAccruedCents() int64`
 
 GetAccruedCents returns the AccruedCents field if non-nil, zero value otherwise.
 
 ### GetAccruedCentsOk
 
-`func (o *AffiliateStanding) GetAccruedCentsOk() (*int32, bool)`
+`func (o *AffiliateStanding) GetAccruedCentsOk() (*int64, bool)`
 
 GetAccruedCentsOk returns a tuple with the AccruedCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccruedCents
 
-`func (o *AffiliateStanding) SetAccruedCents(v int32)`
+`func (o *AffiliateStanding) SetAccruedCents(v int64)`
 
 SetAccruedCents sets AccruedCents field to given value.
 
@@ -91,20 +91,20 @@ HasCode returns a boolean if a field has been set.
 
 ### GetDefaultRateBps
 
-`func (o *AffiliateStanding) GetDefaultRateBps() int32`
+`func (o *AffiliateStanding) GetDefaultRateBps() int64`
 
 GetDefaultRateBps returns the DefaultRateBps field if non-nil, zero value otherwise.
 
 ### GetDefaultRateBpsOk
 
-`func (o *AffiliateStanding) GetDefaultRateBpsOk() (*int32, bool)`
+`func (o *AffiliateStanding) GetDefaultRateBpsOk() (*int64, bool)`
 
 GetDefaultRateBpsOk returns a tuple with the DefaultRateBps field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDefaultRateBps
 
-`func (o *AffiliateStanding) SetDefaultRateBps(v int32)`
+`func (o *AffiliateStanding) SetDefaultRateBps(v int64)`
 
 SetDefaultRateBps sets DefaultRateBps field to given value.
 
@@ -216,20 +216,20 @@ HasLink returns a boolean if a field has been set.
 
 ### GetMarginBps
 
-`func (o *AffiliateStanding) GetMarginBps() int32`
+`func (o *AffiliateStanding) GetMarginBps() int64`
 
 GetMarginBps returns the MarginBps field if non-nil, zero value otherwise.
 
 ### GetMarginBpsOk
 
-`func (o *AffiliateStanding) GetMarginBpsOk() (*int32, bool)`
+`func (o *AffiliateStanding) GetMarginBpsOk() (*int64, bool)`
 
 GetMarginBpsOk returns a tuple with the MarginBps field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMarginBps
 
-`func (o *AffiliateStanding) SetMarginBps(v int32)`
+`func (o *AffiliateStanding) SetMarginBps(v int64)`
 
 SetMarginBps sets MarginBps field to given value.
 
@@ -241,20 +241,20 @@ HasMarginBps returns a boolean if a field has been set.
 
 ### GetPaidCents
 
-`func (o *AffiliateStanding) GetPaidCents() int32`
+`func (o *AffiliateStanding) GetPaidCents() int64`
 
 GetPaidCents returns the PaidCents field if non-nil, zero value otherwise.
 
 ### GetPaidCentsOk
 
-`func (o *AffiliateStanding) GetPaidCentsOk() (*int32, bool)`
+`func (o *AffiliateStanding) GetPaidCentsOk() (*int64, bool)`
 
 GetPaidCentsOk returns a tuple with the PaidCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPaidCents
 
-`func (o *AffiliateStanding) SetPaidCents(v int32)`
+`func (o *AffiliateStanding) SetPaidCents(v int64)`
 
 SetPaidCents sets PaidCents field to given value.
 
@@ -291,20 +291,20 @@ HasPayouts returns a boolean if a field has been set.
 
 ### GetPendingCents
 
-`func (o *AffiliateStanding) GetPendingCents() int32`
+`func (o *AffiliateStanding) GetPendingCents() int64`
 
 GetPendingCents returns the PendingCents field if non-nil, zero value otherwise.
 
 ### GetPendingCentsOk
 
-`func (o *AffiliateStanding) GetPendingCentsOk() (*int32, bool)`
+`func (o *AffiliateStanding) GetPendingCentsOk() (*int64, bool)`
 
 GetPendingCentsOk returns a tuple with the PendingCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPendingCents
 
-`func (o *AffiliateStanding) SetPendingCents(v int32)`
+`func (o *AffiliateStanding) SetPendingCents(v int64)`
 
 SetPendingCents sets PendingCents field to given value.
 
@@ -316,20 +316,20 @@ HasPendingCents returns a boolean if a field has been set.
 
 ### GetRateBps
 
-`func (o *AffiliateStanding) GetRateBps() int32`
+`func (o *AffiliateStanding) GetRateBps() int64`
 
 GetRateBps returns the RateBps field if non-nil, zero value otherwise.
 
 ### GetRateBpsOk
 
-`func (o *AffiliateStanding) GetRateBpsOk() (*int32, bool)`
+`func (o *AffiliateStanding) GetRateBpsOk() (*int64, bool)`
 
 GetRateBpsOk returns a tuple with the RateBps field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRateBps
 
-`func (o *AffiliateStanding) SetRateBps(v int32)`
+`func (o *AffiliateStanding) SetRateBps(v int64)`
 
 SetRateBps sets RateBps field to given value.
 
@@ -341,20 +341,20 @@ HasRateBps returns a boolean if a field has been set.
 
 ### GetReferredCount
 
-`func (o *AffiliateStanding) GetReferredCount() int32`
+`func (o *AffiliateStanding) GetReferredCount() int64`
 
 GetReferredCount returns the ReferredCount field if non-nil, zero value otherwise.
 
 ### GetReferredCountOk
 
-`func (o *AffiliateStanding) GetReferredCountOk() (*int32, bool)`
+`func (o *AffiliateStanding) GetReferredCountOk() (*int64, bool)`
 
 GetReferredCountOk returns a tuple with the ReferredCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReferredCount
 
-`func (o *AffiliateStanding) SetReferredCount(v int32)`
+`func (o *AffiliateStanding) SetReferredCount(v int64)`
 
 SetReferredCount sets ReferredCount field to given value.
 

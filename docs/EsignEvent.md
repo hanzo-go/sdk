@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** | CreatedAt is when it happened, in unix milliseconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when it happened, in unix milliseconds. | [optional] 
 **Data** | Pointer to **interface{}** |  | [optional] 
 **Email** | Pointer to **string** | Email is the email of whoever caused it, null for an event with no actor — the sender&#39;s own calls are recorded without one. | [optional] 
 **Id** | Pointer to **string** | ID is the entry id. | [optional] 
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreatedAt
 
-`func (o *EsignEvent) GetCreatedAt() int32`
+`func (o *EsignEvent) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *EsignEvent) GetCreatedAtOk() (*int32, bool)`
+`func (o *EsignEvent) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *EsignEvent) SetCreatedAt(v int32)`
+`func (o *EsignEvent) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 

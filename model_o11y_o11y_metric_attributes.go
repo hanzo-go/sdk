@@ -22,7 +22,7 @@ type O11yO11yMetricAttributes struct {
 	// Attributes are the keys, each with its values.
 	Attributes []O11yO11yMetricAttribute `json:"attributes,omitempty"`
 	// TotalKeys is how many keys the metric has.
-	TotalKeys *int32 `json:"totalKeys,omitempty"`
+	TotalKeys *int64 `json:"totalKeys,omitempty"`
 }
 
 // NewO11yO11yMetricAttributes instantiates a new O11yO11yMetricAttributes object
@@ -75,9 +75,9 @@ func (o *O11yO11yMetricAttributes) SetAttributes(v []O11yO11yMetricAttribute) {
 }
 
 // GetTotalKeys returns the TotalKeys field value if set, zero value otherwise.
-func (o *O11yO11yMetricAttributes) GetTotalKeys() int32 {
+func (o *O11yO11yMetricAttributes) GetTotalKeys() int64 {
 	if o == nil || IsNil(o.TotalKeys) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalKeys
@@ -85,7 +85,7 @@ func (o *O11yO11yMetricAttributes) GetTotalKeys() int32 {
 
 // GetTotalKeysOk returns a tuple with the TotalKeys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yMetricAttributes) GetTotalKeysOk() (*int32, bool) {
+func (o *O11yO11yMetricAttributes) GetTotalKeysOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalKeys) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *O11yO11yMetricAttributes) HasTotalKeys() bool {
 	return false
 }
 
-// SetTotalKeys gets a reference to the given int32 and assigns it to the TotalKeys field.
-func (o *O11yO11yMetricAttributes) SetTotalKeys(v int32) {
+// SetTotalKeys gets a reference to the given int64 and assigns it to the TotalKeys field.
+func (o *O11yO11yMetricAttributes) SetTotalKeys(v int64) {
 	o.TotalKeys = &v
 }
 

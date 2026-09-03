@@ -20,11 +20,11 @@ var _ MappedNullable = &Collected{}
 // Collected struct for Collected
 type Collected struct {
 	// BalanceUsedCents is how much was covered by prepaid balance.
-	BalanceUsedCents *int32 `json:"balanceUsedCents,omitempty"`
+	BalanceUsedCents *int64 `json:"balanceUsedCents,omitempty"`
 	// CardChargedCents is how much was charged to the card on file.
-	CardChargedCents *int32 `json:"cardChargedCents,omitempty"`
+	CardChargedCents *int64 `json:"cardChargedCents,omitempty"`
 	// CreditUsedCents is how much was covered by credit grants.
-	CreditUsedCents *int32 `json:"creditUsedCents,omitempty"`
+	CreditUsedCents *int64 `json:"creditUsedCents,omitempty"`
 	// Invoice is the invoice AFTER the attempt — its status is the authority on what happened, not this struct's other fields.
 	Invoice *Invoice `json:"invoice,omitempty"`
 	// Paid reports whether the invoice is now settled in full. A false here with no error is a DECLINE: the invoice stays open and may be collected again.
@@ -53,9 +53,9 @@ func NewCollectedWithDefaults() *Collected {
 }
 
 // GetBalanceUsedCents returns the BalanceUsedCents field value if set, zero value otherwise.
-func (o *Collected) GetBalanceUsedCents() int32 {
+func (o *Collected) GetBalanceUsedCents() int64 {
 	if o == nil || IsNil(o.BalanceUsedCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.BalanceUsedCents
@@ -63,7 +63,7 @@ func (o *Collected) GetBalanceUsedCents() int32 {
 
 // GetBalanceUsedCentsOk returns a tuple with the BalanceUsedCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Collected) GetBalanceUsedCentsOk() (*int32, bool) {
+func (o *Collected) GetBalanceUsedCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.BalanceUsedCents) {
 		return nil, false
 	}
@@ -79,15 +79,15 @@ func (o *Collected) HasBalanceUsedCents() bool {
 	return false
 }
 
-// SetBalanceUsedCents gets a reference to the given int32 and assigns it to the BalanceUsedCents field.
-func (o *Collected) SetBalanceUsedCents(v int32) {
+// SetBalanceUsedCents gets a reference to the given int64 and assigns it to the BalanceUsedCents field.
+func (o *Collected) SetBalanceUsedCents(v int64) {
 	o.BalanceUsedCents = &v
 }
 
 // GetCardChargedCents returns the CardChargedCents field value if set, zero value otherwise.
-func (o *Collected) GetCardChargedCents() int32 {
+func (o *Collected) GetCardChargedCents() int64 {
 	if o == nil || IsNil(o.CardChargedCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CardChargedCents
@@ -95,7 +95,7 @@ func (o *Collected) GetCardChargedCents() int32 {
 
 // GetCardChargedCentsOk returns a tuple with the CardChargedCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Collected) GetCardChargedCentsOk() (*int32, bool) {
+func (o *Collected) GetCardChargedCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CardChargedCents) {
 		return nil, false
 	}
@@ -111,15 +111,15 @@ func (o *Collected) HasCardChargedCents() bool {
 	return false
 }
 
-// SetCardChargedCents gets a reference to the given int32 and assigns it to the CardChargedCents field.
-func (o *Collected) SetCardChargedCents(v int32) {
+// SetCardChargedCents gets a reference to the given int64 and assigns it to the CardChargedCents field.
+func (o *Collected) SetCardChargedCents(v int64) {
 	o.CardChargedCents = &v
 }
 
 // GetCreditUsedCents returns the CreditUsedCents field value if set, zero value otherwise.
-func (o *Collected) GetCreditUsedCents() int32 {
+func (o *Collected) GetCreditUsedCents() int64 {
 	if o == nil || IsNil(o.CreditUsedCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreditUsedCents
@@ -127,7 +127,7 @@ func (o *Collected) GetCreditUsedCents() int32 {
 
 // GetCreditUsedCentsOk returns a tuple with the CreditUsedCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Collected) GetCreditUsedCentsOk() (*int32, bool) {
+func (o *Collected) GetCreditUsedCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreditUsedCents) {
 		return nil, false
 	}
@@ -143,8 +143,8 @@ func (o *Collected) HasCreditUsedCents() bool {
 	return false
 }
 
-// SetCreditUsedCents gets a reference to the given int32 and assigns it to the CreditUsedCents field.
-func (o *Collected) SetCreditUsedCents(v int32) {
+// SetCreditUsedCents gets a reference to the given int64 and assigns it to the CreditUsedCents field.
+func (o *Collected) SetCreditUsedCents(v int64) {
 	o.CreditUsedCents = &v
 }
 

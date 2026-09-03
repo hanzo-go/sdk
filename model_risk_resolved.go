@@ -26,7 +26,7 @@ type RiskResolved struct {
 	// By is the identity that filed the WINNING assertion, `<home org>/<user>`, stamped server-side from the validated principal at the write and never taken from a body — an attribution the caller chose is not attribution. It is the winner's alone; every losing assertion keeps its own and is returned whole in Conflicts.
 	By *string `json:"by,omitempty"`
 	// Confidence is the winning assertion's own confidence in [0,1], zero when its filer stated none. It is reported because it is a term of the rule that picked the winner, and it is the weakest term but one: it breaks a tie inside one rank and never lifts a weak source above a strong one.
-	Confidence *float32 `json:"confidence,omitempty"`
+	Confidence *float64 `json:"confidence,omitempty"`
 	// Conflicts is every other visible assertion, strongest first, whole. They are kept and returned rather than dropped, so an adverse action can show that the plane knew of a contrary claim and say why it lost. They are horizon-filtered exactly like the winner: an assertion that was not knowable yet cannot even be named here, because naming it would leak its existence into a past decision.
 	Conflicts []RiskLabelRecord `json:"conflicts,omitempty"`
 	// Contested is true when a visible assertion claimed a DIFFERENT disposition. Two sources agreeing is corroboration, not conflict.
@@ -159,9 +159,9 @@ func (o *RiskResolved) SetBy(v string) {
 }
 
 // GetConfidence returns the Confidence field value if set, zero value otherwise.
-func (o *RiskResolved) GetConfidence() float32 {
+func (o *RiskResolved) GetConfidence() float64 {
 	if o == nil || IsNil(o.Confidence) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Confidence
@@ -169,7 +169,7 @@ func (o *RiskResolved) GetConfidence() float32 {
 
 // GetConfidenceOk returns a tuple with the Confidence field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskResolved) GetConfidenceOk() (*float32, bool) {
+func (o *RiskResolved) GetConfidenceOk() (*float64, bool) {
 	if o == nil || IsNil(o.Confidence) {
 		return nil, false
 	}
@@ -185,8 +185,8 @@ func (o *RiskResolved) HasConfidence() bool {
 	return false
 }
 
-// SetConfidence gets a reference to the given float32 and assigns it to the Confidence field.
-func (o *RiskResolved) SetConfidence(v float32) {
+// SetConfidence gets a reference to the given float64 and assigns it to the Confidence field.
+func (o *RiskResolved) SetConfidence(v float64) {
 	o.Confidence = &v
 }
 

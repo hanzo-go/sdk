@@ -24,7 +24,7 @@ type ReferenceSet struct {
 	// AsOf is when the OLDEST contributing publisher was current, RFC 3339. The oldest and not the newest: a set is exactly as fresh as its weakest source.
 	AsOf *string `json:"asOf,omitempty"`
 	// Keys is how many members the baseline carries.
-	Keys *int32 `json:"keys,omitempty"`
+	Keys *int64 `json:"keys,omitempty"`
 	// Kind is how the baseline comes to exist: fetch (downloaded from a publisher), local (computed here), attest (held by the component that screens against it, freshness reported), or gap (declared and NOT held, because the source needs a licence we do not have).
 	Kind *string `json:"kind,omitempty"`
 	// Match is how a key is tested: exact, domain, net, digits, pattern or range.
@@ -32,7 +32,7 @@ type ReferenceSet struct {
 	// MaxAge is how old this set may be before it is stale.
 	MaxAge *string `json:"maxAge,omitempty"`
 	// Overrides is how many entries YOUR org has laid over this baseline.
-	Overrides *int32 `json:"overrides,omitempty"`
+	Overrides *int64 `json:"overrides,omitempty"`
 	// Refusal names why the set cannot be relied on, when it cannot: never loaded, held elsewhere, or a licence we do not hold. Non-empty means a lookup against this set will not answer, rather than answering clean.
 	Refusal *string `json:"refusal,omitempty"`
 	// Set is the name this set is addressed by.
@@ -129,9 +129,9 @@ func (o *ReferenceSet) SetAsOf(v string) {
 }
 
 // GetKeys returns the Keys field value if set, zero value otherwise.
-func (o *ReferenceSet) GetKeys() int32 {
+func (o *ReferenceSet) GetKeys() int64 {
 	if o == nil || IsNil(o.Keys) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Keys
@@ -139,7 +139,7 @@ func (o *ReferenceSet) GetKeys() int32 {
 
 // GetKeysOk returns a tuple with the Keys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReferenceSet) GetKeysOk() (*int32, bool) {
+func (o *ReferenceSet) GetKeysOk() (*int64, bool) {
 	if o == nil || IsNil(o.Keys) {
 		return nil, false
 	}
@@ -155,8 +155,8 @@ func (o *ReferenceSet) HasKeys() bool {
 	return false
 }
 
-// SetKeys gets a reference to the given int32 and assigns it to the Keys field.
-func (o *ReferenceSet) SetKeys(v int32) {
+// SetKeys gets a reference to the given int64 and assigns it to the Keys field.
+func (o *ReferenceSet) SetKeys(v int64) {
 	o.Keys = &v
 }
 
@@ -257,9 +257,9 @@ func (o *ReferenceSet) SetMaxAge(v string) {
 }
 
 // GetOverrides returns the Overrides field value if set, zero value otherwise.
-func (o *ReferenceSet) GetOverrides() int32 {
+func (o *ReferenceSet) GetOverrides() int64 {
 	if o == nil || IsNil(o.Overrides) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Overrides
@@ -267,7 +267,7 @@ func (o *ReferenceSet) GetOverrides() int32 {
 
 // GetOverridesOk returns a tuple with the Overrides field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReferenceSet) GetOverridesOk() (*int32, bool) {
+func (o *ReferenceSet) GetOverridesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Overrides) {
 		return nil, false
 	}
@@ -283,8 +283,8 @@ func (o *ReferenceSet) HasOverrides() bool {
 	return false
 }
 
-// SetOverrides gets a reference to the given int32 and assigns it to the Overrides field.
-func (o *ReferenceSet) SetOverrides(v int32) {
+// SetOverrides gets a reference to the given int64 and assigns it to the Overrides field.
+func (o *ReferenceSet) SetOverrides(v int64) {
 	o.Overrides = &v
 }
 

@@ -53,6 +53,7 @@ Method | HTTP request | Description
 [**PostIntegrationsOpenrouterWebhook**](IntegrationsAPI.md#PostIntegrationsOpenrouterWebhook) | **Post** /v1/integrations/openrouter/webhook | Receive OpenRouter Broadcast traces as usage rows
 [**PostIntegrationsSlackCommands**](IntegrationsAPI.md#PostIntegrationsSlackCommands) | **Post** /v1/integrations/slack/commands | Slack slash command webhook
 [**PostIntegrationsSlackEvents**](IntegrationsAPI.md#PostIntegrationsSlackEvents) | **Post** /v1/integrations/slack/events | Slack Events API webhook
+[**PostIntegrationsSlackJoin**](IntegrationsAPI.md#PostIntegrationsSlackJoin) | **Post** /v1/integrations/slack/join | Joins every public channel in the caller org&#39;s workspace.
 [**PostIntegrationsTeamsEvents**](IntegrationsAPI.md#PostIntegrationsTeamsEvents) | **Post** /v1/integrations/teams/events | Microsoft Teams Bot Framework webhook
 [**PostIntegrationsTelegramConnect**](IntegrationsAPI.md#PostIntegrationsTelegramConnect) | **Post** /v1/integrations/telegram/connect | Mints a short, single-use deep-link code bound to the caller&#39;s org and returns the t.me link the console navigates to.
 [**PostIntegrationsTelegramWebhook**](IntegrationsAPI.md#PostIntegrationsTelegramWebhook) | **Post** /v1/integrations/telegram/webhook | Telegram Bot API webhook
@@ -3195,6 +3196,67 @@ Other parameters are passed through a pointer to a apiPostIntegrationsSlackEvent
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostIntegrationsSlackJoin
+
+> SlackJoinOut PostIntegrationsSlackJoin(ctx).Execute()
+
+Joins every public channel in the caller org's workspace.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.PostIntegrationsSlackJoin(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.PostIntegrationsSlackJoin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostIntegrationsSlackJoin`: SlackJoinOut
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.PostIntegrationsSlackJoin`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostIntegrationsSlackJoinRequest struct via the builder pattern
+
+
+### Return type
+
+[**SlackJoinOut**](SlackJoinOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

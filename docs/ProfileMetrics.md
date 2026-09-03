@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Funnel** | Pointer to [**Funnel**](Funnel.md) | Funnel is what the org&#39;s analytics observed over the trailing window. Read its &#x60;available&#x60; first: an org with no analytics reports zeros here, and zero traffic and no measurement are different facts. | [optional] 
 **LaunchProgress** | Pointer to [**ProgressView**](ProgressView.md) | LaunchProgress is the org&#39;s own position in the launch checklist, folded in so a profile carries both what the org has BUILT and what it has DONE. | [optional] 
-**Records** | Pointer to **int32** | Records is how many business records the org holds — the volume that tells a real book of customers from an empty account. It feeds the &#x60;customers&#x60; signal, which crosses at a threshold rather than at one row. | [optional] 
-**RevenueCents** | Pointer to **int32** | RevenueCents is the org&#39;s money OF RECORD — what its books say, in whole cents, never a float and never a display string. This is the number the scaling stage is decided on; funnel.revenue is the beacon&#39;s separate, unreconciled view of the same business. Zero when the org has none, and also zero when the books could not be read, which is why the &#x60;revenue&#x60; signal beside it is the thing to trust. | [optional] 
+**Records** | Pointer to **int64** | Records is how many business records the org holds — the volume that tells a real book of customers from an empty account. It feeds the &#x60;customers&#x60; signal, which crosses at a threshold rather than at one row. | [optional] 
+**RevenueCents** | Pointer to **int64** | RevenueCents is the org&#39;s money OF RECORD — what its books say, in whole cents, never a float and never a display string. This is the number the scaling stage is decided on; funnel.revenue is the beacon&#39;s separate, unreconciled view of the same business. Zero when the org has none, and also zero when the books could not be read, which is why the &#x60;revenue&#x60; signal beside it is the thing to trust. | [optional] 
 
 ## Methods
 
@@ -80,20 +80,20 @@ HasLaunchProgress returns a boolean if a field has been set.
 
 ### GetRecords
 
-`func (o *ProfileMetrics) GetRecords() int32`
+`func (o *ProfileMetrics) GetRecords() int64`
 
 GetRecords returns the Records field if non-nil, zero value otherwise.
 
 ### GetRecordsOk
 
-`func (o *ProfileMetrics) GetRecordsOk() (*int32, bool)`
+`func (o *ProfileMetrics) GetRecordsOk() (*int64, bool)`
 
 GetRecordsOk returns a tuple with the Records field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRecords
 
-`func (o *ProfileMetrics) SetRecords(v int32)`
+`func (o *ProfileMetrics) SetRecords(v int64)`
 
 SetRecords sets Records field to given value.
 
@@ -105,20 +105,20 @@ HasRecords returns a boolean if a field has been set.
 
 ### GetRevenueCents
 
-`func (o *ProfileMetrics) GetRevenueCents() int32`
+`func (o *ProfileMetrics) GetRevenueCents() int64`
 
 GetRevenueCents returns the RevenueCents field if non-nil, zero value otherwise.
 
 ### GetRevenueCentsOk
 
-`func (o *ProfileMetrics) GetRevenueCentsOk() (*int32, bool)`
+`func (o *ProfileMetrics) GetRevenueCentsOk() (*int64, bool)`
 
 GetRevenueCentsOk returns a tuple with the RevenueCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRevenueCents
 
-`func (o *ProfileMetrics) SetRevenueCents(v int32)`
+`func (o *ProfileMetrics) SetRevenueCents(v int64)`
 
 SetRevenueCents sets RevenueCents field to given value.
 

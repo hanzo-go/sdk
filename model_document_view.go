@@ -24,15 +24,15 @@ type DocumentView struct {
 	Category *string `json:"category,omitempty"`
 	// ContentType is the rendered body's media type — text/markdown.
 	ContentType     *string `json:"contentType,omitempty"`
-	CreatedAt       *int32  `json:"createdAt,omitempty"`
+	CreatedAt       *int64  `json:"createdAt,omitempty"`
 	EsignProvider   *string `json:"esignProvider,omitempty"`
 	Id              *string `json:"id,omitempty"`
-	SignedAt        *int32  `json:"signedAt,omitempty"`
+	SignedAt        *int64  `json:"signedAt,omitempty"`
 	Status          *string `json:"status,omitempty"`
 	TemplateId      *string `json:"templateId,omitempty"`
-	TemplateVersion *int32  `json:"templateVersion,omitempty"`
+	TemplateVersion *int64  `json:"templateVersion,omitempty"`
 	Title           *string `json:"title,omitempty"`
-	UpdatedAt       *int32  `json:"updatedAt,omitempty"`
+	UpdatedAt       *int64  `json:"updatedAt,omitempty"`
 }
 
 // NewDocumentView instantiates a new DocumentView object
@@ -149,9 +149,9 @@ func (o *DocumentView) SetContentType(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *DocumentView) GetCreatedAt() int32 {
+func (o *DocumentView) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -159,7 +159,7 @@ func (o *DocumentView) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DocumentView) GetCreatedAtOk() (*int32, bool) {
+func (o *DocumentView) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -175,8 +175,8 @@ func (o *DocumentView) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *DocumentView) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *DocumentView) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -245,9 +245,9 @@ func (o *DocumentView) SetId(v string) {
 }
 
 // GetSignedAt returns the SignedAt field value if set, zero value otherwise.
-func (o *DocumentView) GetSignedAt() int32 {
+func (o *DocumentView) GetSignedAt() int64 {
 	if o == nil || IsNil(o.SignedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SignedAt
@@ -255,7 +255,7 @@ func (o *DocumentView) GetSignedAt() int32 {
 
 // GetSignedAtOk returns a tuple with the SignedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DocumentView) GetSignedAtOk() (*int32, bool) {
+func (o *DocumentView) GetSignedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.SignedAt) {
 		return nil, false
 	}
@@ -271,8 +271,8 @@ func (o *DocumentView) HasSignedAt() bool {
 	return false
 }
 
-// SetSignedAt gets a reference to the given int32 and assigns it to the SignedAt field.
-func (o *DocumentView) SetSignedAt(v int32) {
+// SetSignedAt gets a reference to the given int64 and assigns it to the SignedAt field.
+func (o *DocumentView) SetSignedAt(v int64) {
 	o.SignedAt = &v
 }
 
@@ -341,9 +341,9 @@ func (o *DocumentView) SetTemplateId(v string) {
 }
 
 // GetTemplateVersion returns the TemplateVersion field value if set, zero value otherwise.
-func (o *DocumentView) GetTemplateVersion() int32 {
+func (o *DocumentView) GetTemplateVersion() int64 {
 	if o == nil || IsNil(o.TemplateVersion) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TemplateVersion
@@ -351,7 +351,7 @@ func (o *DocumentView) GetTemplateVersion() int32 {
 
 // GetTemplateVersionOk returns a tuple with the TemplateVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DocumentView) GetTemplateVersionOk() (*int32, bool) {
+func (o *DocumentView) GetTemplateVersionOk() (*int64, bool) {
 	if o == nil || IsNil(o.TemplateVersion) {
 		return nil, false
 	}
@@ -367,8 +367,8 @@ func (o *DocumentView) HasTemplateVersion() bool {
 	return false
 }
 
-// SetTemplateVersion gets a reference to the given int32 and assigns it to the TemplateVersion field.
-func (o *DocumentView) SetTemplateVersion(v int32) {
+// SetTemplateVersion gets a reference to the given int64 and assigns it to the TemplateVersion field.
+func (o *DocumentView) SetTemplateVersion(v int64) {
 	o.TemplateVersion = &v
 }
 
@@ -405,9 +405,9 @@ func (o *DocumentView) SetTitle(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *DocumentView) GetUpdatedAt() int32 {
+func (o *DocumentView) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -415,7 +415,7 @@ func (o *DocumentView) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DocumentView) GetUpdatedAtOk() (*int32, bool) {
+func (o *DocumentView) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -431,8 +431,8 @@ func (o *DocumentView) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *DocumentView) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *DocumentView) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

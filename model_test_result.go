@@ -22,11 +22,11 @@ type TestResult struct {
 	// Delivered is whether the subscriber accepted the test POST. It is the whole answer: the send is synchronous and is not retried.
 	Delivered *bool `json:"delivered,omitempty"`
 	// DurationMs is how long the single attempt took, in MILLISECONDS.
-	DurationMs *int32 `json:"durationMs,omitempty"`
+	DurationMs *int64 `json:"durationMs,omitempty"`
 	// Error says what stopped it. Empty when delivered.
 	Error *string `json:"error,omitempty"`
 	// HTTPStatus is what the subscriber answered, or 0 if it never answered.
-	HttpStatus *int32 `json:"httpStatus,omitempty"`
+	HttpStatus *int64 `json:"httpStatus,omitempty"`
 }
 
 // NewTestResult instantiates a new TestResult object
@@ -79,9 +79,9 @@ func (o *TestResult) SetDelivered(v bool) {
 }
 
 // GetDurationMs returns the DurationMs field value if set, zero value otherwise.
-func (o *TestResult) GetDurationMs() int32 {
+func (o *TestResult) GetDurationMs() int64 {
 	if o == nil || IsNil(o.DurationMs) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DurationMs
@@ -89,7 +89,7 @@ func (o *TestResult) GetDurationMs() int32 {
 
 // GetDurationMsOk returns a tuple with the DurationMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TestResult) GetDurationMsOk() (*int32, bool) {
+func (o *TestResult) GetDurationMsOk() (*int64, bool) {
 	if o == nil || IsNil(o.DurationMs) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *TestResult) HasDurationMs() bool {
 	return false
 }
 
-// SetDurationMs gets a reference to the given int32 and assigns it to the DurationMs field.
-func (o *TestResult) SetDurationMs(v int32) {
+// SetDurationMs gets a reference to the given int64 and assigns it to the DurationMs field.
+func (o *TestResult) SetDurationMs(v int64) {
 	o.DurationMs = &v
 }
 
@@ -143,9 +143,9 @@ func (o *TestResult) SetError(v string) {
 }
 
 // GetHttpStatus returns the HttpStatus field value if set, zero value otherwise.
-func (o *TestResult) GetHttpStatus() int32 {
+func (o *TestResult) GetHttpStatus() int64 {
 	if o == nil || IsNil(o.HttpStatus) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.HttpStatus
@@ -153,7 +153,7 @@ func (o *TestResult) GetHttpStatus() int32 {
 
 // GetHttpStatusOk returns a tuple with the HttpStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TestResult) GetHttpStatusOk() (*int32, bool) {
+func (o *TestResult) GetHttpStatusOk() (*int64, bool) {
 	if o == nil || IsNil(o.HttpStatus) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *TestResult) HasHttpStatus() bool {
 	return false
 }
 
-// SetHttpStatus gets a reference to the given int32 and assigns it to the HttpStatus field.
-func (o *TestResult) SetHttpStatus(v int32) {
+// SetHttpStatus gets a reference to the given int64 and assigns it to the HttpStatus field.
+func (o *TestResult) SetHttpStatus(v int64) {
 	o.HttpStatus = &v
 }
 

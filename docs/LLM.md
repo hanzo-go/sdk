@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Available** | Pointer to **bool** | Available is false when the warehouse was not connected or a query blipped. The totals below are then honest zeros, NOT measured ones. | [optional] 
-**CompletionTokens** | Pointer to **int32** | CompletionTokens is the output half. | [optional] 
-**CostCents** | Pointer to **int32** | CostCents is what they cost the org, in US cents. This IS a Hanzo charge. | [optional] 
-**Models** | Pointer to **int32** | Models is how many distinct models were used. | [optional] 
-**PromptTokens** | Pointer to **int32** | PromptTokens is the input half of that total. | [optional] 
-**Requests** | Pointer to **int32** | Requests is how many completions the org made in the window. | [optional] 
+**CompletionTokens** | Pointer to **int64** | CompletionTokens is the output half. | [optional] 
+**CostCents** | Pointer to **int64** | CostCents is what they cost the org, in US cents. This IS a Hanzo charge. | [optional] 
+**Models** | Pointer to **int64** | Models is how many distinct models were used. | [optional] 
+**PromptTokens** | Pointer to **int64** | PromptTokens is the input half of that total. | [optional] 
+**Requests** | Pointer to **int64** | Requests is how many completions the org made in the window. | [optional] 
 **Source** | Pointer to **string** | Source names the warehouse table the totals came from. | [optional] 
-**Tokens** | Pointer to **int32** | Tokens is the total tokens those completions consumed. | [optional] 
+**Tokens** | Pointer to **int64** | Tokens is the total tokens those completions consumed. | [optional] 
 
 ## Methods
 
@@ -59,20 +59,20 @@ HasAvailable returns a boolean if a field has been set.
 
 ### GetCompletionTokens
 
-`func (o *LLM) GetCompletionTokens() int32`
+`func (o *LLM) GetCompletionTokens() int64`
 
 GetCompletionTokens returns the CompletionTokens field if non-nil, zero value otherwise.
 
 ### GetCompletionTokensOk
 
-`func (o *LLM) GetCompletionTokensOk() (*int32, bool)`
+`func (o *LLM) GetCompletionTokensOk() (*int64, bool)`
 
 GetCompletionTokensOk returns a tuple with the CompletionTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCompletionTokens
 
-`func (o *LLM) SetCompletionTokens(v int32)`
+`func (o *LLM) SetCompletionTokens(v int64)`
 
 SetCompletionTokens sets CompletionTokens field to given value.
 
@@ -84,20 +84,20 @@ HasCompletionTokens returns a boolean if a field has been set.
 
 ### GetCostCents
 
-`func (o *LLM) GetCostCents() int32`
+`func (o *LLM) GetCostCents() int64`
 
 GetCostCents returns the CostCents field if non-nil, zero value otherwise.
 
 ### GetCostCentsOk
 
-`func (o *LLM) GetCostCentsOk() (*int32, bool)`
+`func (o *LLM) GetCostCentsOk() (*int64, bool)`
 
 GetCostCentsOk returns a tuple with the CostCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCostCents
 
-`func (o *LLM) SetCostCents(v int32)`
+`func (o *LLM) SetCostCents(v int64)`
 
 SetCostCents sets CostCents field to given value.
 
@@ -109,20 +109,20 @@ HasCostCents returns a boolean if a field has been set.
 
 ### GetModels
 
-`func (o *LLM) GetModels() int32`
+`func (o *LLM) GetModels() int64`
 
 GetModels returns the Models field if non-nil, zero value otherwise.
 
 ### GetModelsOk
 
-`func (o *LLM) GetModelsOk() (*int32, bool)`
+`func (o *LLM) GetModelsOk() (*int64, bool)`
 
 GetModelsOk returns a tuple with the Models field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModels
 
-`func (o *LLM) SetModels(v int32)`
+`func (o *LLM) SetModels(v int64)`
 
 SetModels sets Models field to given value.
 
@@ -134,20 +134,20 @@ HasModels returns a boolean if a field has been set.
 
 ### GetPromptTokens
 
-`func (o *LLM) GetPromptTokens() int32`
+`func (o *LLM) GetPromptTokens() int64`
 
 GetPromptTokens returns the PromptTokens field if non-nil, zero value otherwise.
 
 ### GetPromptTokensOk
 
-`func (o *LLM) GetPromptTokensOk() (*int32, bool)`
+`func (o *LLM) GetPromptTokensOk() (*int64, bool)`
 
 GetPromptTokensOk returns a tuple with the PromptTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPromptTokens
 
-`func (o *LLM) SetPromptTokens(v int32)`
+`func (o *LLM) SetPromptTokens(v int64)`
 
 SetPromptTokens sets PromptTokens field to given value.
 
@@ -159,20 +159,20 @@ HasPromptTokens returns a boolean if a field has been set.
 
 ### GetRequests
 
-`func (o *LLM) GetRequests() int32`
+`func (o *LLM) GetRequests() int64`
 
 GetRequests returns the Requests field if non-nil, zero value otherwise.
 
 ### GetRequestsOk
 
-`func (o *LLM) GetRequestsOk() (*int32, bool)`
+`func (o *LLM) GetRequestsOk() (*int64, bool)`
 
 GetRequestsOk returns a tuple with the Requests field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRequests
 
-`func (o *LLM) SetRequests(v int32)`
+`func (o *LLM) SetRequests(v int64)`
 
 SetRequests sets Requests field to given value.
 
@@ -209,20 +209,20 @@ HasSource returns a boolean if a field has been set.
 
 ### GetTokens
 
-`func (o *LLM) GetTokens() int32`
+`func (o *LLM) GetTokens() int64`
 
 GetTokens returns the Tokens field if non-nil, zero value otherwise.
 
 ### GetTokensOk
 
-`func (o *LLM) GetTokensOk() (*int32, bool)`
+`func (o *LLM) GetTokensOk() (*int64, bool)`
 
 GetTokensOk returns a tuple with the Tokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTokens
 
-`func (o *LLM) SetTokens(v int32)`
+`func (o *LLM) SetTokens(v int64)`
 
 SetTokens sets Tokens field to given value.
 

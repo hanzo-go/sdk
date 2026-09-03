@@ -22,17 +22,17 @@ type RunReq struct {
 	// Env is the run's environment. Keys must match `^[A-Za-z_][A-Za-z0-9_]*$`; a variable marked `secret: true` is sealed into KMS.
 	Env []EnvVarJSON `json:"env,omitempty"`
 	// GPU is how many GPUs the run asks for; a negative value is 400.
-	Gpu *int32 `json:"gpu,omitempty"`
+	Gpu *int64 `json:"gpu,omitempty"`
 	// Image is the container image to run. Required.
 	Image *string `json:"image,omitempty"`
 	// MaxScale above the floor declares an autoscaling ceiling; 0 means no autoscaler at all — a fixed run at the floor.
-	MaxScale *int32 `json:"maxScale,omitempty"`
+	MaxScale *int64 `json:"maxScale,omitempty"`
 	// MinScale is the replica floor, clamped to the deployment's limit.
-	MinScale *int32 `json:"minScale,omitempty"`
+	MinScale *int64 `json:"minScale,omitempty"`
 	// Name is the run's name, and the slug is derived from it. Required, and it must resolve to `^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$`. Re-running the same name updates that run in place.
 	Name *string `json:"name,omitempty"`
 	// Port is the container port the run listens on.
-	Port *int32 `json:"port,omitempty"`
+	Port *int64 `json:"port,omitempty"`
 	// Runtime is accepted for the client contract and echoed nowhere: the image IS the runtime unit.
 	Runtime *string `json:"runtime,omitempty"`
 	// Shape is a compute size label, echoed back; sizing is the operator's default. Defaults to \"auto\".
@@ -89,9 +89,9 @@ func (o *RunReq) SetEnv(v []EnvVarJSON) {
 }
 
 // GetGpu returns the Gpu field value if set, zero value otherwise.
-func (o *RunReq) GetGpu() int32 {
+func (o *RunReq) GetGpu() int64 {
 	if o == nil || IsNil(o.Gpu) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Gpu
@@ -99,7 +99,7 @@ func (o *RunReq) GetGpu() int32 {
 
 // GetGpuOk returns a tuple with the Gpu field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RunReq) GetGpuOk() (*int32, bool) {
+func (o *RunReq) GetGpuOk() (*int64, bool) {
 	if o == nil || IsNil(o.Gpu) {
 		return nil, false
 	}
@@ -115,8 +115,8 @@ func (o *RunReq) HasGpu() bool {
 	return false
 }
 
-// SetGpu gets a reference to the given int32 and assigns it to the Gpu field.
-func (o *RunReq) SetGpu(v int32) {
+// SetGpu gets a reference to the given int64 and assigns it to the Gpu field.
+func (o *RunReq) SetGpu(v int64) {
 	o.Gpu = &v
 }
 
@@ -153,9 +153,9 @@ func (o *RunReq) SetImage(v string) {
 }
 
 // GetMaxScale returns the MaxScale field value if set, zero value otherwise.
-func (o *RunReq) GetMaxScale() int32 {
+func (o *RunReq) GetMaxScale() int64 {
 	if o == nil || IsNil(o.MaxScale) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxScale
@@ -163,7 +163,7 @@ func (o *RunReq) GetMaxScale() int32 {
 
 // GetMaxScaleOk returns a tuple with the MaxScale field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RunReq) GetMaxScaleOk() (*int32, bool) {
+func (o *RunReq) GetMaxScaleOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxScale) {
 		return nil, false
 	}
@@ -179,15 +179,15 @@ func (o *RunReq) HasMaxScale() bool {
 	return false
 }
 
-// SetMaxScale gets a reference to the given int32 and assigns it to the MaxScale field.
-func (o *RunReq) SetMaxScale(v int32) {
+// SetMaxScale gets a reference to the given int64 and assigns it to the MaxScale field.
+func (o *RunReq) SetMaxScale(v int64) {
 	o.MaxScale = &v
 }
 
 // GetMinScale returns the MinScale field value if set, zero value otherwise.
-func (o *RunReq) GetMinScale() int32 {
+func (o *RunReq) GetMinScale() int64 {
 	if o == nil || IsNil(o.MinScale) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MinScale
@@ -195,7 +195,7 @@ func (o *RunReq) GetMinScale() int32 {
 
 // GetMinScaleOk returns a tuple with the MinScale field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RunReq) GetMinScaleOk() (*int32, bool) {
+func (o *RunReq) GetMinScaleOk() (*int64, bool) {
 	if o == nil || IsNil(o.MinScale) {
 		return nil, false
 	}
@@ -211,8 +211,8 @@ func (o *RunReq) HasMinScale() bool {
 	return false
 }
 
-// SetMinScale gets a reference to the given int32 and assigns it to the MinScale field.
-func (o *RunReq) SetMinScale(v int32) {
+// SetMinScale gets a reference to the given int64 and assigns it to the MinScale field.
+func (o *RunReq) SetMinScale(v int64) {
 	o.MinScale = &v
 }
 
@@ -249,9 +249,9 @@ func (o *RunReq) SetName(v string) {
 }
 
 // GetPort returns the Port field value if set, zero value otherwise.
-func (o *RunReq) GetPort() int32 {
+func (o *RunReq) GetPort() int64 {
 	if o == nil || IsNil(o.Port) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Port
@@ -259,7 +259,7 @@ func (o *RunReq) GetPort() int32 {
 
 // GetPortOk returns a tuple with the Port field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RunReq) GetPortOk() (*int32, bool) {
+func (o *RunReq) GetPortOk() (*int64, bool) {
 	if o == nil || IsNil(o.Port) {
 		return nil, false
 	}
@@ -275,8 +275,8 @@ func (o *RunReq) HasPort() bool {
 	return false
 }
 
-// SetPort gets a reference to the given int32 and assigns it to the Port field.
-func (o *RunReq) SetPort(v int32) {
+// SetPort gets a reference to the given int64 and assigns it to the Port field.
+func (o *RunReq) SetPort(v int64) {
 	o.Port = &v
 }
 

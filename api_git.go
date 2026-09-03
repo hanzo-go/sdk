@@ -212,31 +212,31 @@ func (a *GitAPIService) DeleteGitReposByNameExecute(r GitAPIDeleteGitReposByName
 	return localVarHTTPResponse, nil
 }
 
-type GitAPIDeleteGitReposByNameMirrorsByIdRequest struct {
+type GitAPIDeleteGitReposByNameSubscriptionsByIdRequest struct {
 	ctx        context.Context
 	ApiService *GitAPIService
 	name       string
 	id         string
 }
 
-func (r GitAPIDeleteGitReposByNameMirrorsByIdRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteGitReposByNameMirrorsByIdExecute(r)
+func (r GitAPIDeleteGitReposByNameSubscriptionsByIdRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteGitReposByNameSubscriptionsByIdExecute(r)
 }
 
 /*
-DeleteGitReposByNameMirrorsById Removes one outbound mirror target; later pushes stop being forwarded to it.
+DeleteGitReposByNameSubscriptionsById Removes one Slack subscription from a repo; the notifier stops posting that repo's events to that channel.
 
-Removes one outbound mirror target; later pushes stop being
-forwarded to it. Answers 204 with no body. Nothing is done to the downstream
-remote itself — only this repo's intent to push there is dropped.
+Removes one Slack subscription from a repo; the notifier stops
+posting that repo's events to that channel. Answers 204 with no body. An id
+that is not this repo's subscription is not found.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name Name is the repo, from the :name path segment.
 	@param id ID is the row to remove, from the :id path segment.
-	@return GitAPIDeleteGitReposByNameMirrorsByIdRequest
+	@return GitAPIDeleteGitReposByNameSubscriptionsByIdRequest
 */
-func (a *GitAPIService) DeleteGitReposByNameMirrorsById(ctx context.Context, name string, id string) GitAPIDeleteGitReposByNameMirrorsByIdRequest {
-	return GitAPIDeleteGitReposByNameMirrorsByIdRequest{
+func (a *GitAPIService) DeleteGitReposByNameSubscriptionsById(ctx context.Context, name string, id string) GitAPIDeleteGitReposByNameSubscriptionsByIdRequest {
+	return GitAPIDeleteGitReposByNameSubscriptionsByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 		name:       name,
@@ -245,19 +245,19 @@ func (a *GitAPIService) DeleteGitReposByNameMirrorsById(ctx context.Context, nam
 }
 
 // Execute executes the request
-func (a *GitAPIService) DeleteGitReposByNameMirrorsByIdExecute(r GitAPIDeleteGitReposByNameMirrorsByIdRequest) (*http.Response, error) {
+func (a *GitAPIService) DeleteGitReposByNameSubscriptionsByIdExecute(r GitAPIDeleteGitReposByNameSubscriptionsByIdRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.DeleteGitReposByNameMirrorsById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.DeleteGitReposByNameSubscriptionsById")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/git/repos/{name}/mirrors/{id}"
+	localVarPath := localBasePath + "/v1/git/repos/{name}/subscriptions/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
@@ -310,31 +310,31 @@ func (a *GitAPIService) DeleteGitReposByNameMirrorsByIdExecute(r GitAPIDeleteGit
 	return localVarHTTPResponse, nil
 }
 
-type GitAPIDeleteGitReposByNameSubscriptionsByIdRequest struct {
+type GitAPIDeleteGitReposByNameTargetsByIdRequest struct {
 	ctx        context.Context
 	ApiService *GitAPIService
 	name       string
 	id         string
 }
 
-func (r GitAPIDeleteGitReposByNameSubscriptionsByIdRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteGitReposByNameSubscriptionsByIdExecute(r)
+func (r GitAPIDeleteGitReposByNameTargetsByIdRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteGitReposByNameTargetsByIdExecute(r)
 }
 
 /*
-DeleteGitReposByNameSubscriptionsById Removes one Slack subscription from a repo; the notifier stops posting that repo's events to that channel.
+DeleteGitReposByNameTargetsById Removes one outbound mirror target; later pushes stop being forwarded to it.
 
-Removes one Slack subscription from a repo; the notifier stops
-posting that repo's events to that channel. Answers 204 with no body. An id
-that is not this repo's subscription is not found.
+Removes one outbound mirror target; later pushes stop being
+forwarded to it. Answers 204 with no body. Nothing is done to the downstream
+remote itself — only this repo's intent to push there is dropped.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name Name is the repo, from the :name path segment.
 	@param id ID is the row to remove, from the :id path segment.
-	@return GitAPIDeleteGitReposByNameSubscriptionsByIdRequest
+	@return GitAPIDeleteGitReposByNameTargetsByIdRequest
 */
-func (a *GitAPIService) DeleteGitReposByNameSubscriptionsById(ctx context.Context, name string, id string) GitAPIDeleteGitReposByNameSubscriptionsByIdRequest {
-	return GitAPIDeleteGitReposByNameSubscriptionsByIdRequest{
+func (a *GitAPIService) DeleteGitReposByNameTargetsById(ctx context.Context, name string, id string) GitAPIDeleteGitReposByNameTargetsByIdRequest {
+	return GitAPIDeleteGitReposByNameTargetsByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 		name:       name,
@@ -343,19 +343,19 @@ func (a *GitAPIService) DeleteGitReposByNameSubscriptionsById(ctx context.Contex
 }
 
 // Execute executes the request
-func (a *GitAPIService) DeleteGitReposByNameSubscriptionsByIdExecute(r GitAPIDeleteGitReposByNameSubscriptionsByIdRequest) (*http.Response, error) {
+func (a *GitAPIService) DeleteGitReposByNameTargetsByIdExecute(r GitAPIDeleteGitReposByNameTargetsByIdRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.DeleteGitReposByNameSubscriptionsById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.DeleteGitReposByNameTargetsById")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/git/repos/{name}/subscriptions/{id}"
+	localVarPath := localBasePath + "/v1/git/repos/{name}/targets/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
@@ -1421,7 +1421,7 @@ type GitAPIGetGitReposByNameCommitsRequest struct {
 	name       string
 	ref        *string
 	path       *string
-	limit      *int32
+	limit      *int64
 }
 
 // Ref is the branch, tag or commit to walk back from; empty means HEAD.
@@ -1437,7 +1437,7 @@ func (r GitAPIGetGitReposByNameCommitsRequest) Path(path string) GitAPIGetGitRep
 }
 
 // Limit caps the page. Anything not positive means 50; the cap is 100.
-func (r GitAPIGetGitReposByNameCommitsRequest) Limit(limit int32) GitAPIGetGitReposByNameCommitsRequest {
+func (r GitAPIGetGitReposByNameCommitsRequest) Limit(limit int64) GitAPIGetGitReposByNameCommitsRequest {
 	r.limit = &limit
 	return r
 }
@@ -1687,111 +1687,6 @@ func (a *GitAPIService) GetGitReposByNameFilesExecute(r GitAPIGetGitReposByNameF
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type GitAPIGetGitReposByNameMirrorsRequest struct {
-	ctx        context.Context
-	ApiService *GitAPIService
-	name       string
-}
-
-func (r GitAPIGetGitReposByNameMirrorsRequest) Execute() (*MirrorList, *http.Response, error) {
-	return r.ApiService.GetGitReposByNameMirrorsExecute(r)
-}
-
-/*
-GetGitReposByNameMirrors Returns a repo's outbound mirror targets — the downstream remotes the mirror reactor pushes to whenever a push lands here.
-
-Returns a repo's outbound mirror targets — the downstream remotes
-the mirror reactor pushes to whenever a push lands here.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name Name is the repo's org-unique handle, from the :name path segment. A trailing \".git\" is stripped.
-	@return GitAPIGetGitReposByNameMirrorsRequest
-*/
-func (a *GitAPIService) GetGitReposByNameMirrors(ctx context.Context, name string) GitAPIGetGitReposByNameMirrorsRequest {
-	return GitAPIGetGitReposByNameMirrorsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		name:       name,
-	}
-}
-
-// Execute executes the request
-//
-//	@return MirrorList
-func (a *GitAPIService) GetGitReposByNameMirrorsExecute(r GitAPIGetGitReposByNameMirrorsRequest) (*MirrorList, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *MirrorList
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitReposByNameMirrors")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/git/repos/{name}/mirrors"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type GitAPIGetGitReposByNamePullsRequest struct {
 	ctx        context.Context
 	ApiService *GitAPIService
@@ -1912,7 +1807,7 @@ type GitAPIGetGitReposByNamePullsByNumberRequest struct {
 	ctx        context.Context
 	ApiService *GitAPIService
 	name       string
-	number     int32
+	number     int64
 }
 
 func (r GitAPIGetGitReposByNamePullsByNumberRequest) Execute() (*PullView, *http.Response, error) {
@@ -1930,7 +1825,7 @@ another tenant's repo is not found, exactly as the repo itself is not.
 	@param number Number is the proposal's per-repo number, from the :number path segment.
 	@return GitAPIGetGitReposByNamePullsByNumberRequest
 */
-func (a *GitAPIService) GetGitReposByNamePullsByNumber(ctx context.Context, name string, number int32) GitAPIGetGitReposByNamePullsByNumberRequest {
+func (a *GitAPIService) GetGitReposByNamePullsByNumber(ctx context.Context, name string, number int64) GitAPIGetGitReposByNamePullsByNumberRequest {
 	return GitAPIGetGitReposByNamePullsByNumberRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -2283,6 +2178,111 @@ func (a *GitAPIService) GetGitReposByNameSubscriptionsExecute(r GitAPIGetGitRepo
 	}
 
 	localVarPath := localBasePath + "/v1/git/repos/{name}/subscriptions"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GitAPIGetGitReposByNameTargetsRequest struct {
+	ctx        context.Context
+	ApiService *GitAPIService
+	name       string
+}
+
+func (r GitAPIGetGitReposByNameTargetsRequest) Execute() (*MirrorList, *http.Response, error) {
+	return r.ApiService.GetGitReposByNameTargetsExecute(r)
+}
+
+/*
+GetGitReposByNameTargets Returns a repo's outbound mirror targets — the downstream remotes the mirror reactor pushes to whenever a push lands here.
+
+Returns a repo's outbound mirror targets — the downstream remotes
+the mirror reactor pushes to whenever a push lands here.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name Name is the repo's org-unique handle, from the :name path segment. A trailing \".git\" is stripped.
+	@return GitAPIGetGitReposByNameTargetsRequest
+*/
+func (a *GitAPIService) GetGitReposByNameTargets(ctx context.Context, name string) GitAPIGetGitReposByNameTargetsRequest {
+	return GitAPIGetGitReposByNameTargetsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		name:       name,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MirrorList
+func (a *GitAPIService) GetGitReposByNameTargetsExecute(r GitAPIGetGitReposByNameTargetsRequest) (*MirrorList, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MirrorList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitReposByNameTargets")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/git/repos/{name}/targets"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3584,127 +3584,6 @@ func (a *GitAPIService) PostGitReposByNameMirrorExecute(r GitAPIPostGitReposByNa
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type GitAPIPostGitReposByNameMirrorsRequest struct {
-	ctx             context.Context
-	ApiService      *GitAPIService
-	name            string
-	mirrorTargetReq *MirrorTargetReq
-}
-
-func (r GitAPIPostGitReposByNameMirrorsRequest) MirrorTargetReq(mirrorTargetReq MirrorTargetReq) GitAPIPostGitReposByNameMirrorsRequest {
-	r.mirrorTargetReq = &mirrorTargetReq
-	return r
-}
-
-func (r GitAPIPostGitReposByNameMirrorsRequest) Execute() (*MirrorTargetView, *http.Response, error) {
-	return r.ApiService.PostGitReposByNameMirrorsExecute(r)
-}
-
-/*
-PostGitReposByNameMirrors Registers a downstream remote the repo's advanced refs are pushed to whenever a push lands here.
-
-Registers a downstream remote the repo's advanced refs are pushed to
-whenever a push lands here. Answers 201. The URL must be https to a host on the
-mirror allowlist (github.com / gitlab.com): the same set the mirror credential
-may be sent to, so a target can never capture the shared token or point the push
-at an internal service. Any embedded userinfo is stripped — credentials ride
-env-only at push time and never enter the stored URL. One mirror per host per
-repo; a second is a 409.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name Name is the repo whose advanced refs are pushed downstream, from the :name path segment.
-	@return GitAPIPostGitReposByNameMirrorsRequest
-*/
-func (a *GitAPIService) PostGitReposByNameMirrors(ctx context.Context, name string) GitAPIPostGitReposByNameMirrorsRequest {
-	return GitAPIPostGitReposByNameMirrorsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		name:       name,
-	}
-}
-
-// Execute executes the request
-//
-//	@return MirrorTargetView
-func (a *GitAPIService) PostGitReposByNameMirrorsExecute(r GitAPIPostGitReposByNameMirrorsRequest) (*MirrorTargetView, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *MirrorTargetView
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostGitReposByNameMirrors")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/git/repos/{name}/mirrors"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.mirrorTargetReq == nil {
-		return localVarReturnValue, nil, reportError("mirrorTargetReq is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.mirrorTargetReq
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type GitAPIPostGitReposByNamePullsRequest struct {
 	ctx        context.Context
 	ApiService *GitAPIService
@@ -3831,7 +3710,7 @@ type GitAPIPostGitReposByNamePullsByNumberMergeRequest struct {
 	ctx        context.Context
 	ApiService *GitAPIService
 	name       string
-	number     int32
+	number     int64
 }
 
 func (r GitAPIPostGitReposByNamePullsByNumberMergeRequest) Execute() (*PullView, *http.Response, error) {
@@ -3860,7 +3739,7 @@ either. Merging an already-merged proposal is a 409.
 	@param number Number is the proposal's per-repo number, from the :number path segment.
 	@return GitAPIPostGitReposByNamePullsByNumberMergeRequest
 */
-func (a *GitAPIService) PostGitReposByNamePullsByNumberMerge(ctx context.Context, name string, number int32) GitAPIPostGitReposByNamePullsByNumberMergeRequest {
+func (a *GitAPIService) PostGitReposByNamePullsByNumberMerge(ctx context.Context, name string, number int64) GitAPIPostGitReposByNamePullsByNumberMergeRequest {
 	return GitAPIPostGitReposByNamePullsByNumberMergeRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -4184,6 +4063,127 @@ func (a *GitAPIService) PostGitReposByNameSubscriptionsExecute(r GitAPIPostGitRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type GitAPIPostGitReposByNameTargetsRequest struct {
+	ctx             context.Context
+	ApiService      *GitAPIService
+	name            string
+	mirrorTargetReq *MirrorTargetReq
+}
+
+func (r GitAPIPostGitReposByNameTargetsRequest) MirrorTargetReq(mirrorTargetReq MirrorTargetReq) GitAPIPostGitReposByNameTargetsRequest {
+	r.mirrorTargetReq = &mirrorTargetReq
+	return r
+}
+
+func (r GitAPIPostGitReposByNameTargetsRequest) Execute() (*MirrorTargetView, *http.Response, error) {
+	return r.ApiService.PostGitReposByNameTargetsExecute(r)
+}
+
+/*
+PostGitReposByNameTargets Registers a downstream remote the repo's advanced refs are pushed to whenever a push lands here.
+
+Registers a downstream remote the repo's advanced refs are pushed to
+whenever a push lands here. Answers 201. The URL must be https to a host on the
+mirror allowlist (github.com / gitlab.com): the same set the mirror credential
+may be sent to, so a target can never capture the shared token or point the push
+at an internal service. Any embedded userinfo is stripped — credentials ride
+env-only at push time and never enter the stored URL. One mirror per host per
+repo; a second is a 409.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name Name is the repo whose advanced refs are pushed downstream, from the :name path segment.
+	@return GitAPIPostGitReposByNameTargetsRequest
+*/
+func (a *GitAPIService) PostGitReposByNameTargets(ctx context.Context, name string) GitAPIPostGitReposByNameTargetsRequest {
+	return GitAPIPostGitReposByNameTargetsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		name:       name,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MirrorTargetView
+func (a *GitAPIService) PostGitReposByNameTargetsExecute(r GitAPIPostGitReposByNameTargetsRequest) (*MirrorTargetView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MirrorTargetView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostGitReposByNameTargets")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/git/repos/{name}/targets"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.mirrorTargetReq == nil {
+		return localVarReturnValue, nil, reportError("mirrorTargetReq is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.mirrorTargetReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type GitAPIPostGitWebhookRequest struct {
 	ctx        context.Context
 	ApiService *GitAPIService
@@ -4226,480 +4226,6 @@ func (a *GitAPIService) PostGitWebhookExecute(r GitAPIPostGitWebhookRequest) (*h
 	}
 
 	localVarPath := localBasePath + "/v1/git/webhook"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type GitAPIPostGitZapCreaterepoRequest struct {
-	ctx        context.Context
-	ApiService *GitAPIService
-	zapProcReq *ZapProcReq
-}
-
-func (r GitAPIPostGitZapCreaterepoRequest) ZapProcReq(zapProcReq ZapProcReq) GitAPIPostGitZapCreaterepoRequest {
-	r.zapProcReq = &zapProcReq
-	return r
-}
-
-func (r GitAPIPostGitZapCreaterepoRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostGitZapCreaterepoExecute(r)
-}
-
-/*
-PostGitZapCreaterepo Create a repository over the ZAP transport
-
-Creates a repository in the caller's org and project scope and answers with its record. `name` is required and `description` is optional; `project` narrows the scope within the org. A name already taken in that scope is a 409 envelope and an invalid name a 400.
-
-A ZAP PROCEDURE, not a REST resource. It answers the bridge's {status, msg, data} envelope rather than the raw view the /v1 route returns, and it calls the SAME core function the REST route calls, so the two transports cannot diverge in behaviour. Org and project scope come from the request identity and NEVER from the body: the body cannot widen the caller's scope. Without a validated org the answer is a 403 envelope.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return GitAPIPostGitZapCreaterepoRequest
-*/
-func (a *GitAPIService) PostGitZapCreaterepo(ctx context.Context) GitAPIPostGitZapCreaterepoRequest {
-	return GitAPIPostGitZapCreaterepoRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *GitAPIService) PostGitZapCreaterepoExecute(r GitAPIPostGitZapCreaterepoRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostGitZapCreaterepo")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/git/zap/createRepo"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.zapProcReq
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type GitAPIPostGitZapDeleterepoRequest struct {
-	ctx        context.Context
-	ApiService *GitAPIService
-	zapProcReq *ZapProcReq
-}
-
-func (r GitAPIPostGitZapDeleterepoRequest) ZapProcReq(zapProcReq ZapProcReq) GitAPIPostGitZapDeleterepoRequest {
-	r.zapProcReq = &zapProcReq
-	return r
-}
-
-func (r GitAPIPostGitZapDeleterepoRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostGitZapDeleterepoExecute(r)
-}
-
-/*
-PostGitZapDeleterepo Delete a repository over the ZAP transport
-
-Deletes the repository named by `name` and answers with the deleted name. A repository outside the caller's org and project scope is a 404 envelope, so a delete can never reach another tenant's repository.
-
-A ZAP PROCEDURE, not a REST resource. It answers the bridge's {status, msg, data} envelope rather than the raw view the /v1 route returns, and it calls the SAME core function the REST route calls, so the two transports cannot diverge in behaviour. Org and project scope come from the request identity and NEVER from the body: the body cannot widen the caller's scope. Without a validated org the answer is a 403 envelope.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return GitAPIPostGitZapDeleterepoRequest
-*/
-func (a *GitAPIService) PostGitZapDeleterepo(ctx context.Context) GitAPIPostGitZapDeleterepoRequest {
-	return GitAPIPostGitZapDeleterepoRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *GitAPIService) PostGitZapDeleterepoExecute(r GitAPIPostGitZapDeleterepoRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostGitZapDeleterepo")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/git/zap/deleteRepo"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.zapProcReq
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type GitAPIPostGitZapGetrepoRequest struct {
-	ctx        context.Context
-	ApiService *GitAPIService
-	zapProcReq *ZapProcReq
-}
-
-func (r GitAPIPostGitZapGetrepoRequest) ZapProcReq(zapProcReq ZapProcReq) GitAPIPostGitZapGetrepoRequest {
-	r.zapProcReq = &zapProcReq
-	return r
-}
-
-func (r GitAPIPostGitZapGetrepoRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostGitZapGetrepoExecute(r)
-}
-
-/*
-PostGitZapGetrepo Read one repository over the ZAP transport
-
-Answers a single repository's record, named by `name`. A repository outside the caller's org and project scope is a 404 envelope, the same answer one that does not exist gets.
-
-A ZAP PROCEDURE, not a REST resource. It answers the bridge's {status, msg, data} envelope rather than the raw view the /v1 route returns, and it calls the SAME core function the REST route calls, so the two transports cannot diverge in behaviour. Org and project scope come from the request identity and NEVER from the body: the body cannot widen the caller's scope. Without a validated org the answer is a 403 envelope.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return GitAPIPostGitZapGetrepoRequest
-*/
-func (a *GitAPIService) PostGitZapGetrepo(ctx context.Context) GitAPIPostGitZapGetrepoRequest {
-	return GitAPIPostGitZapGetrepoRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *GitAPIService) PostGitZapGetrepoExecute(r GitAPIPostGitZapGetrepoRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostGitZapGetrepo")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/git/zap/getRepo"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.zapProcReq
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type GitAPIPostGitZapListreposRequest struct {
-	ctx        context.Context
-	ApiService *GitAPIService
-}
-
-func (r GitAPIPostGitZapListreposRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostGitZapListreposExecute(r)
-}
-
-/*
-PostGitZapListrepos List your repositories over the ZAP transport
-
-Answers every repository in the caller's org and project scope. It reads NO body — the scope is entirely the caller's identity — so a request with an empty object is correct.
-
-A ZAP PROCEDURE, not a REST resource. It answers the bridge's {status, msg, data} envelope rather than the raw view the /v1 route returns, and it calls the SAME core function the REST route calls, so the two transports cannot diverge in behaviour. Org and project scope come from the request identity and NEVER from the body: the body cannot widen the caller's scope. Without a validated org the answer is a 403 envelope.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return GitAPIPostGitZapListreposRequest
-*/
-func (a *GitAPIService) PostGitZapListrepos(ctx context.Context) GitAPIPostGitZapListreposRequest {
-	return GitAPIPostGitZapListreposRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *GitAPIService) PostGitZapListreposExecute(r GitAPIPostGitZapListreposRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostGitZapListrepos")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/git/zap/listRepos"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type GitAPIPostGitZapUsageRequest struct {
-	ctx        context.Context
-	ApiService *GitAPIService
-}
-
-func (r GitAPIPostGitZapUsageRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostGitZapUsageExecute(r)
-}
-
-/*
-PostGitZapUsage Report your org's git storage footprint over the ZAP transport
-
-Answers every repository in the caller's org with its size in bytes, plus the org's total — what git storage is actually being used, and by which repository. It reads NO body, and it is scoped to the caller's own org, so it is that org's footprint and never the fleet's.
-
-A ZAP PROCEDURE, not a REST resource. It answers the bridge's {status, msg, data} envelope rather than the raw view the /v1 route returns, and it calls the SAME core function the REST route calls, so the two transports cannot diverge in behaviour. Org and project scope come from the request identity and NEVER from the body: the body cannot widen the caller's scope. Without a validated org the answer is a 403 envelope.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return GitAPIPostGitZapUsageRequest
-*/
-func (a *GitAPIService) PostGitZapUsage(ctx context.Context) GitAPIPostGitZapUsageRequest {
-	return GitAPIPostGitZapUsageRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *GitAPIService) PostGitZapUsageExecute(r GitAPIPostGitZapUsageRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostGitZapUsage")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/git/zap/usage"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

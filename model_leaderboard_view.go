@@ -40,7 +40,7 @@ type LeaderboardView struct {
 	// Subject is what the rows stand for — \"user\" on a personal or org board, \"org\" on the global one. It tells a client whether Handle names a person or a company.
 	Subject *string `json:"subject,omitempty"`
 	// Total is how many subjects were ranked in the window — the org's active users, or the active/opted-in orgs on the global board. It is the universe the ranks are out of, so it is normally larger than len(rows).
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 }
 
 // NewLeaderboardView instantiates a new LeaderboardView object
@@ -381,9 +381,9 @@ func (o *LeaderboardView) SetSubject(v string) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *LeaderboardView) GetTotal() int32 {
+func (o *LeaderboardView) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -391,7 +391,7 @@ func (o *LeaderboardView) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LeaderboardView) GetTotalOk() (*int32, bool) {
+func (o *LeaderboardView) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -407,8 +407,8 @@ func (o *LeaderboardView) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *LeaderboardView) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *LeaderboardView) SetTotal(v int64) {
 	o.Total = &v
 }
 

@@ -20,8 +20,8 @@ var _ MappedNullable = &FinanceLedgerEntry{}
 // FinanceLedgerEntry struct for FinanceLedgerEntry
 type FinanceLedgerEntry struct {
 	Account      *string `json:"account,omitempty"`
-	BalanceCents *int32  `json:"balanceCents,omitempty"`
-	Cents        *int32  `json:"cents,omitempty"`
+	BalanceCents *int64  `json:"balanceCents,omitempty"`
+	Cents        *int64  `json:"cents,omitempty"`
 	Currency     *string `json:"currency,omitempty"`
 	Date         *string `json:"date,omitempty"`
 	Description  *string `json:"description,omitempty"`
@@ -78,9 +78,9 @@ func (o *FinanceLedgerEntry) SetAccount(v string) {
 }
 
 // GetBalanceCents returns the BalanceCents field value if set, zero value otherwise.
-func (o *FinanceLedgerEntry) GetBalanceCents() int32 {
+func (o *FinanceLedgerEntry) GetBalanceCents() int64 {
 	if o == nil || IsNil(o.BalanceCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.BalanceCents
@@ -88,7 +88,7 @@ func (o *FinanceLedgerEntry) GetBalanceCents() int32 {
 
 // GetBalanceCentsOk returns a tuple with the BalanceCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FinanceLedgerEntry) GetBalanceCentsOk() (*int32, bool) {
+func (o *FinanceLedgerEntry) GetBalanceCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.BalanceCents) {
 		return nil, false
 	}
@@ -104,15 +104,15 @@ func (o *FinanceLedgerEntry) HasBalanceCents() bool {
 	return false
 }
 
-// SetBalanceCents gets a reference to the given int32 and assigns it to the BalanceCents field.
-func (o *FinanceLedgerEntry) SetBalanceCents(v int32) {
+// SetBalanceCents gets a reference to the given int64 and assigns it to the BalanceCents field.
+func (o *FinanceLedgerEntry) SetBalanceCents(v int64) {
 	o.BalanceCents = &v
 }
 
 // GetCents returns the Cents field value if set, zero value otherwise.
-func (o *FinanceLedgerEntry) GetCents() int32 {
+func (o *FinanceLedgerEntry) GetCents() int64 {
 	if o == nil || IsNil(o.Cents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Cents
@@ -120,7 +120,7 @@ func (o *FinanceLedgerEntry) GetCents() int32 {
 
 // GetCentsOk returns a tuple with the Cents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FinanceLedgerEntry) GetCentsOk() (*int32, bool) {
+func (o *FinanceLedgerEntry) GetCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Cents) {
 		return nil, false
 	}
@@ -136,8 +136,8 @@ func (o *FinanceLedgerEntry) HasCents() bool {
 	return false
 }
 
-// SetCents gets a reference to the given int32 and assigns it to the Cents field.
-func (o *FinanceLedgerEntry) SetCents(v int32) {
+// SetCents gets a reference to the given int64 and assigns it to the Cents field.
+func (o *FinanceLedgerEntry) SetCents(v int64) {
 	o.Cents = &v
 }
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Ingested** | Pointer to **int32** | Ingested is how many documents landed in the org&#39;s knowledge store. | [optional] 
+**Ingested** | Pointer to **int64** | Ingested is how many documents landed in the org&#39;s knowledge store. | [optional] 
 **Provider** | Pointer to **string** | Provider is the connector that was pulled. | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetIngested
 
-`func (o *KbSyncOut) GetIngested() int32`
+`func (o *KbSyncOut) GetIngested() int64`
 
 GetIngested returns the Ingested field if non-nil, zero value otherwise.
 
 ### GetIngestedOk
 
-`func (o *KbSyncOut) GetIngestedOk() (*int32, bool)`
+`func (o *KbSyncOut) GetIngestedOk() (*int64, bool)`
 
 GetIngestedOk returns a tuple with the Ingested field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIngested
 
-`func (o *KbSyncOut) SetIngested(v int32)`
+`func (o *KbSyncOut) SetIngested(v int64)`
 
 SetIngested sets Ingested field to given value.
 

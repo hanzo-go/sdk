@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Keywords** | Pointer to **[]string** | Keywords are the seeds. At least one; blanks are dropped. | [optional] 
 **Language** | Pointer to **string** | Language is the ISO code. Defaults to \&quot;en\&quot;. | [optional] 
-**Limit** | Pointer to **int32** | Limit is how many phrases to return, 1 to 1000. Defaults to 100. It is what this call is priced on, because the upstream charges per row. | [optional] 
-**Location** | Pointer to **int32** | Location is the market, as the upstream&#39;s numeric code. Defaults to 2840. | [optional] 
+**Limit** | Pointer to **int64** | Limit is how many phrases to return, 1 to 1000. Defaults to 100. It is what this call is priced on, because the upstream charges per row. | [optional] 
+**Location** | Pointer to **int64** | Location is the market, as the upstream&#39;s numeric code. Defaults to 2840. | [optional] 
 
 ## Methods
 
@@ -80,20 +80,20 @@ HasLanguage returns a boolean if a field has been set.
 
 ### GetLimit
 
-`func (o *SeoIdeaIn) GetLimit() int32`
+`func (o *SeoIdeaIn) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *SeoIdeaIn) GetLimitOk() (*int32, bool)`
+`func (o *SeoIdeaIn) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *SeoIdeaIn) SetLimit(v int32)`
+`func (o *SeoIdeaIn) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 
@@ -105,20 +105,20 @@ HasLimit returns a boolean if a field has been set.
 
 ### GetLocation
 
-`func (o *SeoIdeaIn) GetLocation() int32`
+`func (o *SeoIdeaIn) GetLocation() int64`
 
 GetLocation returns the Location field if non-nil, zero value otherwise.
 
 ### GetLocationOk
 
-`func (o *SeoIdeaIn) GetLocationOk() (*int32, bool)`
+`func (o *SeoIdeaIn) GetLocationOk() (*int64, bool)`
 
 GetLocationOk returns a tuple with the Location field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLocation
 
-`func (o *SeoIdeaIn) SetLocation(v int32)`
+`func (o *SeoIdeaIn) SetLocation(v int64)`
 
 SetLocation sets Location field to given value.
 

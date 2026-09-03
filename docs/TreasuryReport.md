@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccruedCents** | Pointer to **int32** | lifetime revenue-share into the fund | [optional] 
-**ByProgramCents** | Pointer to **map[string]int32** | program → lifetime paid | [optional] 
-**PaidCents** | Pointer to **int32** | lifetime backed payouts out of the fund | [optional] 
+**AccruedCents** | Pointer to **int64** | lifetime revenue-share into the fund | [optional] 
+**ByProgramCents** | Pointer to **map[string]int64** | program → lifetime paid | [optional] 
+**PaidCents** | Pointer to **int64** | lifetime backed payouts out of the fund | [optional] 
 **Policy** | Pointer to [**SharePolicy**](SharePolicy.md) | current revenue-share policy | [optional] 
-**ReserveCents** | Pointer to **int32** | fund:reserve balance (available now) | [optional] 
+**ReserveCents** | Pointer to **int64** | fund:reserve balance (available now) | [optional] 
 **SolventForPayout** | Pointer to **bool** | reserve &gt; 0: at least some payout is backable | [optional] 
 
 ## Methods
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAccruedCents
 
-`func (o *TreasuryReport) GetAccruedCents() int32`
+`func (o *TreasuryReport) GetAccruedCents() int64`
 
 GetAccruedCents returns the AccruedCents field if non-nil, zero value otherwise.
 
 ### GetAccruedCentsOk
 
-`func (o *TreasuryReport) GetAccruedCentsOk() (*int32, bool)`
+`func (o *TreasuryReport) GetAccruedCentsOk() (*int64, bool)`
 
 GetAccruedCentsOk returns a tuple with the AccruedCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccruedCents
 
-`func (o *TreasuryReport) SetAccruedCents(v int32)`
+`func (o *TreasuryReport) SetAccruedCents(v int64)`
 
 SetAccruedCents sets AccruedCents field to given value.
 
@@ -57,20 +57,20 @@ HasAccruedCents returns a boolean if a field has been set.
 
 ### GetByProgramCents
 
-`func (o *TreasuryReport) GetByProgramCents() map[string]int32`
+`func (o *TreasuryReport) GetByProgramCents() map[string]int64`
 
 GetByProgramCents returns the ByProgramCents field if non-nil, zero value otherwise.
 
 ### GetByProgramCentsOk
 
-`func (o *TreasuryReport) GetByProgramCentsOk() (*map[string]int32, bool)`
+`func (o *TreasuryReport) GetByProgramCentsOk() (*map[string]int64, bool)`
 
 GetByProgramCentsOk returns a tuple with the ByProgramCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetByProgramCents
 
-`func (o *TreasuryReport) SetByProgramCents(v map[string]int32)`
+`func (o *TreasuryReport) SetByProgramCents(v map[string]int64)`
 
 SetByProgramCents sets ByProgramCents field to given value.
 
@@ -82,20 +82,20 @@ HasByProgramCents returns a boolean if a field has been set.
 
 ### GetPaidCents
 
-`func (o *TreasuryReport) GetPaidCents() int32`
+`func (o *TreasuryReport) GetPaidCents() int64`
 
 GetPaidCents returns the PaidCents field if non-nil, zero value otherwise.
 
 ### GetPaidCentsOk
 
-`func (o *TreasuryReport) GetPaidCentsOk() (*int32, bool)`
+`func (o *TreasuryReport) GetPaidCentsOk() (*int64, bool)`
 
 GetPaidCentsOk returns a tuple with the PaidCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPaidCents
 
-`func (o *TreasuryReport) SetPaidCents(v int32)`
+`func (o *TreasuryReport) SetPaidCents(v int64)`
 
 SetPaidCents sets PaidCents field to given value.
 
@@ -132,20 +132,20 @@ HasPolicy returns a boolean if a field has been set.
 
 ### GetReserveCents
 
-`func (o *TreasuryReport) GetReserveCents() int32`
+`func (o *TreasuryReport) GetReserveCents() int64`
 
 GetReserveCents returns the ReserveCents field if non-nil, zero value otherwise.
 
 ### GetReserveCentsOk
 
-`func (o *TreasuryReport) GetReserveCentsOk() (*int32, bool)`
+`func (o *TreasuryReport) GetReserveCentsOk() (*int64, bool)`
 
 GetReserveCentsOk returns a tuple with the ReserveCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReserveCents
 
-`func (o *TreasuryReport) SetReserveCents(v int32)`
+`func (o *TreasuryReport) SetReserveCents(v int64)`
 
 SetReserveCents sets ReserveCents field to given value.
 

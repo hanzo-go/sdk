@@ -24,7 +24,7 @@ type UsageView struct {
 	// Repos is every repo the org owns, across every project sub-scope.
 	Repos []UsageRepo `json:"repos,omitempty"`
 	// TotalBytes is the sum over Repos — the org's whole git footprint.
-	TotalBytes *int32 `json:"totalBytes,omitempty"`
+	TotalBytes *int64 `json:"totalBytes,omitempty"`
 }
 
 // NewUsageView instantiates a new UsageView object
@@ -109,9 +109,9 @@ func (o *UsageView) SetRepos(v []UsageRepo) {
 }
 
 // GetTotalBytes returns the TotalBytes field value if set, zero value otherwise.
-func (o *UsageView) GetTotalBytes() int32 {
+func (o *UsageView) GetTotalBytes() int64 {
 	if o == nil || IsNil(o.TotalBytes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalBytes
@@ -119,7 +119,7 @@ func (o *UsageView) GetTotalBytes() int32 {
 
 // GetTotalBytesOk returns a tuple with the TotalBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsageView) GetTotalBytesOk() (*int32, bool) {
+func (o *UsageView) GetTotalBytesOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalBytes) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *UsageView) HasTotalBytes() bool {
 	return false
 }
 
-// SetTotalBytes gets a reference to the given int32 and assigns it to the TotalBytes field.
-func (o *UsageView) SetTotalBytes(v int32) {
+// SetTotalBytes gets a reference to the given int64 and assigns it to the TotalBytes field.
+func (o *UsageView) SetTotalBytes(v int64) {
 	o.TotalBytes = &v
 }
 

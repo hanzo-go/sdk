@@ -34,7 +34,7 @@ type ReferenceAnswer struct {
 	// Refusal is why the set could not be consulted, when it could not: never loaded, held elsewhere, or a source we hold no licence for. Non-empty means Hit must not be read as an answer.
 	Refusal *string `json:"refusal,omitempty"`
 	// Score is the published risk weight where the source expresses one.
-	Score *float32 `json:"score,omitempty"`
+	Score *float64 `json:"score,omitempty"`
 	// Set is the set consulted.
 	Set *string `json:"set,omitempty"`
 	// Stale is whether the set is past its freshness bound. A stale set still answers — yesterday's list beats none — and this is how a decision knows it leaned on one.
@@ -289,9 +289,9 @@ func (o *ReferenceAnswer) SetRefusal(v string) {
 }
 
 // GetScore returns the Score field value if set, zero value otherwise.
-func (o *ReferenceAnswer) GetScore() float32 {
+func (o *ReferenceAnswer) GetScore() float64 {
 	if o == nil || IsNil(o.Score) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Score
@@ -299,7 +299,7 @@ func (o *ReferenceAnswer) GetScore() float32 {
 
 // GetScoreOk returns a tuple with the Score field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReferenceAnswer) GetScoreOk() (*float32, bool) {
+func (o *ReferenceAnswer) GetScoreOk() (*float64, bool) {
 	if o == nil || IsNil(o.Score) {
 		return nil, false
 	}
@@ -315,8 +315,8 @@ func (o *ReferenceAnswer) HasScore() bool {
 	return false
 }
 
-// SetScore gets a reference to the given float32 and assigns it to the Score field.
-func (o *ReferenceAnswer) SetScore(v float32) {
+// SetScore gets a reference to the given float64 and assigns it to the Score field.
+func (o *ReferenceAnswer) SetScore(v float64) {
 	o.Score = &v
 }
 

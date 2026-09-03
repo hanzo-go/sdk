@@ -20,13 +20,13 @@ var _ MappedNullable = &RiskHoldOut{}
 // RiskHoldOut struct for RiskHoldOut
 type RiskHoldOut struct {
 	// Changed is how many records moved into that state. A record already in it is not counted and is not an error: the op is idempotent, so a retry after a network failure is safe.
-	Changed *int32 `json:"changed,omitempty"`
+	Changed *int64 `json:"changed,omitempty"`
 	// Held is how many records this tenant is now holding, at any age. Retention never disposes of one.
-	Held *int32 `json:"held,omitempty"`
+	Held *int64 `json:"held,omitempty"`
 	// Hold echoes the state asked for.
 	Hold *bool `json:"hold,omitempty"`
 	// Missing is how many of the named ids this tenant does not hold. It is reported rather than refused, so a sweep over a list that includes disposed records still places every hold it can — but it is REPORTED, because a hold that silently did nothing is a compliance control that lies.
-	Missing *int32 `json:"missing,omitempty"`
+	Missing *int64 `json:"missing,omitempty"`
 }
 
 // NewRiskHoldOut instantiates a new RiskHoldOut object
@@ -47,9 +47,9 @@ func NewRiskHoldOutWithDefaults() *RiskHoldOut {
 }
 
 // GetChanged returns the Changed field value if set, zero value otherwise.
-func (o *RiskHoldOut) GetChanged() int32 {
+func (o *RiskHoldOut) GetChanged() int64 {
 	if o == nil || IsNil(o.Changed) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Changed
@@ -57,7 +57,7 @@ func (o *RiskHoldOut) GetChanged() int32 {
 
 // GetChangedOk returns a tuple with the Changed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskHoldOut) GetChangedOk() (*int32, bool) {
+func (o *RiskHoldOut) GetChangedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Changed) {
 		return nil, false
 	}
@@ -73,15 +73,15 @@ func (o *RiskHoldOut) HasChanged() bool {
 	return false
 }
 
-// SetChanged gets a reference to the given int32 and assigns it to the Changed field.
-func (o *RiskHoldOut) SetChanged(v int32) {
+// SetChanged gets a reference to the given int64 and assigns it to the Changed field.
+func (o *RiskHoldOut) SetChanged(v int64) {
 	o.Changed = &v
 }
 
 // GetHeld returns the Held field value if set, zero value otherwise.
-func (o *RiskHoldOut) GetHeld() int32 {
+func (o *RiskHoldOut) GetHeld() int64 {
 	if o == nil || IsNil(o.Held) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Held
@@ -89,7 +89,7 @@ func (o *RiskHoldOut) GetHeld() int32 {
 
 // GetHeldOk returns a tuple with the Held field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskHoldOut) GetHeldOk() (*int32, bool) {
+func (o *RiskHoldOut) GetHeldOk() (*int64, bool) {
 	if o == nil || IsNil(o.Held) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *RiskHoldOut) HasHeld() bool {
 	return false
 }
 
-// SetHeld gets a reference to the given int32 and assigns it to the Held field.
-func (o *RiskHoldOut) SetHeld(v int32) {
+// SetHeld gets a reference to the given int64 and assigns it to the Held field.
+func (o *RiskHoldOut) SetHeld(v int64) {
 	o.Held = &v
 }
 
@@ -143,9 +143,9 @@ func (o *RiskHoldOut) SetHold(v bool) {
 }
 
 // GetMissing returns the Missing field value if set, zero value otherwise.
-func (o *RiskHoldOut) GetMissing() int32 {
+func (o *RiskHoldOut) GetMissing() int64 {
 	if o == nil || IsNil(o.Missing) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Missing
@@ -153,7 +153,7 @@ func (o *RiskHoldOut) GetMissing() int32 {
 
 // GetMissingOk returns a tuple with the Missing field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskHoldOut) GetMissingOk() (*int32, bool) {
+func (o *RiskHoldOut) GetMissingOk() (*int64, bool) {
 	if o == nil || IsNil(o.Missing) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *RiskHoldOut) HasMissing() bool {
 	return false
 }
 
-// SetMissing gets a reference to the given int32 and assigns it to the Missing field.
-func (o *RiskHoldOut) SetMissing(v int32) {
+// SetMissing gets a reference to the given int64 and assigns it to the Missing field.
+func (o *RiskHoldOut) SetMissing(v int64) {
 	o.Missing = &v
 }
 

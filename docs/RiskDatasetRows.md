@@ -7,10 +7,10 @@ Name | Type | Description | Notes
 **Dataset** | Pointer to **string** | Dataset is the dataset the page was read from. | [optional] 
 **Digest** | Pointer to **string** | Digest is the version&#39;s fingerprint. An exported page that did not carry it would be bytes with no way to say which dataset they are. | [optional] 
 **Dims** | Pointer to **[]string** | Dims names what each coordinate of Point means, in Point&#39;s own order. | [optional] 
-**Limit** | Pointer to **int32** | Limit is the page size actually served: the one asked for, clamped to the plane&#39;s own bound of 5000. Fewer rows than Limit means the version ended. | [optional] 
-**Offset** | Pointer to **int32** | Offset is where this page starts in the version&#39;s own row order, which is by row id and therefore stable forever. | [optional] 
+**Limit** | Pointer to **int64** | Limit is the page size actually served: the one asked for, clamped to the plane&#39;s own bound of 5000. Fewer rows than Limit means the version ended. | [optional] 
+**Offset** | Pointer to **int64** | Offset is where this page starts in the version&#39;s own row order, which is by row id and therefore stable forever. | [optional] 
 **Rows** | Pointer to [**[]RiskDatasetRow**](RiskDatasetRow.md) | Rows is the page. Never null. | [optional] 
-**Version** | Pointer to **int32** | Version is which published version it was read from — the one asked for, or the newest published one when the request named none. | [optional] 
+**Version** | Pointer to **int64** | Version is which published version it was read from — the one asked for, or the newest published one when the request named none. | [optional] 
 
 ## Methods
 
@@ -108,20 +108,20 @@ HasDims returns a boolean if a field has been set.
 
 ### GetLimit
 
-`func (o *RiskDatasetRows) GetLimit() int32`
+`func (o *RiskDatasetRows) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *RiskDatasetRows) GetLimitOk() (*int32, bool)`
+`func (o *RiskDatasetRows) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *RiskDatasetRows) SetLimit(v int32)`
+`func (o *RiskDatasetRows) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 
@@ -133,20 +133,20 @@ HasLimit returns a boolean if a field has been set.
 
 ### GetOffset
 
-`func (o *RiskDatasetRows) GetOffset() int32`
+`func (o *RiskDatasetRows) GetOffset() int64`
 
 GetOffset returns the Offset field if non-nil, zero value otherwise.
 
 ### GetOffsetOk
 
-`func (o *RiskDatasetRows) GetOffsetOk() (*int32, bool)`
+`func (o *RiskDatasetRows) GetOffsetOk() (*int64, bool)`
 
 GetOffsetOk returns a tuple with the Offset field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOffset
 
-`func (o *RiskDatasetRows) SetOffset(v int32)`
+`func (o *RiskDatasetRows) SetOffset(v int64)`
 
 SetOffset sets Offset field to given value.
 
@@ -183,20 +183,20 @@ HasRows returns a boolean if a field has been set.
 
 ### GetVersion
 
-`func (o *RiskDatasetRows) GetVersion() int32`
+`func (o *RiskDatasetRows) GetVersion() int64`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *RiskDatasetRows) GetVersionOk() (*int32, bool)`
+`func (o *RiskDatasetRows) GetVersionOk() (*int64, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *RiskDatasetRows) SetVersion(v int32)`
+`func (o *RiskDatasetRows) SetVersion(v int64)`
 
 SetVersion sets Version field to given value.
 

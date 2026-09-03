@@ -30,7 +30,7 @@ type Suggestion struct {
 	// Title is the step's own one-line quest.
 	Title *string `json:"title,omitempty"`
 	// Unlocks is how many downstream steps completing this one immediately makes available (its leverage) — the primary ranking key.
-	Unlocks *int32 `json:"unlocks,omitempty"`
+	Unlocks *int64 `json:"unlocks,omitempty"`
 }
 
 // NewSuggestion instantiates a new Suggestion object
@@ -211,9 +211,9 @@ func (o *Suggestion) SetTitle(v string) {
 }
 
 // GetUnlocks returns the Unlocks field value if set, zero value otherwise.
-func (o *Suggestion) GetUnlocks() int32 {
+func (o *Suggestion) GetUnlocks() int64 {
 	if o == nil || IsNil(o.Unlocks) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Unlocks
@@ -221,7 +221,7 @@ func (o *Suggestion) GetUnlocks() int32 {
 
 // GetUnlocksOk returns a tuple with the Unlocks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Suggestion) GetUnlocksOk() (*int32, bool) {
+func (o *Suggestion) GetUnlocksOk() (*int64, bool) {
 	if o == nil || IsNil(o.Unlocks) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *Suggestion) HasUnlocks() bool {
 	return false
 }
 
-// SetUnlocks gets a reference to the given int32 and assigns it to the Unlocks field.
-func (o *Suggestion) SetUnlocks(v int32) {
+// SetUnlocks gets a reference to the given int64 and assigns it to the Unlocks field.
+func (o *Suggestion) SetUnlocks(v int64) {
 	o.Unlocks = &v
 }
 

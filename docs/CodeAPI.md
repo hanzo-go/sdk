@@ -174,7 +174,7 @@ func main() {
 	q := "func openStore" // string | Q is the search query. Required, max 4000 bytes. For type=regex it is a regular expression; for type=symbol it is a symbol name. (optional)
 	type_ := "hybrid" // string | Type selects the retrieval tier: \"text\" (FTS5 trigram), \"regex\", \"symbol\" (definitions), \"semantic\" (embeddings) or \"hybrid\". Anything else — including empty — reads as hybrid. (optional)
 	repo := "cloud" // string | Repo narrows to one repository. Empty searches every repo the org has indexed. (optional)
-	limit := int32(20) // int32 | Limit caps how many spans come back: default 20, maximum 100. A value that is not a positive integer reads as the default. (optional)
+	limit := int64(20) // int64 | Limit caps how many spans come back: default 20, maximum 100. A value that is not a positive integer reads as the default. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -202,7 +202,7 @@ Name | Type | Description  | Notes
  **q** | **string** | Q is the search query. Required, max 4000 bytes. For type&#x3D;regex it is a regular expression; for type&#x3D;symbol it is a symbol name. | 
  **type_** | **string** | Type selects the retrieval tier: \&quot;text\&quot; (FTS5 trigram), \&quot;regex\&quot;, \&quot;symbol\&quot; (definitions), \&quot;semantic\&quot; (embeddings) or \&quot;hybrid\&quot;. Anything else — including empty — reads as hybrid. | 
  **repo** | **string** | Repo narrows to one repository. Empty searches every repo the org has indexed. | 
- **limit** | **int32** | Limit caps how many spans come back: default 20, maximum 100. A value that is not a positive integer reads as the default. | 
+ **limit** | **int64** | Limit caps how many spans come back: default 20, maximum 100. A value that is not a positive integer reads as the default. | 
 
 ### Return type
 

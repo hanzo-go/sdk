@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DurationMs** | Pointer to **float32** | DurationMs is End minus Start in milliseconds: the trace&#39;s wall clock, not the sum of its spans, which double-counts everything concurrent. | [optional] 
+**DurationMs** | Pointer to **float64** | DurationMs is End minus Start in milliseconds: the trace&#39;s wall clock, not the sum of its spans, which double-counts everything concurrent. | [optional] 
 **End** | Pointer to **string** | End is the latest span end, RFC3339 with nanoseconds, in UTC. | [optional] 
-**NumSpans** | Pointer to **int32** | NumSpans is how many spans the trace carries. | [optional] 
+**NumSpans** | Pointer to **int64** | NumSpans is how many spans the trace carries. | [optional] 
 **Start** | Pointer to **string** | Start is the earliest span start, RFC3339 with nanoseconds, in UTC. | [optional] 
 **TraceId** | Pointer to **string** | TraceID is the trace&#39;s id — the {traceId} of the detail read. | [optional] 
 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetDurationMs
 
-`func (o *O11yTraceRow) GetDurationMs() float32`
+`func (o *O11yTraceRow) GetDurationMs() float64`
 
 GetDurationMs returns the DurationMs field if non-nil, zero value otherwise.
 
 ### GetDurationMsOk
 
-`func (o *O11yTraceRow) GetDurationMsOk() (*float32, bool)`
+`func (o *O11yTraceRow) GetDurationMsOk() (*float64, bool)`
 
 GetDurationMsOk returns a tuple with the DurationMs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDurationMs
 
-`func (o *O11yTraceRow) SetDurationMs(v float32)`
+`func (o *O11yTraceRow) SetDurationMs(v float64)`
 
 SetDurationMs sets DurationMs field to given value.
 
@@ -81,20 +81,20 @@ HasEnd returns a boolean if a field has been set.
 
 ### GetNumSpans
 
-`func (o *O11yTraceRow) GetNumSpans() int32`
+`func (o *O11yTraceRow) GetNumSpans() int64`
 
 GetNumSpans returns the NumSpans field if non-nil, zero value otherwise.
 
 ### GetNumSpansOk
 
-`func (o *O11yTraceRow) GetNumSpansOk() (*int32, bool)`
+`func (o *O11yTraceRow) GetNumSpansOk() (*int64, bool)`
 
 GetNumSpansOk returns a tuple with the NumSpans field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumSpans
 
-`func (o *O11yTraceRow) SetNumSpans(v int32)`
+`func (o *O11yTraceRow) SetNumSpans(v int64)`
 
 SetNumSpans sets NumSpans field to given value.
 

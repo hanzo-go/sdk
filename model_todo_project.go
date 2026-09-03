@@ -20,7 +20,7 @@ var _ MappedNullable = &TodoProject{}
 // TodoProject struct for TodoProject
 type TodoProject struct {
 	// CreatedAt is when the board was created, in unix seconds. 0 on a forge board for the same reason Description is absent.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Description is whatever an index board was created with. Absent on a forge board: this projection takes the repository's name and nothing else about the repository.
 	Description *string `json:"description,omitempty"`
 	// ID is the board's opaque handle, and it is NOT how you address it — Key is. Its shape says which source answered: a forge board's is the repository's full name (\"hanzoai/cloud\"), an index board's a minted \"prj_\" id.
@@ -32,7 +32,7 @@ type TodoProject struct {
 	// Org is the IAM org the board belongs to, taken from the validated principal and never from the request. Every board a caller can see is in it.
 	Org *string `json:"org,omitempty"`
 	// UpdatedAt is when the board record last changed, in unix seconds — the BOARD, not the work on it, so filing an issue does not move it. 0 on a forge board.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewTodoProject instantiates a new TodoProject object
@@ -53,9 +53,9 @@ func NewTodoProjectWithDefaults() *TodoProject {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *TodoProject) GetCreatedAt() int32 {
+func (o *TodoProject) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -63,7 +63,7 @@ func (o *TodoProject) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TodoProject) GetCreatedAtOk() (*int32, bool) {
+func (o *TodoProject) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -79,8 +79,8 @@ func (o *TodoProject) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *TodoProject) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *TodoProject) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -245,9 +245,9 @@ func (o *TodoProject) SetOrg(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *TodoProject) GetUpdatedAt() int32 {
+func (o *TodoProject) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -255,7 +255,7 @@ func (o *TodoProject) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TodoProject) GetUpdatedAtOk() (*int32, bool) {
+func (o *TodoProject) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -271,8 +271,8 @@ func (o *TodoProject) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *TodoProject) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *TodoProject) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

@@ -38,7 +38,7 @@ type DocRow struct {
 	// Title is what the document is called.
 	Title *string `json:"title,omitempty"`
 	// Updated is when the record last changed, unix milliseconds.
-	Updated *int32 `json:"updated,omitempty"`
+	Updated *int64 `json:"updated,omitempty"`
 }
 
 // NewDocRow instantiates a new DocRow object
@@ -347,9 +347,9 @@ func (o *DocRow) SetTitle(v string) {
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *DocRow) GetUpdated() int32 {
+func (o *DocRow) GetUpdated() int64 {
 	if o == nil || IsNil(o.Updated) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Updated
@@ -357,7 +357,7 @@ func (o *DocRow) GetUpdated() int32 {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DocRow) GetUpdatedOk() (*int32, bool) {
+func (o *DocRow) GetUpdatedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -373,8 +373,8 @@ func (o *DocRow) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given int32 and assigns it to the Updated field.
-func (o *DocRow) SetUpdated(v int32) {
+// SetUpdated gets a reference to the given int64 and assigns it to the Updated field.
+func (o *DocRow) SetUpdated(v int64) {
 	o.Updated = &v
 }
 

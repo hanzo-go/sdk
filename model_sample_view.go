@@ -22,31 +22,31 @@ type SampleView struct {
 	// At is when the reading was MEASURED, RFC 3339 in UTC — the x-axis a chart plots against. The series is returned oldest first, so it only increases.
 	At *string `json:"at,omitempty"`
 	// CostCents is what this unit resold for over the hour the reading falls in, in whole US cents. 0 means UNPRICED, not free: the operator's own machines — a linked run-target, a dialed-in BYO worker — are metered for utilization and never resold, so only a priced source ever fills it.
-	CostCents *int32 `json:"costCents,omitempty"`
+	CostCents *int64 `json:"costCents,omitempty"`
 	// CPUs is logical cores. The static capability rides every row on purpose: a chart can size load against cores without joining a registry whose row may since have been rewritten or the unit deregistered.
-	Cpus *int32 `json:"cpus,omitempty"`
+	Cpus *int64 `json:"cpus,omitempty"`
 	// GPUModel names the representative accelerator (\"GB10\"); GPUs carries how many.
 	GpuModel *string `json:"gpuModel,omitempty"`
 	// GPUUtil is aggregate accelerator utilization as a FRACTION of 1 — 0.42 is 42% busy. Anything a reporter sends outside 0..1 is clamped into it on write.
-	GpuUtil *float32 `json:"gpuUtil,omitempty"`
+	GpuUtil *float64 `json:"gpuUtil,omitempty"`
 	// GPUs is how many accelerators the reading covers.
-	Gpus *int32 `json:"gpus,omitempty"`
+	Gpus *int64 `json:"gpus,omitempty"`
 	// Host is the hostname the unit reported at the time of the reading.
 	Host *string `json:"host,omitempty"`
 	// Kind is what the measured unit is: laptop, cloud, gpu, cluster, machine or worker.
 	Kind *string `json:"kind,omitempty"`
 	// Load1 is the 1-minute load average — runnable processes, not a percentage.
-	Load1 *float32 `json:"load1,omitempty"`
+	Load1 *float64 `json:"load1,omitempty"`
 	// Load5 is the 5-minute load average, the same units as Load1.
-	Load5 *float32 `json:"load5,omitempty"`
+	Load5 *float64 `json:"load5,omitempty"`
 	// Load15 is the 15-minute load average, the same units as Load1.
-	Load15 *float32 `json:"load15,omitempty"`
+	Load15 *float64 `json:"load15,omitempty"`
 	// MemFree is host memory available, in BYTES, as reported rather than derived.
-	MemFree *int32 `json:"memFree,omitempty"`
+	MemFree *int64 `json:"memFree,omitempty"`
 	// MemUsed is host memory in use, in BYTES.
-	MemUsed *int32 `json:"memUsed,omitempty"`
+	MemUsed *int64 `json:"memUsed,omitempty"`
 	// Memory is total system RAM in BYTES at the time of the reading.
-	Memory *int32 `json:"memory,omitempty"`
+	Memory *int64 `json:"memory,omitempty"`
 	// Source is the plane that reported the reading: \"agent\", \"byo\" or \"visor\" — the same vocabulary the board's rows carry, and what ?source= narrows on.
 	Source *string `json:"source,omitempty"`
 	// Unit is the source's own id for the measured unit. With Source it is the key the chart groups by, and the key the board joins a unit's latest reading on.
@@ -103,9 +103,9 @@ func (o *SampleView) SetAt(v string) {
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *SampleView) GetCostCents() int32 {
+func (o *SampleView) GetCostCents() int64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostCents
@@ -113,7 +113,7 @@ func (o *SampleView) GetCostCents() int32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SampleView) GetCostCentsOk() (*int32, bool) {
+func (o *SampleView) GetCostCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -129,15 +129,15 @@ func (o *SampleView) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *SampleView) SetCostCents(v int32) {
+// SetCostCents gets a reference to the given int64 and assigns it to the CostCents field.
+func (o *SampleView) SetCostCents(v int64) {
 	o.CostCents = &v
 }
 
 // GetCpus returns the Cpus field value if set, zero value otherwise.
-func (o *SampleView) GetCpus() int32 {
+func (o *SampleView) GetCpus() int64 {
 	if o == nil || IsNil(o.Cpus) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Cpus
@@ -145,7 +145,7 @@ func (o *SampleView) GetCpus() int32 {
 
 // GetCpusOk returns a tuple with the Cpus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SampleView) GetCpusOk() (*int32, bool) {
+func (o *SampleView) GetCpusOk() (*int64, bool) {
 	if o == nil || IsNil(o.Cpus) {
 		return nil, false
 	}
@@ -161,8 +161,8 @@ func (o *SampleView) HasCpus() bool {
 	return false
 }
 
-// SetCpus gets a reference to the given int32 and assigns it to the Cpus field.
-func (o *SampleView) SetCpus(v int32) {
+// SetCpus gets a reference to the given int64 and assigns it to the Cpus field.
+func (o *SampleView) SetCpus(v int64) {
 	o.Cpus = &v
 }
 
@@ -199,9 +199,9 @@ func (o *SampleView) SetGpuModel(v string) {
 }
 
 // GetGpuUtil returns the GpuUtil field value if set, zero value otherwise.
-func (o *SampleView) GetGpuUtil() float32 {
+func (o *SampleView) GetGpuUtil() float64 {
 	if o == nil || IsNil(o.GpuUtil) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.GpuUtil
@@ -209,7 +209,7 @@ func (o *SampleView) GetGpuUtil() float32 {
 
 // GetGpuUtilOk returns a tuple with the GpuUtil field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SampleView) GetGpuUtilOk() (*float32, bool) {
+func (o *SampleView) GetGpuUtilOk() (*float64, bool) {
 	if o == nil || IsNil(o.GpuUtil) {
 		return nil, false
 	}
@@ -225,15 +225,15 @@ func (o *SampleView) HasGpuUtil() bool {
 	return false
 }
 
-// SetGpuUtil gets a reference to the given float32 and assigns it to the GpuUtil field.
-func (o *SampleView) SetGpuUtil(v float32) {
+// SetGpuUtil gets a reference to the given float64 and assigns it to the GpuUtil field.
+func (o *SampleView) SetGpuUtil(v float64) {
 	o.GpuUtil = &v
 }
 
 // GetGpus returns the Gpus field value if set, zero value otherwise.
-func (o *SampleView) GetGpus() int32 {
+func (o *SampleView) GetGpus() int64 {
 	if o == nil || IsNil(o.Gpus) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Gpus
@@ -241,7 +241,7 @@ func (o *SampleView) GetGpus() int32 {
 
 // GetGpusOk returns a tuple with the Gpus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SampleView) GetGpusOk() (*int32, bool) {
+func (o *SampleView) GetGpusOk() (*int64, bool) {
 	if o == nil || IsNil(o.Gpus) {
 		return nil, false
 	}
@@ -257,8 +257,8 @@ func (o *SampleView) HasGpus() bool {
 	return false
 }
 
-// SetGpus gets a reference to the given int32 and assigns it to the Gpus field.
-func (o *SampleView) SetGpus(v int32) {
+// SetGpus gets a reference to the given int64 and assigns it to the Gpus field.
+func (o *SampleView) SetGpus(v int64) {
 	o.Gpus = &v
 }
 
@@ -327,9 +327,9 @@ func (o *SampleView) SetKind(v string) {
 }
 
 // GetLoad1 returns the Load1 field value if set, zero value otherwise.
-func (o *SampleView) GetLoad1() float32 {
+func (o *SampleView) GetLoad1() float64 {
 	if o == nil || IsNil(o.Load1) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Load1
@@ -337,7 +337,7 @@ func (o *SampleView) GetLoad1() float32 {
 
 // GetLoad1Ok returns a tuple with the Load1 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SampleView) GetLoad1Ok() (*float32, bool) {
+func (o *SampleView) GetLoad1Ok() (*float64, bool) {
 	if o == nil || IsNil(o.Load1) {
 		return nil, false
 	}
@@ -353,15 +353,15 @@ func (o *SampleView) HasLoad1() bool {
 	return false
 }
 
-// SetLoad1 gets a reference to the given float32 and assigns it to the Load1 field.
-func (o *SampleView) SetLoad1(v float32) {
+// SetLoad1 gets a reference to the given float64 and assigns it to the Load1 field.
+func (o *SampleView) SetLoad1(v float64) {
 	o.Load1 = &v
 }
 
 // GetLoad5 returns the Load5 field value if set, zero value otherwise.
-func (o *SampleView) GetLoad5() float32 {
+func (o *SampleView) GetLoad5() float64 {
 	if o == nil || IsNil(o.Load5) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Load5
@@ -369,7 +369,7 @@ func (o *SampleView) GetLoad5() float32 {
 
 // GetLoad5Ok returns a tuple with the Load5 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SampleView) GetLoad5Ok() (*float32, bool) {
+func (o *SampleView) GetLoad5Ok() (*float64, bool) {
 	if o == nil || IsNil(o.Load5) {
 		return nil, false
 	}
@@ -385,15 +385,15 @@ func (o *SampleView) HasLoad5() bool {
 	return false
 }
 
-// SetLoad5 gets a reference to the given float32 and assigns it to the Load5 field.
-func (o *SampleView) SetLoad5(v float32) {
+// SetLoad5 gets a reference to the given float64 and assigns it to the Load5 field.
+func (o *SampleView) SetLoad5(v float64) {
 	o.Load5 = &v
 }
 
 // GetLoad15 returns the Load15 field value if set, zero value otherwise.
-func (o *SampleView) GetLoad15() float32 {
+func (o *SampleView) GetLoad15() float64 {
 	if o == nil || IsNil(o.Load15) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Load15
@@ -401,7 +401,7 @@ func (o *SampleView) GetLoad15() float32 {
 
 // GetLoad15Ok returns a tuple with the Load15 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SampleView) GetLoad15Ok() (*float32, bool) {
+func (o *SampleView) GetLoad15Ok() (*float64, bool) {
 	if o == nil || IsNil(o.Load15) {
 		return nil, false
 	}
@@ -417,15 +417,15 @@ func (o *SampleView) HasLoad15() bool {
 	return false
 }
 
-// SetLoad15 gets a reference to the given float32 and assigns it to the Load15 field.
-func (o *SampleView) SetLoad15(v float32) {
+// SetLoad15 gets a reference to the given float64 and assigns it to the Load15 field.
+func (o *SampleView) SetLoad15(v float64) {
 	o.Load15 = &v
 }
 
 // GetMemFree returns the MemFree field value if set, zero value otherwise.
-func (o *SampleView) GetMemFree() int32 {
+func (o *SampleView) GetMemFree() int64 {
 	if o == nil || IsNil(o.MemFree) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MemFree
@@ -433,7 +433,7 @@ func (o *SampleView) GetMemFree() int32 {
 
 // GetMemFreeOk returns a tuple with the MemFree field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SampleView) GetMemFreeOk() (*int32, bool) {
+func (o *SampleView) GetMemFreeOk() (*int64, bool) {
 	if o == nil || IsNil(o.MemFree) {
 		return nil, false
 	}
@@ -449,15 +449,15 @@ func (o *SampleView) HasMemFree() bool {
 	return false
 }
 
-// SetMemFree gets a reference to the given int32 and assigns it to the MemFree field.
-func (o *SampleView) SetMemFree(v int32) {
+// SetMemFree gets a reference to the given int64 and assigns it to the MemFree field.
+func (o *SampleView) SetMemFree(v int64) {
 	o.MemFree = &v
 }
 
 // GetMemUsed returns the MemUsed field value if set, zero value otherwise.
-func (o *SampleView) GetMemUsed() int32 {
+func (o *SampleView) GetMemUsed() int64 {
 	if o == nil || IsNil(o.MemUsed) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MemUsed
@@ -465,7 +465,7 @@ func (o *SampleView) GetMemUsed() int32 {
 
 // GetMemUsedOk returns a tuple with the MemUsed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SampleView) GetMemUsedOk() (*int32, bool) {
+func (o *SampleView) GetMemUsedOk() (*int64, bool) {
 	if o == nil || IsNil(o.MemUsed) {
 		return nil, false
 	}
@@ -481,15 +481,15 @@ func (o *SampleView) HasMemUsed() bool {
 	return false
 }
 
-// SetMemUsed gets a reference to the given int32 and assigns it to the MemUsed field.
-func (o *SampleView) SetMemUsed(v int32) {
+// SetMemUsed gets a reference to the given int64 and assigns it to the MemUsed field.
+func (o *SampleView) SetMemUsed(v int64) {
 	o.MemUsed = &v
 }
 
 // GetMemory returns the Memory field value if set, zero value otherwise.
-func (o *SampleView) GetMemory() int32 {
+func (o *SampleView) GetMemory() int64 {
 	if o == nil || IsNil(o.Memory) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Memory
@@ -497,7 +497,7 @@ func (o *SampleView) GetMemory() int32 {
 
 // GetMemoryOk returns a tuple with the Memory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SampleView) GetMemoryOk() (*int32, bool) {
+func (o *SampleView) GetMemoryOk() (*int64, bool) {
 	if o == nil || IsNil(o.Memory) {
 		return nil, false
 	}
@@ -513,8 +513,8 @@ func (o *SampleView) HasMemory() bool {
 	return false
 }
 
-// SetMemory gets a reference to the given int32 and assigns it to the Memory field.
-func (o *SampleView) SetMemory(v int32) {
+// SetMemory gets a reference to the given int64 and assigns it to the Memory field.
+func (o *SampleView) SetMemory(v int64) {
 	o.Memory = &v
 }
 

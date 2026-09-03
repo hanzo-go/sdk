@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **StringValue** | Pointer to **string** | StringValue is the label of a CATEGORICAL score. | [optional] 
 **Timestamp** | Pointer to **string** | Timestamp is when the score was recorded. | [optional] 
 **TraceId** | Pointer to **string** | TraceID is the model call this score grades, when it grades one. | [optional] 
-**Value** | Pointer to **float32** | Value is the numeric score; for BOOLEAN it is 0 or 1. | [optional] 
+**Value** | Pointer to **float64** | Value is the numeric score; for BOOLEAN it is 0 or 1. | [optional] 
 
 ## Methods
 
@@ -235,20 +235,20 @@ HasTraceId returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *ScoreView) GetValue() float32`
+`func (o *ScoreView) GetValue() float64`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *ScoreView) GetValueOk() (*float32, bool)`
+`func (o *ScoreView) GetValueOk() (*float64, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *ScoreView) SetValue(v float32)`
+`func (o *ScoreView) SetValue(v float64)`
 
 SetValue sets Value field to given value.
 

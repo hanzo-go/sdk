@@ -7,10 +7,10 @@ Name | Type | Description | Notes
 **Expense** | Pointer to [**[]PnLLine**](PnLLine.md) | Expense is the cost lines that moved in the period, one per account. | [optional] 
 **From** | Pointer to **string** | From opens the period and is EXCLUSIVE — movement strictly after it, matching the trial balance&#39;s opening boundary so the two reports agree on what belongs to a period. Absent means from the beginning of the ledger. | [optional] 
 **Income** | Pointer to [**[]PnLLine**](PnLLine.md) | Income is the revenue lines that moved in the period, one per account. Accounts that did not move are omitted rather than listed at zero. | [optional] 
-**NetIncome** | Pointer to **int32** | NetIncome is totalIncome minus totalExpense, in cents. Negative is a loss. | [optional] 
+**NetIncome** | Pointer to **int64** | NetIncome is totalIncome minus totalExpense, in cents. Negative is a loss. | [optional] 
 **To** | Pointer to **string** | To closes the period and is inclusive. Absent means up to now. | [optional] 
-**TotalExpense** | Pointer to **int32** | TotalExpense is cost MATCHED to that revenue, in cents, including accrued infrastructure that has not been billed yet. | [optional] 
-**TotalIncome** | Pointer to **int32** | TotalIncome is revenue RECOGNIZED in the period, in cents — accrual, not cash, so a prepaid top-up is not in it until the credit is consumed. | [optional] 
+**TotalExpense** | Pointer to **int64** | TotalExpense is cost MATCHED to that revenue, in cents, including accrued infrastructure that has not been billed yet. | [optional] 
+**TotalIncome** | Pointer to **int64** | TotalIncome is revenue RECOGNIZED in the period, in cents — accrual, not cash, so a prepaid top-up is not in it until the credit is consumed. | [optional] 
 
 ## Methods
 
@@ -108,20 +108,20 @@ HasIncome returns a boolean if a field has been set.
 
 ### GetNetIncome
 
-`func (o *PnL) GetNetIncome() int32`
+`func (o *PnL) GetNetIncome() int64`
 
 GetNetIncome returns the NetIncome field if non-nil, zero value otherwise.
 
 ### GetNetIncomeOk
 
-`func (o *PnL) GetNetIncomeOk() (*int32, bool)`
+`func (o *PnL) GetNetIncomeOk() (*int64, bool)`
 
 GetNetIncomeOk returns a tuple with the NetIncome field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNetIncome
 
-`func (o *PnL) SetNetIncome(v int32)`
+`func (o *PnL) SetNetIncome(v int64)`
 
 SetNetIncome sets NetIncome field to given value.
 
@@ -158,20 +158,20 @@ HasTo returns a boolean if a field has been set.
 
 ### GetTotalExpense
 
-`func (o *PnL) GetTotalExpense() int32`
+`func (o *PnL) GetTotalExpense() int64`
 
 GetTotalExpense returns the TotalExpense field if non-nil, zero value otherwise.
 
 ### GetTotalExpenseOk
 
-`func (o *PnL) GetTotalExpenseOk() (*int32, bool)`
+`func (o *PnL) GetTotalExpenseOk() (*int64, bool)`
 
 GetTotalExpenseOk returns a tuple with the TotalExpense field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalExpense
 
-`func (o *PnL) SetTotalExpense(v int32)`
+`func (o *PnL) SetTotalExpense(v int64)`
 
 SetTotalExpense sets TotalExpense field to given value.
 
@@ -183,20 +183,20 @@ HasTotalExpense returns a boolean if a field has been set.
 
 ### GetTotalIncome
 
-`func (o *PnL) GetTotalIncome() int32`
+`func (o *PnL) GetTotalIncome() int64`
 
 GetTotalIncome returns the TotalIncome field if non-nil, zero value otherwise.
 
 ### GetTotalIncomeOk
 
-`func (o *PnL) GetTotalIncomeOk() (*int32, bool)`
+`func (o *PnL) GetTotalIncomeOk() (*int64, bool)`
 
 GetTotalIncomeOk returns a tuple with the TotalIncome field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalIncome
 
-`func (o *PnL) SetTotalIncome(v int32)`
+`func (o *PnL) SetTotalIncome(v int64)`
 
 SetTotalIncome sets TotalIncome field to given value.
 

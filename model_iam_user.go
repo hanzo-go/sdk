@@ -40,8 +40,8 @@ type IamUser struct {
 	Azureadb2c        *string            `json:"azureadb2c,omitempty"`
 	Baidu             *string            `json:"baidu,omitempty"`
 	// Balance mirrors v1 for lossless migration but is authoritative in Commerce (billing.hanzo.ai), not here — do not write it from IAM.
-	Balance         *float32      `json:"balance,omitempty"`
-	BalanceCredit   *float32      `json:"balanceCredit,omitempty"`
+	Balance         *float64      `json:"balance,omitempty"`
+	BalanceCredit   *float64      `json:"balanceCredit,omitempty"`
 	BalanceCurrency *string       `json:"balanceCurrency,omitempty"`
 	Battlenet       *string       `json:"battlenet,omitempty"`
 	Bilibili        *string       `json:"bilibili,omitempty"`
@@ -117,7 +117,7 @@ type IamUser struct {
 	IsOnline               *bool               `json:"isOnline,omitempty"`
 	IsVerified             *bool               `json:"isVerified,omitempty"`
 	Kakao                  *string             `json:"kakao,omitempty"`
-	Karma                  *int32              `json:"karma,omitempty"`
+	Karma                  *int64              `json:"karma,omitempty"`
 	Kwai                   *string             `json:"kwai,omitempty"`
 	Language               *string             `json:"language,omitempty"`
 	Lark                   *string             `json:"lark,omitempty"`
@@ -172,16 +172,16 @@ type IamUser struct {
 	PreferredMfaType  *string           `json:"preferredMfaType,omitempty"`
 	Properties        map[string]string `json:"properties,omitempty"`
 	Qq                *string           `json:"qq,omitempty"`
-	Ranking           *int32            `json:"ranking,omitempty"`
+	Ranking           *int64            `json:"ranking,omitempty"`
 	RealName          *string           `json:"realName,omitempty"`
 	RecoveryCodes     []string          `json:"recoveryCodes,omitempty"`
 	Region            *string           `json:"region,omitempty"`
 	RegisterSource    *string           `json:"registerSource,omitempty"`
 	RegisterType      *string           `json:"registerType,omitempty"`
 	Salesforce        *string           `json:"salesforce,omitempty"`
-	Score             *int32            `json:"score,omitempty"`
+	Score             *int64            `json:"score,omitempty"`
 	Shopify           *string           `json:"shopify,omitempty"`
-	SigninWrongTimes  *int32            `json:"signinWrongTimes,omitempty"`
+	SigninWrongTimes  *int64            `json:"signinWrongTimes,omitempty"`
 	SignupApplication *string           `json:"signupApplication,omitempty"`
 	Slack             *string           `json:"slack,omitempty"`
 	Soundcloud        *string           `json:"soundcloud,omitempty"`
@@ -811,9 +811,9 @@ func (o *IamUser) SetBaidu(v string) {
 }
 
 // GetBalance returns the Balance field value if set, zero value otherwise.
-func (o *IamUser) GetBalance() float32 {
+func (o *IamUser) GetBalance() float64 {
 	if o == nil || IsNil(o.Balance) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Balance
@@ -821,7 +821,7 @@ func (o *IamUser) GetBalance() float32 {
 
 // GetBalanceOk returns a tuple with the Balance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamUser) GetBalanceOk() (*float32, bool) {
+func (o *IamUser) GetBalanceOk() (*float64, bool) {
 	if o == nil || IsNil(o.Balance) {
 		return nil, false
 	}
@@ -837,15 +837,15 @@ func (o *IamUser) HasBalance() bool {
 	return false
 }
 
-// SetBalance gets a reference to the given float32 and assigns it to the Balance field.
-func (o *IamUser) SetBalance(v float32) {
+// SetBalance gets a reference to the given float64 and assigns it to the Balance field.
+func (o *IamUser) SetBalance(v float64) {
 	o.Balance = &v
 }
 
 // GetBalanceCredit returns the BalanceCredit field value if set, zero value otherwise.
-func (o *IamUser) GetBalanceCredit() float32 {
+func (o *IamUser) GetBalanceCredit() float64 {
 	if o == nil || IsNil(o.BalanceCredit) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.BalanceCredit
@@ -853,7 +853,7 @@ func (o *IamUser) GetBalanceCredit() float32 {
 
 // GetBalanceCreditOk returns a tuple with the BalanceCredit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamUser) GetBalanceCreditOk() (*float32, bool) {
+func (o *IamUser) GetBalanceCreditOk() (*float64, bool) {
 	if o == nil || IsNil(o.BalanceCredit) {
 		return nil, false
 	}
@@ -869,8 +869,8 @@ func (o *IamUser) HasBalanceCredit() bool {
 	return false
 }
 
-// SetBalanceCredit gets a reference to the given float32 and assigns it to the BalanceCredit field.
-func (o *IamUser) SetBalanceCredit(v float32) {
+// SetBalanceCredit gets a reference to the given float64 and assigns it to the BalanceCredit field.
+func (o *IamUser) SetBalanceCredit(v float64) {
 	o.BalanceCredit = &v
 }
 
@@ -3115,9 +3115,9 @@ func (o *IamUser) SetKakao(v string) {
 }
 
 // GetKarma returns the Karma field value if set, zero value otherwise.
-func (o *IamUser) GetKarma() int32 {
+func (o *IamUser) GetKarma() int64 {
 	if o == nil || IsNil(o.Karma) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Karma
@@ -3125,7 +3125,7 @@ func (o *IamUser) GetKarma() int32 {
 
 // GetKarmaOk returns a tuple with the Karma field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamUser) GetKarmaOk() (*int32, bool) {
+func (o *IamUser) GetKarmaOk() (*int64, bool) {
 	if o == nil || IsNil(o.Karma) {
 		return nil, false
 	}
@@ -3141,8 +3141,8 @@ func (o *IamUser) HasKarma() bool {
 	return false
 }
 
-// SetKarma gets a reference to the given int32 and assigns it to the Karma field.
-func (o *IamUser) SetKarma(v int32) {
+// SetKarma gets a reference to the given int64 and assigns it to the Karma field.
+func (o *IamUser) SetKarma(v int64) {
 	o.Karma = &v
 }
 
@@ -4779,9 +4779,9 @@ func (o *IamUser) SetQq(v string) {
 }
 
 // GetRanking returns the Ranking field value if set, zero value otherwise.
-func (o *IamUser) GetRanking() int32 {
+func (o *IamUser) GetRanking() int64 {
 	if o == nil || IsNil(o.Ranking) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Ranking
@@ -4789,7 +4789,7 @@ func (o *IamUser) GetRanking() int32 {
 
 // GetRankingOk returns a tuple with the Ranking field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamUser) GetRankingOk() (*int32, bool) {
+func (o *IamUser) GetRankingOk() (*int64, bool) {
 	if o == nil || IsNil(o.Ranking) {
 		return nil, false
 	}
@@ -4805,8 +4805,8 @@ func (o *IamUser) HasRanking() bool {
 	return false
 }
 
-// SetRanking gets a reference to the given int32 and assigns it to the Ranking field.
-func (o *IamUser) SetRanking(v int32) {
+// SetRanking gets a reference to the given int64 and assigns it to the Ranking field.
+func (o *IamUser) SetRanking(v int64) {
 	o.Ranking = &v
 }
 
@@ -5003,9 +5003,9 @@ func (o *IamUser) SetSalesforce(v string) {
 }
 
 // GetScore returns the Score field value if set, zero value otherwise.
-func (o *IamUser) GetScore() int32 {
+func (o *IamUser) GetScore() int64 {
 	if o == nil || IsNil(o.Score) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Score
@@ -5013,7 +5013,7 @@ func (o *IamUser) GetScore() int32 {
 
 // GetScoreOk returns a tuple with the Score field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamUser) GetScoreOk() (*int32, bool) {
+func (o *IamUser) GetScoreOk() (*int64, bool) {
 	if o == nil || IsNil(o.Score) {
 		return nil, false
 	}
@@ -5029,8 +5029,8 @@ func (o *IamUser) HasScore() bool {
 	return false
 }
 
-// SetScore gets a reference to the given int32 and assigns it to the Score field.
-func (o *IamUser) SetScore(v int32) {
+// SetScore gets a reference to the given int64 and assigns it to the Score field.
+func (o *IamUser) SetScore(v int64) {
 	o.Score = &v
 }
 
@@ -5067,9 +5067,9 @@ func (o *IamUser) SetShopify(v string) {
 }
 
 // GetSigninWrongTimes returns the SigninWrongTimes field value if set, zero value otherwise.
-func (o *IamUser) GetSigninWrongTimes() int32 {
+func (o *IamUser) GetSigninWrongTimes() int64 {
 	if o == nil || IsNil(o.SigninWrongTimes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SigninWrongTimes
@@ -5077,7 +5077,7 @@ func (o *IamUser) GetSigninWrongTimes() int32 {
 
 // GetSigninWrongTimesOk returns a tuple with the SigninWrongTimes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamUser) GetSigninWrongTimesOk() (*int32, bool) {
+func (o *IamUser) GetSigninWrongTimesOk() (*int64, bool) {
 	if o == nil || IsNil(o.SigninWrongTimes) {
 		return nil, false
 	}
@@ -5093,8 +5093,8 @@ func (o *IamUser) HasSigninWrongTimes() bool {
 	return false
 }
 
-// SetSigninWrongTimes gets a reference to the given int32 and assigns it to the SigninWrongTimes field.
-func (o *IamUser) SetSigninWrongTimes(v int32) {
+// SetSigninWrongTimes gets a reference to the given int64 and assigns it to the SigninWrongTimes field.
+func (o *IamUser) SetSigninWrongTimes(v int64) {
 	o.SigninWrongTimes = &v
 }
 

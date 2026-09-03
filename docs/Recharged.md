@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AmountCents** | Pointer to **int32** |  | [optional] 
-**BalanceCents** | Pointer to **int32** |  | [optional] 
+**AmountCents** | Pointer to **int64** |  | [optional] 
+**BalanceCents** | Pointer to **int64** |  | [optional] 
 **Charged** | Pointer to **bool** |  | [optional] 
 **Error** | Pointer to **string** |  | [optional] 
 **OrgName** | Pointer to **string** |  | [optional] 
@@ -33,20 +33,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAmountCents
 
-`func (o *Recharged) GetAmountCents() int32`
+`func (o *Recharged) GetAmountCents() int64`
 
 GetAmountCents returns the AmountCents field if non-nil, zero value otherwise.
 
 ### GetAmountCentsOk
 
-`func (o *Recharged) GetAmountCentsOk() (*int32, bool)`
+`func (o *Recharged) GetAmountCentsOk() (*int64, bool)`
 
 GetAmountCentsOk returns a tuple with the AmountCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmountCents
 
-`func (o *Recharged) SetAmountCents(v int32)`
+`func (o *Recharged) SetAmountCents(v int64)`
 
 SetAmountCents sets AmountCents field to given value.
 
@@ -58,20 +58,20 @@ HasAmountCents returns a boolean if a field has been set.
 
 ### GetBalanceCents
 
-`func (o *Recharged) GetBalanceCents() int32`
+`func (o *Recharged) GetBalanceCents() int64`
 
 GetBalanceCents returns the BalanceCents field if non-nil, zero value otherwise.
 
 ### GetBalanceCentsOk
 
-`func (o *Recharged) GetBalanceCentsOk() (*int32, bool)`
+`func (o *Recharged) GetBalanceCentsOk() (*int64, bool)`
 
 GetBalanceCentsOk returns a tuple with the BalanceCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBalanceCents
 
-`func (o *Recharged) SetBalanceCents(v int32)`
+`func (o *Recharged) SetBalanceCents(v int64)`
 
 SetBalanceCents sets BalanceCents field to given value.
 

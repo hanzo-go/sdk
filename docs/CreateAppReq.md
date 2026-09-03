@@ -12,13 +12,13 @@ Name | Type | Description | Notes
 **Environment** | Pointer to **string** | Environment is the deploy target this app names (\&quot;production\&quot; by default). | [optional] 
 **Image** | Pointer to [**ImageOrigin**](ImageOrigin.md) | Image is the container image to run, for source &#x60;image&#x60;. | [optional] 
 **Name** | Pointer to **string** | Name is the application&#39;s display name. Required; the slug is derived from it when none is given. | [optional] 
-**Port** | Pointer to **int32** | Port is the container port the app listens on. | [optional] 
+**Port** | Pointer to **int64** | Port is the container port the app listens on. | [optional] 
 **Project** | Pointer to **string** | Project is the project to create the application under, from the path. | [optional] 
-**Replicas** | Pointer to **int32** | Replicas is how many copies to run; clamped to the deployment&#39;s limit rather than refused. | [optional] 
+**Replicas** | Pointer to **int64** | Replicas is how many copies to run; clamped to the deployment&#39;s limit rather than refused. | [optional] 
 **Repo** | Pointer to [**GitOrigin**](GitOrigin.md) | Repo is the git source to build from, for source &#x60;git&#x60;. | [optional] 
 **Slug** | Pointer to **string** | Slug is the app&#39;s identity in the cluster — its CR name and part of its host. Given or derived from Name, it must match &#x60;^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$&#x60;, and one already used in this project is 409. | [optional] 
 **Source** | Pointer to **string** | Source is &#x60;git&#x60;, which requires repo.url, or &#x60;image&#x60;, which requires image.repository. Anything else is 400. | [optional] 
-**StorageGb** | Pointer to **int32** | StorageGB is the persistent volume size in GiB; absent means stateless. Clamped to the deployment&#39;s limit rather than refused. | [optional] 
+**StorageGb** | Pointer to **int64** | StorageGB is the persistent volume size in GiB; absent means stateless. Clamped to the deployment&#39;s limit rather than refused. | [optional] 
 
 ## Methods
 
@@ -241,20 +241,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetPort
 
-`func (o *CreateAppReq) GetPort() int32`
+`func (o *CreateAppReq) GetPort() int64`
 
 GetPort returns the Port field if non-nil, zero value otherwise.
 
 ### GetPortOk
 
-`func (o *CreateAppReq) GetPortOk() (*int32, bool)`
+`func (o *CreateAppReq) GetPortOk() (*int64, bool)`
 
 GetPortOk returns a tuple with the Port field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPort
 
-`func (o *CreateAppReq) SetPort(v int32)`
+`func (o *CreateAppReq) SetPort(v int64)`
 
 SetPort sets Port field to given value.
 
@@ -291,20 +291,20 @@ HasProject returns a boolean if a field has been set.
 
 ### GetReplicas
 
-`func (o *CreateAppReq) GetReplicas() int32`
+`func (o *CreateAppReq) GetReplicas() int64`
 
 GetReplicas returns the Replicas field if non-nil, zero value otherwise.
 
 ### GetReplicasOk
 
-`func (o *CreateAppReq) GetReplicasOk() (*int32, bool)`
+`func (o *CreateAppReq) GetReplicasOk() (*int64, bool)`
 
 GetReplicasOk returns a tuple with the Replicas field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReplicas
 
-`func (o *CreateAppReq) SetReplicas(v int32)`
+`func (o *CreateAppReq) SetReplicas(v int64)`
 
 SetReplicas sets Replicas field to given value.
 
@@ -391,20 +391,20 @@ HasSource returns a boolean if a field has been set.
 
 ### GetStorageGb
 
-`func (o *CreateAppReq) GetStorageGb() int32`
+`func (o *CreateAppReq) GetStorageGb() int64`
 
 GetStorageGb returns the StorageGb field if non-nil, zero value otherwise.
 
 ### GetStorageGbOk
 
-`func (o *CreateAppReq) GetStorageGbOk() (*int32, bool)`
+`func (o *CreateAppReq) GetStorageGbOk() (*int64, bool)`
 
 GetStorageGbOk returns a tuple with the StorageGb field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStorageGb
 
-`func (o *CreateAppReq) SetStorageGb(v int32)`
+`func (o *CreateAppReq) SetStorageGb(v int64)`
 
 SetStorageGb sets StorageGb field to given value.
 

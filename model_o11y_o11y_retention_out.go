@@ -20,15 +20,15 @@ var _ MappedNullable = &O11yO11yRetentionOut{}
 // O11yO11yRetentionOut struct for O11yO11yRetentionOut
 type O11yO11yRetentionOut struct {
 	// ColdStorageTTLDays is how old data must be before it moves, in days.
-	ColdStorageTtlDays *int32 `json:"cold_storage_ttl_days,omitempty"`
+	ColdStorageTtlDays *int64 `json:"cold_storage_ttl_days,omitempty"`
 	// ColdStorageVolume names the volume aged data moves to.
 	ColdStorageVolume *string `json:"cold_storage_volume,omitempty"`
 	// DefaultTTLDays is the retention for data no rule matches, in days.
-	DefaultTtlDays *int32 `json:"default_ttl_days,omitempty"`
+	DefaultTtlDays *int64 `json:"default_ttl_days,omitempty"`
 	// ExpectedLogsMoveTTLHours is the pending logs cold-storage move TTL, in hours.
-	ExpectedLogsMoveTtlDurationHrs *int32 `json:"expected_logs_move_ttl_duration_hrs,omitempty"`
+	ExpectedLogsMoveTtlDurationHrs *int64 `json:"expected_logs_move_ttl_duration_hrs,omitempty"`
 	// ExpectedLogsTTLHours is the pending logs TTL, in hours.
-	ExpectedLogsTtlDurationHrs *int32 `json:"expected_logs_ttl_duration_hrs,omitempty"`
+	ExpectedLogsTtlDurationHrs *int64 `json:"expected_logs_ttl_duration_hrs,omitempty"`
 	// Status is the last TTL operation's state.
 	Status *string `json:"status,omitempty"`
 	// TTLConditions are the ordered per-label rules; the first match wins.
@@ -55,9 +55,9 @@ func NewO11yO11yRetentionOutWithDefaults() *O11yO11yRetentionOut {
 }
 
 // GetColdStorageTtlDays returns the ColdStorageTtlDays field value if set, zero value otherwise.
-func (o *O11yO11yRetentionOut) GetColdStorageTtlDays() int32 {
+func (o *O11yO11yRetentionOut) GetColdStorageTtlDays() int64 {
 	if o == nil || IsNil(o.ColdStorageTtlDays) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ColdStorageTtlDays
@@ -65,7 +65,7 @@ func (o *O11yO11yRetentionOut) GetColdStorageTtlDays() int32 {
 
 // GetColdStorageTtlDaysOk returns a tuple with the ColdStorageTtlDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yRetentionOut) GetColdStorageTtlDaysOk() (*int32, bool) {
+func (o *O11yO11yRetentionOut) GetColdStorageTtlDaysOk() (*int64, bool) {
 	if o == nil || IsNil(o.ColdStorageTtlDays) {
 		return nil, false
 	}
@@ -81,8 +81,8 @@ func (o *O11yO11yRetentionOut) HasColdStorageTtlDays() bool {
 	return false
 }
 
-// SetColdStorageTtlDays gets a reference to the given int32 and assigns it to the ColdStorageTtlDays field.
-func (o *O11yO11yRetentionOut) SetColdStorageTtlDays(v int32) {
+// SetColdStorageTtlDays gets a reference to the given int64 and assigns it to the ColdStorageTtlDays field.
+func (o *O11yO11yRetentionOut) SetColdStorageTtlDays(v int64) {
 	o.ColdStorageTtlDays = &v
 }
 
@@ -119,9 +119,9 @@ func (o *O11yO11yRetentionOut) SetColdStorageVolume(v string) {
 }
 
 // GetDefaultTtlDays returns the DefaultTtlDays field value if set, zero value otherwise.
-func (o *O11yO11yRetentionOut) GetDefaultTtlDays() int32 {
+func (o *O11yO11yRetentionOut) GetDefaultTtlDays() int64 {
 	if o == nil || IsNil(o.DefaultTtlDays) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DefaultTtlDays
@@ -129,7 +129,7 @@ func (o *O11yO11yRetentionOut) GetDefaultTtlDays() int32 {
 
 // GetDefaultTtlDaysOk returns a tuple with the DefaultTtlDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yRetentionOut) GetDefaultTtlDaysOk() (*int32, bool) {
+func (o *O11yO11yRetentionOut) GetDefaultTtlDaysOk() (*int64, bool) {
 	if o == nil || IsNil(o.DefaultTtlDays) {
 		return nil, false
 	}
@@ -145,15 +145,15 @@ func (o *O11yO11yRetentionOut) HasDefaultTtlDays() bool {
 	return false
 }
 
-// SetDefaultTtlDays gets a reference to the given int32 and assigns it to the DefaultTtlDays field.
-func (o *O11yO11yRetentionOut) SetDefaultTtlDays(v int32) {
+// SetDefaultTtlDays gets a reference to the given int64 and assigns it to the DefaultTtlDays field.
+func (o *O11yO11yRetentionOut) SetDefaultTtlDays(v int64) {
 	o.DefaultTtlDays = &v
 }
 
 // GetExpectedLogsMoveTtlDurationHrs returns the ExpectedLogsMoveTtlDurationHrs field value if set, zero value otherwise.
-func (o *O11yO11yRetentionOut) GetExpectedLogsMoveTtlDurationHrs() int32 {
+func (o *O11yO11yRetentionOut) GetExpectedLogsMoveTtlDurationHrs() int64 {
 	if o == nil || IsNil(o.ExpectedLogsMoveTtlDurationHrs) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ExpectedLogsMoveTtlDurationHrs
@@ -161,7 +161,7 @@ func (o *O11yO11yRetentionOut) GetExpectedLogsMoveTtlDurationHrs() int32 {
 
 // GetExpectedLogsMoveTtlDurationHrsOk returns a tuple with the ExpectedLogsMoveTtlDurationHrs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yRetentionOut) GetExpectedLogsMoveTtlDurationHrsOk() (*int32, bool) {
+func (o *O11yO11yRetentionOut) GetExpectedLogsMoveTtlDurationHrsOk() (*int64, bool) {
 	if o == nil || IsNil(o.ExpectedLogsMoveTtlDurationHrs) {
 		return nil, false
 	}
@@ -177,15 +177,15 @@ func (o *O11yO11yRetentionOut) HasExpectedLogsMoveTtlDurationHrs() bool {
 	return false
 }
 
-// SetExpectedLogsMoveTtlDurationHrs gets a reference to the given int32 and assigns it to the ExpectedLogsMoveTtlDurationHrs field.
-func (o *O11yO11yRetentionOut) SetExpectedLogsMoveTtlDurationHrs(v int32) {
+// SetExpectedLogsMoveTtlDurationHrs gets a reference to the given int64 and assigns it to the ExpectedLogsMoveTtlDurationHrs field.
+func (o *O11yO11yRetentionOut) SetExpectedLogsMoveTtlDurationHrs(v int64) {
 	o.ExpectedLogsMoveTtlDurationHrs = &v
 }
 
 // GetExpectedLogsTtlDurationHrs returns the ExpectedLogsTtlDurationHrs field value if set, zero value otherwise.
-func (o *O11yO11yRetentionOut) GetExpectedLogsTtlDurationHrs() int32 {
+func (o *O11yO11yRetentionOut) GetExpectedLogsTtlDurationHrs() int64 {
 	if o == nil || IsNil(o.ExpectedLogsTtlDurationHrs) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ExpectedLogsTtlDurationHrs
@@ -193,7 +193,7 @@ func (o *O11yO11yRetentionOut) GetExpectedLogsTtlDurationHrs() int32 {
 
 // GetExpectedLogsTtlDurationHrsOk returns a tuple with the ExpectedLogsTtlDurationHrs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yRetentionOut) GetExpectedLogsTtlDurationHrsOk() (*int32, bool) {
+func (o *O11yO11yRetentionOut) GetExpectedLogsTtlDurationHrsOk() (*int64, bool) {
 	if o == nil || IsNil(o.ExpectedLogsTtlDurationHrs) {
 		return nil, false
 	}
@@ -209,8 +209,8 @@ func (o *O11yO11yRetentionOut) HasExpectedLogsTtlDurationHrs() bool {
 	return false
 }
 
-// SetExpectedLogsTtlDurationHrs gets a reference to the given int32 and assigns it to the ExpectedLogsTtlDurationHrs field.
-func (o *O11yO11yRetentionOut) SetExpectedLogsTtlDurationHrs(v int32) {
+// SetExpectedLogsTtlDurationHrs gets a reference to the given int64 and assigns it to the ExpectedLogsTtlDurationHrs field.
+func (o *O11yO11yRetentionOut) SetExpectedLogsTtlDurationHrs(v int64) {
 	o.ExpectedLogsTtlDurationHrs = &v
 }
 

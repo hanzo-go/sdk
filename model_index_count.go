@@ -22,7 +22,7 @@ type IndexCount struct {
 	// IsIndexing is always false: writes are applied before their response, so there is never a background pass a caller could be waiting on.
 	IsIndexing *bool `json:"isIndexing,omitempty"`
 	// NumberOfDocuments is how many documents this org holds in that index.
-	NumberOfDocuments *int32 `json:"numberOfDocuments,omitempty"`
+	NumberOfDocuments *int64 `json:"numberOfDocuments,omitempty"`
 }
 
 // NewIndexCount instantiates a new IndexCount object
@@ -75,9 +75,9 @@ func (o *IndexCount) SetIsIndexing(v bool) {
 }
 
 // GetNumberOfDocuments returns the NumberOfDocuments field value if set, zero value otherwise.
-func (o *IndexCount) GetNumberOfDocuments() int32 {
+func (o *IndexCount) GetNumberOfDocuments() int64 {
 	if o == nil || IsNil(o.NumberOfDocuments) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NumberOfDocuments
@@ -85,7 +85,7 @@ func (o *IndexCount) GetNumberOfDocuments() int32 {
 
 // GetNumberOfDocumentsOk returns a tuple with the NumberOfDocuments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexCount) GetNumberOfDocumentsOk() (*int32, bool) {
+func (o *IndexCount) GetNumberOfDocumentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.NumberOfDocuments) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *IndexCount) HasNumberOfDocuments() bool {
 	return false
 }
 
-// SetNumberOfDocuments gets a reference to the given int32 and assigns it to the NumberOfDocuments field.
-func (o *IndexCount) SetNumberOfDocuments(v int32) {
+// SetNumberOfDocuments gets a reference to the given int64 and assigns it to the NumberOfDocuments field.
+func (o *IndexCount) SetNumberOfDocuments(v int64) {
 	o.NumberOfDocuments = &v
 }
 

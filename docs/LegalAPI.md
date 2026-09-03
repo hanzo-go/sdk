@@ -39,7 +39,7 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 | Limit bounds the page. Absent or unparseable means the store's own default. (optional)
+	limit := int64(789) // int64 | Limit bounds the page. Absent or unparseable means the store's own default. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -64,7 +64,7 @@ Other parameters are passed through a pointer to a apiGetLegalDocumentsRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit bounds the page. Absent or unparseable means the store&#39;s own default. | 
+ **limit** | **int64** | Limit bounds the page. Absent or unparseable means the store&#39;s own default. | 
 
 ### Return type
 
@@ -175,7 +175,7 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 | Limit bounds the page. Absent or unparseable means the store's own default. (optional)
+	limit := int64(789) // int64 | Limit bounds the page. Absent or unparseable means the store's own default. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -200,7 +200,7 @@ Other parameters are passed through a pointer to a apiGetLegalFilingsRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit bounds the page. Absent or unparseable means the store&#39;s own default. | 
+ **limit** | **int64** | Limit bounds the page. Absent or unparseable means the store&#39;s own default. | 
 
 ### Return type
 

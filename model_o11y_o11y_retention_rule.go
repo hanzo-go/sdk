@@ -22,7 +22,7 @@ type O11yO11yRetentionRule struct {
 	// Conditions all have to hold for the rule to match.
 	Conditions []O11yO11yRetentionMatch `json:"conditions,omitempty"`
 	// TTLDays is the retention applied when it does, in days.
-	TtlDays *int32 `json:"ttlDays,omitempty"`
+	TtlDays *int64 `json:"ttlDays,omitempty"`
 }
 
 // NewO11yO11yRetentionRule instantiates a new O11yO11yRetentionRule object
@@ -75,9 +75,9 @@ func (o *O11yO11yRetentionRule) SetConditions(v []O11yO11yRetentionMatch) {
 }
 
 // GetTtlDays returns the TtlDays field value if set, zero value otherwise.
-func (o *O11yO11yRetentionRule) GetTtlDays() int32 {
+func (o *O11yO11yRetentionRule) GetTtlDays() int64 {
 	if o == nil || IsNil(o.TtlDays) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TtlDays
@@ -85,7 +85,7 @@ func (o *O11yO11yRetentionRule) GetTtlDays() int32 {
 
 // GetTtlDaysOk returns a tuple with the TtlDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yRetentionRule) GetTtlDaysOk() (*int32, bool) {
+func (o *O11yO11yRetentionRule) GetTtlDaysOk() (*int64, bool) {
 	if o == nil || IsNil(o.TtlDays) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *O11yO11yRetentionRule) HasTtlDays() bool {
 	return false
 }
 
-// SetTtlDays gets a reference to the given int32 and assigns it to the TtlDays field.
-func (o *O11yO11yRetentionRule) SetTtlDays(v int32) {
+// SetTtlDays gets a reference to the given int64 and assigns it to the TtlDays field.
+func (o *O11yO11yRetentionRule) SetTtlDays(v int64) {
 	o.TtlDays = &v
 }
 

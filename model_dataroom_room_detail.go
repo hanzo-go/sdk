@@ -20,7 +20,7 @@ var _ MappedNullable = &DataroomRoomDetail{}
 // DataroomRoomDetail struct for DataroomRoomDetail
 type DataroomRoomDetail struct {
 	// CreatedAt is when the room was created, in unix milliseconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Description is the room's description, null when none was given.
 	Description *string `json:"description,omitempty"`
 	// Documents is every document in the room, in the order a visitor sees them.
@@ -32,7 +32,7 @@ type DataroomRoomDetail struct {
 	// PId is the room's short public identifier.
 	PId *string `json:"pId,omitempty"`
 	// UpdatedAt is when the room last changed, in unix milliseconds.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewDataroomRoomDetail instantiates a new DataroomRoomDetail object
@@ -53,9 +53,9 @@ func NewDataroomRoomDetailWithDefaults() *DataroomRoomDetail {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *DataroomRoomDetail) GetCreatedAt() int32 {
+func (o *DataroomRoomDetail) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -63,7 +63,7 @@ func (o *DataroomRoomDetail) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DataroomRoomDetail) GetCreatedAtOk() (*int32, bool) {
+func (o *DataroomRoomDetail) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -79,8 +79,8 @@ func (o *DataroomRoomDetail) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *DataroomRoomDetail) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *DataroomRoomDetail) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -245,9 +245,9 @@ func (o *DataroomRoomDetail) SetPId(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *DataroomRoomDetail) GetUpdatedAt() int32 {
+func (o *DataroomRoomDetail) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -255,7 +255,7 @@ func (o *DataroomRoomDetail) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DataroomRoomDetail) GetUpdatedAtOk() (*int32, bool) {
+func (o *DataroomRoomDetail) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -271,8 +271,8 @@ func (o *DataroomRoomDetail) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *DataroomRoomDetail) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *DataroomRoomDetail) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

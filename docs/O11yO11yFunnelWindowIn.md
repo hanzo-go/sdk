@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EndTime** | Pointer to **int32** |  | [optional] 
-**StartTime** | Pointer to **int32** |  | [optional] 
+**EndTime** | Pointer to **int64** |  | [optional] 
+**StartTime** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetEndTime
 
-`func (o *O11yO11yFunnelWindowIn) GetEndTime() int32`
+`func (o *O11yO11yFunnelWindowIn) GetEndTime() int64`
 
 GetEndTime returns the EndTime field if non-nil, zero value otherwise.
 
 ### GetEndTimeOk
 
-`func (o *O11yO11yFunnelWindowIn) GetEndTimeOk() (*int32, bool)`
+`func (o *O11yO11yFunnelWindowIn) GetEndTimeOk() (*int64, bool)`
 
 GetEndTimeOk returns a tuple with the EndTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndTime
 
-`func (o *O11yO11yFunnelWindowIn) SetEndTime(v int32)`
+`func (o *O11yO11yFunnelWindowIn) SetEndTime(v int64)`
 
 SetEndTime sets EndTime field to given value.
 
@@ -53,20 +53,20 @@ HasEndTime returns a boolean if a field has been set.
 
 ### GetStartTime
 
-`func (o *O11yO11yFunnelWindowIn) GetStartTime() int32`
+`func (o *O11yO11yFunnelWindowIn) GetStartTime() int64`
 
 GetStartTime returns the StartTime field if non-nil, zero value otherwise.
 
 ### GetStartTimeOk
 
-`func (o *O11yO11yFunnelWindowIn) GetStartTimeOk() (*int32, bool)`
+`func (o *O11yO11yFunnelWindowIn) GetStartTimeOk() (*int64, bool)`
 
 GetStartTimeOk returns a tuple with the StartTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartTime
 
-`func (o *O11yO11yFunnelWindowIn) SetStartTime(v int32)`
+`func (o *O11yO11yFunnelWindowIn) SetStartTime(v int64)`
 
 SetStartTime sets StartTime field to given value.
 

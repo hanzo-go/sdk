@@ -24,7 +24,7 @@ type WireFact struct {
 	// By is the identity that filed it — `owner` or `owner/user` — stamped from the validated principal at the write, never from the body.
 	By *string `json:"by,omitempty"`
 	// Confidence in [0,1] as the asserter gave it; absent is 0. It breaks a tie between two assertions equally knowable and decides nothing else.
-	Confidence *float32 `json:"confidence,omitempty"`
+	Confidence *float64 `json:"confidence,omitempty"`
 	// Entity is the thing described, in the organization's own namespace.
 	Entity *string `json:"entity,omitempty"`
 	// Evidence points at the record the claim came from. Absent when the asserter gave none.
@@ -127,9 +127,9 @@ func (o *WireFact) SetBy(v string) {
 }
 
 // GetConfidence returns the Confidence field value if set, zero value otherwise.
-func (o *WireFact) GetConfidence() float32 {
+func (o *WireFact) GetConfidence() float64 {
 	if o == nil || IsNil(o.Confidence) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Confidence
@@ -137,7 +137,7 @@ func (o *WireFact) GetConfidence() float32 {
 
 // GetConfidenceOk returns a tuple with the Confidence field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WireFact) GetConfidenceOk() (*float32, bool) {
+func (o *WireFact) GetConfidenceOk() (*float64, bool) {
 	if o == nil || IsNil(o.Confidence) {
 		return nil, false
 	}
@@ -153,8 +153,8 @@ func (o *WireFact) HasConfidence() bool {
 	return false
 }
 
-// SetConfidence gets a reference to the given float32 and assigns it to the Confidence field.
-func (o *WireFact) SetConfidence(v float32) {
+// SetConfidence gets a reference to the given float64 and assigns it to the Confidence field.
+func (o *WireFact) SetConfidence(v float64) {
 	o.Confidence = &v
 }
 

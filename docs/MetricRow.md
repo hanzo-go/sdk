@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreatedAt** | Pointer to **string** | CreatedAt is when version 1 was written, RFC 3339 UTC. | [optional] 
-**CurrentVersion** | Pointer to **int32** | CurrentVer is the version number served as current. It always equals &#x60;versions&#x60;: numbering is dense from 1, and deleting a prompt takes its whole history with it rather than leaving a gap. | [optional] 
+**CurrentVersion** | Pointer to **int64** | CurrentVer is the version number served as current. It always equals &#x60;versions&#x60;: numbering is dense from 1, and deleting a prompt takes its whole history with it rather than leaving a gap. | [optional] 
 **LastUpdatedAt** | Pointer to **string** | LastUpdatedAt is when the newest version was appended, RFC 3339 UTC — the age of the template you would get today. | [optional] 
 **Name** | Pointer to **string** | Name is the prompt this row is about — its org-unique handle. | [optional] 
 **Type** | Pointer to **string** | Type is the current version&#39;s kind. | [optional] 
-**Versions** | Pointer to **int32** | Versions is how many revisions the prompt has, COUNTED in the store and uncapped — so it can exceed the 100 entries a list row or a detail response carries. Note the type: here &#x60;versions&#x60; is a number, while on a list row it is the list of version numbers. | [optional] 
+**Versions** | Pointer to **int64** | Versions is how many revisions the prompt has, COUNTED in the store and uncapped — so it can exceed the 100 entries a list row or a detail response carries. Note the type: here &#x60;versions&#x60; is a number, while on a list row it is the list of version numbers. | [optional] 
 
 ## Methods
 
@@ -57,20 +57,20 @@ HasCreatedAt returns a boolean if a field has been set.
 
 ### GetCurrentVersion
 
-`func (o *MetricRow) GetCurrentVersion() int32`
+`func (o *MetricRow) GetCurrentVersion() int64`
 
 GetCurrentVersion returns the CurrentVersion field if non-nil, zero value otherwise.
 
 ### GetCurrentVersionOk
 
-`func (o *MetricRow) GetCurrentVersionOk() (*int32, bool)`
+`func (o *MetricRow) GetCurrentVersionOk() (*int64, bool)`
 
 GetCurrentVersionOk returns a tuple with the CurrentVersion field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCurrentVersion
 
-`func (o *MetricRow) SetCurrentVersion(v int32)`
+`func (o *MetricRow) SetCurrentVersion(v int64)`
 
 SetCurrentVersion sets CurrentVersion field to given value.
 
@@ -157,20 +157,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetVersions
 
-`func (o *MetricRow) GetVersions() int32`
+`func (o *MetricRow) GetVersions() int64`
 
 GetVersions returns the Versions field if non-nil, zero value otherwise.
 
 ### GetVersionsOk
 
-`func (o *MetricRow) GetVersionsOk() (*int32, bool)`
+`func (o *MetricRow) GetVersionsOk() (*int64, bool)`
 
 GetVersionsOk returns a tuple with the Versions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersions
 
-`func (o *MetricRow) SetVersions(v int32)`
+`func (o *MetricRow) SetVersions(v int64)`
 
 SetVersions sets Versions field to given value.
 

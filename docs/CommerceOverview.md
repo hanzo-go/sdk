@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Aov** | Pointer to **float32** | AOV is average order value — Revenue/Orders, rounded to two places. Zero when there were no orders. | [optional] 
+**Aov** | Pointer to **float64** | AOV is average order value — Revenue/Orders, rounded to two places. Zero when there were no orders. | [optional] 
 **Available** | Pointer to **bool** | Available is false when the product-event table could not be read — the lens is reported missing rather than as zeros that look like no sales. | [optional] 
-**Orders** | Pointer to **int32** | Orders is how many order_completed events landed in the window. | [optional] 
+**Orders** | Pointer to **int64** | Orders is how many order_completed events landed in the window. | [optional] 
 **Reason** | Pointer to **string** | Reason says why the lens is unavailable. Omitted when it is available. | [optional] 
-**Revenue** | Pointer to **float32** | Revenue is the total those orders carried, in the events&#39; own currency unit. | [optional] 
+**Revenue** | Pointer to **float64** | Revenue is the total those orders carried, in the events&#39; own currency unit. | [optional] 
 **Source** | Pointer to **string** | Source is the warehouse table the lens read. | [optional] 
 
 ## Methods
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAov
 
-`func (o *CommerceOverview) GetAov() float32`
+`func (o *CommerceOverview) GetAov() float64`
 
 GetAov returns the Aov field if non-nil, zero value otherwise.
 
 ### GetAovOk
 
-`func (o *CommerceOverview) GetAovOk() (*float32, bool)`
+`func (o *CommerceOverview) GetAovOk() (*float64, bool)`
 
 GetAovOk returns a tuple with the Aov field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAov
 
-`func (o *CommerceOverview) SetAov(v float32)`
+`func (o *CommerceOverview) SetAov(v float64)`
 
 SetAov sets Aov field to given value.
 
@@ -82,20 +82,20 @@ HasAvailable returns a boolean if a field has been set.
 
 ### GetOrders
 
-`func (o *CommerceOverview) GetOrders() int32`
+`func (o *CommerceOverview) GetOrders() int64`
 
 GetOrders returns the Orders field if non-nil, zero value otherwise.
 
 ### GetOrdersOk
 
-`func (o *CommerceOverview) GetOrdersOk() (*int32, bool)`
+`func (o *CommerceOverview) GetOrdersOk() (*int64, bool)`
 
 GetOrdersOk returns a tuple with the Orders field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrders
 
-`func (o *CommerceOverview) SetOrders(v int32)`
+`func (o *CommerceOverview) SetOrders(v int64)`
 
 SetOrders sets Orders field to given value.
 
@@ -132,20 +132,20 @@ HasReason returns a boolean if a field has been set.
 
 ### GetRevenue
 
-`func (o *CommerceOverview) GetRevenue() float32`
+`func (o *CommerceOverview) GetRevenue() float64`
 
 GetRevenue returns the Revenue field if non-nil, zero value otherwise.
 
 ### GetRevenueOk
 
-`func (o *CommerceOverview) GetRevenueOk() (*float32, bool)`
+`func (o *CommerceOverview) GetRevenueOk() (*float64, bool)`
 
 GetRevenueOk returns a tuple with the Revenue field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRevenue
 
-`func (o *CommerceOverview) SetRevenue(v float32)`
+`func (o *CommerceOverview) SetRevenue(v float64)`
 
 SetRevenue sets Revenue field to given value.
 

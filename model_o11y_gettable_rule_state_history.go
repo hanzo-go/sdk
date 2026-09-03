@@ -27,8 +27,8 @@ type O11yGettableRuleStateHistory struct {
 	RuleName            *string     `json:"ruleName,omitempty"`
 	State               interface{} `json:"state,omitempty"`
 	StateChanged        *bool       `json:"stateChanged,omitempty"`
-	UnixMilli           *int32      `json:"unixMilli,omitempty"`
-	Value               *float32    `json:"value,omitempty"`
+	UnixMilli           *int64      `json:"unixMilli,omitempty"`
+	Value               *float64    `json:"value,omitempty"`
 }
 
 // NewO11yGettableRuleStateHistory instantiates a new O11yGettableRuleStateHistory object
@@ -307,9 +307,9 @@ func (o *O11yGettableRuleStateHistory) SetStateChanged(v bool) {
 }
 
 // GetUnixMilli returns the UnixMilli field value if set, zero value otherwise.
-func (o *O11yGettableRuleStateHistory) GetUnixMilli() int32 {
+func (o *O11yGettableRuleStateHistory) GetUnixMilli() int64 {
 	if o == nil || IsNil(o.UnixMilli) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UnixMilli
@@ -317,7 +317,7 @@ func (o *O11yGettableRuleStateHistory) GetUnixMilli() int32 {
 
 // GetUnixMilliOk returns a tuple with the UnixMilli field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yGettableRuleStateHistory) GetUnixMilliOk() (*int32, bool) {
+func (o *O11yGettableRuleStateHistory) GetUnixMilliOk() (*int64, bool) {
 	if o == nil || IsNil(o.UnixMilli) {
 		return nil, false
 	}
@@ -333,15 +333,15 @@ func (o *O11yGettableRuleStateHistory) HasUnixMilli() bool {
 	return false
 }
 
-// SetUnixMilli gets a reference to the given int32 and assigns it to the UnixMilli field.
-func (o *O11yGettableRuleStateHistory) SetUnixMilli(v int32) {
+// SetUnixMilli gets a reference to the given int64 and assigns it to the UnixMilli field.
+func (o *O11yGettableRuleStateHistory) SetUnixMilli(v int64) {
 	o.UnixMilli = &v
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
-func (o *O11yGettableRuleStateHistory) GetValue() float32 {
+func (o *O11yGettableRuleStateHistory) GetValue() float64 {
 	if o == nil || IsNil(o.Value) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Value
@@ -349,7 +349,7 @@ func (o *O11yGettableRuleStateHistory) GetValue() float32 {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yGettableRuleStateHistory) GetValueOk() (*float32, bool) {
+func (o *O11yGettableRuleStateHistory) GetValueOk() (*float64, bool) {
 	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
@@ -365,8 +365,8 @@ func (o *O11yGettableRuleStateHistory) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given float32 and assigns it to the Value field.
-func (o *O11yGettableRuleStateHistory) SetValue(v float32) {
+// SetValue gets a reference to the given float64 and assigns it to the Value field.
+func (o *O11yGettableRuleStateHistory) SetValue(v float64) {
 	o.Value = &v
 }
 

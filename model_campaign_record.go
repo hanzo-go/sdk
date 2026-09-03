@@ -22,23 +22,23 @@ type CampaignRecord struct {
 	// Audience is an opaque reference to the segment this campaign targets. It is stored and echoed but not yet handed to the executors — a channel targets through the provider account it runs under — so it is documentation for now. Absent when never set.
 	Audience *string `json:"audience,omitempty"`
 	// Budget is the campaign's total budget in CENTS, handed to each executor as the budget for its channel. 0 means none was set.
-	Budget *int32 `json:"budget,omitempty"`
+	Budget *int64 `json:"budget,omitempty"`
 	// Channels are the fan-out targets, at most one per kind and at most 12, each carrying its own post-launch state. Empty means nothing to launch, which is what makes a launch of this campaign a 400.
 	Channels []ChannelSpec `json:"channels,omitempty"`
 	// Content is the ordered creative set, at most 32, empty entries dropped. Content[0] is the creative that runs; the rest are A/B variants a wired experiment can assign per launch.
 	Content []string `json:"content,omitempty"`
 	// CreatedAt is when the campaign was created, in unix seconds. Server-set.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// ID is the campaign's server-minted handle — \"cmp_\" and 128 random bits — and the id every other campaign call is addressed by. Never read off the wire: a create that sends one has it ignored.
 	Id *string `json:"id,omitempty"`
 	// Name is the campaign's display name. Required on write, trimmed, and capped at 2048 characters.
 	Name *string `json:"name,omitempty"`
 	// ScheduleAt is when the campaign should run, in unix seconds. 0 (absent) means launch immediately. It is passed to each executor; nothing in this service wakes up to launch it for you.
-	ScheduleAt *int32 `json:"scheduleAt,omitempty"`
+	ScheduleAt *int64 `json:"scheduleAt,omitempty"`
 	// Status is the lifecycle state, server-owned and never accepted from a caller. Four values actually occur: draft (inert and fully mutable — nothing is sent and no budget is committed), live, paused and failed. After a fan-out live means AT LEAST ONE channel launched — read the channel rows for the rest — and failed means none did.
 	Status *string `json:"status,omitempty"`
 	// UpdatedAt is the last write in unix seconds — an edit, a launch or a pause. Server-set on every save.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewCampaignRecord instantiates a new CampaignRecord object
@@ -91,9 +91,9 @@ func (o *CampaignRecord) SetAudience(v string) {
 }
 
 // GetBudget returns the Budget field value if set, zero value otherwise.
-func (o *CampaignRecord) GetBudget() int32 {
+func (o *CampaignRecord) GetBudget() int64 {
 	if o == nil || IsNil(o.Budget) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Budget
@@ -101,7 +101,7 @@ func (o *CampaignRecord) GetBudget() int32 {
 
 // GetBudgetOk returns a tuple with the Budget field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignRecord) GetBudgetOk() (*int32, bool) {
+func (o *CampaignRecord) GetBudgetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Budget) {
 		return nil, false
 	}
@@ -117,8 +117,8 @@ func (o *CampaignRecord) HasBudget() bool {
 	return false
 }
 
-// SetBudget gets a reference to the given int32 and assigns it to the Budget field.
-func (o *CampaignRecord) SetBudget(v int32) {
+// SetBudget gets a reference to the given int64 and assigns it to the Budget field.
+func (o *CampaignRecord) SetBudget(v int64) {
 	o.Budget = &v
 }
 
@@ -187,9 +187,9 @@ func (o *CampaignRecord) SetContent(v []string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *CampaignRecord) GetCreatedAt() int32 {
+func (o *CampaignRecord) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -197,7 +197,7 @@ func (o *CampaignRecord) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignRecord) GetCreatedAtOk() (*int32, bool) {
+func (o *CampaignRecord) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -213,8 +213,8 @@ func (o *CampaignRecord) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *CampaignRecord) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *CampaignRecord) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -283,9 +283,9 @@ func (o *CampaignRecord) SetName(v string) {
 }
 
 // GetScheduleAt returns the ScheduleAt field value if set, zero value otherwise.
-func (o *CampaignRecord) GetScheduleAt() int32 {
+func (o *CampaignRecord) GetScheduleAt() int64 {
 	if o == nil || IsNil(o.ScheduleAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ScheduleAt
@@ -293,7 +293,7 @@ func (o *CampaignRecord) GetScheduleAt() int32 {
 
 // GetScheduleAtOk returns a tuple with the ScheduleAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignRecord) GetScheduleAtOk() (*int32, bool) {
+func (o *CampaignRecord) GetScheduleAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.ScheduleAt) {
 		return nil, false
 	}
@@ -309,8 +309,8 @@ func (o *CampaignRecord) HasScheduleAt() bool {
 	return false
 }
 
-// SetScheduleAt gets a reference to the given int32 and assigns it to the ScheduleAt field.
-func (o *CampaignRecord) SetScheduleAt(v int32) {
+// SetScheduleAt gets a reference to the given int64 and assigns it to the ScheduleAt field.
+func (o *CampaignRecord) SetScheduleAt(v int64) {
 	o.ScheduleAt = &v
 }
 
@@ -347,9 +347,9 @@ func (o *CampaignRecord) SetStatus(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *CampaignRecord) GetUpdatedAt() int32 {
+func (o *CampaignRecord) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -357,7 +357,7 @@ func (o *CampaignRecord) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignRecord) GetUpdatedAtOk() (*int32, bool) {
+func (o *CampaignRecord) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -373,8 +373,8 @@ func (o *CampaignRecord) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *CampaignRecord) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *CampaignRecord) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AutoScale** | Pointer to **bool** | AutoScale turns the provider&#39;s cluster autoscaler on for this pool. | [optional] 
 **ClusterId** | Pointer to **string** | ClusterID is the cluster to add the pool to, from the URL path. | [optional] 
-**Count** | Pointer to **int32** | Count is how many nodes the pool starts with. | [optional] 
-**MaxNodes** | Pointer to **int32** | MaxNodes is the ceiling the autoscaler may not grow the pool past, and so the bound on what this pool can spend. Ignored unless AutoScale is set. | [optional] 
-**MinNodes** | Pointer to **int32** | MinNodes is the floor the autoscaler may not shrink the pool below. Ignored unless AutoScale is set. | [optional] 
+**Count** | Pointer to **int64** | Count is how many nodes the pool starts with. | [optional] 
+**MaxNodes** | Pointer to **int64** | MaxNodes is the ceiling the autoscaler may not grow the pool past, and so the bound on what this pool can spend. Ignored unless AutoScale is set. | [optional] 
+**MinNodes** | Pointer to **int64** | MinNodes is the floor the autoscaler may not shrink the pool below. Ignored unless AutoScale is set. | [optional] 
 **Name** | Pointer to **string** | Name is the pool&#39;s name. | [optional] 
 **Provider** | Pointer to **string** | Provider is the cloud the cluster lives on (e.g. \&quot;digitalocean\&quot;). Required — Visor routes the create by it. Accepted from the body or ?provider&#x3D;. | [optional] 
 **Size** | Pointer to **string** | Size is the provider size slug for each node (e.g. \&quot;s-4vcpu-8gb\&quot;). | [optional] 
@@ -84,20 +84,20 @@ HasClusterId returns a boolean if a field has been set.
 
 ### GetCount
 
-`func (o *PoolCreate) GetCount() int32`
+`func (o *PoolCreate) GetCount() int64`
 
 GetCount returns the Count field if non-nil, zero value otherwise.
 
 ### GetCountOk
 
-`func (o *PoolCreate) GetCountOk() (*int32, bool)`
+`func (o *PoolCreate) GetCountOk() (*int64, bool)`
 
 GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCount
 
-`func (o *PoolCreate) SetCount(v int32)`
+`func (o *PoolCreate) SetCount(v int64)`
 
 SetCount sets Count field to given value.
 
@@ -109,20 +109,20 @@ HasCount returns a boolean if a field has been set.
 
 ### GetMaxNodes
 
-`func (o *PoolCreate) GetMaxNodes() int32`
+`func (o *PoolCreate) GetMaxNodes() int64`
 
 GetMaxNodes returns the MaxNodes field if non-nil, zero value otherwise.
 
 ### GetMaxNodesOk
 
-`func (o *PoolCreate) GetMaxNodesOk() (*int32, bool)`
+`func (o *PoolCreate) GetMaxNodesOk() (*int64, bool)`
 
 GetMaxNodesOk returns a tuple with the MaxNodes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxNodes
 
-`func (o *PoolCreate) SetMaxNodes(v int32)`
+`func (o *PoolCreate) SetMaxNodes(v int64)`
 
 SetMaxNodes sets MaxNodes field to given value.
 
@@ -134,20 +134,20 @@ HasMaxNodes returns a boolean if a field has been set.
 
 ### GetMinNodes
 
-`func (o *PoolCreate) GetMinNodes() int32`
+`func (o *PoolCreate) GetMinNodes() int64`
 
 GetMinNodes returns the MinNodes field if non-nil, zero value otherwise.
 
 ### GetMinNodesOk
 
-`func (o *PoolCreate) GetMinNodesOk() (*int32, bool)`
+`func (o *PoolCreate) GetMinNodesOk() (*int64, bool)`
 
 GetMinNodesOk returns a tuple with the MinNodes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMinNodes
 
-`func (o *PoolCreate) SetMinNodes(v int32)`
+`func (o *PoolCreate) SetMinNodes(v int64)`
 
 SetMinNodes sets MinNodes field to given value.
 

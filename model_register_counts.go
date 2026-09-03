@@ -20,9 +20,9 @@ var _ MappedNullable = &RegisterCounts{}
 // RegisterCounts struct for RegisterCounts
 type RegisterCounts struct {
 	// ByStage counts formations per stage, keyed by the stage name.
-	ByStage map[string]int32 `json:"byStage,omitempty"`
+	ByStage map[string]int64 `json:"byStage,omitempty"`
 	// Total is every formation in the register.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 }
 
 // NewRegisterCounts instantiates a new RegisterCounts object
@@ -43,9 +43,9 @@ func NewRegisterCountsWithDefaults() *RegisterCounts {
 }
 
 // GetByStage returns the ByStage field value if set, zero value otherwise.
-func (o *RegisterCounts) GetByStage() map[string]int32 {
+func (o *RegisterCounts) GetByStage() map[string]int64 {
 	if o == nil || IsNil(o.ByStage) {
-		var ret map[string]int32
+		var ret map[string]int64
 		return ret
 	}
 	return o.ByStage
@@ -53,9 +53,9 @@ func (o *RegisterCounts) GetByStage() map[string]int32 {
 
 // GetByStageOk returns a tuple with the ByStage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RegisterCounts) GetByStageOk() (map[string]int32, bool) {
+func (o *RegisterCounts) GetByStageOk() (map[string]int64, bool) {
 	if o == nil || IsNil(o.ByStage) {
-		return map[string]int32{}, false
+		return map[string]int64{}, false
 	}
 	return o.ByStage, true
 }
@@ -69,15 +69,15 @@ func (o *RegisterCounts) HasByStage() bool {
 	return false
 }
 
-// SetByStage gets a reference to the given map[string]int32 and assigns it to the ByStage field.
-func (o *RegisterCounts) SetByStage(v map[string]int32) {
+// SetByStage gets a reference to the given map[string]int64 and assigns it to the ByStage field.
+func (o *RegisterCounts) SetByStage(v map[string]int64) {
 	o.ByStage = v
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *RegisterCounts) GetTotal() int32 {
+func (o *RegisterCounts) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -85,7 +85,7 @@ func (o *RegisterCounts) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RegisterCounts) GetTotalOk() (*int32, bool) {
+func (o *RegisterCounts) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *RegisterCounts) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *RegisterCounts) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *RegisterCounts) SetTotal(v int64) {
 	o.Total = &v
 }
 

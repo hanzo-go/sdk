@@ -24,7 +24,7 @@ type O11yO11yDashboardList struct {
 	// Tags are all tags in use across the org's dashboards.
 	Tags []O11yO11yDashboardTag `json:"tags,omitempty"`
 	// Total is the count across all pages.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 }
 
 // NewO11yO11yDashboardList instantiates a new O11yO11yDashboardList object
@@ -109,9 +109,9 @@ func (o *O11yO11yDashboardList) SetTags(v []O11yO11yDashboardTag) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *O11yO11yDashboardList) GetTotal() int32 {
+func (o *O11yO11yDashboardList) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -119,7 +119,7 @@ func (o *O11yO11yDashboardList) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yDashboardList) GetTotalOk() (*int32, bool) {
+func (o *O11yO11yDashboardList) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *O11yO11yDashboardList) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *O11yO11yDashboardList) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *O11yO11yDashboardList) SetTotal(v int64) {
 	o.Total = &v
 }
 

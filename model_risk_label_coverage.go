@@ -20,35 +20,35 @@ var _ MappedNullable = &RiskLabelCoverage{}
 // RiskLabelCoverage struct for RiskLabelCoverage
 type RiskLabelCoverage struct {
 	// Contested is how many matured events have two visible assertions that disagree. It is the number that says whether the precedence rule is load-bearing or decorative, and it is the one to watch after wiring a new source.
-	Contested *int32 `json:"contested,omitempty"`
+	Contested *int64 `json:"contested,omitempty"`
 	// Events is how many DISTINCT judged events those assertions name, keyed on (kind, subject, at). It counts only events something was ASSERTED about: what share of the whole event stream carries a label is a question about the feature plane's denominator and is not answerable here. Matured + Unmatured is Events.
-	Events *int32 `json:"events,omitempty"`
+	Events *int64 `json:"events,omitempty"`
 	// Explore is the share of judged events whose winning assertion came from the below-the-line sample. A blocked transaction never produces a chargeback, so a training set with no exploration in it is a description of the incumbent block list rather than of the world — and a champion measured on it is measured on whether it agrees with the incumbent.
-	Explore *float32 `json:"explore,omitempty"`
+	Explore *float64 `json:"explore,omitempty"`
 	// Facts is how many assertions the window holds; Events is how many distinct judged events they cover. The two differ by exactly the corroboration and the conflict in the plane.
-	Facts *int32 `json:"facts,omitempty"`
+	Facts *int64 `json:"facts,omitempty"`
 	// From is the INCLUSIVE start of the EVENT window these counts were folded over, RFC 3339, echoed with the defaults filled in — the caller's, or 90 days before To. An assertion is in the window when its event time satisfies at >= From.
 	From *string `json:"from,omitempty"`
 	// Horizon is the maturity horizon these counts were measured under, IN DAYS — the caller's, or 120. It decides Matured (an event is matured when its `at` plus this many days is not after now), it sets each event's own as-of and so which assertions were visible to it, and when the caller bounds nothing it also places the default window's end.
-	Horizon *int32 `json:"horizon,omitempty"`
+	Horizon *int64 `json:"horizon,omitempty"`
 	// Judged is how many MATURED events resolve, at their own as-of, to something other than unjudged.
-	Judged *int32 `json:"judged,omitempty"`
+	Judged *int64 `json:"judged,omitempty"`
 	// Matured is how many of those events have aged past the horizon and may therefore be admitted to a supervised set at all. It counts every matured event, judged or not — it is the DENOMINATOR an operator divides Judged by, and a denominator that excluded the unjudged would read 1.0 on a plane with one label in it.
-	Matured *int32 `json:"matured,omitempty"`
+	Matured *int64 `json:"matured,omitempty"`
 	// Pending is how many of this tenant's assertions the DERIVED columnar copy is not known to hold yet. Every count above is folded from the record, so they are right regardless — but a materialiser that joins in the warehouse while this is non-zero is joining against an incomplete answer key, and a missing fraud label is indistinguishable from an honest customer. It is reported at the training gate because that is where somebody is deciding whether the ground truth is good enough to fit on. Counted under a cap, so it saturates rather than costing a full scan on every read.
-	Pending *int32 `json:"pending,omitempty"`
+	Pending *int64 `json:"pending,omitempty"`
 	// Productive is how many matured events resolve, at their own as-of, to a WINNING assertion of `productive` — the event led somewhere: escalated, reported, charged back. It is the positive class a supervised fit would train on, and a near-zero count is the number that says the fit is not worth running.
-	Productive *int32 `json:"productive,omitempty"`
+	Productive *int64 `json:"productive,omitempty"`
 	// Sources breaks the judged events down by the source that WON, so a plane that looks labelled because one noisy source dominates is visible as such.
 	Sources []RiskSourceCoverage `json:"sources,omitempty"`
 	// To is the EXCLUSIVE end of that window (at < To). Unstated it is one horizon before now, never now: a window running to now under a maturity horizon can hold no matured event at all, so every count below would read zero however much ground truth the tenant held.
 	To *string `json:"to,omitempty"`
 	// Unlabelled is how many MATURED events had no assertion knowable by their own as-of — including every assertion that arrived after that instant. It is the field that says WHY judged is low: a tenant whose ground truth was filed long after the events it judges reads matured=n, judged=0, unlabelled=n, which is diagnosable, rather than a bare zero, which is not.
-	Unlabelled *int32 `json:"unlabelled,omitempty"`
+	Unlabelled *int64 `json:"unlabelled,omitempty"`
 	// Unmatured is how many events in the window have NOT aged past the horizon. They are not unlabelled — they are not yet askable, and a supervised set must exclude them rather than treat them as negatives. Matured + Unmatured is Events.
-	Unmatured *int32 `json:"unmatured,omitempty"`
+	Unmatured *int64 `json:"unmatured,omitempty"`
 	// Unproductive is every OTHER judged event: the winner claimed `unproductive`, judged not suspicious. Productive + Unproductive is Judged exactly, because a winner of the explicit unjudged is counted in neither — it is a matured event somebody looked at and could not conclude about, and rolling it into the negatives would hand a model a claim nobody made.
-	Unproductive *int32 `json:"unproductive,omitempty"`
+	Unproductive *int64 `json:"unproductive,omitempty"`
 }
 
 // NewRiskLabelCoverage instantiates a new RiskLabelCoverage object
@@ -69,9 +69,9 @@ func NewRiskLabelCoverageWithDefaults() *RiskLabelCoverage {
 }
 
 // GetContested returns the Contested field value if set, zero value otherwise.
-func (o *RiskLabelCoverage) GetContested() int32 {
+func (o *RiskLabelCoverage) GetContested() int64 {
 	if o == nil || IsNil(o.Contested) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Contested
@@ -79,7 +79,7 @@ func (o *RiskLabelCoverage) GetContested() int32 {
 
 // GetContestedOk returns a tuple with the Contested field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLabelCoverage) GetContestedOk() (*int32, bool) {
+func (o *RiskLabelCoverage) GetContestedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Contested) {
 		return nil, false
 	}
@@ -95,15 +95,15 @@ func (o *RiskLabelCoverage) HasContested() bool {
 	return false
 }
 
-// SetContested gets a reference to the given int32 and assigns it to the Contested field.
-func (o *RiskLabelCoverage) SetContested(v int32) {
+// SetContested gets a reference to the given int64 and assigns it to the Contested field.
+func (o *RiskLabelCoverage) SetContested(v int64) {
 	o.Contested = &v
 }
 
 // GetEvents returns the Events field value if set, zero value otherwise.
-func (o *RiskLabelCoverage) GetEvents() int32 {
+func (o *RiskLabelCoverage) GetEvents() int64 {
 	if o == nil || IsNil(o.Events) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Events
@@ -111,7 +111,7 @@ func (o *RiskLabelCoverage) GetEvents() int32 {
 
 // GetEventsOk returns a tuple with the Events field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLabelCoverage) GetEventsOk() (*int32, bool) {
+func (o *RiskLabelCoverage) GetEventsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Events) {
 		return nil, false
 	}
@@ -127,15 +127,15 @@ func (o *RiskLabelCoverage) HasEvents() bool {
 	return false
 }
 
-// SetEvents gets a reference to the given int32 and assigns it to the Events field.
-func (o *RiskLabelCoverage) SetEvents(v int32) {
+// SetEvents gets a reference to the given int64 and assigns it to the Events field.
+func (o *RiskLabelCoverage) SetEvents(v int64) {
 	o.Events = &v
 }
 
 // GetExplore returns the Explore field value if set, zero value otherwise.
-func (o *RiskLabelCoverage) GetExplore() float32 {
+func (o *RiskLabelCoverage) GetExplore() float64 {
 	if o == nil || IsNil(o.Explore) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Explore
@@ -143,7 +143,7 @@ func (o *RiskLabelCoverage) GetExplore() float32 {
 
 // GetExploreOk returns a tuple with the Explore field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLabelCoverage) GetExploreOk() (*float32, bool) {
+func (o *RiskLabelCoverage) GetExploreOk() (*float64, bool) {
 	if o == nil || IsNil(o.Explore) {
 		return nil, false
 	}
@@ -159,15 +159,15 @@ func (o *RiskLabelCoverage) HasExplore() bool {
 	return false
 }
 
-// SetExplore gets a reference to the given float32 and assigns it to the Explore field.
-func (o *RiskLabelCoverage) SetExplore(v float32) {
+// SetExplore gets a reference to the given float64 and assigns it to the Explore field.
+func (o *RiskLabelCoverage) SetExplore(v float64) {
 	o.Explore = &v
 }
 
 // GetFacts returns the Facts field value if set, zero value otherwise.
-func (o *RiskLabelCoverage) GetFacts() int32 {
+func (o *RiskLabelCoverage) GetFacts() int64 {
 	if o == nil || IsNil(o.Facts) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Facts
@@ -175,7 +175,7 @@ func (o *RiskLabelCoverage) GetFacts() int32 {
 
 // GetFactsOk returns a tuple with the Facts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLabelCoverage) GetFactsOk() (*int32, bool) {
+func (o *RiskLabelCoverage) GetFactsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Facts) {
 		return nil, false
 	}
@@ -191,8 +191,8 @@ func (o *RiskLabelCoverage) HasFacts() bool {
 	return false
 }
 
-// SetFacts gets a reference to the given int32 and assigns it to the Facts field.
-func (o *RiskLabelCoverage) SetFacts(v int32) {
+// SetFacts gets a reference to the given int64 and assigns it to the Facts field.
+func (o *RiskLabelCoverage) SetFacts(v int64) {
 	o.Facts = &v
 }
 
@@ -229,9 +229,9 @@ func (o *RiskLabelCoverage) SetFrom(v string) {
 }
 
 // GetHorizon returns the Horizon field value if set, zero value otherwise.
-func (o *RiskLabelCoverage) GetHorizon() int32 {
+func (o *RiskLabelCoverage) GetHorizon() int64 {
 	if o == nil || IsNil(o.Horizon) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Horizon
@@ -239,7 +239,7 @@ func (o *RiskLabelCoverage) GetHorizon() int32 {
 
 // GetHorizonOk returns a tuple with the Horizon field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLabelCoverage) GetHorizonOk() (*int32, bool) {
+func (o *RiskLabelCoverage) GetHorizonOk() (*int64, bool) {
 	if o == nil || IsNil(o.Horizon) {
 		return nil, false
 	}
@@ -255,15 +255,15 @@ func (o *RiskLabelCoverage) HasHorizon() bool {
 	return false
 }
 
-// SetHorizon gets a reference to the given int32 and assigns it to the Horizon field.
-func (o *RiskLabelCoverage) SetHorizon(v int32) {
+// SetHorizon gets a reference to the given int64 and assigns it to the Horizon field.
+func (o *RiskLabelCoverage) SetHorizon(v int64) {
 	o.Horizon = &v
 }
 
 // GetJudged returns the Judged field value if set, zero value otherwise.
-func (o *RiskLabelCoverage) GetJudged() int32 {
+func (o *RiskLabelCoverage) GetJudged() int64 {
 	if o == nil || IsNil(o.Judged) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Judged
@@ -271,7 +271,7 @@ func (o *RiskLabelCoverage) GetJudged() int32 {
 
 // GetJudgedOk returns a tuple with the Judged field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLabelCoverage) GetJudgedOk() (*int32, bool) {
+func (o *RiskLabelCoverage) GetJudgedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Judged) {
 		return nil, false
 	}
@@ -287,15 +287,15 @@ func (o *RiskLabelCoverage) HasJudged() bool {
 	return false
 }
 
-// SetJudged gets a reference to the given int32 and assigns it to the Judged field.
-func (o *RiskLabelCoverage) SetJudged(v int32) {
+// SetJudged gets a reference to the given int64 and assigns it to the Judged field.
+func (o *RiskLabelCoverage) SetJudged(v int64) {
 	o.Judged = &v
 }
 
 // GetMatured returns the Matured field value if set, zero value otherwise.
-func (o *RiskLabelCoverage) GetMatured() int32 {
+func (o *RiskLabelCoverage) GetMatured() int64 {
 	if o == nil || IsNil(o.Matured) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Matured
@@ -303,7 +303,7 @@ func (o *RiskLabelCoverage) GetMatured() int32 {
 
 // GetMaturedOk returns a tuple with the Matured field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLabelCoverage) GetMaturedOk() (*int32, bool) {
+func (o *RiskLabelCoverage) GetMaturedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Matured) {
 		return nil, false
 	}
@@ -319,15 +319,15 @@ func (o *RiskLabelCoverage) HasMatured() bool {
 	return false
 }
 
-// SetMatured gets a reference to the given int32 and assigns it to the Matured field.
-func (o *RiskLabelCoverage) SetMatured(v int32) {
+// SetMatured gets a reference to the given int64 and assigns it to the Matured field.
+func (o *RiskLabelCoverage) SetMatured(v int64) {
 	o.Matured = &v
 }
 
 // GetPending returns the Pending field value if set, zero value otherwise.
-func (o *RiskLabelCoverage) GetPending() int32 {
+func (o *RiskLabelCoverage) GetPending() int64 {
 	if o == nil || IsNil(o.Pending) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Pending
@@ -335,7 +335,7 @@ func (o *RiskLabelCoverage) GetPending() int32 {
 
 // GetPendingOk returns a tuple with the Pending field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLabelCoverage) GetPendingOk() (*int32, bool) {
+func (o *RiskLabelCoverage) GetPendingOk() (*int64, bool) {
 	if o == nil || IsNil(o.Pending) {
 		return nil, false
 	}
@@ -351,15 +351,15 @@ func (o *RiskLabelCoverage) HasPending() bool {
 	return false
 }
 
-// SetPending gets a reference to the given int32 and assigns it to the Pending field.
-func (o *RiskLabelCoverage) SetPending(v int32) {
+// SetPending gets a reference to the given int64 and assigns it to the Pending field.
+func (o *RiskLabelCoverage) SetPending(v int64) {
 	o.Pending = &v
 }
 
 // GetProductive returns the Productive field value if set, zero value otherwise.
-func (o *RiskLabelCoverage) GetProductive() int32 {
+func (o *RiskLabelCoverage) GetProductive() int64 {
 	if o == nil || IsNil(o.Productive) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Productive
@@ -367,7 +367,7 @@ func (o *RiskLabelCoverage) GetProductive() int32 {
 
 // GetProductiveOk returns a tuple with the Productive field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLabelCoverage) GetProductiveOk() (*int32, bool) {
+func (o *RiskLabelCoverage) GetProductiveOk() (*int64, bool) {
 	if o == nil || IsNil(o.Productive) {
 		return nil, false
 	}
@@ -383,8 +383,8 @@ func (o *RiskLabelCoverage) HasProductive() bool {
 	return false
 }
 
-// SetProductive gets a reference to the given int32 and assigns it to the Productive field.
-func (o *RiskLabelCoverage) SetProductive(v int32) {
+// SetProductive gets a reference to the given int64 and assigns it to the Productive field.
+func (o *RiskLabelCoverage) SetProductive(v int64) {
 	o.Productive = &v
 }
 
@@ -453,9 +453,9 @@ func (o *RiskLabelCoverage) SetTo(v string) {
 }
 
 // GetUnlabelled returns the Unlabelled field value if set, zero value otherwise.
-func (o *RiskLabelCoverage) GetUnlabelled() int32 {
+func (o *RiskLabelCoverage) GetUnlabelled() int64 {
 	if o == nil || IsNil(o.Unlabelled) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Unlabelled
@@ -463,7 +463,7 @@ func (o *RiskLabelCoverage) GetUnlabelled() int32 {
 
 // GetUnlabelledOk returns a tuple with the Unlabelled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLabelCoverage) GetUnlabelledOk() (*int32, bool) {
+func (o *RiskLabelCoverage) GetUnlabelledOk() (*int64, bool) {
 	if o == nil || IsNil(o.Unlabelled) {
 		return nil, false
 	}
@@ -479,15 +479,15 @@ func (o *RiskLabelCoverage) HasUnlabelled() bool {
 	return false
 }
 
-// SetUnlabelled gets a reference to the given int32 and assigns it to the Unlabelled field.
-func (o *RiskLabelCoverage) SetUnlabelled(v int32) {
+// SetUnlabelled gets a reference to the given int64 and assigns it to the Unlabelled field.
+func (o *RiskLabelCoverage) SetUnlabelled(v int64) {
 	o.Unlabelled = &v
 }
 
 // GetUnmatured returns the Unmatured field value if set, zero value otherwise.
-func (o *RiskLabelCoverage) GetUnmatured() int32 {
+func (o *RiskLabelCoverage) GetUnmatured() int64 {
 	if o == nil || IsNil(o.Unmatured) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Unmatured
@@ -495,7 +495,7 @@ func (o *RiskLabelCoverage) GetUnmatured() int32 {
 
 // GetUnmaturedOk returns a tuple with the Unmatured field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLabelCoverage) GetUnmaturedOk() (*int32, bool) {
+func (o *RiskLabelCoverage) GetUnmaturedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Unmatured) {
 		return nil, false
 	}
@@ -511,15 +511,15 @@ func (o *RiskLabelCoverage) HasUnmatured() bool {
 	return false
 }
 
-// SetUnmatured gets a reference to the given int32 and assigns it to the Unmatured field.
-func (o *RiskLabelCoverage) SetUnmatured(v int32) {
+// SetUnmatured gets a reference to the given int64 and assigns it to the Unmatured field.
+func (o *RiskLabelCoverage) SetUnmatured(v int64) {
 	o.Unmatured = &v
 }
 
 // GetUnproductive returns the Unproductive field value if set, zero value otherwise.
-func (o *RiskLabelCoverage) GetUnproductive() int32 {
+func (o *RiskLabelCoverage) GetUnproductive() int64 {
 	if o == nil || IsNil(o.Unproductive) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Unproductive
@@ -527,7 +527,7 @@ func (o *RiskLabelCoverage) GetUnproductive() int32 {
 
 // GetUnproductiveOk returns a tuple with the Unproductive field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLabelCoverage) GetUnproductiveOk() (*int32, bool) {
+func (o *RiskLabelCoverage) GetUnproductiveOk() (*int64, bool) {
 	if o == nil || IsNil(o.Unproductive) {
 		return nil, false
 	}
@@ -543,8 +543,8 @@ func (o *RiskLabelCoverage) HasUnproductive() bool {
 	return false
 }
 
-// SetUnproductive gets a reference to the given int32 and assigns it to the Unproductive field.
-func (o *RiskLabelCoverage) SetUnproductive(v int32) {
+// SetUnproductive gets a reference to the given int64 and assigns it to the Unproductive field.
+func (o *RiskLabelCoverage) SetUnproductive(v int64) {
 	o.Unproductive = &v
 }
 

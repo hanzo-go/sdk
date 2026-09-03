@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Connector** | Pointer to [**ConnView**](ConnView.md) | Connection is the connected connector. Present only on \&quot;connected\&quot;. | [optional] 
-**Interval** | Pointer to **int32** | Interval is the seconds to wait before the next poll. Present only while pending, and it may rise when the provider asks the client to slow down. | [optional] 
+**Interval** | Pointer to **int64** | Interval is the seconds to wait before the next poll. Present only while pending, and it may rise when the provider asks the client to slow down. | [optional] 
 **Status** | Pointer to **string** | Status is the flow&#39;s state. \&quot;pending\&quot; means poll again after Interval. | [optional] 
 
 ## Methods
@@ -54,20 +54,20 @@ HasConnector returns a boolean if a field has been set.
 
 ### GetInterval
 
-`func (o *DevicePollOut) GetInterval() int32`
+`func (o *DevicePollOut) GetInterval() int64`
 
 GetInterval returns the Interval field if non-nil, zero value otherwise.
 
 ### GetIntervalOk
 
-`func (o *DevicePollOut) GetIntervalOk() (*int32, bool)`
+`func (o *DevicePollOut) GetIntervalOk() (*int64, bool)`
 
 GetIntervalOk returns a tuple with the Interval field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInterval
 
-`func (o *DevicePollOut) SetInterval(v int32)`
+`func (o *DevicePollOut) SetInterval(v int64)`
 
 SetInterval sets Interval field to given value.
 

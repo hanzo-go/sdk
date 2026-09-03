@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Candidates** | Pointer to **int32** | Candidates is how many model shapes will be tried. | [optional] 
-**Events** | Pointer to **int32** | Events is how much of the organisation&#39;s own history the run will replay. | [optional] 
+**Candidates** | Pointer to **int64** | Candidates is how many model shapes will be tried. | [optional] 
+**Events** | Pointer to **int64** | Events is how much of the organisation&#39;s own history the run will replay. | [optional] 
 **Id** | Pointer to **string** | ID addresses the run. Read the result back with it. | [optional] 
 
 ## Methods
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCandidates
 
-`func (o *RiskSearchRun) GetCandidates() int32`
+`func (o *RiskSearchRun) GetCandidates() int64`
 
 GetCandidates returns the Candidates field if non-nil, zero value otherwise.
 
 ### GetCandidatesOk
 
-`func (o *RiskSearchRun) GetCandidatesOk() (*int32, bool)`
+`func (o *RiskSearchRun) GetCandidatesOk() (*int64, bool)`
 
 GetCandidatesOk returns a tuple with the Candidates field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCandidates
 
-`func (o *RiskSearchRun) SetCandidates(v int32)`
+`func (o *RiskSearchRun) SetCandidates(v int64)`
 
 SetCandidates sets Candidates field to given value.
 
@@ -54,20 +54,20 @@ HasCandidates returns a boolean if a field has been set.
 
 ### GetEvents
 
-`func (o *RiskSearchRun) GetEvents() int32`
+`func (o *RiskSearchRun) GetEvents() int64`
 
 GetEvents returns the Events field if non-nil, zero value otherwise.
 
 ### GetEventsOk
 
-`func (o *RiskSearchRun) GetEventsOk() (*int32, bool)`
+`func (o *RiskSearchRun) GetEventsOk() (*int64, bool)`
 
 GetEventsOk returns a tuple with the Events field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEvents
 
-`func (o *RiskSearchRun) SetEvents(v int32)`
+`func (o *RiskSearchRun) SetEvents(v int64)`
 
 SetEvents sets Events field to given value.
 

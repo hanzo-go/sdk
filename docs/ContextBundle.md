@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BudgetTokens** | Pointer to **int32** | BudgetTokens is the ceiling the caller asked for. Packing stops under it, so this is a bound and not a target. | [optional] 
+**BudgetTokens** | Pointer to **int64** | BudgetTokens is the ceiling the caller asked for. Packing stops under it, so this is a bound and not a target. | [optional] 
 **Query** | Pointer to **string** | Query is the ask this bundle was packed for, echoed back so a cached or forwarded bundle still says what it answers. | [optional] 
 **Repo** | Pointer to **string** | Repo narrows the retrieval to one repository. Absent means every indexed repo was searched. | [optional] 
 **Spans** | Pointer to [**[]Span**](Span.md) | Spans are the packed chunks, most relevant first, each expanded with the definitions it calls and its notable callers. The top match is always present even if it had to be truncated to fit, so a matched query never comes back with nothing. | [optional] 
-**UsedTokens** | Pointer to **int32** | UsedTokens is what the returned spans actually cost, by the same estimate the packer used (roughly one token per four characters — an estimate, not a tokenizer&#39;s count, so size a real window with headroom). | [optional] 
+**UsedTokens** | Pointer to **int64** | UsedTokens is what the returned spans actually cost, by the same estimate the packer used (roughly one token per four characters — an estimate, not a tokenizer&#39;s count, so size a real window with headroom). | [optional] 
 
 ## Methods
 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetBudgetTokens
 
-`func (o *ContextBundle) GetBudgetTokens() int32`
+`func (o *ContextBundle) GetBudgetTokens() int64`
 
 GetBudgetTokens returns the BudgetTokens field if non-nil, zero value otherwise.
 
 ### GetBudgetTokensOk
 
-`func (o *ContextBundle) GetBudgetTokensOk() (*int32, bool)`
+`func (o *ContextBundle) GetBudgetTokensOk() (*int64, bool)`
 
 GetBudgetTokensOk returns a tuple with the BudgetTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBudgetTokens
 
-`func (o *ContextBundle) SetBudgetTokens(v int32)`
+`func (o *ContextBundle) SetBudgetTokens(v int64)`
 
 SetBudgetTokens sets BudgetTokens field to given value.
 
@@ -131,20 +131,20 @@ HasSpans returns a boolean if a field has been set.
 
 ### GetUsedTokens
 
-`func (o *ContextBundle) GetUsedTokens() int32`
+`func (o *ContextBundle) GetUsedTokens() int64`
 
 GetUsedTokens returns the UsedTokens field if non-nil, zero value otherwise.
 
 ### GetUsedTokensOk
 
-`func (o *ContextBundle) GetUsedTokensOk() (*int32, bool)`
+`func (o *ContextBundle) GetUsedTokensOk() (*int64, bool)`
 
 GetUsedTokensOk returns a tuple with the UsedTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUsedTokens
 
-`func (o *ContextBundle) SetUsedTokens(v int32)`
+`func (o *ContextBundle) SetUsedTokens(v int64)`
 
 SetUsedTokens sets UsedTokens field to given value.
 

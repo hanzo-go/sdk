@@ -20,15 +20,15 @@ var _ MappedNullable = &CaptableNote{}
 // CaptableNote struct for CaptableNote
 type CaptableNote struct {
 	// Capital is the principal the investor lent.
-	Capital *float32 `json:"capital,omitempty"`
+	Capital *float64 `json:"capital,omitempty"`
 	// ConversionCap is the valuation cap on conversion, if any.
-	ConversionCap *float32 `json:"conversionCap,omitempty"`
+	ConversionCap *float64 `json:"conversionCap,omitempty"`
 	// DiscountRate is the discount to the next round's price, if any.
-	DiscountRate *float32 `json:"discountRate,omitempty"`
+	DiscountRate *float64 `json:"discountRate,omitempty"`
 	// ID is the note id.
 	Id *string `json:"id,omitempty"`
 	// InterestRate is the annual interest rate, if any.
-	InterestRate *float32 `json:"interestRate,omitempty"`
+	InterestRate *float64 `json:"interestRate,omitempty"`
 	// IssueDate is the ISO date the note was signed.
 	IssueDate *string `json:"issueDate,omitempty"`
 	// PublicID is the note's shareable identifier, unique within the company.
@@ -61,9 +61,9 @@ func NewCaptableNoteWithDefaults() *CaptableNote {
 }
 
 // GetCapital returns the Capital field value if set, zero value otherwise.
-func (o *CaptableNote) GetCapital() float32 {
+func (o *CaptableNote) GetCapital() float64 {
 	if o == nil || IsNil(o.Capital) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Capital
@@ -71,7 +71,7 @@ func (o *CaptableNote) GetCapital() float32 {
 
 // GetCapitalOk returns a tuple with the Capital field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableNote) GetCapitalOk() (*float32, bool) {
+func (o *CaptableNote) GetCapitalOk() (*float64, bool) {
 	if o == nil || IsNil(o.Capital) {
 		return nil, false
 	}
@@ -87,15 +87,15 @@ func (o *CaptableNote) HasCapital() bool {
 	return false
 }
 
-// SetCapital gets a reference to the given float32 and assigns it to the Capital field.
-func (o *CaptableNote) SetCapital(v float32) {
+// SetCapital gets a reference to the given float64 and assigns it to the Capital field.
+func (o *CaptableNote) SetCapital(v float64) {
 	o.Capital = &v
 }
 
 // GetConversionCap returns the ConversionCap field value if set, zero value otherwise.
-func (o *CaptableNote) GetConversionCap() float32 {
+func (o *CaptableNote) GetConversionCap() float64 {
 	if o == nil || IsNil(o.ConversionCap) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.ConversionCap
@@ -103,7 +103,7 @@ func (o *CaptableNote) GetConversionCap() float32 {
 
 // GetConversionCapOk returns a tuple with the ConversionCap field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableNote) GetConversionCapOk() (*float32, bool) {
+func (o *CaptableNote) GetConversionCapOk() (*float64, bool) {
 	if o == nil || IsNil(o.ConversionCap) {
 		return nil, false
 	}
@@ -119,15 +119,15 @@ func (o *CaptableNote) HasConversionCap() bool {
 	return false
 }
 
-// SetConversionCap gets a reference to the given float32 and assigns it to the ConversionCap field.
-func (o *CaptableNote) SetConversionCap(v float32) {
+// SetConversionCap gets a reference to the given float64 and assigns it to the ConversionCap field.
+func (o *CaptableNote) SetConversionCap(v float64) {
 	o.ConversionCap = &v
 }
 
 // GetDiscountRate returns the DiscountRate field value if set, zero value otherwise.
-func (o *CaptableNote) GetDiscountRate() float32 {
+func (o *CaptableNote) GetDiscountRate() float64 {
 	if o == nil || IsNil(o.DiscountRate) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.DiscountRate
@@ -135,7 +135,7 @@ func (o *CaptableNote) GetDiscountRate() float32 {
 
 // GetDiscountRateOk returns a tuple with the DiscountRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableNote) GetDiscountRateOk() (*float32, bool) {
+func (o *CaptableNote) GetDiscountRateOk() (*float64, bool) {
 	if o == nil || IsNil(o.DiscountRate) {
 		return nil, false
 	}
@@ -151,8 +151,8 @@ func (o *CaptableNote) HasDiscountRate() bool {
 	return false
 }
 
-// SetDiscountRate gets a reference to the given float32 and assigns it to the DiscountRate field.
-func (o *CaptableNote) SetDiscountRate(v float32) {
+// SetDiscountRate gets a reference to the given float64 and assigns it to the DiscountRate field.
+func (o *CaptableNote) SetDiscountRate(v float64) {
 	o.DiscountRate = &v
 }
 
@@ -189,9 +189,9 @@ func (o *CaptableNote) SetId(v string) {
 }
 
 // GetInterestRate returns the InterestRate field value if set, zero value otherwise.
-func (o *CaptableNote) GetInterestRate() float32 {
+func (o *CaptableNote) GetInterestRate() float64 {
 	if o == nil || IsNil(o.InterestRate) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.InterestRate
@@ -199,7 +199,7 @@ func (o *CaptableNote) GetInterestRate() float32 {
 
 // GetInterestRateOk returns a tuple with the InterestRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableNote) GetInterestRateOk() (*float32, bool) {
+func (o *CaptableNote) GetInterestRateOk() (*float64, bool) {
 	if o == nil || IsNil(o.InterestRate) {
 		return nil, false
 	}
@@ -215,8 +215,8 @@ func (o *CaptableNote) HasInterestRate() bool {
 	return false
 }
 
-// SetInterestRate gets a reference to the given float32 and assigns it to the InterestRate field.
-func (o *CaptableNote) SetInterestRate(v float32) {
+// SetInterestRate gets a reference to the given float64 and assigns it to the InterestRate field.
+func (o *CaptableNote) SetInterestRate(v float64) {
 	o.InterestRate = &v
 }
 

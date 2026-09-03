@@ -20,11 +20,11 @@ var _ MappedNullable = &O11yO11yRetentionSetIn{}
 // O11yO11yRetentionSetIn struct for O11yO11yRetentionSetIn
 type O11yO11yRetentionSetIn struct {
 	// ColdStorageDurationDays is how old data must be before it moves, in days.
-	ColdStorageDurationDays *int32 `json:"coldStorageDurationDays,omitempty"`
+	ColdStorageDurationDays *int64 `json:"coldStorageDurationDays,omitempty"`
 	// ColdStorageVolume names the volume aged data moves to, when set.
 	ColdStorageVolume *string `json:"coldStorageVolume,omitempty"`
 	// DefaultTTLDays is the retention for data no rule matches, in days.
-	DefaultTTLDays *int32 `json:"defaultTTLDays,omitempty"`
+	DefaultTTLDays *int64 `json:"defaultTTLDays,omitempty"`
 	// TTLConditions are ordered per-label rules; the first matching rule wins.
 	TtlConditions []O11yO11yRetentionRule `json:"ttlConditions,omitempty"`
 	// Type is the signal the policy applies to — traces, metrics or logs.
@@ -49,9 +49,9 @@ func NewO11yO11yRetentionSetInWithDefaults() *O11yO11yRetentionSetIn {
 }
 
 // GetColdStorageDurationDays returns the ColdStorageDurationDays field value if set, zero value otherwise.
-func (o *O11yO11yRetentionSetIn) GetColdStorageDurationDays() int32 {
+func (o *O11yO11yRetentionSetIn) GetColdStorageDurationDays() int64 {
 	if o == nil || IsNil(o.ColdStorageDurationDays) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ColdStorageDurationDays
@@ -59,7 +59,7 @@ func (o *O11yO11yRetentionSetIn) GetColdStorageDurationDays() int32 {
 
 // GetColdStorageDurationDaysOk returns a tuple with the ColdStorageDurationDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yRetentionSetIn) GetColdStorageDurationDaysOk() (*int32, bool) {
+func (o *O11yO11yRetentionSetIn) GetColdStorageDurationDaysOk() (*int64, bool) {
 	if o == nil || IsNil(o.ColdStorageDurationDays) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *O11yO11yRetentionSetIn) HasColdStorageDurationDays() bool {
 	return false
 }
 
-// SetColdStorageDurationDays gets a reference to the given int32 and assigns it to the ColdStorageDurationDays field.
-func (o *O11yO11yRetentionSetIn) SetColdStorageDurationDays(v int32) {
+// SetColdStorageDurationDays gets a reference to the given int64 and assigns it to the ColdStorageDurationDays field.
+func (o *O11yO11yRetentionSetIn) SetColdStorageDurationDays(v int64) {
 	o.ColdStorageDurationDays = &v
 }
 
@@ -113,9 +113,9 @@ func (o *O11yO11yRetentionSetIn) SetColdStorageVolume(v string) {
 }
 
 // GetDefaultTTLDays returns the DefaultTTLDays field value if set, zero value otherwise.
-func (o *O11yO11yRetentionSetIn) GetDefaultTTLDays() int32 {
+func (o *O11yO11yRetentionSetIn) GetDefaultTTLDays() int64 {
 	if o == nil || IsNil(o.DefaultTTLDays) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DefaultTTLDays
@@ -123,7 +123,7 @@ func (o *O11yO11yRetentionSetIn) GetDefaultTTLDays() int32 {
 
 // GetDefaultTTLDaysOk returns a tuple with the DefaultTTLDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yRetentionSetIn) GetDefaultTTLDaysOk() (*int32, bool) {
+func (o *O11yO11yRetentionSetIn) GetDefaultTTLDaysOk() (*int64, bool) {
 	if o == nil || IsNil(o.DefaultTTLDays) {
 		return nil, false
 	}
@@ -139,8 +139,8 @@ func (o *O11yO11yRetentionSetIn) HasDefaultTTLDays() bool {
 	return false
 }
 
-// SetDefaultTTLDays gets a reference to the given int32 and assigns it to the DefaultTTLDays field.
-func (o *O11yO11yRetentionSetIn) SetDefaultTTLDays(v int32) {
+// SetDefaultTTLDays gets a reference to the given int64 and assigns it to the DefaultTTLDays field.
+func (o *O11yO11yRetentionSetIn) SetDefaultTTLDays(v int64) {
 	o.DefaultTTLDays = &v
 }
 

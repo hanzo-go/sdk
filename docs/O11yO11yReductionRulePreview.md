@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **DroppedLabels** | Pointer to **[]string** | DroppedLabels are the labels the rule would drop. | [optional] 
 **EffectiveFrom** | Pointer to **time.Time** | EffectiveFrom is when the rule would take effect. | [optional] 
 **IngestedSeries** | Pointer to **int32** | IngestedSeries is how many series the metric ingests today. | [optional] 
-**ReductionPercent** | Pointer to **float32** | ReductionPercent is the estimated reduction, in percent. | [optional] 
+**ReductionPercent** | Pointer to **float64** | ReductionPercent is the estimated reduction, in percent. | [optional] 
 **RetainedSeries** | Pointer to **int32** | RetainedSeries is how many would survive with the candidate rule. | [optional] 
 
 ## Methods
@@ -158,20 +158,20 @@ HasIngestedSeries returns a boolean if a field has been set.
 
 ### GetReductionPercent
 
-`func (o *O11yO11yReductionRulePreview) GetReductionPercent() float32`
+`func (o *O11yO11yReductionRulePreview) GetReductionPercent() float64`
 
 GetReductionPercent returns the ReductionPercent field if non-nil, zero value otherwise.
 
 ### GetReductionPercentOk
 
-`func (o *O11yO11yReductionRulePreview) GetReductionPercentOk() (*float32, bool)`
+`func (o *O11yO11yReductionRulePreview) GetReductionPercentOk() (*float64, bool)`
 
 GetReductionPercentOk returns a tuple with the ReductionPercent field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReductionPercent
 
-`func (o *O11yO11yReductionRulePreview) SetReductionPercent(v float32)`
+`func (o *O11yO11yReductionRulePreview) SetReductionPercent(v float64)`
 
 SetReductionPercent sets ReductionPercent field to given value.
 

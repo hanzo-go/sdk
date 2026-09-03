@@ -32,9 +32,9 @@ type Extracted struct {
 	// Note is anything else worth carrying from the document that has no field of its own.
 	Note *string `json:"note,omitempty"`
 	// TaxCents is how much of that total is tax, in cents. It is part of totalCents, not additional to it.
-	TaxCents *int32 `json:"taxCents,omitempty"`
+	TaxCents *int64 `json:"taxCents,omitempty"`
 	// TotalCents is the document total in whole cents, tax INCLUDED.
-	TotalCents *int32 `json:"totalCents,omitempty"`
+	TotalCents *int64 `json:"totalCents,omitempty"`
 }
 
 // NewExtracted instantiates a new Extracted object
@@ -247,9 +247,9 @@ func (o *Extracted) SetNote(v string) {
 }
 
 // GetTaxCents returns the TaxCents field value if set, zero value otherwise.
-func (o *Extracted) GetTaxCents() int32 {
+func (o *Extracted) GetTaxCents() int64 {
 	if o == nil || IsNil(o.TaxCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TaxCents
@@ -257,7 +257,7 @@ func (o *Extracted) GetTaxCents() int32 {
 
 // GetTaxCentsOk returns a tuple with the TaxCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Extracted) GetTaxCentsOk() (*int32, bool) {
+func (o *Extracted) GetTaxCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.TaxCents) {
 		return nil, false
 	}
@@ -273,15 +273,15 @@ func (o *Extracted) HasTaxCents() bool {
 	return false
 }
 
-// SetTaxCents gets a reference to the given int32 and assigns it to the TaxCents field.
-func (o *Extracted) SetTaxCents(v int32) {
+// SetTaxCents gets a reference to the given int64 and assigns it to the TaxCents field.
+func (o *Extracted) SetTaxCents(v int64) {
 	o.TaxCents = &v
 }
 
 // GetTotalCents returns the TotalCents field value if set, zero value otherwise.
-func (o *Extracted) GetTotalCents() int32 {
+func (o *Extracted) GetTotalCents() int64 {
 	if o == nil || IsNil(o.TotalCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalCents
@@ -289,7 +289,7 @@ func (o *Extracted) GetTotalCents() int32 {
 
 // GetTotalCentsOk returns a tuple with the TotalCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Extracted) GetTotalCentsOk() (*int32, bool) {
+func (o *Extracted) GetTotalCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalCents) {
 		return nil, false
 	}
@@ -305,8 +305,8 @@ func (o *Extracted) HasTotalCents() bool {
 	return false
 }
 
-// SetTotalCents gets a reference to the given int32 and assigns it to the TotalCents field.
-func (o *Extracted) SetTotalCents(v int32) {
+// SetTotalCents gets a reference to the given int64 and assigns it to the TotalCents field.
+func (o *Extracted) SetTotalCents(v int64) {
 	o.TotalCents = &v
 }
 

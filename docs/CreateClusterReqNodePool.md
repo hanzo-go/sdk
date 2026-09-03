@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Count** | Pointer to **int32** |  | [optional] 
+**Count** | Pointer to **int64** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Size** | Pointer to **string** |  | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCount
 
-`func (o *CreateClusterReqNodePool) GetCount() int32`
+`func (o *CreateClusterReqNodePool) GetCount() int64`
 
 GetCount returns the Count field if non-nil, zero value otherwise.
 
 ### GetCountOk
 
-`func (o *CreateClusterReqNodePool) GetCountOk() (*int32, bool)`
+`func (o *CreateClusterReqNodePool) GetCountOk() (*int64, bool)`
 
 GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCount
 
-`func (o *CreateClusterReqNodePool) SetCount(v int32)`
+`func (o *CreateClusterReqNodePool) SetCount(v int64)`
 
 SetCount sets Count field to given value.
 

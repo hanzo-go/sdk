@@ -20,17 +20,17 @@ var _ MappedNullable = &TrustTally{}
 // TrustTally struct for TrustTally
 type TrustTally struct {
 	// Absent is how many the organization does not have. An absent control still names the clause it would satisfy — that is a roadmap — but it never moves a coverage number.
-	Absent *int32 `json:"absent,omitempty"`
+	Absent *int64 `json:"absent,omitempty"`
 	// Automated is how many run with nobody in the loop.
-	Automated *int32 `json:"automated,omitempty"`
+	Automated *int64 `json:"automated,omitempty"`
 	// Partial is how many run but do not cover their whole claim. Each says what is missing.
-	Partial *int32 `json:"partial,omitempty"`
+	Partial *int64 `json:"partial,omitempty"`
 	// Statement is the counts as one sentence, safe to quote.
 	Statement *string `json:"statement,omitempty"`
 	// Total is how many controls this organization publishes.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 	// Unverified is how many rest on somebody having READ the source rather than on a test or an audit row. Only a check that can FAIL counts as verified, and coverage counts those one rung weaker than they claim to be.
-	Unverified *int32 `json:"unverified,omitempty"`
+	Unverified *int64 `json:"unverified,omitempty"`
 }
 
 // NewTrustTally instantiates a new TrustTally object
@@ -51,9 +51,9 @@ func NewTrustTallyWithDefaults() *TrustTally {
 }
 
 // GetAbsent returns the Absent field value if set, zero value otherwise.
-func (o *TrustTally) GetAbsent() int32 {
+func (o *TrustTally) GetAbsent() int64 {
 	if o == nil || IsNil(o.Absent) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Absent
@@ -61,7 +61,7 @@ func (o *TrustTally) GetAbsent() int32 {
 
 // GetAbsentOk returns a tuple with the Absent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrustTally) GetAbsentOk() (*int32, bool) {
+func (o *TrustTally) GetAbsentOk() (*int64, bool) {
 	if o == nil || IsNil(o.Absent) {
 		return nil, false
 	}
@@ -77,15 +77,15 @@ func (o *TrustTally) HasAbsent() bool {
 	return false
 }
 
-// SetAbsent gets a reference to the given int32 and assigns it to the Absent field.
-func (o *TrustTally) SetAbsent(v int32) {
+// SetAbsent gets a reference to the given int64 and assigns it to the Absent field.
+func (o *TrustTally) SetAbsent(v int64) {
 	o.Absent = &v
 }
 
 // GetAutomated returns the Automated field value if set, zero value otherwise.
-func (o *TrustTally) GetAutomated() int32 {
+func (o *TrustTally) GetAutomated() int64 {
 	if o == nil || IsNil(o.Automated) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Automated
@@ -93,7 +93,7 @@ func (o *TrustTally) GetAutomated() int32 {
 
 // GetAutomatedOk returns a tuple with the Automated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrustTally) GetAutomatedOk() (*int32, bool) {
+func (o *TrustTally) GetAutomatedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Automated) {
 		return nil, false
 	}
@@ -109,15 +109,15 @@ func (o *TrustTally) HasAutomated() bool {
 	return false
 }
 
-// SetAutomated gets a reference to the given int32 and assigns it to the Automated field.
-func (o *TrustTally) SetAutomated(v int32) {
+// SetAutomated gets a reference to the given int64 and assigns it to the Automated field.
+func (o *TrustTally) SetAutomated(v int64) {
 	o.Automated = &v
 }
 
 // GetPartial returns the Partial field value if set, zero value otherwise.
-func (o *TrustTally) GetPartial() int32 {
+func (o *TrustTally) GetPartial() int64 {
 	if o == nil || IsNil(o.Partial) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Partial
@@ -125,7 +125,7 @@ func (o *TrustTally) GetPartial() int32 {
 
 // GetPartialOk returns a tuple with the Partial field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrustTally) GetPartialOk() (*int32, bool) {
+func (o *TrustTally) GetPartialOk() (*int64, bool) {
 	if o == nil || IsNil(o.Partial) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *TrustTally) HasPartial() bool {
 	return false
 }
 
-// SetPartial gets a reference to the given int32 and assigns it to the Partial field.
-func (o *TrustTally) SetPartial(v int32) {
+// SetPartial gets a reference to the given int64 and assigns it to the Partial field.
+func (o *TrustTally) SetPartial(v int64) {
 	o.Partial = &v
 }
 
@@ -179,9 +179,9 @@ func (o *TrustTally) SetStatement(v string) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *TrustTally) GetTotal() int32 {
+func (o *TrustTally) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -189,7 +189,7 @@ func (o *TrustTally) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrustTally) GetTotalOk() (*int32, bool) {
+func (o *TrustTally) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -205,15 +205,15 @@ func (o *TrustTally) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *TrustTally) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *TrustTally) SetTotal(v int64) {
 	o.Total = &v
 }
 
 // GetUnverified returns the Unverified field value if set, zero value otherwise.
-func (o *TrustTally) GetUnverified() int32 {
+func (o *TrustTally) GetUnverified() int64 {
 	if o == nil || IsNil(o.Unverified) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Unverified
@@ -221,7 +221,7 @@ func (o *TrustTally) GetUnverified() int32 {
 
 // GetUnverifiedOk returns a tuple with the Unverified field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrustTally) GetUnverifiedOk() (*int32, bool) {
+func (o *TrustTally) GetUnverifiedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Unverified) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *TrustTally) HasUnverified() bool {
 	return false
 }
 
-// SetUnverified gets a reference to the given int32 and assigns it to the Unverified field.
-func (o *TrustTally) SetUnverified(v int32) {
+// SetUnverified gets a reference to the given int64 and assigns it to the Unverified field.
+func (o *TrustTally) SetUnverified(v int64) {
 	o.Unverified = &v
 }
 

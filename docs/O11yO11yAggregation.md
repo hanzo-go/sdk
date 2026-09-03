@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Alias** | Pointer to **string** | Alias is the aggregation&#39;s alias. | [optional] 
 **AnomalyScores** | Pointer to [**[]O11yO11yMetricSeries**](O11yO11yMetricSeries.md) | AnomalyScores are anomaly overlays. | [optional] 
-**Index** | Pointer to **int32** | Index is the aggregation&#39;s position in the query. | [optional] 
+**Index** | Pointer to **int64** | Index is the aggregation&#39;s position in the query. | [optional] 
 **LowerBoundSeries** | Pointer to [**[]O11yO11yMetricSeries**](O11yO11yMetricSeries.md) | LowerBoundSeries are forecast lower bounds. | [optional] 
 **Meta** | Pointer to [**O11yO11yAggregationMeta**](O11yO11yAggregationMeta.md) | Meta describes the aggregation. | [optional] 
 **PredictedSeries** | Pointer to [**[]O11yO11yMetricSeries**](O11yO11yMetricSeries.md) | PredictedSeries are forecast overlays, when the query asked for them. | [optional] 
@@ -84,20 +84,20 @@ HasAnomalyScores returns a boolean if a field has been set.
 
 ### GetIndex
 
-`func (o *O11yO11yAggregation) GetIndex() int32`
+`func (o *O11yO11yAggregation) GetIndex() int64`
 
 GetIndex returns the Index field if non-nil, zero value otherwise.
 
 ### GetIndexOk
 
-`func (o *O11yO11yAggregation) GetIndexOk() (*int32, bool)`
+`func (o *O11yO11yAggregation) GetIndexOk() (*int64, bool)`
 
 GetIndexOk returns a tuple with the Index field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIndex
 
-`func (o *O11yO11yAggregation) SetIndex(v int32)`
+`func (o *O11yO11yAggregation) SetIndex(v int64)`
 
 SetIndex sets Index field to given value.
 

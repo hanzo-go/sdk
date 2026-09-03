@@ -4368,8 +4368,8 @@ import (
 
 func main() {
 	organization := "organization_example" // string | Organization is the organization whose service accounts to list. Required. (optional)
-	p := int32(56) // int32 | P is the 1-indexed page to return. Paging takes both p and pageSize — leave either out, or send something that is not a number, and the whole list comes back. (optional)
-	pageSize := int32(56) // int32 | Size is how many accounts a page holds. (optional)
+	p := int64(789) // int64 | P is the 1-indexed page to return. Paging takes both p and pageSize — leave either out, or send something that is not a number, and the whole list comes back. (optional)
+	pageSize := int64(789) // int64 | Size is how many accounts a page holds. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -4395,8 +4395,8 @@ Other parameters are passed through a pointer to a apiGetIamServiceAccountsReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **organization** | **string** | Organization is the organization whose service accounts to list. Required. | 
- **p** | **int32** | P is the 1-indexed page to return. Paging takes both p and pageSize — leave either out, or send something that is not a number, and the whole list comes back. | 
- **pageSize** | **int32** | Size is how many accounts a page holds. | 
+ **p** | **int64** | P is the 1-indexed page to return. Paging takes both p and pageSize — leave either out, or send something that is not a number, and the whole list comes back. | 
+ **pageSize** | **int64** | Size is how many accounts a page holds. | 
 
 ### Return type
 
@@ -4570,8 +4570,8 @@ import (
 func main() {
 	owner := "owner_example" // string |  (optional)
 	email := "email_example" // string | Email narrows the page to the accounts carrying one address. Looking a person up by their address is a QUERY over the collection, not an item read: an address is not the natural key, two rows in one org can carry one, and a caller that gets a page SEES both — where a single-item read would have to choose, and choosing is how somebody joins a team under a colleague's identity. (optional)
-	limit := int32(56) // int32 |  (optional)
-	offset := int32(56) // int32 |  (optional)
+	limit := int64(789) // int64 |  (optional)
+	offset := int64(789) // int64 |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -4598,8 +4598,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **owner** | **string** |  | 
  **email** | **string** | Email narrows the page to the accounts carrying one address. Looking a person up by their address is a QUERY over the collection, not an item read: an address is not the natural key, two rows in one org can carry one, and a caller that gets a page SEES both — where a single-item read would have to choose, and choosing is how somebody joins a team under a colleague&#39;s identity. | 
- **limit** | **int32** |  | 
- **offset** | **int32** |  | 
+ **limit** | **int64** |  | 
+ **offset** | **int64** |  | 
 
 ### Return type
 
@@ -5637,7 +5637,7 @@ import (
 func main() {
 	xForwardedFor := "xForwardedFor_example" // string |  (optional)
 	q := "q_example" // string |  (optional)
-	limit := int32(56) // int32 |  (optional)
+	limit := int64(789) // int64 |  (optional)
 	cursor := "cursor_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -5665,7 +5665,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xForwardedFor** | **string** |  | 
  **q** | **string** |  | 
- **limit** | **int32** |  | 
+ **limit** | **int64** |  | 
  **cursor** | **string** |  | 
 
 ### Return type

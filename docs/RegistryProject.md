@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Images** | Pointer to **int32** | Images is how many of the org&#39;s repositories the OCI catalog holds. | [optional] 
-**Packages** | Pointer to **int32** | Packages is how many of the org&#39;s packages the npm registry reports. | [optional] 
+**Images** | Pointer to **int64** | Images is how many of the org&#39;s repositories the OCI catalog holds. | [optional] 
+**Packages** | Pointer to **int64** | Packages is how many of the org&#39;s packages the npm registry reports. | [optional] 
 **Project** | Pointer to **string** | Project is the namespace: the org&#39;s slug, which prefixes its image names and scopes its npm packages. | [optional] 
 
 ## Methods
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetImages
 
-`func (o *RegistryProject) GetImages() int32`
+`func (o *RegistryProject) GetImages() int64`
 
 GetImages returns the Images field if non-nil, zero value otherwise.
 
 ### GetImagesOk
 
-`func (o *RegistryProject) GetImagesOk() (*int32, bool)`
+`func (o *RegistryProject) GetImagesOk() (*int64, bool)`
 
 GetImagesOk returns a tuple with the Images field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetImages
 
-`func (o *RegistryProject) SetImages(v int32)`
+`func (o *RegistryProject) SetImages(v int64)`
 
 SetImages sets Images field to given value.
 
@@ -54,20 +54,20 @@ HasImages returns a boolean if a field has been set.
 
 ### GetPackages
 
-`func (o *RegistryProject) GetPackages() int32`
+`func (o *RegistryProject) GetPackages() int64`
 
 GetPackages returns the Packages field if non-nil, zero value otherwise.
 
 ### GetPackagesOk
 
-`func (o *RegistryProject) GetPackagesOk() (*int32, bool)`
+`func (o *RegistryProject) GetPackagesOk() (*int64, bool)`
 
 GetPackagesOk returns a tuple with the Packages field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPackages
 
-`func (o *RegistryProject) SetPackages(v int32)`
+`func (o *RegistryProject) SetPackages(v int64)`
 
 SetPackages sets Packages field to given value.
 

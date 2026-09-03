@@ -20,7 +20,7 @@ var _ MappedNullable = &IngestResp{}
 // IngestResp struct for IngestResp
 type IngestResp struct {
 	// Accepted is how many samples this report landed.
-	Accepted *int32 `json:"accepted,omitempty"`
+	Accepted *int64 `json:"accepted,omitempty"`
 	// Links is the link row each distinct (machine, provider, account) in the batch refreshed.
 	Links []LinkView `json:"links,omitempty"`
 	// Stored reports whether history was durably written; false means the warehouse was unavailable and only the link rows were refreshed.
@@ -45,9 +45,9 @@ func NewIngestRespWithDefaults() *IngestResp {
 }
 
 // GetAccepted returns the Accepted field value if set, zero value otherwise.
-func (o *IngestResp) GetAccepted() int32 {
+func (o *IngestResp) GetAccepted() int64 {
 	if o == nil || IsNil(o.Accepted) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Accepted
@@ -55,7 +55,7 @@ func (o *IngestResp) GetAccepted() int32 {
 
 // GetAcceptedOk returns a tuple with the Accepted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IngestResp) GetAcceptedOk() (*int32, bool) {
+func (o *IngestResp) GetAcceptedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Accepted) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *IngestResp) HasAccepted() bool {
 	return false
 }
 
-// SetAccepted gets a reference to the given int32 and assigns it to the Accepted field.
-func (o *IngestResp) SetAccepted(v int32) {
+// SetAccepted gets a reference to the given int64 and assigns it to the Accepted field.
+func (o *IngestResp) SetAccepted(v int64) {
 	o.Accepted = &v
 }
 

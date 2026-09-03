@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Bound** | Pointer to **int32** | Bound is the most they can hold. It is a per-organisation bound: at it, this organisation degrades and no other one notices. | [optional] 
-**Forgotten** | Pointer to **int32** | Forgotten is how many of its own subjects have been dropped to stay inside that bound. Each one reads as inactive until it is active again. | [optional] 
+**Bound** | Pointer to **int64** | Bound is the most they can hold. It is a per-organisation bound: at it, this organisation degrades and no other one notices. | [optional] 
+**Forgotten** | Pointer to **int64** | Forgotten is how many of its own subjects have been dropped to stay inside that bound. Each one reads as inactive until it is active again. | [optional] 
 **Saturated** | Pointer to **bool** | Saturated is whether the bound is binding right now. The two counts are its evidence; this is the state to act on. | [optional] 
-**Subjects** | Pointer to **int32** | Subjects is how many of this organisation&#39;s subjects the aggregates hold. | [optional] 
+**Subjects** | Pointer to **int64** | Subjects is how many of this organisation&#39;s subjects the aggregates hold. | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetBound
 
-`func (o *RiskAggregates) GetBound() int32`
+`func (o *RiskAggregates) GetBound() int64`
 
 GetBound returns the Bound field if non-nil, zero value otherwise.
 
 ### GetBoundOk
 
-`func (o *RiskAggregates) GetBoundOk() (*int32, bool)`
+`func (o *RiskAggregates) GetBoundOk() (*int64, bool)`
 
 GetBoundOk returns a tuple with the Bound field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBound
 
-`func (o *RiskAggregates) SetBound(v int32)`
+`func (o *RiskAggregates) SetBound(v int64)`
 
 SetBound sets Bound field to given value.
 
@@ -55,20 +55,20 @@ HasBound returns a boolean if a field has been set.
 
 ### GetForgotten
 
-`func (o *RiskAggregates) GetForgotten() int32`
+`func (o *RiskAggregates) GetForgotten() int64`
 
 GetForgotten returns the Forgotten field if non-nil, zero value otherwise.
 
 ### GetForgottenOk
 
-`func (o *RiskAggregates) GetForgottenOk() (*int32, bool)`
+`func (o *RiskAggregates) GetForgottenOk() (*int64, bool)`
 
 GetForgottenOk returns a tuple with the Forgotten field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetForgotten
 
-`func (o *RiskAggregates) SetForgotten(v int32)`
+`func (o *RiskAggregates) SetForgotten(v int64)`
 
 SetForgotten sets Forgotten field to given value.
 
@@ -105,20 +105,20 @@ HasSaturated returns a boolean if a field has been set.
 
 ### GetSubjects
 
-`func (o *RiskAggregates) GetSubjects() int32`
+`func (o *RiskAggregates) GetSubjects() int64`
 
 GetSubjects returns the Subjects field if non-nil, zero value otherwise.
 
 ### GetSubjectsOk
 
-`func (o *RiskAggregates) GetSubjectsOk() (*int32, bool)`
+`func (o *RiskAggregates) GetSubjectsOk() (*int64, bool)`
 
 GetSubjectsOk returns a tuple with the Subjects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSubjects
 
-`func (o *RiskAggregates) SetSubjects(v int32)`
+`func (o *RiskAggregates) SetSubjects(v int64)`
 
 SetSubjects sets Subjects field to given value.
 

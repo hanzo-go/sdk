@@ -20,9 +20,9 @@ var _ MappedNullable = &SyncTally{}
 // SyncTally struct for SyncTally
 type SyncTally struct {
 	// Live is the number of vouchers newly posted to the live ledger.
-	Live *int32 `json:"live,omitempty"`
+	Live *int64 `json:"live,omitempty"`
 	// Sandbox is the number newly posted to the sandbox ledger.
-	Sandbox *int32 `json:"sandbox,omitempty"`
+	Sandbox *int64 `json:"sandbox,omitempty"`
 }
 
 // NewSyncTally instantiates a new SyncTally object
@@ -43,9 +43,9 @@ func NewSyncTallyWithDefaults() *SyncTally {
 }
 
 // GetLive returns the Live field value if set, zero value otherwise.
-func (o *SyncTally) GetLive() int32 {
+func (o *SyncTally) GetLive() int64 {
 	if o == nil || IsNil(o.Live) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Live
@@ -53,7 +53,7 @@ func (o *SyncTally) GetLive() int32 {
 
 // GetLiveOk returns a tuple with the Live field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SyncTally) GetLiveOk() (*int32, bool) {
+func (o *SyncTally) GetLiveOk() (*int64, bool) {
 	if o == nil || IsNil(o.Live) {
 		return nil, false
 	}
@@ -69,15 +69,15 @@ func (o *SyncTally) HasLive() bool {
 	return false
 }
 
-// SetLive gets a reference to the given int32 and assigns it to the Live field.
-func (o *SyncTally) SetLive(v int32) {
+// SetLive gets a reference to the given int64 and assigns it to the Live field.
+func (o *SyncTally) SetLive(v int64) {
 	o.Live = &v
 }
 
 // GetSandbox returns the Sandbox field value if set, zero value otherwise.
-func (o *SyncTally) GetSandbox() int32 {
+func (o *SyncTally) GetSandbox() int64 {
 	if o == nil || IsNil(o.Sandbox) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Sandbox
@@ -85,7 +85,7 @@ func (o *SyncTally) GetSandbox() int32 {
 
 // GetSandboxOk returns a tuple with the Sandbox field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SyncTally) GetSandboxOk() (*int32, bool) {
+func (o *SyncTally) GetSandboxOk() (*int64, bool) {
 	if o == nil || IsNil(o.Sandbox) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *SyncTally) HasSandbox() bool {
 	return false
 }
 
-// SetSandbox gets a reference to the given int32 and assigns it to the Sandbox field.
-func (o *SyncTally) SetSandbox(v int32) {
+// SetSandbox gets a reference to the given int64 and assigns it to the Sandbox field.
+func (o *SyncTally) SetSandbox(v int64) {
 	o.Sandbox = &v
 }
 

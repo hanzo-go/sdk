@@ -33,7 +33,7 @@ import (
 func main() {
 	target := "target_example" // string | Target narrows to one target language tag (BCP-47, e.g. \"es\" or \"pt-BR\"). (optional)
 	state := "state_example" // string | State narrows to one position on the review ladder: machine, suggested, approved or published. (optional)
-	limit := int32(56) // int32 | Limit caps the rows returned. Non-positive or unparseable means the server default (200); the ceiling is 1000. (optional)
+	limit := int64(789) // int64 | Limit caps the rows returned. Non-positive or unparseable means the server default (200); the ceiling is 1000. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **target** | **string** | Target narrows to one target language tag (BCP-47, e.g. \&quot;es\&quot; or \&quot;pt-BR\&quot;). | 
  **state** | **string** | State narrows to one position on the review ladder: machine, suggested, approved or published. | 
- **limit** | **int32** | Limit caps the rows returned. Non-positive or unparseable means the server default (200); the ceiling is 1000. | 
+ **limit** | **int64** | Limit caps the rows returned. Non-positive or unparseable means the server default (200); the ceiling is 1000. | 
 
 ### Return type
 

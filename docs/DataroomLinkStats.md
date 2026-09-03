@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **LinkId** | Pointer to **string** | LinkId is the link these counts are for. | [optional] 
 **Pages** | Pointer to [**[]DataroomPageStat**](DataroomPageStat.md) | Pages is the per-page breakdown, in page order. | [optional] 
-**TotalPageViews** | Pointer to **int32** | TotalPageViews is how many page views the link received. | [optional] 
-**TotalViews** | Pointer to **int32** | TotalViews is how many viewing sessions the link opened. | [optional] 
+**TotalPageViews** | Pointer to **int64** | TotalPageViews is how many page views the link received. | [optional] 
+**TotalViews** | Pointer to **int64** | TotalViews is how many viewing sessions the link opened. | [optional] 
 
 ## Methods
 
@@ -80,20 +80,20 @@ HasPages returns a boolean if a field has been set.
 
 ### GetTotalPageViews
 
-`func (o *DataroomLinkStats) GetTotalPageViews() int32`
+`func (o *DataroomLinkStats) GetTotalPageViews() int64`
 
 GetTotalPageViews returns the TotalPageViews field if non-nil, zero value otherwise.
 
 ### GetTotalPageViewsOk
 
-`func (o *DataroomLinkStats) GetTotalPageViewsOk() (*int32, bool)`
+`func (o *DataroomLinkStats) GetTotalPageViewsOk() (*int64, bool)`
 
 GetTotalPageViewsOk returns a tuple with the TotalPageViews field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalPageViews
 
-`func (o *DataroomLinkStats) SetTotalPageViews(v int32)`
+`func (o *DataroomLinkStats) SetTotalPageViews(v int64)`
 
 SetTotalPageViews sets TotalPageViews field to given value.
 
@@ -105,20 +105,20 @@ HasTotalPageViews returns a boolean if a field has been set.
 
 ### GetTotalViews
 
-`func (o *DataroomLinkStats) GetTotalViews() int32`
+`func (o *DataroomLinkStats) GetTotalViews() int64`
 
 GetTotalViews returns the TotalViews field if non-nil, zero value otherwise.
 
 ### GetTotalViewsOk
 
-`func (o *DataroomLinkStats) GetTotalViewsOk() (*int32, bool)`
+`func (o *DataroomLinkStats) GetTotalViewsOk() (*int64, bool)`
 
 GetTotalViewsOk returns a tuple with the TotalViews field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalViews
 
-`func (o *DataroomLinkStats) SetTotalViews(v int32)`
+`func (o *DataroomLinkStats) SetTotalViews(v int64)`
 
 SetTotalViews sets TotalViews field to given value.
 

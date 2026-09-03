@@ -24,11 +24,11 @@ type AgentRunView struct {
 	// What an operator needs to answer \"what ran, for whom, and what did it do\" — and, through traceId, to leave this record for the waterfall of the very same run rather than a search that hopefully lands near it.  Agent is on the row because the org-wide feed lists runs across agents, and a run that cannot name its agent is an orphan in exactly the view built to make sense of many of them. Every field is omitempty: a run recorded before these columns existed reports absence rather than a zero it never measured.
 	Agent *string `json:"agent,omitempty"`
 	// CompletionTokens is the same measurement for what the model produced, on the same final completion. It is a count of TOKENS, not of turns and not of money.
-	CompletionTokens *int32 `json:"completionTokens,omitempty"`
+	CompletionTokens *int64 `json:"completionTokens,omitempty"`
 	// CreatedAt is when the run finished, RFC 3339 in UTC to the second — the duration above already says how long it had been going.
 	CreatedAt *string `json:"createdAt,omitempty"`
 	// DurationMs is wall-clock milliseconds around the completion, including a failover's retries. It is time SPENT, not time billed.
-	DurationMs *int32 `json:"durationMs,omitempty"`
+	DurationMs *int64 `json:"durationMs,omitempty"`
 	// Error is why an \"ok\"-less run failed, as the failing call reported it. Empty on every successful run.
 	Error *string `json:"error,omitempty"`
 	// ID is the run's handle, minted as \"run_\" + 32 hex characters. It is the key the metering ledger records this run's per-round token spend under, so it is how a bill and a run are joined.
@@ -40,11 +40,11 @@ type AgentRunView struct {
 	// Output is what the model produced. Empty on an error run, and empty is also a legitimate answer from a run that succeeded with nothing to say — Status is what separates those.
 	Output *string `json:"output,omitempty"`
 	// PromptTokens is what the gateway reported for the run's FINAL completion, and only that one — a tool loop's earlier rounds are the metering ledger's account, joined by this run's id. Reading it as the run's total spend undercounts a loop.
-	PromptTokens *int32 `json:"promptTokens,omitempty"`
+	PromptTokens *int64 `json:"promptTokens,omitempty"`
 	// Status is the run's outcome, and there are exactly two: \"ok\" when the model answered, \"error\" when it did not. It is written when the run ends, so no row here is in flight.
 	Status *string `json:"status,omitempty"`
 	// ToolCalls is how many tool dispatches the run made — a count of ACTIONS, which is a different measurement from the token counts above and from the turns a build reports. Zero is a run that answered straight from the model.
-	ToolCalls *int32 `json:"toolCalls,omitempty"`
+	ToolCalls *int64 `json:"toolCalls,omitempty"`
 	// TraceID is the trace this run IS, so the record and its spans are one thing to move between: it opens the waterfall for THIS run rather than a search that lands near it. Empty when the process had no tracer, never a fabricated id.
 	TraceId *string `json:"traceId,omitempty"`
 }
@@ -131,9 +131,9 @@ func (o *AgentRunView) SetAgent(v string) {
 }
 
 // GetCompletionTokens returns the CompletionTokens field value if set, zero value otherwise.
-func (o *AgentRunView) GetCompletionTokens() int32 {
+func (o *AgentRunView) GetCompletionTokens() int64 {
 	if o == nil || IsNil(o.CompletionTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CompletionTokens
@@ -141,7 +141,7 @@ func (o *AgentRunView) GetCompletionTokens() int32 {
 
 // GetCompletionTokensOk returns a tuple with the CompletionTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentRunView) GetCompletionTokensOk() (*int32, bool) {
+func (o *AgentRunView) GetCompletionTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.CompletionTokens) {
 		return nil, false
 	}
@@ -157,8 +157,8 @@ func (o *AgentRunView) HasCompletionTokens() bool {
 	return false
 }
 
-// SetCompletionTokens gets a reference to the given int32 and assigns it to the CompletionTokens field.
-func (o *AgentRunView) SetCompletionTokens(v int32) {
+// SetCompletionTokens gets a reference to the given int64 and assigns it to the CompletionTokens field.
+func (o *AgentRunView) SetCompletionTokens(v int64) {
 	o.CompletionTokens = &v
 }
 
@@ -195,9 +195,9 @@ func (o *AgentRunView) SetCreatedAt(v string) {
 }
 
 // GetDurationMs returns the DurationMs field value if set, zero value otherwise.
-func (o *AgentRunView) GetDurationMs() int32 {
+func (o *AgentRunView) GetDurationMs() int64 {
 	if o == nil || IsNil(o.DurationMs) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DurationMs
@@ -205,7 +205,7 @@ func (o *AgentRunView) GetDurationMs() int32 {
 
 // GetDurationMsOk returns a tuple with the DurationMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentRunView) GetDurationMsOk() (*int32, bool) {
+func (o *AgentRunView) GetDurationMsOk() (*int64, bool) {
 	if o == nil || IsNil(o.DurationMs) {
 		return nil, false
 	}
@@ -221,8 +221,8 @@ func (o *AgentRunView) HasDurationMs() bool {
 	return false
 }
 
-// SetDurationMs gets a reference to the given int32 and assigns it to the DurationMs field.
-func (o *AgentRunView) SetDurationMs(v int32) {
+// SetDurationMs gets a reference to the given int64 and assigns it to the DurationMs field.
+func (o *AgentRunView) SetDurationMs(v int64) {
 	o.DurationMs = &v
 }
 
@@ -387,9 +387,9 @@ func (o *AgentRunView) SetOutput(v string) {
 }
 
 // GetPromptTokens returns the PromptTokens field value if set, zero value otherwise.
-func (o *AgentRunView) GetPromptTokens() int32 {
+func (o *AgentRunView) GetPromptTokens() int64 {
 	if o == nil || IsNil(o.PromptTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PromptTokens
@@ -397,7 +397,7 @@ func (o *AgentRunView) GetPromptTokens() int32 {
 
 // GetPromptTokensOk returns a tuple with the PromptTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentRunView) GetPromptTokensOk() (*int32, bool) {
+func (o *AgentRunView) GetPromptTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.PromptTokens) {
 		return nil, false
 	}
@@ -413,8 +413,8 @@ func (o *AgentRunView) HasPromptTokens() bool {
 	return false
 }
 
-// SetPromptTokens gets a reference to the given int32 and assigns it to the PromptTokens field.
-func (o *AgentRunView) SetPromptTokens(v int32) {
+// SetPromptTokens gets a reference to the given int64 and assigns it to the PromptTokens field.
+func (o *AgentRunView) SetPromptTokens(v int64) {
 	o.PromptTokens = &v
 }
 
@@ -451,9 +451,9 @@ func (o *AgentRunView) SetStatus(v string) {
 }
 
 // GetToolCalls returns the ToolCalls field value if set, zero value otherwise.
-func (o *AgentRunView) GetToolCalls() int32 {
+func (o *AgentRunView) GetToolCalls() int64 {
 	if o == nil || IsNil(o.ToolCalls) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ToolCalls
@@ -461,7 +461,7 @@ func (o *AgentRunView) GetToolCalls() int32 {
 
 // GetToolCallsOk returns a tuple with the ToolCalls field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentRunView) GetToolCallsOk() (*int32, bool) {
+func (o *AgentRunView) GetToolCallsOk() (*int64, bool) {
 	if o == nil || IsNil(o.ToolCalls) {
 		return nil, false
 	}
@@ -477,8 +477,8 @@ func (o *AgentRunView) HasToolCalls() bool {
 	return false
 }
 
-// SetToolCalls gets a reference to the given int32 and assigns it to the ToolCalls field.
-func (o *AgentRunView) SetToolCalls(v int32) {
+// SetToolCalls gets a reference to the given int64 and assigns it to the ToolCalls field.
+func (o *AgentRunView) SetToolCalls(v int64) {
 	o.ToolCalls = &v
 }
 

@@ -26,9 +26,9 @@ type ObjectItem struct {
 	// key RELATIVE to the requested prefix
 	Key *string `json:"key,omitempty"`
 	// unix seconds (0 for a folder)
-	LastModified *int32 `json:"lastModified,omitempty"`
+	LastModified *int64 `json:"lastModified,omitempty"`
 	// bytes (0 for a folder)
-	Size *int32 `json:"size,omitempty"`
+	Size *int64 `json:"size,omitempty"`
 }
 
 // NewObjectItem instantiates a new ObjectItem object
@@ -145,9 +145,9 @@ func (o *ObjectItem) SetKey(v string) {
 }
 
 // GetLastModified returns the LastModified field value if set, zero value otherwise.
-func (o *ObjectItem) GetLastModified() int32 {
+func (o *ObjectItem) GetLastModified() int64 {
 	if o == nil || IsNil(o.LastModified) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.LastModified
@@ -155,7 +155,7 @@ func (o *ObjectItem) GetLastModified() int32 {
 
 // GetLastModifiedOk returns a tuple with the LastModified field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ObjectItem) GetLastModifiedOk() (*int32, bool) {
+func (o *ObjectItem) GetLastModifiedOk() (*int64, bool) {
 	if o == nil || IsNil(o.LastModified) {
 		return nil, false
 	}
@@ -171,15 +171,15 @@ func (o *ObjectItem) HasLastModified() bool {
 	return false
 }
 
-// SetLastModified gets a reference to the given int32 and assigns it to the LastModified field.
-func (o *ObjectItem) SetLastModified(v int32) {
+// SetLastModified gets a reference to the given int64 and assigns it to the LastModified field.
+func (o *ObjectItem) SetLastModified(v int64) {
 	o.LastModified = &v
 }
 
 // GetSize returns the Size field value if set, zero value otherwise.
-func (o *ObjectItem) GetSize() int32 {
+func (o *ObjectItem) GetSize() int64 {
 	if o == nil || IsNil(o.Size) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Size
@@ -187,7 +187,7 @@ func (o *ObjectItem) GetSize() int32 {
 
 // GetSizeOk returns a tuple with the Size field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ObjectItem) GetSizeOk() (*int32, bool) {
+func (o *ObjectItem) GetSizeOk() (*int64, bool) {
 	if o == nil || IsNil(o.Size) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *ObjectItem) HasSize() bool {
 	return false
 }
 
-// SetSize gets a reference to the given int32 and assigns it to the Size field.
-func (o *ObjectItem) SetSize(v int32) {
+// SetSize gets a reference to the given int64 and assigns it to the Size field.
+func (o *ObjectItem) SetSize(v int64) {
 	o.Size = &v
 }
 

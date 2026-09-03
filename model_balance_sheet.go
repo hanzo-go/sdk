@@ -30,11 +30,11 @@ type BalanceSheet struct {
 	// Liabilities are what the org OWES — including customers' unspent prepaid credit, which is their money until it is consumed and so is carried here rather than counted as revenue.
 	Liabilities []BalanceLine `json:"liabilities,omitempty"`
 	// TotalAssets is the sum of the asset lines, in cents.
-	TotalAssets *int32 `json:"totalAssets,omitempty"`
+	TotalAssets *int64 `json:"totalAssets,omitempty"`
 	// TotalEquity is the sum of the equity lines including retained earnings, in cents.
-	TotalEquity *int32 `json:"totalEquity,omitempty"`
+	TotalEquity *int64 `json:"totalEquity,omitempty"`
 	// TotalLiabilities is the sum of the liability lines, in cents.
-	TotalLiabilities *int32 `json:"totalLiabilities,omitempty"`
+	TotalLiabilities *int64 `json:"totalLiabilities,omitempty"`
 }
 
 // NewBalanceSheet instantiates a new BalanceSheet object
@@ -215,9 +215,9 @@ func (o *BalanceSheet) SetLiabilities(v []BalanceLine) {
 }
 
 // GetTotalAssets returns the TotalAssets field value if set, zero value otherwise.
-func (o *BalanceSheet) GetTotalAssets() int32 {
+func (o *BalanceSheet) GetTotalAssets() int64 {
 	if o == nil || IsNil(o.TotalAssets) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalAssets
@@ -225,7 +225,7 @@ func (o *BalanceSheet) GetTotalAssets() int32 {
 
 // GetTotalAssetsOk returns a tuple with the TotalAssets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BalanceSheet) GetTotalAssetsOk() (*int32, bool) {
+func (o *BalanceSheet) GetTotalAssetsOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalAssets) {
 		return nil, false
 	}
@@ -241,15 +241,15 @@ func (o *BalanceSheet) HasTotalAssets() bool {
 	return false
 }
 
-// SetTotalAssets gets a reference to the given int32 and assigns it to the TotalAssets field.
-func (o *BalanceSheet) SetTotalAssets(v int32) {
+// SetTotalAssets gets a reference to the given int64 and assigns it to the TotalAssets field.
+func (o *BalanceSheet) SetTotalAssets(v int64) {
 	o.TotalAssets = &v
 }
 
 // GetTotalEquity returns the TotalEquity field value if set, zero value otherwise.
-func (o *BalanceSheet) GetTotalEquity() int32 {
+func (o *BalanceSheet) GetTotalEquity() int64 {
 	if o == nil || IsNil(o.TotalEquity) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalEquity
@@ -257,7 +257,7 @@ func (o *BalanceSheet) GetTotalEquity() int32 {
 
 // GetTotalEquityOk returns a tuple with the TotalEquity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BalanceSheet) GetTotalEquityOk() (*int32, bool) {
+func (o *BalanceSheet) GetTotalEquityOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalEquity) {
 		return nil, false
 	}
@@ -273,15 +273,15 @@ func (o *BalanceSheet) HasTotalEquity() bool {
 	return false
 }
 
-// SetTotalEquity gets a reference to the given int32 and assigns it to the TotalEquity field.
-func (o *BalanceSheet) SetTotalEquity(v int32) {
+// SetTotalEquity gets a reference to the given int64 and assigns it to the TotalEquity field.
+func (o *BalanceSheet) SetTotalEquity(v int64) {
 	o.TotalEquity = &v
 }
 
 // GetTotalLiabilities returns the TotalLiabilities field value if set, zero value otherwise.
-func (o *BalanceSheet) GetTotalLiabilities() int32 {
+func (o *BalanceSheet) GetTotalLiabilities() int64 {
 	if o == nil || IsNil(o.TotalLiabilities) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalLiabilities
@@ -289,7 +289,7 @@ func (o *BalanceSheet) GetTotalLiabilities() int32 {
 
 // GetTotalLiabilitiesOk returns a tuple with the TotalLiabilities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BalanceSheet) GetTotalLiabilitiesOk() (*int32, bool) {
+func (o *BalanceSheet) GetTotalLiabilitiesOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalLiabilities) {
 		return nil, false
 	}
@@ -305,8 +305,8 @@ func (o *BalanceSheet) HasTotalLiabilities() bool {
 	return false
 }
 
-// SetTotalLiabilities gets a reference to the given int32 and assigns it to the TotalLiabilities field.
-func (o *BalanceSheet) SetTotalLiabilities(v int32) {
+// SetTotalLiabilities gets a reference to the given int64 and assigns it to the TotalLiabilities field.
+func (o *BalanceSheet) SetTotalLiabilities(v int64) {
 	o.TotalLiabilities = &v
 }
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Delay** | Pointer to **int32** | Delay is how long to wait before retrying, in nanoseconds. | [optional] 
+**Delay** | Pointer to **int64** | Delay is how long to wait before retrying, in nanoseconds. | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetDelay
 
-`func (o *O11yO11yRetry) GetDelay() int32`
+`func (o *O11yO11yRetry) GetDelay() int64`
 
 GetDelay returns the Delay field if non-nil, zero value otherwise.
 
 ### GetDelayOk
 
-`func (o *O11yO11yRetry) GetDelayOk() (*int32, bool)`
+`func (o *O11yO11yRetry) GetDelayOk() (*int64, bool)`
 
 GetDelayOk returns a tuple with the Delay field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDelay
 
-`func (o *O11yO11yRetry) SetDelay(v int32)`
+`func (o *O11yO11yRetry) SetDelay(v int64)`
 
 SetDelay sets Delay field to given value.
 

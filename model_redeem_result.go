@@ -22,9 +22,9 @@ type RedeemResult struct {
 	// AlreadyRedeemed is true when this org had already taken the promo and the call was an idempotent replay.
 	AlreadyRedeemed *bool `json:"alreadyRedeemed,omitempty"`
 	// ChargeCents is what month one costs after the discount, DiscountCents the discount that produced it. Both are quoted figures against the org's derived plan — NOTHING WAS CREDITED and no wallet moved.
-	ChargeCents *int32 `json:"chargeCents,omitempty"`
+	ChargeCents *int64 `json:"chargeCents,omitempty"`
 	// DiscountCents is the discount claimed for month one, in USD cents, at the single-seat floor. It is the same figure recorded on the Redemption, and it is evidence an admin may later grant against — not a balance.
-	DiscountCents *int32 `json:"discountCents,omitempty"`
+	DiscountCents *int64 `json:"discountCents,omitempty"`
 	// Redemption is the row that was recorded — the org's claim on this promo, with the server-derived plan and seat count. On a replay it is the ORIGINAL row, so its redeemedAt is when the org first took the promo, not now.
 	Redemption *Redemption `json:"redemption,omitempty"`
 }
@@ -79,9 +79,9 @@ func (o *RedeemResult) SetAlreadyRedeemed(v bool) {
 }
 
 // GetChargeCents returns the ChargeCents field value if set, zero value otherwise.
-func (o *RedeemResult) GetChargeCents() int32 {
+func (o *RedeemResult) GetChargeCents() int64 {
 	if o == nil || IsNil(o.ChargeCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ChargeCents
@@ -89,7 +89,7 @@ func (o *RedeemResult) GetChargeCents() int32 {
 
 // GetChargeCentsOk returns a tuple with the ChargeCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RedeemResult) GetChargeCentsOk() (*int32, bool) {
+func (o *RedeemResult) GetChargeCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.ChargeCents) {
 		return nil, false
 	}
@@ -105,15 +105,15 @@ func (o *RedeemResult) HasChargeCents() bool {
 	return false
 }
 
-// SetChargeCents gets a reference to the given int32 and assigns it to the ChargeCents field.
-func (o *RedeemResult) SetChargeCents(v int32) {
+// SetChargeCents gets a reference to the given int64 and assigns it to the ChargeCents field.
+func (o *RedeemResult) SetChargeCents(v int64) {
 	o.ChargeCents = &v
 }
 
 // GetDiscountCents returns the DiscountCents field value if set, zero value otherwise.
-func (o *RedeemResult) GetDiscountCents() int32 {
+func (o *RedeemResult) GetDiscountCents() int64 {
 	if o == nil || IsNil(o.DiscountCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DiscountCents
@@ -121,7 +121,7 @@ func (o *RedeemResult) GetDiscountCents() int32 {
 
 // GetDiscountCentsOk returns a tuple with the DiscountCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RedeemResult) GetDiscountCentsOk() (*int32, bool) {
+func (o *RedeemResult) GetDiscountCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.DiscountCents) {
 		return nil, false
 	}
@@ -137,8 +137,8 @@ func (o *RedeemResult) HasDiscountCents() bool {
 	return false
 }
 
-// SetDiscountCents gets a reference to the given int32 and assigns it to the DiscountCents field.
-func (o *RedeemResult) SetDiscountCents(v int32) {
+// SetDiscountCents gets a reference to the given int64 and assigns it to the DiscountCents field.
+func (o *RedeemResult) SetDiscountCents(v int64) {
 	o.DiscountCents = &v
 }
 

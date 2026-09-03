@@ -19,7 +19,7 @@ var _ MappedNullable = &LicensingRevocationEntry{}
 
 // LicensingRevocationEntry struct for LicensingRevocationEntry
 type LicensingRevocationEntry struct {
-	At     *int32  `json:"at,omitempty"`
+	At     *int64  `json:"at,omitempty"`
 	By     *string `json:"by,omitempty"`
 	Reason *string `json:"reason,omitempty"`
 	Scope  *string `json:"scope,omitempty"`
@@ -44,9 +44,9 @@ func NewLicensingRevocationEntryWithDefaults() *LicensingRevocationEntry {
 }
 
 // GetAt returns the At field value if set, zero value otherwise.
-func (o *LicensingRevocationEntry) GetAt() int32 {
+func (o *LicensingRevocationEntry) GetAt() int64 {
 	if o == nil || IsNil(o.At) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.At
@@ -54,7 +54,7 @@ func (o *LicensingRevocationEntry) GetAt() int32 {
 
 // GetAtOk returns a tuple with the At field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LicensingRevocationEntry) GetAtOk() (*int32, bool) {
+func (o *LicensingRevocationEntry) GetAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.At) {
 		return nil, false
 	}
@@ -70,8 +70,8 @@ func (o *LicensingRevocationEntry) HasAt() bool {
 	return false
 }
 
-// SetAt gets a reference to the given int32 and assigns it to the At field.
-func (o *LicensingRevocationEntry) SetAt(v int32) {
+// SetAt gets a reference to the given int64 and assigns it to the At field.
+func (o *LicensingRevocationEntry) SetAt(v int64) {
 	o.At = &v
 }
 

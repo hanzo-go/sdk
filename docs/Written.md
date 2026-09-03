@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | ID is the record&#39;s id — the one supplied, or the one minted when the caller supplied none. | [optional] 
 **Kind** | Pointer to **string** | Kind is the section written. | [optional] 
-**Updated** | Pointer to **int32** | Updated is when it was written, unix milliseconds. | [optional] 
+**Updated** | Pointer to **int64** | Updated is when it was written, unix milliseconds. | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasKind returns a boolean if a field has been set.
 
 ### GetUpdated
 
-`func (o *Written) GetUpdated() int32`
+`func (o *Written) GetUpdated() int64`
 
 GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
 ### GetUpdatedOk
 
-`func (o *Written) GetUpdatedOk() (*int32, bool)`
+`func (o *Written) GetUpdatedOk() (*int64, bool)`
 
 GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdated
 
-`func (o *Written) SetUpdated(v int32)`
+`func (o *Written) SetUpdated(v int64)`
 
 SetUpdated sets Updated field to given value.
 

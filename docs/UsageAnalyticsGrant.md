@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Datastore** | Pointer to **bool** | Datastore is whether the plan may read GET /v1/usage/analytics at all. The free floor is false, and that is what a catalog outage resolves to. | [optional] 
 **Export** | Pointer to **bool** | Export is whether the plan may export the analytics it can read. | [optional] 
-**RetentionDays** | Pointer to **int32** | RetentionDays is how far back the plan may read. GET /v1/usage/analytics clamps a custom window&#39;s start to this, so an older &#x60;start&#x60; returns the clamped window rather than an error. | [optional] 
+**RetentionDays** | Pointer to **int64** | RetentionDays is how far back the plan may read. GET /v1/usage/analytics clamps a custom window&#39;s start to this, so an older &#x60;start&#x60; returns the clamped window rather than an error. | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasExport returns a boolean if a field has been set.
 
 ### GetRetentionDays
 
-`func (o *UsageAnalyticsGrant) GetRetentionDays() int32`
+`func (o *UsageAnalyticsGrant) GetRetentionDays() int64`
 
 GetRetentionDays returns the RetentionDays field if non-nil, zero value otherwise.
 
 ### GetRetentionDaysOk
 
-`func (o *UsageAnalyticsGrant) GetRetentionDaysOk() (*int32, bool)`
+`func (o *UsageAnalyticsGrant) GetRetentionDaysOk() (*int64, bool)`
 
 GetRetentionDaysOk returns a tuple with the RetentionDays field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRetentionDays
 
-`func (o *UsageAnalyticsGrant) SetRetentionDays(v int32)`
+`func (o *UsageAnalyticsGrant) SetRetentionDays(v int64)`
 
 SetRetentionDays sets RetentionDays field to given value.
 

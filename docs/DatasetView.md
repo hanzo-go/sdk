@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreatedAt** | Pointer to **string** | CreatedAt is when the name was first written, kept across later edits. | [optional] 
 **Description** | Pointer to **string** | Description is free text the org wrote about what this set measures. | [optional] 
-**Items** | Pointer to **int32** | Items is how many examples the set holds. It is filled only by the single read — a listing does not count, so it is absent there rather than zero. | [optional] 
+**Items** | Pointer to **int64** | Items is how many examples the set holds. It is filled only by the single read — a listing does not count, so it is absent there rather than zero. | [optional] 
 **Metadata** | Pointer to **map[string]map[string]interface{}** | Metadata is the free-form object stored with the set, echoed back verbatim. | [optional] 
 **Name** | Pointer to **string** | Name is the dataset&#39;s org-unique handle and the segment that addresses it. | [optional] 
 **UpdatedAt** | Pointer to **string** | UpdatedAt is when the description or metadata last changed. | [optional] 
@@ -82,20 +82,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetItems
 
-`func (o *DatasetView) GetItems() int32`
+`func (o *DatasetView) GetItems() int64`
 
 GetItems returns the Items field if non-nil, zero value otherwise.
 
 ### GetItemsOk
 
-`func (o *DatasetView) GetItemsOk() (*int32, bool)`
+`func (o *DatasetView) GetItemsOk() (*int64, bool)`
 
 GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItems
 
-`func (o *DatasetView) SetItems(v int32)`
+`func (o *DatasetView) SetItems(v int64)`
 
 SetItems sets Items field to given value.
 

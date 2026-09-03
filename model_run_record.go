@@ -20,13 +20,13 @@ var _ MappedNullable = &RunRecord{}
 // RunRecord struct for RunRecord
 type RunRecord struct {
 	// AvgScore is the mean over the scored examples.
-	AvgScore *float32 `json:"avgScore,omitempty"`
+	AvgScore *float64 `json:"avgScore,omitempty"`
 	// CreatedAt is when the run first landed.
 	CreatedAt *string `json:"createdAt,omitempty"`
 	// Dataset is the set that was scored.
 	Dataset *string `json:"dataset,omitempty"`
 	// Items is how many examples were attempted.
-	Items *int32 `json:"items,omitempty"`
+	Items *int64 `json:"items,omitempty"`
 	// JudgeModel is the model that graded.
 	JudgeModel *string `json:"judgeModel,omitempty"`
 	// Model is the model under test.
@@ -34,7 +34,7 @@ type RunRecord struct {
 	// RunName is the run's label.
 	RunName *string `json:"runName,omitempty"`
 	// Scored is how many produced a real score.
-	Scored *int32 `json:"scored,omitempty"`
+	Scored *int64 `json:"scored,omitempty"`
 	// UpdatedAt is when the record last changed.
 	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
@@ -57,9 +57,9 @@ func NewRunRecordWithDefaults() *RunRecord {
 }
 
 // GetAvgScore returns the AvgScore field value if set, zero value otherwise.
-func (o *RunRecord) GetAvgScore() float32 {
+func (o *RunRecord) GetAvgScore() float64 {
 	if o == nil || IsNil(o.AvgScore) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.AvgScore
@@ -67,7 +67,7 @@ func (o *RunRecord) GetAvgScore() float32 {
 
 // GetAvgScoreOk returns a tuple with the AvgScore field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RunRecord) GetAvgScoreOk() (*float32, bool) {
+func (o *RunRecord) GetAvgScoreOk() (*float64, bool) {
 	if o == nil || IsNil(o.AvgScore) {
 		return nil, false
 	}
@@ -83,8 +83,8 @@ func (o *RunRecord) HasAvgScore() bool {
 	return false
 }
 
-// SetAvgScore gets a reference to the given float32 and assigns it to the AvgScore field.
-func (o *RunRecord) SetAvgScore(v float32) {
+// SetAvgScore gets a reference to the given float64 and assigns it to the AvgScore field.
+func (o *RunRecord) SetAvgScore(v float64) {
 	o.AvgScore = &v
 }
 
@@ -153,9 +153,9 @@ func (o *RunRecord) SetDataset(v string) {
 }
 
 // GetItems returns the Items field value if set, zero value otherwise.
-func (o *RunRecord) GetItems() int32 {
+func (o *RunRecord) GetItems() int64 {
 	if o == nil || IsNil(o.Items) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Items
@@ -163,7 +163,7 @@ func (o *RunRecord) GetItems() int32 {
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RunRecord) GetItemsOk() (*int32, bool) {
+func (o *RunRecord) GetItemsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
@@ -179,8 +179,8 @@ func (o *RunRecord) HasItems() bool {
 	return false
 }
 
-// SetItems gets a reference to the given int32 and assigns it to the Items field.
-func (o *RunRecord) SetItems(v int32) {
+// SetItems gets a reference to the given int64 and assigns it to the Items field.
+func (o *RunRecord) SetItems(v int64) {
 	o.Items = &v
 }
 
@@ -281,9 +281,9 @@ func (o *RunRecord) SetRunName(v string) {
 }
 
 // GetScored returns the Scored field value if set, zero value otherwise.
-func (o *RunRecord) GetScored() int32 {
+func (o *RunRecord) GetScored() int64 {
 	if o == nil || IsNil(o.Scored) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Scored
@@ -291,7 +291,7 @@ func (o *RunRecord) GetScored() int32 {
 
 // GetScoredOk returns a tuple with the Scored field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RunRecord) GetScoredOk() (*int32, bool) {
+func (o *RunRecord) GetScoredOk() (*int64, bool) {
 	if o == nil || IsNil(o.Scored) {
 		return nil, false
 	}
@@ -307,8 +307,8 @@ func (o *RunRecord) HasScored() bool {
 	return false
 }
 
-// SetScored gets a reference to the given int32 and assigns it to the Scored field.
-func (o *RunRecord) SetScored(v int32) {
+// SetScored gets a reference to the given int64 and assigns it to the Scored field.
+func (o *RunRecord) SetScored(v int64) {
 	o.Scored = &v
 }
 

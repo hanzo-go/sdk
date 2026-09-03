@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **MaxAge** | Pointer to **string** | MaxAge caps message age, e.g. \&quot;24h\&quot; or \&quot;7d\&quot;; \&quot;0\&quot; (default) is unlimited. | [optional] 
-**MaxBytes** | Pointer to **int32** | MaxBytes caps the stream&#39;s total stored bytes; -1 (default) is unlimited. | [optional] 
+**MaxBytes** | Pointer to **int64** | MaxBytes caps the stream&#39;s total stored bytes; -1 (default) is unlimited. | [optional] 
 **MaxMsgSize** | Pointer to **int32** | MaxMsgSize caps one message&#39;s size in bytes; -1 (default) is the broker&#39;s limit. | [optional] 
-**MaxMsgs** | Pointer to **int32** | MaxMsgs caps the number of stored messages; -1 (default) is unlimited. | [optional] 
+**MaxMsgs** | Pointer to **int64** | MaxMsgs caps the number of stored messages; -1 (default) is unlimited. | [optional] 
 **Name** | Pointer to **string** | Name is the stream name, unique within the org (alphanumeric, hyphens, underscores). | [optional] 
-**NumReplicas** | Pointer to **int32** | Replicas is the number of stream replicas (1–5); this plane runs 1. | [optional] 
+**NumReplicas** | Pointer to **int64** | Replicas is the number of stream replicas (1–5); this plane runs 1. | [optional] 
 **Retention** | Pointer to **string** | Retention is the retention policy: limits (default), interest, or workqueue. | [optional] 
 **Storage** | Pointer to **string** | Storage is the storage backend: file (default) or memory. | [optional] 
 **Subjects** | Pointer to **[]string** | Subjects are the org-relative subjects bound to this stream (wildcards supported). Default: the stream name. | [optional] 
@@ -60,20 +60,20 @@ HasMaxAge returns a boolean if a field has been set.
 
 ### GetMaxBytes
 
-`func (o *StreamConfig) GetMaxBytes() int32`
+`func (o *StreamConfig) GetMaxBytes() int64`
 
 GetMaxBytes returns the MaxBytes field if non-nil, zero value otherwise.
 
 ### GetMaxBytesOk
 
-`func (o *StreamConfig) GetMaxBytesOk() (*int32, bool)`
+`func (o *StreamConfig) GetMaxBytesOk() (*int64, bool)`
 
 GetMaxBytesOk returns a tuple with the MaxBytes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxBytes
 
-`func (o *StreamConfig) SetMaxBytes(v int32)`
+`func (o *StreamConfig) SetMaxBytes(v int64)`
 
 SetMaxBytes sets MaxBytes field to given value.
 
@@ -110,20 +110,20 @@ HasMaxMsgSize returns a boolean if a field has been set.
 
 ### GetMaxMsgs
 
-`func (o *StreamConfig) GetMaxMsgs() int32`
+`func (o *StreamConfig) GetMaxMsgs() int64`
 
 GetMaxMsgs returns the MaxMsgs field if non-nil, zero value otherwise.
 
 ### GetMaxMsgsOk
 
-`func (o *StreamConfig) GetMaxMsgsOk() (*int32, bool)`
+`func (o *StreamConfig) GetMaxMsgsOk() (*int64, bool)`
 
 GetMaxMsgsOk returns a tuple with the MaxMsgs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxMsgs
 
-`func (o *StreamConfig) SetMaxMsgs(v int32)`
+`func (o *StreamConfig) SetMaxMsgs(v int64)`
 
 SetMaxMsgs sets MaxMsgs field to given value.
 
@@ -160,20 +160,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetNumReplicas
 
-`func (o *StreamConfig) GetNumReplicas() int32`
+`func (o *StreamConfig) GetNumReplicas() int64`
 
 GetNumReplicas returns the NumReplicas field if non-nil, zero value otherwise.
 
 ### GetNumReplicasOk
 
-`func (o *StreamConfig) GetNumReplicasOk() (*int32, bool)`
+`func (o *StreamConfig) GetNumReplicasOk() (*int64, bool)`
 
 GetNumReplicasOk returns a tuple with the NumReplicas field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumReplicas
 
-`func (o *StreamConfig) SetNumReplicas(v int32)`
+`func (o *StreamConfig) SetNumReplicas(v int64)`
 
 SetNumReplicas sets NumReplicas field to given value.
 

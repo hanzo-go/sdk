@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Domain** | **string** | Domain is the name to extend. It is required, and the caller&#39;s org must hold it. | 
-**Years** | Pointer to **int32** | Years is how much longer to hold it, defaulting to 1. | [optional] 
+**Years** | Pointer to **int64** | Years is how much longer to hold it, defaulting to 1. | [optional] 
 
 ## Methods
 
@@ -48,20 +48,20 @@ SetDomain sets Domain field to given value.
 
 ### GetYears
 
-`func (o *RenewReq) GetYears() int32`
+`func (o *RenewReq) GetYears() int64`
 
 GetYears returns the Years field if non-nil, zero value otherwise.
 
 ### GetYearsOk
 
-`func (o *RenewReq) GetYearsOk() (*int32, bool)`
+`func (o *RenewReq) GetYearsOk() (*int64, bool)`
 
 GetYearsOk returns a tuple with the Years field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetYears
 
-`func (o *RenewReq) SetYears(v int32)`
+`func (o *RenewReq) SetYears(v int64)`
 
 SetYears sets Years field to given value.
 

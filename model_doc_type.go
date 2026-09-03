@@ -20,7 +20,7 @@ var _ MappedNullable = &DocType{}
 // DocType struct for DocType
 type DocType struct {
 	Autoname      *string    `json:"autoname,omitempty"`
-	CreatedAt     *int32     `json:"createdAt,omitempty"`
+	CreatedAt     *int64     `json:"createdAt,omitempty"`
 	Fields        []DocField `json:"fields,omitempty"`
 	IsSingle      *bool      `json:"isSingle,omitempty"`
 	IsSubmittable *bool      `json:"isSubmittable,omitempty"`
@@ -28,7 +28,7 @@ type DocType struct {
 	Name          *string    `json:"name,omitempty"`
 	Permissions   []DocPerm  `json:"permissions,omitempty"`
 	TitleField    *string    `json:"titleField,omitempty"`
-	UpdatedAt     *int32     `json:"updatedAt,omitempty"`
+	UpdatedAt     *int64     `json:"updatedAt,omitempty"`
 }
 
 // NewDocType instantiates a new DocType object
@@ -81,9 +81,9 @@ func (o *DocType) SetAutoname(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *DocType) GetCreatedAt() int32 {
+func (o *DocType) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -91,7 +91,7 @@ func (o *DocType) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DocType) GetCreatedAtOk() (*int32, bool) {
+func (o *DocType) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -107,8 +107,8 @@ func (o *DocType) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *DocType) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *DocType) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -337,9 +337,9 @@ func (o *DocType) SetTitleField(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *DocType) GetUpdatedAt() int32 {
+func (o *DocType) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -347,7 +347,7 @@ func (o *DocType) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DocType) GetUpdatedAtOk() (*int32, bool) {
+func (o *DocType) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -363,8 +363,8 @@ func (o *DocType) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *DocType) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *DocType) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

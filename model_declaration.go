@@ -37,7 +37,7 @@ type Declaration struct {
 	Path *string `json:"path,omitempty"`
 	// Project is the AppProject the sync is admitted under, derived from the directory exactly as the ApplicationSet derives it. It differs from Org for a reserved directory, which syncs under the platform fence.
 	Project  *string `json:"project,omitempty"`
-	Replicas *int32  `json:"replicas,omitempty"`
+	Replicas *int64  `json:"replicas,omitempty"`
 	// image.repository
 	Repository *string `json:"repository,omitempty"`
 	// image.tag
@@ -350,9 +350,9 @@ func (o *Declaration) SetProject(v string) {
 }
 
 // GetReplicas returns the Replicas field value if set, zero value otherwise.
-func (o *Declaration) GetReplicas() int32 {
+func (o *Declaration) GetReplicas() int64 {
 	if o == nil || IsNil(o.Replicas) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Replicas
@@ -360,7 +360,7 @@ func (o *Declaration) GetReplicas() int32 {
 
 // GetReplicasOk returns a tuple with the Replicas field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Declaration) GetReplicasOk() (*int32, bool) {
+func (o *Declaration) GetReplicasOk() (*int64, bool) {
 	if o == nil || IsNil(o.Replicas) {
 		return nil, false
 	}
@@ -376,8 +376,8 @@ func (o *Declaration) HasReplicas() bool {
 	return false
 }
 
-// SetReplicas gets a reference to the given int32 and assigns it to the Replicas field.
-func (o *Declaration) SetReplicas(v int32) {
+// SetReplicas gets a reference to the given int64 and assigns it to the Replicas field.
+func (o *Declaration) SetReplicas(v int64) {
 	o.Replicas = &v
 }
 

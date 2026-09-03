@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Bytes** | Pointer to **int32** | Bytes is the total stored size. | [optional] 
-**ConsumerCount** | Pointer to **int32** | Consumers is the number of consumers attached to this stream. | [optional] 
+**ConsumerCount** | Pointer to **int64** | Consumers is the number of consumers attached to this stream. | [optional] 
 **FirstSeq** | Pointer to **int32** | FirstSeq is the sequence of the first stored message. | [optional] 
 **FirstTs** | Pointer to **time.Time** | FirstTS is the timestamp of the first stored message. | [optional] 
 **LastSeq** | Pointer to **int32** | LastSeq is the sequence of the last stored message. | [optional] 
 **LastTs** | Pointer to **time.Time** | LastTS is the timestamp of the last stored message. | [optional] 
 **Messages** | Pointer to **int32** | Messages is the number of messages currently stored. | [optional] 
-**NumDeleted** | Pointer to **int32** | Deleted is the number of deleted messages (sequence gaps). | [optional] 
+**NumDeleted** | Pointer to **int64** | Deleted is the number of deleted messages (sequence gaps). | [optional] 
 **NumSubjects** | Pointer to **int32** | Subjects is the number of distinct subjects stored. | [optional] 
 
 ## Methods
@@ -60,20 +60,20 @@ HasBytes returns a boolean if a field has been set.
 
 ### GetConsumerCount
 
-`func (o *State) GetConsumerCount() int32`
+`func (o *State) GetConsumerCount() int64`
 
 GetConsumerCount returns the ConsumerCount field if non-nil, zero value otherwise.
 
 ### GetConsumerCountOk
 
-`func (o *State) GetConsumerCountOk() (*int32, bool)`
+`func (o *State) GetConsumerCountOk() (*int64, bool)`
 
 GetConsumerCountOk returns a tuple with the ConsumerCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConsumerCount
 
-`func (o *State) SetConsumerCount(v int32)`
+`func (o *State) SetConsumerCount(v int64)`
 
 SetConsumerCount sets ConsumerCount field to given value.
 
@@ -210,20 +210,20 @@ HasMessages returns a boolean if a field has been set.
 
 ### GetNumDeleted
 
-`func (o *State) GetNumDeleted() int32`
+`func (o *State) GetNumDeleted() int64`
 
 GetNumDeleted returns the NumDeleted field if non-nil, zero value otherwise.
 
 ### GetNumDeletedOk
 
-`func (o *State) GetNumDeletedOk() (*int32, bool)`
+`func (o *State) GetNumDeletedOk() (*int64, bool)`
 
 GetNumDeletedOk returns a tuple with the NumDeleted field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumDeleted
 
-`func (o *State) SetNumDeleted(v int32)`
+`func (o *State) SetNumDeleted(v int64)`
 
 SetNumDeleted sets NumDeleted field to given value.
 

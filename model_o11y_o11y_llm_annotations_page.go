@@ -22,11 +22,11 @@ type O11yO11yLLMAnnotationsPage struct {
 	// Items are the annotations, newest first.
 	Items []O11yO11yLLMAnnotation `json:"items,omitempty"`
 	// Limit is the page cap the read ran with.
-	Limit *int32 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 	// Offset is the row offset this page started at.
-	Offset *int32 `json:"offset,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
 	// Total is how many annotations match, across all pages.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 }
 
 // NewO11yO11yLLMAnnotationsPage instantiates a new O11yO11yLLMAnnotationsPage object
@@ -79,9 +79,9 @@ func (o *O11yO11yLLMAnnotationsPage) SetItems(v []O11yO11yLLMAnnotation) {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *O11yO11yLLMAnnotationsPage) GetLimit() int32 {
+func (o *O11yO11yLLMAnnotationsPage) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -89,7 +89,7 @@ func (o *O11yO11yLLMAnnotationsPage) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLLMAnnotationsPage) GetLimitOk() (*int32, bool) {
+func (o *O11yO11yLLMAnnotationsPage) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -105,15 +105,15 @@ func (o *O11yO11yLLMAnnotationsPage) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *O11yO11yLLMAnnotationsPage) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *O11yO11yLLMAnnotationsPage) SetLimit(v int64) {
 	o.Limit = &v
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
-func (o *O11yO11yLLMAnnotationsPage) GetOffset() int32 {
+func (o *O11yO11yLLMAnnotationsPage) GetOffset() int64 {
 	if o == nil || IsNil(o.Offset) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Offset
@@ -121,7 +121,7 @@ func (o *O11yO11yLLMAnnotationsPage) GetOffset() int32 {
 
 // GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLLMAnnotationsPage) GetOffsetOk() (*int32, bool) {
+func (o *O11yO11yLLMAnnotationsPage) GetOffsetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Offset) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *O11yO11yLLMAnnotationsPage) HasOffset() bool {
 	return false
 }
 
-// SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *O11yO11yLLMAnnotationsPage) SetOffset(v int32) {
+// SetOffset gets a reference to the given int64 and assigns it to the Offset field.
+func (o *O11yO11yLLMAnnotationsPage) SetOffset(v int64) {
 	o.Offset = &v
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *O11yO11yLLMAnnotationsPage) GetTotal() int32 {
+func (o *O11yO11yLLMAnnotationsPage) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -153,7 +153,7 @@ func (o *O11yO11yLLMAnnotationsPage) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLLMAnnotationsPage) GetTotalOk() (*int32, bool) {
+func (o *O11yO11yLLMAnnotationsPage) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *O11yO11yLLMAnnotationsPage) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *O11yO11yLLMAnnotationsPage) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *O11yO11yLLMAnnotationsPage) SetTotal(v int64) {
 	o.Total = &v
 }
 

@@ -19,15 +19,15 @@ var _ MappedNullable = &O11yDeploymentRecord{}
 
 // O11yDeploymentRecord struct for O11yDeploymentRecord
 type O11yDeploymentRecord struct {
-	AvailablePods           *int32                `json:"availablePods,omitempty"`
-	DeploymentCPU           *float32              `json:"deploymentCPU,omitempty"`
-	DeploymentCPULimit      *float32              `json:"deploymentCPULimit,omitempty"`
-	DeploymentCPURequest    *float32              `json:"deploymentCPURequest,omitempty"`
-	DeploymentMemory        *float32              `json:"deploymentMemory,omitempty"`
-	DeploymentMemoryLimit   *float32              `json:"deploymentMemoryLimit,omitempty"`
-	DeploymentMemoryRequest *float32              `json:"deploymentMemoryRequest,omitempty"`
+	AvailablePods           *int64                `json:"availablePods,omitempty"`
+	DeploymentCPU           *float64              `json:"deploymentCPU,omitempty"`
+	DeploymentCPULimit      *float64              `json:"deploymentCPULimit,omitempty"`
+	DeploymentCPURequest    *float64              `json:"deploymentCPURequest,omitempty"`
+	DeploymentMemory        *float64              `json:"deploymentMemory,omitempty"`
+	DeploymentMemoryLimit   *float64              `json:"deploymentMemoryLimit,omitempty"`
+	DeploymentMemoryRequest *float64              `json:"deploymentMemoryRequest,omitempty"`
 	DeploymentName          *string               `json:"deploymentName,omitempty"`
-	DesiredPods             *int32                `json:"desiredPods,omitempty"`
+	DesiredPods             *int64                `json:"desiredPods,omitempty"`
 	Meta                    map[string]string     `json:"meta,omitempty"`
 	PodCountsByPhase        *O11yPodCountsByPhase `json:"podCountsByPhase,omitempty"`
 }
@@ -50,9 +50,9 @@ func NewO11yDeploymentRecordWithDefaults() *O11yDeploymentRecord {
 }
 
 // GetAvailablePods returns the AvailablePods field value if set, zero value otherwise.
-func (o *O11yDeploymentRecord) GetAvailablePods() int32 {
+func (o *O11yDeploymentRecord) GetAvailablePods() int64 {
 	if o == nil || IsNil(o.AvailablePods) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AvailablePods
@@ -60,7 +60,7 @@ func (o *O11yDeploymentRecord) GetAvailablePods() int32 {
 
 // GetAvailablePodsOk returns a tuple with the AvailablePods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDeploymentRecord) GetAvailablePodsOk() (*int32, bool) {
+func (o *O11yDeploymentRecord) GetAvailablePodsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AvailablePods) {
 		return nil, false
 	}
@@ -76,15 +76,15 @@ func (o *O11yDeploymentRecord) HasAvailablePods() bool {
 	return false
 }
 
-// SetAvailablePods gets a reference to the given int32 and assigns it to the AvailablePods field.
-func (o *O11yDeploymentRecord) SetAvailablePods(v int32) {
+// SetAvailablePods gets a reference to the given int64 and assigns it to the AvailablePods field.
+func (o *O11yDeploymentRecord) SetAvailablePods(v int64) {
 	o.AvailablePods = &v
 }
 
 // GetDeploymentCPU returns the DeploymentCPU field value if set, zero value otherwise.
-func (o *O11yDeploymentRecord) GetDeploymentCPU() float32 {
+func (o *O11yDeploymentRecord) GetDeploymentCPU() float64 {
 	if o == nil || IsNil(o.DeploymentCPU) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.DeploymentCPU
@@ -92,7 +92,7 @@ func (o *O11yDeploymentRecord) GetDeploymentCPU() float32 {
 
 // GetDeploymentCPUOk returns a tuple with the DeploymentCPU field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDeploymentRecord) GetDeploymentCPUOk() (*float32, bool) {
+func (o *O11yDeploymentRecord) GetDeploymentCPUOk() (*float64, bool) {
 	if o == nil || IsNil(o.DeploymentCPU) {
 		return nil, false
 	}
@@ -108,15 +108,15 @@ func (o *O11yDeploymentRecord) HasDeploymentCPU() bool {
 	return false
 }
 
-// SetDeploymentCPU gets a reference to the given float32 and assigns it to the DeploymentCPU field.
-func (o *O11yDeploymentRecord) SetDeploymentCPU(v float32) {
+// SetDeploymentCPU gets a reference to the given float64 and assigns it to the DeploymentCPU field.
+func (o *O11yDeploymentRecord) SetDeploymentCPU(v float64) {
 	o.DeploymentCPU = &v
 }
 
 // GetDeploymentCPULimit returns the DeploymentCPULimit field value if set, zero value otherwise.
-func (o *O11yDeploymentRecord) GetDeploymentCPULimit() float32 {
+func (o *O11yDeploymentRecord) GetDeploymentCPULimit() float64 {
 	if o == nil || IsNil(o.DeploymentCPULimit) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.DeploymentCPULimit
@@ -124,7 +124,7 @@ func (o *O11yDeploymentRecord) GetDeploymentCPULimit() float32 {
 
 // GetDeploymentCPULimitOk returns a tuple with the DeploymentCPULimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDeploymentRecord) GetDeploymentCPULimitOk() (*float32, bool) {
+func (o *O11yDeploymentRecord) GetDeploymentCPULimitOk() (*float64, bool) {
 	if o == nil || IsNil(o.DeploymentCPULimit) {
 		return nil, false
 	}
@@ -140,15 +140,15 @@ func (o *O11yDeploymentRecord) HasDeploymentCPULimit() bool {
 	return false
 }
 
-// SetDeploymentCPULimit gets a reference to the given float32 and assigns it to the DeploymentCPULimit field.
-func (o *O11yDeploymentRecord) SetDeploymentCPULimit(v float32) {
+// SetDeploymentCPULimit gets a reference to the given float64 and assigns it to the DeploymentCPULimit field.
+func (o *O11yDeploymentRecord) SetDeploymentCPULimit(v float64) {
 	o.DeploymentCPULimit = &v
 }
 
 // GetDeploymentCPURequest returns the DeploymentCPURequest field value if set, zero value otherwise.
-func (o *O11yDeploymentRecord) GetDeploymentCPURequest() float32 {
+func (o *O11yDeploymentRecord) GetDeploymentCPURequest() float64 {
 	if o == nil || IsNil(o.DeploymentCPURequest) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.DeploymentCPURequest
@@ -156,7 +156,7 @@ func (o *O11yDeploymentRecord) GetDeploymentCPURequest() float32 {
 
 // GetDeploymentCPURequestOk returns a tuple with the DeploymentCPURequest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDeploymentRecord) GetDeploymentCPURequestOk() (*float32, bool) {
+func (o *O11yDeploymentRecord) GetDeploymentCPURequestOk() (*float64, bool) {
 	if o == nil || IsNil(o.DeploymentCPURequest) {
 		return nil, false
 	}
@@ -172,15 +172,15 @@ func (o *O11yDeploymentRecord) HasDeploymentCPURequest() bool {
 	return false
 }
 
-// SetDeploymentCPURequest gets a reference to the given float32 and assigns it to the DeploymentCPURequest field.
-func (o *O11yDeploymentRecord) SetDeploymentCPURequest(v float32) {
+// SetDeploymentCPURequest gets a reference to the given float64 and assigns it to the DeploymentCPURequest field.
+func (o *O11yDeploymentRecord) SetDeploymentCPURequest(v float64) {
 	o.DeploymentCPURequest = &v
 }
 
 // GetDeploymentMemory returns the DeploymentMemory field value if set, zero value otherwise.
-func (o *O11yDeploymentRecord) GetDeploymentMemory() float32 {
+func (o *O11yDeploymentRecord) GetDeploymentMemory() float64 {
 	if o == nil || IsNil(o.DeploymentMemory) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.DeploymentMemory
@@ -188,7 +188,7 @@ func (o *O11yDeploymentRecord) GetDeploymentMemory() float32 {
 
 // GetDeploymentMemoryOk returns a tuple with the DeploymentMemory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDeploymentRecord) GetDeploymentMemoryOk() (*float32, bool) {
+func (o *O11yDeploymentRecord) GetDeploymentMemoryOk() (*float64, bool) {
 	if o == nil || IsNil(o.DeploymentMemory) {
 		return nil, false
 	}
@@ -204,15 +204,15 @@ func (o *O11yDeploymentRecord) HasDeploymentMemory() bool {
 	return false
 }
 
-// SetDeploymentMemory gets a reference to the given float32 and assigns it to the DeploymentMemory field.
-func (o *O11yDeploymentRecord) SetDeploymentMemory(v float32) {
+// SetDeploymentMemory gets a reference to the given float64 and assigns it to the DeploymentMemory field.
+func (o *O11yDeploymentRecord) SetDeploymentMemory(v float64) {
 	o.DeploymentMemory = &v
 }
 
 // GetDeploymentMemoryLimit returns the DeploymentMemoryLimit field value if set, zero value otherwise.
-func (o *O11yDeploymentRecord) GetDeploymentMemoryLimit() float32 {
+func (o *O11yDeploymentRecord) GetDeploymentMemoryLimit() float64 {
 	if o == nil || IsNil(o.DeploymentMemoryLimit) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.DeploymentMemoryLimit
@@ -220,7 +220,7 @@ func (o *O11yDeploymentRecord) GetDeploymentMemoryLimit() float32 {
 
 // GetDeploymentMemoryLimitOk returns a tuple with the DeploymentMemoryLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDeploymentRecord) GetDeploymentMemoryLimitOk() (*float32, bool) {
+func (o *O11yDeploymentRecord) GetDeploymentMemoryLimitOk() (*float64, bool) {
 	if o == nil || IsNil(o.DeploymentMemoryLimit) {
 		return nil, false
 	}
@@ -236,15 +236,15 @@ func (o *O11yDeploymentRecord) HasDeploymentMemoryLimit() bool {
 	return false
 }
 
-// SetDeploymentMemoryLimit gets a reference to the given float32 and assigns it to the DeploymentMemoryLimit field.
-func (o *O11yDeploymentRecord) SetDeploymentMemoryLimit(v float32) {
+// SetDeploymentMemoryLimit gets a reference to the given float64 and assigns it to the DeploymentMemoryLimit field.
+func (o *O11yDeploymentRecord) SetDeploymentMemoryLimit(v float64) {
 	o.DeploymentMemoryLimit = &v
 }
 
 // GetDeploymentMemoryRequest returns the DeploymentMemoryRequest field value if set, zero value otherwise.
-func (o *O11yDeploymentRecord) GetDeploymentMemoryRequest() float32 {
+func (o *O11yDeploymentRecord) GetDeploymentMemoryRequest() float64 {
 	if o == nil || IsNil(o.DeploymentMemoryRequest) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.DeploymentMemoryRequest
@@ -252,7 +252,7 @@ func (o *O11yDeploymentRecord) GetDeploymentMemoryRequest() float32 {
 
 // GetDeploymentMemoryRequestOk returns a tuple with the DeploymentMemoryRequest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDeploymentRecord) GetDeploymentMemoryRequestOk() (*float32, bool) {
+func (o *O11yDeploymentRecord) GetDeploymentMemoryRequestOk() (*float64, bool) {
 	if o == nil || IsNil(o.DeploymentMemoryRequest) {
 		return nil, false
 	}
@@ -268,8 +268,8 @@ func (o *O11yDeploymentRecord) HasDeploymentMemoryRequest() bool {
 	return false
 }
 
-// SetDeploymentMemoryRequest gets a reference to the given float32 and assigns it to the DeploymentMemoryRequest field.
-func (o *O11yDeploymentRecord) SetDeploymentMemoryRequest(v float32) {
+// SetDeploymentMemoryRequest gets a reference to the given float64 and assigns it to the DeploymentMemoryRequest field.
+func (o *O11yDeploymentRecord) SetDeploymentMemoryRequest(v float64) {
 	o.DeploymentMemoryRequest = &v
 }
 
@@ -306,9 +306,9 @@ func (o *O11yDeploymentRecord) SetDeploymentName(v string) {
 }
 
 // GetDesiredPods returns the DesiredPods field value if set, zero value otherwise.
-func (o *O11yDeploymentRecord) GetDesiredPods() int32 {
+func (o *O11yDeploymentRecord) GetDesiredPods() int64 {
 	if o == nil || IsNil(o.DesiredPods) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DesiredPods
@@ -316,7 +316,7 @@ func (o *O11yDeploymentRecord) GetDesiredPods() int32 {
 
 // GetDesiredPodsOk returns a tuple with the DesiredPods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDeploymentRecord) GetDesiredPodsOk() (*int32, bool) {
+func (o *O11yDeploymentRecord) GetDesiredPodsOk() (*int64, bool) {
 	if o == nil || IsNil(o.DesiredPods) {
 		return nil, false
 	}
@@ -332,8 +332,8 @@ func (o *O11yDeploymentRecord) HasDesiredPods() bool {
 	return false
 }
 
-// SetDesiredPods gets a reference to the given int32 and assigns it to the DesiredPods field.
-func (o *O11yDeploymentRecord) SetDesiredPods(v int32) {
+// SetDesiredPods gets a reference to the given int64 and assigns it to the DesiredPods field.
+func (o *O11yDeploymentRecord) SetDesiredPods(v int64) {
 	o.DesiredPods = &v
 }
 

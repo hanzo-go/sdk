@@ -35,7 +35,7 @@ type ClaimRow struct {
 	// Provider is who the claim belongs to — the lab or leaderboard whose number this is.
 	Provider *string `json:"provider,omitempty"`
 	// Score is the reported aggregate, as a percentage.
-	Score *float32 `json:"score,omitempty"`
+	Score *float64 `json:"score,omitempty"`
 	// Source is the citation the row was read from.
 	Source *string `json:"source,omitempty"`
 }
@@ -282,9 +282,9 @@ func (o *ClaimRow) SetProvider(v string) {
 }
 
 // GetScore returns the Score field value if set, zero value otherwise.
-func (o *ClaimRow) GetScore() float32 {
+func (o *ClaimRow) GetScore() float64 {
 	if o == nil || IsNil(o.Score) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Score
@@ -292,7 +292,7 @@ func (o *ClaimRow) GetScore() float32 {
 
 // GetScoreOk returns a tuple with the Score field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ClaimRow) GetScoreOk() (*float32, bool) {
+func (o *ClaimRow) GetScoreOk() (*float64, bool) {
 	if o == nil || IsNil(o.Score) {
 		return nil, false
 	}
@@ -308,8 +308,8 @@ func (o *ClaimRow) HasScore() bool {
 	return false
 }
 
-// SetScore gets a reference to the given float32 and assigns it to the Score field.
-func (o *ClaimRow) SetScore(v float32) {
+// SetScore gets a reference to the given float64 and assigns it to the Score field.
+func (o *ClaimRow) SetScore(v float64) {
 	o.Score = &v
 }
 

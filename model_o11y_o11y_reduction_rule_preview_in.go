@@ -24,7 +24,7 @@ type O11yO11yReductionRulePreviewIn struct {
 	// Labels are the label names the rule would match. Required, at least one.
 	Labels []string `json:"labels"`
 	// LookbackMs is how far back to sample when estimating.
-	LookbackMs *int32 `json:"lookbackMs,omitempty"`
+	LookbackMs *int64 `json:"lookbackMs,omitempty"`
 	// MatchType is drop or keep. Required.
 	MatchType string `json:"matchType"`
 	// MetricName is the metric the rule would govern. Required.
@@ -78,9 +78,9 @@ func (o *O11yO11yReductionRulePreviewIn) SetLabels(v []string) {
 }
 
 // GetLookbackMs returns the LookbackMs field value if set, zero value otherwise.
-func (o *O11yO11yReductionRulePreviewIn) GetLookbackMs() int32 {
+func (o *O11yO11yReductionRulePreviewIn) GetLookbackMs() int64 {
 	if o == nil || IsNil(o.LookbackMs) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.LookbackMs
@@ -88,7 +88,7 @@ func (o *O11yO11yReductionRulePreviewIn) GetLookbackMs() int32 {
 
 // GetLookbackMsOk returns a tuple with the LookbackMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yReductionRulePreviewIn) GetLookbackMsOk() (*int32, bool) {
+func (o *O11yO11yReductionRulePreviewIn) GetLookbackMsOk() (*int64, bool) {
 	if o == nil || IsNil(o.LookbackMs) {
 		return nil, false
 	}
@@ -104,8 +104,8 @@ func (o *O11yO11yReductionRulePreviewIn) HasLookbackMs() bool {
 	return false
 }
 
-// SetLookbackMs gets a reference to the given int32 and assigns it to the LookbackMs field.
-func (o *O11yO11yReductionRulePreviewIn) SetLookbackMs(v int32) {
+// SetLookbackMs gets a reference to the given int64 and assigns it to the LookbackMs field.
+func (o *O11yO11yReductionRulePreviewIn) SetLookbackMs(v int64) {
 	o.LookbackMs = &v
 }
 

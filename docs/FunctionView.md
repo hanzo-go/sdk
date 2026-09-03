@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AvgDurationMs** | Pointer to **float32** | mean wall-clock of those runs | [optional] 
+**AvgDurationMs** | Pointer to **float64** | mean wall-clock of those runs | [optional] 
 **CreatedAt** | Pointer to **string** | when it was first published | [optional] 
 **Endpoint** | Pointer to **string** | the path that invokes it | [optional] 
-**EnvCount** | Pointer to **int32** | how many secret NAMES it mounts; values are never carried | [optional] 
+**EnvCount** | Pointer to **int64** | how many secret NAMES it mounts; values are never carried | [optional] 
 **Environment** | Pointer to **string** | the language it runs under | [optional] 
-**Errors7d** | Pointer to **int32** | how many of those runs failed | [optional] 
+**Errors7d** | Pointer to **int64** | how many of those runs failed | [optional] 
 **Image** | Pointer to **string** | the prebuilt image it runs, when it runs one instead of source | [optional] 
-**Invocations7d** | Pointer to **int32** | runs in the last 7 days; ABSENT, never 0, when it has not run | [optional] 
+**Invocations7d** | Pointer to **int64** | runs in the last 7 days; ABSENT, never 0, when it has not run | [optional] 
 **LastDeployedAt** | Pointer to **string** | when its code last changed | [optional] 
 **MemoryLimit** | Pointer to **string** | the memory it runs with, and the multiplier on its compute charge | [optional] 
 **Name** | Pointer to **string** | the function&#39;s org-unique handle | [optional] 
 **Namespace** | Pointer to **string** | the display group it belongs to; the org is the isolation key | [optional] 
 **Status** | Pointer to **string** | whether it is ready to serve | [optional] 
-**SuccessRate** | Pointer to **float32** | share of those runs that succeeded, 0..1 | [optional] 
+**SuccessRate** | Pointer to **float64** | share of those runs that succeeded, 0..1 | [optional] 
 **Target** | Pointer to **string** | where it runs: empty for the sandbox, \&quot;fleet\&quot; for the org&#39;s GPU fleet | [optional] 
-**TimeoutSec** | Pointer to **int32** | its per-invocation deadline | [optional] 
+**TimeoutSec** | Pointer to **int64** | its per-invocation deadline | [optional] 
 
 ## Methods
 
@@ -42,20 +42,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAvgDurationMs
 
-`func (o *FunctionView) GetAvgDurationMs() float32`
+`func (o *FunctionView) GetAvgDurationMs() float64`
 
 GetAvgDurationMs returns the AvgDurationMs field if non-nil, zero value otherwise.
 
 ### GetAvgDurationMsOk
 
-`func (o *FunctionView) GetAvgDurationMsOk() (*float32, bool)`
+`func (o *FunctionView) GetAvgDurationMsOk() (*float64, bool)`
 
 GetAvgDurationMsOk returns a tuple with the AvgDurationMs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAvgDurationMs
 
-`func (o *FunctionView) SetAvgDurationMs(v float32)`
+`func (o *FunctionView) SetAvgDurationMs(v float64)`
 
 SetAvgDurationMs sets AvgDurationMs field to given value.
 
@@ -117,20 +117,20 @@ HasEndpoint returns a boolean if a field has been set.
 
 ### GetEnvCount
 
-`func (o *FunctionView) GetEnvCount() int32`
+`func (o *FunctionView) GetEnvCount() int64`
 
 GetEnvCount returns the EnvCount field if non-nil, zero value otherwise.
 
 ### GetEnvCountOk
 
-`func (o *FunctionView) GetEnvCountOk() (*int32, bool)`
+`func (o *FunctionView) GetEnvCountOk() (*int64, bool)`
 
 GetEnvCountOk returns a tuple with the EnvCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnvCount
 
-`func (o *FunctionView) SetEnvCount(v int32)`
+`func (o *FunctionView) SetEnvCount(v int64)`
 
 SetEnvCount sets EnvCount field to given value.
 
@@ -167,20 +167,20 @@ HasEnvironment returns a boolean if a field has been set.
 
 ### GetErrors7d
 
-`func (o *FunctionView) GetErrors7d() int32`
+`func (o *FunctionView) GetErrors7d() int64`
 
 GetErrors7d returns the Errors7d field if non-nil, zero value otherwise.
 
 ### GetErrors7dOk
 
-`func (o *FunctionView) GetErrors7dOk() (*int32, bool)`
+`func (o *FunctionView) GetErrors7dOk() (*int64, bool)`
 
 GetErrors7dOk returns a tuple with the Errors7d field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetErrors7d
 
-`func (o *FunctionView) SetErrors7d(v int32)`
+`func (o *FunctionView) SetErrors7d(v int64)`
 
 SetErrors7d sets Errors7d field to given value.
 
@@ -217,20 +217,20 @@ HasImage returns a boolean if a field has been set.
 
 ### GetInvocations7d
 
-`func (o *FunctionView) GetInvocations7d() int32`
+`func (o *FunctionView) GetInvocations7d() int64`
 
 GetInvocations7d returns the Invocations7d field if non-nil, zero value otherwise.
 
 ### GetInvocations7dOk
 
-`func (o *FunctionView) GetInvocations7dOk() (*int32, bool)`
+`func (o *FunctionView) GetInvocations7dOk() (*int64, bool)`
 
 GetInvocations7dOk returns a tuple with the Invocations7d field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInvocations7d
 
-`func (o *FunctionView) SetInvocations7d(v int32)`
+`func (o *FunctionView) SetInvocations7d(v int64)`
 
 SetInvocations7d sets Invocations7d field to given value.
 
@@ -367,20 +367,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetSuccessRate
 
-`func (o *FunctionView) GetSuccessRate() float32`
+`func (o *FunctionView) GetSuccessRate() float64`
 
 GetSuccessRate returns the SuccessRate field if non-nil, zero value otherwise.
 
 ### GetSuccessRateOk
 
-`func (o *FunctionView) GetSuccessRateOk() (*float32, bool)`
+`func (o *FunctionView) GetSuccessRateOk() (*float64, bool)`
 
 GetSuccessRateOk returns a tuple with the SuccessRate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSuccessRate
 
-`func (o *FunctionView) SetSuccessRate(v float32)`
+`func (o *FunctionView) SetSuccessRate(v float64)`
 
 SetSuccessRate sets SuccessRate field to given value.
 
@@ -417,20 +417,20 @@ HasTarget returns a boolean if a field has been set.
 
 ### GetTimeoutSec
 
-`func (o *FunctionView) GetTimeoutSec() int32`
+`func (o *FunctionView) GetTimeoutSec() int64`
 
 GetTimeoutSec returns the TimeoutSec field if non-nil, zero value otherwise.
 
 ### GetTimeoutSecOk
 
-`func (o *FunctionView) GetTimeoutSecOk() (*int32, bool)`
+`func (o *FunctionView) GetTimeoutSecOk() (*int64, bool)`
 
 GetTimeoutSecOk returns a tuple with the TimeoutSec field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeoutSec
 
-`func (o *FunctionView) SetTimeoutSec(v int32)`
+`func (o *FunctionView) SetTimeoutSec(v int64)`
 
 SetTimeoutSec sets TimeoutSec field to given value.
 

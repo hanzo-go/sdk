@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Jurisdiction** | Pointer to **string** | Jurisdiction is the state whose obligations these are. | [optional] 
 **Obligations** | Pointer to [**[]Obligation**](Obligation.md) | Obligations are the recurring charges, in the order a reader should see them. | [optional] 
 **Structure** | Pointer to **string** | Structure is the entity this prices. | [optional] 
-**YearlyCents** | Pointer to **int32** | YearlyCents is what the entity owes every year, all obligations summed. | [optional] 
+**YearlyCents** | Pointer to **int64** | YearlyCents is what the entity owes every year, all obligations summed. | [optional] 
 
 ## Methods
 
@@ -157,20 +157,20 @@ HasStructure returns a boolean if a field has been set.
 
 ### GetYearlyCents
 
-`func (o *Upkeep) GetYearlyCents() int32`
+`func (o *Upkeep) GetYearlyCents() int64`
 
 GetYearlyCents returns the YearlyCents field if non-nil, zero value otherwise.
 
 ### GetYearlyCentsOk
 
-`func (o *Upkeep) GetYearlyCentsOk() (*int32, bool)`
+`func (o *Upkeep) GetYearlyCentsOk() (*int64, bool)`
 
 GetYearlyCentsOk returns a tuple with the YearlyCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetYearlyCents
 
-`func (o *Upkeep) SetYearlyCents(v int32)`
+`func (o *Upkeep) SetYearlyCents(v int64)`
 
 SetYearlyCents sets YearlyCents field to given value.
 

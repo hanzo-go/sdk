@@ -24,7 +24,7 @@ type Attribution struct {
 	// Created says whether THIS call made the edge. false means the caller org was already attributed and nothing moved. The HTTP status says the same: 201 when true, 200 when false.
 	Created *bool `json:"created,omitempty"`
 	// CreatedAt is when the edge was FIRST recorded, Unix seconds UTC. On a re-post it is the original time, not now.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// ID is the attribution edge's server-minted handle, \"afr_\"-prefixed.
 	Id *string `json:"id,omitempty"`
 }
@@ -111,9 +111,9 @@ func (o *Attribution) SetCreated(v bool) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *Attribution) GetCreatedAt() int32 {
+func (o *Attribution) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -121,7 +121,7 @@ func (o *Attribution) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Attribution) GetCreatedAtOk() (*int32, bool) {
+func (o *Attribution) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -137,8 +137,8 @@ func (o *Attribution) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *Attribution) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *Attribution) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 

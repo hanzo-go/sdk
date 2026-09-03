@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Basis** | Pointer to **string** | Basis names where the rates come from, so a published price can be explained rather than merely asserted. | [optional] 
-**MicroUsdPerGbHour** | Pointer to **int32** | MicroUSDPerGBHour is the price of one GiB of memory for one hour, in millionths of a US dollar. | [optional] 
-**MicroUsdPerVcpuHour** | Pointer to **int32** | MicroUSDPerVCPUHour is the price of one vCPU for one hour, in millionths of a US dollar. | [optional] 
+**MicroUsdPerGbHour** | Pointer to **int64** | MicroUSDPerGBHour is the price of one GiB of memory for one hour, in millionths of a US dollar. | [optional] 
+**MicroUsdPerVcpuHour** | Pointer to **int64** | MicroUSDPerVCPUHour is the price of one vCPU for one hour, in millionths of a US dollar. | [optional] 
 
 ## Methods
 
@@ -54,20 +54,20 @@ HasBasis returns a boolean if a field has been set.
 
 ### GetMicroUsdPerGbHour
 
-`func (o *RateCard) GetMicroUsdPerGbHour() int32`
+`func (o *RateCard) GetMicroUsdPerGbHour() int64`
 
 GetMicroUsdPerGbHour returns the MicroUsdPerGbHour field if non-nil, zero value otherwise.
 
 ### GetMicroUsdPerGbHourOk
 
-`func (o *RateCard) GetMicroUsdPerGbHourOk() (*int32, bool)`
+`func (o *RateCard) GetMicroUsdPerGbHourOk() (*int64, bool)`
 
 GetMicroUsdPerGbHourOk returns a tuple with the MicroUsdPerGbHour field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMicroUsdPerGbHour
 
-`func (o *RateCard) SetMicroUsdPerGbHour(v int32)`
+`func (o *RateCard) SetMicroUsdPerGbHour(v int64)`
 
 SetMicroUsdPerGbHour sets MicroUsdPerGbHour field to given value.
 
@@ -79,20 +79,20 @@ HasMicroUsdPerGbHour returns a boolean if a field has been set.
 
 ### GetMicroUsdPerVcpuHour
 
-`func (o *RateCard) GetMicroUsdPerVcpuHour() int32`
+`func (o *RateCard) GetMicroUsdPerVcpuHour() int64`
 
 GetMicroUsdPerVcpuHour returns the MicroUsdPerVcpuHour field if non-nil, zero value otherwise.
 
 ### GetMicroUsdPerVcpuHourOk
 
-`func (o *RateCard) GetMicroUsdPerVcpuHourOk() (*int32, bool)`
+`func (o *RateCard) GetMicroUsdPerVcpuHourOk() (*int64, bool)`
 
 GetMicroUsdPerVcpuHourOk returns a tuple with the MicroUsdPerVcpuHour field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMicroUsdPerVcpuHour
 
-`func (o *RateCard) SetMicroUsdPerVcpuHour(v int32)`
+`func (o *RateCard) SetMicroUsdPerVcpuHour(v int64)`
 
 SetMicroUsdPerVcpuHour sets MicroUsdPerVcpuHour field to given value.
 

@@ -24,7 +24,7 @@ type DriveList struct {
 	// Space is the space that was listed.
 	Space *string `json:"space,omitempty"`
 	// Total is how many drives came back. The listing is BOUNDED, so it is what came back and not a count of what the space holds.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 }
 
 // NewDriveList instantiates a new DriveList object
@@ -109,9 +109,9 @@ func (o *DriveList) SetSpace(v string) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *DriveList) GetTotal() int32 {
+func (o *DriveList) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -119,7 +119,7 @@ func (o *DriveList) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DriveList) GetTotalOk() (*int32, bool) {
+func (o *DriveList) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *DriveList) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *DriveList) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *DriveList) SetTotal(v int64) {
 	o.Total = &v
 }
 

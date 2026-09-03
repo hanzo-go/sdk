@@ -6,17 +6,17 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Actor** | Pointer to **string** | Actor is the \&quot;org/sub\&quot; identity the run was executed and billed AS. Empty means there was no PERSON — a schedule or a service token — which is a different fact from \&quot;we do not know\&quot;, and the difference is what an audit asks about. | [optional] 
 **Agent** | Pointer to **string** | What an operator needs to answer \&quot;what ran, for whom, and what did it do\&quot; — and, through traceId, to leave this record for the waterfall of the very same run rather than a search that hopefully lands near it.  Agent is on the row because the org-wide feed lists runs across agents, and a run that cannot name its agent is an orphan in exactly the view built to make sense of many of them. Every field is omitempty: a run recorded before these columns existed reports absence rather than a zero it never measured. | [optional] 
-**CompletionTokens** | Pointer to **int32** | CompletionTokens is the same measurement for what the model produced, on the same final completion. It is a count of TOKENS, not of turns and not of money. | [optional] 
+**CompletionTokens** | Pointer to **int64** | CompletionTokens is the same measurement for what the model produced, on the same final completion. It is a count of TOKENS, not of turns and not of money. | [optional] 
 **CreatedAt** | Pointer to **string** | CreatedAt is when the run finished, RFC 3339 in UTC to the second — the duration above already says how long it had been going. | [optional] 
-**DurationMs** | Pointer to **int32** | DurationMs is wall-clock milliseconds around the completion, including a failover&#39;s retries. It is time SPENT, not time billed. | [optional] 
+**DurationMs** | Pointer to **int64** | DurationMs is wall-clock milliseconds around the completion, including a failover&#39;s retries. It is time SPENT, not time billed. | [optional] 
 **Error** | Pointer to **string** | Error is why an \&quot;ok\&quot;-less run failed, as the failing call reported it. Empty on every successful run. | [optional] 
 **Id** | Pointer to **string** | ID is the run&#39;s handle, minted as \&quot;run_\&quot; + 32 hex characters. It is the key the metering ledger records this run&#39;s per-round token spend under, so it is how a bill and a run are joined. | [optional] 
 **Input** | Pointer to **string** | Input is the text the run was given, verbatim. | [optional] 
 **Model** | Pointer to **string** | Model is the model that actually SERVED this run, which is not always the one the agent is defined on — a failover records what answered. Normalized to our name on the way out; the stored row is left exactly as it happened, because a run is a record and rewriting it would be worse than the name it carries. | [optional] 
 **Output** | Pointer to **string** | Output is what the model produced. Empty on an error run, and empty is also a legitimate answer from a run that succeeded with nothing to say — Status is what separates those. | [optional] 
-**PromptTokens** | Pointer to **int32** | PromptTokens is what the gateway reported for the run&#39;s FINAL completion, and only that one — a tool loop&#39;s earlier rounds are the metering ledger&#39;s account, joined by this run&#39;s id. Reading it as the run&#39;s total spend undercounts a loop. | [optional] 
+**PromptTokens** | Pointer to **int64** | PromptTokens is what the gateway reported for the run&#39;s FINAL completion, and only that one — a tool loop&#39;s earlier rounds are the metering ledger&#39;s account, joined by this run&#39;s id. Reading it as the run&#39;s total spend undercounts a loop. | [optional] 
 **Status** | Pointer to **string** | Status is the run&#39;s outcome, and there are exactly two: \&quot;ok\&quot; when the model answered, \&quot;error\&quot; when it did not. It is written when the run ends, so no row here is in flight. | [optional] 
-**ToolCalls** | Pointer to **int32** | ToolCalls is how many tool dispatches the run made — a count of ACTIONS, which is a different measurement from the token counts above and from the turns a build reports. Zero is a run that answered straight from the model. | [optional] 
+**ToolCalls** | Pointer to **int64** | ToolCalls is how many tool dispatches the run made — a count of ACTIONS, which is a different measurement from the token counts above and from the turns a build reports. Zero is a run that answered straight from the model. | [optional] 
 **TraceId** | Pointer to **string** | TraceID is the trace this run IS, so the record and its spans are one thing to move between: it opens the waterfall for THIS run rather than a search that lands near it. Empty when the process had no tracer, never a fabricated id. | [optional] 
 
 ## Methods
@@ -90,20 +90,20 @@ HasAgent returns a boolean if a field has been set.
 
 ### GetCompletionTokens
 
-`func (o *AgentRunView) GetCompletionTokens() int32`
+`func (o *AgentRunView) GetCompletionTokens() int64`
 
 GetCompletionTokens returns the CompletionTokens field if non-nil, zero value otherwise.
 
 ### GetCompletionTokensOk
 
-`func (o *AgentRunView) GetCompletionTokensOk() (*int32, bool)`
+`func (o *AgentRunView) GetCompletionTokensOk() (*int64, bool)`
 
 GetCompletionTokensOk returns a tuple with the CompletionTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCompletionTokens
 
-`func (o *AgentRunView) SetCompletionTokens(v int32)`
+`func (o *AgentRunView) SetCompletionTokens(v int64)`
 
 SetCompletionTokens sets CompletionTokens field to given value.
 
@@ -140,20 +140,20 @@ HasCreatedAt returns a boolean if a field has been set.
 
 ### GetDurationMs
 
-`func (o *AgentRunView) GetDurationMs() int32`
+`func (o *AgentRunView) GetDurationMs() int64`
 
 GetDurationMs returns the DurationMs field if non-nil, zero value otherwise.
 
 ### GetDurationMsOk
 
-`func (o *AgentRunView) GetDurationMsOk() (*int32, bool)`
+`func (o *AgentRunView) GetDurationMsOk() (*int64, bool)`
 
 GetDurationMsOk returns a tuple with the DurationMs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDurationMs
 
-`func (o *AgentRunView) SetDurationMs(v int32)`
+`func (o *AgentRunView) SetDurationMs(v int64)`
 
 SetDurationMs sets DurationMs field to given value.
 
@@ -290,20 +290,20 @@ HasOutput returns a boolean if a field has been set.
 
 ### GetPromptTokens
 
-`func (o *AgentRunView) GetPromptTokens() int32`
+`func (o *AgentRunView) GetPromptTokens() int64`
 
 GetPromptTokens returns the PromptTokens field if non-nil, zero value otherwise.
 
 ### GetPromptTokensOk
 
-`func (o *AgentRunView) GetPromptTokensOk() (*int32, bool)`
+`func (o *AgentRunView) GetPromptTokensOk() (*int64, bool)`
 
 GetPromptTokensOk returns a tuple with the PromptTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPromptTokens
 
-`func (o *AgentRunView) SetPromptTokens(v int32)`
+`func (o *AgentRunView) SetPromptTokens(v int64)`
 
 SetPromptTokens sets PromptTokens field to given value.
 
@@ -340,20 +340,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetToolCalls
 
-`func (o *AgentRunView) GetToolCalls() int32`
+`func (o *AgentRunView) GetToolCalls() int64`
 
 GetToolCalls returns the ToolCalls field if non-nil, zero value otherwise.
 
 ### GetToolCallsOk
 
-`func (o *AgentRunView) GetToolCallsOk() (*int32, bool)`
+`func (o *AgentRunView) GetToolCallsOk() (*int64, bool)`
 
 GetToolCallsOk returns a tuple with the ToolCalls field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetToolCalls
 
-`func (o *AgentRunView) SetToolCalls(v int32)`
+`func (o *AgentRunView) SetToolCalls(v int64)`
 
 SetToolCalls sets ToolCalls field to given value.
 

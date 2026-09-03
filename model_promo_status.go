@@ -22,9 +22,9 @@ type PromoStatus struct {
 	// Promo is the offer itself. It is fleet-wide, identical for every org — only the two counters beside it move.
 	Promo *Promo `json:"promo,omitempty"`
 	// Redeemed is how many orgs have taken it, Remaining how many are left under the fleet-wide cap.
-	Redeemed *int32 `json:"redeemed,omitempty"`
+	Redeemed *int64 `json:"redeemed,omitempty"`
 	// Remaining is MaxRedemptions minus Redeemed, floored at 0. At 0 the next redeem is declined, and a quote reports ineligible rather than pricing an offer that cannot be taken.
-	Remaining *int32 `json:"remaining,omitempty"`
+	Remaining *int64 `json:"remaining,omitempty"`
 }
 
 // NewPromoStatus instantiates a new PromoStatus object
@@ -77,9 +77,9 @@ func (o *PromoStatus) SetPromo(v Promo) {
 }
 
 // GetRedeemed returns the Redeemed field value if set, zero value otherwise.
-func (o *PromoStatus) GetRedeemed() int32 {
+func (o *PromoStatus) GetRedeemed() int64 {
 	if o == nil || IsNil(o.Redeemed) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Redeemed
@@ -87,7 +87,7 @@ func (o *PromoStatus) GetRedeemed() int32 {
 
 // GetRedeemedOk returns a tuple with the Redeemed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PromoStatus) GetRedeemedOk() (*int32, bool) {
+func (o *PromoStatus) GetRedeemedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Redeemed) {
 		return nil, false
 	}
@@ -103,15 +103,15 @@ func (o *PromoStatus) HasRedeemed() bool {
 	return false
 }
 
-// SetRedeemed gets a reference to the given int32 and assigns it to the Redeemed field.
-func (o *PromoStatus) SetRedeemed(v int32) {
+// SetRedeemed gets a reference to the given int64 and assigns it to the Redeemed field.
+func (o *PromoStatus) SetRedeemed(v int64) {
 	o.Redeemed = &v
 }
 
 // GetRemaining returns the Remaining field value if set, zero value otherwise.
-func (o *PromoStatus) GetRemaining() int32 {
+func (o *PromoStatus) GetRemaining() int64 {
 	if o == nil || IsNil(o.Remaining) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Remaining
@@ -119,7 +119,7 @@ func (o *PromoStatus) GetRemaining() int32 {
 
 // GetRemainingOk returns a tuple with the Remaining field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PromoStatus) GetRemainingOk() (*int32, bool) {
+func (o *PromoStatus) GetRemainingOk() (*int64, bool) {
 	if o == nil || IsNil(o.Remaining) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *PromoStatus) HasRemaining() bool {
 	return false
 }
 
-// SetRemaining gets a reference to the given int32 and assigns it to the Remaining field.
-func (o *PromoStatus) SetRemaining(v int32) {
+// SetRemaining gets a reference to the given int64 and assigns it to the Remaining field.
+func (o *PromoStatus) SetRemaining(v int64) {
 	o.Remaining = &v
 }
 

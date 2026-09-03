@@ -29,7 +29,7 @@ type Declared struct {
 	Org         *string      `json:"org,omitempty"`
 	Path        *string      `json:"path,omitempty"`
 	Project     *string      `json:"project,omitempty"`
-	Replicas    *int32       `json:"replicas,omitempty"`
+	Replicas    *int64       `json:"replicas,omitempty"`
 	Repository  *string      `json:"repository,omitempty"`
 	Tag         *string      `json:"tag,omitempty"`
 }
@@ -372,9 +372,9 @@ func (o *Declared) SetProject(v string) {
 }
 
 // GetReplicas returns the Replicas field value if set, zero value otherwise.
-func (o *Declared) GetReplicas() int32 {
+func (o *Declared) GetReplicas() int64 {
 	if o == nil || IsNil(o.Replicas) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Replicas
@@ -382,7 +382,7 @@ func (o *Declared) GetReplicas() int32 {
 
 // GetReplicasOk returns a tuple with the Replicas field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Declared) GetReplicasOk() (*int32, bool) {
+func (o *Declared) GetReplicasOk() (*int64, bool) {
 	if o == nil || IsNil(o.Replicas) {
 		return nil, false
 	}
@@ -398,8 +398,8 @@ func (o *Declared) HasReplicas() bool {
 	return false
 }
 
-// SetReplicas gets a reference to the given int32 and assigns it to the Replicas field.
-func (o *Declared) SetReplicas(v int32) {
+// SetReplicas gets a reference to the given int64 and assigns it to the Replicas field.
+func (o *Declared) SetReplicas(v int64) {
 	o.Replicas = &v
 }
 

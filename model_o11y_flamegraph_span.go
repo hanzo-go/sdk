@@ -23,7 +23,7 @@ type O11yFlamegraphSpan struct {
 	DurationNano *int32                            `json:"durationNano,omitempty"`
 	Event        []O11yEvent                       `json:"event,omitempty"`
 	HasError     *bool                             `json:"hasError,omitempty"`
-	Level        *int32                            `json:"level,omitempty"`
+	Level        *int64                            `json:"level,omitempty"`
 	Name         *string                           `json:"name,omitempty"`
 	ParentSpanId *string                           `json:"parentSpanId,omitempty"`
 	Resource     map[string]string                 `json:"resource,omitempty"`
@@ -177,9 +177,9 @@ func (o *O11yFlamegraphSpan) SetHasError(v bool) {
 }
 
 // GetLevel returns the Level field value if set, zero value otherwise.
-func (o *O11yFlamegraphSpan) GetLevel() int32 {
+func (o *O11yFlamegraphSpan) GetLevel() int64 {
 	if o == nil || IsNil(o.Level) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Level
@@ -187,7 +187,7 @@ func (o *O11yFlamegraphSpan) GetLevel() int32 {
 
 // GetLevelOk returns a tuple with the Level field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yFlamegraphSpan) GetLevelOk() (*int32, bool) {
+func (o *O11yFlamegraphSpan) GetLevelOk() (*int64, bool) {
 	if o == nil || IsNil(o.Level) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *O11yFlamegraphSpan) HasLevel() bool {
 	return false
 }
 
-// SetLevel gets a reference to the given int32 and assigns it to the Level field.
-func (o *O11yFlamegraphSpan) SetLevel(v int32) {
+// SetLevel gets a reference to the given int64 and assigns it to the Level field.
+func (o *O11yFlamegraphSpan) SetLevel(v int64) {
 	o.Level = &v
 }
 

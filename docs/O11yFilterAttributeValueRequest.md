@@ -7,15 +7,15 @@ Name | Type | Description | Notes
 **AggregateAttribute** | Pointer to **string** |  | [optional] 
 **AggregateOperator** | Pointer to **string** |  | [optional] 
 **DataSource** | Pointer to **string** |  | [optional] 
-**EndTimeMillis** | Pointer to **int32** |  | [optional] 
+**EndTimeMillis** | Pointer to **int64** |  | [optional] 
 **ExistingFilterItems** | Pointer to [**[]O11yFilterItem**](O11yFilterItem.md) |  | [optional] 
 **FilterAttributeKey** | Pointer to **string** |  | [optional] 
 **FilterAttributeKeyDataType** | Pointer to **string** |  | [optional] 
 **IncludeRelated** | Pointer to **bool** |  | [optional] 
-**Limit** | Pointer to **int32** |  | [optional] 
+**Limit** | Pointer to **int64** |  | [optional] 
 **MetricNames** | Pointer to **[]string** |  | [optional] 
 **SearchText** | Pointer to **string** |  | [optional] 
-**StartTimeMillis** | Pointer to **int32** |  | [optional] 
+**StartTimeMillis** | Pointer to **int64** |  | [optional] 
 **TagType** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -114,20 +114,20 @@ HasDataSource returns a boolean if a field has been set.
 
 ### GetEndTimeMillis
 
-`func (o *O11yFilterAttributeValueRequest) GetEndTimeMillis() int32`
+`func (o *O11yFilterAttributeValueRequest) GetEndTimeMillis() int64`
 
 GetEndTimeMillis returns the EndTimeMillis field if non-nil, zero value otherwise.
 
 ### GetEndTimeMillisOk
 
-`func (o *O11yFilterAttributeValueRequest) GetEndTimeMillisOk() (*int32, bool)`
+`func (o *O11yFilterAttributeValueRequest) GetEndTimeMillisOk() (*int64, bool)`
 
 GetEndTimeMillisOk returns a tuple with the EndTimeMillis field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndTimeMillis
 
-`func (o *O11yFilterAttributeValueRequest) SetEndTimeMillis(v int32)`
+`func (o *O11yFilterAttributeValueRequest) SetEndTimeMillis(v int64)`
 
 SetEndTimeMillis sets EndTimeMillis field to given value.
 
@@ -239,20 +239,20 @@ HasIncludeRelated returns a boolean if a field has been set.
 
 ### GetLimit
 
-`func (o *O11yFilterAttributeValueRequest) GetLimit() int32`
+`func (o *O11yFilterAttributeValueRequest) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *O11yFilterAttributeValueRequest) GetLimitOk() (*int32, bool)`
+`func (o *O11yFilterAttributeValueRequest) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *O11yFilterAttributeValueRequest) SetLimit(v int32)`
+`func (o *O11yFilterAttributeValueRequest) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 
@@ -314,20 +314,20 @@ HasSearchText returns a boolean if a field has been set.
 
 ### GetStartTimeMillis
 
-`func (o *O11yFilterAttributeValueRequest) GetStartTimeMillis() int32`
+`func (o *O11yFilterAttributeValueRequest) GetStartTimeMillis() int64`
 
 GetStartTimeMillis returns the StartTimeMillis field if non-nil, zero value otherwise.
 
 ### GetStartTimeMillisOk
 
-`func (o *O11yFilterAttributeValueRequest) GetStartTimeMillisOk() (*int32, bool)`
+`func (o *O11yFilterAttributeValueRequest) GetStartTimeMillisOk() (*int64, bool)`
 
 GetStartTimeMillisOk returns a tuple with the StartTimeMillis field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartTimeMillis
 
-`func (o *O11yFilterAttributeValueRequest) SetStartTimeMillis(v int32)`
+`func (o *O11yFilterAttributeValueRequest) SetStartTimeMillis(v int64)`
 
 SetStartTimeMillis sets StartTimeMillis field to given value.
 

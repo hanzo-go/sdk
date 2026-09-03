@@ -20,7 +20,7 @@ var _ MappedNullable = &BuildOut{}
 // BuildOut struct for BuildOut
 type BuildOut struct {
 	// Bytes is the size of the bundled CommonJS the runtime will execute.
-	Bytes *int32 `json:"bytes,omitempty"`
+	Bytes *int64 `json:"bytes,omitempty"`
 	// Generated is whether a model wrote the source from a spec, rather than the caller posting the source itself.
 	Generated *bool `json:"generated,omitempty"`
 	// Plugin is the plugin as stored, with its derived id and build time.
@@ -45,9 +45,9 @@ func NewBuildOutWithDefaults() *BuildOut {
 }
 
 // GetBytes returns the Bytes field value if set, zero value otherwise.
-func (o *BuildOut) GetBytes() int32 {
+func (o *BuildOut) GetBytes() int64 {
 	if o == nil || IsNil(o.Bytes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Bytes
@@ -55,7 +55,7 @@ func (o *BuildOut) GetBytes() int32 {
 
 // GetBytesOk returns a tuple with the Bytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BuildOut) GetBytesOk() (*int32, bool) {
+func (o *BuildOut) GetBytesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Bytes) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *BuildOut) HasBytes() bool {
 	return false
 }
 
-// SetBytes gets a reference to the given int32 and assigns it to the Bytes field.
-func (o *BuildOut) SetBytes(v int32) {
+// SetBytes gets a reference to the given int64 and assigns it to the Bytes field.
+func (o *BuildOut) SetBytes(v int64) {
 	o.Bytes = &v
 }
 

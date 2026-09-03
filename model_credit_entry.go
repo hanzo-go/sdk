@@ -19,7 +19,7 @@ var _ MappedNullable = &CreditEntry{}
 
 // CreditEntry struct for CreditEntry
 type CreditEntry struct {
-	Available *int32  `json:"available,omitempty"`
+	Available *int64  `json:"available,omitempty"`
 	Currency  *string `json:"currency,omitempty"`
 }
 
@@ -41,9 +41,9 @@ func NewCreditEntryWithDefaults() *CreditEntry {
 }
 
 // GetAvailable returns the Available field value if set, zero value otherwise.
-func (o *CreditEntry) GetAvailable() int32 {
+func (o *CreditEntry) GetAvailable() int64 {
 	if o == nil || IsNil(o.Available) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Available
@@ -51,7 +51,7 @@ func (o *CreditEntry) GetAvailable() int32 {
 
 // GetAvailableOk returns a tuple with the Available field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreditEntry) GetAvailableOk() (*int32, bool) {
+func (o *CreditEntry) GetAvailableOk() (*int64, bool) {
 	if o == nil || IsNil(o.Available) {
 		return nil, false
 	}
@@ -67,8 +67,8 @@ func (o *CreditEntry) HasAvailable() bool {
 	return false
 }
 
-// SetAvailable gets a reference to the given int32 and assigns it to the Available field.
-func (o *CreditEntry) SetAvailable(v int32) {
+// SetAvailable gets a reference to the given int64 and assigns it to the Available field.
+func (o *CreditEntry) SetAvailable(v int64) {
 	o.Available = &v
 }
 

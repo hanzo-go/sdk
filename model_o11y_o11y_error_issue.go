@@ -23,7 +23,7 @@ type O11yO11yErrorIssue struct {
 	// Assignee is who the issue is assigned to.
 	Assignee *string `json:"assignee,omitempty"`
 	// Count is how many occurrences have landed on the issue.
-	Count *int32 `json:"count,omitempty"`
+	Count *int64 `json:"count,omitempty"`
 	// CreatedAt is when the issue was first recorded.
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	// Culprit is where it came from — the function or route blamed for it.
@@ -110,9 +110,9 @@ func (o *O11yO11yErrorIssue) SetAssignee(v string) {
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *O11yO11yErrorIssue) GetCount() int32 {
+func (o *O11yO11yErrorIssue) GetCount() int64 {
 	if o == nil || IsNil(o.Count) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Count
@@ -120,7 +120,7 @@ func (o *O11yO11yErrorIssue) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yErrorIssue) GetCountOk() (*int32, bool) {
+func (o *O11yO11yErrorIssue) GetCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -136,8 +136,8 @@ func (o *O11yO11yErrorIssue) HasCount() bool {
 	return false
 }
 
-// SetCount gets a reference to the given int32 and assigns it to the Count field.
-func (o *O11yO11yErrorIssue) SetCount(v int32) {
+// SetCount gets a reference to the given int64 and assigns it to the Count field.
+func (o *O11yO11yErrorIssue) SetCount(v int64) {
 	o.Count = &v
 }
 

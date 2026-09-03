@@ -681,6 +681,7 @@ docs/EnrollReq.md
 docs/EnrollResult.md
 docs/Enrollment.md
 docs/EnrollmentList.md
+docs/EnrollmentView.md
 docs/Enrolment.md
 docs/EntitlementAPI.md
 docs/EntitlementsView.md
@@ -722,7 +723,6 @@ docs/EvaluateIn.md
 docs/EvaluatorList.md
 docs/EvaluatorReq.md
 docs/EvaluatorView.md
-docs/Event.md
 docs/EventAPI.md
 docs/EventIn.md
 docs/EventList.md
@@ -1013,6 +1013,9 @@ docs/IamWorkspace.md
 docs/IamWorkspacesDeleteOutput.md
 docs/IamWorkspacesInput.md
 docs/IamWorkspacesListOutput.md
+docs/IdentityIn.md
+docs/IdentityList.md
+docs/IdentityView.md
 docs/ImageOrigin.md
 docs/ImageView.md
 docs/ImportCapTableIn.md
@@ -1078,6 +1081,7 @@ docs/ItemView.md
 docs/JobCancel.md
 docs/JobCanceled.md
 docs/JobList.md
+docs/JoinFailure.md
 docs/JourneyStep.md
 docs/JudgeSpec.md
 docs/KbAuthorizeOut.md
@@ -1157,6 +1161,7 @@ docs/LinkList.md
 docs/LinkMint.md
 docs/LinkView.md
 docs/ListOut.md
+docs/Listed.md
 docs/Listing.md
 docs/ListingPage.md
 docs/Liveness.md
@@ -2242,11 +2247,13 @@ docs/ProvisionResult.md
 docs/ProvisionedResource.md
 docs/ProvisionedSummary.md
 docs/ProvisioningAPI.md
+docs/PublicRooms.md
 docs/PublishInput.md
 docs/PublishKitIn.md
 docs/PublishReq.md
 docs/PublishResult.md
 docs/PublishedClaim.md
+docs/PublishedView.md
 docs/PubsubAPI.md
 docs/PullList.md
 docs/PullView.md
@@ -2326,6 +2333,7 @@ docs/RegistryProjectList.md
 docs/RegistryStatus.md
 docs/RegistryTagList.md
 docs/RegistryToken.md
+docs/ReindexOut.md
 docs/ReleaseBoard.md
 docs/ReleaseRow.md
 docs/Remark.md
@@ -2517,6 +2525,7 @@ docs/SeriesLine.md
 docs/SeriesPoint.md
 docs/Service.md
 docs/ServiceDetail.md
+docs/ServiceIn.md
 docs/ServicePort.md
 docs/Session.md
 docs/SessionDetail.md
@@ -2544,6 +2553,7 @@ docs/Skill.md
 docs/SkillDeleted.md
 docs/SkillIn.md
 docs/SkillWritten.md
+docs/SlackJoinOut.md
 docs/SlotView.md
 docs/SocialAPI.md
 docs/SocialAccount.md
@@ -2803,7 +2813,6 @@ docs/WriteIn.md
 docs/Written.md
 docs/Wrote.md
 docs/X402API.md
-docs/ZapProcReq.md
 model_acc_list.go
 model_acc_view.go
 model_account.go
@@ -3329,6 +3338,7 @@ model_enroll_req.go
 model_enroll_result.go
 model_enrollment.go
 model_enrollment_list.go
+model_enrollment_view.go
 model_enrolment.go
 model_entitlements_view.go
 model_entry.go
@@ -3367,7 +3377,6 @@ model_evaluate_in.go
 model_evaluator_list.go
 model_evaluator_req.go
 model_evaluator_view.go
-model_event.go
 model_event_in.go
 model_event_list.go
 model_event_view.go
@@ -3644,6 +3653,9 @@ model_iam_workspace.go
 model_iam_workspaces_delete_output.go
 model_iam_workspaces_input.go
 model_iam_workspaces_list_output.go
+model_identity_in.go
+model_identity_list.go
+model_identity_view.go
 model_image_origin.go
 model_image_view.go
 model_import_cap_table_in.go
@@ -3706,6 +3718,7 @@ model_item_view.go
 model_job_cancel.go
 model_job_canceled.go
 model_job_list.go
+model_join_failure.go
 model_journey_step.go
 model_judge_spec.go
 model_kb_authorize_out.go
@@ -3775,6 +3788,7 @@ model_link_list.go
 model_link_mint.go
 model_link_view.go
 model_list_out.go
+model_listed.go
 model_listing.go
 model_listing_page.go
 model_liveness.go
@@ -4842,11 +4856,13 @@ model_provision_request.go
 model_provision_result.go
 model_provisioned_resource.go
 model_provisioned_summary.go
+model_public_rooms.go
 model_publish_input.go
 model_publish_kit_in.go
 model_publish_req.go
 model_publish_result.go
 model_published_claim.go
+model_published_view.go
 model_pull_list.go
 model_pull_view.go
 model_purge.go
@@ -4922,6 +4938,7 @@ model_registry_project_list.go
 model_registry_status.go
 model_registry_tag_list.go
 model_registry_token.go
+model_reindex_out.go
 model_release_board.go
 model_release_row.go
 model_remark.go
@@ -5105,6 +5122,7 @@ model_series_line.go
 model_series_point.go
 model_service.go
 model_service_detail.go
+model_service_in.go
 model_service_port.go
 model_session.go
 model_session_detail.go
@@ -5130,6 +5148,7 @@ model_skill.go
 model_skill_deleted.go
 model_skill_in.go
 model_skill_written.go
+model_slack_join_out.go
 model_slot_view.go
 model_sms.go
 model_social_account.go
@@ -5367,6 +5386,5 @@ model_world_wire.go
 model_write_in.go
 model_written.go
 model_wrote.go
-model_zap_proc_req.go
 response.go
 utils.go

@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Authorized** | Pointer to **int32** | Authorized is how many shares of the class are authorized. | [optional] 
+**Authorized** | Pointer to **int64** | Authorized is how many shares of the class are authorized. | [optional] 
 **ClassType** | Pointer to **string** | ClassType is COMMON or PREFERRED. | [optional] 
-**Issued** | Pointer to **int32** | Issued is how many shares of the class have been issued. | [optional] 
+**Issued** | Pointer to **int64** | Issued is how many shares of the class have been issued. | [optional] 
 **Name** | Pointer to **string** | Name is the class name. | [optional] 
 **ShareClassId** | Pointer to **string** | ShareClassID addresses the class this position is for. | [optional] 
 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAuthorized
 
-`func (o *CaptableClassHolding) GetAuthorized() int32`
+`func (o *CaptableClassHolding) GetAuthorized() int64`
 
 GetAuthorized returns the Authorized field if non-nil, zero value otherwise.
 
 ### GetAuthorizedOk
 
-`func (o *CaptableClassHolding) GetAuthorizedOk() (*int32, bool)`
+`func (o *CaptableClassHolding) GetAuthorizedOk() (*int64, bool)`
 
 GetAuthorizedOk returns a tuple with the Authorized field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAuthorized
 
-`func (o *CaptableClassHolding) SetAuthorized(v int32)`
+`func (o *CaptableClassHolding) SetAuthorized(v int64)`
 
 SetAuthorized sets Authorized field to given value.
 
@@ -81,20 +81,20 @@ HasClassType returns a boolean if a field has been set.
 
 ### GetIssued
 
-`func (o *CaptableClassHolding) GetIssued() int32`
+`func (o *CaptableClassHolding) GetIssued() int64`
 
 GetIssued returns the Issued field if non-nil, zero value otherwise.
 
 ### GetIssuedOk
 
-`func (o *CaptableClassHolding) GetIssuedOk() (*int32, bool)`
+`func (o *CaptableClassHolding) GetIssuedOk() (*int64, bool)`
 
 GetIssuedOk returns a tuple with the Issued field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIssued
 
-`func (o *CaptableClassHolding) SetIssued(v int32)`
+`func (o *CaptableClassHolding) SetIssued(v int64)`
 
 SetIssued sets Issued field to given value.
 

@@ -38,7 +38,7 @@ type Receipt struct {
 	// Resource is what was paid for, in the same spelling the price table and the challenge used: the request path for a priced route, \"tool:<id>\" for a priced tool.
 	Resource *string `json:"resource,omitempty"`
 	// SettledAt is when this settlement was CLAIMED, in unix seconds — the moment the authorization was accepted, which is also the moment the time window it carried stopped applying. A settlement finished later by reconciliation keeps this instant.
-	SettledAt *int32 `json:"settledAt,omitempty"`
+	SettledAt *int64 `json:"settledAt,omitempty"`
 	// SettledVia is which rail moved the money: \"ledger\", the live default, or \"chain\" when the authorization is broadcast. Those two values and no others.
 	SettledVia *string `json:"settledVia,omitempty"`
 	// TxHash is the chain transaction hash, present only for a \"chain\" settlement. Empty on a ledger settlement — that is the normal case today, and it means the money moved without a chain, not that it failed. The wire's PAYMENT-RESPONSE `transaction` falls back to ID when this is empty.
@@ -351,9 +351,9 @@ func (o *Receipt) SetResource(v string) {
 }
 
 // GetSettledAt returns the SettledAt field value if set, zero value otherwise.
-func (o *Receipt) GetSettledAt() int32 {
+func (o *Receipt) GetSettledAt() int64 {
 	if o == nil || IsNil(o.SettledAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SettledAt
@@ -361,7 +361,7 @@ func (o *Receipt) GetSettledAt() int32 {
 
 // GetSettledAtOk returns a tuple with the SettledAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Receipt) GetSettledAtOk() (*int32, bool) {
+func (o *Receipt) GetSettledAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.SettledAt) {
 		return nil, false
 	}
@@ -377,8 +377,8 @@ func (o *Receipt) HasSettledAt() bool {
 	return false
 }
 
-// SetSettledAt gets a reference to the given int32 and assigns it to the SettledAt field.
-func (o *Receipt) SetSettledAt(v int32) {
+// SetSettledAt gets a reference to the given int64 and assigns it to the SettledAt field.
+func (o *Receipt) SetSettledAt(v int64) {
 	o.SettledAt = &v
 }
 

@@ -20,15 +20,15 @@ var _ MappedNullable = &TrustAskView{}
 // TrustAskView struct for TrustAskView
 type TrustAskView struct {
 	// CreatedAt is when the ask arrived, in unix milliseconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// DecidedAt is when it was answered, in unix milliseconds; 0 while open.
-	DecidedAt *int32 `json:"decidedAt,omitempty"`
+	DecidedAt *int64 `json:"decidedAt,omitempty"`
 	// DecidedBy is who answered it.
 	DecidedBy *string `json:"decidedBy,omitempty"`
 	// Email is the address that asked, as stated and UNVERIFIED — it names a party and proves nothing, which is why the grant is addressed to it rather than trusting it.
 	Email *string `json:"email,omitempty"`
 	// ExpiresAt is when a granted ask closes, in unix milliseconds.
-	ExpiresAt *int32 `json:"expiresAt,omitempty"`
+	ExpiresAt *int64 `json:"expiresAt,omitempty"`
 	// ID is the request's id.
 	Id *string `json:"id,omitempty"`
 	// Item is the item asked for, empty when the whole released tier was asked for.
@@ -65,9 +65,9 @@ func NewTrustAskViewWithDefaults() *TrustAskView {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *TrustAskView) GetCreatedAt() int32 {
+func (o *TrustAskView) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -75,7 +75,7 @@ func (o *TrustAskView) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrustAskView) GetCreatedAtOk() (*int32, bool) {
+func (o *TrustAskView) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -91,15 +91,15 @@ func (o *TrustAskView) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *TrustAskView) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *TrustAskView) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
 // GetDecidedAt returns the DecidedAt field value if set, zero value otherwise.
-func (o *TrustAskView) GetDecidedAt() int32 {
+func (o *TrustAskView) GetDecidedAt() int64 {
 	if o == nil || IsNil(o.DecidedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DecidedAt
@@ -107,7 +107,7 @@ func (o *TrustAskView) GetDecidedAt() int32 {
 
 // GetDecidedAtOk returns a tuple with the DecidedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrustAskView) GetDecidedAtOk() (*int32, bool) {
+func (o *TrustAskView) GetDecidedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.DecidedAt) {
 		return nil, false
 	}
@@ -123,8 +123,8 @@ func (o *TrustAskView) HasDecidedAt() bool {
 	return false
 }
 
-// SetDecidedAt gets a reference to the given int32 and assigns it to the DecidedAt field.
-func (o *TrustAskView) SetDecidedAt(v int32) {
+// SetDecidedAt gets a reference to the given int64 and assigns it to the DecidedAt field.
+func (o *TrustAskView) SetDecidedAt(v int64) {
 	o.DecidedAt = &v
 }
 
@@ -193,9 +193,9 @@ func (o *TrustAskView) SetEmail(v string) {
 }
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
-func (o *TrustAskView) GetExpiresAt() int32 {
+func (o *TrustAskView) GetExpiresAt() int64 {
 	if o == nil || IsNil(o.ExpiresAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ExpiresAt
@@ -203,7 +203,7 @@ func (o *TrustAskView) GetExpiresAt() int32 {
 
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrustAskView) GetExpiresAtOk() (*int32, bool) {
+func (o *TrustAskView) GetExpiresAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
@@ -219,8 +219,8 @@ func (o *TrustAskView) HasExpiresAt() bool {
 	return false
 }
 
-// SetExpiresAt gets a reference to the given int32 and assigns it to the ExpiresAt field.
-func (o *TrustAskView) SetExpiresAt(v int32) {
+// SetExpiresAt gets a reference to the given int64 and assigns it to the ExpiresAt field.
+func (o *TrustAskView) SetExpiresAt(v int64) {
 	o.ExpiresAt = &v
 }
 

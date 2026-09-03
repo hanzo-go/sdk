@@ -22,9 +22,9 @@ type AudiencePreview struct {
 	// Available is false when the roster or the warehouse could not be read; the counts are then zero because nothing was measured, not because the cohort is empty, and Reason says which read failed.
 	Available *bool `json:"available,omitempty"`
 	// Count is the cohort size: distinct warehouse identifiers for an event audience, mailable customers for an event-less (whole-org) one.
-	Count *int32 `json:"count,omitempty"`
+	Count *int64 `json:"count,omitempty"`
 	// Deliverable is how many de-duplicated mailboxes a send would reach. Two customers sharing an address count once, so it is <= Count.
-	Deliverable *int32 `json:"deliverable,omitempty"`
+	Deliverable *int64 `json:"deliverable,omitempty"`
 	// Reason is the error text of the read that failed: the org's roster could not be loaded (\"identity store unavailable…\"), or the cohort query had no warehouse to run against (\"analytics warehouse not configured\"). Absent when the evaluation succeeded, so its presence and Available=false are one fact seen twice.
 	Reason *string `json:"reason,omitempty"`
 	// Sample is up to 1000 cohort IDENTIFIERS — never addresses, which product analytics does not hold. Empty for an event-less (whole-org) audience.
@@ -32,7 +32,7 @@ type AudiencePreview struct {
 	// Source names where the cohort was read: the events table for an event audience, \"iam:<org>\" for the whole-org one.
 	Source *string `json:"source,omitempty"`
 	// Unmatched is how many cohort identifiers named nobody on the org's roster and so have no address to mail. It is reported rather than hidden: it is the honest explanation for a cohort of 500 that mails 3. Always 0 for an event-less (whole-org) audience, which starts from the roster and has nothing to match.
-	Unmatched *int32 `json:"unmatched,omitempty"`
+	Unmatched *int64 `json:"unmatched,omitempty"`
 }
 
 // NewAudiencePreview instantiates a new AudiencePreview object
@@ -85,9 +85,9 @@ func (o *AudiencePreview) SetAvailable(v bool) {
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *AudiencePreview) GetCount() int32 {
+func (o *AudiencePreview) GetCount() int64 {
 	if o == nil || IsNil(o.Count) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Count
@@ -95,7 +95,7 @@ func (o *AudiencePreview) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AudiencePreview) GetCountOk() (*int32, bool) {
+func (o *AudiencePreview) GetCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -111,15 +111,15 @@ func (o *AudiencePreview) HasCount() bool {
 	return false
 }
 
-// SetCount gets a reference to the given int32 and assigns it to the Count field.
-func (o *AudiencePreview) SetCount(v int32) {
+// SetCount gets a reference to the given int64 and assigns it to the Count field.
+func (o *AudiencePreview) SetCount(v int64) {
 	o.Count = &v
 }
 
 // GetDeliverable returns the Deliverable field value if set, zero value otherwise.
-func (o *AudiencePreview) GetDeliverable() int32 {
+func (o *AudiencePreview) GetDeliverable() int64 {
 	if o == nil || IsNil(o.Deliverable) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Deliverable
@@ -127,7 +127,7 @@ func (o *AudiencePreview) GetDeliverable() int32 {
 
 // GetDeliverableOk returns a tuple with the Deliverable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AudiencePreview) GetDeliverableOk() (*int32, bool) {
+func (o *AudiencePreview) GetDeliverableOk() (*int64, bool) {
 	if o == nil || IsNil(o.Deliverable) {
 		return nil, false
 	}
@@ -143,8 +143,8 @@ func (o *AudiencePreview) HasDeliverable() bool {
 	return false
 }
 
-// SetDeliverable gets a reference to the given int32 and assigns it to the Deliverable field.
-func (o *AudiencePreview) SetDeliverable(v int32) {
+// SetDeliverable gets a reference to the given int64 and assigns it to the Deliverable field.
+func (o *AudiencePreview) SetDeliverable(v int64) {
 	o.Deliverable = &v
 }
 
@@ -245,9 +245,9 @@ func (o *AudiencePreview) SetSource(v string) {
 }
 
 // GetUnmatched returns the Unmatched field value if set, zero value otherwise.
-func (o *AudiencePreview) GetUnmatched() int32 {
+func (o *AudiencePreview) GetUnmatched() int64 {
 	if o == nil || IsNil(o.Unmatched) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Unmatched
@@ -255,7 +255,7 @@ func (o *AudiencePreview) GetUnmatched() int32 {
 
 // GetUnmatchedOk returns a tuple with the Unmatched field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AudiencePreview) GetUnmatchedOk() (*int32, bool) {
+func (o *AudiencePreview) GetUnmatchedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Unmatched) {
 		return nil, false
 	}
@@ -271,8 +271,8 @@ func (o *AudiencePreview) HasUnmatched() bool {
 	return false
 }
 
-// SetUnmatched gets a reference to the given int32 and assigns it to the Unmatched field.
-func (o *AudiencePreview) SetUnmatched(v int32) {
+// SetUnmatched gets a reference to the given int64 and assigns it to the Unmatched field.
+func (o *AudiencePreview) SetUnmatched(v int64) {
 	o.Unmatched = &v
 }
 

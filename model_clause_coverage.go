@@ -20,7 +20,7 @@ var _ MappedNullable = &ClauseCoverage{}
 // ClauseCoverage struct for ClauseCoverage
 type ClauseCoverage struct {
 	// Automated is how many clauses have an automated control behind them that something can fail on behalf of.
-	Automated *int32 `json:"automated,omitempty"`
+	Automated *int64 `json:"automated,omitempty"`
 	// Clauses is every clause the standard publishes, with what stands behind it.
 	Clauses []ClauseRow `json:"clauses,omitempty"`
 	// Edition is which edition this clause list is taken from.
@@ -28,21 +28,21 @@ type ClauseCoverage struct {
 	// Framework is the framework id — \"soc2\", \"iso27001\", \"nist80053\".
 	Framework *string `json:"framework,omitempty"`
 	// Generated is when this was computed, unix milliseconds.
-	Generated *int32 `json:"generated,omitempty"`
+	Generated *int64 `json:"generated,omitempty"`
 	// Name is the published standard's name.
 	Name *string `json:"name,omitempty"`
 	// None is how many have nothing behind them.
-	None *int32 `json:"none,omitempty"`
+	None *int64 `json:"none,omitempty"`
 	// Note is what this clause list is scoped to, when a count alone would misrepresent it.
 	Note *string `json:"note,omitempty"`
 	// Partial is how many are answered in part.
-	Partial *int32 `json:"partial,omitempty"`
+	Partial *int64 `json:"partial,omitempty"`
 	// Publisher is who publishes it — AICPA, ISO/IEC, NIST.
 	Publisher *string `json:"publisher,omitempty"`
 	// Statement is the counts as one sentence, carrying the unit.
 	Statement *string `json:"statement,omitempty"`
 	// Total is the framework's WHOLE published clause list — the denominator.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 	// Unit is what ONE clause is — \"criterion\", \"control\", \"family\".
 	Unit *string `json:"unit,omitempty"`
 	// Units is the plural of Unit, for rendering a sentence.
@@ -69,9 +69,9 @@ func NewClauseCoverageWithDefaults() *ClauseCoverage {
 }
 
 // GetAutomated returns the Automated field value if set, zero value otherwise.
-func (o *ClauseCoverage) GetAutomated() int32 {
+func (o *ClauseCoverage) GetAutomated() int64 {
 	if o == nil || IsNil(o.Automated) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Automated
@@ -79,7 +79,7 @@ func (o *ClauseCoverage) GetAutomated() int32 {
 
 // GetAutomatedOk returns a tuple with the Automated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ClauseCoverage) GetAutomatedOk() (*int32, bool) {
+func (o *ClauseCoverage) GetAutomatedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Automated) {
 		return nil, false
 	}
@@ -95,8 +95,8 @@ func (o *ClauseCoverage) HasAutomated() bool {
 	return false
 }
 
-// SetAutomated gets a reference to the given int32 and assigns it to the Automated field.
-func (o *ClauseCoverage) SetAutomated(v int32) {
+// SetAutomated gets a reference to the given int64 and assigns it to the Automated field.
+func (o *ClauseCoverage) SetAutomated(v int64) {
 	o.Automated = &v
 }
 
@@ -197,9 +197,9 @@ func (o *ClauseCoverage) SetFramework(v string) {
 }
 
 // GetGenerated returns the Generated field value if set, zero value otherwise.
-func (o *ClauseCoverage) GetGenerated() int32 {
+func (o *ClauseCoverage) GetGenerated() int64 {
 	if o == nil || IsNil(o.Generated) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Generated
@@ -207,7 +207,7 @@ func (o *ClauseCoverage) GetGenerated() int32 {
 
 // GetGeneratedOk returns a tuple with the Generated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ClauseCoverage) GetGeneratedOk() (*int32, bool) {
+func (o *ClauseCoverage) GetGeneratedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Generated) {
 		return nil, false
 	}
@@ -223,8 +223,8 @@ func (o *ClauseCoverage) HasGenerated() bool {
 	return false
 }
 
-// SetGenerated gets a reference to the given int32 and assigns it to the Generated field.
-func (o *ClauseCoverage) SetGenerated(v int32) {
+// SetGenerated gets a reference to the given int64 and assigns it to the Generated field.
+func (o *ClauseCoverage) SetGenerated(v int64) {
 	o.Generated = &v
 }
 
@@ -261,9 +261,9 @@ func (o *ClauseCoverage) SetName(v string) {
 }
 
 // GetNone returns the None field value if set, zero value otherwise.
-func (o *ClauseCoverage) GetNone() int32 {
+func (o *ClauseCoverage) GetNone() int64 {
 	if o == nil || IsNil(o.None) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.None
@@ -271,7 +271,7 @@ func (o *ClauseCoverage) GetNone() int32 {
 
 // GetNoneOk returns a tuple with the None field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ClauseCoverage) GetNoneOk() (*int32, bool) {
+func (o *ClauseCoverage) GetNoneOk() (*int64, bool) {
 	if o == nil || IsNil(o.None) {
 		return nil, false
 	}
@@ -287,8 +287,8 @@ func (o *ClauseCoverage) HasNone() bool {
 	return false
 }
 
-// SetNone gets a reference to the given int32 and assigns it to the None field.
-func (o *ClauseCoverage) SetNone(v int32) {
+// SetNone gets a reference to the given int64 and assigns it to the None field.
+func (o *ClauseCoverage) SetNone(v int64) {
 	o.None = &v
 }
 
@@ -325,9 +325,9 @@ func (o *ClauseCoverage) SetNote(v string) {
 }
 
 // GetPartial returns the Partial field value if set, zero value otherwise.
-func (o *ClauseCoverage) GetPartial() int32 {
+func (o *ClauseCoverage) GetPartial() int64 {
 	if o == nil || IsNil(o.Partial) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Partial
@@ -335,7 +335,7 @@ func (o *ClauseCoverage) GetPartial() int32 {
 
 // GetPartialOk returns a tuple with the Partial field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ClauseCoverage) GetPartialOk() (*int32, bool) {
+func (o *ClauseCoverage) GetPartialOk() (*int64, bool) {
 	if o == nil || IsNil(o.Partial) {
 		return nil, false
 	}
@@ -351,8 +351,8 @@ func (o *ClauseCoverage) HasPartial() bool {
 	return false
 }
 
-// SetPartial gets a reference to the given int32 and assigns it to the Partial field.
-func (o *ClauseCoverage) SetPartial(v int32) {
+// SetPartial gets a reference to the given int64 and assigns it to the Partial field.
+func (o *ClauseCoverage) SetPartial(v int64) {
 	o.Partial = &v
 }
 
@@ -421,9 +421,9 @@ func (o *ClauseCoverage) SetStatement(v string) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *ClauseCoverage) GetTotal() int32 {
+func (o *ClauseCoverage) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -431,7 +431,7 @@ func (o *ClauseCoverage) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ClauseCoverage) GetTotalOk() (*int32, bool) {
+func (o *ClauseCoverage) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -447,8 +447,8 @@ func (o *ClauseCoverage) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *ClauseCoverage) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *ClauseCoverage) SetTotal(v int64) {
 	o.Total = &v
 }
 

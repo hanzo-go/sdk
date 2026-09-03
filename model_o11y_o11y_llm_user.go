@@ -20,21 +20,21 @@ var _ MappedNullable = &O11yO11yLLMUser{}
 // O11yO11yLLMUser struct for O11yO11yLLMUser
 type O11yO11yLLMUser struct {
 	// CompletionTokens is their total output tokens.
-	CompletionTokens *int32 `json:"completionTokens,omitempty"`
+	CompletionTokens *int64 `json:"completionTokens,omitempty"`
 	// ID is the end user's id (user.id).
 	Id *string `json:"id,omitempty"`
 	// Observations is how many observations they produced.
-	Observations *int32 `json:"observations,omitempty"`
+	Observations *int64 `json:"observations,omitempty"`
 	// PromptTokens is their total input tokens.
-	PromptTokens *int32 `json:"promptTokens,omitempty"`
+	PromptTokens *int64 `json:"promptTokens,omitempty"`
 	// Sessions is how many conversations they had.
-	Sessions *int32 `json:"sessions,omitempty"`
+	Sessions *int64 `json:"sessions,omitempty"`
 	// TotalCost is their total cost.
-	TotalCost *float32 `json:"totalCost,omitempty"`
+	TotalCost *float64 `json:"totalCost,omitempty"`
 	// TotalTokens is their total tokens.
-	TotalTokens *int32 `json:"totalTokens,omitempty"`
+	TotalTokens *int64 `json:"totalTokens,omitempty"`
 	// Traces is how many traces they produced.
-	Traces *int32 `json:"traces,omitempty"`
+	Traces *int64 `json:"traces,omitempty"`
 }
 
 // NewO11yO11yLLMUser instantiates a new O11yO11yLLMUser object
@@ -55,9 +55,9 @@ func NewO11yO11yLLMUserWithDefaults() *O11yO11yLLMUser {
 }
 
 // GetCompletionTokens returns the CompletionTokens field value if set, zero value otherwise.
-func (o *O11yO11yLLMUser) GetCompletionTokens() int32 {
+func (o *O11yO11yLLMUser) GetCompletionTokens() int64 {
 	if o == nil || IsNil(o.CompletionTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CompletionTokens
@@ -65,7 +65,7 @@ func (o *O11yO11yLLMUser) GetCompletionTokens() int32 {
 
 // GetCompletionTokensOk returns a tuple with the CompletionTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLLMUser) GetCompletionTokensOk() (*int32, bool) {
+func (o *O11yO11yLLMUser) GetCompletionTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.CompletionTokens) {
 		return nil, false
 	}
@@ -81,8 +81,8 @@ func (o *O11yO11yLLMUser) HasCompletionTokens() bool {
 	return false
 }
 
-// SetCompletionTokens gets a reference to the given int32 and assigns it to the CompletionTokens field.
-func (o *O11yO11yLLMUser) SetCompletionTokens(v int32) {
+// SetCompletionTokens gets a reference to the given int64 and assigns it to the CompletionTokens field.
+func (o *O11yO11yLLMUser) SetCompletionTokens(v int64) {
 	o.CompletionTokens = &v
 }
 
@@ -119,9 +119,9 @@ func (o *O11yO11yLLMUser) SetId(v string) {
 }
 
 // GetObservations returns the Observations field value if set, zero value otherwise.
-func (o *O11yO11yLLMUser) GetObservations() int32 {
+func (o *O11yO11yLLMUser) GetObservations() int64 {
 	if o == nil || IsNil(o.Observations) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Observations
@@ -129,7 +129,7 @@ func (o *O11yO11yLLMUser) GetObservations() int32 {
 
 // GetObservationsOk returns a tuple with the Observations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLLMUser) GetObservationsOk() (*int32, bool) {
+func (o *O11yO11yLLMUser) GetObservationsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Observations) {
 		return nil, false
 	}
@@ -145,15 +145,15 @@ func (o *O11yO11yLLMUser) HasObservations() bool {
 	return false
 }
 
-// SetObservations gets a reference to the given int32 and assigns it to the Observations field.
-func (o *O11yO11yLLMUser) SetObservations(v int32) {
+// SetObservations gets a reference to the given int64 and assigns it to the Observations field.
+func (o *O11yO11yLLMUser) SetObservations(v int64) {
 	o.Observations = &v
 }
 
 // GetPromptTokens returns the PromptTokens field value if set, zero value otherwise.
-func (o *O11yO11yLLMUser) GetPromptTokens() int32 {
+func (o *O11yO11yLLMUser) GetPromptTokens() int64 {
 	if o == nil || IsNil(o.PromptTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PromptTokens
@@ -161,7 +161,7 @@ func (o *O11yO11yLLMUser) GetPromptTokens() int32 {
 
 // GetPromptTokensOk returns a tuple with the PromptTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLLMUser) GetPromptTokensOk() (*int32, bool) {
+func (o *O11yO11yLLMUser) GetPromptTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.PromptTokens) {
 		return nil, false
 	}
@@ -177,15 +177,15 @@ func (o *O11yO11yLLMUser) HasPromptTokens() bool {
 	return false
 }
 
-// SetPromptTokens gets a reference to the given int32 and assigns it to the PromptTokens field.
-func (o *O11yO11yLLMUser) SetPromptTokens(v int32) {
+// SetPromptTokens gets a reference to the given int64 and assigns it to the PromptTokens field.
+func (o *O11yO11yLLMUser) SetPromptTokens(v int64) {
 	o.PromptTokens = &v
 }
 
 // GetSessions returns the Sessions field value if set, zero value otherwise.
-func (o *O11yO11yLLMUser) GetSessions() int32 {
+func (o *O11yO11yLLMUser) GetSessions() int64 {
 	if o == nil || IsNil(o.Sessions) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Sessions
@@ -193,7 +193,7 @@ func (o *O11yO11yLLMUser) GetSessions() int32 {
 
 // GetSessionsOk returns a tuple with the Sessions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLLMUser) GetSessionsOk() (*int32, bool) {
+func (o *O11yO11yLLMUser) GetSessionsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Sessions) {
 		return nil, false
 	}
@@ -209,15 +209,15 @@ func (o *O11yO11yLLMUser) HasSessions() bool {
 	return false
 }
 
-// SetSessions gets a reference to the given int32 and assigns it to the Sessions field.
-func (o *O11yO11yLLMUser) SetSessions(v int32) {
+// SetSessions gets a reference to the given int64 and assigns it to the Sessions field.
+func (o *O11yO11yLLMUser) SetSessions(v int64) {
 	o.Sessions = &v
 }
 
 // GetTotalCost returns the TotalCost field value if set, zero value otherwise.
-func (o *O11yO11yLLMUser) GetTotalCost() float32 {
+func (o *O11yO11yLLMUser) GetTotalCost() float64 {
 	if o == nil || IsNil(o.TotalCost) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.TotalCost
@@ -225,7 +225,7 @@ func (o *O11yO11yLLMUser) GetTotalCost() float32 {
 
 // GetTotalCostOk returns a tuple with the TotalCost field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLLMUser) GetTotalCostOk() (*float32, bool) {
+func (o *O11yO11yLLMUser) GetTotalCostOk() (*float64, bool) {
 	if o == nil || IsNil(o.TotalCost) {
 		return nil, false
 	}
@@ -241,15 +241,15 @@ func (o *O11yO11yLLMUser) HasTotalCost() bool {
 	return false
 }
 
-// SetTotalCost gets a reference to the given float32 and assigns it to the TotalCost field.
-func (o *O11yO11yLLMUser) SetTotalCost(v float32) {
+// SetTotalCost gets a reference to the given float64 and assigns it to the TotalCost field.
+func (o *O11yO11yLLMUser) SetTotalCost(v float64) {
 	o.TotalCost = &v
 }
 
 // GetTotalTokens returns the TotalTokens field value if set, zero value otherwise.
-func (o *O11yO11yLLMUser) GetTotalTokens() int32 {
+func (o *O11yO11yLLMUser) GetTotalTokens() int64 {
 	if o == nil || IsNil(o.TotalTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalTokens
@@ -257,7 +257,7 @@ func (o *O11yO11yLLMUser) GetTotalTokens() int32 {
 
 // GetTotalTokensOk returns a tuple with the TotalTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLLMUser) GetTotalTokensOk() (*int32, bool) {
+func (o *O11yO11yLLMUser) GetTotalTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalTokens) {
 		return nil, false
 	}
@@ -273,15 +273,15 @@ func (o *O11yO11yLLMUser) HasTotalTokens() bool {
 	return false
 }
 
-// SetTotalTokens gets a reference to the given int32 and assigns it to the TotalTokens field.
-func (o *O11yO11yLLMUser) SetTotalTokens(v int32) {
+// SetTotalTokens gets a reference to the given int64 and assigns it to the TotalTokens field.
+func (o *O11yO11yLLMUser) SetTotalTokens(v int64) {
 	o.TotalTokens = &v
 }
 
 // GetTraces returns the Traces field value if set, zero value otherwise.
-func (o *O11yO11yLLMUser) GetTraces() int32 {
+func (o *O11yO11yLLMUser) GetTraces() int64 {
 	if o == nil || IsNil(o.Traces) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Traces
@@ -289,7 +289,7 @@ func (o *O11yO11yLLMUser) GetTraces() int32 {
 
 // GetTracesOk returns a tuple with the Traces field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLLMUser) GetTracesOk() (*int32, bool) {
+func (o *O11yO11yLLMUser) GetTracesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Traces) {
 		return nil, false
 	}
@@ -305,8 +305,8 @@ func (o *O11yO11yLLMUser) HasTraces() bool {
 	return false
 }
 
-// SetTraces gets a reference to the given int32 and assigns it to the Traces field.
-func (o *O11yO11yLLMUser) SetTraces(v int32) {
+// SetTraces gets a reference to the given int64 and assigns it to the Traces field.
+func (o *O11yO11yLLMUser) SetTraces(v int64) {
 	o.Traces = &v
 }
 

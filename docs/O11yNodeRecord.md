@@ -6,11 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Condition** | Pointer to **interface{}** |  | [optional] 
 **Meta** | Pointer to **map[string]string** |  | [optional] 
-**NodeCPU** | Pointer to **float32** |  | [optional] 
-**NodeCPUAllocatable** | Pointer to **float32** |  | [optional] 
+**NodeCPU** | Pointer to **float64** |  | [optional] 
+**NodeCPUAllocatable** | Pointer to **float64** |  | [optional] 
 **NodeCountsByReadiness** | Pointer to [**O11yNodeCountsByReadiness**](O11yNodeCountsByReadiness.md) |  | [optional] 
-**NodeMemory** | Pointer to **float32** |  | [optional] 
-**NodeMemoryAllocatable** | Pointer to **float32** |  | [optional] 
+**NodeMemory** | Pointer to **float64** |  | [optional] 
+**NodeMemoryAllocatable** | Pointer to **float64** |  | [optional] 
 **NodeName** | Pointer to **string** |  | [optional] 
 **PodCountsByPhase** | Pointer to [**O11yPodCountsByPhase**](O11yPodCountsByPhase.md) |  | [optional] 
 
@@ -95,20 +95,20 @@ HasMeta returns a boolean if a field has been set.
 
 ### GetNodeCPU
 
-`func (o *O11yNodeRecord) GetNodeCPU() float32`
+`func (o *O11yNodeRecord) GetNodeCPU() float64`
 
 GetNodeCPU returns the NodeCPU field if non-nil, zero value otherwise.
 
 ### GetNodeCPUOk
 
-`func (o *O11yNodeRecord) GetNodeCPUOk() (*float32, bool)`
+`func (o *O11yNodeRecord) GetNodeCPUOk() (*float64, bool)`
 
 GetNodeCPUOk returns a tuple with the NodeCPU field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNodeCPU
 
-`func (o *O11yNodeRecord) SetNodeCPU(v float32)`
+`func (o *O11yNodeRecord) SetNodeCPU(v float64)`
 
 SetNodeCPU sets NodeCPU field to given value.
 
@@ -120,20 +120,20 @@ HasNodeCPU returns a boolean if a field has been set.
 
 ### GetNodeCPUAllocatable
 
-`func (o *O11yNodeRecord) GetNodeCPUAllocatable() float32`
+`func (o *O11yNodeRecord) GetNodeCPUAllocatable() float64`
 
 GetNodeCPUAllocatable returns the NodeCPUAllocatable field if non-nil, zero value otherwise.
 
 ### GetNodeCPUAllocatableOk
 
-`func (o *O11yNodeRecord) GetNodeCPUAllocatableOk() (*float32, bool)`
+`func (o *O11yNodeRecord) GetNodeCPUAllocatableOk() (*float64, bool)`
 
 GetNodeCPUAllocatableOk returns a tuple with the NodeCPUAllocatable field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNodeCPUAllocatable
 
-`func (o *O11yNodeRecord) SetNodeCPUAllocatable(v float32)`
+`func (o *O11yNodeRecord) SetNodeCPUAllocatable(v float64)`
 
 SetNodeCPUAllocatable sets NodeCPUAllocatable field to given value.
 
@@ -170,20 +170,20 @@ HasNodeCountsByReadiness returns a boolean if a field has been set.
 
 ### GetNodeMemory
 
-`func (o *O11yNodeRecord) GetNodeMemory() float32`
+`func (o *O11yNodeRecord) GetNodeMemory() float64`
 
 GetNodeMemory returns the NodeMemory field if non-nil, zero value otherwise.
 
 ### GetNodeMemoryOk
 
-`func (o *O11yNodeRecord) GetNodeMemoryOk() (*float32, bool)`
+`func (o *O11yNodeRecord) GetNodeMemoryOk() (*float64, bool)`
 
 GetNodeMemoryOk returns a tuple with the NodeMemory field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNodeMemory
 
-`func (o *O11yNodeRecord) SetNodeMemory(v float32)`
+`func (o *O11yNodeRecord) SetNodeMemory(v float64)`
 
 SetNodeMemory sets NodeMemory field to given value.
 
@@ -195,20 +195,20 @@ HasNodeMemory returns a boolean if a field has been set.
 
 ### GetNodeMemoryAllocatable
 
-`func (o *O11yNodeRecord) GetNodeMemoryAllocatable() float32`
+`func (o *O11yNodeRecord) GetNodeMemoryAllocatable() float64`
 
 GetNodeMemoryAllocatable returns the NodeMemoryAllocatable field if non-nil, zero value otherwise.
 
 ### GetNodeMemoryAllocatableOk
 
-`func (o *O11yNodeRecord) GetNodeMemoryAllocatableOk() (*float32, bool)`
+`func (o *O11yNodeRecord) GetNodeMemoryAllocatableOk() (*float64, bool)`
 
 GetNodeMemoryAllocatableOk returns a tuple with the NodeMemoryAllocatable field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNodeMemoryAllocatable
 
-`func (o *O11yNodeRecord) SetNodeMemoryAllocatable(v float32)`
+`func (o *O11yNodeRecord) SetNodeMemoryAllocatable(v float64)`
 
 SetNodeMemoryAllocatable sets NodeMemoryAllocatable field to given value.
 

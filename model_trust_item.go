@@ -36,7 +36,7 @@ type TrustItem struct {
 	// Summary is a line about the item.
 	Summary *string `json:"summary,omitempty"`
 	// UpdatedAt is when the item last changed, in unix milliseconds.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewTrustItem instantiates a new TrustItem object
@@ -313,9 +313,9 @@ func (o *TrustItem) SetSummary(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *TrustItem) GetUpdatedAt() int32 {
+func (o *TrustItem) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -323,7 +323,7 @@ func (o *TrustItem) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrustItem) GetUpdatedAtOk() (*int32, bool) {
+func (o *TrustItem) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -339,8 +339,8 @@ func (o *TrustItem) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *TrustItem) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *TrustItem) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

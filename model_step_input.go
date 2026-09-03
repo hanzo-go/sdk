@@ -22,7 +22,7 @@ type StepInput struct {
 	// Body is the message text. Required.
 	Body *string `json:"body,omitempty"`
 	// DelaySeconds is how long after the previous step this one sends (after enrollment, for the first step). Must be >= 0.
-	DelaySeconds *int32 `json:"delaySeconds,omitempty"`
+	DelaySeconds *int64 `json:"delaySeconds,omitempty"`
 	// SequenceID is the sequence id from the path (the route's :id).
 	Id *string `json:"id,omitempty"`
 	// Subject is the email subject line, capped at 1024 bytes.
@@ -79,9 +79,9 @@ func (o *StepInput) SetBody(v string) {
 }
 
 // GetDelaySeconds returns the DelaySeconds field value if set, zero value otherwise.
-func (o *StepInput) GetDelaySeconds() int32 {
+func (o *StepInput) GetDelaySeconds() int64 {
 	if o == nil || IsNil(o.DelaySeconds) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DelaySeconds
@@ -89,7 +89,7 @@ func (o *StepInput) GetDelaySeconds() int32 {
 
 // GetDelaySecondsOk returns a tuple with the DelaySeconds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StepInput) GetDelaySecondsOk() (*int32, bool) {
+func (o *StepInput) GetDelaySecondsOk() (*int64, bool) {
 	if o == nil || IsNil(o.DelaySeconds) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *StepInput) HasDelaySeconds() bool {
 	return false
 }
 
-// SetDelaySeconds gets a reference to the given int32 and assigns it to the DelaySeconds field.
-func (o *StepInput) SetDelaySeconds(v int32) {
+// SetDelaySeconds gets a reference to the given int64 and assigns it to the DelaySeconds field.
+func (o *StepInput) SetDelaySeconds(v int64) {
 	o.DelaySeconds = &v
 }
 

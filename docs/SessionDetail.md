@@ -8,11 +8,11 @@ Name | Type | Description | Notes
 **Actor** | Pointer to **string** |  | [optional] 
 **Agent** | Pointer to **string** |  | [optional] 
 **ChildSessions** | Pointer to [**[]SessionView**](SessionView.md) | Children is the session&#39;s DIRECT children, one level down, each with its own counts. The promoted &#x60;children&#x60; integer beside it is how many there are; this is who they are. For the whole subtree, read the tree. | [optional] 
-**Children** | Pointer to **int32** |  | [optional] 
+**Children** | Pointer to **int64** |  | [optional] 
 **CreatedAt** | Pointer to **string** |  | [optional] 
 **Cwd** | Pointer to **string** |  | [optional] 
 **EndedAt** | Pointer to **string** |  | [optional] 
-**Events** | Pointer to **int32** |  | [optional] 
+**Events** | Pointer to **int64** |  | [optional] 
 **Host** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **LastEvent** | Pointer to [**LastEventView**](LastEventView.md) |  | [optional] 
@@ -156,20 +156,20 @@ HasChildSessions returns a boolean if a field has been set.
 
 ### GetChildren
 
-`func (o *SessionDetail) GetChildren() int32`
+`func (o *SessionDetail) GetChildren() int64`
 
 GetChildren returns the Children field if non-nil, zero value otherwise.
 
 ### GetChildrenOk
 
-`func (o *SessionDetail) GetChildrenOk() (*int32, bool)`
+`func (o *SessionDetail) GetChildrenOk() (*int64, bool)`
 
 GetChildrenOk returns a tuple with the Children field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetChildren
 
-`func (o *SessionDetail) SetChildren(v int32)`
+`func (o *SessionDetail) SetChildren(v int64)`
 
 SetChildren sets Children field to given value.
 
@@ -256,20 +256,20 @@ HasEndedAt returns a boolean if a field has been set.
 
 ### GetEvents
 
-`func (o *SessionDetail) GetEvents() int32`
+`func (o *SessionDetail) GetEvents() int64`
 
 GetEvents returns the Events field if non-nil, zero value otherwise.
 
 ### GetEventsOk
 
-`func (o *SessionDetail) GetEventsOk() (*int32, bool)`
+`func (o *SessionDetail) GetEventsOk() (*int64, bool)`
 
 GetEventsOk returns a tuple with the Events field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEvents
 
-`func (o *SessionDetail) SetEvents(v int32)`
+`func (o *SessionDetail) SetEvents(v int64)`
 
 SetEvents sets Events field to given value.
 

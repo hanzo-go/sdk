@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **Timestamp** | Pointer to **time.Time** | Timestamp is the score&#39;s own event time. | [optional] 
 **TraceId** | Pointer to **string** | TraceID is the trace the score attaches to. | [optional] 
 **UpdatedAt** | Pointer to **time.Time** | UpdatedAt is when the score last changed. | [optional] 
-**Value** | Pointer to **float32** | Value is the numeric score. | [optional] 
+**Value** | Pointer to **float64** | Value is the numeric score. | [optional] 
 
 ## Methods
 
@@ -339,20 +339,20 @@ HasUpdatedAt returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *O11yO11yLLMScore) GetValue() float32`
+`func (o *O11yO11yLLMScore) GetValue() float64`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *O11yO11yLLMScore) GetValueOk() (*float32, bool)`
+`func (o *O11yO11yLLMScore) GetValueOk() (*float64, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *O11yO11yLLMScore) SetValue(v float32)`
+`func (o *O11yO11yLLMScore) SetValue(v float64)`
 
 SetValue sets Value field to given value.
 

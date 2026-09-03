@@ -20,11 +20,11 @@ var _ MappedNullable = &Analysis{}
 // Analysis struct for Analysis
 type Analysis struct {
 	// the two-tailed threshold significance was judged at
-	Alpha *float32 `json:"alpha,omitempty"`
+	Alpha *float64 `json:"alpha,omitempty"`
 	// the experiment that was analysed
 	Experiment *string `json:"experiment,omitempty"`
 	// subjects enrolled across every arm
-	ExposedTotal *int32 `json:"exposedTotal,omitempty"`
+	ExposedTotal *int64 `json:"exposedTotal,omitempty"`
 	// the event a conversion is counted from
 	Metric *string `json:"metric,omitempty"`
 	// one row per declared arm, control first
@@ -51,9 +51,9 @@ func NewAnalysisWithDefaults() *Analysis {
 }
 
 // GetAlpha returns the Alpha field value if set, zero value otherwise.
-func (o *Analysis) GetAlpha() float32 {
+func (o *Analysis) GetAlpha() float64 {
 	if o == nil || IsNil(o.Alpha) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Alpha
@@ -61,7 +61,7 @@ func (o *Analysis) GetAlpha() float32 {
 
 // GetAlphaOk returns a tuple with the Alpha field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Analysis) GetAlphaOk() (*float32, bool) {
+func (o *Analysis) GetAlphaOk() (*float64, bool) {
 	if o == nil || IsNil(o.Alpha) {
 		return nil, false
 	}
@@ -77,8 +77,8 @@ func (o *Analysis) HasAlpha() bool {
 	return false
 }
 
-// SetAlpha gets a reference to the given float32 and assigns it to the Alpha field.
-func (o *Analysis) SetAlpha(v float32) {
+// SetAlpha gets a reference to the given float64 and assigns it to the Alpha field.
+func (o *Analysis) SetAlpha(v float64) {
 	o.Alpha = &v
 }
 
@@ -115,9 +115,9 @@ func (o *Analysis) SetExperiment(v string) {
 }
 
 // GetExposedTotal returns the ExposedTotal field value if set, zero value otherwise.
-func (o *Analysis) GetExposedTotal() int32 {
+func (o *Analysis) GetExposedTotal() int64 {
 	if o == nil || IsNil(o.ExposedTotal) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ExposedTotal
@@ -125,7 +125,7 @@ func (o *Analysis) GetExposedTotal() int32 {
 
 // GetExposedTotalOk returns a tuple with the ExposedTotal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Analysis) GetExposedTotalOk() (*int32, bool) {
+func (o *Analysis) GetExposedTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.ExposedTotal) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *Analysis) HasExposedTotal() bool {
 	return false
 }
 
-// SetExposedTotal gets a reference to the given int32 and assigns it to the ExposedTotal field.
-func (o *Analysis) SetExposedTotal(v int32) {
+// SetExposedTotal gets a reference to the given int64 and assigns it to the ExposedTotal field.
+func (o *Analysis) SetExposedTotal(v int64) {
 	o.ExposedTotal = &v
 }
 

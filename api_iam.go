@@ -6681,8 +6681,8 @@ type IamAPIGetIamServiceAccountsRequest struct {
 	ctx          context.Context
 	ApiService   *IamAPIService
 	organization *string
-	p            *int32
-	pageSize     *int32
+	p            *int64
+	pageSize     *int64
 }
 
 // Organization is the organization whose service accounts to list. Required.
@@ -6692,13 +6692,13 @@ func (r IamAPIGetIamServiceAccountsRequest) Organization(organization string) Ia
 }
 
 // P is the 1-indexed page to return. Paging takes both p and pageSize — leave either out, or send something that is not a number, and the whole list comes back.
-func (r IamAPIGetIamServiceAccountsRequest) P(p int32) IamAPIGetIamServiceAccountsRequest {
+func (r IamAPIGetIamServiceAccountsRequest) P(p int64) IamAPIGetIamServiceAccountsRequest {
 	r.p = &p
 	return r
 }
 
 // Size is how many accounts a page holds.
-func (r IamAPIGetIamServiceAccountsRequest) PageSize(pageSize int32) IamAPIGetIamServiceAccountsRequest {
+func (r IamAPIGetIamServiceAccountsRequest) PageSize(pageSize int64) IamAPIGetIamServiceAccountsRequest {
 	r.pageSize = &pageSize
 	return r
 }
@@ -7034,8 +7034,8 @@ type IamAPIGetIamUsersRequest struct {
 	ApiService *IamAPIService
 	owner      *string
 	email      *string
-	limit      *int32
-	offset     *int32
+	limit      *int64
+	offset     *int64
 }
 
 func (r IamAPIGetIamUsersRequest) Owner(owner string) IamAPIGetIamUsersRequest {
@@ -7049,12 +7049,12 @@ func (r IamAPIGetIamUsersRequest) Email(email string) IamAPIGetIamUsersRequest {
 	return r
 }
 
-func (r IamAPIGetIamUsersRequest) Limit(limit int32) IamAPIGetIamUsersRequest {
+func (r IamAPIGetIamUsersRequest) Limit(limit int64) IamAPIGetIamUsersRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r IamAPIGetIamUsersRequest) Offset(offset int32) IamAPIGetIamUsersRequest {
+func (r IamAPIGetIamUsersRequest) Offset(offset int64) IamAPIGetIamUsersRequest {
 	r.offset = &offset
 	return r
 }
@@ -8729,7 +8729,7 @@ type IamAPIListOrganizationsRequest struct {
 	ApiService    *IamAPIService
 	xForwardedFor *string
 	q             *string
-	limit         *int32
+	limit         *int64
 	cursor        *string
 }
 
@@ -8743,7 +8743,7 @@ func (r IamAPIListOrganizationsRequest) Q(q string) IamAPIListOrganizationsReque
 	return r
 }
 
-func (r IamAPIListOrganizationsRequest) Limit(limit int32) IamAPIListOrganizationsRequest {
+func (r IamAPIListOrganizationsRequest) Limit(limit int64) IamAPIListOrganizationsRequest {
 	r.limit = &limit
 	return r
 }

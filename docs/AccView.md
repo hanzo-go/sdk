@@ -5,16 +5,16 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Basis** | Pointer to **string** | Basis is the qualification category: income, net_worth, professional_license, or entity. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is the unix second the record was created. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is the unix second the record was created. | [optional] 
 **EvidenceDocId** | Pointer to **string** | EvidenceDocID references an evidence document in the org&#39;s sealed data room. | [optional] 
-**ExpiresAt** | Pointer to **int32** | ExpiresAt is the unix second a confirmation ages out; 0 means none. | [optional] 
+**ExpiresAt** | Pointer to **int64** | ExpiresAt is the unix second a confirmation ages out; 0 means none. | [optional] 
 **Id** | Pointer to **string** | ID is the accreditation record&#39;s opaque id. | [optional] 
 **Method** | Pointer to **string** | Method is how the state was established: self_attested, third_party_letter, or provider_verified. | [optional] 
 **Note** | Pointer to **string** | Note is a non-PII operator note. | [optional] 
 **ReviewerSub** | Pointer to **string** | ReviewerSub is the org user who recorded a decision on this record. | [optional] 
 **Status** | Pointer to **string** | Status is the tracked state: asserted, provider_verified, reviewer_confirmed, rejected, or expired. | [optional] 
 **SubjectId** | Pointer to **string** | SubjectID is the opaque id of the subject the record is about. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is the unix second the record last changed. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is the unix second the record last changed. | [optional] 
 
 ## Methods
 
@@ -62,20 +62,20 @@ HasBasis returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *AccView) GetCreatedAt() int32`
+`func (o *AccView) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *AccView) GetCreatedAtOk() (*int32, bool)`
+`func (o *AccView) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *AccView) SetCreatedAt(v int32)`
+`func (o *AccView) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -112,20 +112,20 @@ HasEvidenceDocId returns a boolean if a field has been set.
 
 ### GetExpiresAt
 
-`func (o *AccView) GetExpiresAt() int32`
+`func (o *AccView) GetExpiresAt() int64`
 
 GetExpiresAt returns the ExpiresAt field if non-nil, zero value otherwise.
 
 ### GetExpiresAtOk
 
-`func (o *AccView) GetExpiresAtOk() (*int32, bool)`
+`func (o *AccView) GetExpiresAtOk() (*int64, bool)`
 
 GetExpiresAtOk returns a tuple with the ExpiresAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpiresAt
 
-`func (o *AccView) SetExpiresAt(v int32)`
+`func (o *AccView) SetExpiresAt(v int64)`
 
 SetExpiresAt sets ExpiresAt field to given value.
 
@@ -287,20 +287,20 @@ HasSubjectId returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *AccView) GetUpdatedAt() int32`
+`func (o *AccView) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *AccView) GetUpdatedAtOk() (*int32, bool)`
+`func (o *AccView) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *AccView) SetUpdatedAt(v int32)`
+`func (o *AccView) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

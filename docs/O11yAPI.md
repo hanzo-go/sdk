@@ -5429,8 +5429,8 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 | Page is the 1-based page number. (optional)
-	perPage := int32(56) // int32 | PerPage is the page size. (optional)
+	page := int64(789) // int64 | Page is the 1-based page number. (optional)
+	perPage := int64(789) // int64 | PerPage is the page size. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -5455,8 +5455,8 @@ Other parameters are passed through a pointer to a apiGetIngestionKeysRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** | Page is the 1-based page number. | 
- **perPage** | **int32** | PerPage is the page size. | 
+ **page** | **int64** | Page is the 1-based page number. | 
+ **perPage** | **int64** | PerPage is the page size. | 
 
 ### Return type
 
@@ -5568,7 +5568,7 @@ import (
 
 func main() {
 	integrationId := "integrationId_example" // string | 
-	lookbackSeconds := int32(56) // int32 | LookbackSeconds is how far back to look for received telemetry, in seconds. (optional)
+	lookbackSeconds := int64(789) // int64 | LookbackSeconds is how far back to look for received telemetry, in seconds. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -5598,7 +5598,7 @@ Other parameters are passed through a pointer to a apiGetIntegrationConnectionSt
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **lookbackSeconds** | **int32** | LookbackSeconds is how far back to look for received telemetry, in seconds. | 
+ **lookbackSeconds** | **int64** | LookbackSeconds is how far back to look for received telemetry, in seconds. | 
 
 ### Return type
 
@@ -5846,8 +5846,8 @@ import (
 
 func main() {
 	metricName := "metricName_example" // string | MetricName is the metric's name; it may contain slashes. Required.
-	start := int32(56) // int32 | Start is the start of the window as a Unix timestamp in milliseconds. (optional)
-	end := int32(56) // int32 | End is the end of the window as a Unix timestamp in milliseconds. (optional)
+	start := int64(789) // int64 | Start is the start of the window as a Unix timestamp in milliseconds. (optional)
+	end := int64(789) // int64 | End is the end of the window as a Unix timestamp in milliseconds. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -5873,8 +5873,8 @@ Other parameters are passed through a pointer to a apiGetMetricAttributesRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **metricName** | **string** | MetricName is the metric&#39;s name; it may contain slashes. Required. | 
- **start** | **int32** | Start is the start of the window as a Unix timestamp in milliseconds. | 
- **end** | **int32** | End is the end of the window as a Unix timestamp in milliseconds. | 
+ **start** | **int64** | Start is the start of the window as a Unix timestamp in milliseconds. | 
+ **end** | **int64** | End is the end of the window as a Unix timestamp in milliseconds. | 
 
 ### Return type
 
@@ -6366,7 +6366,7 @@ import (
 )
 
 func main() {
-	o11yO11yMetricStatsIn := *openapiclient.NewO11yO11yMetricStatsIn(int32(123), int32(123), int32(123)) // O11yO11yMetricStatsIn | 
+	o11yO11yMetricStatsIn := *openapiclient.NewO11yO11yMetricStatsIn(int64(123), int64(123), int64(123)) // O11yO11yMetricStatsIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -6432,7 +6432,7 @@ import (
 )
 
 func main() {
-	o11yO11yMetricTreemapIn := *openapiclient.NewO11yO11yMetricTreemapIn(int32(123), int32(123), "Mode_example", int32(123)) // O11yO11yMetricTreemapIn | 
+	o11yO11yMetricTreemapIn := *openapiclient.NewO11yO11yMetricTreemapIn(int64(123), int64(123), "Mode_example", int64(123)) // O11yO11yMetricTreemapIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -6804,7 +6804,7 @@ func main() {
 	dataSource := "dataSource_example" // string | DataSource is the telemetry the attributes come from — traces, logs, metrics or meter. The runtime requires it. (optional)
 	aggregateOperator := "aggregateOperator_example" // string | AggregateOperator is the aggregation the attribute will be used under, e.g. count, avg, sum. The runtime requires it for non-metrics sources. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the attributes to those containing it. (optional)
-	limit := int32(56) // int32 | Limit caps how many attributes come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many attributes come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -6832,7 +6832,7 @@ Name | Type | Description  | Notes
  **dataSource** | **string** | DataSource is the telemetry the attributes come from — traces, logs, metrics or meter. The runtime requires it. | 
  **aggregateOperator** | **string** | AggregateOperator is the aggregation the attribute will be used under, e.g. count, avg, sum. The runtime requires it for non-metrics sources. | 
  **searchText** | **string** | SearchText narrows the attributes to those containing it. | 
- **limit** | **int32** | Limit caps how many attributes come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many attributes come back. Absent means 50. | 
 
 ### Return type
 
@@ -6878,7 +6878,7 @@ func main() {
 	aggregateAttribute := "aggregateAttribute_example" // string | AggregateAttribute is the metric the keys must appear on. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the keys to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. (optional)
-	limit := int32(56) // int32 | Limit caps how many keys come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many keys come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -6908,7 +6908,7 @@ Name | Type | Description  | Notes
  **aggregateAttribute** | **string** | AggregateAttribute is the metric the keys must appear on. | 
  **searchText** | **string** | SearchText narrows the keys to those containing it. | 
  **tagType** | **string** | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. | 
- **limit** | **int32** | Limit caps how many keys come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many keys come back. Absent means 50. | 
 
 ### Return type
 
@@ -6956,7 +6956,7 @@ func main() {
 	filterAttributeKeyDataType := "filterAttributeKeyDataType_example" // string | FilterAttributeKeyDataType is the key's data type — string, int64, float64 or bool. Empty means unspecified. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the values to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the search to one kind of key — tag or resource. (optional)
-	limit := int32(56) // int32 | Limit caps how many values come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many values come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -6988,7 +6988,7 @@ Name | Type | Description  | Notes
  **filterAttributeKeyDataType** | **string** | FilterAttributeKeyDataType is the key&#39;s data type — string, int64, float64 or bool. Empty means unspecified. | 
  **searchText** | **string** | SearchText narrows the values to those containing it. | 
  **tagType** | **string** | TagType narrows the search to one kind of key — tag or resource. | 
- **limit** | **int32** | Limit caps how many values come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many values come back. Absent means 50. | 
 
 ### Return type
 
@@ -7029,8 +7029,8 @@ import (
 )
 
 func main() {
-	range_ := int32(3600) // int32 | Range is the trend window in seconds. Default 3600, capped at 604800 (7d). (optional)
-	stepSec := int32(56) // int32 | StepSec is the bucket width in seconds, clamped to [30, 3600]. Absent picks ~60 buckets across the range. (optional)
+	range_ := int64(3600) // int64 | Range is the trend window in seconds. Default 3600, capped at 604800 (7d). (optional)
+	stepSec := int64(789) // int64 | StepSec is the bucket width in seconds, clamped to [30, 3600]. Absent picks ~60 buckets across the range. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -7055,8 +7055,8 @@ Other parameters are passed through a pointer to a apiGetO11yAvailabilityRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **range_** | **int32** | Range is the trend window in seconds. Default 3600, capped at 604800 (7d). | 
- **stepSec** | **int32** | StepSec is the bucket width in seconds, clamped to [30, 3600]. Absent picks ~60 buckets across the range. | 
+ **range_** | **int64** | Range is the trend window in seconds. Default 3600, capped at 604800 (7d). | 
+ **stepSec** | **int64** | StepSec is the bucket width in seconds, clamped to [30, 3600]. Absent picks ~60 buckets across the range. | 
 
 ### Return type
 
@@ -7102,7 +7102,7 @@ func main() {
 	aggregateAttribute := "aggregateAttribute_example" // string | AggregateAttribute is the metric the keys must appear on. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the keys to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. (optional)
-	limit := int32(56) // int32 | Limit caps how many keys come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many keys come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -7132,7 +7132,7 @@ Name | Type | Description  | Notes
  **aggregateAttribute** | **string** | AggregateAttribute is the metric the keys must appear on. | 
  **searchText** | **string** | SearchText narrows the keys to those containing it. | 
  **tagType** | **string** | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. | 
- **limit** | **int32** | Limit caps how many keys come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many keys come back. Absent means 50. | 
 
 ### Return type
 
@@ -7180,7 +7180,7 @@ func main() {
 	filterAttributeKeyDataType := "filterAttributeKeyDataType_example" // string | FilterAttributeKeyDataType is the key's data type — string, int64, float64 or bool. Empty means unspecified. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the values to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the search to one kind of key — tag or resource. (optional)
-	limit := int32(56) // int32 | Limit caps how many values come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many values come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -7212,7 +7212,7 @@ Name | Type | Description  | Notes
  **filterAttributeKeyDataType** | **string** | FilterAttributeKeyDataType is the key&#39;s data type — string, int64, float64 or bool. Empty means unspecified. | 
  **searchText** | **string** | SearchText narrows the values to those containing it. | 
  **tagType** | **string** | TagType narrows the search to one kind of key — tag or resource. | 
- **limit** | **int32** | Limit caps how many values come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many values come back. Absent means 50. | 
 
 ### Return type
 
@@ -7376,7 +7376,7 @@ func main() {
 	aggregateAttribute := "aggregateAttribute_example" // string | AggregateAttribute is the metric the keys must appear on. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the keys to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. (optional)
-	limit := int32(56) // int32 | Limit caps how many keys come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many keys come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -7406,7 +7406,7 @@ Name | Type | Description  | Notes
  **aggregateAttribute** | **string** | AggregateAttribute is the metric the keys must appear on. | 
  **searchText** | **string** | SearchText narrows the keys to those containing it. | 
  **tagType** | **string** | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. | 
- **limit** | **int32** | Limit caps how many keys come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many keys come back. Absent means 50. | 
 
 ### Return type
 
@@ -7454,7 +7454,7 @@ func main() {
 	filterAttributeKeyDataType := "filterAttributeKeyDataType_example" // string | FilterAttributeKeyDataType is the key's data type — string, int64, float64 or bool. Empty means unspecified. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the values to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the search to one kind of key — tag or resource. (optional)
-	limit := int32(56) // int32 | Limit caps how many values come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many values come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -7486,7 +7486,7 @@ Name | Type | Description  | Notes
  **filterAttributeKeyDataType** | **string** | FilterAttributeKeyDataType is the key&#39;s data type — string, int64, float64 or bool. Empty means unspecified. | 
  **searchText** | **string** | SearchText narrows the values to those containing it. | 
  **tagType** | **string** | TagType narrows the search to one kind of key — tag or resource. | 
- **limit** | **int32** | Limit caps how many values come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many values come back. Absent means 50. | 
 
 ### Return type
 
@@ -7532,7 +7532,7 @@ func main() {
 	aggregateAttribute := "aggregateAttribute_example" // string | AggregateAttribute is the metric the keys must appear on. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the keys to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. (optional)
-	limit := int32(56) // int32 | Limit caps how many keys come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many keys come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -7562,7 +7562,7 @@ Name | Type | Description  | Notes
  **aggregateAttribute** | **string** | AggregateAttribute is the metric the keys must appear on. | 
  **searchText** | **string** | SearchText narrows the keys to those containing it. | 
  **tagType** | **string** | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. | 
- **limit** | **int32** | Limit caps how many keys come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many keys come back. Absent means 50. | 
 
 ### Return type
 
@@ -7610,7 +7610,7 @@ func main() {
 	filterAttributeKeyDataType := "filterAttributeKeyDataType_example" // string | FilterAttributeKeyDataType is the key's data type — string, int64, float64 or bool. Empty means unspecified. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the values to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the search to one kind of key — tag or resource. (optional)
-	limit := int32(56) // int32 | Limit caps how many values come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many values come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -7642,7 +7642,7 @@ Name | Type | Description  | Notes
  **filterAttributeKeyDataType** | **string** | FilterAttributeKeyDataType is the key&#39;s data type — string, int64, float64 or bool. Empty means unspecified. | 
  **searchText** | **string** | SearchText narrows the values to those containing it. | 
  **tagType** | **string** | TagType narrows the search to one kind of key — tag or resource. | 
- **limit** | **int32** | Limit caps how many values come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many values come back. Absent means 50. | 
 
 ### Return type
 
@@ -7890,8 +7890,8 @@ func main() {
 	serviceName := "serviceName_example" // string | ServiceName narrows to one reporting service. (optional)
 	query := "query_example" // string | Query narrows to issues whose text contains it. (optional)
 	sort := "sort_example" // string | Sort orders the page, e.g. lastSeen, firstSeen, count. (optional)
-	offset := int32(56) // int32 | Offset is how many issues to skip. Zero starts at the first. (optional)
-	limit := int32(56) // int32 | Limit caps how many issues come back. Zero means the default. (optional)
+	offset := int64(789) // int64 | Offset is how many issues to skip. Zero starts at the first. (optional)
+	limit := int64(789) // int64 | Limit caps how many issues come back. Zero means the default. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -7922,8 +7922,8 @@ Name | Type | Description  | Notes
  **serviceName** | **string** | ServiceName narrows to one reporting service. | 
  **query** | **string** | Query narrows to issues whose text contains it. | 
  **sort** | **string** | Sort orders the page, e.g. lastSeen, firstSeen, count. | 
- **offset** | **int32** | Offset is how many issues to skip. Zero starts at the first. | 
- **limit** | **int32** | Limit caps how many issues come back. Zero means the default. | 
+ **offset** | **int64** | Offset is how many issues to skip. Zero starts at the first. | 
+ **limit** | **int64** | Limit caps how many issues come back. Zero means the default. | 
 
 ### Return type
 
@@ -8237,9 +8237,9 @@ import (
 func main() {
 	signal := "signal_example" // string | Signal is the telemetry to read the fields of — traces, logs or metrics. (optional)
 	source := "source_example" // string | Source narrows the fields to one source within the signal. (optional)
-	limit := int32(56) // int32 | Limit caps how many keys come back. (optional)
-	startUnixMilli := int32(56) // int32 | StartUnixMilli is the window start as a unix millisecond epoch. Zero reads as unset. (optional)
-	endUnixMilli := int32(56) // int32 | EndUnixMilli is the window end as a unix millisecond epoch. Zero reads as unset. (optional)
+	limit := int64(789) // int64 | Limit caps how many keys come back. (optional)
+	startUnixMilli := int64(789) // int64 | StartUnixMilli is the window start as a unix millisecond epoch. Zero reads as unset. (optional)
+	endUnixMilli := int64(789) // int64 | EndUnixMilli is the window end as a unix millisecond epoch. Zero reads as unset. (optional)
 	fieldContext := "fieldContext_example" // string | FieldContext narrows the keys to one context — resource, scope, attribute, span, log or metric. (optional)
 	fieldDataType := "fieldDataType_example" // string | FieldDataType narrows the keys to one data type. (optional)
 	metricName := "metricName_example" // string | MetricName narrows the keys to those on one metric. (optional)
@@ -8271,9 +8271,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **signal** | **string** | Signal is the telemetry to read the fields of — traces, logs or metrics. | 
  **source** | **string** | Source narrows the fields to one source within the signal. | 
- **limit** | **int32** | Limit caps how many keys come back. | 
- **startUnixMilli** | **int32** | StartUnixMilli is the window start as a unix millisecond epoch. Zero reads as unset. | 
- **endUnixMilli** | **int32** | EndUnixMilli is the window end as a unix millisecond epoch. Zero reads as unset. | 
+ **limit** | **int64** | Limit caps how many keys come back. | 
+ **startUnixMilli** | **int64** | StartUnixMilli is the window start as a unix millisecond epoch. Zero reads as unset. | 
+ **endUnixMilli** | **int64** | EndUnixMilli is the window end as a unix millisecond epoch. Zero reads as unset. | 
  **fieldContext** | **string** | FieldContext narrows the keys to one context — resource, scope, attribute, span, log or metric. | 
  **fieldDataType** | **string** | FieldDataType narrows the keys to one data type. | 
  **metricName** | **string** | MetricName narrows the keys to those on one metric. | 
@@ -8321,9 +8321,9 @@ import (
 func main() {
 	signal := "signal_example" // string | Signal is the telemetry to read the field of — traces, logs or metrics. (optional)
 	source := "source_example" // string | Source narrows the field to one source within the signal. (optional)
-	limit := int32(56) // int32 | Limit caps how many values come back. (optional)
-	startUnixMilli := int32(56) // int32 | StartUnixMilli is the window start as a unix millisecond epoch. Zero reads as unset. (optional)
-	endUnixMilli := int32(56) // int32 | EndUnixMilli is the window end as a unix millisecond epoch. Zero reads as unset. (optional)
+	limit := int64(789) // int64 | Limit caps how many values come back. (optional)
+	startUnixMilli := int64(789) // int64 | StartUnixMilli is the window start as a unix millisecond epoch. Zero reads as unset. (optional)
+	endUnixMilli := int64(789) // int64 | EndUnixMilli is the window end as a unix millisecond epoch. Zero reads as unset. (optional)
 	fieldContext := "fieldContext_example" // string | FieldContext narrows the field to one context. (optional)
 	fieldDataType := "fieldDataType_example" // string | FieldDataType narrows the field to one data type. (optional)
 	metricName := "metricName_example" // string | MetricName narrows the field to one metric. (optional)
@@ -8357,9 +8357,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **signal** | **string** | Signal is the telemetry to read the field of — traces, logs or metrics. | 
  **source** | **string** | Source narrows the field to one source within the signal. | 
- **limit** | **int32** | Limit caps how many values come back. | 
- **startUnixMilli** | **int32** | StartUnixMilli is the window start as a unix millisecond epoch. Zero reads as unset. | 
- **endUnixMilli** | **int32** | EndUnixMilli is the window end as a unix millisecond epoch. Zero reads as unset. | 
+ **limit** | **int64** | Limit caps how many values come back. | 
+ **startUnixMilli** | **int64** | StartUnixMilli is the window start as a unix millisecond epoch. Zero reads as unset. | 
+ **endUnixMilli** | **int64** | EndUnixMilli is the window end as a unix millisecond epoch. Zero reads as unset. | 
  **fieldContext** | **string** | FieldContext narrows the field to one context. | 
  **fieldDataType** | **string** | FieldDataType narrows the field to one data type. | 
  **metricName** | **string** | MetricName narrows the field to one metric. | 
@@ -8410,8 +8410,8 @@ func main() {
 	dataSource := "dataSource_example" // string | DataSource is the signal suggestions are drawn from; only logs is supported today. Required.
 	searchText := "searchText_example" // string | SearchText narrows attribute suggestions to keys containing it. (optional)
 	existingFilter := "existingFilter_example" // string | ExistingFilter is the current filter set, JSON base64url-encoded, so example queries build on it rather than repeat it. (optional)
-	attributesLimit := int32(56) // int32 | AttributesLimit caps how many attribute keys come back. (optional)
-	examplesLimit := int32(56) // int32 | ExamplesLimit caps how many example queries come back. (optional)
+	attributesLimit := int64(789) // int64 | AttributesLimit caps how many attribute keys come back. (optional)
+	examplesLimit := int64(789) // int64 | ExamplesLimit caps how many example queries come back. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -8439,8 +8439,8 @@ Name | Type | Description  | Notes
  **dataSource** | **string** | DataSource is the signal suggestions are drawn from; only logs is supported today. Required. | 
  **searchText** | **string** | SearchText narrows attribute suggestions to keys containing it. | 
  **existingFilter** | **string** | ExistingFilter is the current filter set, JSON base64url-encoded, so example queries build on it rather than repeat it. | 
- **attributesLimit** | **int32** | AttributesLimit caps how many attribute keys come back. | 
- **examplesLimit** | **int32** | ExamplesLimit caps how many example queries come back. | 
+ **attributesLimit** | **int64** | AttributesLimit caps how many attribute keys come back. | 
+ **examplesLimit** | **int64** | ExamplesLimit caps how many example queries come back. | 
 
 ### Return type
 
@@ -8672,7 +8672,7 @@ func main() {
 	aggregateAttribute := "aggregateAttribute_example" // string | AggregateAttribute is the metric the keys must appear on. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the keys to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. (optional)
-	limit := int32(56) // int32 | Limit caps how many keys come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many keys come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -8702,7 +8702,7 @@ Name | Type | Description  | Notes
  **aggregateAttribute** | **string** | AggregateAttribute is the metric the keys must appear on. | 
  **searchText** | **string** | SearchText narrows the keys to those containing it. | 
  **tagType** | **string** | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. | 
- **limit** | **int32** | Limit caps how many keys come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many keys come back. Absent means 50. | 
 
 ### Return type
 
@@ -8750,7 +8750,7 @@ func main() {
 	filterAttributeKeyDataType := "filterAttributeKeyDataType_example" // string | FilterAttributeKeyDataType is the key's data type — string, int64, float64 or bool. Empty means unspecified. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the values to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the search to one kind of key — tag or resource. (optional)
-	limit := int32(56) // int32 | Limit caps how many values come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many values come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -8782,7 +8782,7 @@ Name | Type | Description  | Notes
  **filterAttributeKeyDataType** | **string** | FilterAttributeKeyDataType is the key&#39;s data type — string, int64, float64 or bool. Empty means unspecified. | 
  **searchText** | **string** | SearchText narrows the values to those containing it. | 
  **tagType** | **string** | TagType narrows the search to one kind of key — tag or resource. | 
- **limit** | **int32** | Limit caps how many values come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many values come back. Absent means 50. | 
 
 ### Return type
 
@@ -8955,7 +8955,7 @@ func main() {
 	aggregateAttribute := "aggregateAttribute_example" // string | AggregateAttribute is the metric the keys must appear on. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the keys to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. (optional)
-	limit := int32(56) // int32 | Limit caps how many keys come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many keys come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -8985,7 +8985,7 @@ Name | Type | Description  | Notes
  **aggregateAttribute** | **string** | AggregateAttribute is the metric the keys must appear on. | 
  **searchText** | **string** | SearchText narrows the keys to those containing it. | 
  **tagType** | **string** | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. | 
- **limit** | **int32** | Limit caps how many keys come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many keys come back. Absent means 50. | 
 
 ### Return type
 
@@ -9033,7 +9033,7 @@ func main() {
 	filterAttributeKeyDataType := "filterAttributeKeyDataType_example" // string | FilterAttributeKeyDataType is the key's data type — string, int64, float64 or bool. Empty means unspecified. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the values to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the search to one kind of key — tag or resource. (optional)
-	limit := int32(56) // int32 | Limit caps how many values come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many values come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -9065,7 +9065,7 @@ Name | Type | Description  | Notes
  **filterAttributeKeyDataType** | **string** | FilterAttributeKeyDataType is the key&#39;s data type — string, int64, float64 or bool. Empty means unspecified. | 
  **searchText** | **string** | SearchText narrows the values to those containing it. | 
  **tagType** | **string** | TagType narrows the search to one kind of key — tag or resource. | 
- **limit** | **int32** | Limit caps how many values come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many values come back. Absent means 50. | 
 
 ### Return type
 
@@ -9346,9 +9346,9 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 | Limit caps how many records come back. Zero means the default of 100. (optional)
-	timestampStart := int32(56) // int32 | TimestampStart is the start of the window as a nanosecond epoch. Zero means fifteen minutes before the end. (optional)
-	timestampEnd := int32(56) // int32 | TimestampEnd is the end of the window as a nanosecond epoch. Zero means now. (optional)
+	limit := int64(789) // int64 | Limit caps how many records come back. Zero means the default of 100. (optional)
+	timestampStart := int64(789) // int64 | TimestampStart is the start of the window as a nanosecond epoch. Zero means fifteen minutes before the end. (optional)
+	timestampEnd := int64(789) // int64 | TimestampEnd is the end of the window as a nanosecond epoch. Zero means now. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -9373,9 +9373,9 @@ Other parameters are passed through a pointer to a apiGetO11yLogsRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit caps how many records come back. Zero means the default of 100. | 
- **timestampStart** | **int32** | TimestampStart is the start of the window as a nanosecond epoch. Zero means fifteen minutes before the end. | 
- **timestampEnd** | **int32** | TimestampEnd is the end of the window as a nanosecond epoch. Zero means now. | 
+ **limit** | **int64** | Limit caps how many records come back. Zero means the default of 100. | 
+ **timestampStart** | **int64** | TimestampStart is the start of the window as a nanosecond epoch. Zero means fifteen minutes before the end. | 
+ **timestampEnd** | **int64** | TimestampEnd is the end of the window as a nanosecond epoch. Zero means now. | 
 
 ### Return type
 
@@ -9801,7 +9801,7 @@ func main() {
 	aggregateAttribute := "aggregateAttribute_example" // string | AggregateAttribute is the metric the keys must appear on. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the keys to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. (optional)
-	limit := int32(56) // int32 | Limit caps how many keys come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many keys come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -9831,7 +9831,7 @@ Name | Type | Description  | Notes
  **aggregateAttribute** | **string** | AggregateAttribute is the metric the keys must appear on. | 
  **searchText** | **string** | SearchText narrows the keys to those containing it. | 
  **tagType** | **string** | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. | 
- **limit** | **int32** | Limit caps how many keys come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many keys come back. Absent means 50. | 
 
 ### Return type
 
@@ -9879,7 +9879,7 @@ func main() {
 	filterAttributeKeyDataType := "filterAttributeKeyDataType_example" // string | FilterAttributeKeyDataType is the key's data type — string, int64, float64 or bool. Empty means unspecified. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the values to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the search to one kind of key — tag or resource. (optional)
-	limit := int32(56) // int32 | Limit caps how many values come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many values come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -9911,7 +9911,7 @@ Name | Type | Description  | Notes
  **filterAttributeKeyDataType** | **string** | FilterAttributeKeyDataType is the key&#39;s data type — string, int64, float64 or bool. Empty means unspecified. | 
  **searchText** | **string** | SearchText narrows the values to those containing it. | 
  **tagType** | **string** | TagType narrows the search to one kind of key — tag or resource. | 
- **limit** | **int32** | Limit caps how many values come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many values come back. Absent means 50. | 
 
 ### Return type
 
@@ -10027,7 +10027,7 @@ func main() {
 	aggregateAttribute := "aggregateAttribute_example" // string | AggregateAttribute is the metric the keys must appear on. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the keys to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. (optional)
-	limit := int32(56) // int32 | Limit caps how many keys come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many keys come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -10057,7 +10057,7 @@ Name | Type | Description  | Notes
  **aggregateAttribute** | **string** | AggregateAttribute is the metric the keys must appear on. | 
  **searchText** | **string** | SearchText narrows the keys to those containing it. | 
  **tagType** | **string** | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. | 
- **limit** | **int32** | Limit caps how many keys come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many keys come back. Absent means 50. | 
 
 ### Return type
 
@@ -10105,7 +10105,7 @@ func main() {
 	filterAttributeKeyDataType := "filterAttributeKeyDataType_example" // string | FilterAttributeKeyDataType is the key's data type — string, int64, float64 or bool. Empty means unspecified. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the values to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the search to one kind of key — tag or resource. (optional)
-	limit := int32(56) // int32 | Limit caps how many values come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many values come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -10137,7 +10137,7 @@ Name | Type | Description  | Notes
  **filterAttributeKeyDataType** | **string** | FilterAttributeKeyDataType is the key&#39;s data type — string, int64, float64 or bool. Empty means unspecified. | 
  **searchText** | **string** | SearchText narrows the values to those containing it. | 
  **tagType** | **string** | TagType narrows the search to one kind of key — tag or resource. | 
- **limit** | **int32** | Limit caps how many values come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many values come back. Absent means 50. | 
 
 ### Return type
 
@@ -10183,7 +10183,7 @@ func main() {
 	aggregateAttribute := "aggregateAttribute_example" // string | AggregateAttribute is the metric the keys must appear on. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the keys to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. (optional)
-	limit := int32(56) // int32 | Limit caps how many keys come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many keys come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -10213,7 +10213,7 @@ Name | Type | Description  | Notes
  **aggregateAttribute** | **string** | AggregateAttribute is the metric the keys must appear on. | 
  **searchText** | **string** | SearchText narrows the keys to those containing it. | 
  **tagType** | **string** | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. | 
- **limit** | **int32** | Limit caps how many keys come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many keys come back. Absent means 50. | 
 
 ### Return type
 
@@ -10261,7 +10261,7 @@ func main() {
 	filterAttributeKeyDataType := "filterAttributeKeyDataType_example" // string | FilterAttributeKeyDataType is the key's data type — string, int64, float64 or bool. Empty means unspecified. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the values to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the search to one kind of key — tag or resource. (optional)
-	limit := int32(56) // int32 | Limit caps how many values come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many values come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -10293,7 +10293,7 @@ Name | Type | Description  | Notes
  **filterAttributeKeyDataType** | **string** | FilterAttributeKeyDataType is the key&#39;s data type — string, int64, float64 or bool. Empty means unspecified. | 
  **searchText** | **string** | SearchText narrows the values to those containing it. | 
  **tagType** | **string** | TagType narrows the search to one kind of key — tag or resource. | 
- **limit** | **int32** | Limit caps how many values come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many values come back. Absent means 50. | 
 
 ### Return type
 
@@ -10339,7 +10339,7 @@ func main() {
 	aggregateAttribute := "aggregateAttribute_example" // string | AggregateAttribute is the metric the keys must appear on. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the keys to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. (optional)
-	limit := int32(56) // int32 | Limit caps how many keys come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many keys come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -10369,7 +10369,7 @@ Name | Type | Description  | Notes
  **aggregateAttribute** | **string** | AggregateAttribute is the metric the keys must appear on. | 
  **searchText** | **string** | SearchText narrows the keys to those containing it. | 
  **tagType** | **string** | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. | 
- **limit** | **int32** | Limit caps how many keys come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many keys come back. Absent means 50. | 
 
 ### Return type
 
@@ -10417,7 +10417,7 @@ func main() {
 	filterAttributeKeyDataType := "filterAttributeKeyDataType_example" // string | FilterAttributeKeyDataType is the key's data type — string, int64, float64 or bool. Empty means unspecified. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the values to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the search to one kind of key — tag or resource. (optional)
-	limit := int32(56) // int32 | Limit caps how many values come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many values come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -10449,7 +10449,7 @@ Name | Type | Description  | Notes
  **filterAttributeKeyDataType** | **string** | FilterAttributeKeyDataType is the key&#39;s data type — string, int64, float64 or bool. Empty means unspecified. | 
  **searchText** | **string** | SearchText narrows the values to those containing it. | 
  **tagType** | **string** | TagType narrows the search to one kind of key — tag or resource. | 
- **limit** | **int32** | Limit caps how many values come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many values come back. Absent means 50. | 
 
 ### Return type
 
@@ -10491,8 +10491,8 @@ import (
 
 func main() {
 	product := "kms" // string | Product is the console product slug to read, e.g. \"kms\". Required. (optional)
-	range_ := int32(3600) // int32 | Range is the window in seconds. Default 3600, capped at 604800 (7d). (optional)
-	stepSec := int32(56) // int32 | StepSec is the bucket width in seconds, clamped to [30, 3600]. Absent picks ~60 buckets across the range. (optional)
+	range_ := int64(3600) // int64 | Range is the window in seconds. Default 3600, capped at 604800 (7d). (optional)
+	stepSec := int64(789) // int64 | StepSec is the bucket width in seconds, clamped to [30, 3600]. Absent picks ~60 buckets across the range. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -10518,8 +10518,8 @@ Other parameters are passed through a pointer to a apiGetO11yProductMetricsReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **product** | **string** | Product is the console product slug to read, e.g. \&quot;kms\&quot;. Required. | 
- **range_** | **int32** | Range is the window in seconds. Default 3600, capped at 604800 (7d). | 
- **stepSec** | **int32** | StepSec is the bucket width in seconds, clamped to [30, 3600]. Absent picks ~60 buckets across the range. | 
+ **range_** | **int64** | Range is the window in seconds. Default 3600, capped at 604800 (7d). | 
+ **stepSec** | **int64** | StepSec is the bucket width in seconds, clamped to [30, 3600]. Absent picks ~60 buckets across the range. | 
 
 ### Return type
 
@@ -10565,7 +10565,7 @@ func main() {
 	aggregateAttribute := "aggregateAttribute_example" // string | AggregateAttribute is the metric the keys must appear on. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the keys to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. (optional)
-	limit := int32(56) // int32 | Limit caps how many keys come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many keys come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -10595,7 +10595,7 @@ Name | Type | Description  | Notes
  **aggregateAttribute** | **string** | AggregateAttribute is the metric the keys must appear on. | 
  **searchText** | **string** | SearchText narrows the keys to those containing it. | 
  **tagType** | **string** | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. | 
- **limit** | **int32** | Limit caps how many keys come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many keys come back. Absent means 50. | 
 
 ### Return type
 
@@ -10643,7 +10643,7 @@ func main() {
 	filterAttributeKeyDataType := "filterAttributeKeyDataType_example" // string | FilterAttributeKeyDataType is the key's data type — string, int64, float64 or bool. Empty means unspecified. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the values to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the search to one kind of key — tag or resource. (optional)
-	limit := int32(56) // int32 | Limit caps how many values come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many values come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -10675,7 +10675,7 @@ Name | Type | Description  | Notes
  **filterAttributeKeyDataType** | **string** | FilterAttributeKeyDataType is the key&#39;s data type — string, int64, float64 or bool. Empty means unspecified. | 
  **searchText** | **string** | SearchText narrows the values to those containing it. | 
  **tagType** | **string** | TagType narrows the search to one kind of key — tag or resource. | 
- **limit** | **int32** | Limit caps how many values come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many values come back. Absent means 50. | 
 
 ### Return type
 
@@ -10982,8 +10982,8 @@ import (
 )
 
 func main() {
-	page := int32(1) // int32 | Page is the 1-based page to read. Default 1. (optional)
-	limit := int32(20) // int32 | Limit is how many rows to return. Default 20, capped at 100. (optional)
+	page := int64(1) // int64 | Page is the 1-based page to read. Default 1. (optional)
+	limit := int64(20) // int64 | Limit is how many rows to return. Default 20, capped at 100. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -11008,8 +11008,8 @@ Other parameters are passed through a pointer to a apiGetO11yReviewsRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** | Page is the 1-based page to read. Default 1. | 
- **limit** | **int32** | Limit is how many rows to return. Default 20, capped at 100. | 
+ **page** | **int64** | Page is the 1-based page to read. Default 1. | 
+ **limit** | **int64** | Limit is how many rows to return. Default 20, capped at 100. | 
 
 ### Return type
 
@@ -11122,8 +11122,8 @@ import (
 func main() {
 	id := "annq_1" // string | ID is the annotation queue whose items to list, from the path.
 	status := "PENDING" // string | Status filters to PENDING or COMPLETED items. Absent returns both. (optional)
-	page := int32(56) // int32 | Page is the 1-based page to read. Default 1. (optional)
-	limit := int32(56) // int32 | Limit is how many rows to return. Default 20, capped at 100. (optional)
+	page := int64(789) // int64 | Page is the 1-based page to read. Default 1. (optional)
+	limit := int64(789) // int64 | Limit is how many rows to return. Default 20, capped at 100. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -11154,8 +11154,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **status** | **string** | Status filters to PENDING or COMPLETED items. Absent returns both. | 
- **page** | **int32** | Page is the 1-based page to read. Default 1. | 
- **limit** | **int32** | Limit is how many rows to return. Default 20, capped at 100. | 
+ **page** | **int64** | Page is the 1-based page to read. Default 1. | 
+ **limit** | **int64** | Limit is how many rows to return. Default 20, capped at 100. | 
 
 ### Return type
 
@@ -11274,8 +11274,8 @@ func main() {
 	serviceName := "serviceName_example" // string | ServiceName narrows to one reporting service. (optional)
 	query := "query_example" // string | Query narrows to issues whose text contains it. (optional)
 	sort := "sort_example" // string | Sort orders the page, e.g. lastSeen, firstSeen, count. (optional)
-	offset := int32(56) // int32 | Offset is how many issues to skip. Zero starts at the first. (optional)
-	limit := int32(56) // int32 | Limit caps how many issues come back. Zero means the default. (optional)
+	offset := int64(789) // int64 | Offset is how many issues to skip. Zero starts at the first. (optional)
+	limit := int64(789) // int64 | Limit caps how many issues come back. Zero means the default. (optional)
 	project := "project_example" // string | Project narrows the org's issues to one project, by its id. (optional)
 	period := "period_example" // string | Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d. (optional)
 
@@ -11308,8 +11308,8 @@ Name | Type | Description  | Notes
  **serviceName** | **string** | ServiceName narrows to one reporting service. | 
  **query** | **string** | Query narrows to issues whose text contains it. | 
  **sort** | **string** | Sort orders the page, e.g. lastSeen, firstSeen, count. | 
- **offset** | **int32** | Offset is how many issues to skip. Zero starts at the first. | 
- **limit** | **int32** | Limit caps how many issues come back. Zero means the default. | 
+ **offset** | **int64** | Offset is how many issues to skip. Zero starts at the first. | 
+ **limit** | **int64** | Limit caps how many issues come back. Zero means the default. | 
  **project** | **string** | Project narrows the org&#39;s issues to one project, by its id. | 
  **period** | **string** | Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d. | 
 
@@ -11424,7 +11424,7 @@ import (
 func main() {
 	id := "id_example" // string | ID is the issue id.
 	project := "project_example" // string | Project is the project whose occurrences to read, by its id. Required.
-	limit := int32(56) // int32 | Limit caps how many occurrences come back. Zero means the default. (optional)
+	limit := int64(789) // int64 | Limit caps how many occurrences come back. Zero means the default. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -11455,7 +11455,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **project** | **string** | Project is the project whose occurrences to read, by its id. Required. | 
- **limit** | **int32** | Limit caps how many occurrences come back. Zero means the default. | 
+ **limit** | **int64** | Limit caps how many occurrences come back. Zero means the default. | 
 
 ### Return type
 
@@ -11499,7 +11499,7 @@ func main() {
 	project := "project_example" // string | Project is the project to read, as its id. Required.
 	query := "query_example" // string | Query narrows the page to events whose text contains it. (optional)
 	period := "period_example" // string | Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d. (optional)
-	limit := int32(56) // int32 | Limit caps how many events come back. (optional)
+	limit := int64(789) // int64 | Limit caps how many events come back. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -11527,7 +11527,7 @@ Name | Type | Description  | Notes
  **project** | **string** | Project is the project to read, as its id. Required. | 
  **query** | **string** | Query narrows the page to events whose text contains it. | 
  **period** | **string** | Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d. | 
- **limit** | **int32** | Limit caps how many events come back. | 
+ **limit** | **int64** | Limit caps how many events come back. | 
 
 ### Return type
 
@@ -11771,7 +11771,7 @@ import (
 func main() {
 	project := "project_example" // string | Project is the project to read, as its id. Required.
 	period := "period_example" // string | Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d. (optional)
-	limit := int32(56) // int32 | Limit caps how many traces come back. (optional)
+	limit := int64(789) // int64 | Limit caps how many traces come back. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -11798,7 +11798,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project** | **string** | Project is the project to read, as its id. Required. | 
  **period** | **string** | Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d. | 
- **limit** | **int32** | Limit caps how many traces come back. | 
+ **limit** | **int64** | Limit caps how many traces come back. | 
 
 ### Return type
 
@@ -12163,7 +12163,7 @@ func main() {
 	aggregateAttribute := "aggregateAttribute_example" // string | AggregateAttribute is the metric the keys must appear on. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the keys to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. (optional)
-	limit := int32(56) // int32 | Limit caps how many keys come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many keys come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -12193,7 +12193,7 @@ Name | Type | Description  | Notes
  **aggregateAttribute** | **string** | AggregateAttribute is the metric the keys must appear on. | 
  **searchText** | **string** | SearchText narrows the keys to those containing it. | 
  **tagType** | **string** | TagType narrows the keys to one kind — tag or resource. Empty means all; an invalid value reads as empty. | 
- **limit** | **int32** | Limit caps how many keys come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many keys come back. Absent means 50. | 
 
 ### Return type
 
@@ -12241,7 +12241,7 @@ func main() {
 	filterAttributeKeyDataType := "filterAttributeKeyDataType_example" // string | FilterAttributeKeyDataType is the key's data type — string, int64, float64 or bool. Empty means unspecified. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the values to those containing it. (optional)
 	tagType := "tagType_example" // string | TagType narrows the search to one kind of key — tag or resource. (optional)
-	limit := int32(56) // int32 | Limit caps how many values come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many values come back. Absent means 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -12273,7 +12273,7 @@ Name | Type | Description  | Notes
  **filterAttributeKeyDataType** | **string** | FilterAttributeKeyDataType is the key&#39;s data type — string, int64, float64 or bool. Empty means unspecified. | 
  **searchText** | **string** | SearchText narrows the values to those containing it. | 
  **tagType** | **string** | TagType narrows the search to one kind of key — tag or resource. | 
- **limit** | **int32** | Limit caps how many values come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many values come back. Absent means 50. | 
 
 ### Return type
 
@@ -12502,9 +12502,9 @@ import (
 )
 
 func main() {
-	range_ := int32(3600) // int32 | Range is the window in seconds, counted back from now over each trace's last activity. Default 3600, capped at 604800 (7d). (optional)
-	limit := int32(50) // int32 | Limit is how many traces to return. Default 50, capped at 500. (optional)
-	minDurationMs := int32(56) // int32 | MinDurationMs keeps only traces that lasted at least this many milliseconds. Zero or absent keeps every trace in the window. (optional)
+	range_ := int64(3600) // int64 | Range is the window in seconds, counted back from now over each trace's last activity. Default 3600, capped at 604800 (7d). (optional)
+	limit := int64(50) // int64 | Limit is how many traces to return. Default 50, capped at 500. (optional)
+	minDurationMs := int64(789) // int64 | MinDurationMs keeps only traces that lasted at least this many milliseconds. Zero or absent keeps every trace in the window. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -12529,9 +12529,9 @@ Other parameters are passed through a pointer to a apiGetO11yTracesRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **range_** | **int32** | Range is the window in seconds, counted back from now over each trace&#39;s last activity. Default 3600, capped at 604800 (7d). | 
- **limit** | **int32** | Limit is how many traces to return. Default 50, capped at 500. | 
- **minDurationMs** | **int32** | MinDurationMs keeps only traces that lasted at least this many milliseconds. Zero or absent keeps every trace in the window. | 
+ **range_** | **int64** | Range is the window in seconds, counted back from now over each trace&#39;s last activity. Default 3600, capped at 604800 (7d). | 
+ **limit** | **int64** | Limit is how many traces to return. Default 50, capped at 500. | 
+ **minDurationMs** | **int64** | MinDurationMs keeps only traces that lasted at least this many milliseconds. Zero or absent keeps every trace in the window. | 
 
 ### Return type
 
@@ -12574,7 +12574,7 @@ import (
 func main() {
 	start := "start_example" // string | Start is the window start, as epoch nanoseconds. Required.
 	end := "end_example" // string | End is the window end, as epoch nanoseconds. Required.
-	step := int32(56) // int32 | Step is the bucket width in seconds. The runtime requires it. (optional)
+	step := int64(789) // int64 | Step is the bucket width in seconds. The runtime requires it. (optional)
 	service := "service_example" // string | Service narrows usage to one service. Empty covers all. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -12602,7 +12602,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **start** | **string** | Start is the window start, as epoch nanoseconds. Required. | 
  **end** | **string** | End is the window end, as epoch nanoseconds. Required. | 
- **step** | **int32** | Step is the bucket width in seconds. The runtime requires it. | 
+ **step** | **int64** | Step is the bucket width in seconds. The runtime requires it. | 
  **service** | **string** | Service narrows usage to one service. Empty covers all. | 
 
 ### Return type
@@ -13546,10 +13546,10 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	startUnixMilli := int32(56) // int32 | StartUnixMilli is the window start, unix milliseconds. (optional)
-	endUnixMilli := int32(56) // int32 | EndUnixMilli is the window end, unix milliseconds. (optional)
+	startUnixMilli := int64(789) // int64 | StartUnixMilli is the window start, unix milliseconds. (optional)
+	endUnixMilli := int64(789) // int64 | EndUnixMilli is the window end, unix milliseconds. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the keys to those containing it. (optional)
-	limit := int32(56) // int32 | Limit caps how many keys come back. Absent means 50, capped at 200. (optional)
+	limit := int64(789) // int64 | Limit caps how many keys come back. Absent means 50, capped at 200. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -13579,10 +13579,10 @@ Other parameters are passed through a pointer to a apiGetRuleHistoryFilterKeysRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **startUnixMilli** | **int32** | StartUnixMilli is the window start, unix milliseconds. | 
- **endUnixMilli** | **int32** | EndUnixMilli is the window end, unix milliseconds. | 
+ **startUnixMilli** | **int64** | StartUnixMilli is the window start, unix milliseconds. | 
+ **endUnixMilli** | **int64** | EndUnixMilli is the window end, unix milliseconds. | 
  **searchText** | **string** | SearchText narrows the keys to those containing it. | 
- **limit** | **int32** | Limit caps how many keys come back. Absent means 50, capped at 200. | 
+ **limit** | **int64** | Limit caps how many keys come back. Absent means 50, capped at 200. | 
 
 ### Return type
 
@@ -13625,10 +13625,10 @@ import (
 func main() {
 	id := "id_example" // string | 
 	name := "name_example" // string | Name is the label key whose values to list. Required.
-	startUnixMilli := int32(56) // int32 |  (optional)
-	endUnixMilli := int32(56) // int32 |  (optional)
+	startUnixMilli := int64(789) // int64 |  (optional)
+	endUnixMilli := int64(789) // int64 |  (optional)
 	searchText := "searchText_example" // string |  (optional)
-	limit := int32(56) // int32 |  (optional)
+	limit := int64(789) // int64 |  (optional)
 	existingQuery := "existingQuery_example" // string | ExistingQuery is a filter expression scoping which values appear. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -13660,10 +13660,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **name** | **string** | Name is the label key whose values to list. Required. | 
- **startUnixMilli** | **int32** |  | 
- **endUnixMilli** | **int32** |  | 
+ **startUnixMilli** | **int64** |  | 
+ **endUnixMilli** | **int64** |  | 
  **searchText** | **string** |  | 
- **limit** | **int32** |  | 
+ **limit** | **int64** |  | 
  **existingQuery** | **string** | ExistingQuery is a filter expression scoping which values appear. | 
 
 ### Return type
@@ -13706,8 +13706,8 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	start := int32(56) // int32 | Start is the window start, unix milliseconds. Required by the runtime. (optional)
-	end := int32(56) // int32 | End is the window end, unix milliseconds. Required by the runtime. (optional)
+	start := int64(789) // int64 | Start is the window start, unix milliseconds. Required by the runtime. (optional)
+	end := int64(789) // int64 | End is the window end, unix milliseconds. Required by the runtime. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -13737,8 +13737,8 @@ Other parameters are passed through a pointer to a apiGetRuleHistoryOverallStatu
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **start** | **int32** | Start is the window start, unix milliseconds. Required by the runtime. | 
- **end** | **int32** | End is the window end, unix milliseconds. Required by the runtime. | 
+ **start** | **int64** | Start is the window start, unix milliseconds. Required by the runtime. | 
+ **end** | **int64** | End is the window end, unix milliseconds. Required by the runtime. | 
 
 ### Return type
 
@@ -13780,8 +13780,8 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	start := int32(56) // int32 | Start is the window start, unix milliseconds. Required by the runtime. (optional)
-	end := int32(56) // int32 | End is the window end, unix milliseconds. Required by the runtime. (optional)
+	start := int64(789) // int64 | Start is the window start, unix milliseconds. Required by the runtime. (optional)
+	end := int64(789) // int64 | End is the window end, unix milliseconds. Required by the runtime. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -13811,8 +13811,8 @@ Other parameters are passed through a pointer to a apiGetRuleHistoryStatsRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **start** | **int32** | Start is the window start, unix milliseconds. Required by the runtime. | 
- **end** | **int32** | End is the window end, unix milliseconds. Required by the runtime. | 
+ **start** | **int64** | Start is the window start, unix milliseconds. Required by the runtime. | 
+ **end** | **int64** | End is the window end, unix milliseconds. Required by the runtime. | 
 
 ### Return type
 
@@ -13854,11 +13854,11 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	start := int32(56) // int32 | Start is the window start, unix milliseconds. Required by the runtime. (optional)
-	end := int32(56) // int32 | End is the window end, unix milliseconds. Required by the runtime. (optional)
+	start := int64(789) // int64 | Start is the window start, unix milliseconds. Required by the runtime. (optional)
+	end := int64(789) // int64 | End is the window end, unix milliseconds. Required by the runtime. (optional)
 	state := "state_example" // string | State keeps only entries in one alert state, e.g. firing or normal. (optional)
 	filterExpression := "filterExpression_example" // string | FilterExpression narrows entries to those whose labels match it. (optional)
-	limit := int32(56) // int32 | Limit caps how many entries come back. Absent means 50. (optional)
+	limit := int64(789) // int64 | Limit caps how many entries come back. Absent means 50. (optional)
 	order := "order_example" // string | Order sorts by time, asc or desc. (optional)
 	cursor := "cursor_example" // string | Cursor resumes a previous page; opaque, returned as nextCursor. (optional)
 
@@ -13890,11 +13890,11 @@ Other parameters are passed through a pointer to a apiGetRuleHistoryTimelineRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **start** | **int32** | Start is the window start, unix milliseconds. Required by the runtime. | 
- **end** | **int32** | End is the window end, unix milliseconds. Required by the runtime. | 
+ **start** | **int64** | Start is the window start, unix milliseconds. Required by the runtime. | 
+ **end** | **int64** | End is the window end, unix milliseconds. Required by the runtime. | 
  **state** | **string** | State keeps only entries in one alert state, e.g. firing or normal. | 
  **filterExpression** | **string** | FilterExpression narrows entries to those whose labels match it. | 
- **limit** | **int32** | Limit caps how many entries come back. Absent means 50. | 
+ **limit** | **int64** | Limit caps how many entries come back. Absent means 50. | 
  **order** | **string** | Order sorts by time, asc or desc. | 
  **cursor** | **string** | Cursor resumes a previous page; opaque, returned as nextCursor. | 
 
@@ -13938,8 +13938,8 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	start := int32(56) // int32 | Start is the window start, unix milliseconds. Required by the runtime. (optional)
-	end := int32(56) // int32 | End is the window end, unix milliseconds. Required by the runtime. (optional)
+	start := int64(789) // int64 | Start is the window start, unix milliseconds. Required by the runtime. (optional)
+	end := int64(789) // int64 | End is the window end, unix milliseconds. Required by the runtime. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -13969,8 +13969,8 @@ Other parameters are passed through a pointer to a apiGetRuleHistoryTopContribut
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **start** | **int32** | Start is the window start, unix milliseconds. Required by the runtime. | 
- **end** | **int32** | End is the window end, unix milliseconds. Required by the runtime. | 
+ **start** | **int64** | Start is the window start, unix milliseconds. Required by the runtime. | 
+ **end** | **int64** | End is the window end, unix milliseconds. Required by the runtime. | 
 
 ### Return type
 
@@ -15495,7 +15495,7 @@ import (
 )
 
 func main() {
-	o11yO11yMetricInspectIn := *openapiclient.NewO11yO11yMetricInspectIn(int32(123), "MetricName_example", int32(123)) // O11yO11yMetricInspectIn | 
+	o11yO11yMetricInspectIn := *openapiclient.NewO11yO11yMetricInspectIn(int64(123), "MetricName_example", int64(123)) // O11yO11yMetricInspectIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -15956,8 +15956,8 @@ func main() {
 	query := "query_example" // string | Query is the filter DSL over dashboard columns and tags, e.g. `name:cpu source:user`. Empty lists everything. (optional)
 	sort := "sort_example" // string | Sort is the sort field: updated_at, created_at or name. Empty sorts by updated_at. (optional)
 	order := "order_example" // string | Order is the sort direction: asc or desc. Empty orders desc. (optional)
-	limit := int32(56) // int32 | Limit caps how many dashboards come back. Zero means the default of 20; the runtime caps it at 200. (optional)
-	offset := int32(56) // int32 | Offset is how many dashboards to skip for pagination. (optional)
+	limit := int64(789) // int64 | Limit caps how many dashboards come back. Zero means the default of 20; the runtime caps it at 200. (optional)
+	offset := int64(789) // int64 | Offset is how many dashboards to skip for pagination. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -15985,8 +15985,8 @@ Name | Type | Description  | Notes
  **query** | **string** | Query is the filter DSL over dashboard columns and tags, e.g. &#x60;name:cpu source:user&#x60;. Empty lists everything. | 
  **sort** | **string** | Sort is the sort field: updated_at, created_at or name. Empty sorts by updated_at. | 
  **order** | **string** | Order is the sort direction: asc or desc. Empty orders desc. | 
- **limit** | **int32** | Limit caps how many dashboards come back. Zero means the default of 20; the runtime caps it at 200. | 
- **offset** | **int32** | Offset is how many dashboards to skip for pagination. | 
+ **limit** | **int64** | Limit caps how many dashboards come back. Zero means the default of 20; the runtime caps it at 200. | 
+ **offset** | **int64** | Offset is how many dashboards to skip for pagination. | 
 
 ### Return type
 
@@ -16030,8 +16030,8 @@ func main() {
 	query := "query_example" // string | Query is the filter DSL over dashboard columns and tags, e.g. `name:cpu source:user`. Empty lists everything. (optional)
 	sort := "sort_example" // string | Sort is the sort field: updated_at, created_at or name. Empty sorts by updated_at. (optional)
 	order := "order_example" // string | Order is the sort direction: asc or desc. Empty orders desc. (optional)
-	limit := int32(56) // int32 | Limit caps how many dashboards come back. Zero means the default of 20; the runtime caps it at 200. (optional)
-	offset := int32(56) // int32 | Offset is how many dashboards to skip for pagination. (optional)
+	limit := int64(789) // int64 | Limit caps how many dashboards come back. Zero means the default of 20; the runtime caps it at 200. (optional)
+	offset := int64(789) // int64 | Offset is how many dashboards to skip for pagination. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -16059,8 +16059,8 @@ Name | Type | Description  | Notes
  **query** | **string** | Query is the filter DSL over dashboard columns and tags, e.g. &#x60;name:cpu source:user&#x60;. Empty lists everything. | 
  **sort** | **string** | Sort is the sort field: updated_at, created_at or name. Empty sorts by updated_at. | 
  **order** | **string** | Order is the sort direction: asc or desc. Empty orders desc. | 
- **limit** | **int32** | Limit caps how many dashboards come back. Zero means the default of 20; the runtime caps it at 200. | 
- **offset** | **int32** | Offset is how many dashboards to skip for pagination. | 
+ **limit** | **int64** | Limit caps how many dashboards come back. Zero means the default of 20; the runtime caps it at 200. | 
+ **offset** | **int64** | Offset is how many dashboards to skip for pagination. | 
 
 ### Return type
 
@@ -16238,8 +16238,8 @@ func main() {
 	traceId := "traceId_example" // string | TraceID narrows to annotations on one trace. (optional)
 	queue := "queue_example" // string | Queue narrows to one review queue. (optional)
 	status := "status_example" // string | Status narrows to one review status, e.g. PENDING. (optional)
-	offset := int32(56) // int32 | Offset is how many rows to skip, for paging. (optional)
-	limit := int32(56) // int32 | Limit caps how many rows come back. (optional)
+	offset := int64(789) // int64 | Offset is how many rows to skip, for paging. (optional)
+	limit := int64(789) // int64 | Limit caps how many rows come back. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -16267,8 +16267,8 @@ Name | Type | Description  | Notes
  **traceId** | **string** | TraceID narrows to annotations on one trace. | 
  **queue** | **string** | Queue narrows to one review queue. | 
  **status** | **string** | Status narrows to one review status, e.g. PENDING. | 
- **offset** | **int32** | Offset is how many rows to skip, for paging. | 
- **limit** | **int32** | Limit caps how many rows come back. | 
+ **offset** | **int64** | Offset is how many rows to skip, for paging. | 
+ **limit** | **int64** | Limit caps how many rows come back. | 
 
 ### Return type
 
@@ -16309,15 +16309,15 @@ import (
 )
 
 func main() {
-	start := int32(56) // int32 | Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end. (optional)
-	end := int32(56) // int32 | End is the end of the window as a unix-millisecond epoch. Zero means now. (optional)
+	start := int64(789) // int64 | Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end. (optional)
+	end := int64(789) // int64 | End is the end of the window as a unix-millisecond epoch. Zero means now. (optional)
 	traceId := "traceId_example" // string | TraceID narrows the view to one trace. (optional)
 	sessionId := "sessionId_example" // string | SessionID narrows the view to one conversation. (optional)
 	userId := "userId_example" // string | UserID narrows the view to one end user. (optional)
 	name := "name_example" // string | Name narrows the view to observations of one name. (optional)
 	model := "model_example" // string | Model narrows the view to one model. (optional)
-	offset := int32(56) // int32 | Offset is how many rows to skip, for paging. (optional)
-	limit := int32(56) // int32 | Limit caps how many rows come back. (optional)
+	offset := int64(789) // int64 | Offset is how many rows to skip, for paging. (optional)
+	limit := int64(789) // int64 | Limit caps how many rows come back. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -16342,15 +16342,15 @@ Other parameters are passed through a pointer to a apiListLLMObservationsRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **start** | **int32** | Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end. | 
- **end** | **int32** | End is the end of the window as a unix-millisecond epoch. Zero means now. | 
+ **start** | **int64** | Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end. | 
+ **end** | **int64** | End is the end of the window as a unix-millisecond epoch. Zero means now. | 
  **traceId** | **string** | TraceID narrows the view to one trace. | 
  **sessionId** | **string** | SessionID narrows the view to one conversation. | 
  **userId** | **string** | UserID narrows the view to one end user. | 
  **name** | **string** | Name narrows the view to observations of one name. | 
  **model** | **string** | Model narrows the view to one model. | 
- **offset** | **int32** | Offset is how many rows to skip, for paging. | 
- **limit** | **int32** | Limit caps how many rows come back. | 
+ **offset** | **int64** | Offset is how many rows to skip, for paging. | 
+ **limit** | **int64** | Limit caps how many rows come back. | 
 
 ### Return type
 
@@ -16393,8 +16393,8 @@ import (
 func main() {
 	q := "q_example" // string | Search matches rules by model or provider. (optional)
 	isOverride := "isOverride_example" // string | IsOverride, when \"true\" or \"false\", narrows to user-pinned rules or to synced ones; empty returns both. It is a string because a query param is a string on the wire, and the runtime reads absent as \"no filter\". (optional)
-	offset := int32(56) // int32 | Offset is how many rows to skip, for paging. (optional)
-	limit := int32(56) // int32 | Limit caps how many rows come back. (optional)
+	offset := int64(789) // int64 | Offset is how many rows to skip, for paging. (optional)
+	limit := int64(789) // int64 | Limit caps how many rows come back. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -16421,8 +16421,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **q** | **string** | Search matches rules by model or provider. | 
  **isOverride** | **string** | IsOverride, when \&quot;true\&quot; or \&quot;false\&quot;, narrows to user-pinned rules or to synced ones; empty returns both. It is a string because a query param is a string on the wire, and the runtime reads absent as \&quot;no filter\&quot;. | 
- **offset** | **int32** | Offset is how many rows to skip, for paging. | 
- **limit** | **int32** | Limit caps how many rows come back. | 
+ **offset** | **int64** | Offset is how many rows to skip, for paging. | 
+ **limit** | **int64** | Limit caps how many rows come back. | 
 
 ### Return type
 
@@ -16467,8 +16467,8 @@ func main() {
 	observationId := "observationId_example" // string | ObservationID narrows to scores on one observation. (optional)
 	name := "name_example" // string | Name narrows to scores of one name. (optional)
 	source := "source_example" // string | Source narrows to scores from one source, e.g. API, EVAL. (optional)
-	offset := int32(56) // int32 | Offset is how many rows to skip, for paging. (optional)
-	limit := int32(56) // int32 | Limit caps how many rows come back. (optional)
+	offset := int64(789) // int64 | Offset is how many rows to skip, for paging. (optional)
+	limit := int64(789) // int64 | Limit caps how many rows come back. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -16497,8 +16497,8 @@ Name | Type | Description  | Notes
  **observationId** | **string** | ObservationID narrows to scores on one observation. | 
  **name** | **string** | Name narrows to scores of one name. | 
  **source** | **string** | Source narrows to scores from one source, e.g. API, EVAL. | 
- **offset** | **int32** | Offset is how many rows to skip, for paging. | 
- **limit** | **int32** | Limit caps how many rows come back. | 
+ **offset** | **int64** | Offset is how many rows to skip, for paging. | 
+ **limit** | **int64** | Limit caps how many rows come back. | 
 
 ### Return type
 
@@ -16539,15 +16539,15 @@ import (
 )
 
 func main() {
-	start := int32(56) // int32 | Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end. (optional)
-	end := int32(56) // int32 | End is the end of the window as a unix-millisecond epoch. Zero means now. (optional)
+	start := int64(789) // int64 | Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end. (optional)
+	end := int64(789) // int64 | End is the end of the window as a unix-millisecond epoch. Zero means now. (optional)
 	traceId := "traceId_example" // string | TraceID narrows the view to one trace. (optional)
 	sessionId := "sessionId_example" // string | SessionID narrows the view to one conversation. (optional)
 	userId := "userId_example" // string | UserID narrows the view to one end user. (optional)
 	name := "name_example" // string | Name narrows the view to observations of one name. (optional)
 	model := "model_example" // string | Model narrows the view to one model. (optional)
-	offset := int32(56) // int32 | Offset is how many rows to skip, for paging. (optional)
-	limit := int32(56) // int32 | Limit caps how many rows come back. (optional)
+	offset := int64(789) // int64 | Offset is how many rows to skip, for paging. (optional)
+	limit := int64(789) // int64 | Limit caps how many rows come back. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -16572,15 +16572,15 @@ Other parameters are passed through a pointer to a apiListLLMSessionsRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **start** | **int32** | Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end. | 
- **end** | **int32** | End is the end of the window as a unix-millisecond epoch. Zero means now. | 
+ **start** | **int64** | Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end. | 
+ **end** | **int64** | End is the end of the window as a unix-millisecond epoch. Zero means now. | 
  **traceId** | **string** | TraceID narrows the view to one trace. | 
  **sessionId** | **string** | SessionID narrows the view to one conversation. | 
  **userId** | **string** | UserID narrows the view to one end user. | 
  **name** | **string** | Name narrows the view to observations of one name. | 
  **model** | **string** | Model narrows the view to one model. | 
- **offset** | **int32** | Offset is how many rows to skip, for paging. | 
- **limit** | **int32** | Limit caps how many rows come back. | 
+ **offset** | **int64** | Offset is how many rows to skip, for paging. | 
+ **limit** | **int64** | Limit caps how many rows come back. | 
 
 ### Return type
 
@@ -16621,15 +16621,15 @@ import (
 )
 
 func main() {
-	start := int32(56) // int32 | Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end. (optional)
-	end := int32(56) // int32 | End is the end of the window as a unix-millisecond epoch. Zero means now. (optional)
+	start := int64(789) // int64 | Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end. (optional)
+	end := int64(789) // int64 | End is the end of the window as a unix-millisecond epoch. Zero means now. (optional)
 	traceId := "traceId_example" // string | TraceID narrows the view to one trace. (optional)
 	sessionId := "sessionId_example" // string | SessionID narrows the view to one conversation. (optional)
 	userId := "userId_example" // string | UserID narrows the view to one end user. (optional)
 	name := "name_example" // string | Name narrows the view to observations of one name. (optional)
 	model := "model_example" // string | Model narrows the view to one model. (optional)
-	offset := int32(56) // int32 | Offset is how many rows to skip, for paging. (optional)
-	limit := int32(56) // int32 | Limit caps how many rows come back. (optional)
+	offset := int64(789) // int64 | Offset is how many rows to skip, for paging. (optional)
+	limit := int64(789) // int64 | Limit caps how many rows come back. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -16654,15 +16654,15 @@ Other parameters are passed through a pointer to a apiListLLMTracesRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **start** | **int32** | Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end. | 
- **end** | **int32** | End is the end of the window as a unix-millisecond epoch. Zero means now. | 
+ **start** | **int64** | Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end. | 
+ **end** | **int64** | End is the end of the window as a unix-millisecond epoch. Zero means now. | 
  **traceId** | **string** | TraceID narrows the view to one trace. | 
  **sessionId** | **string** | SessionID narrows the view to one conversation. | 
  **userId** | **string** | UserID narrows the view to one end user. | 
  **name** | **string** | Name narrows the view to observations of one name. | 
  **model** | **string** | Model narrows the view to one model. | 
- **offset** | **int32** | Offset is how many rows to skip, for paging. | 
- **limit** | **int32** | Limit caps how many rows come back. | 
+ **offset** | **int64** | Offset is how many rows to skip, for paging. | 
+ **limit** | **int64** | Limit caps how many rows come back. | 
 
 ### Return type
 
@@ -16703,15 +16703,15 @@ import (
 )
 
 func main() {
-	start := int32(56) // int32 | Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end. (optional)
-	end := int32(56) // int32 | End is the end of the window as a unix-millisecond epoch. Zero means now. (optional)
+	start := int64(789) // int64 | Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end. (optional)
+	end := int64(789) // int64 | End is the end of the window as a unix-millisecond epoch. Zero means now. (optional)
 	traceId := "traceId_example" // string | TraceID narrows the view to one trace. (optional)
 	sessionId := "sessionId_example" // string | SessionID narrows the view to one conversation. (optional)
 	userId := "userId_example" // string | UserID narrows the view to one end user. (optional)
 	name := "name_example" // string | Name narrows the view to observations of one name. (optional)
 	model := "model_example" // string | Model narrows the view to one model. (optional)
-	offset := int32(56) // int32 | Offset is how many rows to skip, for paging. (optional)
-	limit := int32(56) // int32 | Limit caps how many rows come back. (optional)
+	offset := int64(789) // int64 | Offset is how many rows to skip, for paging. (optional)
+	limit := int64(789) // int64 | Limit caps how many rows come back. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -16736,15 +16736,15 @@ Other parameters are passed through a pointer to a apiListLLMUsersRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **start** | **int32** | Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end. | 
- **end** | **int32** | End is the end of the window as a unix-millisecond epoch. Zero means now. | 
+ **start** | **int64** | Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end. | 
+ **end** | **int64** | End is the end of the window as a unix-millisecond epoch. Zero means now. | 
  **traceId** | **string** | TraceID narrows the view to one trace. | 
  **sessionId** | **string** | SessionID narrows the view to one conversation. | 
  **userId** | **string** | UserID narrows the view to one end user. | 
  **name** | **string** | Name narrows the view to observations of one name. | 
  **model** | **string** | Model narrows the view to one model. | 
- **offset** | **int32** | Offset is how many rows to skip, for paging. | 
- **limit** | **int32** | Limit caps how many rows come back. | 
+ **offset** | **int64** | Offset is how many rows to skip, for paging. | 
+ **limit** | **int64** | Limit caps how many rows come back. | 
 
 ### Return type
 
@@ -16789,8 +16789,8 @@ func main() {
 	order := "order_example" // string | Order is asc or desc. Unset means desc. (optional)
 	search := "search_example" // string | Search narrows the page to rules whose metric name contains it. (optional)
 	metricName := "metricName_example" // string | MetricName narrows the page to one metric's rule. (optional)
-	offset := int32(56) // int32 | Offset is how many rules to skip, for paging. (optional)
-	limit := int32(56) // int32 | Limit caps how many rules come back, at most 1000. Unset means 10. (optional)
+	offset := int64(789) // int64 | Offset is how many rules to skip, for paging. (optional)
+	limit := int64(789) // int64 | Limit caps how many rules come back, at most 1000. Unset means 10. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -16819,8 +16819,8 @@ Name | Type | Description  | Notes
  **order** | **string** | Order is asc or desc. Unset means desc. | 
  **search** | **string** | Search narrows the page to rules whose metric name contains it. | 
  **metricName** | **string** | MetricName narrows the page to one metric&#39;s rule. | 
- **offset** | **int32** | Offset is how many rules to skip, for paging. | 
- **limit** | **int32** | Limit caps how many rules come back, at most 1000. Unset means 10. | 
+ **offset** | **int64** | Offset is how many rules to skip, for paging. | 
+ **limit** | **int64** | Limit caps how many rules come back, at most 1000. Unset means 10. | 
 
 ### Return type
 
@@ -16861,9 +16861,9 @@ import (
 )
 
 func main() {
-	start := int32(56) // int32 | Start is the start of the window as a Unix timestamp in milliseconds. (optional)
-	end := int32(56) // int32 | End is the end of the window as a Unix timestamp in milliseconds. (optional)
-	limit := int32(56) // int32 | Limit caps how many metrics come back; unset means 100, at most 5000. (optional)
+	start := int64(789) // int64 | Start is the start of the window as a Unix timestamp in milliseconds. (optional)
+	end := int64(789) // int64 | End is the end of the window as a Unix timestamp in milliseconds. (optional)
+	limit := int64(789) // int64 | Limit caps how many metrics come back; unset means 100, at most 5000. (optional)
 	searchText := "searchText_example" // string | SearchText narrows the page to metric names containing it. (optional)
 	source := "source_example" // string | Source narrows the page by ingestion source. (optional)
 
@@ -16890,9 +16890,9 @@ Other parameters are passed through a pointer to a apiListMetricsRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **start** | **int32** | Start is the start of the window as a Unix timestamp in milliseconds. | 
- **end** | **int32** | End is the end of the window as a Unix timestamp in milliseconds. | 
- **limit** | **int32** | Limit caps how many metrics come back; unset means 100, at most 5000. | 
+ **start** | **int64** | Start is the start of the window as a Unix timestamp in milliseconds. | 
+ **end** | **int64** | End is the end of the window as a Unix timestamp in milliseconds. | 
+ **limit** | **int64** | Limit caps how many metrics come back; unset means 100, at most 5000. | 
  **searchText** | **string** | SearchText narrows the page to metric names containing it. | 
  **source** | **string** | Source narrows the page by ingestion source. | 
 
@@ -23499,8 +23499,8 @@ import (
 
 func main() {
 	name := "name_example" // string | Name is the substring to match ingestion-key names against. (optional)
-	page := int32(56) // int32 | Page is the 1-based page number. (optional)
-	perPage := int32(56) // int32 | PerPage is the page size. (optional)
+	page := int64(789) // int64 | Page is the 1-based page number. (optional)
+	perPage := int64(789) // int64 | PerPage is the page size. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -23526,8 +23526,8 @@ Other parameters are passed through a pointer to a apiSearchIngestionKeysRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **name** | **string** | Name is the substring to match ingestion-key names against. | 
- **page** | **int32** | Page is the 1-based page number. | 
- **perPage** | **int32** | PerPage is the page size. | 
+ **page** | **int64** | Page is the 1-based page number. | 
+ **perPage** | **int64** | PerPage is the page size. | 
 
 ### Return type
 
@@ -23570,9 +23570,9 @@ import (
 func main() {
 	traceId := "traceId_example" // string | 
 	spanId := "spanId_example" // string |  (optional)
-	levelUp := int32(56) // int32 |  (optional)
-	levelDown := int32(56) // int32 |  (optional)
-	spanRenderLimit := int32(56) // int32 |  (optional)
+	levelUp := int64(789) // int64 |  (optional)
+	levelDown := int64(789) // int64 |  (optional)
+	spanRenderLimit := int64(789) // int64 |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -23603,9 +23603,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **spanId** | **string** |  | 
- **levelUp** | **int32** |  | 
- **levelDown** | **int32** |  | 
- **spanRenderLimit** | **int32** |  | 
+ **levelUp** | **int64** |  | 
+ **levelDown** | **int64** |  | 
+ **spanRenderLimit** | **int64** |  | 
 
 ### Return type
 

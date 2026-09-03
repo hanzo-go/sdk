@@ -26,9 +26,9 @@ type RiskLineage struct {
 	// From is where the window actually read opens, RFC 3339. Same as the spec's.
 	From *string `json:"from,omitempty"`
 	// Holds is what the source holds for the same window NOW. The difference between it and Rows is the whole of the reproducibility claim.
-	Holds *int32 `json:"holds,omitempty"`
+	Holds *int64 `json:"holds,omitempty"`
 	// Oversize is how many subjects the window held that were too large to represent when this version was built. It is part of the fingerprint, so it is part of what \"reproducible\" is measured over.
-	Oversize *int32 `json:"oversize,omitempty"`
+	Oversize *int64 `json:"oversize,omitempty"`
 	// Refusal says which way it failed — the window expired, or the source now holds a different count. Absent when Reproducible is true.
 	Refusal *string `json:"refusal,omitempty"`
 	// Reproducible is true when the source still holds what this version was built from — measured by asking it again, not recalled. False is ordinary: the source is fed by a rollup that runs behind the events, so \"it holds more now\" is the common case and it means re-running the spec would not produce this version.
@@ -36,17 +36,17 @@ type RiskLineage struct {
 	// Retention is the source's own expiry rule as the store reports it, read at materialisation time rather than assumed. A source whose retention is shorter than this window cannot re-derive it.
 	Retention *string `json:"retention,omitempty"`
 	// Rows is how many rows the source held for that window at materialisation time. Holds is the same question asked now, and the difference between them is the whole of the reproducibility claim.
-	Rows *int32 `json:"rows,omitempty"`
+	Rows *int64 `json:"rows,omitempty"`
 	// Share is the fraction of subjects admitted, in thousandths.
-	Share *int32 `json:"share,omitempty"`
+	Share *int64 `json:"share,omitempty"`
 	// Source is the plane the rows were derived from.
 	Source *string `json:"source,omitempty"`
 	// Subjects is how many distinct subjects those rows belonged to. It is the real sample size — the row count flatters it whenever a subject is active.
-	Subjects *int32 `json:"subjects,omitempty"`
+	Subjects *int64 `json:"subjects,omitempty"`
 	// To is where it ends: the spec's own end pulled BACK by the maturity horizon, so it is usually earlier than the spec says. This is the window a reproduction has to ask for — asking the spec's would not return these rows.
 	To *string `json:"to,omitempty"`
 	// Version is the version traced — the one asked for, or the newest published one when the request named none.
-	Version *int32 `json:"version,omitempty"`
+	Version *int64 `json:"version,omitempty"`
 }
 
 // NewRiskLineage instantiates a new RiskLineage object
@@ -163,9 +163,9 @@ func (o *RiskLineage) SetFrom(v string) {
 }
 
 // GetHolds returns the Holds field value if set, zero value otherwise.
-func (o *RiskLineage) GetHolds() int32 {
+func (o *RiskLineage) GetHolds() int64 {
 	if o == nil || IsNil(o.Holds) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Holds
@@ -173,7 +173,7 @@ func (o *RiskLineage) GetHolds() int32 {
 
 // GetHoldsOk returns a tuple with the Holds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLineage) GetHoldsOk() (*int32, bool) {
+func (o *RiskLineage) GetHoldsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Holds) {
 		return nil, false
 	}
@@ -189,15 +189,15 @@ func (o *RiskLineage) HasHolds() bool {
 	return false
 }
 
-// SetHolds gets a reference to the given int32 and assigns it to the Holds field.
-func (o *RiskLineage) SetHolds(v int32) {
+// SetHolds gets a reference to the given int64 and assigns it to the Holds field.
+func (o *RiskLineage) SetHolds(v int64) {
 	o.Holds = &v
 }
 
 // GetOversize returns the Oversize field value if set, zero value otherwise.
-func (o *RiskLineage) GetOversize() int32 {
+func (o *RiskLineage) GetOversize() int64 {
 	if o == nil || IsNil(o.Oversize) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Oversize
@@ -205,7 +205,7 @@ func (o *RiskLineage) GetOversize() int32 {
 
 // GetOversizeOk returns a tuple with the Oversize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLineage) GetOversizeOk() (*int32, bool) {
+func (o *RiskLineage) GetOversizeOk() (*int64, bool) {
 	if o == nil || IsNil(o.Oversize) {
 		return nil, false
 	}
@@ -221,8 +221,8 @@ func (o *RiskLineage) HasOversize() bool {
 	return false
 }
 
-// SetOversize gets a reference to the given int32 and assigns it to the Oversize field.
-func (o *RiskLineage) SetOversize(v int32) {
+// SetOversize gets a reference to the given int64 and assigns it to the Oversize field.
+func (o *RiskLineage) SetOversize(v int64) {
 	o.Oversize = &v
 }
 
@@ -323,9 +323,9 @@ func (o *RiskLineage) SetRetention(v string) {
 }
 
 // GetRows returns the Rows field value if set, zero value otherwise.
-func (o *RiskLineage) GetRows() int32 {
+func (o *RiskLineage) GetRows() int64 {
 	if o == nil || IsNil(o.Rows) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Rows
@@ -333,7 +333,7 @@ func (o *RiskLineage) GetRows() int32 {
 
 // GetRowsOk returns a tuple with the Rows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLineage) GetRowsOk() (*int32, bool) {
+func (o *RiskLineage) GetRowsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Rows) {
 		return nil, false
 	}
@@ -349,15 +349,15 @@ func (o *RiskLineage) HasRows() bool {
 	return false
 }
 
-// SetRows gets a reference to the given int32 and assigns it to the Rows field.
-func (o *RiskLineage) SetRows(v int32) {
+// SetRows gets a reference to the given int64 and assigns it to the Rows field.
+func (o *RiskLineage) SetRows(v int64) {
 	o.Rows = &v
 }
 
 // GetShare returns the Share field value if set, zero value otherwise.
-func (o *RiskLineage) GetShare() int32 {
+func (o *RiskLineage) GetShare() int64 {
 	if o == nil || IsNil(o.Share) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Share
@@ -365,7 +365,7 @@ func (o *RiskLineage) GetShare() int32 {
 
 // GetShareOk returns a tuple with the Share field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLineage) GetShareOk() (*int32, bool) {
+func (o *RiskLineage) GetShareOk() (*int64, bool) {
 	if o == nil || IsNil(o.Share) {
 		return nil, false
 	}
@@ -381,8 +381,8 @@ func (o *RiskLineage) HasShare() bool {
 	return false
 }
 
-// SetShare gets a reference to the given int32 and assigns it to the Share field.
-func (o *RiskLineage) SetShare(v int32) {
+// SetShare gets a reference to the given int64 and assigns it to the Share field.
+func (o *RiskLineage) SetShare(v int64) {
 	o.Share = &v
 }
 
@@ -419,9 +419,9 @@ func (o *RiskLineage) SetSource(v string) {
 }
 
 // GetSubjects returns the Subjects field value if set, zero value otherwise.
-func (o *RiskLineage) GetSubjects() int32 {
+func (o *RiskLineage) GetSubjects() int64 {
 	if o == nil || IsNil(o.Subjects) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Subjects
@@ -429,7 +429,7 @@ func (o *RiskLineage) GetSubjects() int32 {
 
 // GetSubjectsOk returns a tuple with the Subjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLineage) GetSubjectsOk() (*int32, bool) {
+func (o *RiskLineage) GetSubjectsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Subjects) {
 		return nil, false
 	}
@@ -445,8 +445,8 @@ func (o *RiskLineage) HasSubjects() bool {
 	return false
 }
 
-// SetSubjects gets a reference to the given int32 and assigns it to the Subjects field.
-func (o *RiskLineage) SetSubjects(v int32) {
+// SetSubjects gets a reference to the given int64 and assigns it to the Subjects field.
+func (o *RiskLineage) SetSubjects(v int64) {
 	o.Subjects = &v
 }
 
@@ -483,9 +483,9 @@ func (o *RiskLineage) SetTo(v string) {
 }
 
 // GetVersion returns the Version field value if set, zero value otherwise.
-func (o *RiskLineage) GetVersion() int32 {
+func (o *RiskLineage) GetVersion() int64 {
 	if o == nil || IsNil(o.Version) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Version
@@ -493,7 +493,7 @@ func (o *RiskLineage) GetVersion() int32 {
 
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLineage) GetVersionOk() (*int32, bool) {
+func (o *RiskLineage) GetVersionOk() (*int64, bool) {
 	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
@@ -509,8 +509,8 @@ func (o *RiskLineage) HasVersion() bool {
 	return false
 }
 
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
-func (o *RiskLineage) SetVersion(v int32) {
+// SetVersion gets a reference to the given int64 and assigns it to the Version field.
+func (o *RiskLineage) SetVersion(v int64) {
 	o.Version = &v
 }
 

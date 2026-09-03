@@ -120,7 +120,7 @@ import (
 
 func main() {
 	sandbox := "sandbox_example" // string | Sandbox reads the org's SANDBOX ledger when it is exactly \"true\". (optional)
-	limit := int32(100) // int32 | Limit caps how many rows come back; 500 when absent or not positive. (optional)
+	limit := int64(100) // int64 | Limit caps how many rows come back; 500 when absent or not positive. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -146,7 +146,7 @@ Other parameters are passed through a pointer to a apiGetBooksBankTransactionsRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sandbox** | **string** | Sandbox reads the org&#39;s SANDBOX ledger when it is exactly \&quot;true\&quot;. | 
- **limit** | **int32** | Limit caps how many rows come back; 500 when absent or not positive. | 
+ **limit** | **int64** | Limit caps how many rows come back; 500 when absent or not positive. | 
 
 ### Return type
 
@@ -257,7 +257,7 @@ func main() {
 	from := "2026-01-01T00:00:00Z" // string | From is the RFC3339 start of the window, exclusive. Empty means all time. (optional)
 	to := "2026-12-31T23:59:59Z" // string | To is the RFC3339 end of the window, inclusive. Empty means up to now. (optional)
 	format := "json" // string | Format is the export encoding. Only \"json\" is supported; empty means json. (optional)
-	limit := int32(56) // int32 | Limit caps the GL detail rows included as the audit trail; 5000 when absent or not positive. (optional)
+	limit := int64(789) // int64 | Limit caps the GL detail rows included as the audit trail; 5000 when absent or not positive. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
  **from** | **string** | From is the RFC3339 start of the window, exclusive. Empty means all time. | 
  **to** | **string** | To is the RFC3339 end of the window, inclusive. Empty means up to now. | 
  **format** | **string** | Format is the export encoding. Only \&quot;json\&quot; is supported; empty means json. | 
- **limit** | **int32** | Limit caps the GL detail rows included as the audit trail; 5000 when absent or not positive. | 
+ **limit** | **int64** | Limit caps the GL detail rows included as the audit trail; 5000 when absent or not positive. | 
 
 ### Return type
 
@@ -328,7 +328,7 @@ import (
 
 func main() {
 	sandbox := "sandbox_example" // string | Sandbox reads the org's SANDBOX ledger when it is exactly \"true\". (optional)
-	limit := int32(100) // int32 | Limit caps how many rows come back; 500 when absent or not positive. (optional)
+	limit := int64(100) // int64 | Limit caps how many rows come back; 500 when absent or not positive. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -354,7 +354,7 @@ Other parameters are passed through a pointer to a apiGetBooksGlRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sandbox** | **string** | Sandbox reads the org&#39;s SANDBOX ledger when it is exactly \&quot;true\&quot;. | 
- **limit** | **int32** | Limit caps how many rows come back; 500 when absent or not positive. | 
+ **limit** | **int64** | Limit caps how many rows come back; 500 when absent or not positive. | 
 
 ### Return type
 
@@ -806,7 +806,7 @@ func main() {
 	to := "to_example" // string | To is the RFC3339 end of the posting-time window, inclusive. (optional)
 	category := "software" // string | Category filters to one COA account, named by number (\"5300\") or by category slug (\"software\"). (optional)
 	vendor := "vendor_example" // string | Vendor filters to rows whose vendor or description contains this text, case-insensitively. (optional)
-	limit := int32(50) // int32 | Limit caps how many rows come back; 200 when absent or not positive. (optional)
+	limit := int64(50) // int64 | Limit caps how many rows come back; 200 when absent or not positive. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -836,7 +836,7 @@ Name | Type | Description  | Notes
  **to** | **string** | To is the RFC3339 end of the posting-time window, inclusive. | 
  **category** | **string** | Category filters to one COA account, named by number (\&quot;5300\&quot;) or by category slug (\&quot;software\&quot;). | 
  **vendor** | **string** | Vendor filters to rows whose vendor or description contains this text, case-insensitively. | 
- **limit** | **int32** | Limit caps how many rows come back; 200 when absent or not positive. | 
+ **limit** | **int64** | Limit caps how many rows come back; 200 when absent or not positive. | 
 
 ### Return type
 

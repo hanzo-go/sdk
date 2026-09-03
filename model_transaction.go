@@ -19,7 +19,7 @@ var _ MappedNullable = &Transaction{}
 
 // Transaction struct for Transaction
 type Transaction struct {
-	Amount    *int32      `json:"amount,omitempty"`
+	Amount    *int64      `json:"amount,omitempty"`
 	CreatedAt *string     `json:"createdAt,omitempty"`
 	Currency  *string     `json:"currency,omitempty"`
 	ExpiresAt *string     `json:"expiresAt,omitempty"`
@@ -48,9 +48,9 @@ func NewTransactionWithDefaults() *Transaction {
 }
 
 // GetAmount returns the Amount field value if set, zero value otherwise.
-func (o *Transaction) GetAmount() int32 {
+func (o *Transaction) GetAmount() int64 {
 	if o == nil || IsNil(o.Amount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Amount
@@ -58,7 +58,7 @@ func (o *Transaction) GetAmount() int32 {
 
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Transaction) GetAmountOk() (*int32, bool) {
+func (o *Transaction) GetAmountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Amount) {
 		return nil, false
 	}
@@ -74,8 +74,8 @@ func (o *Transaction) HasAmount() bool {
 	return false
 }
 
-// SetAmount gets a reference to the given int32 and assigns it to the Amount field.
-func (o *Transaction) SetAmount(v int32) {
+// SetAmount gets a reference to the given int64 and assigns it to the Amount field.
+func (o *Transaction) SetAmount(v int64) {
 	o.Amount = &v
 }
 

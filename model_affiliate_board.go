@@ -22,7 +22,7 @@ type AffiliateBoard struct {
 	// Leaders are the top opt-in affiliates, by handle and aggregate figures only.
 	Leaders []LeaderboardRow `json:"leaders,omitempty"`
 	// Total is the approved population where it is known; omitted where the top page truncated and the caller has no rank to derive it from.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 	// You is the caller's own row with its exact global rank; only an approved affiliate has one.
 	You *LeaderboardRow `json:"you,omitempty"`
 }
@@ -77,9 +77,9 @@ func (o *AffiliateBoard) SetLeaders(v []LeaderboardRow) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *AffiliateBoard) GetTotal() int32 {
+func (o *AffiliateBoard) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -87,7 +87,7 @@ func (o *AffiliateBoard) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AffiliateBoard) GetTotalOk() (*int32, bool) {
+func (o *AffiliateBoard) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -103,8 +103,8 @@ func (o *AffiliateBoard) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *AffiliateBoard) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *AffiliateBoard) SetTotal(v int64) {
 	o.Total = &v
 }
 

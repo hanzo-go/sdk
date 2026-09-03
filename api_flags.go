@@ -130,11 +130,11 @@ func (a *FlagsAPIService) DeleteFlagsDefsByKeyExecute(r FlagsAPIDeleteFlagsDefsB
 type FlagsAPIGetFlagsActivityRequest struct {
 	ctx        context.Context
 	ApiService *FlagsAPIService
-	limit      *int32
+	limit      *int64
 }
 
 // Limit caps the rows returned. 1–500; anything else takes the default 100.
-func (r FlagsAPIGetFlagsActivityRequest) Limit(limit int32) FlagsAPIGetFlagsActivityRequest {
+func (r FlagsAPIGetFlagsActivityRequest) Limit(limit int64) FlagsAPIGetFlagsActivityRequest {
 	r.limit = &limit
 	return r
 }

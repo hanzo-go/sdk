@@ -24,13 +24,13 @@ type RiskScoreOut struct {
 	// Causes is the per-feature attribution, ordered by contribution. Each is a COUNTERFACTUAL on the model that produced the score — the coordinate moved to its neutral value and the event rescored — so the explanation is the same arithmetic the score came from.
 	Causes []RiskCause `json:"causes,omitempty"`
 	// Cut is the threshold in force, derived from the stated appetite as a quantile of the scores actually observed rather than fixed at a number.
-	Cut *float32 `json:"cut,omitempty"`
+	Cut *float64 `json:"cut,omitempty"`
 	// Policy is the version of your organisation's decision regime this verdict was reached under, from its own policy history (GET /v1/risk/policy). Cut is derived from the appetite that version states, so it is the record that makes this decision reconstructible after the appetite is restated. Zero means no regime has ever been stated and the default posture — shadow — was in force.
-	Policy *int32 `json:"policy,omitempty"`
+	Policy *int64 `json:"policy,omitempty"`
 	// Refusal names why the model declined, when it did.
 	Refusal *string `json:"refusal,omitempty"`
 	// Score is where the event sits in the tenant's own density: 0 where its recent behaviour is densest, 1 where there is none of it.
-	Score *float32 `json:"score,omitempty"`
+	Score *float64 `json:"score,omitempty"`
 	// Scored is false when the model declined, and Refusal says which refusal it was: warming, unusable or unidentified. None of them is a clean bill of health, which is why the refusal is stated rather than rendered as a score of zero.
 	Scored *bool `json:"scored,omitempty"`
 	// Shadow is whether the model is testing rather than deciding — scoring, learning and recording what it WOULD have alerted on, and changing no outcome. It is the default for a model no one has reviewed yet.
@@ -123,9 +123,9 @@ func (o *RiskScoreOut) SetCauses(v []RiskCause) {
 }
 
 // GetCut returns the Cut field value if set, zero value otherwise.
-func (o *RiskScoreOut) GetCut() float32 {
+func (o *RiskScoreOut) GetCut() float64 {
 	if o == nil || IsNil(o.Cut) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Cut
@@ -133,7 +133,7 @@ func (o *RiskScoreOut) GetCut() float32 {
 
 // GetCutOk returns a tuple with the Cut field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskScoreOut) GetCutOk() (*float32, bool) {
+func (o *RiskScoreOut) GetCutOk() (*float64, bool) {
 	if o == nil || IsNil(o.Cut) {
 		return nil, false
 	}
@@ -149,15 +149,15 @@ func (o *RiskScoreOut) HasCut() bool {
 	return false
 }
 
-// SetCut gets a reference to the given float32 and assigns it to the Cut field.
-func (o *RiskScoreOut) SetCut(v float32) {
+// SetCut gets a reference to the given float64 and assigns it to the Cut field.
+func (o *RiskScoreOut) SetCut(v float64) {
 	o.Cut = &v
 }
 
 // GetPolicy returns the Policy field value if set, zero value otherwise.
-func (o *RiskScoreOut) GetPolicy() int32 {
+func (o *RiskScoreOut) GetPolicy() int64 {
 	if o == nil || IsNil(o.Policy) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Policy
@@ -165,7 +165,7 @@ func (o *RiskScoreOut) GetPolicy() int32 {
 
 // GetPolicyOk returns a tuple with the Policy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskScoreOut) GetPolicyOk() (*int32, bool) {
+func (o *RiskScoreOut) GetPolicyOk() (*int64, bool) {
 	if o == nil || IsNil(o.Policy) {
 		return nil, false
 	}
@@ -181,8 +181,8 @@ func (o *RiskScoreOut) HasPolicy() bool {
 	return false
 }
 
-// SetPolicy gets a reference to the given int32 and assigns it to the Policy field.
-func (o *RiskScoreOut) SetPolicy(v int32) {
+// SetPolicy gets a reference to the given int64 and assigns it to the Policy field.
+func (o *RiskScoreOut) SetPolicy(v int64) {
 	o.Policy = &v
 }
 
@@ -219,9 +219,9 @@ func (o *RiskScoreOut) SetRefusal(v string) {
 }
 
 // GetScore returns the Score field value if set, zero value otherwise.
-func (o *RiskScoreOut) GetScore() float32 {
+func (o *RiskScoreOut) GetScore() float64 {
 	if o == nil || IsNil(o.Score) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Score
@@ -229,7 +229,7 @@ func (o *RiskScoreOut) GetScore() float32 {
 
 // GetScoreOk returns a tuple with the Score field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskScoreOut) GetScoreOk() (*float32, bool) {
+func (o *RiskScoreOut) GetScoreOk() (*float64, bool) {
 	if o == nil || IsNil(o.Score) {
 		return nil, false
 	}
@@ -245,8 +245,8 @@ func (o *RiskScoreOut) HasScore() bool {
 	return false
 }
 
-// SetScore gets a reference to the given float32 and assigns it to the Score field.
-func (o *RiskScoreOut) SetScore(v float32) {
+// SetScore gets a reference to the given float64 and assigns it to the Score field.
+func (o *RiskScoreOut) SetScore(v float64) {
 	o.Score = &v
 }
 

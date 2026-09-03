@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Analytics** | Pointer to **bool** | Analytics is whether the web-analytics beacon is injected into this site&#39;s pages. It is ON by default — a project has to opt out — and it is what the static builder reads to decide whether to inject at all. | [optional] 
 **Bucket** | Pointer to **string** | Bucket is the object-store bucket the site&#39;s files are served out of. | [optional] 
 **CacheControl** | Pointer to **string** | CacheControl is the Cache-Control policy the edge serves this site&#39;s HTML under — how long a reader may hold a stale page before asking again. Assets are content-addressed and are not governed by it. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the project was created, as Unix seconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the project was created, as Unix seconds. | [optional] 
 **CurrentDeploymentId** | Pointer to **string** | CurrentDeploymentID names the deployment currently serving, so a caller can ask what is live without scanning the history. | [optional] 
 **Description** | Pointer to **string** | Description is the one-line summary, which is copied onto forks of this project and shown on a gallery card. | [optional] 
 **ForkedFrom** | Pointer to **string** | ForkedFrom is the parent this project was forked from (\&quot;&lt;org&gt;/&lt;slug&gt;\&quot; of a published project, or a catalog template slug) — the attribution edge a gallery credits. | [optional] 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **HiddenReason** | Pointer to **string** | HiddenReason is why moderation hid it. Absent when it is not hidden. | [optional] 
 **Id** | Pointer to **string** | ID is the project&#39;s internal identifier. It is stable across a rename, but it is not what the API addresses this project by — &#x60;slug&#x60; is. | [optional] 
 **Key** | Pointer to **string** | Key is the project&#39;s publishable ingest key, minted at create. It is the value the injected beacon carries and the ONE thing that attributes this site&#39;s events; the static-builder reads it beside analytics.  Publishable means it belongs in a page&#39;s source: it names a write scope and mints no principal, so it is returned in full rather than masked. Masking it would only mean every caller needed a second endpoint to get the thing the page already ships. | [optional] 
-**LastPurgeAt** | Pointer to **int32** | LastPurgeAt is when the edge cache was last cleared, as Unix seconds, so a console can say how fresh what readers see actually is. Absent means never. | [optional] 
+**LastPurgeAt** | Pointer to **int64** | LastPurgeAt is when the edge cache was last cleared, as Unix seconds, so a console can say how fresh what readers see actually is. Absent means never. | [optional] 
 **License** | Pointer to **string** | License is the terms that upstream work carries. Absent has the same reading: undeclared, not unencumbered. | [optional] 
 **LiveUrl** | Pointer to **string** | LiveURL is where the site answers today. Absent until something has been deployed. | [optional] 
 **Name** | Pointer to **string** | Name is the project&#39;s display name, free text a person chose. | [optional] 
@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 **Starred** | Pointer to **bool** | Starred is THIS CALLER&#39;s star, not a property of the project — two people in the same org see different values for the same row, which is the whole point of it. Always present so a client can tell \&quot;not starred\&quot; from \&quot;this API is too old to say\&quot;, the same reason visibility and hidden are. | [optional] 
 **Status** | Pointer to **string** | Status is where the project stands — whether a build has ever succeeded and whether anything is serving right now. | [optional] 
 **Tags** | Pointer to **map[string]string** | Tags is the site&#39;s browser tag config: platform slug → non-secret pixel id (GA measurement, Meta pixel, …) — what track.js injects and the server CAPI reads, per site. Omitted when none are set. The API SECRET is never here (KMS). | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is when the project&#39;s own record last changed, as Unix seconds. A deploy is not an edit of the project, so this does not move on every publish. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is when the project&#39;s own record last changed, as Unix seconds. A deploy is not an edit of the project, so this does not move on every publish. | [optional] 
 **Upstream** | Pointer to **string** | Upstream credits the third-party work this project was published from — a free-text line, because the honest answer is a name and a title that no enum could hold. Absent means NOBODY HAS SAID, not that there is nothing to say. | [optional] 
 **Visibility** | Pointer to **string** | Visibility is \&quot;public\&quot; or \&quot;private\&quot;, and Hidden reports platform moderation. Both are always present (never omitempty) so a consumer can tell a real answer from \&quot;this API is too old to say\&quot; — and so a console never renders a project as public because a field was missing.  Authorship is deliberately absent: it is Org, above. | [optional] 
 
@@ -127,20 +127,20 @@ HasCacheControl returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *ProjectsProject) GetCreatedAt() int32`
+`func (o *ProjectsProject) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *ProjectsProject) GetCreatedAtOk() (*int32, bool)`
+`func (o *ProjectsProject) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *ProjectsProject) SetCreatedAt(v int32)`
+`func (o *ProjectsProject) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -352,20 +352,20 @@ HasKey returns a boolean if a field has been set.
 
 ### GetLastPurgeAt
 
-`func (o *ProjectsProject) GetLastPurgeAt() int32`
+`func (o *ProjectsProject) GetLastPurgeAt() int64`
 
 GetLastPurgeAt returns the LastPurgeAt field if non-nil, zero value otherwise.
 
 ### GetLastPurgeAtOk
 
-`func (o *ProjectsProject) GetLastPurgeAtOk() (*int32, bool)`
+`func (o *ProjectsProject) GetLastPurgeAtOk() (*int64, bool)`
 
 GetLastPurgeAtOk returns a tuple with the LastPurgeAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastPurgeAt
 
-`func (o *ProjectsProject) SetLastPurgeAt(v int32)`
+`func (o *ProjectsProject) SetLastPurgeAt(v int64)`
 
 SetLastPurgeAt sets LastPurgeAt field to given value.
 
@@ -627,20 +627,20 @@ HasTags returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *ProjectsProject) GetUpdatedAt() int32`
+`func (o *ProjectsProject) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *ProjectsProject) GetUpdatedAtOk() (*int32, bool)`
+`func (o *ProjectsProject) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *ProjectsProject) SetUpdatedAt(v int32)`
+`func (o *ProjectsProject) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

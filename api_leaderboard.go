@@ -27,7 +27,7 @@ type LeaderboardAPIGetLeaderboardRequest struct {
 	scope      *string
 	metric     *string
 	period     *string
-	limit      *int32
+	limit      *int64
 }
 
 // Scope picks the board: \&quot;personal\&quot; (default) ranks the caller among their own org&#39;s users, \&quot;org\&quot; is that same org board named for an admin, \&quot;global\&quot; ranks organizations against each other.
@@ -49,7 +49,7 @@ func (r LeaderboardAPIGetLeaderboardRequest) Period(period string) LeaderboardAP
 }
 
 // Limit caps the rows returned, clamped to 100. Defaults to 10, which is also what a non-positive or unparseable value takes.
-func (r LeaderboardAPIGetLeaderboardRequest) Limit(limit int32) LeaderboardAPIGetLeaderboardRequest {
+func (r LeaderboardAPIGetLeaderboardRequest) Limit(limit int64) LeaderboardAPIGetLeaderboardRequest {
 	r.limit = &limit
 	return r
 }

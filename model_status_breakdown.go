@@ -20,11 +20,11 @@ var _ MappedNullable = &StatusBreakdown{}
 // StatusBreakdown struct for StatusBreakdown
 type StatusBreakdown struct {
 	// invocations that ran and failed
-	Error *int32 `json:"error,omitempty"`
+	Error *int64 `json:"error,omitempty"`
 	// invocations whose code ran and wrote nothing to stderr
-	Success *int32 `json:"success,omitempty"`
+	Success *int64 `json:"success,omitempty"`
 	// invocations that hit their configured deadline
-	Timeout *int32 `json:"timeout,omitempty"`
+	Timeout *int64 `json:"timeout,omitempty"`
 }
 
 // NewStatusBreakdown instantiates a new StatusBreakdown object
@@ -45,9 +45,9 @@ func NewStatusBreakdownWithDefaults() *StatusBreakdown {
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
-func (o *StatusBreakdown) GetError() int32 {
+func (o *StatusBreakdown) GetError() int64 {
 	if o == nil || IsNil(o.Error) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Error
@@ -55,7 +55,7 @@ func (o *StatusBreakdown) GetError() int32 {
 
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StatusBreakdown) GetErrorOk() (*int32, bool) {
+func (o *StatusBreakdown) GetErrorOk() (*int64, bool) {
 	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
@@ -71,15 +71,15 @@ func (o *StatusBreakdown) HasError() bool {
 	return false
 }
 
-// SetError gets a reference to the given int32 and assigns it to the Error field.
-func (o *StatusBreakdown) SetError(v int32) {
+// SetError gets a reference to the given int64 and assigns it to the Error field.
+func (o *StatusBreakdown) SetError(v int64) {
 	o.Error = &v
 }
 
 // GetSuccess returns the Success field value if set, zero value otherwise.
-func (o *StatusBreakdown) GetSuccess() int32 {
+func (o *StatusBreakdown) GetSuccess() int64 {
 	if o == nil || IsNil(o.Success) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Success
@@ -87,7 +87,7 @@ func (o *StatusBreakdown) GetSuccess() int32 {
 
 // GetSuccessOk returns a tuple with the Success field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StatusBreakdown) GetSuccessOk() (*int32, bool) {
+func (o *StatusBreakdown) GetSuccessOk() (*int64, bool) {
 	if o == nil || IsNil(o.Success) {
 		return nil, false
 	}
@@ -103,15 +103,15 @@ func (o *StatusBreakdown) HasSuccess() bool {
 	return false
 }
 
-// SetSuccess gets a reference to the given int32 and assigns it to the Success field.
-func (o *StatusBreakdown) SetSuccess(v int32) {
+// SetSuccess gets a reference to the given int64 and assigns it to the Success field.
+func (o *StatusBreakdown) SetSuccess(v int64) {
 	o.Success = &v
 }
 
 // GetTimeout returns the Timeout field value if set, zero value otherwise.
-func (o *StatusBreakdown) GetTimeout() int32 {
+func (o *StatusBreakdown) GetTimeout() int64 {
 	if o == nil || IsNil(o.Timeout) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Timeout
@@ -119,7 +119,7 @@ func (o *StatusBreakdown) GetTimeout() int32 {
 
 // GetTimeoutOk returns a tuple with the Timeout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StatusBreakdown) GetTimeoutOk() (*int32, bool) {
+func (o *StatusBreakdown) GetTimeoutOk() (*int64, bool) {
 	if o == nil || IsNil(o.Timeout) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *StatusBreakdown) HasTimeout() bool {
 	return false
 }
 
-// SetTimeout gets a reference to the given int32 and assigns it to the Timeout field.
-func (o *StatusBreakdown) SetTimeout(v int32) {
+// SetTimeout gets a reference to the given int64 and assigns it to the Timeout field.
+func (o *StatusBreakdown) SetTimeout(v int64) {
 	o.Timeout = &v
 }
 

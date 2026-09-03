@@ -12,8 +12,8 @@ Name | Type | Description | Notes
 **RuleName** | Pointer to **string** |  | [optional] 
 **State** | Pointer to **interface{}** |  | [optional] 
 **StateChanged** | Pointer to **bool** |  | [optional] 
-**UnixMilli** | Pointer to **int32** |  | [optional] 
-**Value** | Pointer to **float32** |  | [optional] 
+**UnixMilli** | Pointer to **int64** |  | [optional] 
+**Value** | Pointer to **float64** |  | [optional] 
 
 ## Methods
 
@@ -256,20 +256,20 @@ HasStateChanged returns a boolean if a field has been set.
 
 ### GetUnixMilli
 
-`func (o *O11yGettableRuleStateHistory) GetUnixMilli() int32`
+`func (o *O11yGettableRuleStateHistory) GetUnixMilli() int64`
 
 GetUnixMilli returns the UnixMilli field if non-nil, zero value otherwise.
 
 ### GetUnixMilliOk
 
-`func (o *O11yGettableRuleStateHistory) GetUnixMilliOk() (*int32, bool)`
+`func (o *O11yGettableRuleStateHistory) GetUnixMilliOk() (*int64, bool)`
 
 GetUnixMilliOk returns a tuple with the UnixMilli field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUnixMilli
 
-`func (o *O11yGettableRuleStateHistory) SetUnixMilli(v int32)`
+`func (o *O11yGettableRuleStateHistory) SetUnixMilli(v int64)`
 
 SetUnixMilli sets UnixMilli field to given value.
 
@@ -281,20 +281,20 @@ HasUnixMilli returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *O11yGettableRuleStateHistory) GetValue() float32`
+`func (o *O11yGettableRuleStateHistory) GetValue() float64`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *O11yGettableRuleStateHistory) GetValueOk() (*float32, bool)`
+`func (o *O11yGettableRuleStateHistory) GetValueOk() (*float64, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *O11yGettableRuleStateHistory) SetValue(v float32)`
+`func (o *O11yGettableRuleStateHistory) SetValue(v float64)`
 
 SetValue sets Value field to given value.
 

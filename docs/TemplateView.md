@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** | ID is the template&#39;s stable id and the path segment that fetches its body — \&quot;nda\&quot;, \&quot;msa\&quot;, \&quot;safe\&quot;. An override keeps the built-in&#39;s id. | [optional] 
 **Origin** | Pointer to **string** | Origin is \&quot;builtin\&quot; for a template the platform ships or \&quot;org\&quot; for one this org saved. It separates the catalog every tenant sees from this tenant&#39;s own. | [optional] 
 **Title** | Pointer to **string** | Title is the display name, e.g. \&quot;Mutual Non-Disclosure Agreement\&quot;. A generated document inherits it. | [optional] 
-**Version** | Pointer to **int32** | Version is which version of this template the caller&#39;s org resolves to. A built-in is version 1; the org&#39;s first override is 2 and each save increments, so an override version never collides with the built-in&#39;s. | [optional] 
+**Version** | Pointer to **int64** | Version is which version of this template the caller&#39;s org resolves to. A built-in is version 1; the org&#39;s first override is 2 and each save increments, so an override version never collides with the built-in&#39;s. | [optional] 
 
 ## Methods
 
@@ -183,20 +183,20 @@ HasTitle returns a boolean if a field has been set.
 
 ### GetVersion
 
-`func (o *TemplateView) GetVersion() int32`
+`func (o *TemplateView) GetVersion() int64`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *TemplateView) GetVersionOk() (*int32, bool)`
+`func (o *TemplateView) GetVersionOk() (*int64, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *TemplateView) SetVersion(v int32)`
+`func (o *TemplateView) SetVersion(v int64)`
 
 SetVersion sets Version field to given value.
 

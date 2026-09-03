@@ -6,11 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Action** | Pointer to **string** | Action is the verdict currently held against it, if any. | [optional] 
 **Cred** | Pointer to **string** | Cred is the caller&#39;s key: a credential fingerprint (a per-process one-way digest, not a key) for a validated caller, and \&quot;ip:&lt;addr&gt;\&quot; for one that presented no credential we could validate. | [optional] 
-**Failures** | Pointer to **int32** | Failures is how many ended 401 or 403. | [optional] 
-**HeldUntil** | Pointer to **int32** | HeldUntil is when the held verdict lapses, unix seconds. | [optional] 
-**Paths** | Pointer to **int32** | Paths is the approximate number of distinct paths it touched (max 64). | [optional] 
+**Failures** | Pointer to **int64** | Failures is how many ended 401 or 403. | [optional] 
+**HeldUntil** | Pointer to **int64** | HeldUntil is when the held verdict lapses, unix seconds. | [optional] 
+**Paths** | Pointer to **int64** | Paths is the approximate number of distinct paths it touched (max 64). | [optional] 
 **Reason** | Pointer to **string** | Reason is why that verdict was reached. | [optional] 
-**Requests** | Pointer to **int32** | Requests is its request count in the window. | [optional] 
+**Requests** | Pointer to **int64** | Requests is its request count in the window. | [optional] 
 
 ## Methods
 
@@ -83,20 +83,20 @@ HasCred returns a boolean if a field has been set.
 
 ### GetFailures
 
-`func (o *TrafficCaller) GetFailures() int32`
+`func (o *TrafficCaller) GetFailures() int64`
 
 GetFailures returns the Failures field if non-nil, zero value otherwise.
 
 ### GetFailuresOk
 
-`func (o *TrafficCaller) GetFailuresOk() (*int32, bool)`
+`func (o *TrafficCaller) GetFailuresOk() (*int64, bool)`
 
 GetFailuresOk returns a tuple with the Failures field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFailures
 
-`func (o *TrafficCaller) SetFailures(v int32)`
+`func (o *TrafficCaller) SetFailures(v int64)`
 
 SetFailures sets Failures field to given value.
 
@@ -108,20 +108,20 @@ HasFailures returns a boolean if a field has been set.
 
 ### GetHeldUntil
 
-`func (o *TrafficCaller) GetHeldUntil() int32`
+`func (o *TrafficCaller) GetHeldUntil() int64`
 
 GetHeldUntil returns the HeldUntil field if non-nil, zero value otherwise.
 
 ### GetHeldUntilOk
 
-`func (o *TrafficCaller) GetHeldUntilOk() (*int32, bool)`
+`func (o *TrafficCaller) GetHeldUntilOk() (*int64, bool)`
 
 GetHeldUntilOk returns a tuple with the HeldUntil field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHeldUntil
 
-`func (o *TrafficCaller) SetHeldUntil(v int32)`
+`func (o *TrafficCaller) SetHeldUntil(v int64)`
 
 SetHeldUntil sets HeldUntil field to given value.
 
@@ -133,20 +133,20 @@ HasHeldUntil returns a boolean if a field has been set.
 
 ### GetPaths
 
-`func (o *TrafficCaller) GetPaths() int32`
+`func (o *TrafficCaller) GetPaths() int64`
 
 GetPaths returns the Paths field if non-nil, zero value otherwise.
 
 ### GetPathsOk
 
-`func (o *TrafficCaller) GetPathsOk() (*int32, bool)`
+`func (o *TrafficCaller) GetPathsOk() (*int64, bool)`
 
 GetPathsOk returns a tuple with the Paths field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPaths
 
-`func (o *TrafficCaller) SetPaths(v int32)`
+`func (o *TrafficCaller) SetPaths(v int64)`
 
 SetPaths sets Paths field to given value.
 
@@ -183,20 +183,20 @@ HasReason returns a boolean if a field has been set.
 
 ### GetRequests
 
-`func (o *TrafficCaller) GetRequests() int32`
+`func (o *TrafficCaller) GetRequests() int64`
 
 GetRequests returns the Requests field if non-nil, zero value otherwise.
 
 ### GetRequestsOk
 
-`func (o *TrafficCaller) GetRequestsOk() (*int32, bool)`
+`func (o *TrafficCaller) GetRequestsOk() (*int64, bool)`
 
 GetRequestsOk returns a tuple with the Requests field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRequests
 
-`func (o *TrafficCaller) SetRequests(v int32)`
+`func (o *TrafficCaller) SetRequests(v int64)`
 
 SetRequests sets Requests field to given value.
 

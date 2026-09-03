@@ -235,7 +235,7 @@ import (
 func main() {
 	from := "from_example" // string | From and To bound the EVENT window, half-open, RFC 3339.  Unstated, the window is the 90 days ENDING where maturity begins — `to` is the horizon ago, not now. A default window running to now under a default horizon could not contain one matured event, so every count below it would be zero however much ground truth the tenant held. (optional)
 	to := "to_example" // string |  (optional)
-	horizon := int32(56) // int32 | Horizon is the maturity horizon in days the coverage is measured under. Unstated takes 120. It also moves the default window, which ends where maturity begins. (optional)
+	horizon := int64(789) // int64 | Horizon is the maturity horizon in days the coverage is measured under. Unstated takes 120. It also moves the default window, which ends where maturity begins. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -262,6 +262,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **from** | **string** | From and To bound the EVENT window, half-open, RFC 3339.  Unstated, the window is the 90 days ENDING where maturity begins — &#x60;to&#x60; is the horizon ago, not now. A default window running to now under a default horizon could not contain one matured event, so every count below it would be zero however much ground truth the tenant held. | 
  **to** | **string** |  | 
+ **horizon** | **int64** | Horizon is the maturity horizon in days the coverage is measured under. Unstated takes 120. It also moves the default window, which ends where maturity begins. | 
 
 ### Return type
 
@@ -368,7 +369,7 @@ func main() {
 	source := "source_example" // string | Source narrows to one asserter — the read that answers \"what has commerce told us\", separately from \"what has an analyst told us\". (optional)
 	from := "from_example" // string | From and To bound the EVENT time, half-open, RFC 3339. (optional)
 	to := "to_example" // string |  (optional)
-	limit := int32(56) // int32 | Limit caps the page. Out of range takes the plane's own bound. (optional)
+	limit := int64(789) // int64 | Limit caps the page. Out of range takes the plane's own bound. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -398,7 +399,7 @@ Name | Type | Description  | Notes
  **source** | **string** | Source narrows to one asserter — the read that answers \&quot;what has commerce told us\&quot;, separately from \&quot;what has an analyst told us\&quot;. | 
  **from** | **string** | From and To bound the EVENT time, half-open, RFC 3339. | 
  **to** | **string** |  | 
- **limit** | **int32** | Limit caps the page. Out of range takes the plane&#39;s own bound. | 
+ **limit** | **int64** | Limit caps the page. Out of range takes the plane&#39;s own bound. | 
 
 ### Return type
 

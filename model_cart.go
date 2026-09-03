@@ -24,7 +24,7 @@ type Cart struct {
 	// Currency is the ISO 4217 code every amount below is denominated in.
 	Currency *string `json:"currency,omitempty"`
 	// DiscountCents is what coupons and promotions took off, in whole cents.
-	DiscountCents *int32 `json:"discountCents,omitempty"`
+	DiscountCents *int64 `json:"discountCents,omitempty"`
 	// Email is the shopper's address, when the cart carries one.
 	Email *string `json:"email,omitempty"`
 	// ID is the cart's id — what every other cart op addresses it by, and what a storefront persists against the browser session.
@@ -32,21 +32,21 @@ type Cart struct {
 	// Items are the cart's lines, in the order they were added.
 	Items []CartItem `json:"items,omitempty"`
 	// LineTotalCents is the sum of the lines before any discount, in whole cents.
-	LineTotalCents *int32 `json:"lineTotalCents,omitempty"`
+	LineTotalCents *int64 `json:"lineTotalCents,omitempty"`
 	// Order is the order this cart became, once checkout completed it. Empty until then, and its presence is what makes a cart final.
 	Order *string `json:"order,omitempty"`
 	// ShippingCents is the shipping charge, in whole cents. It stays zero until a shipping option is priced at checkout.
-	ShippingCents *int32 `json:"shippingCents,omitempty"`
+	ShippingCents *int64 `json:"shippingCents,omitempty"`
 	// Status is \"active\" for a cart still being filled, \"ordered\" once checkout turned it into an order, and \"discarded\" when the shopper abandoned it.
 	Status *string `json:"status,omitempty"`
 	// Store is the storefront the cart is being filled on.
 	Store *string `json:"store,omitempty"`
 	// SubtotalCents is LineTotalCents less DiscountCents, in whole cents.
-	SubtotalCents *int32 `json:"subtotalCents,omitempty"`
+	SubtotalCents *int64 `json:"subtotalCents,omitempty"`
 	// TaxCents is the sales tax, in whole cents. It stays zero until checkout resolves the shopper's tax region.
-	TaxCents *int32 `json:"taxCents,omitempty"`
+	TaxCents *int64 `json:"taxCents,omitempty"`
 	// TotalCents is what the shopper pays: subtotal plus shipping plus tax, in whole cents.
-	TotalCents *int32 `json:"totalCents,omitempty"`
+	TotalCents *int64 `json:"totalCents,omitempty"`
 	// UpdatedAt is when the cart was last amended, RFC3339.
 	UpdatedAt *string `json:"updatedAt,omitempty"`
 	// User is the signed-in shopper this cart belongs to, empty for a guest cart.
@@ -135,9 +135,9 @@ func (o *Cart) SetCurrency(v string) {
 }
 
 // GetDiscountCents returns the DiscountCents field value if set, zero value otherwise.
-func (o *Cart) GetDiscountCents() int32 {
+func (o *Cart) GetDiscountCents() int64 {
 	if o == nil || IsNil(o.DiscountCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DiscountCents
@@ -145,7 +145,7 @@ func (o *Cart) GetDiscountCents() int32 {
 
 // GetDiscountCentsOk returns a tuple with the DiscountCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Cart) GetDiscountCentsOk() (*int32, bool) {
+func (o *Cart) GetDiscountCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.DiscountCents) {
 		return nil, false
 	}
@@ -161,8 +161,8 @@ func (o *Cart) HasDiscountCents() bool {
 	return false
 }
 
-// SetDiscountCents gets a reference to the given int32 and assigns it to the DiscountCents field.
-func (o *Cart) SetDiscountCents(v int32) {
+// SetDiscountCents gets a reference to the given int64 and assigns it to the DiscountCents field.
+func (o *Cart) SetDiscountCents(v int64) {
 	o.DiscountCents = &v
 }
 
@@ -263,9 +263,9 @@ func (o *Cart) SetItems(v []CartItem) {
 }
 
 // GetLineTotalCents returns the LineTotalCents field value if set, zero value otherwise.
-func (o *Cart) GetLineTotalCents() int32 {
+func (o *Cart) GetLineTotalCents() int64 {
 	if o == nil || IsNil(o.LineTotalCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.LineTotalCents
@@ -273,7 +273,7 @@ func (o *Cart) GetLineTotalCents() int32 {
 
 // GetLineTotalCentsOk returns a tuple with the LineTotalCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Cart) GetLineTotalCentsOk() (*int32, bool) {
+func (o *Cart) GetLineTotalCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.LineTotalCents) {
 		return nil, false
 	}
@@ -289,8 +289,8 @@ func (o *Cart) HasLineTotalCents() bool {
 	return false
 }
 
-// SetLineTotalCents gets a reference to the given int32 and assigns it to the LineTotalCents field.
-func (o *Cart) SetLineTotalCents(v int32) {
+// SetLineTotalCents gets a reference to the given int64 and assigns it to the LineTotalCents field.
+func (o *Cart) SetLineTotalCents(v int64) {
 	o.LineTotalCents = &v
 }
 
@@ -327,9 +327,9 @@ func (o *Cart) SetOrder(v string) {
 }
 
 // GetShippingCents returns the ShippingCents field value if set, zero value otherwise.
-func (o *Cart) GetShippingCents() int32 {
+func (o *Cart) GetShippingCents() int64 {
 	if o == nil || IsNil(o.ShippingCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ShippingCents
@@ -337,7 +337,7 @@ func (o *Cart) GetShippingCents() int32 {
 
 // GetShippingCentsOk returns a tuple with the ShippingCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Cart) GetShippingCentsOk() (*int32, bool) {
+func (o *Cart) GetShippingCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.ShippingCents) {
 		return nil, false
 	}
@@ -353,8 +353,8 @@ func (o *Cart) HasShippingCents() bool {
 	return false
 }
 
-// SetShippingCents gets a reference to the given int32 and assigns it to the ShippingCents field.
-func (o *Cart) SetShippingCents(v int32) {
+// SetShippingCents gets a reference to the given int64 and assigns it to the ShippingCents field.
+func (o *Cart) SetShippingCents(v int64) {
 	o.ShippingCents = &v
 }
 
@@ -423,9 +423,9 @@ func (o *Cart) SetStore(v string) {
 }
 
 // GetSubtotalCents returns the SubtotalCents field value if set, zero value otherwise.
-func (o *Cart) GetSubtotalCents() int32 {
+func (o *Cart) GetSubtotalCents() int64 {
 	if o == nil || IsNil(o.SubtotalCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SubtotalCents
@@ -433,7 +433,7 @@ func (o *Cart) GetSubtotalCents() int32 {
 
 // GetSubtotalCentsOk returns a tuple with the SubtotalCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Cart) GetSubtotalCentsOk() (*int32, bool) {
+func (o *Cart) GetSubtotalCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.SubtotalCents) {
 		return nil, false
 	}
@@ -449,15 +449,15 @@ func (o *Cart) HasSubtotalCents() bool {
 	return false
 }
 
-// SetSubtotalCents gets a reference to the given int32 and assigns it to the SubtotalCents field.
-func (o *Cart) SetSubtotalCents(v int32) {
+// SetSubtotalCents gets a reference to the given int64 and assigns it to the SubtotalCents field.
+func (o *Cart) SetSubtotalCents(v int64) {
 	o.SubtotalCents = &v
 }
 
 // GetTaxCents returns the TaxCents field value if set, zero value otherwise.
-func (o *Cart) GetTaxCents() int32 {
+func (o *Cart) GetTaxCents() int64 {
 	if o == nil || IsNil(o.TaxCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TaxCents
@@ -465,7 +465,7 @@ func (o *Cart) GetTaxCents() int32 {
 
 // GetTaxCentsOk returns a tuple with the TaxCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Cart) GetTaxCentsOk() (*int32, bool) {
+func (o *Cart) GetTaxCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.TaxCents) {
 		return nil, false
 	}
@@ -481,15 +481,15 @@ func (o *Cart) HasTaxCents() bool {
 	return false
 }
 
-// SetTaxCents gets a reference to the given int32 and assigns it to the TaxCents field.
-func (o *Cart) SetTaxCents(v int32) {
+// SetTaxCents gets a reference to the given int64 and assigns it to the TaxCents field.
+func (o *Cart) SetTaxCents(v int64) {
 	o.TaxCents = &v
 }
 
 // GetTotalCents returns the TotalCents field value if set, zero value otherwise.
-func (o *Cart) GetTotalCents() int32 {
+func (o *Cart) GetTotalCents() int64 {
 	if o == nil || IsNil(o.TotalCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalCents
@@ -497,7 +497,7 @@ func (o *Cart) GetTotalCents() int32 {
 
 // GetTotalCentsOk returns a tuple with the TotalCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Cart) GetTotalCentsOk() (*int32, bool) {
+func (o *Cart) GetTotalCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalCents) {
 		return nil, false
 	}
@@ -513,8 +513,8 @@ func (o *Cart) HasTotalCents() bool {
 	return false
 }
 
-// SetTotalCents gets a reference to the given int32 and assigns it to the TotalCents field.
-func (o *Cart) SetTotalCents(v int32) {
+// SetTotalCents gets a reference to the given int64 and assigns it to the TotalCents field.
+func (o *Cart) SetTotalCents(v int64) {
 	o.TotalCents = &v
 }
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Count** | Pointer to **int32** |  | [optional] 
-**Size** | Pointer to **int32** |  | [optional] 
+**Count** | Pointer to **int64** |  | [optional] 
+**Size** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCount
 
-`func (o *O11yLimitMetricValue) GetCount() int32`
+`func (o *O11yLimitMetricValue) GetCount() int64`
 
 GetCount returns the Count field if non-nil, zero value otherwise.
 
 ### GetCountOk
 
-`func (o *O11yLimitMetricValue) GetCountOk() (*int32, bool)`
+`func (o *O11yLimitMetricValue) GetCountOk() (*int64, bool)`
 
 GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCount
 
-`func (o *O11yLimitMetricValue) SetCount(v int32)`
+`func (o *O11yLimitMetricValue) SetCount(v int64)`
 
 SetCount sets Count field to given value.
 
@@ -53,20 +53,20 @@ HasCount returns a boolean if a field has been set.
 
 ### GetSize
 
-`func (o *O11yLimitMetricValue) GetSize() int32`
+`func (o *O11yLimitMetricValue) GetSize() int64`
 
 GetSize returns the Size field if non-nil, zero value otherwise.
 
 ### GetSizeOk
 
-`func (o *O11yLimitMetricValue) GetSizeOk() (*int32, bool)`
+`func (o *O11yLimitMetricValue) GetSizeOk() (*int64, bool)`
 
 GetSizeOk returns a tuple with the Size field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSize
 
-`func (o *O11yLimitMetricValue) SetSize(v int32)`
+`func (o *O11yLimitMetricValue) SetSize(v int64)`
 
 SetSize sets Size field to given value.
 

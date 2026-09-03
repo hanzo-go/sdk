@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Axis** | Pointer to **string** | what capability it measures | [optional] 
 **Id** | Pointer to **string** | the id every other op on this surface takes | [optional] 
-**Items** | Pointer to **int32** | how many items it holds, when the set is fixed | [optional] 
+**Items** | Pointer to **int64** | how many items it holds, when the set is fixed | [optional] 
 **Native** | Pointer to **bool** | whether the standardized harness runs it today | [optional] 
 **Source** | Pointer to **string** | where the items come from | [optional] 
 **Title** | Pointer to **string** | the benchmark&#39;s published name | [optional] 
@@ -82,20 +82,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetItems
 
-`func (o *Benchmark) GetItems() int32`
+`func (o *Benchmark) GetItems() int64`
 
 GetItems returns the Items field if non-nil, zero value otherwise.
 
 ### GetItemsOk
 
-`func (o *Benchmark) GetItemsOk() (*int32, bool)`
+`func (o *Benchmark) GetItemsOk() (*int64, bool)`
 
 GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItems
 
-`func (o *Benchmark) SetItems(v int32)`
+`func (o *Benchmark) SetItems(v int64)`
 
 SetItems sets Items field to given value.
 

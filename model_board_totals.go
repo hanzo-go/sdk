@@ -20,23 +20,23 @@ var _ MappedNullable = &BoardTotals{}
 // BoardTotals struct for BoardTotals
 type BoardTotals struct {
 	// tokens the models answered with
-	CompletionTokens *int32 `json:"completionTokens,omitempty"`
+	CompletionTokens *int64 `json:"completionTokens,omitempty"`
 	// what the window cost, in cents
-	CostCents *int32 `json:"costCents,omitempty"`
+	CostCents *int64 `json:"costCents,omitempty"`
 	// calls that did not succeed
-	Errors *int32 `json:"errors,omitempty"`
+	Errors *int64 `json:"errors,omitempty"`
 	// how many model calls the window holds
-	Generations *int32 `json:"generations,omitempty"`
+	Generations *int64 `json:"generations,omitempty"`
 	// how many distinct models were called
-	Models *int32 `json:"models,omitempty"`
+	Models *int64 `json:"models,omitempty"`
 	// tokens sent to the models
-	PromptTokens *int32 `json:"promptTokens,omitempty"`
+	PromptTokens *int64 `json:"promptTokens,omitempty"`
 	// share of calls that succeeded, 0..1
-	SuccessRate *float32 `json:"successRate,omitempty"`
+	SuccessRate *float64 `json:"successRate,omitempty"`
 	// prompt plus completion
-	TotalTokens *int32 `json:"totalTokens,omitempty"`
+	TotalTokens *int64 `json:"totalTokens,omitempty"`
 	// how many distinct users called them
-	Users *int32 `json:"users,omitempty"`
+	Users *int64 `json:"users,omitempty"`
 }
 
 // NewBoardTotals instantiates a new BoardTotals object
@@ -57,9 +57,9 @@ func NewBoardTotalsWithDefaults() *BoardTotals {
 }
 
 // GetCompletionTokens returns the CompletionTokens field value if set, zero value otherwise.
-func (o *BoardTotals) GetCompletionTokens() int32 {
+func (o *BoardTotals) GetCompletionTokens() int64 {
 	if o == nil || IsNil(o.CompletionTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CompletionTokens
@@ -67,7 +67,7 @@ func (o *BoardTotals) GetCompletionTokens() int32 {
 
 // GetCompletionTokensOk returns a tuple with the CompletionTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BoardTotals) GetCompletionTokensOk() (*int32, bool) {
+func (o *BoardTotals) GetCompletionTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.CompletionTokens) {
 		return nil, false
 	}
@@ -83,15 +83,15 @@ func (o *BoardTotals) HasCompletionTokens() bool {
 	return false
 }
 
-// SetCompletionTokens gets a reference to the given int32 and assigns it to the CompletionTokens field.
-func (o *BoardTotals) SetCompletionTokens(v int32) {
+// SetCompletionTokens gets a reference to the given int64 and assigns it to the CompletionTokens field.
+func (o *BoardTotals) SetCompletionTokens(v int64) {
 	o.CompletionTokens = &v
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *BoardTotals) GetCostCents() int32 {
+func (o *BoardTotals) GetCostCents() int64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostCents
@@ -99,7 +99,7 @@ func (o *BoardTotals) GetCostCents() int32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BoardTotals) GetCostCentsOk() (*int32, bool) {
+func (o *BoardTotals) GetCostCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -115,15 +115,15 @@ func (o *BoardTotals) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *BoardTotals) SetCostCents(v int32) {
+// SetCostCents gets a reference to the given int64 and assigns it to the CostCents field.
+func (o *BoardTotals) SetCostCents(v int64) {
 	o.CostCents = &v
 }
 
 // GetErrors returns the Errors field value if set, zero value otherwise.
-func (o *BoardTotals) GetErrors() int32 {
+func (o *BoardTotals) GetErrors() int64 {
 	if o == nil || IsNil(o.Errors) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Errors
@@ -131,7 +131,7 @@ func (o *BoardTotals) GetErrors() int32 {
 
 // GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BoardTotals) GetErrorsOk() (*int32, bool) {
+func (o *BoardTotals) GetErrorsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Errors) {
 		return nil, false
 	}
@@ -147,15 +147,15 @@ func (o *BoardTotals) HasErrors() bool {
 	return false
 }
 
-// SetErrors gets a reference to the given int32 and assigns it to the Errors field.
-func (o *BoardTotals) SetErrors(v int32) {
+// SetErrors gets a reference to the given int64 and assigns it to the Errors field.
+func (o *BoardTotals) SetErrors(v int64) {
 	o.Errors = &v
 }
 
 // GetGenerations returns the Generations field value if set, zero value otherwise.
-func (o *BoardTotals) GetGenerations() int32 {
+func (o *BoardTotals) GetGenerations() int64 {
 	if o == nil || IsNil(o.Generations) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Generations
@@ -163,7 +163,7 @@ func (o *BoardTotals) GetGenerations() int32 {
 
 // GetGenerationsOk returns a tuple with the Generations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BoardTotals) GetGenerationsOk() (*int32, bool) {
+func (o *BoardTotals) GetGenerationsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Generations) {
 		return nil, false
 	}
@@ -179,15 +179,15 @@ func (o *BoardTotals) HasGenerations() bool {
 	return false
 }
 
-// SetGenerations gets a reference to the given int32 and assigns it to the Generations field.
-func (o *BoardTotals) SetGenerations(v int32) {
+// SetGenerations gets a reference to the given int64 and assigns it to the Generations field.
+func (o *BoardTotals) SetGenerations(v int64) {
 	o.Generations = &v
 }
 
 // GetModels returns the Models field value if set, zero value otherwise.
-func (o *BoardTotals) GetModels() int32 {
+func (o *BoardTotals) GetModels() int64 {
 	if o == nil || IsNil(o.Models) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Models
@@ -195,7 +195,7 @@ func (o *BoardTotals) GetModels() int32 {
 
 // GetModelsOk returns a tuple with the Models field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BoardTotals) GetModelsOk() (*int32, bool) {
+func (o *BoardTotals) GetModelsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Models) {
 		return nil, false
 	}
@@ -211,15 +211,15 @@ func (o *BoardTotals) HasModels() bool {
 	return false
 }
 
-// SetModels gets a reference to the given int32 and assigns it to the Models field.
-func (o *BoardTotals) SetModels(v int32) {
+// SetModels gets a reference to the given int64 and assigns it to the Models field.
+func (o *BoardTotals) SetModels(v int64) {
 	o.Models = &v
 }
 
 // GetPromptTokens returns the PromptTokens field value if set, zero value otherwise.
-func (o *BoardTotals) GetPromptTokens() int32 {
+func (o *BoardTotals) GetPromptTokens() int64 {
 	if o == nil || IsNil(o.PromptTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PromptTokens
@@ -227,7 +227,7 @@ func (o *BoardTotals) GetPromptTokens() int32 {
 
 // GetPromptTokensOk returns a tuple with the PromptTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BoardTotals) GetPromptTokensOk() (*int32, bool) {
+func (o *BoardTotals) GetPromptTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.PromptTokens) {
 		return nil, false
 	}
@@ -243,15 +243,15 @@ func (o *BoardTotals) HasPromptTokens() bool {
 	return false
 }
 
-// SetPromptTokens gets a reference to the given int32 and assigns it to the PromptTokens field.
-func (o *BoardTotals) SetPromptTokens(v int32) {
+// SetPromptTokens gets a reference to the given int64 and assigns it to the PromptTokens field.
+func (o *BoardTotals) SetPromptTokens(v int64) {
 	o.PromptTokens = &v
 }
 
 // GetSuccessRate returns the SuccessRate field value if set, zero value otherwise.
-func (o *BoardTotals) GetSuccessRate() float32 {
+func (o *BoardTotals) GetSuccessRate() float64 {
 	if o == nil || IsNil(o.SuccessRate) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.SuccessRate
@@ -259,7 +259,7 @@ func (o *BoardTotals) GetSuccessRate() float32 {
 
 // GetSuccessRateOk returns a tuple with the SuccessRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BoardTotals) GetSuccessRateOk() (*float32, bool) {
+func (o *BoardTotals) GetSuccessRateOk() (*float64, bool) {
 	if o == nil || IsNil(o.SuccessRate) {
 		return nil, false
 	}
@@ -275,15 +275,15 @@ func (o *BoardTotals) HasSuccessRate() bool {
 	return false
 }
 
-// SetSuccessRate gets a reference to the given float32 and assigns it to the SuccessRate field.
-func (o *BoardTotals) SetSuccessRate(v float32) {
+// SetSuccessRate gets a reference to the given float64 and assigns it to the SuccessRate field.
+func (o *BoardTotals) SetSuccessRate(v float64) {
 	o.SuccessRate = &v
 }
 
 // GetTotalTokens returns the TotalTokens field value if set, zero value otherwise.
-func (o *BoardTotals) GetTotalTokens() int32 {
+func (o *BoardTotals) GetTotalTokens() int64 {
 	if o == nil || IsNil(o.TotalTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalTokens
@@ -291,7 +291,7 @@ func (o *BoardTotals) GetTotalTokens() int32 {
 
 // GetTotalTokensOk returns a tuple with the TotalTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BoardTotals) GetTotalTokensOk() (*int32, bool) {
+func (o *BoardTotals) GetTotalTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalTokens) {
 		return nil, false
 	}
@@ -307,15 +307,15 @@ func (o *BoardTotals) HasTotalTokens() bool {
 	return false
 }
 
-// SetTotalTokens gets a reference to the given int32 and assigns it to the TotalTokens field.
-func (o *BoardTotals) SetTotalTokens(v int32) {
+// SetTotalTokens gets a reference to the given int64 and assigns it to the TotalTokens field.
+func (o *BoardTotals) SetTotalTokens(v int64) {
 	o.TotalTokens = &v
 }
 
 // GetUsers returns the Users field value if set, zero value otherwise.
-func (o *BoardTotals) GetUsers() int32 {
+func (o *BoardTotals) GetUsers() int64 {
 	if o == nil || IsNil(o.Users) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Users
@@ -323,7 +323,7 @@ func (o *BoardTotals) GetUsers() int32 {
 
 // GetUsersOk returns a tuple with the Users field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BoardTotals) GetUsersOk() (*int32, bool) {
+func (o *BoardTotals) GetUsersOk() (*int64, bool) {
 	if o == nil || IsNil(o.Users) {
 		return nil, false
 	}
@@ -339,8 +339,8 @@ func (o *BoardTotals) HasUsers() bool {
 	return false
 }
 
-// SetUsers gets a reference to the given int32 and assigns it to the Users field.
-func (o *BoardTotals) SetUsers(v int32) {
+// SetUsers gets a reference to the given int64 and assigns it to the Users field.
+func (o *BoardTotals) SetUsers(v int64) {
 	o.Users = &v
 }
 

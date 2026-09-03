@@ -20,7 +20,7 @@ var _ MappedNullable = &LineItem{}
 // LineItem struct for LineItem
 type LineItem struct {
 	// AmountCents is that line's amount in whole cents. The scanner is instructed to return integer cents rather than a decimal, so no float rounding can enter the ledger through here.
-	AmountCents *int32 `json:"amountCents,omitempty"`
+	AmountCents *int64 `json:"amountCents,omitempty"`
 	// Description is the line as it appears on the document.
 	Description *string `json:"description,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewLineItemWithDefaults() *LineItem {
 }
 
 // GetAmountCents returns the AmountCents field value if set, zero value otherwise.
-func (o *LineItem) GetAmountCents() int32 {
+func (o *LineItem) GetAmountCents() int64 {
 	if o == nil || IsNil(o.AmountCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AmountCents
@@ -53,7 +53,7 @@ func (o *LineItem) GetAmountCents() int32 {
 
 // GetAmountCentsOk returns a tuple with the AmountCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LineItem) GetAmountCentsOk() (*int32, bool) {
+func (o *LineItem) GetAmountCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AmountCents) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *LineItem) HasAmountCents() bool {
 	return false
 }
 
-// SetAmountCents gets a reference to the given int32 and assigns it to the AmountCents field.
-func (o *LineItem) SetAmountCents(v int32) {
+// SetAmountCents gets a reference to the given int64 and assigns it to the AmountCents field.
+func (o *LineItem) SetAmountCents(v int64) {
 	o.AmountCents = &v
 }
 

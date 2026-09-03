@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** | ID is the media server&#39;s egress id — the handle a later read names. | [optional] 
 **Object** | Pointer to **string** | Object is the key inside that bucket. Empty only while the media server has not named a file yet.  It says WHERE the recording is, not how to fetch it. Reading one back is a separate decision this surface deliberately does not make: a link to a private conversation needs its own answer about who may follow it and for how long, and inventing a short one here would be worse than not having it. | [optional] 
 **Room** | Pointer to **string** | Room is the room this recording is of. | [optional] 
-**Started** | Pointer to **int32** | Started is when the recording began, as the media server reports it: its own &#x60;started_at&#x60;, verbatim and unconverted. LiveKit&#39;s egress service sets that field from UnixNano, and a conversion this side cannot check against the running server would be a number that looks right and is wrong by a factor of a billion. 0 means it has not started. | [optional] 
+**Started** | Pointer to **int64** | Started is when the recording began, as the media server reports it: its own &#x60;started_at&#x60;, verbatim and unconverted. LiveKit&#39;s egress service sets that field from UnixNano, and a conversion this side cannot check against the running server would be a number that looks right and is wrong by a factor of a billion. 0 means it has not started. | [optional] 
 **Status** | Pointer to **string** | Status is the media server&#39;s own state name: EGRESS_STARTING, EGRESS_ACTIVE, EGRESS_ENDING, EGRESS_COMPLETE, EGRESS_FAILED, EGRESS_ABORTED or EGRESS_LIMIT_REACHED. It is passed through rather than folded into a vocabulary of ours, so the answer cannot mean something the media server did not say. | [optional] 
 
 ## Methods
@@ -158,20 +158,20 @@ HasRoom returns a boolean if a field has been set.
 
 ### GetStarted
 
-`func (o *Recording) GetStarted() int32`
+`func (o *Recording) GetStarted() int64`
 
 GetStarted returns the Started field if non-nil, zero value otherwise.
 
 ### GetStartedOk
 
-`func (o *Recording) GetStartedOk() (*int32, bool)`
+`func (o *Recording) GetStartedOk() (*int64, bool)`
 
 GetStartedOk returns a tuple with the Started field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStarted
 
-`func (o *Recording) SetStarted(v int32)`
+`func (o *Recording) SetStarted(v int64)`
 
 SetStarted sets Started field to given value.
 

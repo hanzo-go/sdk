@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **Region** | Pointer to **string** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
-**Vcpu** | Pointer to **int32** |  | [optional] 
+**Vcpu** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -417,20 +417,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetVcpu
 
-`func (o *BotView) GetVcpu() int32`
+`func (o *BotView) GetVcpu() int64`
 
 GetVcpu returns the Vcpu field if non-nil, zero value otherwise.
 
 ### GetVcpuOk
 
-`func (o *BotView) GetVcpuOk() (*int32, bool)`
+`func (o *BotView) GetVcpuOk() (*int64, bool)`
 
 GetVcpuOk returns a tuple with the Vcpu field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVcpu
 
-`func (o *BotView) SetVcpu(v int32)`
+`func (o *BotView) SetVcpu(v int64)`
 
 SetVcpu sets Vcpu field to given value.
 

@@ -20,13 +20,13 @@ var _ MappedNullable = &ResourceUsage{}
 // ResourceUsage struct for ResourceUsage
 type ResourceUsage struct {
 	// CostCents would be the window's spend in cents. Always null here — the money a run costs is the metering ledger's, joined by the run id, and repeating it from this side would be a second number that could disagree with the bill.
-	CostCents *float32 `json:"costCents,omitempty"`
+	CostCents *float64 `json:"costCents,omitempty"`
 	// CPUVcpuHours would be vCPU-hours over the window. Always null: this store holds agent definitions and run I/O, and nothing here meters a CPU. Null is the honest answer and 0 would be a claim.
-	CpuVcpuHours *float32 `json:"cpuVcpuHours,omitempty"`
+	CpuVcpuHours *float64 `json:"cpuVcpuHours,omitempty"`
 	// MemGbHours would be gigabyte-hours of memory. Always null, same reason.
-	MemGbHours *float32 `json:"memGbHours,omitempty"`
+	MemGbHours *float64 `json:"memGbHours,omitempty"`
 	// StorageIoBytes would be bytes moved to and from storage. Always null, same reason.
-	StorageIoBytes *float32 `json:"storageIoBytes,omitempty"`
+	StorageIoBytes *float64 `json:"storageIoBytes,omitempty"`
 }
 
 // NewResourceUsage instantiates a new ResourceUsage object
@@ -47,9 +47,9 @@ func NewResourceUsageWithDefaults() *ResourceUsage {
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *ResourceUsage) GetCostCents() float32 {
+func (o *ResourceUsage) GetCostCents() float64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.CostCents
@@ -57,7 +57,7 @@ func (o *ResourceUsage) GetCostCents() float32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResourceUsage) GetCostCentsOk() (*float32, bool) {
+func (o *ResourceUsage) GetCostCentsOk() (*float64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -73,15 +73,15 @@ func (o *ResourceUsage) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given float32 and assigns it to the CostCents field.
-func (o *ResourceUsage) SetCostCents(v float32) {
+// SetCostCents gets a reference to the given float64 and assigns it to the CostCents field.
+func (o *ResourceUsage) SetCostCents(v float64) {
 	o.CostCents = &v
 }
 
 // GetCpuVcpuHours returns the CpuVcpuHours field value if set, zero value otherwise.
-func (o *ResourceUsage) GetCpuVcpuHours() float32 {
+func (o *ResourceUsage) GetCpuVcpuHours() float64 {
 	if o == nil || IsNil(o.CpuVcpuHours) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.CpuVcpuHours
@@ -89,7 +89,7 @@ func (o *ResourceUsage) GetCpuVcpuHours() float32 {
 
 // GetCpuVcpuHoursOk returns a tuple with the CpuVcpuHours field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResourceUsage) GetCpuVcpuHoursOk() (*float32, bool) {
+func (o *ResourceUsage) GetCpuVcpuHoursOk() (*float64, bool) {
 	if o == nil || IsNil(o.CpuVcpuHours) {
 		return nil, false
 	}
@@ -105,15 +105,15 @@ func (o *ResourceUsage) HasCpuVcpuHours() bool {
 	return false
 }
 
-// SetCpuVcpuHours gets a reference to the given float32 and assigns it to the CpuVcpuHours field.
-func (o *ResourceUsage) SetCpuVcpuHours(v float32) {
+// SetCpuVcpuHours gets a reference to the given float64 and assigns it to the CpuVcpuHours field.
+func (o *ResourceUsage) SetCpuVcpuHours(v float64) {
 	o.CpuVcpuHours = &v
 }
 
 // GetMemGbHours returns the MemGbHours field value if set, zero value otherwise.
-func (o *ResourceUsage) GetMemGbHours() float32 {
+func (o *ResourceUsage) GetMemGbHours() float64 {
 	if o == nil || IsNil(o.MemGbHours) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.MemGbHours
@@ -121,7 +121,7 @@ func (o *ResourceUsage) GetMemGbHours() float32 {
 
 // GetMemGbHoursOk returns a tuple with the MemGbHours field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResourceUsage) GetMemGbHoursOk() (*float32, bool) {
+func (o *ResourceUsage) GetMemGbHoursOk() (*float64, bool) {
 	if o == nil || IsNil(o.MemGbHours) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *ResourceUsage) HasMemGbHours() bool {
 	return false
 }
 
-// SetMemGbHours gets a reference to the given float32 and assigns it to the MemGbHours field.
-func (o *ResourceUsage) SetMemGbHours(v float32) {
+// SetMemGbHours gets a reference to the given float64 and assigns it to the MemGbHours field.
+func (o *ResourceUsage) SetMemGbHours(v float64) {
 	o.MemGbHours = &v
 }
 
 // GetStorageIoBytes returns the StorageIoBytes field value if set, zero value otherwise.
-func (o *ResourceUsage) GetStorageIoBytes() float32 {
+func (o *ResourceUsage) GetStorageIoBytes() float64 {
 	if o == nil || IsNil(o.StorageIoBytes) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.StorageIoBytes
@@ -153,7 +153,7 @@ func (o *ResourceUsage) GetStorageIoBytes() float32 {
 
 // GetStorageIoBytesOk returns a tuple with the StorageIoBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResourceUsage) GetStorageIoBytesOk() (*float32, bool) {
+func (o *ResourceUsage) GetStorageIoBytesOk() (*float64, bool) {
 	if o == nil || IsNil(o.StorageIoBytes) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *ResourceUsage) HasStorageIoBytes() bool {
 	return false
 }
 
-// SetStorageIoBytes gets a reference to the given float32 and assigns it to the StorageIoBytes field.
-func (o *ResourceUsage) SetStorageIoBytes(v float32) {
+// SetStorageIoBytes gets a reference to the given float64 and assigns it to the StorageIoBytes field.
+func (o *ResourceUsage) SetStorageIoBytes(v float64) {
 	o.StorageIoBytes = &v
 }
 

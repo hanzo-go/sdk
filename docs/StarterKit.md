@@ -11,10 +11,10 @@ Name | Type | Description | Notes
 **Framework** | Pointer to **string** | the stack the kit is built on (\&quot;Next.js 14.2 + TS\&quot;) | [optional] 
 **Org** | Pointer to **string** | owner of a PRIVATE template; empty in the public catalog | [optional] 
 **Preview** | Pointer to **string** | the still image the browse card renders | [optional] 
-**Rating** | Pointer to **float32** | Rating is public-gallery curation, on the same terms as Tier: catalog-only, never accepted from a request, absent on a customer&#39;s own kit. | [optional] 
+**Rating** | Pointer to **float64** | Rating is public-gallery curation, on the same terms as Tier: catalog-only, never accepted from a request, absent on a customer&#39;s own kit. | [optional] 
 **Slug** | Pointer to **string** | the kit&#39;s identity — lowercase alphanumeric with dashes, max 40 | [optional] 
 **Source** | Pointer to **string** | the repository the kit is forked from | [optional] 
-**Tier** | Pointer to **int32** | Tier is public-gallery curation, carried verbatim from the embedded catalog. No request can set it — neither write body has the field and neither builds a kit carrying one — so it is absent on every customer-published kit. | [optional] 
+**Tier** | Pointer to **int64** | Tier is public-gallery curation, carried verbatim from the embedded catalog. No request can set it — neither write body has the field and neither builds a kit carrying one — so it is absent on every customer-published kit. | [optional] 
 **Title** | Pointer to **string** | display name | [optional] 
 **UseCase** | Pointer to **string** | what the kit is for, in a phrase | [optional] 
 **Variants** | Pointer to [**[]Variant**](Variant.md) | the shapes this template ships in | [optional] 
@@ -215,20 +215,20 @@ HasPreview returns a boolean if a field has been set.
 
 ### GetRating
 
-`func (o *StarterKit) GetRating() float32`
+`func (o *StarterKit) GetRating() float64`
 
 GetRating returns the Rating field if non-nil, zero value otherwise.
 
 ### GetRatingOk
 
-`func (o *StarterKit) GetRatingOk() (*float32, bool)`
+`func (o *StarterKit) GetRatingOk() (*float64, bool)`
 
 GetRatingOk returns a tuple with the Rating field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRating
 
-`func (o *StarterKit) SetRating(v float32)`
+`func (o *StarterKit) SetRating(v float64)`
 
 SetRating sets Rating field to given value.
 
@@ -290,20 +290,20 @@ HasSource returns a boolean if a field has been set.
 
 ### GetTier
 
-`func (o *StarterKit) GetTier() int32`
+`func (o *StarterKit) GetTier() int64`
 
 GetTier returns the Tier field if non-nil, zero value otherwise.
 
 ### GetTierOk
 
-`func (o *StarterKit) GetTierOk() (*int32, bool)`
+`func (o *StarterKit) GetTierOk() (*int64, bool)`
 
 GetTierOk returns a tuple with the Tier field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTier
 
-`func (o *StarterKit) SetTier(v int32)`
+`func (o *StarterKit) SetTier(v int64)`
 
 SetTier sets Tier field to given value.
 

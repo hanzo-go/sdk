@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Code** | Pointer to **string** | Code is the minted referral code. Empty on a first apply — applying does not mint a code, approval does; a re-apply echoes whatever the row already holds. | [optional] 
 **Created** | Pointer to **bool** | Created says whether THIS call made the row. false means the org had already applied and nothing changed — no second row, no reset of an existing approval. The HTTP status states the same fact: 201 when true, 200 when false. | [optional] 
 **Id** | Pointer to **string** | ID is the affiliate&#39;s server-minted handle, \&quot;aff_\&quot;-prefixed — the id staff approve, suspend, re-rate and pay against. | [optional] 
-**RateBps** | Pointer to **int32** | RateBps is the direct (level 1) commission rate the row carries, in basis points OF Hanzo&#39;s margin (2000 &#x3D; 20% of margin, never of the customer&#39;s bill). | [optional] 
+**RateBps** | Pointer to **int64** | RateBps is the direct (level 1) commission rate the row carries, in basis points OF Hanzo&#39;s margin (2000 &#x3D; 20% of margin, never of the customer&#39;s bill). | [optional] 
 **RequestedCode** | Pointer to **string** | RequestedCode echoes the vanity code asked for, normalized to lower case. It is a request only: approval mints a different slug if this one is taken. | [optional] 
 **Status** | Pointer to **string** | Status is \&quot;applied\&quot; for a row this call created. A re-apply echoes the existing row&#39;s status, which may already be \&quot;approved\&quot; or \&quot;suspended\&quot;. | [optional] 
 
@@ -107,20 +107,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetRateBps
 
-`func (o *Application) GetRateBps() int32`
+`func (o *Application) GetRateBps() int64`
 
 GetRateBps returns the RateBps field if non-nil, zero value otherwise.
 
 ### GetRateBpsOk
 
-`func (o *Application) GetRateBpsOk() (*int32, bool)`
+`func (o *Application) GetRateBpsOk() (*int64, bool)`
 
 GetRateBpsOk returns a tuple with the RateBps field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRateBps
 
-`func (o *Application) SetRateBps(v int32)`
+`func (o *Application) SetRateBps(v int64)`
 
 SetRateBps sets RateBps field to given value.
 

@@ -24,9 +24,9 @@ type PairingView struct {
 	// Code is the CAPABILITY that authorises the approval: eight characters from a 32-symbol uppercase alphabet (A-Z0-9 minus the confusables 0, O, 1 and I), minted with crypto/rand and also sent to the requester in chat. An org admin passes it with the channel to POST /v1/channels/pairing/approve, which CONSUMES it — the request row is deleted, so a code approves once — and which takes org admin as well as the code. It lives ONE HOUR from CreatedAt; expired requests are not listed here, and approving one is a 404. It is shown on this admin surface and NEVER logged.
 	Code *string `json:"code,omitempty"`
 	// CreatedAt is Unix SECONDS of FIRST contact: when the request was minted and the code sent. Expiry is measured from here and from nowhere else.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// LastSeen is Unix SECONDS of the MOST RECENT message from this sender while the request has been pending. It moves as they keep writing, which is how an admin tells a live request from an abandoned one — but it does not extend the hour and does not re-send the code, since one request sends exactly one chat reply.
-	LastSeen *int32 `json:"lastSeen,omitempty"`
+	LastSeen *int64 `json:"lastSeen,omitempty"`
 	// Sender is the transport-native user id waiting for access — the same identity inbox messages carry. Approving mints a DM allow entry for exactly this value and nothing wider: pairing never grants group access.
 	Sender *string `json:"sender,omitempty"`
 }
@@ -113,9 +113,9 @@ func (o *PairingView) SetCode(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *PairingView) GetCreatedAt() int32 {
+func (o *PairingView) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -123,7 +123,7 @@ func (o *PairingView) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PairingView) GetCreatedAtOk() (*int32, bool) {
+func (o *PairingView) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -139,15 +139,15 @@ func (o *PairingView) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *PairingView) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *PairingView) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
 // GetLastSeen returns the LastSeen field value if set, zero value otherwise.
-func (o *PairingView) GetLastSeen() int32 {
+func (o *PairingView) GetLastSeen() int64 {
 	if o == nil || IsNil(o.LastSeen) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.LastSeen
@@ -155,7 +155,7 @@ func (o *PairingView) GetLastSeen() int32 {
 
 // GetLastSeenOk returns a tuple with the LastSeen field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PairingView) GetLastSeenOk() (*int32, bool) {
+func (o *PairingView) GetLastSeenOk() (*int64, bool) {
 	if o == nil || IsNil(o.LastSeen) {
 		return nil, false
 	}
@@ -171,8 +171,8 @@ func (o *PairingView) HasLastSeen() bool {
 	return false
 }
 
-// SetLastSeen gets a reference to the given int32 and assigns it to the LastSeen field.
-func (o *PairingView) SetLastSeen(v int32) {
+// SetLastSeen gets a reference to the given int64 and assigns it to the LastSeen field.
+func (o *PairingView) SetLastSeen(v int64) {
 	o.LastSeen = &v
 }
 

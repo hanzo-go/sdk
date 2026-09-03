@@ -20,10 +20,10 @@ var _ MappedNullable = &Rollup{}
 // Rollup struct for Rollup
 type Rollup struct {
 	Balance       *RollupBalance   `json:"balance,omitempty"`
-	ConsumedCents *int32           `json:"consumedCents,omitempty"`
+	ConsumedCents *int64           `json:"consumedCents,omitempty"`
 	Currency      *string          `json:"currency,omitempty"`
 	Included      *RollupAllotment `json:"included,omitempty"`
-	OverageCents  *int32           `json:"overageCents,omitempty"`
+	OverageCents  *int64           `json:"overageCents,omitempty"`
 	Period        *string          `json:"period,omitempty"`
 	Plan          *string          `json:"plan,omitempty"`
 	User          *string          `json:"user,omitempty"`
@@ -80,9 +80,9 @@ func (o *Rollup) SetBalance(v RollupBalance) {
 }
 
 // GetConsumedCents returns the ConsumedCents field value if set, zero value otherwise.
-func (o *Rollup) GetConsumedCents() int32 {
+func (o *Rollup) GetConsumedCents() int64 {
 	if o == nil || IsNil(o.ConsumedCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ConsumedCents
@@ -90,7 +90,7 @@ func (o *Rollup) GetConsumedCents() int32 {
 
 // GetConsumedCentsOk returns a tuple with the ConsumedCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Rollup) GetConsumedCentsOk() (*int32, bool) {
+func (o *Rollup) GetConsumedCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.ConsumedCents) {
 		return nil, false
 	}
@@ -106,8 +106,8 @@ func (o *Rollup) HasConsumedCents() bool {
 	return false
 }
 
-// SetConsumedCents gets a reference to the given int32 and assigns it to the ConsumedCents field.
-func (o *Rollup) SetConsumedCents(v int32) {
+// SetConsumedCents gets a reference to the given int64 and assigns it to the ConsumedCents field.
+func (o *Rollup) SetConsumedCents(v int64) {
 	o.ConsumedCents = &v
 }
 
@@ -176,9 +176,9 @@ func (o *Rollup) SetIncluded(v RollupAllotment) {
 }
 
 // GetOverageCents returns the OverageCents field value if set, zero value otherwise.
-func (o *Rollup) GetOverageCents() int32 {
+func (o *Rollup) GetOverageCents() int64 {
 	if o == nil || IsNil(o.OverageCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.OverageCents
@@ -186,7 +186,7 @@ func (o *Rollup) GetOverageCents() int32 {
 
 // GetOverageCentsOk returns a tuple with the OverageCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Rollup) GetOverageCentsOk() (*int32, bool) {
+func (o *Rollup) GetOverageCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.OverageCents) {
 		return nil, false
 	}
@@ -202,8 +202,8 @@ func (o *Rollup) HasOverageCents() bool {
 	return false
 }
 
-// SetOverageCents gets a reference to the given int32 and assigns it to the OverageCents field.
-func (o *Rollup) SetOverageCents(v int32) {
+// SetOverageCents gets a reference to the given int64 and assigns it to the OverageCents field.
+func (o *Rollup) SetOverageCents(v int64) {
 	o.OverageCents = &v
 }
 

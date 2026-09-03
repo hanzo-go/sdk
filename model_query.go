@@ -20,9 +20,9 @@ var _ MappedNullable = &Query{}
 // Query struct for Query
 type Query struct {
 	// Character is a 0-based UTF-16 code-unit offset within Line, per the LSP specification — not a byte offset and not a rune index.
-	Character *int32 `json:"character,omitempty"`
+	Character *int64 `json:"character,omitempty"`
 	// Line is 0-based, per the LSP specification.
-	Line *int32 `json:"line,omitempty"`
+	Line *int64 `json:"line,omitempty"`
 	// Path is the repo-relative file, e.g. \"apps/lsp/lsp.go\".
 	Path *string `json:"path,omitempty"`
 	// Relation refines locate: definition, reference, type or implementation. Empty means definition. Every other op ignores it.
@@ -51,9 +51,9 @@ func NewQueryWithDefaults() *Query {
 }
 
 // GetCharacter returns the Character field value if set, zero value otherwise.
-func (o *Query) GetCharacter() int32 {
+func (o *Query) GetCharacter() int64 {
 	if o == nil || IsNil(o.Character) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Character
@@ -61,7 +61,7 @@ func (o *Query) GetCharacter() int32 {
 
 // GetCharacterOk returns a tuple with the Character field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Query) GetCharacterOk() (*int32, bool) {
+func (o *Query) GetCharacterOk() (*int64, bool) {
 	if o == nil || IsNil(o.Character) {
 		return nil, false
 	}
@@ -77,15 +77,15 @@ func (o *Query) HasCharacter() bool {
 	return false
 }
 
-// SetCharacter gets a reference to the given int32 and assigns it to the Character field.
-func (o *Query) SetCharacter(v int32) {
+// SetCharacter gets a reference to the given int64 and assigns it to the Character field.
+func (o *Query) SetCharacter(v int64) {
 	o.Character = &v
 }
 
 // GetLine returns the Line field value if set, zero value otherwise.
-func (o *Query) GetLine() int32 {
+func (o *Query) GetLine() int64 {
 	if o == nil || IsNil(o.Line) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Line
@@ -93,7 +93,7 @@ func (o *Query) GetLine() int32 {
 
 // GetLineOk returns a tuple with the Line field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Query) GetLineOk() (*int32, bool) {
+func (o *Query) GetLineOk() (*int64, bool) {
 	if o == nil || IsNil(o.Line) {
 		return nil, false
 	}
@@ -109,8 +109,8 @@ func (o *Query) HasLine() bool {
 	return false
 }
 
-// SetLine gets a reference to the given int32 and assigns it to the Line field.
-func (o *Query) SetLine(v int32) {
+// SetLine gets a reference to the given int64 and assigns it to the Line field.
+func (o *Query) SetLine(v int64) {
 	o.Line = &v
 }
 

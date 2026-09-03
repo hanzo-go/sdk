@@ -20,15 +20,15 @@ var _ MappedNullable = &RiskLabelOut{}
 // RiskLabelOut struct for RiskLabelOut
 type RiskLabelOut struct {
 	// Duplicate is how many members this tenant already held, byte for byte. The idempotency key is the assertion's CONTENT digest — kind, subject, at, seen, disposition, source, evidence, the asserting identity and confidence, folded in length-prefixed — so a webhook redelivering one chargeback is a duplicate and costs nothing, while an assertion differing in ANY of those fields is a DIFFERENT assertion and is recorded beside the first. Nothing was written and nothing was overwritten; it is an outcome, never an error. The asserting identity is in the digest, so the same claim filed by a second credential is two assertions and not a redelivery.
-	Duplicate *int32 `json:"duplicate,omitempty"`
+	Duplicate *int64 `json:"duplicate,omitempty"`
 	// Mirror names why the columnar copy did not take this batch, when it did not. The record is already durable in the tenant's own store by then — the warehouse copy exists to make a training join cheap, and its absence is a gap in that join, never a lost label.
 	Mirror *string `json:"mirror,omitempty"`
 	// Pending is how many assertions the derived copy is still to take. Every write attempt carries the backlog forward as well as its own batch, so a warehouse that was unreachable closes its gap on the next write rather than leaving a hole in a training join nothing would report. It is counted under a cap and saturates there: zero means caught up, and a large number means a backlog to work through rather than an inventory to reconcile.
-	Pending *int32 `json:"pending,omitempty"`
+	Pending *int64 `json:"pending,omitempty"`
 	// Recorded is how many members became a NEW row in the tenant's record. Recorded + Duplicate + Refused is exactly the number of labels sent, so a caller reconciling a webhook delivery can do it on the counts alone.
-	Recorded *int32 `json:"recorded,omitempty"`
+	Recorded *int64 `json:"recorded,omitempty"`
 	// Refused is how many members failed admission and were NOT recorded. Refusal is per member and never discards the rest of the batch: an empty or over-512-byte subject or evidence, a kind, disposition or source outside the closed vocabulary, an `at` or `seen` that is not RFC 3339, a `seen` before the `at` it judges, either instant more than five minutes past the server clock, or a confidence outside [0,1]. Results names which member and why, so the refused ones are exactly the ones to fix and resend.
-	Refused *int32 `json:"refused,omitempty"`
+	Refused *int64 `json:"refused,omitempty"`
 	// Results is per fact, in the order sent, so a caller can retry exactly the members that were refused and can log the content digest of the ones that landed.
 	Results []RiskLabelResult `json:"results,omitempty"`
 }
@@ -51,9 +51,9 @@ func NewRiskLabelOutWithDefaults() *RiskLabelOut {
 }
 
 // GetDuplicate returns the Duplicate field value if set, zero value otherwise.
-func (o *RiskLabelOut) GetDuplicate() int32 {
+func (o *RiskLabelOut) GetDuplicate() int64 {
 	if o == nil || IsNil(o.Duplicate) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Duplicate
@@ -61,7 +61,7 @@ func (o *RiskLabelOut) GetDuplicate() int32 {
 
 // GetDuplicateOk returns a tuple with the Duplicate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLabelOut) GetDuplicateOk() (*int32, bool) {
+func (o *RiskLabelOut) GetDuplicateOk() (*int64, bool) {
 	if o == nil || IsNil(o.Duplicate) {
 		return nil, false
 	}
@@ -77,8 +77,8 @@ func (o *RiskLabelOut) HasDuplicate() bool {
 	return false
 }
 
-// SetDuplicate gets a reference to the given int32 and assigns it to the Duplicate field.
-func (o *RiskLabelOut) SetDuplicate(v int32) {
+// SetDuplicate gets a reference to the given int64 and assigns it to the Duplicate field.
+func (o *RiskLabelOut) SetDuplicate(v int64) {
 	o.Duplicate = &v
 }
 
@@ -115,9 +115,9 @@ func (o *RiskLabelOut) SetMirror(v string) {
 }
 
 // GetPending returns the Pending field value if set, zero value otherwise.
-func (o *RiskLabelOut) GetPending() int32 {
+func (o *RiskLabelOut) GetPending() int64 {
 	if o == nil || IsNil(o.Pending) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Pending
@@ -125,7 +125,7 @@ func (o *RiskLabelOut) GetPending() int32 {
 
 // GetPendingOk returns a tuple with the Pending field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLabelOut) GetPendingOk() (*int32, bool) {
+func (o *RiskLabelOut) GetPendingOk() (*int64, bool) {
 	if o == nil || IsNil(o.Pending) {
 		return nil, false
 	}
@@ -141,15 +141,15 @@ func (o *RiskLabelOut) HasPending() bool {
 	return false
 }
 
-// SetPending gets a reference to the given int32 and assigns it to the Pending field.
-func (o *RiskLabelOut) SetPending(v int32) {
+// SetPending gets a reference to the given int64 and assigns it to the Pending field.
+func (o *RiskLabelOut) SetPending(v int64) {
 	o.Pending = &v
 }
 
 // GetRecorded returns the Recorded field value if set, zero value otherwise.
-func (o *RiskLabelOut) GetRecorded() int32 {
+func (o *RiskLabelOut) GetRecorded() int64 {
 	if o == nil || IsNil(o.Recorded) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Recorded
@@ -157,7 +157,7 @@ func (o *RiskLabelOut) GetRecorded() int32 {
 
 // GetRecordedOk returns a tuple with the Recorded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLabelOut) GetRecordedOk() (*int32, bool) {
+func (o *RiskLabelOut) GetRecordedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Recorded) {
 		return nil, false
 	}
@@ -173,15 +173,15 @@ func (o *RiskLabelOut) HasRecorded() bool {
 	return false
 }
 
-// SetRecorded gets a reference to the given int32 and assigns it to the Recorded field.
-func (o *RiskLabelOut) SetRecorded(v int32) {
+// SetRecorded gets a reference to the given int64 and assigns it to the Recorded field.
+func (o *RiskLabelOut) SetRecorded(v int64) {
 	o.Recorded = &v
 }
 
 // GetRefused returns the Refused field value if set, zero value otherwise.
-func (o *RiskLabelOut) GetRefused() int32 {
+func (o *RiskLabelOut) GetRefused() int64 {
 	if o == nil || IsNil(o.Refused) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Refused
@@ -189,7 +189,7 @@ func (o *RiskLabelOut) GetRefused() int32 {
 
 // GetRefusedOk returns a tuple with the Refused field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLabelOut) GetRefusedOk() (*int32, bool) {
+func (o *RiskLabelOut) GetRefusedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Refused) {
 		return nil, false
 	}
@@ -205,8 +205,8 @@ func (o *RiskLabelOut) HasRefused() bool {
 	return false
 }
 
-// SetRefused gets a reference to the given int32 and assigns it to the Refused field.
-func (o *RiskLabelOut) SetRefused(v int32) {
+// SetRefused gets a reference to the given int64 and assigns it to the Refused field.
+func (o *RiskLabelOut) SetRefused(v int64) {
 	o.Refused = &v
 }
 

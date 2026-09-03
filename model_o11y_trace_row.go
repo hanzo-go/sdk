@@ -20,11 +20,11 @@ var _ MappedNullable = &O11yTraceRow{}
 // O11yTraceRow struct for O11yTraceRow
 type O11yTraceRow struct {
 	// DurationMs is End minus Start in milliseconds: the trace's wall clock, not the sum of its spans, which double-counts everything concurrent.
-	DurationMs *float32 `json:"durationMs,omitempty"`
+	DurationMs *float64 `json:"durationMs,omitempty"`
 	// End is the latest span end, RFC3339 with nanoseconds, in UTC.
 	End *string `json:"end,omitempty"`
 	// NumSpans is how many spans the trace carries.
-	NumSpans *int32 `json:"numSpans,omitempty"`
+	NumSpans *int64 `json:"numSpans,omitempty"`
 	// Start is the earliest span start, RFC3339 with nanoseconds, in UTC.
 	Start *string `json:"start,omitempty"`
 	// TraceID is the trace's id — the {traceId} of the detail read.
@@ -49,9 +49,9 @@ func NewO11yTraceRowWithDefaults() *O11yTraceRow {
 }
 
 // GetDurationMs returns the DurationMs field value if set, zero value otherwise.
-func (o *O11yTraceRow) GetDurationMs() float32 {
+func (o *O11yTraceRow) GetDurationMs() float64 {
 	if o == nil || IsNil(o.DurationMs) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.DurationMs
@@ -59,7 +59,7 @@ func (o *O11yTraceRow) GetDurationMs() float32 {
 
 // GetDurationMsOk returns a tuple with the DurationMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yTraceRow) GetDurationMsOk() (*float32, bool) {
+func (o *O11yTraceRow) GetDurationMsOk() (*float64, bool) {
 	if o == nil || IsNil(o.DurationMs) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *O11yTraceRow) HasDurationMs() bool {
 	return false
 }
 
-// SetDurationMs gets a reference to the given float32 and assigns it to the DurationMs field.
-func (o *O11yTraceRow) SetDurationMs(v float32) {
+// SetDurationMs gets a reference to the given float64 and assigns it to the DurationMs field.
+func (o *O11yTraceRow) SetDurationMs(v float64) {
 	o.DurationMs = &v
 }
 
@@ -113,9 +113,9 @@ func (o *O11yTraceRow) SetEnd(v string) {
 }
 
 // GetNumSpans returns the NumSpans field value if set, zero value otherwise.
-func (o *O11yTraceRow) GetNumSpans() int32 {
+func (o *O11yTraceRow) GetNumSpans() int64 {
 	if o == nil || IsNil(o.NumSpans) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NumSpans
@@ -123,7 +123,7 @@ func (o *O11yTraceRow) GetNumSpans() int32 {
 
 // GetNumSpansOk returns a tuple with the NumSpans field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yTraceRow) GetNumSpansOk() (*int32, bool) {
+func (o *O11yTraceRow) GetNumSpansOk() (*int64, bool) {
 	if o == nil || IsNil(o.NumSpans) {
 		return nil, false
 	}
@@ -139,8 +139,8 @@ func (o *O11yTraceRow) HasNumSpans() bool {
 	return false
 }
 
-// SetNumSpans gets a reference to the given int32 and assigns it to the NumSpans field.
-func (o *O11yTraceRow) SetNumSpans(v int32) {
+// SetNumSpans gets a reference to the given int64 and assigns it to the NumSpans field.
+func (o *O11yTraceRow) SetNumSpans(v int64) {
 	o.NumSpans = &v
 }
 

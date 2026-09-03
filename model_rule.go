@@ -24,7 +24,7 @@ type Rule struct {
 	// Pattern is the merchant substring the rule matches on, case-insensitively. It is also the key an upsert writes by.
 	Pattern *string `json:"pattern,omitempty"`
 	// Priority breaks ties: when several patterns match, the highest wins.
-	Priority *int32 `json:"priority,omitempty"`
+	Priority *int64 `json:"priority,omitempty"`
 }
 
 // NewRule instantiates a new Rule object
@@ -109,9 +109,9 @@ func (o *Rule) SetPattern(v string) {
 }
 
 // GetPriority returns the Priority field value if set, zero value otherwise.
-func (o *Rule) GetPriority() int32 {
+func (o *Rule) GetPriority() int64 {
 	if o == nil || IsNil(o.Priority) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Priority
@@ -119,7 +119,7 @@ func (o *Rule) GetPriority() int32 {
 
 // GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Rule) GetPriorityOk() (*int32, bool) {
+func (o *Rule) GetPriorityOk() (*int64, bool) {
 	if o == nil || IsNil(o.Priority) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *Rule) HasPriority() bool {
 	return false
 }
 
-// SetPriority gets a reference to the given int32 and assigns it to the Priority field.
-func (o *Rule) SetPriority(v int32) {
+// SetPriority gets a reference to the given int64 and assigns it to the Priority field.
+func (o *Rule) SetPriority(v int64) {
 	o.Priority = &v
 }
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the account was opened, Unix seconds. Listings order by it, newest first. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the account was opened, Unix seconds. Listings order by it, newest first. | [optional] 
 **Id** | Pointer to **string** | ID is the account id, minted by the server as \&quot;acct_\&quot; + 24 hex. Wallets name it as their accountId, and it becomes a segment of each of their key refs — so it addresses key material and cannot be reassigned. | [optional] 
 **Name** | Pointer to **string** | Name is the label given at creation, trimmed and required. It groups wallets: it is not a key, holds no balance, and is not unique in the org. | [optional] 
 **Org** | Pointer to **string** | Org is the tenant that owns the account, stamped from the validated principal rather than taken from the request. Every read is physically scoped to it, so another tenant&#39;s accounts are not reachable at all. | [optional] 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreatedAt
 
-`func (o *WalletAccount) GetCreatedAt() int32`
+`func (o *WalletAccount) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *WalletAccount) GetCreatedAtOk() (*int32, bool)`
+`func (o *WalletAccount) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *WalletAccount) SetCreatedAt(v int32)`
+`func (o *WalletAccount) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 

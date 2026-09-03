@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CompletedAt** | Pointer to **int32** | CompletedAt is when the document sealed, in unix milliseconds; null until it does. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the document was uploaded, in unix milliseconds. | [optional] 
+**CompletedAt** | Pointer to **int64** | CompletedAt is when the document sealed, in unix milliseconds; null until it does. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the document was uploaded, in unix milliseconds. | [optional] 
 **ExternalId** | Pointer to **string** | ExternalID is the caller&#39;s own identifier for this document, echoed back as it was given; null when none was. | [optional] 
 **Fields** | Pointer to [**[]EsignField**](EsignField.md) | Fields is every field on the document, ordered by page and then by when it was placed. | [optional] 
 **Id** | Pointer to **string** | ID is the document id. | [optional] 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **Status** | Pointer to **string** | Status is DRAFT while recipients and fields may still be added, PENDING once it has gone out, then COMPLETED when every signer has finished or REJECTED if any one of them declined. | [optional] 
 **Subject** | Pointer to **string** | Subject is the covering subject line stored with the document; null when none was given. | [optional] 
 **Title** | Pointer to **string** | Title is the document&#39;s name, and the stem of the download filename. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is when the document last changed, in unix milliseconds. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is when the document last changed, in unix milliseconds. | [optional] 
 
 ## Methods
 
@@ -39,20 +39,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCompletedAt
 
-`func (o *EsignDocument) GetCompletedAt() int32`
+`func (o *EsignDocument) GetCompletedAt() int64`
 
 GetCompletedAt returns the CompletedAt field if non-nil, zero value otherwise.
 
 ### GetCompletedAtOk
 
-`func (o *EsignDocument) GetCompletedAtOk() (*int32, bool)`
+`func (o *EsignDocument) GetCompletedAtOk() (*int64, bool)`
 
 GetCompletedAtOk returns a tuple with the CompletedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCompletedAt
 
-`func (o *EsignDocument) SetCompletedAt(v int32)`
+`func (o *EsignDocument) SetCompletedAt(v int64)`
 
 SetCompletedAt sets CompletedAt field to given value.
 
@@ -64,20 +64,20 @@ HasCompletedAt returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *EsignDocument) GetCreatedAt() int32`
+`func (o *EsignDocument) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *EsignDocument) GetCreatedAtOk() (*int32, bool)`
+`func (o *EsignDocument) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *EsignDocument) SetCreatedAt(v int32)`
+`func (o *EsignDocument) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -339,20 +339,20 @@ HasTitle returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *EsignDocument) GetUpdatedAt() int32`
+`func (o *EsignDocument) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *EsignDocument) GetUpdatedAtOk() (*int32, bool)`
+`func (o *EsignDocument) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *EsignDocument) SetUpdatedAt(v int32)`
+`func (o *EsignDocument) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

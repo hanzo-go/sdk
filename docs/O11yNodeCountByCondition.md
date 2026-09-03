@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**NotReady** | Pointer to **int32** |  | [optional] 
-**Ready** | Pointer to **int32** |  | [optional] 
-**Unknown** | Pointer to **int32** |  | [optional] 
+**NotReady** | Pointer to **int64** |  | [optional] 
+**Ready** | Pointer to **int64** |  | [optional] 
+**Unknown** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetNotReady
 
-`func (o *O11yNodeCountByCondition) GetNotReady() int32`
+`func (o *O11yNodeCountByCondition) GetNotReady() int64`
 
 GetNotReady returns the NotReady field if non-nil, zero value otherwise.
 
 ### GetNotReadyOk
 
-`func (o *O11yNodeCountByCondition) GetNotReadyOk() (*int32, bool)`
+`func (o *O11yNodeCountByCondition) GetNotReadyOk() (*int64, bool)`
 
 GetNotReadyOk returns a tuple with the NotReady field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNotReady
 
-`func (o *O11yNodeCountByCondition) SetNotReady(v int32)`
+`func (o *O11yNodeCountByCondition) SetNotReady(v int64)`
 
 SetNotReady sets NotReady field to given value.
 
@@ -54,20 +54,20 @@ HasNotReady returns a boolean if a field has been set.
 
 ### GetReady
 
-`func (o *O11yNodeCountByCondition) GetReady() int32`
+`func (o *O11yNodeCountByCondition) GetReady() int64`
 
 GetReady returns the Ready field if non-nil, zero value otherwise.
 
 ### GetReadyOk
 
-`func (o *O11yNodeCountByCondition) GetReadyOk() (*int32, bool)`
+`func (o *O11yNodeCountByCondition) GetReadyOk() (*int64, bool)`
 
 GetReadyOk returns a tuple with the Ready field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReady
 
-`func (o *O11yNodeCountByCondition) SetReady(v int32)`
+`func (o *O11yNodeCountByCondition) SetReady(v int64)`
 
 SetReady sets Ready field to given value.
 
@@ -79,20 +79,20 @@ HasReady returns a boolean if a field has been set.
 
 ### GetUnknown
 
-`func (o *O11yNodeCountByCondition) GetUnknown() int32`
+`func (o *O11yNodeCountByCondition) GetUnknown() int64`
 
 GetUnknown returns the Unknown field if non-nil, zero value otherwise.
 
 ### GetUnknownOk
 
-`func (o *O11yNodeCountByCondition) GetUnknownOk() (*int32, bool)`
+`func (o *O11yNodeCountByCondition) GetUnknownOk() (*int64, bool)`
 
 GetUnknownOk returns a tuple with the Unknown field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUnknown
 
-`func (o *O11yNodeCountByCondition) SetUnknown(v int32)`
+`func (o *O11yNodeCountByCondition) SetUnknown(v int64)`
 
 SetUnknown sets Unknown field to given value.
 

@@ -20,7 +20,7 @@ var _ MappedNullable = &Charged{}
 // Charged struct for Charged
 type Charged struct {
 	// BalanceCents is the subject's balance AFTER the charge settled, in cents, so a caller does not have to re-read to show the new number.
-	BalanceCents *int32 `json:"balanceCents,omitempty"`
+	BalanceCents *int64 `json:"balanceCents,omitempty"`
 	// ProcessorRef is the payment processor's own reference. It is the only field that proves money moved at the GATEWAY rather than merely in our ledger, which is why it is answered and not only logged. Absent where the processor returned none.
 	ProcessorRef *string `json:"processorRef,omitempty"`
 	// Status is how the charge ended. Read it rather than inferring success from the HTTP status: the call succeeded whenever this field is present, and what the PROCESSOR did is what this says.
@@ -49,9 +49,9 @@ func NewChargedWithDefaults() *Charged {
 }
 
 // GetBalanceCents returns the BalanceCents field value if set, zero value otherwise.
-func (o *Charged) GetBalanceCents() int32 {
+func (o *Charged) GetBalanceCents() int64 {
 	if o == nil || IsNil(o.BalanceCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.BalanceCents
@@ -59,7 +59,7 @@ func (o *Charged) GetBalanceCents() int32 {
 
 // GetBalanceCentsOk returns a tuple with the BalanceCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Charged) GetBalanceCentsOk() (*int32, bool) {
+func (o *Charged) GetBalanceCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.BalanceCents) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *Charged) HasBalanceCents() bool {
 	return false
 }
 
-// SetBalanceCents gets a reference to the given int32 and assigns it to the BalanceCents field.
-func (o *Charged) SetBalanceCents(v int32) {
+// SetBalanceCents gets a reference to the given int64 and assigns it to the BalanceCents field.
+func (o *Charged) SetBalanceCents(v int64) {
 	o.BalanceCents = &v
 }
 

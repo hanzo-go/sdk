@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Basis** | Pointer to **string** | Basis is the qualification category: income, net_worth, professional_license, or entity. | [optional] 
 **EvidenceDocId** | Pointer to **string** | EvidenceDocID references an evidence document in the org&#39;s sealed data room. | [optional] 
-**ExpiresAt** | Pointer to **int32** | ExpiresAt is the unix second a confirmation ages out; 0 means none. | [optional] 
+**ExpiresAt** | Pointer to **int64** | ExpiresAt is the unix second a confirmation ages out; 0 means none. | [optional] 
 **Method** | Pointer to **string** | Method is how the state was established: self_attested, third_party_letter, or provider_verified. | [optional] 
 **Note** | Pointer to **string** | Note is a non-PII operator note. | [optional] 
 **Status** | Pointer to **string** | Status may only be \&quot;asserted\&quot; (empty reads as asserted); every confirmed, rejected or expired state is recorded via the decision endpoint. | [optional] 
@@ -83,20 +83,20 @@ HasEvidenceDocId returns a boolean if a field has been set.
 
 ### GetExpiresAt
 
-`func (o *AccreditationReq) GetExpiresAt() int32`
+`func (o *AccreditationReq) GetExpiresAt() int64`
 
 GetExpiresAt returns the ExpiresAt field if non-nil, zero value otherwise.
 
 ### GetExpiresAtOk
 
-`func (o *AccreditationReq) GetExpiresAtOk() (*int32, bool)`
+`func (o *AccreditationReq) GetExpiresAtOk() (*int64, bool)`
 
 GetExpiresAtOk returns a tuple with the ExpiresAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpiresAt
 
-`func (o *AccreditationReq) SetExpiresAt(v int32)`
+`func (o *AccreditationReq) SetExpiresAt(v int64)`
 
 SetExpiresAt sets ExpiresAt field to given value.
 

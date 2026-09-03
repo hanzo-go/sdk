@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BalanceUsedCents** | Pointer to **int32** | BalanceUsedCents is how much was covered by prepaid balance. | [optional] 
-**CardChargedCents** | Pointer to **int32** | CardChargedCents is how much was charged to the card on file. | [optional] 
-**CreditUsedCents** | Pointer to **int32** | CreditUsedCents is how much was covered by credit grants. | [optional] 
+**BalanceUsedCents** | Pointer to **int64** | BalanceUsedCents is how much was covered by prepaid balance. | [optional] 
+**CardChargedCents** | Pointer to **int64** | CardChargedCents is how much was charged to the card on file. | [optional] 
+**CreditUsedCents** | Pointer to **int64** | CreditUsedCents is how much was covered by credit grants. | [optional] 
 **Invoice** | Pointer to [**Invoice**](Invoice.md) | Invoice is the invoice AFTER the attempt — its status is the authority on what happened, not this struct&#39;s other fields. | [optional] 
 **Paid** | Pointer to **bool** | Paid reports whether the invoice is now settled in full. A false here with no error is a DECLINE: the invoice stays open and may be collected again. | [optional] 
 **ProcessorRef** | Pointer to **string** | ProcessorRef is the processor&#39;s reference for any card charge — the field that proves money moved at the gateway rather than only in our ledger. | [optional] 
@@ -33,20 +33,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetBalanceUsedCents
 
-`func (o *Collected) GetBalanceUsedCents() int32`
+`func (o *Collected) GetBalanceUsedCents() int64`
 
 GetBalanceUsedCents returns the BalanceUsedCents field if non-nil, zero value otherwise.
 
 ### GetBalanceUsedCentsOk
 
-`func (o *Collected) GetBalanceUsedCentsOk() (*int32, bool)`
+`func (o *Collected) GetBalanceUsedCentsOk() (*int64, bool)`
 
 GetBalanceUsedCentsOk returns a tuple with the BalanceUsedCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBalanceUsedCents
 
-`func (o *Collected) SetBalanceUsedCents(v int32)`
+`func (o *Collected) SetBalanceUsedCents(v int64)`
 
 SetBalanceUsedCents sets BalanceUsedCents field to given value.
 
@@ -58,20 +58,20 @@ HasBalanceUsedCents returns a boolean if a field has been set.
 
 ### GetCardChargedCents
 
-`func (o *Collected) GetCardChargedCents() int32`
+`func (o *Collected) GetCardChargedCents() int64`
 
 GetCardChargedCents returns the CardChargedCents field if non-nil, zero value otherwise.
 
 ### GetCardChargedCentsOk
 
-`func (o *Collected) GetCardChargedCentsOk() (*int32, bool)`
+`func (o *Collected) GetCardChargedCentsOk() (*int64, bool)`
 
 GetCardChargedCentsOk returns a tuple with the CardChargedCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCardChargedCents
 
-`func (o *Collected) SetCardChargedCents(v int32)`
+`func (o *Collected) SetCardChargedCents(v int64)`
 
 SetCardChargedCents sets CardChargedCents field to given value.
 
@@ -83,20 +83,20 @@ HasCardChargedCents returns a boolean if a field has been set.
 
 ### GetCreditUsedCents
 
-`func (o *Collected) GetCreditUsedCents() int32`
+`func (o *Collected) GetCreditUsedCents() int64`
 
 GetCreditUsedCents returns the CreditUsedCents field if non-nil, zero value otherwise.
 
 ### GetCreditUsedCentsOk
 
-`func (o *Collected) GetCreditUsedCentsOk() (*int32, bool)`
+`func (o *Collected) GetCreditUsedCentsOk() (*int64, bool)`
 
 GetCreditUsedCentsOk returns a tuple with the CreditUsedCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreditUsedCents
 
-`func (o *Collected) SetCreditUsedCents(v int32)`
+`func (o *Collected) SetCreditUsedCents(v int64)`
 
 SetCreditUsedCents sets CreditUsedCents field to given value.
 

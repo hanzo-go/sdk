@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**End** | Pointer to **int32** |  | [optional] 
+**End** | Pointer to **int64** |  | [optional] 
 **Filter** | Pointer to [**O11yHostFilter**](O11yHostFilter.md) |  | [optional] 
 **GroupBy** | Pointer to [**[]O11yGroupByKey**](O11yGroupByKey.md) |  | [optional] 
-**Limit** | Pointer to **int32** |  | [optional] 
-**Offset** | Pointer to **int32** |  | [optional] 
+**Limit** | Pointer to **int64** |  | [optional] 
+**Offset** | Pointer to **int64** |  | [optional] 
 **OrderBy** | Pointer to [**O11yQuerybuildertypesv5OrderBy**](O11yQuerybuildertypesv5OrderBy.md) |  | [optional] 
-**Start** | Pointer to **int32** |  | [optional] 
+**Start** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -33,20 +33,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetEnd
 
-`func (o *O11yPostableHosts) GetEnd() int32`
+`func (o *O11yPostableHosts) GetEnd() int64`
 
 GetEnd returns the End field if non-nil, zero value otherwise.
 
 ### GetEndOk
 
-`func (o *O11yPostableHosts) GetEndOk() (*int32, bool)`
+`func (o *O11yPostableHosts) GetEndOk() (*int64, bool)`
 
 GetEndOk returns a tuple with the End field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnd
 
-`func (o *O11yPostableHosts) SetEnd(v int32)`
+`func (o *O11yPostableHosts) SetEnd(v int64)`
 
 SetEnd sets End field to given value.
 
@@ -108,20 +108,20 @@ HasGroupBy returns a boolean if a field has been set.
 
 ### GetLimit
 
-`func (o *O11yPostableHosts) GetLimit() int32`
+`func (o *O11yPostableHosts) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *O11yPostableHosts) GetLimitOk() (*int32, bool)`
+`func (o *O11yPostableHosts) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *O11yPostableHosts) SetLimit(v int32)`
+`func (o *O11yPostableHosts) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 
@@ -133,20 +133,20 @@ HasLimit returns a boolean if a field has been set.
 
 ### GetOffset
 
-`func (o *O11yPostableHosts) GetOffset() int32`
+`func (o *O11yPostableHosts) GetOffset() int64`
 
 GetOffset returns the Offset field if non-nil, zero value otherwise.
 
 ### GetOffsetOk
 
-`func (o *O11yPostableHosts) GetOffsetOk() (*int32, bool)`
+`func (o *O11yPostableHosts) GetOffsetOk() (*int64, bool)`
 
 GetOffsetOk returns a tuple with the Offset field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOffset
 
-`func (o *O11yPostableHosts) SetOffset(v int32)`
+`func (o *O11yPostableHosts) SetOffset(v int64)`
 
 SetOffset sets Offset field to given value.
 
@@ -183,20 +183,20 @@ HasOrderBy returns a boolean if a field has been set.
 
 ### GetStart
 
-`func (o *O11yPostableHosts) GetStart() int32`
+`func (o *O11yPostableHosts) GetStart() int64`
 
 GetStart returns the Start field if non-nil, zero value otherwise.
 
 ### GetStartOk
 
-`func (o *O11yPostableHosts) GetStartOk() (*int32, bool)`
+`func (o *O11yPostableHosts) GetStartOk() (*int64, bool)`
 
 GetStartOk returns a tuple with the Start field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStart
 
-`func (o *O11yPostableHosts) SetStart(v int32)`
+`func (o *O11yPostableHosts) SetStart(v int64)`
 
 SetStart sets Start field to given value.
 

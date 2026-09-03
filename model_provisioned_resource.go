@@ -30,7 +30,7 @@ type ProvisionedResource struct {
 	// Name is the org-unique slug the caller provisioned the resource under.
 	Name *string `json:"name,omitempty"`
 	// Port is the port a client connects to on Host.
-	Port *int32 `json:"port,omitempty"`
+	Port *int64 `json:"port,omitempty"`
 	// Status is \"ready\", or \"provisioning\" while a dedicated instance is still being materialized. A dedicated resource's status is reconciled from the operator's live CR before this is answered, so it is never a stale ready.
 	Status *string `json:"status,omitempty"`
 	// Username is the credential's user, for the kinds that mint one per resource. Absent for a kind whose backend authenticates with a shared, out-of-band key.
@@ -215,9 +215,9 @@ func (o *ProvisionedResource) SetName(v string) {
 }
 
 // GetPort returns the Port field value if set, zero value otherwise.
-func (o *ProvisionedResource) GetPort() int32 {
+func (o *ProvisionedResource) GetPort() int64 {
 	if o == nil || IsNil(o.Port) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Port
@@ -225,7 +225,7 @@ func (o *ProvisionedResource) GetPort() int32 {
 
 // GetPortOk returns a tuple with the Port field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProvisionedResource) GetPortOk() (*int32, bool) {
+func (o *ProvisionedResource) GetPortOk() (*int64, bool) {
 	if o == nil || IsNil(o.Port) {
 		return nil, false
 	}
@@ -241,8 +241,8 @@ func (o *ProvisionedResource) HasPort() bool {
 	return false
 }
 
-// SetPort gets a reference to the given int32 and assigns it to the Port field.
-func (o *ProvisionedResource) SetPort(v int32) {
+// SetPort gets a reference to the given int64 and assigns it to the Port field.
+func (o *ProvisionedResource) SetPort(v int64) {
 	o.Port = &v
 }
 

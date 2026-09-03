@@ -22,21 +22,21 @@ type O11yO11yDependency struct {
 	// CallCount is how many calls crossed the edge in the window.
 	CallCount *int32 `json:"callCount,omitempty"`
 	// CallRate is calls per second.
-	CallRate *float32 `json:"callRate,omitempty"`
+	CallRate *float64 `json:"callRate,omitempty"`
 	// Child is the called service.
 	Child *string `json:"child,omitempty"`
 	// ErrorRate is the percentage of calls that erred.
-	ErrorRate *float32 `json:"errorRate,omitempty"`
+	ErrorRate *float64 `json:"errorRate,omitempty"`
 	// P50 is the median call duration, in nanoseconds.
-	P50 *float32 `json:"p50,omitempty"`
+	P50 *float64 `json:"p50,omitempty"`
 	// P75 is the 75th-percentile call duration, in nanoseconds.
-	P75 *float32 `json:"p75,omitempty"`
+	P75 *float64 `json:"p75,omitempty"`
 	// P90 is the 90th-percentile call duration, in nanoseconds.
-	P90 *float32 `json:"p90,omitempty"`
+	P90 *float64 `json:"p90,omitempty"`
 	// P95 is the 95th-percentile call duration, in nanoseconds.
-	P95 *float32 `json:"p95,omitempty"`
+	P95 *float64 `json:"p95,omitempty"`
 	// P99 is the 99th-percentile call duration, in nanoseconds.
-	P99 *float32 `json:"p99,omitempty"`
+	P99 *float64 `json:"p99,omitempty"`
 	// Parent is the calling service.
 	Parent *string `json:"parent,omitempty"`
 }
@@ -91,9 +91,9 @@ func (o *O11yO11yDependency) SetCallCount(v int32) {
 }
 
 // GetCallRate returns the CallRate field value if set, zero value otherwise.
-func (o *O11yO11yDependency) GetCallRate() float32 {
+func (o *O11yO11yDependency) GetCallRate() float64 {
 	if o == nil || IsNil(o.CallRate) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.CallRate
@@ -101,7 +101,7 @@ func (o *O11yO11yDependency) GetCallRate() float32 {
 
 // GetCallRateOk returns a tuple with the CallRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yDependency) GetCallRateOk() (*float32, bool) {
+func (o *O11yO11yDependency) GetCallRateOk() (*float64, bool) {
 	if o == nil || IsNil(o.CallRate) {
 		return nil, false
 	}
@@ -117,8 +117,8 @@ func (o *O11yO11yDependency) HasCallRate() bool {
 	return false
 }
 
-// SetCallRate gets a reference to the given float32 and assigns it to the CallRate field.
-func (o *O11yO11yDependency) SetCallRate(v float32) {
+// SetCallRate gets a reference to the given float64 and assigns it to the CallRate field.
+func (o *O11yO11yDependency) SetCallRate(v float64) {
 	o.CallRate = &v
 }
 
@@ -155,9 +155,9 @@ func (o *O11yO11yDependency) SetChild(v string) {
 }
 
 // GetErrorRate returns the ErrorRate field value if set, zero value otherwise.
-func (o *O11yO11yDependency) GetErrorRate() float32 {
+func (o *O11yO11yDependency) GetErrorRate() float64 {
 	if o == nil || IsNil(o.ErrorRate) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.ErrorRate
@@ -165,7 +165,7 @@ func (o *O11yO11yDependency) GetErrorRate() float32 {
 
 // GetErrorRateOk returns a tuple with the ErrorRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yDependency) GetErrorRateOk() (*float32, bool) {
+func (o *O11yO11yDependency) GetErrorRateOk() (*float64, bool) {
 	if o == nil || IsNil(o.ErrorRate) {
 		return nil, false
 	}
@@ -181,15 +181,15 @@ func (o *O11yO11yDependency) HasErrorRate() bool {
 	return false
 }
 
-// SetErrorRate gets a reference to the given float32 and assigns it to the ErrorRate field.
-func (o *O11yO11yDependency) SetErrorRate(v float32) {
+// SetErrorRate gets a reference to the given float64 and assigns it to the ErrorRate field.
+func (o *O11yO11yDependency) SetErrorRate(v float64) {
 	o.ErrorRate = &v
 }
 
 // GetP50 returns the P50 field value if set, zero value otherwise.
-func (o *O11yO11yDependency) GetP50() float32 {
+func (o *O11yO11yDependency) GetP50() float64 {
 	if o == nil || IsNil(o.P50) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.P50
@@ -197,7 +197,7 @@ func (o *O11yO11yDependency) GetP50() float32 {
 
 // GetP50Ok returns a tuple with the P50 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yDependency) GetP50Ok() (*float32, bool) {
+func (o *O11yO11yDependency) GetP50Ok() (*float64, bool) {
 	if o == nil || IsNil(o.P50) {
 		return nil, false
 	}
@@ -213,15 +213,15 @@ func (o *O11yO11yDependency) HasP50() bool {
 	return false
 }
 
-// SetP50 gets a reference to the given float32 and assigns it to the P50 field.
-func (o *O11yO11yDependency) SetP50(v float32) {
+// SetP50 gets a reference to the given float64 and assigns it to the P50 field.
+func (o *O11yO11yDependency) SetP50(v float64) {
 	o.P50 = &v
 }
 
 // GetP75 returns the P75 field value if set, zero value otherwise.
-func (o *O11yO11yDependency) GetP75() float32 {
+func (o *O11yO11yDependency) GetP75() float64 {
 	if o == nil || IsNil(o.P75) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.P75
@@ -229,7 +229,7 @@ func (o *O11yO11yDependency) GetP75() float32 {
 
 // GetP75Ok returns a tuple with the P75 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yDependency) GetP75Ok() (*float32, bool) {
+func (o *O11yO11yDependency) GetP75Ok() (*float64, bool) {
 	if o == nil || IsNil(o.P75) {
 		return nil, false
 	}
@@ -245,15 +245,15 @@ func (o *O11yO11yDependency) HasP75() bool {
 	return false
 }
 
-// SetP75 gets a reference to the given float32 and assigns it to the P75 field.
-func (o *O11yO11yDependency) SetP75(v float32) {
+// SetP75 gets a reference to the given float64 and assigns it to the P75 field.
+func (o *O11yO11yDependency) SetP75(v float64) {
 	o.P75 = &v
 }
 
 // GetP90 returns the P90 field value if set, zero value otherwise.
-func (o *O11yO11yDependency) GetP90() float32 {
+func (o *O11yO11yDependency) GetP90() float64 {
 	if o == nil || IsNil(o.P90) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.P90
@@ -261,7 +261,7 @@ func (o *O11yO11yDependency) GetP90() float32 {
 
 // GetP90Ok returns a tuple with the P90 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yDependency) GetP90Ok() (*float32, bool) {
+func (o *O11yO11yDependency) GetP90Ok() (*float64, bool) {
 	if o == nil || IsNil(o.P90) {
 		return nil, false
 	}
@@ -277,15 +277,15 @@ func (o *O11yO11yDependency) HasP90() bool {
 	return false
 }
 
-// SetP90 gets a reference to the given float32 and assigns it to the P90 field.
-func (o *O11yO11yDependency) SetP90(v float32) {
+// SetP90 gets a reference to the given float64 and assigns it to the P90 field.
+func (o *O11yO11yDependency) SetP90(v float64) {
 	o.P90 = &v
 }
 
 // GetP95 returns the P95 field value if set, zero value otherwise.
-func (o *O11yO11yDependency) GetP95() float32 {
+func (o *O11yO11yDependency) GetP95() float64 {
 	if o == nil || IsNil(o.P95) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.P95
@@ -293,7 +293,7 @@ func (o *O11yO11yDependency) GetP95() float32 {
 
 // GetP95Ok returns a tuple with the P95 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yDependency) GetP95Ok() (*float32, bool) {
+func (o *O11yO11yDependency) GetP95Ok() (*float64, bool) {
 	if o == nil || IsNil(o.P95) {
 		return nil, false
 	}
@@ -309,15 +309,15 @@ func (o *O11yO11yDependency) HasP95() bool {
 	return false
 }
 
-// SetP95 gets a reference to the given float32 and assigns it to the P95 field.
-func (o *O11yO11yDependency) SetP95(v float32) {
+// SetP95 gets a reference to the given float64 and assigns it to the P95 field.
+func (o *O11yO11yDependency) SetP95(v float64) {
 	o.P95 = &v
 }
 
 // GetP99 returns the P99 field value if set, zero value otherwise.
-func (o *O11yO11yDependency) GetP99() float32 {
+func (o *O11yO11yDependency) GetP99() float64 {
 	if o == nil || IsNil(o.P99) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.P99
@@ -325,7 +325,7 @@ func (o *O11yO11yDependency) GetP99() float32 {
 
 // GetP99Ok returns a tuple with the P99 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yDependency) GetP99Ok() (*float32, bool) {
+func (o *O11yO11yDependency) GetP99Ok() (*float64, bool) {
 	if o == nil || IsNil(o.P99) {
 		return nil, false
 	}
@@ -341,8 +341,8 @@ func (o *O11yO11yDependency) HasP99() bool {
 	return false
 }
 
-// SetP99 gets a reference to the given float32 and assigns it to the P99 field.
-func (o *O11yO11yDependency) SetP99(v float32) {
+// SetP99 gets a reference to the given float64 and assigns it to the P99 field.
+func (o *O11yO11yDependency) SetP99(v float64) {
 	o.P99 = &v
 }
 

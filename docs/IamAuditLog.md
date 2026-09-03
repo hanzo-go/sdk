@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **Owner** | Pointer to **string** |  | [optional] 
 **RequestUri** | Pointer to **string** |  | [optional] 
 **Response** | Pointer to **string** |  | [optional] 
-**StatusCode** | Pointer to **int32** |  | [optional] 
+**StatusCode** | Pointer to **int64** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 **User** | Pointer to **string** |  | [optional] 
 
@@ -419,20 +419,20 @@ HasResponse returns a boolean if a field has been set.
 
 ### GetStatusCode
 
-`func (o *IamAuditLog) GetStatusCode() int32`
+`func (o *IamAuditLog) GetStatusCode() int64`
 
 GetStatusCode returns the StatusCode field if non-nil, zero value otherwise.
 
 ### GetStatusCodeOk
 
-`func (o *IamAuditLog) GetStatusCodeOk() (*int32, bool)`
+`func (o *IamAuditLog) GetStatusCodeOk() (*int64, bool)`
 
 GetStatusCodeOk returns a tuple with the StatusCode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatusCode
 
-`func (o *IamAuditLog) SetStatusCode(v int32)`
+`func (o *IamAuditLog) SetStatusCode(v int64)`
 
 SetStatusCode sets StatusCode field to given value.
 

@@ -22,31 +22,31 @@ type RiskModelState struct {
 	// Aggregates reports the pressure on this organisation's own sliding aggregates, and whether they have started forgetting subjects to stay inside their bound.
 	Aggregates *RiskAggregates `json:"aggregates,omitempty"`
 	// Blind counts, per feature, how often it took its neutral value for want of data. A feature blind on most traffic is not contributing whatever the inventory claims for it.
-	Blind map[string]int32 `json:"blind,omitempty"`
+	Blind map[string]int64 `json:"blind,omitempty"`
 	// Cut is the threshold in force, derived from Stated as a quantile of the scores actually observed.
-	Cut *float32 `json:"cut,omitempty"`
+	Cut *float64 `json:"cut,omitempty"`
 	// Descends is the published value the working model grew out of: the newest one whose mass count it has reached or passed. Empty when nothing has been published yet.  It is DERIVED from the count and never stored, so an instant rollback is right for free — adopting an older value moves the count backward and this answers with that older value, where a stored pointer would be a second fact to keep in step. Read with Learned it is also the DRIFT: this model is Descends plus however many events the two counts differ by.
 	Descends *string `json:"descends,omitempty"`
 	// Disposed is how many published values retention has taken. It is DERIVED from the lowest surviving sequence, so it cannot drift from what it describes, and it is reported because a retention that binds is a fact an operator must be able to read rather than a silence.
-	Disposed *int32 `json:"disposed,omitempty"`
+	Disposed *int64 `json:"disposed,omitempty"`
 	// Learned is how many events the model has learned from.
-	Learned *int32 `json:"learned,omitempty"`
+	Learned *int64 `json:"learned,omitempty"`
 	// Live is false while the model is in shadow — scoring, learning and recording what it WOULD have alerted on, and changing no outcome. Shadow is the default for a new tenant.
 	Live *bool `json:"live,omitempty"`
 	// Policy is the version of the decision regime this model is deciding under, from your organisation's own policy history (GET /v1/risk/policy). Every score cites it, so it is the join between a past decision and the appetite that produced its threshold. Zero means no regime has ever been stated and the default posture — shadow — is in force.
-	Policy *int32 `json:"policy,omitempty"`
+	Policy *int64 `json:"policy,omitempty"`
 	// Realised is the share that actually was. Reading it beside Stated is what makes the appetite a measured commitment rather than an intention.
-	Realised *float32 `json:"realised,omitempty"`
+	Realised *float64 `json:"realised,omitempty"`
 	// Refused counts events the model would not score, by reason. None of them was examined; a refusal is counted, never silent.
-	Refused map[string]int32 `json:"refused,omitempty"`
+	Refused map[string]int64 `json:"refused,omitempty"`
 	// Sample is the share of below-the-line events retained for review, which is how the miss rate is measured rather than assumed.
-	Sample *float32 `json:"sample,omitempty"`
+	Sample *float64 `json:"sample,omitempty"`
 	// Saturated means no threshold can honour the stated appetite because too much of the stream scores in the top bucket, so the model is alerting on nothing — the one state that must never be mistaken for quiet.
 	Saturated *bool `json:"saturated,omitempty"`
 	// Shape is the model's identity, as `<family>:<digest>`: the KIND of model, and that family's own digest over the inventory in order and the detector's geometry parameters. It is what an auditor pins an alert to, because learned state is only meaningful against the space that produced it — and the family leads it because two families' masses are not fitted differently, they are different kinds of number.
 	Shape *string `json:"shape,omitempty"`
 	// Stated is the share of the stream this organisation said may be examined.
-	Stated *float32 `json:"stated,omitempty"`
+	Stated *float64 `json:"stated,omitempty"`
 	// Surface reports what of the tenant's OWN event surface has been folded in.
 	Surface *RiskSurface `json:"surface,omitempty"`
 	// Tenant is the qualified key the model is held under — the brand whose issuer vouched for the caller and the organisation it acts for. It is echoed so a reader can see the answer is its own and not a parameter it passed.
@@ -107,9 +107,9 @@ func (o *RiskModelState) SetAggregates(v RiskAggregates) {
 }
 
 // GetBlind returns the Blind field value if set, zero value otherwise.
-func (o *RiskModelState) GetBlind() map[string]int32 {
+func (o *RiskModelState) GetBlind() map[string]int64 {
 	if o == nil || IsNil(o.Blind) {
-		var ret map[string]int32
+		var ret map[string]int64
 		return ret
 	}
 	return o.Blind
@@ -117,9 +117,9 @@ func (o *RiskModelState) GetBlind() map[string]int32 {
 
 // GetBlindOk returns a tuple with the Blind field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskModelState) GetBlindOk() (map[string]int32, bool) {
+func (o *RiskModelState) GetBlindOk() (map[string]int64, bool) {
 	if o == nil || IsNil(o.Blind) {
-		return map[string]int32{}, false
+		return map[string]int64{}, false
 	}
 	return o.Blind, true
 }
@@ -133,15 +133,15 @@ func (o *RiskModelState) HasBlind() bool {
 	return false
 }
 
-// SetBlind gets a reference to the given map[string]int32 and assigns it to the Blind field.
-func (o *RiskModelState) SetBlind(v map[string]int32) {
+// SetBlind gets a reference to the given map[string]int64 and assigns it to the Blind field.
+func (o *RiskModelState) SetBlind(v map[string]int64) {
 	o.Blind = v
 }
 
 // GetCut returns the Cut field value if set, zero value otherwise.
-func (o *RiskModelState) GetCut() float32 {
+func (o *RiskModelState) GetCut() float64 {
 	if o == nil || IsNil(o.Cut) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Cut
@@ -149,7 +149,7 @@ func (o *RiskModelState) GetCut() float32 {
 
 // GetCutOk returns a tuple with the Cut field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskModelState) GetCutOk() (*float32, bool) {
+func (o *RiskModelState) GetCutOk() (*float64, bool) {
 	if o == nil || IsNil(o.Cut) {
 		return nil, false
 	}
@@ -165,8 +165,8 @@ func (o *RiskModelState) HasCut() bool {
 	return false
 }
 
-// SetCut gets a reference to the given float32 and assigns it to the Cut field.
-func (o *RiskModelState) SetCut(v float32) {
+// SetCut gets a reference to the given float64 and assigns it to the Cut field.
+func (o *RiskModelState) SetCut(v float64) {
 	o.Cut = &v
 }
 
@@ -203,9 +203,9 @@ func (o *RiskModelState) SetDescends(v string) {
 }
 
 // GetDisposed returns the Disposed field value if set, zero value otherwise.
-func (o *RiskModelState) GetDisposed() int32 {
+func (o *RiskModelState) GetDisposed() int64 {
 	if o == nil || IsNil(o.Disposed) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Disposed
@@ -213,7 +213,7 @@ func (o *RiskModelState) GetDisposed() int32 {
 
 // GetDisposedOk returns a tuple with the Disposed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskModelState) GetDisposedOk() (*int32, bool) {
+func (o *RiskModelState) GetDisposedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Disposed) {
 		return nil, false
 	}
@@ -229,15 +229,15 @@ func (o *RiskModelState) HasDisposed() bool {
 	return false
 }
 
-// SetDisposed gets a reference to the given int32 and assigns it to the Disposed field.
-func (o *RiskModelState) SetDisposed(v int32) {
+// SetDisposed gets a reference to the given int64 and assigns it to the Disposed field.
+func (o *RiskModelState) SetDisposed(v int64) {
 	o.Disposed = &v
 }
 
 // GetLearned returns the Learned field value if set, zero value otherwise.
-func (o *RiskModelState) GetLearned() int32 {
+func (o *RiskModelState) GetLearned() int64 {
 	if o == nil || IsNil(o.Learned) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Learned
@@ -245,7 +245,7 @@ func (o *RiskModelState) GetLearned() int32 {
 
 // GetLearnedOk returns a tuple with the Learned field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskModelState) GetLearnedOk() (*int32, bool) {
+func (o *RiskModelState) GetLearnedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Learned) {
 		return nil, false
 	}
@@ -261,8 +261,8 @@ func (o *RiskModelState) HasLearned() bool {
 	return false
 }
 
-// SetLearned gets a reference to the given int32 and assigns it to the Learned field.
-func (o *RiskModelState) SetLearned(v int32) {
+// SetLearned gets a reference to the given int64 and assigns it to the Learned field.
+func (o *RiskModelState) SetLearned(v int64) {
 	o.Learned = &v
 }
 
@@ -299,9 +299,9 @@ func (o *RiskModelState) SetLive(v bool) {
 }
 
 // GetPolicy returns the Policy field value if set, zero value otherwise.
-func (o *RiskModelState) GetPolicy() int32 {
+func (o *RiskModelState) GetPolicy() int64 {
 	if o == nil || IsNil(o.Policy) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Policy
@@ -309,7 +309,7 @@ func (o *RiskModelState) GetPolicy() int32 {
 
 // GetPolicyOk returns a tuple with the Policy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskModelState) GetPolicyOk() (*int32, bool) {
+func (o *RiskModelState) GetPolicyOk() (*int64, bool) {
 	if o == nil || IsNil(o.Policy) {
 		return nil, false
 	}
@@ -325,15 +325,15 @@ func (o *RiskModelState) HasPolicy() bool {
 	return false
 }
 
-// SetPolicy gets a reference to the given int32 and assigns it to the Policy field.
-func (o *RiskModelState) SetPolicy(v int32) {
+// SetPolicy gets a reference to the given int64 and assigns it to the Policy field.
+func (o *RiskModelState) SetPolicy(v int64) {
 	o.Policy = &v
 }
 
 // GetRealised returns the Realised field value if set, zero value otherwise.
-func (o *RiskModelState) GetRealised() float32 {
+func (o *RiskModelState) GetRealised() float64 {
 	if o == nil || IsNil(o.Realised) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Realised
@@ -341,7 +341,7 @@ func (o *RiskModelState) GetRealised() float32 {
 
 // GetRealisedOk returns a tuple with the Realised field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskModelState) GetRealisedOk() (*float32, bool) {
+func (o *RiskModelState) GetRealisedOk() (*float64, bool) {
 	if o == nil || IsNil(o.Realised) {
 		return nil, false
 	}
@@ -357,15 +357,15 @@ func (o *RiskModelState) HasRealised() bool {
 	return false
 }
 
-// SetRealised gets a reference to the given float32 and assigns it to the Realised field.
-func (o *RiskModelState) SetRealised(v float32) {
+// SetRealised gets a reference to the given float64 and assigns it to the Realised field.
+func (o *RiskModelState) SetRealised(v float64) {
 	o.Realised = &v
 }
 
 // GetRefused returns the Refused field value if set, zero value otherwise.
-func (o *RiskModelState) GetRefused() map[string]int32 {
+func (o *RiskModelState) GetRefused() map[string]int64 {
 	if o == nil || IsNil(o.Refused) {
-		var ret map[string]int32
+		var ret map[string]int64
 		return ret
 	}
 	return o.Refused
@@ -373,9 +373,9 @@ func (o *RiskModelState) GetRefused() map[string]int32 {
 
 // GetRefusedOk returns a tuple with the Refused field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskModelState) GetRefusedOk() (map[string]int32, bool) {
+func (o *RiskModelState) GetRefusedOk() (map[string]int64, bool) {
 	if o == nil || IsNil(o.Refused) {
-		return map[string]int32{}, false
+		return map[string]int64{}, false
 	}
 	return o.Refused, true
 }
@@ -389,15 +389,15 @@ func (o *RiskModelState) HasRefused() bool {
 	return false
 }
 
-// SetRefused gets a reference to the given map[string]int32 and assigns it to the Refused field.
-func (o *RiskModelState) SetRefused(v map[string]int32) {
+// SetRefused gets a reference to the given map[string]int64 and assigns it to the Refused field.
+func (o *RiskModelState) SetRefused(v map[string]int64) {
 	o.Refused = v
 }
 
 // GetSample returns the Sample field value if set, zero value otherwise.
-func (o *RiskModelState) GetSample() float32 {
+func (o *RiskModelState) GetSample() float64 {
 	if o == nil || IsNil(o.Sample) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Sample
@@ -405,7 +405,7 @@ func (o *RiskModelState) GetSample() float32 {
 
 // GetSampleOk returns a tuple with the Sample field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskModelState) GetSampleOk() (*float32, bool) {
+func (o *RiskModelState) GetSampleOk() (*float64, bool) {
 	if o == nil || IsNil(o.Sample) {
 		return nil, false
 	}
@@ -421,8 +421,8 @@ func (o *RiskModelState) HasSample() bool {
 	return false
 }
 
-// SetSample gets a reference to the given float32 and assigns it to the Sample field.
-func (o *RiskModelState) SetSample(v float32) {
+// SetSample gets a reference to the given float64 and assigns it to the Sample field.
+func (o *RiskModelState) SetSample(v float64) {
 	o.Sample = &v
 }
 
@@ -491,9 +491,9 @@ func (o *RiskModelState) SetShape(v string) {
 }
 
 // GetStated returns the Stated field value if set, zero value otherwise.
-func (o *RiskModelState) GetStated() float32 {
+func (o *RiskModelState) GetStated() float64 {
 	if o == nil || IsNil(o.Stated) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Stated
@@ -501,7 +501,7 @@ func (o *RiskModelState) GetStated() float32 {
 
 // GetStatedOk returns a tuple with the Stated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskModelState) GetStatedOk() (*float32, bool) {
+func (o *RiskModelState) GetStatedOk() (*float64, bool) {
 	if o == nil || IsNil(o.Stated) {
 		return nil, false
 	}
@@ -517,8 +517,8 @@ func (o *RiskModelState) HasStated() bool {
 	return false
 }
 
-// SetStated gets a reference to the given float32 and assigns it to the Stated field.
-func (o *RiskModelState) SetStated(v float32) {
+// SetStated gets a reference to the given float64 and assigns it to the Stated field.
+func (o *RiskModelState) SetStated(v float64) {
 	o.Stated = &v
 }
 

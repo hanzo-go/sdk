@@ -30,13 +30,13 @@ type RiskDataset struct {
 	// Name identifies the dataset across all of its versions.
 	Name *string `json:"name,omitempty"`
 	// Oversize is how many of the window's subjects this version could NOT carry because their subject identity exceeds the plane's per-subject byte bound.  It is on the wire, not only in a log, because it is the one degradation a caller cannot otherwise detect: the rows that are here look complete, and a dataset silently missing a population is a model silently blind to it. Non-zero does not make a version invalid — it makes it a version whose coverage is STATED. Zero is the normal case and omits.
-	Oversize *int32 `json:"oversize,omitempty"`
+	Oversize *int64 `json:"oversize,omitempty"`
 	// Refusal names why there are no bytes, when there are none.
 	Refusal *string `json:"refusal,omitempty"`
 	// Running is true while THIS process is materialising the version. A version that is `materializing` and not running was started by a process that is gone — two states the register cannot tell apart, because a register cannot know which processes are alive.
 	Running *bool `json:"running,omitempty"`
 	// Share is the fraction of the window's subjects admitted, in thousandths. 1000 means the whole window fitted under the cap; anything less means the version is a reproducible sample and says by how much.
-	Share *int32 `json:"share,omitempty"`
+	Share *int64 `json:"share,omitempty"`
 	// Spec is the bound query this version was built from, exactly as recorded.
 	Spec *RiskDatasetSpec `json:"spec,omitempty"`
 	// Status is declared, materializing, ready or refused. Only `ready` has bytes, and `ready` is terminal: a published version is never rewritten.
@@ -44,7 +44,7 @@ type RiskDataset struct {
 	// Truncated is true when the row cap bound before the window ran out. The trailing subject is dropped whole when that happens, because half a subject on one side of a split is exactly the leak the grouping prevents.
 	Truncated *bool `json:"truncated,omitempty"`
 	// Version is which version this is, from 1 and monotone within the dataset. A number is never reused — not even after a disposal, where the next declare continues the count — so \"signups v3\" means one thing forever, which is what makes a model's citation of it checkable.
-	Version *int32 `json:"version,omitempty"`
+	Version *int64 `json:"version,omitempty"`
 }
 
 // NewRiskDataset instantiates a new RiskDataset object
@@ -225,9 +225,9 @@ func (o *RiskDataset) SetName(v string) {
 }
 
 // GetOversize returns the Oversize field value if set, zero value otherwise.
-func (o *RiskDataset) GetOversize() int32 {
+func (o *RiskDataset) GetOversize() int64 {
 	if o == nil || IsNil(o.Oversize) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Oversize
@@ -235,7 +235,7 @@ func (o *RiskDataset) GetOversize() int32 {
 
 // GetOversizeOk returns a tuple with the Oversize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskDataset) GetOversizeOk() (*int32, bool) {
+func (o *RiskDataset) GetOversizeOk() (*int64, bool) {
 	if o == nil || IsNil(o.Oversize) {
 		return nil, false
 	}
@@ -251,8 +251,8 @@ func (o *RiskDataset) HasOversize() bool {
 	return false
 }
 
-// SetOversize gets a reference to the given int32 and assigns it to the Oversize field.
-func (o *RiskDataset) SetOversize(v int32) {
+// SetOversize gets a reference to the given int64 and assigns it to the Oversize field.
+func (o *RiskDataset) SetOversize(v int64) {
 	o.Oversize = &v
 }
 
@@ -321,9 +321,9 @@ func (o *RiskDataset) SetRunning(v bool) {
 }
 
 // GetShare returns the Share field value if set, zero value otherwise.
-func (o *RiskDataset) GetShare() int32 {
+func (o *RiskDataset) GetShare() int64 {
 	if o == nil || IsNil(o.Share) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Share
@@ -331,7 +331,7 @@ func (o *RiskDataset) GetShare() int32 {
 
 // GetShareOk returns a tuple with the Share field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskDataset) GetShareOk() (*int32, bool) {
+func (o *RiskDataset) GetShareOk() (*int64, bool) {
 	if o == nil || IsNil(o.Share) {
 		return nil, false
 	}
@@ -347,8 +347,8 @@ func (o *RiskDataset) HasShare() bool {
 	return false
 }
 
-// SetShare gets a reference to the given int32 and assigns it to the Share field.
-func (o *RiskDataset) SetShare(v int32) {
+// SetShare gets a reference to the given int64 and assigns it to the Share field.
+func (o *RiskDataset) SetShare(v int64) {
 	o.Share = &v
 }
 
@@ -449,9 +449,9 @@ func (o *RiskDataset) SetTruncated(v bool) {
 }
 
 // GetVersion returns the Version field value if set, zero value otherwise.
-func (o *RiskDataset) GetVersion() int32 {
+func (o *RiskDataset) GetVersion() int64 {
 	if o == nil || IsNil(o.Version) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Version
@@ -459,7 +459,7 @@ func (o *RiskDataset) GetVersion() int32 {
 
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskDataset) GetVersionOk() (*int32, bool) {
+func (o *RiskDataset) GetVersionOk() (*int64, bool) {
 	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
@@ -475,8 +475,8 @@ func (o *RiskDataset) HasVersion() bool {
 	return false
 }
 
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
-func (o *RiskDataset) SetVersion(v int32) {
+// SetVersion gets a reference to the given int64 and assigns it to the Version field.
+func (o *RiskDataset) SetVersion(v int64) {
 	o.Version = &v
 }
 

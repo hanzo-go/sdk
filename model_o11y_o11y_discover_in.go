@@ -28,7 +28,7 @@ type O11yO11yDiscoverIn struct {
 	// GroupBy are the columns to group the rows by.
 	GroupBy []string `json:"groupBy,omitempty"`
 	// Limit caps how many rows come back.
-	Limit *int32 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 	// OrderBy is the column or aggregation to sort the rows on.
 	OrderBy *string `json:"orderBy,omitempty"`
 	// OrderDir is asc or desc.
@@ -156,9 +156,9 @@ func (o *O11yO11yDiscoverIn) SetGroupBy(v []string) {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *O11yO11yDiscoverIn) GetLimit() int32 {
+func (o *O11yO11yDiscoverIn) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -166,7 +166,7 @@ func (o *O11yO11yDiscoverIn) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yDiscoverIn) GetLimitOk() (*int32, bool) {
+func (o *O11yO11yDiscoverIn) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -182,8 +182,8 @@ func (o *O11yO11yDiscoverIn) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *O11yO11yDiscoverIn) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *O11yO11yDiscoverIn) SetLimit(v int64) {
 	o.Limit = &v
 }
 

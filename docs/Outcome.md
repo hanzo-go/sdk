@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Control** | Pointer to **bool** | true on the baseline arm; its own lift and stats are zero | [optional] 
-**Converted** | Pointer to **int32** | of those, how many fired the metric event | [optional] 
-**Exposed** | Pointer to **int32** | subjects the arm enrolled — the denominator | [optional] 
-**Lift** | Pointer to **float32** | relative to control: (rate-ctrl)/ctrl | [optional] 
-**PValue** | Pointer to **float32** | two-tailed p vs control | [optional] 
-**Rate** | Pointer to **float32** | converted over exposed | [optional] 
+**Converted** | Pointer to **int64** | of those, how many fired the metric event | [optional] 
+**Exposed** | Pointer to **int64** | subjects the arm enrolled — the denominator | [optional] 
+**Lift** | Pointer to **float64** | relative to control: (rate-ctrl)/ctrl | [optional] 
+**PValue** | Pointer to **float64** | two-tailed p vs control | [optional] 
+**Rate** | Pointer to **float64** | converted over exposed | [optional] 
 **Significant** | Pointer to **bool** | pValue &lt; alpha | [optional] 
 **Variant** | Pointer to **string** | the arm this row measures | [optional] 
-**Z** | Pointer to **float32** | two-proportion z vs control | [optional] 
+**Z** | Pointer to **float64** | two-proportion z vs control | [optional] 
 
 ## Methods
 
@@ -60,20 +60,20 @@ HasControl returns a boolean if a field has been set.
 
 ### GetConverted
 
-`func (o *Outcome) GetConverted() int32`
+`func (o *Outcome) GetConverted() int64`
 
 GetConverted returns the Converted field if non-nil, zero value otherwise.
 
 ### GetConvertedOk
 
-`func (o *Outcome) GetConvertedOk() (*int32, bool)`
+`func (o *Outcome) GetConvertedOk() (*int64, bool)`
 
 GetConvertedOk returns a tuple with the Converted field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConverted
 
-`func (o *Outcome) SetConverted(v int32)`
+`func (o *Outcome) SetConverted(v int64)`
 
 SetConverted sets Converted field to given value.
 
@@ -85,20 +85,20 @@ HasConverted returns a boolean if a field has been set.
 
 ### GetExposed
 
-`func (o *Outcome) GetExposed() int32`
+`func (o *Outcome) GetExposed() int64`
 
 GetExposed returns the Exposed field if non-nil, zero value otherwise.
 
 ### GetExposedOk
 
-`func (o *Outcome) GetExposedOk() (*int32, bool)`
+`func (o *Outcome) GetExposedOk() (*int64, bool)`
 
 GetExposedOk returns a tuple with the Exposed field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExposed
 
-`func (o *Outcome) SetExposed(v int32)`
+`func (o *Outcome) SetExposed(v int64)`
 
 SetExposed sets Exposed field to given value.
 
@@ -110,20 +110,20 @@ HasExposed returns a boolean if a field has been set.
 
 ### GetLift
 
-`func (o *Outcome) GetLift() float32`
+`func (o *Outcome) GetLift() float64`
 
 GetLift returns the Lift field if non-nil, zero value otherwise.
 
 ### GetLiftOk
 
-`func (o *Outcome) GetLiftOk() (*float32, bool)`
+`func (o *Outcome) GetLiftOk() (*float64, bool)`
 
 GetLiftOk returns a tuple with the Lift field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLift
 
-`func (o *Outcome) SetLift(v float32)`
+`func (o *Outcome) SetLift(v float64)`
 
 SetLift sets Lift field to given value.
 
@@ -135,20 +135,20 @@ HasLift returns a boolean if a field has been set.
 
 ### GetPValue
 
-`func (o *Outcome) GetPValue() float32`
+`func (o *Outcome) GetPValue() float64`
 
 GetPValue returns the PValue field if non-nil, zero value otherwise.
 
 ### GetPValueOk
 
-`func (o *Outcome) GetPValueOk() (*float32, bool)`
+`func (o *Outcome) GetPValueOk() (*float64, bool)`
 
 GetPValueOk returns a tuple with the PValue field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPValue
 
-`func (o *Outcome) SetPValue(v float32)`
+`func (o *Outcome) SetPValue(v float64)`
 
 SetPValue sets PValue field to given value.
 
@@ -160,20 +160,20 @@ HasPValue returns a boolean if a field has been set.
 
 ### GetRate
 
-`func (o *Outcome) GetRate() float32`
+`func (o *Outcome) GetRate() float64`
 
 GetRate returns the Rate field if non-nil, zero value otherwise.
 
 ### GetRateOk
 
-`func (o *Outcome) GetRateOk() (*float32, bool)`
+`func (o *Outcome) GetRateOk() (*float64, bool)`
 
 GetRateOk returns a tuple with the Rate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRate
 
-`func (o *Outcome) SetRate(v float32)`
+`func (o *Outcome) SetRate(v float64)`
 
 SetRate sets Rate field to given value.
 
@@ -235,20 +235,20 @@ HasVariant returns a boolean if a field has been set.
 
 ### GetZ
 
-`func (o *Outcome) GetZ() float32`
+`func (o *Outcome) GetZ() float64`
 
 GetZ returns the Z field if non-nil, zero value otherwise.
 
 ### GetZOk
 
-`func (o *Outcome) GetZOk() (*float32, bool)`
+`func (o *Outcome) GetZOk() (*float64, bool)`
 
 GetZOk returns a tuple with the Z field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetZ
 
-`func (o *Outcome) SetZ(v float32)`
+`func (o *Outcome) SetZ(v float64)`
 
 SetZ sets Z field to given value.
 

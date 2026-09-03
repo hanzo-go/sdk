@@ -256,11 +256,11 @@ type DatasetAPIRiskDatasetLineageRequest struct {
 	ctx        context.Context
 	ApiService *DatasetAPIService
 	name       string
-	version    *int32
+	version    *int64
 }
 
 // Version is the version to trace. Zero takes the newest published one.
-func (r DatasetAPIRiskDatasetLineageRequest) Version(version int32) DatasetAPIRiskDatasetLineageRequest {
+func (r DatasetAPIRiskDatasetLineageRequest) Version(version int64) DatasetAPIRiskDatasetLineageRequest {
 	r.version = &version
 	return r
 }
@@ -609,14 +609,14 @@ type DatasetAPIRiskExportDatasetRequest struct {
 	ctx        context.Context
 	ApiService *DatasetAPIService
 	name       string
-	version    *int32
+	version    *int64
 	split      *string
-	offset     *int32
-	limit      *int32
+	offset     *int64
+	limit      *int64
 }
 
 // Version is the version to read. Zero takes the newest published one.
-func (r DatasetAPIRiskExportDatasetRequest) Version(version int32) DatasetAPIRiskExportDatasetRequest {
+func (r DatasetAPIRiskExportDatasetRequest) Version(version int64) DatasetAPIRiskExportDatasetRequest {
 	r.version = &version
 	return r
 }
@@ -628,13 +628,13 @@ func (r DatasetAPIRiskExportDatasetRequest) Split(split string) DatasetAPIRiskEx
 }
 
 // Offset is where the page starts, in the version&#39;s own row order (by id, which is derived from the row and therefore stable forever).
-func (r DatasetAPIRiskExportDatasetRequest) Offset(offset int32) DatasetAPIRiskExportDatasetRequest {
+func (r DatasetAPIRiskExportDatasetRequest) Offset(offset int64) DatasetAPIRiskExportDatasetRequest {
 	r.offset = &offset
 	return r
 }
 
 // Limit is how many rows to return. Zero and anything above the plane&#39;s bound take the bound.
-func (r DatasetAPIRiskExportDatasetRequest) Limit(limit int32) DatasetAPIRiskExportDatasetRequest {
+func (r DatasetAPIRiskExportDatasetRequest) Limit(limit int64) DatasetAPIRiskExportDatasetRequest {
 	r.limit = &limit
 	return r
 }

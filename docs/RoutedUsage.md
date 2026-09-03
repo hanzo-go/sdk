@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Account** | Pointer to **string** | Account is the provider-side account identifier. | [optional] 
 **Billing** | Pointer to **string** | Billing is how the routed inference bills: plan or commerce. | [optional] 
-**CompletionTokens** | Pointer to **int32** | CompletionTokens is the routed completion-token count. | [optional] 
-**CostCents** | Pointer to **int32** | CostCents is the routed cost in cents. | [optional] 
+**CompletionTokens** | Pointer to **int64** | CompletionTokens is the routed completion-token count. | [optional] 
+**CostCents** | Pointer to **int64** | CostCents is the routed cost in cents. | [optional] 
 **Kind** | Pointer to **string** | Kind is how the account authenticates: subscription or apikey. | [optional] 
-**PromptTokens** | Pointer to **int32** | PromptTokens is the routed prompt-token count. | [optional] 
+**PromptTokens** | Pointer to **int64** | PromptTokens is the routed prompt-token count. | [optional] 
 **Provider** | Pointer to **string** | Provider is the AI provider the row&#39;s account belongs to. | [optional] 
-**Requests** | Pointer to **int32** | Requests is how many requests the gateway routed through this account. | [optional] 
-**TotalTokens** | Pointer to **int32** | TotalTokens is the routed total token count. | [optional] 
+**Requests** | Pointer to **int64** | Requests is how many requests the gateway routed through this account. | [optional] 
+**TotalTokens** | Pointer to **int64** | TotalTokens is the routed total token count. | [optional] 
 
 ## Methods
 
@@ -85,20 +85,20 @@ HasBilling returns a boolean if a field has been set.
 
 ### GetCompletionTokens
 
-`func (o *RoutedUsage) GetCompletionTokens() int32`
+`func (o *RoutedUsage) GetCompletionTokens() int64`
 
 GetCompletionTokens returns the CompletionTokens field if non-nil, zero value otherwise.
 
 ### GetCompletionTokensOk
 
-`func (o *RoutedUsage) GetCompletionTokensOk() (*int32, bool)`
+`func (o *RoutedUsage) GetCompletionTokensOk() (*int64, bool)`
 
 GetCompletionTokensOk returns a tuple with the CompletionTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCompletionTokens
 
-`func (o *RoutedUsage) SetCompletionTokens(v int32)`
+`func (o *RoutedUsage) SetCompletionTokens(v int64)`
 
 SetCompletionTokens sets CompletionTokens field to given value.
 
@@ -110,20 +110,20 @@ HasCompletionTokens returns a boolean if a field has been set.
 
 ### GetCostCents
 
-`func (o *RoutedUsage) GetCostCents() int32`
+`func (o *RoutedUsage) GetCostCents() int64`
 
 GetCostCents returns the CostCents field if non-nil, zero value otherwise.
 
 ### GetCostCentsOk
 
-`func (o *RoutedUsage) GetCostCentsOk() (*int32, bool)`
+`func (o *RoutedUsage) GetCostCentsOk() (*int64, bool)`
 
 GetCostCentsOk returns a tuple with the CostCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCostCents
 
-`func (o *RoutedUsage) SetCostCents(v int32)`
+`func (o *RoutedUsage) SetCostCents(v int64)`
 
 SetCostCents sets CostCents field to given value.
 
@@ -160,20 +160,20 @@ HasKind returns a boolean if a field has been set.
 
 ### GetPromptTokens
 
-`func (o *RoutedUsage) GetPromptTokens() int32`
+`func (o *RoutedUsage) GetPromptTokens() int64`
 
 GetPromptTokens returns the PromptTokens field if non-nil, zero value otherwise.
 
 ### GetPromptTokensOk
 
-`func (o *RoutedUsage) GetPromptTokensOk() (*int32, bool)`
+`func (o *RoutedUsage) GetPromptTokensOk() (*int64, bool)`
 
 GetPromptTokensOk returns a tuple with the PromptTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPromptTokens
 
-`func (o *RoutedUsage) SetPromptTokens(v int32)`
+`func (o *RoutedUsage) SetPromptTokens(v int64)`
 
 SetPromptTokens sets PromptTokens field to given value.
 
@@ -210,20 +210,20 @@ HasProvider returns a boolean if a field has been set.
 
 ### GetRequests
 
-`func (o *RoutedUsage) GetRequests() int32`
+`func (o *RoutedUsage) GetRequests() int64`
 
 GetRequests returns the Requests field if non-nil, zero value otherwise.
 
 ### GetRequestsOk
 
-`func (o *RoutedUsage) GetRequestsOk() (*int32, bool)`
+`func (o *RoutedUsage) GetRequestsOk() (*int64, bool)`
 
 GetRequestsOk returns a tuple with the Requests field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRequests
 
-`func (o *RoutedUsage) SetRequests(v int32)`
+`func (o *RoutedUsage) SetRequests(v int64)`
 
 SetRequests sets Requests field to given value.
 
@@ -235,20 +235,20 @@ HasRequests returns a boolean if a field has been set.
 
 ### GetTotalTokens
 
-`func (o *RoutedUsage) GetTotalTokens() int32`
+`func (o *RoutedUsage) GetTotalTokens() int64`
 
 GetTotalTokens returns the TotalTokens field if non-nil, zero value otherwise.
 
 ### GetTotalTokensOk
 
-`func (o *RoutedUsage) GetTotalTokensOk() (*int32, bool)`
+`func (o *RoutedUsage) GetTotalTokensOk() (*int64, bool)`
 
 GetTotalTokensOk returns a tuple with the TotalTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalTokens
 
-`func (o *RoutedUsage) SetTotalTokens(v int32)`
+`func (o *RoutedUsage) SetTotalTokens(v int64)`
 
 SetTotalTokens sets TotalTokens field to given value.
 

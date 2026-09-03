@@ -28,9 +28,9 @@ type CartItem struct {
 	// Name is the item's display name, cached onto the line when it was added so a cart renders without a second read.
 	Name *string `json:"name,omitempty"`
 	// PriceCents is the unit price in whole cents, cached at the moment the line was added. The line's contribution to the cart is this times Quantity.
-	PriceCents *int32 `json:"priceCents,omitempty"`
+	PriceCents *int64 `json:"priceCents,omitempty"`
 	// Quantity is how many units of this item the cart holds.
-	Quantity *int32 `json:"quantity,omitempty"`
+	Quantity *int64 `json:"quantity,omitempty"`
 	// SKU is the line's stock-keeping unit — the variant's when it has one, otherwise the product's. Empty when neither carries one.
 	Sku *string `json:"sku,omitempty"`
 }
@@ -181,9 +181,9 @@ func (o *CartItem) SetName(v string) {
 }
 
 // GetPriceCents returns the PriceCents field value if set, zero value otherwise.
-func (o *CartItem) GetPriceCents() int32 {
+func (o *CartItem) GetPriceCents() int64 {
 	if o == nil || IsNil(o.PriceCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PriceCents
@@ -191,7 +191,7 @@ func (o *CartItem) GetPriceCents() int32 {
 
 // GetPriceCentsOk returns a tuple with the PriceCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CartItem) GetPriceCentsOk() (*int32, bool) {
+func (o *CartItem) GetPriceCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.PriceCents) {
 		return nil, false
 	}
@@ -207,15 +207,15 @@ func (o *CartItem) HasPriceCents() bool {
 	return false
 }
 
-// SetPriceCents gets a reference to the given int32 and assigns it to the PriceCents field.
-func (o *CartItem) SetPriceCents(v int32) {
+// SetPriceCents gets a reference to the given int64 and assigns it to the PriceCents field.
+func (o *CartItem) SetPriceCents(v int64) {
 	o.PriceCents = &v
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise.
-func (o *CartItem) GetQuantity() int32 {
+func (o *CartItem) GetQuantity() int64 {
 	if o == nil || IsNil(o.Quantity) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Quantity
@@ -223,7 +223,7 @@ func (o *CartItem) GetQuantity() int32 {
 
 // GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CartItem) GetQuantityOk() (*int32, bool) {
+func (o *CartItem) GetQuantityOk() (*int64, bool) {
 	if o == nil || IsNil(o.Quantity) {
 		return nil, false
 	}
@@ -239,8 +239,8 @@ func (o *CartItem) HasQuantity() bool {
 	return false
 }
 
-// SetQuantity gets a reference to the given int32 and assigns it to the Quantity field.
-func (o *CartItem) SetQuantity(v int32) {
+// SetQuantity gets a reference to the given int64 and assigns it to the Quantity field.
+func (o *CartItem) SetQuantity(v int64) {
 	o.Quantity = &v
 }
 

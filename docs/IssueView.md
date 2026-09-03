@@ -5,23 +5,23 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Assignee** | Pointer to **string** | Assignee is who holds the work — an IAM username, or the login of the FIRST assignee when a forge issue has several. Absent when nobody holds it, which is exactly the state a claim needs. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the item was opened, in unix seconds. 0 when the source gave no parseable timestamp. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the item was opened, in unix seconds. 0 when the source gave no parseable timestamp. | [optional] 
 **Description** | Pointer to **string** | Description is the body, markdown as its author wrote it. Absent when empty. | [optional] 
-**DueAt** | Pointer to **int32** | DueAt is when the work is due, in unix seconds; absent means no due date. A forge row takes it from its MILESTONE&#39;s due date, since a forge issue has no deadline of its own. Never before StartAt, and never past 2200-01-01. | [optional] 
+**DueAt** | Pointer to **int64** | DueAt is when the work is due, in unix seconds; absent means no due date. A forge row takes it from its MILESTONE&#39;s due date, since a forge issue has no deadline of its own. Never before StartAt, and never past 2200-01-01. | [optional] 
 **ExtRef** | Pointer to **string** | ExtRef anchors the item to something outside the todo — a mirrored issue (\&quot;github:owner/repo#123\&quot;), a pushed PR branch, or a record on another plane. It is the idempotency key the mirror upsert matches on. Absent when the item has no external origin. | [optional] 
 **Id** | Pointer to **string** | ID is the work item&#39;s opaque handle, and it is NOT how you address it — ProjectKey plus Number is. Its shape says which source answered: a forge issue&#39;s is the forge&#39;s own numeric id in decimal, an index row&#39;s a minted \&quot;issue_\&quot; id. | [optional] 
 **Identifier** | Pointer to **string** | Identifier is the human handle, \&quot;&lt;key&gt;#&lt;number&gt;\&quot; — the board and the number on it, joined. ONE spelling whichever source answered, because a list where forge rows read cli#1 and index rows read OPS-3 is two products in one list. | [optional] 
 **Kind** | Pointer to **string** | Kind is what the item IS: issue, pr or epic. Set once at create and never changed, so a row does not migrate between surfaces. Deliberately not \&quot;task\&quot; — that word is the async plane (contract.go). | [optional] 
 **Labels** | Pointer to **[]string** | Labels are the item&#39;s remaining tags, with the status and priority labels lifted OUT — a column that stayed here would render twice, once as the card&#39;s column and once as a chip on the card. Always present; empty is []. | [optional] 
-**Number** | Pointer to **int32** | Number is the item&#39;s number ON ITS BOARD, from 1 and monotonic there — the forge&#39;s own issue number for a forge row, allocated inside the create transaction for an index row so it cannot race. Unique per board, never across the org. | [optional] 
+**Number** | Pointer to **int64** | Number is the item&#39;s number ON ITS BOARD, from 1 and monotonic there — the forge&#39;s own issue number for a forge row, allocated inside the create transaction for an index row so it cannot race. Unique per board, never across the org. | [optional] 
 **Priority** | Pointer to **string** | Priority is urgent, high, medium, low or none. Also a label on a forge row. Never empty: \&quot;none\&quot; when nothing names one, so callers compare a value rather than test for absence. | [optional] 
 **ProjectKey** | Pointer to **string** | ProjectKey is the board this item is on: the repository name for a forge issue, the index board&#39;s key otherwise. With Number it is the item&#39;s address in every other route. | [optional] 
 **Repo** | Pointer to **string** | Repo is the git repository the item is bound to, so a repository&#39;s Issues and PRs tabs are filters over this one table. Absent when the item is not repo-bound. | [optional] 
 **Source** | Pointer to **string** | Source is which surface OPENED it: team, git, crm, helpdesk, cms or agent. Also set once. It is the ORIGIN, not the subject — source&#x3D;helpdesk is an engineering issue opened from a support escalation, not a support ticket. | [optional] 
-**StartAt** | Pointer to **int32** | StartAt is when the work starts, in unix seconds; absent means unscheduled. A forge row takes it from when the issue was opened, but only once the issue has a due date — an interval needs both ends. | [optional] 
+**StartAt** | Pointer to **int64** | StartAt is when the work starts, in unix seconds; absent means unscheduled. A forge row takes it from when the issue was opened, but only once the issue has a due date — an interval needs both ends. | [optional] 
 **Status** | Pointer to **string** | Status is the board column: backlog, todo, in_progress, done or canceled, and nothing else. On a forge row it is read off a LABEL, so relabelling in the forge web UI moves the card here and vice versa — and a CLOSED forge issue reads done whatever its labels say. Never empty: \&quot;backlog\&quot; when nothing names a column. | [optional] 
 **Title** | Pointer to **string** | Title is the item&#39;s one-line summary. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is when it last changed, in unix seconds. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is when it last changed, in unix seconds. | [optional] 
 
 ## Methods
 
@@ -69,20 +69,20 @@ HasAssignee returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *IssueView) GetCreatedAt() int32`
+`func (o *IssueView) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *IssueView) GetCreatedAtOk() (*int32, bool)`
+`func (o *IssueView) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *IssueView) SetCreatedAt(v int32)`
+`func (o *IssueView) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -119,20 +119,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetDueAt
 
-`func (o *IssueView) GetDueAt() int32`
+`func (o *IssueView) GetDueAt() int64`
 
 GetDueAt returns the DueAt field if non-nil, zero value otherwise.
 
 ### GetDueAtOk
 
-`func (o *IssueView) GetDueAtOk() (*int32, bool)`
+`func (o *IssueView) GetDueAtOk() (*int64, bool)`
 
 GetDueAtOk returns a tuple with the DueAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDueAt
 
-`func (o *IssueView) SetDueAt(v int32)`
+`func (o *IssueView) SetDueAt(v int64)`
 
 SetDueAt sets DueAt field to given value.
 
@@ -269,20 +269,20 @@ HasLabels returns a boolean if a field has been set.
 
 ### GetNumber
 
-`func (o *IssueView) GetNumber() int32`
+`func (o *IssueView) GetNumber() int64`
 
 GetNumber returns the Number field if non-nil, zero value otherwise.
 
 ### GetNumberOk
 
-`func (o *IssueView) GetNumberOk() (*int32, bool)`
+`func (o *IssueView) GetNumberOk() (*int64, bool)`
 
 GetNumberOk returns a tuple with the Number field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumber
 
-`func (o *IssueView) SetNumber(v int32)`
+`func (o *IssueView) SetNumber(v int64)`
 
 SetNumber sets Number field to given value.
 
@@ -394,20 +394,20 @@ HasSource returns a boolean if a field has been set.
 
 ### GetStartAt
 
-`func (o *IssueView) GetStartAt() int32`
+`func (o *IssueView) GetStartAt() int64`
 
 GetStartAt returns the StartAt field if non-nil, zero value otherwise.
 
 ### GetStartAtOk
 
-`func (o *IssueView) GetStartAtOk() (*int32, bool)`
+`func (o *IssueView) GetStartAtOk() (*int64, bool)`
 
 GetStartAtOk returns a tuple with the StartAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartAt
 
-`func (o *IssueView) SetStartAt(v int32)`
+`func (o *IssueView) SetStartAt(v int64)`
 
 SetStartAt sets StartAt field to given value.
 
@@ -469,20 +469,20 @@ HasTitle returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *IssueView) GetUpdatedAt() int32`
+`func (o *IssueView) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *IssueView) GetUpdatedAtOk() (*int32, bool)`
+`func (o *IssueView) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *IssueView) SetUpdatedAt(v int32)`
+`func (o *IssueView) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

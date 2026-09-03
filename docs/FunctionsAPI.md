@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 ## DeleteFunctionsByName
 
-> map[string]interface{} DeleteFunctionsByName(ctx, name).Execute()
+> DeleteFunctionsByName(ctx, name).Execute()
 
 Removes one of the caller org's functions and answers 204.
 
@@ -43,13 +43,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FunctionsAPI.DeleteFunctionsByName(context.Background(), name).Execute()
+	r, err := apiClient.FunctionsAPI.DeleteFunctionsByName(context.Background(), name).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.DeleteFunctionsByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteFunctionsByName`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.DeleteFunctionsByName`: %v\n", resp)
 }
 ```
 
@@ -72,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+ (empty response body)
 
 ### Authorization
 
@@ -81,7 +79,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -241,7 +239,7 @@ import (
 
 func main() {
 	name := "name_example" // string | Name is the function the URL names.
-	limit := int32(56) // int32 | Limit caps the page, defaulting to 100. (optional)
+	limit := int64(789) // int64 | Limit caps the page, defaulting to 100. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -271,7 +269,7 @@ Other parameters are passed through a pointer to a apiGetFunctionsByNameInvocati
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **limit** | **int32** | Limit caps the page, defaulting to 100. | 
+ **limit** | **int64** | Limit caps the page, defaulting to 100. | 
 
 ### Return type
 

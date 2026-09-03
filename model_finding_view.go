@@ -20,13 +20,13 @@ var _ MappedNullable = &FindingView{}
 // FindingView struct for FindingView
 type FindingView struct {
 	// CreatedAt is when the finding was recorded, in Unix milliseconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Fingerprint is the SHA-256 of the raw secret. It is what makes the same secret recognisable across scans and after rotation without the secret ever being written down.
 	Fingerprint *string `json:"fingerprint,omitempty"`
 	// ID addresses this finding.
 	Id *string `json:"id,omitempty"`
 	// Line is where in that file.
-	Line *int32 `json:"line,omitempty"`
+	Line *int64 `json:"line,omitempty"`
 	// Path is the file the secret was found in.
 	Path *string `json:"path,omitempty"`
 	// Preview is the secret MASKED — first and last characters kept, the middle starred — so a reviewer can recognise it without it being disclosed.
@@ -59,9 +59,9 @@ func NewFindingViewWithDefaults() *FindingView {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *FindingView) GetCreatedAt() int32 {
+func (o *FindingView) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -69,7 +69,7 @@ func (o *FindingView) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FindingView) GetCreatedAtOk() (*int32, bool) {
+func (o *FindingView) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -85,8 +85,8 @@ func (o *FindingView) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *FindingView) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *FindingView) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -155,9 +155,9 @@ func (o *FindingView) SetId(v string) {
 }
 
 // GetLine returns the Line field value if set, zero value otherwise.
-func (o *FindingView) GetLine() int32 {
+func (o *FindingView) GetLine() int64 {
 	if o == nil || IsNil(o.Line) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Line
@@ -165,7 +165,7 @@ func (o *FindingView) GetLine() int32 {
 
 // GetLineOk returns a tuple with the Line field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FindingView) GetLineOk() (*int32, bool) {
+func (o *FindingView) GetLineOk() (*int64, bool) {
 	if o == nil || IsNil(o.Line) {
 		return nil, false
 	}
@@ -181,8 +181,8 @@ func (o *FindingView) HasLine() bool {
 	return false
 }
 
-// SetLine gets a reference to the given int32 and assigns it to the Line field.
-func (o *FindingView) SetLine(v int32) {
+// SetLine gets a reference to the given int64 and assigns it to the Line field.
+func (o *FindingView) SetLine(v int64) {
 	o.Line = &v
 }
 

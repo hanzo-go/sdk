@@ -22,9 +22,9 @@ type O11yO11yLLMPricingCacheCosts struct {
 	// Mode is how cached tokens are counted — subtract (inside input_tokens, OpenAI-style), additive (reported separately, Anthropic-style) or unknown.
 	Mode *string `json:"mode,omitempty"`
 	// Read is the cost per unit of cache-read tokens.
-	Read *float32 `json:"read,omitempty"`
+	Read *float64 `json:"read,omitempty"`
 	// Write is the cost per unit of cache-write tokens.
-	Write *float32 `json:"write,omitempty"`
+	Write *float64 `json:"write,omitempty"`
 }
 
 // NewO11yO11yLLMPricingCacheCosts instantiates a new O11yO11yLLMPricingCacheCosts object
@@ -77,9 +77,9 @@ func (o *O11yO11yLLMPricingCacheCosts) SetMode(v string) {
 }
 
 // GetRead returns the Read field value if set, zero value otherwise.
-func (o *O11yO11yLLMPricingCacheCosts) GetRead() float32 {
+func (o *O11yO11yLLMPricingCacheCosts) GetRead() float64 {
 	if o == nil || IsNil(o.Read) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Read
@@ -87,7 +87,7 @@ func (o *O11yO11yLLMPricingCacheCosts) GetRead() float32 {
 
 // GetReadOk returns a tuple with the Read field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLLMPricingCacheCosts) GetReadOk() (*float32, bool) {
+func (o *O11yO11yLLMPricingCacheCosts) GetReadOk() (*float64, bool) {
 	if o == nil || IsNil(o.Read) {
 		return nil, false
 	}
@@ -103,15 +103,15 @@ func (o *O11yO11yLLMPricingCacheCosts) HasRead() bool {
 	return false
 }
 
-// SetRead gets a reference to the given float32 and assigns it to the Read field.
-func (o *O11yO11yLLMPricingCacheCosts) SetRead(v float32) {
+// SetRead gets a reference to the given float64 and assigns it to the Read field.
+func (o *O11yO11yLLMPricingCacheCosts) SetRead(v float64) {
 	o.Read = &v
 }
 
 // GetWrite returns the Write field value if set, zero value otherwise.
-func (o *O11yO11yLLMPricingCacheCosts) GetWrite() float32 {
+func (o *O11yO11yLLMPricingCacheCosts) GetWrite() float64 {
 	if o == nil || IsNil(o.Write) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Write
@@ -119,7 +119,7 @@ func (o *O11yO11yLLMPricingCacheCosts) GetWrite() float32 {
 
 // GetWriteOk returns a tuple with the Write field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLLMPricingCacheCosts) GetWriteOk() (*float32, bool) {
+func (o *O11yO11yLLMPricingCacheCosts) GetWriteOk() (*float64, bool) {
 	if o == nil || IsNil(o.Write) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *O11yO11yLLMPricingCacheCosts) HasWrite() bool {
 	return false
 }
 
-// SetWrite gets a reference to the given float32 and assigns it to the Write field.
-func (o *O11yO11yLLMPricingCacheCosts) SetWrite(v float32) {
+// SetWrite gets a reference to the given float64 and assigns it to the Write field.
+func (o *O11yO11yLLMPricingCacheCosts) SetWrite(v float64) {
 	o.Write = &v
 }
 

@@ -6,18 +6,18 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **NotifierConfig** | Pointer to [**O11yNotifierConfig**](O11yNotifierConfig.md) |  | [optional] 
 **Device** | Pointer to **string** |  | [optional] 
-**Expire** | Pointer to **int32** |  | [optional] 
+**Expire** | Pointer to **int64** |  | [optional] 
 **Html** | Pointer to **bool** |  | [optional] 
 **HttpConfig** | Pointer to [**O11yHTTPClientConfig**](O11yHTTPClientConfig.md) |  | [optional] 
 **Message** | Pointer to **string** |  | [optional] 
 **Monospace** | Pointer to **bool** |  | [optional] 
 **Priority** | Pointer to **string** |  | [optional] 
-**Retry** | Pointer to **int32** |  | [optional] 
+**Retry** | Pointer to **int64** |  | [optional] 
 **Sound** | Pointer to **string** |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **Token** | Pointer to **interface{}** |  | [optional] 
 **TokenFile** | Pointer to **string** |  | [optional] 
-**Ttl** | Pointer to **int32** |  | [optional] 
+**Ttl** | Pointer to **int64** |  | [optional] 
 **Url** | Pointer to **string** |  | [optional] 
 **UrlTitle** | Pointer to **string** |  | [optional] 
 **UserKey** | Pointer to **interface{}** |  | [optional] 
@@ -94,20 +94,20 @@ HasDevice returns a boolean if a field has been set.
 
 ### GetExpire
 
-`func (o *O11yPushoverConfig) GetExpire() int32`
+`func (o *O11yPushoverConfig) GetExpire() int64`
 
 GetExpire returns the Expire field if non-nil, zero value otherwise.
 
 ### GetExpireOk
 
-`func (o *O11yPushoverConfig) GetExpireOk() (*int32, bool)`
+`func (o *O11yPushoverConfig) GetExpireOk() (*int64, bool)`
 
 GetExpireOk returns a tuple with the Expire field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpire
 
-`func (o *O11yPushoverConfig) SetExpire(v int32)`
+`func (o *O11yPushoverConfig) SetExpire(v int64)`
 
 SetExpire sets Expire field to given value.
 
@@ -244,20 +244,20 @@ HasPriority returns a boolean if a field has been set.
 
 ### GetRetry
 
-`func (o *O11yPushoverConfig) GetRetry() int32`
+`func (o *O11yPushoverConfig) GetRetry() int64`
 
 GetRetry returns the Retry field if non-nil, zero value otherwise.
 
 ### GetRetryOk
 
-`func (o *O11yPushoverConfig) GetRetryOk() (*int32, bool)`
+`func (o *O11yPushoverConfig) GetRetryOk() (*int64, bool)`
 
 GetRetryOk returns a tuple with the Retry field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRetry
 
-`func (o *O11yPushoverConfig) SetRetry(v int32)`
+`func (o *O11yPushoverConfig) SetRetry(v int64)`
 
 SetRetry sets Retry field to given value.
 
@@ -379,20 +379,20 @@ HasTokenFile returns a boolean if a field has been set.
 
 ### GetTtl
 
-`func (o *O11yPushoverConfig) GetTtl() int32`
+`func (o *O11yPushoverConfig) GetTtl() int64`
 
 GetTtl returns the Ttl field if non-nil, zero value otherwise.
 
 ### GetTtlOk
 
-`func (o *O11yPushoverConfig) GetTtlOk() (*int32, bool)`
+`func (o *O11yPushoverConfig) GetTtlOk() (*int64, bool)`
 
 GetTtlOk returns a tuple with the Ttl field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTtl
 
-`func (o *O11yPushoverConfig) SetTtl(v int32)`
+`func (o *O11yPushoverConfig) SetTtl(v int64)`
 
 SetTtl sets Ttl field to given value.
 

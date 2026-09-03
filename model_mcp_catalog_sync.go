@@ -20,13 +20,13 @@ var _ MappedNullable = &McpCatalogSync{}
 // McpCatalogSync struct for McpCatalogSync
 type McpCatalogSync struct {
 	// Added is how many listings the catalog did not have before.
-	Added *int32 `json:"added,omitempty"`
+	Added *int64 `json:"added,omitempty"`
 	// Registry is the upstream this pass read.
 	Registry *string `json:"registry,omitempty"`
 	// Total is how many listings the catalog holds now.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 	// Updated is how many the publisher has changed since we last looked.
-	Updated *int32 `json:"updated,omitempty"`
+	Updated *int64 `json:"updated,omitempty"`
 }
 
 // NewMcpCatalogSync instantiates a new McpCatalogSync object
@@ -47,9 +47,9 @@ func NewMcpCatalogSyncWithDefaults() *McpCatalogSync {
 }
 
 // GetAdded returns the Added field value if set, zero value otherwise.
-func (o *McpCatalogSync) GetAdded() int32 {
+func (o *McpCatalogSync) GetAdded() int64 {
 	if o == nil || IsNil(o.Added) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Added
@@ -57,7 +57,7 @@ func (o *McpCatalogSync) GetAdded() int32 {
 
 // GetAddedOk returns a tuple with the Added field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *McpCatalogSync) GetAddedOk() (*int32, bool) {
+func (o *McpCatalogSync) GetAddedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Added) {
 		return nil, false
 	}
@@ -73,8 +73,8 @@ func (o *McpCatalogSync) HasAdded() bool {
 	return false
 }
 
-// SetAdded gets a reference to the given int32 and assigns it to the Added field.
-func (o *McpCatalogSync) SetAdded(v int32) {
+// SetAdded gets a reference to the given int64 and assigns it to the Added field.
+func (o *McpCatalogSync) SetAdded(v int64) {
 	o.Added = &v
 }
 
@@ -111,9 +111,9 @@ func (o *McpCatalogSync) SetRegistry(v string) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *McpCatalogSync) GetTotal() int32 {
+func (o *McpCatalogSync) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -121,7 +121,7 @@ func (o *McpCatalogSync) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *McpCatalogSync) GetTotalOk() (*int32, bool) {
+func (o *McpCatalogSync) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *McpCatalogSync) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *McpCatalogSync) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *McpCatalogSync) SetTotal(v int64) {
 	o.Total = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *McpCatalogSync) GetUpdated() int32 {
+func (o *McpCatalogSync) GetUpdated() int64 {
 	if o == nil || IsNil(o.Updated) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Updated
@@ -153,7 +153,7 @@ func (o *McpCatalogSync) GetUpdated() int32 {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *McpCatalogSync) GetUpdatedOk() (*int32, bool) {
+func (o *McpCatalogSync) GetUpdatedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *McpCatalogSync) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given int32 and assigns it to the Updated field.
-func (o *McpCatalogSync) SetUpdated(v int32) {
+// SetUpdated gets a reference to the given int64 and assigns it to the Updated field.
+func (o *McpCatalogSync) SetUpdated(v int64) {
 	o.Updated = &v
 }
 

@@ -20,9 +20,9 @@ var _ MappedNullable = &Invoice{}
 // Invoice struct for Invoice
 type Invoice struct {
 	// AmountDueCents is what remains collectible.
-	AmountDueCents *int32 `json:"amountDueCents,omitempty"`
+	AmountDueCents *int64 `json:"amountDueCents,omitempty"`
 	// AmountPaidCents is what has been collected so far.
-	AmountPaidCents *int32 `json:"amountPaidCents,omitempty"`
+	AmountPaidCents *int64 `json:"amountPaidCents,omitempty"`
 	// CreatedAt is when the draft was raised, RFC3339.
 	CreatedAt *string `json:"createdAt,omitempty"`
 	// Currency is the ISO 4217 code.
@@ -40,7 +40,7 @@ type Invoice struct {
 	// Status is draft, open, paid, void or uncollectible. A draft is not collectible; issuing moves it to open.
 	Status *string `json:"status,omitempty"`
 	// SubtotalCents is the sum of the lines.
-	SubtotalCents *int32 `json:"subtotalCents,omitempty"`
+	SubtotalCents *int64 `json:"subtotalCents,omitempty"`
 	// UserID is the customer billed.
 	UserId *string `json:"userId,omitempty"`
 }
@@ -63,9 +63,9 @@ func NewInvoiceWithDefaults() *Invoice {
 }
 
 // GetAmountDueCents returns the AmountDueCents field value if set, zero value otherwise.
-func (o *Invoice) GetAmountDueCents() int32 {
+func (o *Invoice) GetAmountDueCents() int64 {
 	if o == nil || IsNil(o.AmountDueCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AmountDueCents
@@ -73,7 +73,7 @@ func (o *Invoice) GetAmountDueCents() int32 {
 
 // GetAmountDueCentsOk returns a tuple with the AmountDueCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Invoice) GetAmountDueCentsOk() (*int32, bool) {
+func (o *Invoice) GetAmountDueCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AmountDueCents) {
 		return nil, false
 	}
@@ -89,15 +89,15 @@ func (o *Invoice) HasAmountDueCents() bool {
 	return false
 }
 
-// SetAmountDueCents gets a reference to the given int32 and assigns it to the AmountDueCents field.
-func (o *Invoice) SetAmountDueCents(v int32) {
+// SetAmountDueCents gets a reference to the given int64 and assigns it to the AmountDueCents field.
+func (o *Invoice) SetAmountDueCents(v int64) {
 	o.AmountDueCents = &v
 }
 
 // GetAmountPaidCents returns the AmountPaidCents field value if set, zero value otherwise.
-func (o *Invoice) GetAmountPaidCents() int32 {
+func (o *Invoice) GetAmountPaidCents() int64 {
 	if o == nil || IsNil(o.AmountPaidCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AmountPaidCents
@@ -105,7 +105,7 @@ func (o *Invoice) GetAmountPaidCents() int32 {
 
 // GetAmountPaidCentsOk returns a tuple with the AmountPaidCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Invoice) GetAmountPaidCentsOk() (*int32, bool) {
+func (o *Invoice) GetAmountPaidCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AmountPaidCents) {
 		return nil, false
 	}
@@ -121,8 +121,8 @@ func (o *Invoice) HasAmountPaidCents() bool {
 	return false
 }
 
-// SetAmountPaidCents gets a reference to the given int32 and assigns it to the AmountPaidCents field.
-func (o *Invoice) SetAmountPaidCents(v int32) {
+// SetAmountPaidCents gets a reference to the given int64 and assigns it to the AmountPaidCents field.
+func (o *Invoice) SetAmountPaidCents(v int64) {
 	o.AmountPaidCents = &v
 }
 
@@ -383,9 +383,9 @@ func (o *Invoice) SetStatus(v string) {
 }
 
 // GetSubtotalCents returns the SubtotalCents field value if set, zero value otherwise.
-func (o *Invoice) GetSubtotalCents() int32 {
+func (o *Invoice) GetSubtotalCents() int64 {
 	if o == nil || IsNil(o.SubtotalCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SubtotalCents
@@ -393,7 +393,7 @@ func (o *Invoice) GetSubtotalCents() int32 {
 
 // GetSubtotalCentsOk returns a tuple with the SubtotalCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Invoice) GetSubtotalCentsOk() (*int32, bool) {
+func (o *Invoice) GetSubtotalCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.SubtotalCents) {
 		return nil, false
 	}
@@ -409,8 +409,8 @@ func (o *Invoice) HasSubtotalCents() bool {
 	return false
 }
 
-// SetSubtotalCents gets a reference to the given int32 and assigns it to the SubtotalCents field.
-func (o *Invoice) SetSubtotalCents(v int32) {
+// SetSubtotalCents gets a reference to the given int64 and assigns it to the SubtotalCents field.
+func (o *Invoice) SetSubtotalCents(v int64) {
 	o.SubtotalCents = &v
 }
 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Language** | Pointer to **string** | Language narrows the search to a locale, BCP-47-ish (\&quot;en\&quot;, \&quot;ja\&quot;). Empty means no narrowing. | [optional] 
-**MaxSources** | Pointer to **int32** | MaxSources caps how many pages are read. Empty means the mode&#39;s own budget. | [optional] 
+**MaxSources** | Pointer to **int64** | MaxSources caps how many pages are read. Empty means the mode&#39;s own budget. | [optional] 
 **Mode** | Pointer to **string** | Mode is how much work to do: &#x60;search&#x60; (fast, one pass), &#x60;news&#x60; (recency biased), &#x60;research&#x60; (a plan and several rounds) or &#x60;deep&#x60; (the widest survey). Empty means research. | [optional] 
 **Q** | Pointer to **string** | Q is the question, in plain language. Required. | [optional] 
 **Sources** | Pointer to **[]string** | Sources narrows where the evidence comes from: any of &#x60;web&#x60;, &#x60;news&#x60;, &#x60;academic&#x60;, &#x60;github&#x60;, &#x60;reddit&#x60;, &#x60;x&#x60;. Each becomes a site-scoped search, so &#x60;[\&quot;x\&quot;]&#x60; researches X/Twitter posts rather than the open web. | [optional] 
@@ -56,20 +56,20 @@ HasLanguage returns a boolean if a field has been set.
 
 ### GetMaxSources
 
-`func (o *WebQuestion) GetMaxSources() int32`
+`func (o *WebQuestion) GetMaxSources() int64`
 
 GetMaxSources returns the MaxSources field if non-nil, zero value otherwise.
 
 ### GetMaxSourcesOk
 
-`func (o *WebQuestion) GetMaxSourcesOk() (*int32, bool)`
+`func (o *WebQuestion) GetMaxSourcesOk() (*int64, bool)`
 
 GetMaxSourcesOk returns a tuple with the MaxSources field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxSources
 
-`func (o *WebQuestion) SetMaxSources(v int32)`
+`func (o *WebQuestion) SetMaxSources(v int64)`
 
 SetMaxSources sets MaxSources field to given value.
 

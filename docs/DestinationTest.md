@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Error** | Pointer to **string** | Error is the platform&#39;s rejection, present only on a failed send. | [optional] 
 **Message** | Pointer to **string** | Message is the platform&#39;s own note about the send, present only on success. | [optional] 
 **Ok** | Pointer to **bool** | OK is true when the platform accepted the synthetic event. | [optional] 
-**Sent** | Pointer to **int32** | Sent is how many events the platform accepted, present only on success. | [optional] 
+**Sent** | Pointer to **int64** | Sent is how many events the platform accepted, present only on success. | [optional] 
 
 ## Methods
 
@@ -105,20 +105,20 @@ HasOk returns a boolean if a field has been set.
 
 ### GetSent
 
-`func (o *DestinationTest) GetSent() int32`
+`func (o *DestinationTest) GetSent() int64`
 
 GetSent returns the Sent field if non-nil, zero value otherwise.
 
 ### GetSentOk
 
-`func (o *DestinationTest) GetSentOk() (*int32, bool)`
+`func (o *DestinationTest) GetSentOk() (*int64, bool)`
 
 GetSentOk returns a tuple with the Sent field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSent
 
-`func (o *DestinationTest) SetSent(v int32)`
+`func (o *DestinationTest) SetSent(v int64)`
 
 SetSent sets Sent field to given value.
 

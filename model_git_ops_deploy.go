@@ -24,7 +24,7 @@ type GitOpsDeploy struct {
 	// DeployedAt is when the apply finished, RFC 3339. Absent when CD recorded none.
 	DeployedAt *string `json:"deployedAt,omitempty"`
 	// ID is CD's own sequence number for this deploy (status.history[].id). It increases with every applied revision, so the largest id in `history` is the most recent deploy — which is the first entry, since the list is reversed.
-	Id *int32 `json:"id,omitempty"`
+	Id *int64 `json:"id,omitempty"`
 	// Revision is the git commit this deploy applied, as CD recorded it.
 	Revision *string `json:"revision,omitempty"`
 	// StartedAt is when CD began applying the revision (deployStartedAt), RFC 3339. Absent when CD recorded none.
@@ -113,9 +113,9 @@ func (o *GitOpsDeploy) SetDeployedAt(v string) {
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *GitOpsDeploy) GetId() int32 {
+func (o *GitOpsDeploy) GetId() int64 {
 	if o == nil || IsNil(o.Id) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Id
@@ -123,7 +123,7 @@ func (o *GitOpsDeploy) GetId() int32 {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GitOpsDeploy) GetIdOk() (*int32, bool) {
+func (o *GitOpsDeploy) GetIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -139,8 +139,8 @@ func (o *GitOpsDeploy) HasId() bool {
 	return false
 }
 
-// SetId gets a reference to the given int32 and assigns it to the Id field.
-func (o *GitOpsDeploy) SetId(v int32) {
+// SetId gets a reference to the given int64 and assigns it to the Id field.
+func (o *GitOpsDeploy) SetId(v int64) {
 	o.Id = &v
 }
 

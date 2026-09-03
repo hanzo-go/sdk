@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Message** | Pointer to **string** | Message is the human sentence the cap table wrote, e.g. \&quot;Share transferred\&quot;. | [optional] 
 **NewShareId** | Pointer to **string** | NewShareID names the certificate a PARTIAL transfer created. It is null on a full transfer, which reassigns the existing certificate instead of splitting it — so null here means \&quot;no new certificate\&quot;, never \&quot;the transfer failed\&quot;. | [optional] 
 **Success** | Pointer to **bool** | Success is true when the transfer was applied. | [optional] 
-**Transferred** | Pointer to **int32** | Transferred is how many shares moved. | [optional] 
+**Transferred** | Pointer to **int64** | Transferred is how many shares moved. | [optional] 
 
 ## Methods
 
@@ -105,20 +105,20 @@ HasSuccess returns a boolean if a field has been set.
 
 ### GetTransferred
 
-`func (o *CaptableTransferred) GetTransferred() int32`
+`func (o *CaptableTransferred) GetTransferred() int64`
 
 GetTransferred returns the Transferred field if non-nil, zero value otherwise.
 
 ### GetTransferredOk
 
-`func (o *CaptableTransferred) GetTransferredOk() (*int32, bool)`
+`func (o *CaptableTransferred) GetTransferredOk() (*int64, bool)`
 
 GetTransferredOk returns a tuple with the Transferred field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTransferred
 
-`func (o *CaptableTransferred) SetTransferred(v int32)`
+`func (o *CaptableTransferred) SetTransferred(v int64)`
 
 SetTransferred sets Transferred field to given value.
 

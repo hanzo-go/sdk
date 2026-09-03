@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AutoScale** | Pointer to **bool** | AutoScale reports whether the provider&#39;s cluster autoscaler owns this pool&#39;s size, moving Count between MinNodes and MaxNodes as workloads demand. False means Count changes only when someone scales the pool. | [optional] 
-**Count** | Pointer to **int32** | Count is how many nodes the pool has right now. Always present, so 0 means a pool that is genuinely empty rather than a figure the provider withheld. | [optional] 
-**MaxNodes** | Pointer to **int32** | MaxNodes is the ceiling the autoscaler will not grow the pool past, and so the bound on what this pool can cost. Read it only with AutoScale set. | [optional] 
-**MinNodes** | Pointer to **int32** | MinNodes is the floor the autoscaler will not shrink the pool below. Read it only with AutoScale set — the provider ignores it otherwise. | [optional] 
+**Count** | Pointer to **int64** | Count is how many nodes the pool has right now. Always present, so 0 means a pool that is genuinely empty rather than a figure the provider withheld. | [optional] 
+**MaxNodes** | Pointer to **int64** | MaxNodes is the ceiling the autoscaler will not grow the pool past, and so the bound on what this pool can cost. Read it only with AutoScale set. | [optional] 
+**MinNodes** | Pointer to **int64** | MinNodes is the floor the autoscaler will not shrink the pool below. Read it only with AutoScale set — the provider ignores it otherwise. | [optional] 
 **Name** | Pointer to **string** | Name is the pool&#39;s name as the provider knows it. | [optional] 
 **PoolId** | Pointer to **string** | PoolID is the provider&#39;s id for the pool — the value the scale and delete routes address it by. It falls back to the pool&#39;s name when the provider answered without one, so it is always something the routes accept. | [optional] 
 **Size** | Pointer to **string** | Size is the provider size slug every node in the pool runs at (\&quot;s-4vcpu-8gb\&quot;, \&quot;gpu-h100x8-640gb\&quot;). One pool is one size — a mixed cluster is several pools. | [optional] 
@@ -58,20 +58,20 @@ HasAutoScale returns a boolean if a field has been set.
 
 ### GetCount
 
-`func (o *NodePoolView) GetCount() int32`
+`func (o *NodePoolView) GetCount() int64`
 
 GetCount returns the Count field if non-nil, zero value otherwise.
 
 ### GetCountOk
 
-`func (o *NodePoolView) GetCountOk() (*int32, bool)`
+`func (o *NodePoolView) GetCountOk() (*int64, bool)`
 
 GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCount
 
-`func (o *NodePoolView) SetCount(v int32)`
+`func (o *NodePoolView) SetCount(v int64)`
 
 SetCount sets Count field to given value.
 
@@ -83,20 +83,20 @@ HasCount returns a boolean if a field has been set.
 
 ### GetMaxNodes
 
-`func (o *NodePoolView) GetMaxNodes() int32`
+`func (o *NodePoolView) GetMaxNodes() int64`
 
 GetMaxNodes returns the MaxNodes field if non-nil, zero value otherwise.
 
 ### GetMaxNodesOk
 
-`func (o *NodePoolView) GetMaxNodesOk() (*int32, bool)`
+`func (o *NodePoolView) GetMaxNodesOk() (*int64, bool)`
 
 GetMaxNodesOk returns a tuple with the MaxNodes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxNodes
 
-`func (o *NodePoolView) SetMaxNodes(v int32)`
+`func (o *NodePoolView) SetMaxNodes(v int64)`
 
 SetMaxNodes sets MaxNodes field to given value.
 
@@ -108,20 +108,20 @@ HasMaxNodes returns a boolean if a field has been set.
 
 ### GetMinNodes
 
-`func (o *NodePoolView) GetMinNodes() int32`
+`func (o *NodePoolView) GetMinNodes() int64`
 
 GetMinNodes returns the MinNodes field if non-nil, zero value otherwise.
 
 ### GetMinNodesOk
 
-`func (o *NodePoolView) GetMinNodesOk() (*int32, bool)`
+`func (o *NodePoolView) GetMinNodesOk() (*int64, bool)`
 
 GetMinNodesOk returns a tuple with the MinNodes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMinNodes
 
-`func (o *NodePoolView) SetMinNodes(v int32)`
+`func (o *NodePoolView) SetMinNodes(v int64)`
 
 SetMinNodes sets MinNodes field to given value.
 

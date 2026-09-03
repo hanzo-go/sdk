@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AmountCents** | Pointer to **int32** | AmountCents is the amount disbursed, in cents. It was reserved against pending commission atomically when recorded, so it never exceeds what was owed. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the payout was recorded, Unix seconds UTC — when the balance moved, not necessarily when the cash landed. | [optional] 
+**AmountCents** | Pointer to **int64** | AmountCents is the amount disbursed, in cents. It was reserved against pending commission atomically when recorded, so it never exceeds what was owed. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the payout was recorded, Unix seconds UTC — when the balance moved, not necessarily when the cash landed. | [optional] 
 **Id** | Pointer to **string** | ID is the payout row&#39;s server-minted handle, \&quot;apo_\&quot;-prefixed. | [optional] 
 **Method** | Pointer to **string** | Method is how it was settled. \&quot;credits\&quot; issued a commerce grant into the affiliate org&#39;s own wallet; any other value (wire, paypal, check, …) is a RECORD of cash a human moved out of band. | [optional] 
 **Reference** | Pointer to **string** | Reference is the operator&#39;s settlement note — a bank id, a ledger ref. Free text, absent when none was given. | [optional] 
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAmountCents
 
-`func (o *Remittance) GetAmountCents() int32`
+`func (o *Remittance) GetAmountCents() int64`
 
 GetAmountCents returns the AmountCents field if non-nil, zero value otherwise.
 
 ### GetAmountCentsOk
 
-`func (o *Remittance) GetAmountCentsOk() (*int32, bool)`
+`func (o *Remittance) GetAmountCentsOk() (*int64, bool)`
 
 GetAmountCentsOk returns a tuple with the AmountCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmountCents
 
-`func (o *Remittance) SetAmountCents(v int32)`
+`func (o *Remittance) SetAmountCents(v int64)`
 
 SetAmountCents sets AmountCents field to given value.
 
@@ -57,20 +57,20 @@ HasAmountCents returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *Remittance) GetCreatedAt() int32`
+`func (o *Remittance) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *Remittance) GetCreatedAtOk() (*int32, bool)`
+`func (o *Remittance) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *Remittance) SetCreatedAt(v int32)`
+`func (o *Remittance) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 

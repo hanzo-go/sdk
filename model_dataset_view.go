@@ -24,7 +24,7 @@ type DatasetView struct {
 	// Description is free text the org wrote about what this set measures.
 	Description *string `json:"description,omitempty"`
 	// Items is how many examples the set holds. It is filled only by the single read — a listing does not count, so it is absent there rather than zero.
-	Items *int32 `json:"items,omitempty"`
+	Items *int64 `json:"items,omitempty"`
 	// Metadata is the free-form object stored with the set, echoed back verbatim.
 	Metadata map[string]map[string]interface{} `json:"metadata,omitempty"`
 	// Name is the dataset's org-unique handle and the segment that addresses it.
@@ -115,9 +115,9 @@ func (o *DatasetView) SetDescription(v string) {
 }
 
 // GetItems returns the Items field value if set, zero value otherwise.
-func (o *DatasetView) GetItems() int32 {
+func (o *DatasetView) GetItems() int64 {
 	if o == nil || IsNil(o.Items) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Items
@@ -125,7 +125,7 @@ func (o *DatasetView) GetItems() int32 {
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DatasetView) GetItemsOk() (*int32, bool) {
+func (o *DatasetView) GetItemsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *DatasetView) HasItems() bool {
 	return false
 }
 
-// SetItems gets a reference to the given int32 and assigns it to the Items field.
-func (o *DatasetView) SetItems(v int32) {
+// SetItems gets a reference to the given int64 and assigns it to the Items field.
+func (o *DatasetView) SetItems(v int64) {
 	o.Items = &v
 }
 

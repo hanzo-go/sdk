@@ -36,7 +36,7 @@ type ScoreView struct {
 	// TraceID is the model call this score grades, when it grades one.
 	TraceId *string `json:"traceId,omitempty"`
 	// Value is the numeric score; for BOOLEAN it is 0 or 1.
-	Value *float32 `json:"value,omitempty"`
+	Value *float64 `json:"value,omitempty"`
 }
 
 // NewScoreView instantiates a new ScoreView object
@@ -313,9 +313,9 @@ func (o *ScoreView) SetTraceId(v string) {
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
-func (o *ScoreView) GetValue() float32 {
+func (o *ScoreView) GetValue() float64 {
 	if o == nil || IsNil(o.Value) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Value
@@ -323,7 +323,7 @@ func (o *ScoreView) GetValue() float32 {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ScoreView) GetValueOk() (*float32, bool) {
+func (o *ScoreView) GetValueOk() (*float64, bool) {
 	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
@@ -339,8 +339,8 @@ func (o *ScoreView) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given float32 and assigns it to the Value field.
-func (o *ScoreView) SetValue(v float32) {
+// SetValue gets a reference to the given float64 and assigns it to the Value field.
+func (o *ScoreView) SetValue(v float64) {
 	o.Value = &v
 }
 

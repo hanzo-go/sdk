@@ -19,9 +19,9 @@ var _ MappedNullable = &RollupBalance{}
 
 // RollupBalance struct for RollupBalance
 type RollupBalance struct {
-	AvailableCents *int32 `json:"availableCents,omitempty"`
-	BalanceCents   *int32 `json:"balanceCents,omitempty"`
-	HoldsCents     *int32 `json:"holdsCents,omitempty"`
+	AvailableCents *int64 `json:"availableCents,omitempty"`
+	BalanceCents   *int64 `json:"balanceCents,omitempty"`
+	HoldsCents     *int64 `json:"holdsCents,omitempty"`
 }
 
 // NewRollupBalance instantiates a new RollupBalance object
@@ -42,9 +42,9 @@ func NewRollupBalanceWithDefaults() *RollupBalance {
 }
 
 // GetAvailableCents returns the AvailableCents field value if set, zero value otherwise.
-func (o *RollupBalance) GetAvailableCents() int32 {
+func (o *RollupBalance) GetAvailableCents() int64 {
 	if o == nil || IsNil(o.AvailableCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AvailableCents
@@ -52,7 +52,7 @@ func (o *RollupBalance) GetAvailableCents() int32 {
 
 // GetAvailableCentsOk returns a tuple with the AvailableCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RollupBalance) GetAvailableCentsOk() (*int32, bool) {
+func (o *RollupBalance) GetAvailableCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AvailableCents) {
 		return nil, false
 	}
@@ -68,15 +68,15 @@ func (o *RollupBalance) HasAvailableCents() bool {
 	return false
 }
 
-// SetAvailableCents gets a reference to the given int32 and assigns it to the AvailableCents field.
-func (o *RollupBalance) SetAvailableCents(v int32) {
+// SetAvailableCents gets a reference to the given int64 and assigns it to the AvailableCents field.
+func (o *RollupBalance) SetAvailableCents(v int64) {
 	o.AvailableCents = &v
 }
 
 // GetBalanceCents returns the BalanceCents field value if set, zero value otherwise.
-func (o *RollupBalance) GetBalanceCents() int32 {
+func (o *RollupBalance) GetBalanceCents() int64 {
 	if o == nil || IsNil(o.BalanceCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.BalanceCents
@@ -84,7 +84,7 @@ func (o *RollupBalance) GetBalanceCents() int32 {
 
 // GetBalanceCentsOk returns a tuple with the BalanceCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RollupBalance) GetBalanceCentsOk() (*int32, bool) {
+func (o *RollupBalance) GetBalanceCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.BalanceCents) {
 		return nil, false
 	}
@@ -100,15 +100,15 @@ func (o *RollupBalance) HasBalanceCents() bool {
 	return false
 }
 
-// SetBalanceCents gets a reference to the given int32 and assigns it to the BalanceCents field.
-func (o *RollupBalance) SetBalanceCents(v int32) {
+// SetBalanceCents gets a reference to the given int64 and assigns it to the BalanceCents field.
+func (o *RollupBalance) SetBalanceCents(v int64) {
 	o.BalanceCents = &v
 }
 
 // GetHoldsCents returns the HoldsCents field value if set, zero value otherwise.
-func (o *RollupBalance) GetHoldsCents() int32 {
+func (o *RollupBalance) GetHoldsCents() int64 {
 	if o == nil || IsNil(o.HoldsCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.HoldsCents
@@ -116,7 +116,7 @@ func (o *RollupBalance) GetHoldsCents() int32 {
 
 // GetHoldsCentsOk returns a tuple with the HoldsCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RollupBalance) GetHoldsCentsOk() (*int32, bool) {
+func (o *RollupBalance) GetHoldsCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.HoldsCents) {
 		return nil, false
 	}
@@ -132,8 +132,8 @@ func (o *RollupBalance) HasHoldsCents() bool {
 	return false
 }
 
-// SetHoldsCents gets a reference to the given int32 and assigns it to the HoldsCents field.
-func (o *RollupBalance) SetHoldsCents(v int32) {
+// SetHoldsCents gets a reference to the given int64 and assigns it to the HoldsCents field.
+func (o *RollupBalance) SetHoldsCents(v int64) {
 	o.HoldsCents = &v
 }
 

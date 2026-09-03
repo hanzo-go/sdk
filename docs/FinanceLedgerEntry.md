@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Account** | Pointer to **string** |  | [optional] 
-**BalanceCents** | Pointer to **int32** |  | [optional] 
-**Cents** | Pointer to **int32** |  | [optional] 
+**BalanceCents** | Pointer to **int64** |  | [optional] 
+**Cents** | Pointer to **int64** |  | [optional] 
 **Currency** | Pointer to **string** |  | [optional] 
 **Date** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
@@ -58,20 +58,20 @@ HasAccount returns a boolean if a field has been set.
 
 ### GetBalanceCents
 
-`func (o *FinanceLedgerEntry) GetBalanceCents() int32`
+`func (o *FinanceLedgerEntry) GetBalanceCents() int64`
 
 GetBalanceCents returns the BalanceCents field if non-nil, zero value otherwise.
 
 ### GetBalanceCentsOk
 
-`func (o *FinanceLedgerEntry) GetBalanceCentsOk() (*int32, bool)`
+`func (o *FinanceLedgerEntry) GetBalanceCentsOk() (*int64, bool)`
 
 GetBalanceCentsOk returns a tuple with the BalanceCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBalanceCents
 
-`func (o *FinanceLedgerEntry) SetBalanceCents(v int32)`
+`func (o *FinanceLedgerEntry) SetBalanceCents(v int64)`
 
 SetBalanceCents sets BalanceCents field to given value.
 
@@ -83,20 +83,20 @@ HasBalanceCents returns a boolean if a field has been set.
 
 ### GetCents
 
-`func (o *FinanceLedgerEntry) GetCents() int32`
+`func (o *FinanceLedgerEntry) GetCents() int64`
 
 GetCents returns the Cents field if non-nil, zero value otherwise.
 
 ### GetCentsOk
 
-`func (o *FinanceLedgerEntry) GetCentsOk() (*int32, bool)`
+`func (o *FinanceLedgerEntry) GetCentsOk() (*int64, bool)`
 
 GetCentsOk returns a tuple with the Cents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCents
 
-`func (o *FinanceLedgerEntry) SetCents(v int32)`
+`func (o *FinanceLedgerEntry) SetCents(v int64)`
 
 SetCents sets Cents field to given value.
 

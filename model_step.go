@@ -22,13 +22,13 @@ type Step struct {
 	// Body is the message text. Required. The signed one-click unsubscribe link is appended to it at send time.
 	Body *string `json:"body,omitempty"`
 	// CreatedAt is unix seconds, server-assigned.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// DelaySeconds is how long after the previous step this one sends (after enrollment, for step 0).
-	DelaySeconds *int32 `json:"delaySeconds,omitempty"`
+	DelaySeconds *int64 `json:"delaySeconds,omitempty"`
 	// ID is the server-assigned step id (\"step_\" + 128 random bits).
 	Id *string `json:"id,omitempty"`
 	// Idx is the step's 0-based position, assigned by appending: a new step always lands after the last one.
-	Idx *int32 `json:"idx,omitempty"`
+	Idx *int64 `json:"idx,omitempty"`
 	// SequenceID is the sequence this step belongs to.
 	SequenceId *string `json:"sequenceId,omitempty"`
 	// Subject is the email subject line, capped at 1024 bytes.
@@ -85,9 +85,9 @@ func (o *Step) SetBody(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *Step) GetCreatedAt() int32 {
+func (o *Step) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -95,7 +95,7 @@ func (o *Step) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Step) GetCreatedAtOk() (*int32, bool) {
+func (o *Step) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -111,15 +111,15 @@ func (o *Step) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *Step) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *Step) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
 // GetDelaySeconds returns the DelaySeconds field value if set, zero value otherwise.
-func (o *Step) GetDelaySeconds() int32 {
+func (o *Step) GetDelaySeconds() int64 {
 	if o == nil || IsNil(o.DelaySeconds) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DelaySeconds
@@ -127,7 +127,7 @@ func (o *Step) GetDelaySeconds() int32 {
 
 // GetDelaySecondsOk returns a tuple with the DelaySeconds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Step) GetDelaySecondsOk() (*int32, bool) {
+func (o *Step) GetDelaySecondsOk() (*int64, bool) {
 	if o == nil || IsNil(o.DelaySeconds) {
 		return nil, false
 	}
@@ -143,8 +143,8 @@ func (o *Step) HasDelaySeconds() bool {
 	return false
 }
 
-// SetDelaySeconds gets a reference to the given int32 and assigns it to the DelaySeconds field.
-func (o *Step) SetDelaySeconds(v int32) {
+// SetDelaySeconds gets a reference to the given int64 and assigns it to the DelaySeconds field.
+func (o *Step) SetDelaySeconds(v int64) {
 	o.DelaySeconds = &v
 }
 
@@ -181,9 +181,9 @@ func (o *Step) SetId(v string) {
 }
 
 // GetIdx returns the Idx field value if set, zero value otherwise.
-func (o *Step) GetIdx() int32 {
+func (o *Step) GetIdx() int64 {
 	if o == nil || IsNil(o.Idx) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Idx
@@ -191,7 +191,7 @@ func (o *Step) GetIdx() int32 {
 
 // GetIdxOk returns a tuple with the Idx field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Step) GetIdxOk() (*int32, bool) {
+func (o *Step) GetIdxOk() (*int64, bool) {
 	if o == nil || IsNil(o.Idx) {
 		return nil, false
 	}
@@ -207,8 +207,8 @@ func (o *Step) HasIdx() bool {
 	return false
 }
 
-// SetIdx gets a reference to the given int32 and assigns it to the Idx field.
-func (o *Step) SetIdx(v int32) {
+// SetIdx gets a reference to the given int64 and assigns it to the Idx field.
+func (o *Step) SetIdx(v int64) {
 	o.Idx = &v
 }
 

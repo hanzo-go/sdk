@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Blend** | Pointer to **float32** | Blend is how much of a closing window folds into the reference: 1 replaces it outright, less makes the reference expensive to move. | [optional] 
-**Depth** | Pointer to **int32** | Depth is how deep each tree is. With Trees it sets how finely the space is partitioned, and therefore how much history it takes to fill. | [optional] 
+**Blend** | Pointer to **float64** | Blend is how much of a closing window folds into the reference: 1 replaces it outright, less makes the reference expensive to move. | [optional] 
+**Depth** | Pointer to **int64** | Depth is how deep each tree is. With Trees it sets how finely the space is partitioned, and therefore how much history it takes to fill. | [optional] 
 **Family** | Pointer to **string** | Family is the KIND of model this candidate is: &#x60;halfspace&#x60; is an ensemble of half-space trees whose masses are counters, and it is the family this search grid ranks. The parameters below are that family&#39;s own — a family that does not partition space with trees has different ones — so read them against this. | [optional] 
-**Review** | Pointer to **float32** | Review is the appetite this shape was tried at. | [optional] 
-**Trees** | Pointer to **int32** | Trees is how many half-space trees the ensemble holds. | [optional] 
-**Window** | Pointer to **int32** | Window is how many events make one reference window. | [optional] 
+**Review** | Pointer to **float64** | Review is the appetite this shape was tried at. | [optional] 
+**Trees** | Pointer to **int64** | Trees is how many half-space trees the ensemble holds. | [optional] 
+**Window** | Pointer to **int64** | Window is how many events make one reference window. | [optional] 
 
 ## Methods
 
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetBlend
 
-`func (o *RiskTopology) GetBlend() float32`
+`func (o *RiskTopology) GetBlend() float64`
 
 GetBlend returns the Blend field if non-nil, zero value otherwise.
 
 ### GetBlendOk
 
-`func (o *RiskTopology) GetBlendOk() (*float32, bool)`
+`func (o *RiskTopology) GetBlendOk() (*float64, bool)`
 
 GetBlendOk returns a tuple with the Blend field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBlend
 
-`func (o *RiskTopology) SetBlend(v float32)`
+`func (o *RiskTopology) SetBlend(v float64)`
 
 SetBlend sets Blend field to given value.
 
@@ -57,20 +57,20 @@ HasBlend returns a boolean if a field has been set.
 
 ### GetDepth
 
-`func (o *RiskTopology) GetDepth() int32`
+`func (o *RiskTopology) GetDepth() int64`
 
 GetDepth returns the Depth field if non-nil, zero value otherwise.
 
 ### GetDepthOk
 
-`func (o *RiskTopology) GetDepthOk() (*int32, bool)`
+`func (o *RiskTopology) GetDepthOk() (*int64, bool)`
 
 GetDepthOk returns a tuple with the Depth field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDepth
 
-`func (o *RiskTopology) SetDepth(v int32)`
+`func (o *RiskTopology) SetDepth(v int64)`
 
 SetDepth sets Depth field to given value.
 
@@ -107,20 +107,20 @@ HasFamily returns a boolean if a field has been set.
 
 ### GetReview
 
-`func (o *RiskTopology) GetReview() float32`
+`func (o *RiskTopology) GetReview() float64`
 
 GetReview returns the Review field if non-nil, zero value otherwise.
 
 ### GetReviewOk
 
-`func (o *RiskTopology) GetReviewOk() (*float32, bool)`
+`func (o *RiskTopology) GetReviewOk() (*float64, bool)`
 
 GetReviewOk returns a tuple with the Review field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReview
 
-`func (o *RiskTopology) SetReview(v float32)`
+`func (o *RiskTopology) SetReview(v float64)`
 
 SetReview sets Review field to given value.
 
@@ -132,20 +132,20 @@ HasReview returns a boolean if a field has been set.
 
 ### GetTrees
 
-`func (o *RiskTopology) GetTrees() int32`
+`func (o *RiskTopology) GetTrees() int64`
 
 GetTrees returns the Trees field if non-nil, zero value otherwise.
 
 ### GetTreesOk
 
-`func (o *RiskTopology) GetTreesOk() (*int32, bool)`
+`func (o *RiskTopology) GetTreesOk() (*int64, bool)`
 
 GetTreesOk returns a tuple with the Trees field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTrees
 
-`func (o *RiskTopology) SetTrees(v int32)`
+`func (o *RiskTopology) SetTrees(v int64)`
 
 SetTrees sets Trees field to given value.
 
@@ -157,20 +157,20 @@ HasTrees returns a boolean if a field has been set.
 
 ### GetWindow
 
-`func (o *RiskTopology) GetWindow() int32`
+`func (o *RiskTopology) GetWindow() int64`
 
 GetWindow returns the Window field if non-nil, zero value otherwise.
 
 ### GetWindowOk
 
-`func (o *RiskTopology) GetWindowOk() (*int32, bool)`
+`func (o *RiskTopology) GetWindowOk() (*int64, bool)`
 
 GetWindowOk returns a tuple with the Window field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWindow
 
-`func (o *RiskTopology) SetWindow(v int32)`
+`func (o *RiskTopology) SetWindow(v int64)`
 
 SetWindow sets Window field to given value.
 

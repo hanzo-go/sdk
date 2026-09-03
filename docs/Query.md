@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Character** | Pointer to **int32** | Character is a 0-based UTF-16 code-unit offset within Line, per the LSP specification — not a byte offset and not a rune index. | [optional] 
-**Line** | Pointer to **int32** | Line is 0-based, per the LSP specification. | [optional] 
+**Character** | Pointer to **int64** | Character is a 0-based UTF-16 code-unit offset within Line, per the LSP specification — not a byte offset and not a rune index. | [optional] 
+**Line** | Pointer to **int64** | Line is 0-based, per the LSP specification. | [optional] 
 **Path** | Pointer to **string** | Path is the repo-relative file, e.g. \&quot;apps/lsp/lsp.go\&quot;. | [optional] 
 **Relation** | Pointer to **string** | Relation refines locate: definition, reference, type or implementation. Empty means definition. Every other op ignores it. | [optional] 
 **Repo** | Pointer to **string** | Repo is the repository NAME within the caller&#39;s own org, e.g. \&quot;cloud\&quot;. Not a URL and not an owner/name pair: the owner is the validated principal&#39;s org, so this names a repository the caller already owns. | [optional] 
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCharacter
 
-`func (o *Query) GetCharacter() int32`
+`func (o *Query) GetCharacter() int64`
 
 GetCharacter returns the Character field if non-nil, zero value otherwise.
 
 ### GetCharacterOk
 
-`func (o *Query) GetCharacterOk() (*int32, bool)`
+`func (o *Query) GetCharacterOk() (*int64, bool)`
 
 GetCharacterOk returns a tuple with the Character field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCharacter
 
-`func (o *Query) SetCharacter(v int32)`
+`func (o *Query) SetCharacter(v int64)`
 
 SetCharacter sets Character field to given value.
 
@@ -57,20 +57,20 @@ HasCharacter returns a boolean if a field has been set.
 
 ### GetLine
 
-`func (o *Query) GetLine() int32`
+`func (o *Query) GetLine() int64`
 
 GetLine returns the Line field if non-nil, zero value otherwise.
 
 ### GetLineOk
 
-`func (o *Query) GetLineOk() (*int32, bool)`
+`func (o *Query) GetLineOk() (*int64, bool)`
 
 GetLineOk returns a tuple with the Line field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLine
 
-`func (o *Query) SetLine(v int32)`
+`func (o *Query) SetLine(v int64)`
 
 SetLine sets Line field to given value.
 

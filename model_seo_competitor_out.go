@@ -24,7 +24,7 @@ type SeoCompetitorOut struct {
 	// Cost is what this call cost, in USD, as an exact decimal string.
 	Cost *string `json:"cost,omitempty"`
 	// Total is how many domains the upstream holds for these phrases.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 }
 
 // NewSeoCompetitorOut instantiates a new SeoCompetitorOut object
@@ -109,9 +109,9 @@ func (o *SeoCompetitorOut) SetCost(v string) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *SeoCompetitorOut) GetTotal() int32 {
+func (o *SeoCompetitorOut) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -119,7 +119,7 @@ func (o *SeoCompetitorOut) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoCompetitorOut) GetTotalOk() (*int32, bool) {
+func (o *SeoCompetitorOut) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *SeoCompetitorOut) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *SeoCompetitorOut) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *SeoCompetitorOut) SetTotal(v int64) {
 	o.Total = &v
 }
 

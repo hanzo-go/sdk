@@ -26,8 +26,8 @@ type MakeIn struct {
 	Description   *string    `json:"description,omitempty"`
 	DurableName   *string    `json:"durable_name,omitempty"`
 	FilterSubject *string    `json:"filter_subject,omitempty"`
-	MaxAckPending *int32     `json:"max_ack_pending,omitempty"`
-	MaxDeliver    *int32     `json:"max_deliver,omitempty"`
+	MaxAckPending *int64     `json:"max_ack_pending,omitempty"`
+	MaxDeliver    *int64     `json:"max_deliver,omitempty"`
 	OptStartSeq   *int32     `json:"opt_start_seq,omitempty"`
 	OptStartTime  *time.Time `json:"opt_start_time,omitempty"`
 	ReplayPolicy  *string    `json:"replay_policy,omitempty"`
@@ -245,9 +245,9 @@ func (o *MakeIn) SetFilterSubject(v string) {
 }
 
 // GetMaxAckPending returns the MaxAckPending field value if set, zero value otherwise.
-func (o *MakeIn) GetMaxAckPending() int32 {
+func (o *MakeIn) GetMaxAckPending() int64 {
 	if o == nil || IsNil(o.MaxAckPending) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxAckPending
@@ -255,7 +255,7 @@ func (o *MakeIn) GetMaxAckPending() int32 {
 
 // GetMaxAckPendingOk returns a tuple with the MaxAckPending field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MakeIn) GetMaxAckPendingOk() (*int32, bool) {
+func (o *MakeIn) GetMaxAckPendingOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxAckPending) {
 		return nil, false
 	}
@@ -271,15 +271,15 @@ func (o *MakeIn) HasMaxAckPending() bool {
 	return false
 }
 
-// SetMaxAckPending gets a reference to the given int32 and assigns it to the MaxAckPending field.
-func (o *MakeIn) SetMaxAckPending(v int32) {
+// SetMaxAckPending gets a reference to the given int64 and assigns it to the MaxAckPending field.
+func (o *MakeIn) SetMaxAckPending(v int64) {
 	o.MaxAckPending = &v
 }
 
 // GetMaxDeliver returns the MaxDeliver field value if set, zero value otherwise.
-func (o *MakeIn) GetMaxDeliver() int32 {
+func (o *MakeIn) GetMaxDeliver() int64 {
 	if o == nil || IsNil(o.MaxDeliver) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxDeliver
@@ -287,7 +287,7 @@ func (o *MakeIn) GetMaxDeliver() int32 {
 
 // GetMaxDeliverOk returns a tuple with the MaxDeliver field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MakeIn) GetMaxDeliverOk() (*int32, bool) {
+func (o *MakeIn) GetMaxDeliverOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxDeliver) {
 		return nil, false
 	}
@@ -303,8 +303,8 @@ func (o *MakeIn) HasMaxDeliver() bool {
 	return false
 }
 
-// SetMaxDeliver gets a reference to the given int32 and assigns it to the MaxDeliver field.
-func (o *MakeIn) SetMaxDeliver(v int32) {
+// SetMaxDeliver gets a reference to the given int64 and assigns it to the MaxDeliver field.
+func (o *MakeIn) SetMaxDeliver(v int64) {
 	o.MaxDeliver = &v
 }
 

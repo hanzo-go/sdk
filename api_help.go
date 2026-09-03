@@ -26,7 +26,7 @@ type HelpAPIGetHelpArticlesRequest struct {
 	ctx        context.Context
 	ApiService *HelpAPIService
 	category   *string
-	limit      *int32
+	limit      *int64
 }
 
 // Category narrows the list to one knowledge-base section, matched against the article&#39;s category by exact name. Empty lists every section.
@@ -36,7 +36,7 @@ func (r HelpAPIGetHelpArticlesRequest) Category(category string) HelpAPIGetHelpA
 }
 
 // Limit caps how many articles are returned. Anything that is not a positive integer uses 50, and values above 200 are clamped to 200.
-func (r HelpAPIGetHelpArticlesRequest) Limit(limit int32) HelpAPIGetHelpArticlesRequest {
+func (r HelpAPIGetHelpArticlesRequest) Limit(limit int64) HelpAPIGetHelpArticlesRequest {
 	r.limit = &limit
 	return r
 }

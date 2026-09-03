@@ -21,7 +21,7 @@ var _ MappedNullable = &Token{}
 type Token struct {
 	// At is the token's contract address, lowercase.
 	At       *string `json:"at,omitempty"`
-	Decimals *int32  `json:"decimals,omitempty"`
+	Decimals *int64  `json:"decimals,omitempty"`
 	Name     *string `json:"name,omitempty"`
 	Symbol   *string `json:"symbol,omitempty"`
 }
@@ -76,9 +76,9 @@ func (o *Token) SetAt(v string) {
 }
 
 // GetDecimals returns the Decimals field value if set, zero value otherwise.
-func (o *Token) GetDecimals() int32 {
+func (o *Token) GetDecimals() int64 {
 	if o == nil || IsNil(o.Decimals) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Decimals
@@ -86,7 +86,7 @@ func (o *Token) GetDecimals() int32 {
 
 // GetDecimalsOk returns a tuple with the Decimals field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Token) GetDecimalsOk() (*int32, bool) {
+func (o *Token) GetDecimalsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Decimals) {
 		return nil, false
 	}
@@ -102,8 +102,8 @@ func (o *Token) HasDecimals() bool {
 	return false
 }
 
-// SetDecimals gets a reference to the given int32 and assigns it to the Decimals field.
-func (o *Token) SetDecimals(v int32) {
+// SetDecimals gets a reference to the given int64 and assigns it to the Decimals field.
+func (o *Token) SetDecimals(v int64) {
 	o.Decimals = &v
 }
 

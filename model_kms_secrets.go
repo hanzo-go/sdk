@@ -24,7 +24,7 @@ type KmsSecrets struct {
 	// Secrets are the descriptors: name, path, environment and sealing scheme. No value and no ciphertext appears here.
 	Secrets []SecretMeta `json:"secrets,omitempty"`
 	// Total is how many descriptors this listing carries.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 }
 
 // NewKmsSecrets instantiates a new KmsSecrets object
@@ -109,9 +109,9 @@ func (o *KmsSecrets) SetSecrets(v []SecretMeta) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *KmsSecrets) GetTotal() int32 {
+func (o *KmsSecrets) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -119,7 +119,7 @@ func (o *KmsSecrets) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KmsSecrets) GetTotalOk() (*int32, bool) {
+func (o *KmsSecrets) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *KmsSecrets) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *KmsSecrets) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *KmsSecrets) SetTotal(v int64) {
 	o.Total = &v
 }
 

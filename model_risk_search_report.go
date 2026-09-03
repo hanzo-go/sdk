@@ -24,7 +24,7 @@ type RiskSearchReport struct {
 	// Ended is when it finished, RFC 3339. Absent while it is still going.
 	Ended *string `json:"ended,omitempty"`
 	// Events is how much of this organisation's history was replayed.
-	Events *int32 `json:"events,omitempty"`
+	Events *int64 `json:"events,omitempty"`
 	// Fitted is the winning shape FITTED over your own history and published as one of your organisation's own model values. Name its address on PUT /v1/risk/state/model and the winning shape becomes the model you are running.  It is why this op answers something you can act on. A trial keeps counts and not the model that produced them, so a report without this named a shape nobody could install — and the adoption path refused a shape change besides. Fitting the winner once is a sixty-fifth pass over the same history; keeping all sixty-four fitted models resident instead would cost a measured 21 MiB per run for sixty-three shapes nobody adopts.  Two things about it are worth knowing before you adopt it. Its realised rate can differ from the winner's above, because the ranking measures every candidate under one fixed reference geometry so the comparison is a comparison, while this is fitted under YOUR geometry — the one an outsider cannot predict. And it has learned the window this search replayed and nothing older, so adopting it trades history for fit.
 	Fitted *RiskModelValue `json:"fitted,omitempty"`
 	// Gap says why the winning shape could not be fitted into an adoptable value, when it could not. It is separate from Refusal because they are different facts: a refusal means the ranking below proves nothing, a gap means the ranking stands and only the value is missing.
@@ -123,9 +123,9 @@ func (o *RiskSearchReport) SetEnded(v string) {
 }
 
 // GetEvents returns the Events field value if set, zero value otherwise.
-func (o *RiskSearchReport) GetEvents() int32 {
+func (o *RiskSearchReport) GetEvents() int64 {
 	if o == nil || IsNil(o.Events) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Events
@@ -133,7 +133,7 @@ func (o *RiskSearchReport) GetEvents() int32 {
 
 // GetEventsOk returns a tuple with the Events field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskSearchReport) GetEventsOk() (*int32, bool) {
+func (o *RiskSearchReport) GetEventsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Events) {
 		return nil, false
 	}
@@ -149,8 +149,8 @@ func (o *RiskSearchReport) HasEvents() bool {
 	return false
 }
 
-// SetEvents gets a reference to the given int32 and assigns it to the Events field.
-func (o *RiskSearchReport) SetEvents(v int32) {
+// SetEvents gets a reference to the given int64 and assigns it to the Events field.
+func (o *RiskSearchReport) SetEvents(v int64) {
 	o.Events = &v
 }
 

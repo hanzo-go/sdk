@@ -31,11 +31,11 @@ type RiskBand struct {
 	// Orgs is how many organisations contributed, each weighted exactly one vote whatever its size. It is published so a reader can judge the band rather than trust it.
 	Orgs *int32 `json:"orgs,omitempty"`
 	// Q10 is the quiet end of the network's day: a tenth of contributing organisations sit at or below it.
-	Q10 *float32 `json:"q10,omitempty"`
+	Q10 *float64 `json:"q10,omitempty"`
 	// Q50 is the network's median day.
-	Q50 *float32 `json:"q50,omitempty"`
+	Q50 *float64 `json:"q50,omitempty"`
 	// Q90 is the busy end: a tenth of contributing organisations sit at or above it. It is the highest level published.
-	Q90 *float32 `json:"q90,omitempty"`
+	Q90 *float64 `json:"q90,omitempty"`
 }
 
 // NewRiskBand instantiates a new RiskBand object
@@ -216,9 +216,9 @@ func (o *RiskBand) SetOrgs(v int32) {
 }
 
 // GetQ10 returns the Q10 field value if set, zero value otherwise.
-func (o *RiskBand) GetQ10() float32 {
+func (o *RiskBand) GetQ10() float64 {
 	if o == nil || IsNil(o.Q10) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Q10
@@ -226,7 +226,7 @@ func (o *RiskBand) GetQ10() float32 {
 
 // GetQ10Ok returns a tuple with the Q10 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskBand) GetQ10Ok() (*float32, bool) {
+func (o *RiskBand) GetQ10Ok() (*float64, bool) {
 	if o == nil || IsNil(o.Q10) {
 		return nil, false
 	}
@@ -242,15 +242,15 @@ func (o *RiskBand) HasQ10() bool {
 	return false
 }
 
-// SetQ10 gets a reference to the given float32 and assigns it to the Q10 field.
-func (o *RiskBand) SetQ10(v float32) {
+// SetQ10 gets a reference to the given float64 and assigns it to the Q10 field.
+func (o *RiskBand) SetQ10(v float64) {
 	o.Q10 = &v
 }
 
 // GetQ50 returns the Q50 field value if set, zero value otherwise.
-func (o *RiskBand) GetQ50() float32 {
+func (o *RiskBand) GetQ50() float64 {
 	if o == nil || IsNil(o.Q50) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Q50
@@ -258,7 +258,7 @@ func (o *RiskBand) GetQ50() float32 {
 
 // GetQ50Ok returns a tuple with the Q50 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskBand) GetQ50Ok() (*float32, bool) {
+func (o *RiskBand) GetQ50Ok() (*float64, bool) {
 	if o == nil || IsNil(o.Q50) {
 		return nil, false
 	}
@@ -274,15 +274,15 @@ func (o *RiskBand) HasQ50() bool {
 	return false
 }
 
-// SetQ50 gets a reference to the given float32 and assigns it to the Q50 field.
-func (o *RiskBand) SetQ50(v float32) {
+// SetQ50 gets a reference to the given float64 and assigns it to the Q50 field.
+func (o *RiskBand) SetQ50(v float64) {
 	o.Q50 = &v
 }
 
 // GetQ90 returns the Q90 field value if set, zero value otherwise.
-func (o *RiskBand) GetQ90() float32 {
+func (o *RiskBand) GetQ90() float64 {
 	if o == nil || IsNil(o.Q90) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Q90
@@ -290,7 +290,7 @@ func (o *RiskBand) GetQ90() float32 {
 
 // GetQ90Ok returns a tuple with the Q90 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskBand) GetQ90Ok() (*float32, bool) {
+func (o *RiskBand) GetQ90Ok() (*float64, bool) {
 	if o == nil || IsNil(o.Q90) {
 		return nil, false
 	}
@@ -306,8 +306,8 @@ func (o *RiskBand) HasQ90() bool {
 	return false
 }
 
-// SetQ90 gets a reference to the given float32 and assigns it to the Q90 field.
-func (o *RiskBand) SetQ90(v float32) {
+// SetQ90 gets a reference to the given float64 and assigns it to the Q90 field.
+func (o *RiskBand) SetQ90(v float64) {
 	o.Q90 = &v
 }
 

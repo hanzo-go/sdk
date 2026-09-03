@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **At** | Pointer to **time.Time** |  | [optional] 
 **Job** | Pointer to **string** | Job is the job that decided State. A run reports one conclusion for however many jobs it holds, and the jobs are not interchangeable: the pipeline fails at &#x60;gate&#x60; before it builds anything and at &#x60;receipt&#x60; after it has already built, pinned and proved the release live. Both read &#x60;failure&#x60; on the run, and only the first one means nothing shipped. | [optional] 
-**Number** | Pointer to **int32** |  | [optional] 
+**Number** | Pointer to **int64** |  | [optional] 
 **State** | Pointer to **string** | State is success | failure | running | absent. &#x60;absent&#x60; is not a kind of failure and is kept apart from one: a failing run is a build that ran and said no, while an absent run is Hanzo Git never having constructed a run for the commit at all — a workflow it cannot parse or a reference it cannot resolve. There is no log to open for the second, so a page that draws them the same sends you looking for one that does not exist. | [optional] 
 **Tested** | Pointer to **bool** | Tested reports that the run&#39;s tests executed; Verdict reports that the run said anything about tests at all. They are separate because the interesting case is a run that passed while its test step was skipped — a green build that proved nothing — and that is invisible if the two are one flag. | [optional] 
 **Url** | Pointer to **string** |  | [optional] 
@@ -83,20 +83,20 @@ HasJob returns a boolean if a field has been set.
 
 ### GetNumber
 
-`func (o *Check) GetNumber() int32`
+`func (o *Check) GetNumber() int64`
 
 GetNumber returns the Number field if non-nil, zero value otherwise.
 
 ### GetNumberOk
 
-`func (o *Check) GetNumberOk() (*int32, bool)`
+`func (o *Check) GetNumberOk() (*int64, bool)`
 
 GetNumberOk returns a tuple with the Number field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumber
 
-`func (o *Check) SetNumber(v int32)`
+`func (o *Check) SetNumber(v int64)`
 
 SetNumber sets Number field to given value.
 

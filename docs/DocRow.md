@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Released** | Pointer to **bool** | Released reports whether THIS reader may read it. False means the artifact exists and is available on request. | [optional] 
 **Tier** | Pointer to **string** | Tier is \&quot;public\&quot; or \&quot;gated\&quot;. It defaults to gated, so a new artifact is closed until somebody opens it deliberately. | [optional] 
 **Title** | Pointer to **string** | Title is what the document is called. | [optional] 
-**Updated** | Pointer to **int32** | Updated is when the record last changed, unix milliseconds. | [optional] 
+**Updated** | Pointer to **int64** | Updated is when the record last changed, unix milliseconds. | [optional] 
 
 ## Methods
 
@@ -261,20 +261,20 @@ HasTitle returns a boolean if a field has been set.
 
 ### GetUpdated
 
-`func (o *DocRow) GetUpdated() int32`
+`func (o *DocRow) GetUpdated() int64`
 
 GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
 ### GetUpdatedOk
 
-`func (o *DocRow) GetUpdatedOk() (*int32, bool)`
+`func (o *DocRow) GetUpdatedOk() (*int64, bool)`
 
 GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdated
 
-`func (o *DocRow) SetUpdated(v int32)`
+`func (o *DocRow) SetUpdated(v int64)`
 
 SetUpdated sets Updated field to given value.
 

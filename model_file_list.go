@@ -28,7 +28,7 @@ type FileList struct {
 	// Space is the space that was listed.
 	Space *string `json:"space,omitempty"`
 	// Total is how many entries came back. The listing is BOUNDED, so a drive with more files than the cap answers the cap and this says so — it is not a count of what the drive holds.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 }
 
 // NewFileList instantiates a new FileList object
@@ -177,9 +177,9 @@ func (o *FileList) SetSpace(v string) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *FileList) GetTotal() int32 {
+func (o *FileList) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -187,7 +187,7 @@ func (o *FileList) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FileList) GetTotalOk() (*int32, bool) {
+func (o *FileList) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *FileList) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *FileList) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *FileList) SetTotal(v int64) {
 	o.Total = &v
 }
 

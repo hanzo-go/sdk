@@ -5,15 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Confidence** | Pointer to **string** | Confidence says how real the row&#39;s numbers are. | [optional] 
-**CostCents** | Pointer to **int32** | CostCents is the period&#39;s spend in cents, in the row&#39;s own ledger. | [optional] 
+**CostCents** | Pointer to **int64** | CostCents is the period&#39;s spend in cents, in the row&#39;s own ledger. | [optional] 
 **Provider** | Pointer to **string** | Provider is the provider the row totals. | [optional] 
-**Requests** | Pointer to **int32** | Requests is the period&#39;s request count. | [optional] 
+**Requests** | Pointer to **int64** | Requests is the period&#39;s request count. | [optional] 
 **Scope** | Pointer to **string** | Scope is whose usage the row measures: user or org. | [optional] 
 **Source** | Pointer to **string** | Source is whose meter the row came from: account or hanzo. | [optional] 
-**Tokens** | Pointer to **int32** | Tokens is the period&#39;s total token count. | [optional] 
-**UsedPct** | Pointer to **float32** | UsedPct is the plan consumption percentage, on the account side. | [optional] 
+**Tokens** | Pointer to **int64** | Tokens is the period&#39;s total token count. | [optional] 
+**UsedPct** | Pointer to **float64** | UsedPct is the plan consumption percentage, on the account side. | [optional] 
 **Window** | Pointer to **string** | Window is the window class the row totals, on the account side. | [optional] 
-**Windows** | Pointer to **int32** | Windows is how many window instances the row folds. | [optional] 
+**Windows** | Pointer to **int64** | Windows is how many window instances the row folds. | [optional] 
 
 ## Methods
 
@@ -61,20 +61,20 @@ HasConfidence returns a boolean if a field has been set.
 
 ### GetCostCents
 
-`func (o *TotalView) GetCostCents() int32`
+`func (o *TotalView) GetCostCents() int64`
 
 GetCostCents returns the CostCents field if non-nil, zero value otherwise.
 
 ### GetCostCentsOk
 
-`func (o *TotalView) GetCostCentsOk() (*int32, bool)`
+`func (o *TotalView) GetCostCentsOk() (*int64, bool)`
 
 GetCostCentsOk returns a tuple with the CostCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCostCents
 
-`func (o *TotalView) SetCostCents(v int32)`
+`func (o *TotalView) SetCostCents(v int64)`
 
 SetCostCents sets CostCents field to given value.
 
@@ -111,20 +111,20 @@ HasProvider returns a boolean if a field has been set.
 
 ### GetRequests
 
-`func (o *TotalView) GetRequests() int32`
+`func (o *TotalView) GetRequests() int64`
 
 GetRequests returns the Requests field if non-nil, zero value otherwise.
 
 ### GetRequestsOk
 
-`func (o *TotalView) GetRequestsOk() (*int32, bool)`
+`func (o *TotalView) GetRequestsOk() (*int64, bool)`
 
 GetRequestsOk returns a tuple with the Requests field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRequests
 
-`func (o *TotalView) SetRequests(v int32)`
+`func (o *TotalView) SetRequests(v int64)`
 
 SetRequests sets Requests field to given value.
 
@@ -186,20 +186,20 @@ HasSource returns a boolean if a field has been set.
 
 ### GetTokens
 
-`func (o *TotalView) GetTokens() int32`
+`func (o *TotalView) GetTokens() int64`
 
 GetTokens returns the Tokens field if non-nil, zero value otherwise.
 
 ### GetTokensOk
 
-`func (o *TotalView) GetTokensOk() (*int32, bool)`
+`func (o *TotalView) GetTokensOk() (*int64, bool)`
 
 GetTokensOk returns a tuple with the Tokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTokens
 
-`func (o *TotalView) SetTokens(v int32)`
+`func (o *TotalView) SetTokens(v int64)`
 
 SetTokens sets Tokens field to given value.
 
@@ -211,20 +211,20 @@ HasTokens returns a boolean if a field has been set.
 
 ### GetUsedPct
 
-`func (o *TotalView) GetUsedPct() float32`
+`func (o *TotalView) GetUsedPct() float64`
 
 GetUsedPct returns the UsedPct field if non-nil, zero value otherwise.
 
 ### GetUsedPctOk
 
-`func (o *TotalView) GetUsedPctOk() (*float32, bool)`
+`func (o *TotalView) GetUsedPctOk() (*float64, bool)`
 
 GetUsedPctOk returns a tuple with the UsedPct field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUsedPct
 
-`func (o *TotalView) SetUsedPct(v float32)`
+`func (o *TotalView) SetUsedPct(v float64)`
 
 SetUsedPct sets UsedPct field to given value.
 
@@ -261,20 +261,20 @@ HasWindow returns a boolean if a field has been set.
 
 ### GetWindows
 
-`func (o *TotalView) GetWindows() int32`
+`func (o *TotalView) GetWindows() int64`
 
 GetWindows returns the Windows field if non-nil, zero value otherwise.
 
 ### GetWindowsOk
 
-`func (o *TotalView) GetWindowsOk() (*int32, bool)`
+`func (o *TotalView) GetWindowsOk() (*int64, bool)`
 
 GetWindowsOk returns a tuple with the Windows field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWindows
 
-`func (o *TotalView) SetWindows(v int32)`
+`func (o *TotalView) SetWindows(v int64)`
 
 SetWindows sets Windows field to given value.
 

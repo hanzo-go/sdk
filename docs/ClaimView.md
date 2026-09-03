@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Code** | Pointer to **string** | Code is the referral code the referral was recorded against. | [optional] 
 **Created** | Pointer to **bool** | Created is true when this call recorded the referral and false when it found one already recorded for this referee — the idempotent replay. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the referral was first recorded, as a Unix timestamp. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the referral was first recorded, as a Unix timestamp. | [optional] 
 **Id** | Pointer to **string** | ID is the referral&#39;s handle. | [optional] 
 **Status** | Pointer to **string** | Status is the referral&#39;s lifecycle state: \&quot;signup\&quot; until the referee makes metered spend, then \&quot;qualified\&quot;, then \&quot;credited\&quot;. | [optional] 
 
@@ -81,20 +81,20 @@ HasCreated returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *ClaimView) GetCreatedAt() int32`
+`func (o *ClaimView) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *ClaimView) GetCreatedAtOk() (*int32, bool)`
+`func (o *ClaimView) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *ClaimView) SetCreatedAt(v int32)`
+`func (o *ClaimView) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 

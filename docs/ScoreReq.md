@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **RunName** | Pointer to **string** | RunName attaches the score to one run. | [optional] 
 **StringValue** | Pointer to **string** | StringValue is the label of a CATEGORICAL score, which must be one the rubric allows. | [optional] 
 **TraceId** | Pointer to **string** | TraceID attaches the score to one model call. | [optional] 
-**Value** | Pointer to **float32** | Value is the numeric score, which must be finite: NaN and Inf are refused. A BOOLEAN score takes 0 or 1. | [optional] 
+**Value** | Pointer to **float64** | Value is the numeric score, which must be finite: NaN and Inf are refused. A BOOLEAN score takes 0 or 1. | [optional] 
 
 ## Methods
 
@@ -230,20 +230,20 @@ HasTraceId returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *ScoreReq) GetValue() float32`
+`func (o *ScoreReq) GetValue() float64`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *ScoreReq) GetValueOk() (*float32, bool)`
+`func (o *ScoreReq) GetValueOk() (*float64, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *ScoreReq) SetValue(v float32)`
+`func (o *ScoreReq) SetValue(v float64)`
 
 SetValue sets Value field to given value.
 

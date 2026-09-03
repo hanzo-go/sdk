@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**GetKnowledgeGraph**](KnowledgeAPI.md#GetKnowledgeGraph) | **Get** /v1/knowledge/graph | Returns the caller org&#39;s knowledge as a node/edge graph shaped for a force-directed renderer: pages, memories and synced sources as nodes; the page parent tree, the wikilinks between pages, and each source&#39;s connector provenance as edges.
 [**PostKnowledgeConnectorsByProviderSync**](KnowledgeAPI.md#PostKnowledgeConnectorsByProviderSync) | **Post** /v1/knowledge/connectors/{provider}/sync | Pulls the provider&#39;s documents for the caller&#39;s org and files them as knowledge sources, which the store&#39;s own hook then indexes — so a synced document is retrievable exactly like a hand-written page.
 [**PostKnowledgeImport**](KnowledgeAPI.md#PostKnowledgeImport) | **Post** /v1/knowledge/import | Import an Obsidian, Notion, Roam or Evernote export into the org&#39;s knowledge base
+[**PostKnowledgeReindex**](KnowledgeAPI.md#PostKnowledgeReindex) | **Post** /v1/knowledge/reindex | Rebuilds the caller org&#39;s retrieval from its documents: the vector collection is dropped and created again at the configured embedding size and every page, memory and source is embedded into it; the lexical index is reconciled to the same set.
 [**PostKnowledgeSearch**](KnowledgeAPI.md#PostKnowledgeSearch) | **Post** /v1/knowledge/search | Runs a semantic search over the caller org&#39;s own knowledge — its wiki pages, its agent memories and everything its connectors have synced — and returns the matching passages.
 
 
@@ -543,6 +544,67 @@ Other parameters are passed through a pointer to a apiPostKnowledgeImportRequest
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostKnowledgeReindex
+
+> ReindexOut PostKnowledgeReindex(ctx).Execute()
+
+Rebuilds the caller org's retrieval from its documents: the vector collection is dropped and created again at the configured embedding size and every page, memory and source is embedded into it; the lexical index is reconciled to the same set.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.KnowledgeAPI.PostKnowledgeReindex(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `KnowledgeAPI.PostKnowledgeReindex``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostKnowledgeReindex`: ReindexOut
+	fmt.Fprintf(os.Stdout, "Response from `KnowledgeAPI.PostKnowledgeReindex`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostKnowledgeReindexRequest struct via the builder pattern
+
+
+### Return type
+
+[**ReindexOut**](ReindexOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

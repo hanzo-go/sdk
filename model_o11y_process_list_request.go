@@ -20,14 +20,14 @@ var _ MappedNullable = &O11yProcessListRequest{}
 // O11yProcessListRequest struct for O11yProcessListRequest
 type O11yProcessListRequest struct {
 	// epoch time in ms
-	End     *int32             `json:"end,omitempty"`
+	End     *int64             `json:"end,omitempty"`
 	Filters *O11yFilterSet     `json:"filters,omitempty"`
 	GroupBy []O11yAttributeKey `json:"groupBy,omitempty"`
-	Limit   *int32             `json:"limit,omitempty"`
-	Offset  *int32             `json:"offset,omitempty"`
+	Limit   *int64             `json:"limit,omitempty"`
+	Offset  *int64             `json:"offset,omitempty"`
 	OrderBy *O11yOrderBy       `json:"orderBy,omitempty"`
 	// epoch time in ms
-	Start *int32 `json:"start,omitempty"`
+	Start *int64 `json:"start,omitempty"`
 }
 
 // NewO11yProcessListRequest instantiates a new O11yProcessListRequest object
@@ -48,9 +48,9 @@ func NewO11yProcessListRequestWithDefaults() *O11yProcessListRequest {
 }
 
 // GetEnd returns the End field value if set, zero value otherwise.
-func (o *O11yProcessListRequest) GetEnd() int32 {
+func (o *O11yProcessListRequest) GetEnd() int64 {
 	if o == nil || IsNil(o.End) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.End
@@ -58,7 +58,7 @@ func (o *O11yProcessListRequest) GetEnd() int32 {
 
 // GetEndOk returns a tuple with the End field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yProcessListRequest) GetEndOk() (*int32, bool) {
+func (o *O11yProcessListRequest) GetEndOk() (*int64, bool) {
 	if o == nil || IsNil(o.End) {
 		return nil, false
 	}
@@ -74,8 +74,8 @@ func (o *O11yProcessListRequest) HasEnd() bool {
 	return false
 }
 
-// SetEnd gets a reference to the given int32 and assigns it to the End field.
-func (o *O11yProcessListRequest) SetEnd(v int32) {
+// SetEnd gets a reference to the given int64 and assigns it to the End field.
+func (o *O11yProcessListRequest) SetEnd(v int64) {
 	o.End = &v
 }
 
@@ -144,9 +144,9 @@ func (o *O11yProcessListRequest) SetGroupBy(v []O11yAttributeKey) {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *O11yProcessListRequest) GetLimit() int32 {
+func (o *O11yProcessListRequest) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -154,7 +154,7 @@ func (o *O11yProcessListRequest) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yProcessListRequest) GetLimitOk() (*int32, bool) {
+func (o *O11yProcessListRequest) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -170,15 +170,15 @@ func (o *O11yProcessListRequest) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *O11yProcessListRequest) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *O11yProcessListRequest) SetLimit(v int64) {
 	o.Limit = &v
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
-func (o *O11yProcessListRequest) GetOffset() int32 {
+func (o *O11yProcessListRequest) GetOffset() int64 {
 	if o == nil || IsNil(o.Offset) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Offset
@@ -186,7 +186,7 @@ func (o *O11yProcessListRequest) GetOffset() int32 {
 
 // GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yProcessListRequest) GetOffsetOk() (*int32, bool) {
+func (o *O11yProcessListRequest) GetOffsetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Offset) {
 		return nil, false
 	}
@@ -202,8 +202,8 @@ func (o *O11yProcessListRequest) HasOffset() bool {
 	return false
 }
 
-// SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *O11yProcessListRequest) SetOffset(v int32) {
+// SetOffset gets a reference to the given int64 and assigns it to the Offset field.
+func (o *O11yProcessListRequest) SetOffset(v int64) {
 	o.Offset = &v
 }
 
@@ -240,9 +240,9 @@ func (o *O11yProcessListRequest) SetOrderBy(v O11yOrderBy) {
 }
 
 // GetStart returns the Start field value if set, zero value otherwise.
-func (o *O11yProcessListRequest) GetStart() int32 {
+func (o *O11yProcessListRequest) GetStart() int64 {
 	if o == nil || IsNil(o.Start) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Start
@@ -250,7 +250,7 @@ func (o *O11yProcessListRequest) GetStart() int32 {
 
 // GetStartOk returns a tuple with the Start field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yProcessListRequest) GetStartOk() (*int32, bool) {
+func (o *O11yProcessListRequest) GetStartOk() (*int64, bool) {
 	if o == nil || IsNil(o.Start) {
 		return nil, false
 	}
@@ -266,8 +266,8 @@ func (o *O11yProcessListRequest) HasStart() bool {
 	return false
 }
 
-// SetStart gets a reference to the given int32 and assigns it to the Start field.
-func (o *O11yProcessListRequest) SetStart(v int32) {
+// SetStart gets a reference to the given int64 and assigns it to the Start field.
+func (o *O11yProcessListRequest) SetStart(v int64) {
 	o.Start = &v
 }
 

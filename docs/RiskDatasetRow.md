@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **At** | Pointer to **string** | At is the row&#39;s instant. | [optional] 
 **Id** | Pointer to **string** | ID names the row forever. It is DERIVED from the row&#39;s own subject and instant, not allocated, so two materialisations of the same fact agree on it without coordinating. | [optional] 
 **Kind** | Pointer to **string** | Kind is the subject kind: person, session or account. | [optional] 
-**Point** | Pointer to **[]float32** | Point is the coordinates, in the order the version&#39;s spec names its dims. | [optional] 
+**Point** | Pointer to **[]float64** | Point is the coordinates, in the order the version&#39;s spec names its dims. | [optional] 
 **Split** | Pointer to **string** | Split is train, val or test. | [optional] 
 **Subject** | Pointer to **string** | Subject is the identity within that kind — whose row this is. Every row of one subject is in ONE split, decided by that subject&#39;s earliest instant, so a subject is never on both sides of a cut. | [optional] 
 
@@ -107,20 +107,20 @@ HasKind returns a boolean if a field has been set.
 
 ### GetPoint
 
-`func (o *RiskDatasetRow) GetPoint() []float32`
+`func (o *RiskDatasetRow) GetPoint() []float64`
 
 GetPoint returns the Point field if non-nil, zero value otherwise.
 
 ### GetPointOk
 
-`func (o *RiskDatasetRow) GetPointOk() (*[]float32, bool)`
+`func (o *RiskDatasetRow) GetPointOk() (*[]float64, bool)`
 
 GetPointOk returns a tuple with the Point field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPoint
 
-`func (o *RiskDatasetRow) SetPoint(v []float32)`
+`func (o *RiskDatasetRow) SetPoint(v []float64)`
 
 SetPoint sets Point field to given value.
 

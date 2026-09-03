@@ -24,7 +24,7 @@ type TreeEntry struct {
 	// Path is the file, relative to the repo root. The list is ordered by it, so a reader can see module layout without sorting.
 	Path *string `json:"path,omitempty"`
 	// Symbols is how many top-level declarations the file defines. A file with none is still listed: the file set is the authority here and the counts decorate it.
-	Symbols *int32 `json:"symbols,omitempty"`
+	Symbols *int64 `json:"symbols,omitempty"`
 }
 
 // NewTreeEntry instantiates a new TreeEntry object
@@ -109,9 +109,9 @@ func (o *TreeEntry) SetPath(v string) {
 }
 
 // GetSymbols returns the Symbols field value if set, zero value otherwise.
-func (o *TreeEntry) GetSymbols() int32 {
+func (o *TreeEntry) GetSymbols() int64 {
 	if o == nil || IsNil(o.Symbols) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Symbols
@@ -119,7 +119,7 @@ func (o *TreeEntry) GetSymbols() int32 {
 
 // GetSymbolsOk returns a tuple with the Symbols field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TreeEntry) GetSymbolsOk() (*int32, bool) {
+func (o *TreeEntry) GetSymbolsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Symbols) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *TreeEntry) HasSymbols() bool {
 	return false
 }
 
-// SetSymbols gets a reference to the given int32 and assigns it to the Symbols field.
-func (o *TreeEntry) SetSymbols(v int32) {
+// SetSymbols gets a reference to the given int64 and assigns it to the Symbols field.
+func (o *TreeEntry) SetSymbols(v int64) {
 	o.Symbols = &v
 }
 

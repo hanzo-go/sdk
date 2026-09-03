@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreatedAt** | Pointer to **string** | CreatedAt is when this revision was appended, RFC 3339 UTC. | [optional] 
 **Type** | Pointer to **string** | Type is the kind this revision was written with, which may differ from the current one. | [optional] 
-**Version** | Pointer to **int32** | Version is this revision&#39;s number, 1 for the first. Numbers are dense and never reused: deleting the prompt drops the whole history with it. | [optional] 
+**Version** | Pointer to **int64** | Version is this revision&#39;s number, 1 for the first. Numbers are dense and never reused: deleting the prompt drops the whole history with it. | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetVersion
 
-`func (o *VersionView) GetVersion() int32`
+`func (o *VersionView) GetVersion() int64`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *VersionView) GetVersionOk() (*int32, bool)`
+`func (o *VersionView) GetVersionOk() (*int64, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *VersionView) SetVersion(v int32)`
+`func (o *VersionView) SetVersion(v int64)`
 
 SetVersion sets Version field to given value.
 

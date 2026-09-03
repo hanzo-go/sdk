@@ -32,7 +32,7 @@ type TemplateView struct {
 	// Title is the display name, e.g. \"Mutual Non-Disclosure Agreement\". A generated document inherits it.
 	Title *string `json:"title,omitempty"`
 	// Version is which version of this template the caller's org resolves to. A built-in is version 1; the org's first override is 2 and each save increments, so an override version never collides with the built-in's.
-	Version *int32 `json:"version,omitempty"`
+	Version *int64 `json:"version,omitempty"`
 }
 
 // NewTemplateView instantiates a new TemplateView object
@@ -245,9 +245,9 @@ func (o *TemplateView) SetTitle(v string) {
 }
 
 // GetVersion returns the Version field value if set, zero value otherwise.
-func (o *TemplateView) GetVersion() int32 {
+func (o *TemplateView) GetVersion() int64 {
 	if o == nil || IsNil(o.Version) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Version
@@ -255,7 +255,7 @@ func (o *TemplateView) GetVersion() int32 {
 
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TemplateView) GetVersionOk() (*int32, bool) {
+func (o *TemplateView) GetVersionOk() (*int64, bool) {
 	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
@@ -271,8 +271,8 @@ func (o *TemplateView) HasVersion() bool {
 	return false
 }
 
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
-func (o *TemplateView) SetVersion(v int32) {
+// SetVersion gets a reference to the given int64 and assigns it to the Version field.
+func (o *TemplateView) SetVersion(v int64) {
 	o.Version = &v
 }
 

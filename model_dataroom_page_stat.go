@@ -20,13 +20,13 @@ var _ MappedNullable = &DataroomPageStat{}
 // DataroomPageStat struct for DataroomPageStat
 type DataroomPageStat struct {
 	// AvgDuration is totalDuration divided by views, rounded; 0 when unviewed.
-	AvgDuration *int32 `json:"avgDuration,omitempty"`
+	AvgDuration *int64 `json:"avgDuration,omitempty"`
 	// PageNumber is the page these counts are for.
-	PageNumber *int32 `json:"pageNumber,omitempty"`
+	PageNumber *int64 `json:"pageNumber,omitempty"`
 	// TotalDuration is the summed dwell measure reported for the page.
-	TotalDuration *int32 `json:"totalDuration,omitempty"`
+	TotalDuration *int64 `json:"totalDuration,omitempty"`
 	// Views is how many times the page was viewed.
-	Views *int32 `json:"views,omitempty"`
+	Views *int64 `json:"views,omitempty"`
 }
 
 // NewDataroomPageStat instantiates a new DataroomPageStat object
@@ -47,9 +47,9 @@ func NewDataroomPageStatWithDefaults() *DataroomPageStat {
 }
 
 // GetAvgDuration returns the AvgDuration field value if set, zero value otherwise.
-func (o *DataroomPageStat) GetAvgDuration() int32 {
+func (o *DataroomPageStat) GetAvgDuration() int64 {
 	if o == nil || IsNil(o.AvgDuration) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AvgDuration
@@ -57,7 +57,7 @@ func (o *DataroomPageStat) GetAvgDuration() int32 {
 
 // GetAvgDurationOk returns a tuple with the AvgDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DataroomPageStat) GetAvgDurationOk() (*int32, bool) {
+func (o *DataroomPageStat) GetAvgDurationOk() (*int64, bool) {
 	if o == nil || IsNil(o.AvgDuration) {
 		return nil, false
 	}
@@ -73,15 +73,15 @@ func (o *DataroomPageStat) HasAvgDuration() bool {
 	return false
 }
 
-// SetAvgDuration gets a reference to the given int32 and assigns it to the AvgDuration field.
-func (o *DataroomPageStat) SetAvgDuration(v int32) {
+// SetAvgDuration gets a reference to the given int64 and assigns it to the AvgDuration field.
+func (o *DataroomPageStat) SetAvgDuration(v int64) {
 	o.AvgDuration = &v
 }
 
 // GetPageNumber returns the PageNumber field value if set, zero value otherwise.
-func (o *DataroomPageStat) GetPageNumber() int32 {
+func (o *DataroomPageStat) GetPageNumber() int64 {
 	if o == nil || IsNil(o.PageNumber) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PageNumber
@@ -89,7 +89,7 @@ func (o *DataroomPageStat) GetPageNumber() int32 {
 
 // GetPageNumberOk returns a tuple with the PageNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DataroomPageStat) GetPageNumberOk() (*int32, bool) {
+func (o *DataroomPageStat) GetPageNumberOk() (*int64, bool) {
 	if o == nil || IsNil(o.PageNumber) {
 		return nil, false
 	}
@@ -105,15 +105,15 @@ func (o *DataroomPageStat) HasPageNumber() bool {
 	return false
 }
 
-// SetPageNumber gets a reference to the given int32 and assigns it to the PageNumber field.
-func (o *DataroomPageStat) SetPageNumber(v int32) {
+// SetPageNumber gets a reference to the given int64 and assigns it to the PageNumber field.
+func (o *DataroomPageStat) SetPageNumber(v int64) {
 	o.PageNumber = &v
 }
 
 // GetTotalDuration returns the TotalDuration field value if set, zero value otherwise.
-func (o *DataroomPageStat) GetTotalDuration() int32 {
+func (o *DataroomPageStat) GetTotalDuration() int64 {
 	if o == nil || IsNil(o.TotalDuration) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalDuration
@@ -121,7 +121,7 @@ func (o *DataroomPageStat) GetTotalDuration() int32 {
 
 // GetTotalDurationOk returns a tuple with the TotalDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DataroomPageStat) GetTotalDurationOk() (*int32, bool) {
+func (o *DataroomPageStat) GetTotalDurationOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalDuration) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *DataroomPageStat) HasTotalDuration() bool {
 	return false
 }
 
-// SetTotalDuration gets a reference to the given int32 and assigns it to the TotalDuration field.
-func (o *DataroomPageStat) SetTotalDuration(v int32) {
+// SetTotalDuration gets a reference to the given int64 and assigns it to the TotalDuration field.
+func (o *DataroomPageStat) SetTotalDuration(v int64) {
 	o.TotalDuration = &v
 }
 
 // GetViews returns the Views field value if set, zero value otherwise.
-func (o *DataroomPageStat) GetViews() int32 {
+func (o *DataroomPageStat) GetViews() int64 {
 	if o == nil || IsNil(o.Views) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Views
@@ -153,7 +153,7 @@ func (o *DataroomPageStat) GetViews() int32 {
 
 // GetViewsOk returns a tuple with the Views field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DataroomPageStat) GetViewsOk() (*int32, bool) {
+func (o *DataroomPageStat) GetViewsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Views) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *DataroomPageStat) HasViews() bool {
 	return false
 }
 
-// SetViews gets a reference to the given int32 and assigns it to the Views field.
-func (o *DataroomPageStat) SetViews(v int32) {
+// SetViews gets a reference to the given int64 and assigns it to the Views field.
+func (o *DataroomPageStat) SetViews(v int64) {
 	o.Views = &v
 }
 

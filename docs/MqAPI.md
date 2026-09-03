@@ -375,8 +375,8 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 | Limit caps the streams returned (1–1000, default 100). (optional)
-	offset := int32(56) // int32 | Offset skips that many streams, name-ordered. (optional)
+	limit := int64(789) // int64 | Limit caps the streams returned (1–1000, default 100). (optional)
+	offset := int64(789) // int64 | Offset skips that many streams, name-ordered. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -401,8 +401,8 @@ Other parameters are passed through a pointer to a apiGetMqStreamRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit caps the streams returned (1–1000, default 100). | 
- **offset** | **int32** | Offset skips that many streams, name-ordered. | 
+ **limit** | **int64** | Limit caps the streams returned (1–1000, default 100). | 
+ **offset** | **int64** | Offset skips that many streams, name-ordered. | 
 
 ### Return type
 
@@ -517,7 +517,7 @@ func main() {
 	seq := int32(56) // int32 | Seq reads the message at this sequence (with next_by_subject: the walk's start). (optional)
 	lastBySubject := "lastBySubject_example" // string | LastBySubject reads the newest message on this org-relative subject. (optional)
 	nextBySubject := "nextBySubject_example" // string | NextBySubject walks forward from seq collecting messages on this org-relative subject (wildcards supported). (optional)
-	limit := int32(56) // int32 | Limit caps a next_by_subject walk (1–1000, default 100). (optional)
+	limit := int64(789) // int64 | Limit caps a next_by_subject walk (1–1000, default 100). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -550,7 +550,7 @@ Name | Type | Description  | Notes
  **seq** | **int32** | Seq reads the message at this sequence (with next_by_subject: the walk&#39;s start). | 
  **lastBySubject** | **string** | LastBySubject reads the newest message on this org-relative subject. | 
  **nextBySubject** | **string** | NextBySubject walks forward from seq collecting messages on this org-relative subject (wildcards supported). | 
- **limit** | **int32** | Limit caps a next_by_subject walk (1–1000, default 100). | 
+ **limit** | **int64** | Limit caps a next_by_subject walk (1–1000, default 100). | 
 
 ### Return type
 
@@ -592,8 +592,8 @@ import (
 
 func main() {
 	stream := "stream_example" // string | Stream is the stream name, from the path.
-	limit := int32(56) // int32 | Limit caps the consumers returned (1–1000, default 100). (optional)
-	offset := int32(56) // int32 | Offset skips that many consumers, name-ordered. (optional)
+	limit := int64(789) // int64 | Limit caps the consumers returned (1–1000, default 100). (optional)
+	offset := int64(789) // int64 | Offset skips that many consumers, name-ordered. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -623,8 +623,8 @@ Other parameters are passed through a pointer to a apiGetMqStreamByStreamConsume
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **limit** | **int32** | Limit caps the consumers returned (1–1000, default 100). | 
- **offset** | **int32** | Offset skips that many consumers, name-ordered. | 
+ **limit** | **int64** | Limit caps the consumers returned (1–1000, default 100). | 
+ **offset** | **int64** | Offset skips that many consumers, name-ordered. | 
 
 ### Return type
 

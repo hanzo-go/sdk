@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Arch** | Pointer to **string** | Arch/CPUs/Memory are the connecting host&#39;s static CPU spec, mirrored from the registration: Arch is runtime.GOARCH (amd64 | arm64), Memory is total RAM in BYTES — the same fields a code-linked run-target carries, so the /v1/visor/fleet board renders a linked node&#39;s arch + cores + RAM like any other unit. | [optional] 
 **Capabilities** | Pointer to **[]string** | Capabilities is what this worker offers the org: \&quot;studio.render\&quot; when the node can render, \&quot;engine.serve\&quot; when it serves a model endpoint. A node advertises one only once it can honour it, so an absent list means a node that has dialed in but is not ready to serve any of them yet. | [optional] 
 **CpuModel** | Pointer to **string** | CPUModel is the processor as the host names it (\&quot;Apple M3 Max\&quot;), for display. | [optional] 
-**Cpus** | Pointer to **int32** | CPUs is the host&#39;s logical core count. | [optional] 
+**Cpus** | Pointer to **int64** | CPUs is the host&#39;s logical core count. | [optional] 
 **Cuda** | Pointer to **string** | Cuda is the host&#39;s CUDA toolkit version. NVIDIA hosts report it. | [optional] 
 **Driver** | Pointer to **string** | Driver is the host&#39;s NVIDIA kernel driver version — distinct from Cuda, and the one that bounds which CUDA versions can run on this box. | [optional] 
 **Engine** | Pointer to [**EngineAdvertisement**](EngineAdvertisement.md) | Engine is the hanzo-engine model server this node runs, when it runs one (&#x60;hanzo link --serve-engine&#x60;). Absent means the node takes jobs but serves no model endpoint. | [optional] 
@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **JobQueue** | Pointer to **string** | JobQueue is the tasks NAMESPACE this worker claims render jobs out of — \&quot;gpu-jobs\&quot; unless &#x60;hanzo link&#x60; was pointed at another. Within it, a job aimed at this node alone rides the task-queue value \&quot;gpu:&lt;id&gt;\&quot;. | [optional] 
 **LastHeartbeat** | Pointer to **string** | LastHeartbeat is the most recent beat this node sent, RFC 3339. It is what Status is computed from, so a reader can check the judgement. | [optional] 
 **Location** | Pointer to **string** | Location is always \&quot;on-prem\&quot; — a machine that dialed in has no cloud region, and inventing one would put it somewhere it is not. | [optional] 
-**Memory** | Pointer to **int32** | Memory is the host&#39;s total RAM in BYTES. | [optional] 
+**Memory** | Pointer to **int64** | Memory is the host&#39;s total RAM in BYTES. | [optional] 
 **Os** | Pointer to **string** | Os is the host&#39;s operating system: linux, darwin or windows. | [optional] 
 **Provider** | Pointer to **string** | Provider is always \&quot;byo\&quot;: this machine is the operator&#39;s, not one Hanzo provisioned. It exists so a fold into the machines/GPUs pages says which rows are rented and which are the customer&#39;s own. | [optional] 
 **Rocm** | Pointer to **string** | Rocm is the host&#39;s ROCm version. AMD hosts report it; empty otherwise. | [optional] 
@@ -122,20 +122,20 @@ HasCpuModel returns a boolean if a field has been set.
 
 ### GetCpus
 
-`func (o *ByoWorker) GetCpus() int32`
+`func (o *ByoWorker) GetCpus() int64`
 
 GetCpus returns the Cpus field if non-nil, zero value otherwise.
 
 ### GetCpusOk
 
-`func (o *ByoWorker) GetCpusOk() (*int32, bool)`
+`func (o *ByoWorker) GetCpusOk() (*int64, bool)`
 
 GetCpusOk returns a tuple with the Cpus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCpus
 
-`func (o *ByoWorker) SetCpus(v int32)`
+`func (o *ByoWorker) SetCpus(v int64)`
 
 SetCpus sets Cpus field to given value.
 
@@ -422,20 +422,20 @@ HasLocation returns a boolean if a field has been set.
 
 ### GetMemory
 
-`func (o *ByoWorker) GetMemory() int32`
+`func (o *ByoWorker) GetMemory() int64`
 
 GetMemory returns the Memory field if non-nil, zero value otherwise.
 
 ### GetMemoryOk
 
-`func (o *ByoWorker) GetMemoryOk() (*int32, bool)`
+`func (o *ByoWorker) GetMemoryOk() (*int64, bool)`
 
 GetMemoryOk returns a tuple with the Memory field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMemory
 
-`func (o *ByoWorker) SetMemory(v int32)`
+`func (o *ByoWorker) SetMemory(v int64)`
 
 SetMemory sets Memory field to given value.
 

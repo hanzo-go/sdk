@@ -19,10 +19,10 @@ var _ MappedNullable = &O11yGettableRuleStateHistoryStats{}
 
 // O11yGettableRuleStateHistoryStats struct for O11yGettableRuleStateHistoryStats
 type O11yGettableRuleStateHistoryStats struct {
-	CurrentAvgResolutionTime       *float32        `json:"currentAvgResolutionTime,omitempty"`
+	CurrentAvgResolutionTime       *float64        `json:"currentAvgResolutionTime,omitempty"`
 	CurrentAvgResolutionTimeSeries *O11yTimeSeries `json:"currentAvgResolutionTimeSeries,omitempty"`
 	CurrentTriggersSeries          *O11yTimeSeries `json:"currentTriggersSeries,omitempty"`
-	PastAvgResolutionTime          *float32        `json:"pastAvgResolutionTime,omitempty"`
+	PastAvgResolutionTime          *float64        `json:"pastAvgResolutionTime,omitempty"`
 	PastAvgResolutionTimeSeries    *O11yTimeSeries `json:"pastAvgResolutionTimeSeries,omitempty"`
 	PastTriggersSeries             *O11yTimeSeries `json:"pastTriggersSeries,omitempty"`
 	TotalCurrentTriggers           *int32          `json:"totalCurrentTriggers,omitempty"`
@@ -47,9 +47,9 @@ func NewO11yGettableRuleStateHistoryStatsWithDefaults() *O11yGettableRuleStateHi
 }
 
 // GetCurrentAvgResolutionTime returns the CurrentAvgResolutionTime field value if set, zero value otherwise.
-func (o *O11yGettableRuleStateHistoryStats) GetCurrentAvgResolutionTime() float32 {
+func (o *O11yGettableRuleStateHistoryStats) GetCurrentAvgResolutionTime() float64 {
 	if o == nil || IsNil(o.CurrentAvgResolutionTime) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.CurrentAvgResolutionTime
@@ -57,7 +57,7 @@ func (o *O11yGettableRuleStateHistoryStats) GetCurrentAvgResolutionTime() float3
 
 // GetCurrentAvgResolutionTimeOk returns a tuple with the CurrentAvgResolutionTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yGettableRuleStateHistoryStats) GetCurrentAvgResolutionTimeOk() (*float32, bool) {
+func (o *O11yGettableRuleStateHistoryStats) GetCurrentAvgResolutionTimeOk() (*float64, bool) {
 	if o == nil || IsNil(o.CurrentAvgResolutionTime) {
 		return nil, false
 	}
@@ -73,8 +73,8 @@ func (o *O11yGettableRuleStateHistoryStats) HasCurrentAvgResolutionTime() bool {
 	return false
 }
 
-// SetCurrentAvgResolutionTime gets a reference to the given float32 and assigns it to the CurrentAvgResolutionTime field.
-func (o *O11yGettableRuleStateHistoryStats) SetCurrentAvgResolutionTime(v float32) {
+// SetCurrentAvgResolutionTime gets a reference to the given float64 and assigns it to the CurrentAvgResolutionTime field.
+func (o *O11yGettableRuleStateHistoryStats) SetCurrentAvgResolutionTime(v float64) {
 	o.CurrentAvgResolutionTime = &v
 }
 
@@ -143,9 +143,9 @@ func (o *O11yGettableRuleStateHistoryStats) SetCurrentTriggersSeries(v O11yTimeS
 }
 
 // GetPastAvgResolutionTime returns the PastAvgResolutionTime field value if set, zero value otherwise.
-func (o *O11yGettableRuleStateHistoryStats) GetPastAvgResolutionTime() float32 {
+func (o *O11yGettableRuleStateHistoryStats) GetPastAvgResolutionTime() float64 {
 	if o == nil || IsNil(o.PastAvgResolutionTime) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.PastAvgResolutionTime
@@ -153,7 +153,7 @@ func (o *O11yGettableRuleStateHistoryStats) GetPastAvgResolutionTime() float32 {
 
 // GetPastAvgResolutionTimeOk returns a tuple with the PastAvgResolutionTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yGettableRuleStateHistoryStats) GetPastAvgResolutionTimeOk() (*float32, bool) {
+func (o *O11yGettableRuleStateHistoryStats) GetPastAvgResolutionTimeOk() (*float64, bool) {
 	if o == nil || IsNil(o.PastAvgResolutionTime) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *O11yGettableRuleStateHistoryStats) HasPastAvgResolutionTime() bool {
 	return false
 }
 
-// SetPastAvgResolutionTime gets a reference to the given float32 and assigns it to the PastAvgResolutionTime field.
-func (o *O11yGettableRuleStateHistoryStats) SetPastAvgResolutionTime(v float32) {
+// SetPastAvgResolutionTime gets a reference to the given float64 and assigns it to the PastAvgResolutionTime field.
+func (o *O11yGettableRuleStateHistoryStats) SetPastAvgResolutionTime(v float64) {
 	o.PastAvgResolutionTime = &v
 }
 

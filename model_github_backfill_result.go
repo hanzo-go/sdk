@@ -20,17 +20,17 @@ var _ MappedNullable = &GithubBackfillResult{}
 // GithubBackfillResult struct for GithubBackfillResult
 type GithubBackfillResult struct {
 	// Created is how many native issues this pass created.
-	Created *int32 `json:"created,omitempty"`
+	Created *int64 `json:"created,omitempty"`
 	// Failed is how many repos or issues errored; the pass continues past each.
-	Failed *int32 `json:"failed,omitempty"`
+	Failed *int64 `json:"failed,omitempty"`
 	// Issues is how many upstream issues were seen.
-	Issues *int32 `json:"issues,omitempty"`
+	Issues *int64 `json:"issues,omitempty"`
 	// Repos is how many granted repos were walked (archived/disabled are skipped).
-	Repos *int32 `json:"repos,omitempty"`
+	Repos *int64 `json:"repos,omitempty"`
 	// Truncated is set when the time budget or the issue cap stopped the pass early. Re-run to continue — the mirror is idempotent by ExtRef, so nothing duplicates.
 	Truncated *bool `json:"truncated,omitempty"`
 	// Updated is how many existing native issues this pass refreshed.
-	Updated *int32 `json:"updated,omitempty"`
+	Updated *int64 `json:"updated,omitempty"`
 }
 
 // NewGithubBackfillResult instantiates a new GithubBackfillResult object
@@ -51,9 +51,9 @@ func NewGithubBackfillResultWithDefaults() *GithubBackfillResult {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *GithubBackfillResult) GetCreated() int32 {
+func (o *GithubBackfillResult) GetCreated() int64 {
 	if o == nil || IsNil(o.Created) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Created
@@ -61,7 +61,7 @@ func (o *GithubBackfillResult) GetCreated() int32 {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GithubBackfillResult) GetCreatedOk() (*int32, bool) {
+func (o *GithubBackfillResult) GetCreatedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -77,15 +77,15 @@ func (o *GithubBackfillResult) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given int32 and assigns it to the Created field.
-func (o *GithubBackfillResult) SetCreated(v int32) {
+// SetCreated gets a reference to the given int64 and assigns it to the Created field.
+func (o *GithubBackfillResult) SetCreated(v int64) {
 	o.Created = &v
 }
 
 // GetFailed returns the Failed field value if set, zero value otherwise.
-func (o *GithubBackfillResult) GetFailed() int32 {
+func (o *GithubBackfillResult) GetFailed() int64 {
 	if o == nil || IsNil(o.Failed) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Failed
@@ -93,7 +93,7 @@ func (o *GithubBackfillResult) GetFailed() int32 {
 
 // GetFailedOk returns a tuple with the Failed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GithubBackfillResult) GetFailedOk() (*int32, bool) {
+func (o *GithubBackfillResult) GetFailedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Failed) {
 		return nil, false
 	}
@@ -109,15 +109,15 @@ func (o *GithubBackfillResult) HasFailed() bool {
 	return false
 }
 
-// SetFailed gets a reference to the given int32 and assigns it to the Failed field.
-func (o *GithubBackfillResult) SetFailed(v int32) {
+// SetFailed gets a reference to the given int64 and assigns it to the Failed field.
+func (o *GithubBackfillResult) SetFailed(v int64) {
 	o.Failed = &v
 }
 
 // GetIssues returns the Issues field value if set, zero value otherwise.
-func (o *GithubBackfillResult) GetIssues() int32 {
+func (o *GithubBackfillResult) GetIssues() int64 {
 	if o == nil || IsNil(o.Issues) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Issues
@@ -125,7 +125,7 @@ func (o *GithubBackfillResult) GetIssues() int32 {
 
 // GetIssuesOk returns a tuple with the Issues field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GithubBackfillResult) GetIssuesOk() (*int32, bool) {
+func (o *GithubBackfillResult) GetIssuesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Issues) {
 		return nil, false
 	}
@@ -141,15 +141,15 @@ func (o *GithubBackfillResult) HasIssues() bool {
 	return false
 }
 
-// SetIssues gets a reference to the given int32 and assigns it to the Issues field.
-func (o *GithubBackfillResult) SetIssues(v int32) {
+// SetIssues gets a reference to the given int64 and assigns it to the Issues field.
+func (o *GithubBackfillResult) SetIssues(v int64) {
 	o.Issues = &v
 }
 
 // GetRepos returns the Repos field value if set, zero value otherwise.
-func (o *GithubBackfillResult) GetRepos() int32 {
+func (o *GithubBackfillResult) GetRepos() int64 {
 	if o == nil || IsNil(o.Repos) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Repos
@@ -157,7 +157,7 @@ func (o *GithubBackfillResult) GetRepos() int32 {
 
 // GetReposOk returns a tuple with the Repos field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GithubBackfillResult) GetReposOk() (*int32, bool) {
+func (o *GithubBackfillResult) GetReposOk() (*int64, bool) {
 	if o == nil || IsNil(o.Repos) {
 		return nil, false
 	}
@@ -173,8 +173,8 @@ func (o *GithubBackfillResult) HasRepos() bool {
 	return false
 }
 
-// SetRepos gets a reference to the given int32 and assigns it to the Repos field.
-func (o *GithubBackfillResult) SetRepos(v int32) {
+// SetRepos gets a reference to the given int64 and assigns it to the Repos field.
+func (o *GithubBackfillResult) SetRepos(v int64) {
 	o.Repos = &v
 }
 
@@ -211,9 +211,9 @@ func (o *GithubBackfillResult) SetTruncated(v bool) {
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *GithubBackfillResult) GetUpdated() int32 {
+func (o *GithubBackfillResult) GetUpdated() int64 {
 	if o == nil || IsNil(o.Updated) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Updated
@@ -221,7 +221,7 @@ func (o *GithubBackfillResult) GetUpdated() int32 {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GithubBackfillResult) GetUpdatedOk() (*int32, bool) {
+func (o *GithubBackfillResult) GetUpdatedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *GithubBackfillResult) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given int32 and assigns it to the Updated field.
-func (o *GithubBackfillResult) SetUpdated(v int32) {
+// SetUpdated gets a reference to the given int64 and assigns it to the Updated field.
+func (o *GithubBackfillResult) SetUpdated(v int64) {
 	o.Updated = &v
 }
 

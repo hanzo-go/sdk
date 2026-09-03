@@ -20,17 +20,17 @@ var _ MappedNullable = &RiskTopology{}
 // RiskTopology struct for RiskTopology
 type RiskTopology struct {
 	// Blend is how much of a closing window folds into the reference: 1 replaces it outright, less makes the reference expensive to move.
-	Blend *float32 `json:"blend,omitempty"`
+	Blend *float64 `json:"blend,omitempty"`
 	// Depth is how deep each tree is. With Trees it sets how finely the space is partitioned, and therefore how much history it takes to fill.
-	Depth *int32 `json:"depth,omitempty"`
+	Depth *int64 `json:"depth,omitempty"`
 	// Family is the KIND of model this candidate is: `halfspace` is an ensemble of half-space trees whose masses are counters, and it is the family this search grid ranks. The parameters below are that family's own — a family that does not partition space with trees has different ones — so read them against this.
 	Family *string `json:"family,omitempty"`
 	// Review is the appetite this shape was tried at.
-	Review *float32 `json:"review,omitempty"`
+	Review *float64 `json:"review,omitempty"`
 	// Trees is how many half-space trees the ensemble holds.
-	Trees *int32 `json:"trees,omitempty"`
+	Trees *int64 `json:"trees,omitempty"`
 	// Window is how many events make one reference window.
-	Window *int32 `json:"window,omitempty"`
+	Window *int64 `json:"window,omitempty"`
 }
 
 // NewRiskTopology instantiates a new RiskTopology object
@@ -51,9 +51,9 @@ func NewRiskTopologyWithDefaults() *RiskTopology {
 }
 
 // GetBlend returns the Blend field value if set, zero value otherwise.
-func (o *RiskTopology) GetBlend() float32 {
+func (o *RiskTopology) GetBlend() float64 {
 	if o == nil || IsNil(o.Blend) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Blend
@@ -61,7 +61,7 @@ func (o *RiskTopology) GetBlend() float32 {
 
 // GetBlendOk returns a tuple with the Blend field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskTopology) GetBlendOk() (*float32, bool) {
+func (o *RiskTopology) GetBlendOk() (*float64, bool) {
 	if o == nil || IsNil(o.Blend) {
 		return nil, false
 	}
@@ -77,15 +77,15 @@ func (o *RiskTopology) HasBlend() bool {
 	return false
 }
 
-// SetBlend gets a reference to the given float32 and assigns it to the Blend field.
-func (o *RiskTopology) SetBlend(v float32) {
+// SetBlend gets a reference to the given float64 and assigns it to the Blend field.
+func (o *RiskTopology) SetBlend(v float64) {
 	o.Blend = &v
 }
 
 // GetDepth returns the Depth field value if set, zero value otherwise.
-func (o *RiskTopology) GetDepth() int32 {
+func (o *RiskTopology) GetDepth() int64 {
 	if o == nil || IsNil(o.Depth) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Depth
@@ -93,7 +93,7 @@ func (o *RiskTopology) GetDepth() int32 {
 
 // GetDepthOk returns a tuple with the Depth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskTopology) GetDepthOk() (*int32, bool) {
+func (o *RiskTopology) GetDepthOk() (*int64, bool) {
 	if o == nil || IsNil(o.Depth) {
 		return nil, false
 	}
@@ -109,8 +109,8 @@ func (o *RiskTopology) HasDepth() bool {
 	return false
 }
 
-// SetDepth gets a reference to the given int32 and assigns it to the Depth field.
-func (o *RiskTopology) SetDepth(v int32) {
+// SetDepth gets a reference to the given int64 and assigns it to the Depth field.
+func (o *RiskTopology) SetDepth(v int64) {
 	o.Depth = &v
 }
 
@@ -147,9 +147,9 @@ func (o *RiskTopology) SetFamily(v string) {
 }
 
 // GetReview returns the Review field value if set, zero value otherwise.
-func (o *RiskTopology) GetReview() float32 {
+func (o *RiskTopology) GetReview() float64 {
 	if o == nil || IsNil(o.Review) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Review
@@ -157,7 +157,7 @@ func (o *RiskTopology) GetReview() float32 {
 
 // GetReviewOk returns a tuple with the Review field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskTopology) GetReviewOk() (*float32, bool) {
+func (o *RiskTopology) GetReviewOk() (*float64, bool) {
 	if o == nil || IsNil(o.Review) {
 		return nil, false
 	}
@@ -173,15 +173,15 @@ func (o *RiskTopology) HasReview() bool {
 	return false
 }
 
-// SetReview gets a reference to the given float32 and assigns it to the Review field.
-func (o *RiskTopology) SetReview(v float32) {
+// SetReview gets a reference to the given float64 and assigns it to the Review field.
+func (o *RiskTopology) SetReview(v float64) {
 	o.Review = &v
 }
 
 // GetTrees returns the Trees field value if set, zero value otherwise.
-func (o *RiskTopology) GetTrees() int32 {
+func (o *RiskTopology) GetTrees() int64 {
 	if o == nil || IsNil(o.Trees) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Trees
@@ -189,7 +189,7 @@ func (o *RiskTopology) GetTrees() int32 {
 
 // GetTreesOk returns a tuple with the Trees field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskTopology) GetTreesOk() (*int32, bool) {
+func (o *RiskTopology) GetTreesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Trees) {
 		return nil, false
 	}
@@ -205,15 +205,15 @@ func (o *RiskTopology) HasTrees() bool {
 	return false
 }
 
-// SetTrees gets a reference to the given int32 and assigns it to the Trees field.
-func (o *RiskTopology) SetTrees(v int32) {
+// SetTrees gets a reference to the given int64 and assigns it to the Trees field.
+func (o *RiskTopology) SetTrees(v int64) {
 	o.Trees = &v
 }
 
 // GetWindow returns the Window field value if set, zero value otherwise.
-func (o *RiskTopology) GetWindow() int32 {
+func (o *RiskTopology) GetWindow() int64 {
 	if o == nil || IsNil(o.Window) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Window
@@ -221,7 +221,7 @@ func (o *RiskTopology) GetWindow() int32 {
 
 // GetWindowOk returns a tuple with the Window field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskTopology) GetWindowOk() (*int32, bool) {
+func (o *RiskTopology) GetWindowOk() (*int64, bool) {
 	if o == nil || IsNil(o.Window) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *RiskTopology) HasWindow() bool {
 	return false
 }
 
-// SetWindow gets a reference to the given int32 and assigns it to the Window field.
-func (o *RiskTopology) SetWindow(v int32) {
+// SetWindow gets a reference to the given int64 and assigns it to the Window field.
+func (o *RiskTopology) SetWindow(v int64) {
 	o.Window = &v
 }
 

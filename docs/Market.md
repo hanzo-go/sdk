@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Factory** | Pointer to **map[string]string** | Factory is the AMM&#39;s factory contracts, by generation, omitted where none is deployed. Addresses come from the registry because that is what the indexer itself ingested from; anything else is a second copy free to drift. | [optional] 
 **Figures** | Pointer to [**Figures**](Figures.md) | Figures is the chain&#39;s whole market maker, and Day its most recent active one. Both are absent unless Reach says Read, so a caller cannot mistake a zero this process never received for one the indexer computed. Day is also absent on a chain that has never traded — which reach reports as Read, so the two absences are told apart by the state beside them and never by the gap itself. | [optional] 
 **Graph** | Pointer to **string** | Graph is where this chain&#39;s indexer answers, empty where it has none. | [optional] 
-**Id** | Pointer to **int32** | ID is the EVM chain id, which is what a wallet must agree with. | [optional] 
+**Id** | Pointer to **int64** | ID is the EVM chain id, which is what a wallet must agree with. | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Reach** | Pointer to [**Reach**](Reach.md) | Reach is how far the read of this chain&#39;s FIGURES got — its own, so one indexer being down describes one row and leaves the others to answer. | [optional] 
 **Rpc** | Pointer to **string** | RPC is the chain&#39;s PUBLIC JSON-RPC, empty where the registry names only a route this process happens to have. The registry&#39;s own &#x60;rpc&#x60; field is the INDEXER&#39;s route to the node and is sometimes inside its cluster — plain HTTP on a &#x60;.svc.cluster.local&#x60; name — which is reachable from the indexer, from nothing else, and from no browser. Publishing that as the chain&#39;s endpoint hands every caller an address that cannot answer them. See [endpoint]. | [optional] 
@@ -187,20 +187,20 @@ HasGraph returns a boolean if a field has been set.
 
 ### GetId
 
-`func (o *Market) GetId() int32`
+`func (o *Market) GetId() int64`
 
 GetId returns the Id field if non-nil, zero value otherwise.
 
 ### GetIdOk
 
-`func (o *Market) GetIdOk() (*int32, bool)`
+`func (o *Market) GetIdOk() (*int64, bool)`
 
 GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetId
 
-`func (o *Market) SetId(v int32)`
+`func (o *Market) SetId(v int64)`
 
 SetId sets Id field to given value.
 

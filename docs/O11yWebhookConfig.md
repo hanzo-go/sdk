@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **NotifierConfig** | Pointer to [**O11yNotifierConfig**](O11yNotifierConfig.md) |  | [optional] 
 **HttpConfig** | Pointer to [**O11yHTTPClientConfig**](O11yHTTPClientConfig.md) |  | [optional] 
 **MaxAlerts** | Pointer to **int32** | MaxAlerts is the maximum number of alerts to be sent per webhook message. Alerts exceeding this threshold will be truncated. Setting this to 0 allows an unlimited number of alerts. | [optional] 
-**Timeout** | Pointer to **int32** | Timeout is the maximum time allowed to invoke the webhook. Setting this to 0 does not impose a timeout. | [optional] 
+**Timeout** | Pointer to **int64** | Timeout is the maximum time allowed to invoke the webhook. Setting this to 0 does not impose a timeout. | [optional] 
 **Url** | Pointer to **interface{}** |  | [optional] 
 **UrlFile** | Pointer to **string** |  | [optional] 
 
@@ -107,20 +107,20 @@ HasMaxAlerts returns a boolean if a field has been set.
 
 ### GetTimeout
 
-`func (o *O11yWebhookConfig) GetTimeout() int32`
+`func (o *O11yWebhookConfig) GetTimeout() int64`
 
 GetTimeout returns the Timeout field if non-nil, zero value otherwise.
 
 ### GetTimeoutOk
 
-`func (o *O11yWebhookConfig) GetTimeoutOk() (*int32, bool)`
+`func (o *O11yWebhookConfig) GetTimeoutOk() (*int64, bool)`
 
 GetTimeoutOk returns a tuple with the Timeout field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeout
 
-`func (o *O11yWebhookConfig) SetTimeout(v int32)`
+`func (o *O11yWebhookConfig) SetTimeout(v int64)`
 
 SetTimeout sets Timeout field to given value.
 

@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Blind** | Pointer to **bool** | Blind is true when the dimension is present in no bucket at all: this organisation&#39;s surface does not carry it, and saying so is the difference between no risk and no data. | [optional] 
-**Buckets** | Pointer to **int32** | Buckets is how many five-minute buckets of this organisation&#39;s surface were measured. | [optional] 
-**Max** | Pointer to **float32** | Max is the largest value it reached in the window. | [optional] 
-**Mean** | Pointer to **float32** | Mean is the dimension&#39;s average where it was present. | [optional] 
+**Buckets** | Pointer to **int64** | Buckets is how many five-minute buckets of this organisation&#39;s surface were measured. | [optional] 
+**Max** | Pointer to **float64** | Max is the largest value it reached in the window. | [optional] 
+**Mean** | Pointer to **float64** | Mean is the dimension&#39;s average where it was present. | [optional] 
 **Name** | Pointer to **string** | Name is the dimension as this API publishes it. | [optional] 
-**Present** | Pointer to **int32** | Present is in how many of them the dimension carried a value at all. | [optional] 
+**Present** | Pointer to **int64** | Present is in how many of them the dimension carried a value at all. | [optional] 
 **Source** | Pointer to **string** | Source names the plane it is rolled up from, so a dimension that reads zero everywhere traces to a plane the organisation does not use rather than to a defect. | [optional] 
 **Unit** | Pointer to **string** | Unit is how to read the numbers below. | [optional] 
 
@@ -59,20 +59,20 @@ HasBlind returns a boolean if a field has been set.
 
 ### GetBuckets
 
-`func (o *RiskOrgFeature) GetBuckets() int32`
+`func (o *RiskOrgFeature) GetBuckets() int64`
 
 GetBuckets returns the Buckets field if non-nil, zero value otherwise.
 
 ### GetBucketsOk
 
-`func (o *RiskOrgFeature) GetBucketsOk() (*int32, bool)`
+`func (o *RiskOrgFeature) GetBucketsOk() (*int64, bool)`
 
 GetBucketsOk returns a tuple with the Buckets field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBuckets
 
-`func (o *RiskOrgFeature) SetBuckets(v int32)`
+`func (o *RiskOrgFeature) SetBuckets(v int64)`
 
 SetBuckets sets Buckets field to given value.
 
@@ -84,20 +84,20 @@ HasBuckets returns a boolean if a field has been set.
 
 ### GetMax
 
-`func (o *RiskOrgFeature) GetMax() float32`
+`func (o *RiskOrgFeature) GetMax() float64`
 
 GetMax returns the Max field if non-nil, zero value otherwise.
 
 ### GetMaxOk
 
-`func (o *RiskOrgFeature) GetMaxOk() (*float32, bool)`
+`func (o *RiskOrgFeature) GetMaxOk() (*float64, bool)`
 
 GetMaxOk returns a tuple with the Max field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMax
 
-`func (o *RiskOrgFeature) SetMax(v float32)`
+`func (o *RiskOrgFeature) SetMax(v float64)`
 
 SetMax sets Max field to given value.
 
@@ -109,20 +109,20 @@ HasMax returns a boolean if a field has been set.
 
 ### GetMean
 
-`func (o *RiskOrgFeature) GetMean() float32`
+`func (o *RiskOrgFeature) GetMean() float64`
 
 GetMean returns the Mean field if non-nil, zero value otherwise.
 
 ### GetMeanOk
 
-`func (o *RiskOrgFeature) GetMeanOk() (*float32, bool)`
+`func (o *RiskOrgFeature) GetMeanOk() (*float64, bool)`
 
 GetMeanOk returns a tuple with the Mean field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMean
 
-`func (o *RiskOrgFeature) SetMean(v float32)`
+`func (o *RiskOrgFeature) SetMean(v float64)`
 
 SetMean sets Mean field to given value.
 
@@ -159,20 +159,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetPresent
 
-`func (o *RiskOrgFeature) GetPresent() int32`
+`func (o *RiskOrgFeature) GetPresent() int64`
 
 GetPresent returns the Present field if non-nil, zero value otherwise.
 
 ### GetPresentOk
 
-`func (o *RiskOrgFeature) GetPresentOk() (*int32, bool)`
+`func (o *RiskOrgFeature) GetPresentOk() (*int64, bool)`
 
 GetPresentOk returns a tuple with the Present field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPresent
 
-`func (o *RiskOrgFeature) SetPresent(v int32)`
+`func (o *RiskOrgFeature) SetPresent(v int64)`
 
 SetPresent sets Present field to given value.
 

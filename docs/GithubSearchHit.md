@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **HtmlUrl** | Pointer to **string** | HTMLURL is the repository&#39;s page on github.com. | [optional] 
 **Language** | Pointer to **string** | Language is the primary language GitHub detected from the file mix (\&quot;Go\&quot;, \&quot;TypeScript\&quot;). Empty when GitHub attributes none. | [optional] 
 **Private** | Pointer to **bool** | Private is GitHub&#39;s visibility flag, passed through. This op reads the public index — the org&#39;s token only charges the rate limit to the installation — so it is false for everything a search can reach. | [optional] 
-**Stars** | Pointer to **int32** | Stars is GitHub&#39;s stargazers_count as the SEARCH INDEX held it when the query ran — a snapshot, not a live count off the repository. | [optional] 
+**Stars** | Pointer to **int64** | Stars is GitHub&#39;s stargazers_count as the SEARCH INDEX held it when the query ran — a snapshot, not a live count off the repository. | [optional] 
 
 ## Methods
 
@@ -209,20 +209,20 @@ HasPrivate returns a boolean if a field has been set.
 
 ### GetStars
 
-`func (o *GithubSearchHit) GetStars() int32`
+`func (o *GithubSearchHit) GetStars() int64`
 
 GetStars returns the Stars field if non-nil, zero value otherwise.
 
 ### GetStarsOk
 
-`func (o *GithubSearchHit) GetStarsOk() (*int32, bool)`
+`func (o *GithubSearchHit) GetStarsOk() (*int64, bool)`
 
 GetStarsOk returns a tuple with the Stars field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStars
 
-`func (o *GithubSearchHit) SetStars(v int32)`
+`func (o *GithubSearchHit) SetStars(v int64)`
 
 SetStars sets Stars field to given value.
 

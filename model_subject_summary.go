@@ -20,7 +20,7 @@ var _ MappedNullable = &SubjectSummary{}
 // SubjectSummary struct for SubjectSummary
 type SubjectSummary struct {
 	// CreatedAt is the unix second the subject was recorded.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// HasEmail reports whether a contact email is on file, without exposing it.
 	HasEmail *bool `json:"hasEmail,omitempty"`
 	// ID is the subject's opaque id.
@@ -49,9 +49,9 @@ func NewSubjectSummaryWithDefaults() *SubjectSummary {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *SubjectSummary) GetCreatedAt() int32 {
+func (o *SubjectSummary) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -59,7 +59,7 @@ func (o *SubjectSummary) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SubjectSummary) GetCreatedAtOk() (*int32, bool) {
+func (o *SubjectSummary) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *SubjectSummary) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *SubjectSummary) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *SubjectSummary) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 

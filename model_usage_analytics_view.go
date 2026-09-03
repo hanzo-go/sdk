@@ -30,7 +30,7 @@ type UsageAnalyticsView struct {
 	// Range is the label that was ASKED for. A plan whose retention is shorter than that window is served the retention instead, so read start and end for the window the rows actually cover and retentionDays for the reason — on a clamped read the label is longer than what was served.
 	Range *string `json:"range,omitempty"`
 	// RetentionDays is how far back the resolved plan allows reading.
-	RetentionDays *int32 `json:"retentionDays,omitempty"`
+	RetentionDays *int64 `json:"retentionDays,omitempty"`
 	// Scope is the tenant the rows were read under — the validated principal's org.
 	Scope *UsageScope `json:"scope,omitempty"`
 	// Start is the window's inclusive start, RFC3339 UTC, AFTER the retention clamp — so it may be later than the start that was asked for.
@@ -215,9 +215,9 @@ func (o *UsageAnalyticsView) SetRange(v string) {
 }
 
 // GetRetentionDays returns the RetentionDays field value if set, zero value otherwise.
-func (o *UsageAnalyticsView) GetRetentionDays() int32 {
+func (o *UsageAnalyticsView) GetRetentionDays() int64 {
 	if o == nil || IsNil(o.RetentionDays) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RetentionDays
@@ -225,7 +225,7 @@ func (o *UsageAnalyticsView) GetRetentionDays() int32 {
 
 // GetRetentionDaysOk returns a tuple with the RetentionDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsageAnalyticsView) GetRetentionDaysOk() (*int32, bool) {
+func (o *UsageAnalyticsView) GetRetentionDaysOk() (*int64, bool) {
 	if o == nil || IsNil(o.RetentionDays) {
 		return nil, false
 	}
@@ -241,8 +241,8 @@ func (o *UsageAnalyticsView) HasRetentionDays() bool {
 	return false
 }
 
-// SetRetentionDays gets a reference to the given int32 and assigns it to the RetentionDays field.
-func (o *UsageAnalyticsView) SetRetentionDays(v int32) {
+// SetRetentionDays gets a reference to the given int64 and assigns it to the RetentionDays field.
+func (o *UsageAnalyticsView) SetRetentionDays(v int64) {
 	o.RetentionDays = &v
 }
 

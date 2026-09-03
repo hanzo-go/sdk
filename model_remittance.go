@@ -20,9 +20,9 @@ var _ MappedNullable = &Remittance{}
 // Remittance struct for Remittance
 type Remittance struct {
 	// AmountCents is the amount disbursed, in cents. It was reserved against pending commission atomically when recorded, so it never exceeds what was owed.
-	AmountCents *int32 `json:"amountCents,omitempty"`
+	AmountCents *int64 `json:"amountCents,omitempty"`
 	// CreatedAt is when the payout was recorded, Unix seconds UTC — when the balance moved, not necessarily when the cash landed.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// ID is the payout row's server-minted handle, \"apo_\"-prefixed.
 	Id *string `json:"id,omitempty"`
 	// Method is how it was settled. \"credits\" issued a commerce grant into the affiliate org's own wallet; any other value (wire, paypal, check, …) is a RECORD of cash a human moved out of band.
@@ -51,9 +51,9 @@ func NewRemittanceWithDefaults() *Remittance {
 }
 
 // GetAmountCents returns the AmountCents field value if set, zero value otherwise.
-func (o *Remittance) GetAmountCents() int32 {
+func (o *Remittance) GetAmountCents() int64 {
 	if o == nil || IsNil(o.AmountCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AmountCents
@@ -61,7 +61,7 @@ func (o *Remittance) GetAmountCents() int32 {
 
 // GetAmountCentsOk returns a tuple with the AmountCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Remittance) GetAmountCentsOk() (*int32, bool) {
+func (o *Remittance) GetAmountCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AmountCents) {
 		return nil, false
 	}
@@ -77,15 +77,15 @@ func (o *Remittance) HasAmountCents() bool {
 	return false
 }
 
-// SetAmountCents gets a reference to the given int32 and assigns it to the AmountCents field.
-func (o *Remittance) SetAmountCents(v int32) {
+// SetAmountCents gets a reference to the given int64 and assigns it to the AmountCents field.
+func (o *Remittance) SetAmountCents(v int64) {
 	o.AmountCents = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *Remittance) GetCreatedAt() int32 {
+func (o *Remittance) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -93,7 +93,7 @@ func (o *Remittance) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Remittance) GetCreatedAtOk() (*int32, bool) {
+func (o *Remittance) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -109,8 +109,8 @@ func (o *Remittance) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *Remittance) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *Remittance) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 

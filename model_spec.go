@@ -22,11 +22,11 @@ type Spec struct {
 	// amd64 | arm64 | ...
 	Arch *string `json:"arch,omitempty"`
 	// logical cores
-	Cpus *int32 `json:"cpus,omitempty"`
+	Cpus *int64 `json:"cpus,omitempty"`
 	// GPUs is every accelerator the machine advertises, one entry each, capped at 32 on write. Empty means the probe found none — and that is the answer a Need is checked against, so a machine with no entry here clears no accelerator floor. The list is not vendor-filtered: what satisfies a job is counts and VRAM, never a brand (see Need).
 	Gpus []GPU `json:"gpus,omitempty"`
 	// total RAM, bytes
-	Memory *int32 `json:"memory,omitempty"`
+	Memory *int64 `json:"memory,omitempty"`
 	// linux | darwin | windows
 	Os *string `json:"os,omitempty"`
 }
@@ -81,9 +81,9 @@ func (o *Spec) SetArch(v string) {
 }
 
 // GetCpus returns the Cpus field value if set, zero value otherwise.
-func (o *Spec) GetCpus() int32 {
+func (o *Spec) GetCpus() int64 {
 	if o == nil || IsNil(o.Cpus) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Cpus
@@ -91,7 +91,7 @@ func (o *Spec) GetCpus() int32 {
 
 // GetCpusOk returns a tuple with the Cpus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Spec) GetCpusOk() (*int32, bool) {
+func (o *Spec) GetCpusOk() (*int64, bool) {
 	if o == nil || IsNil(o.Cpus) {
 		return nil, false
 	}
@@ -107,8 +107,8 @@ func (o *Spec) HasCpus() bool {
 	return false
 }
 
-// SetCpus gets a reference to the given int32 and assigns it to the Cpus field.
-func (o *Spec) SetCpus(v int32) {
+// SetCpus gets a reference to the given int64 and assigns it to the Cpus field.
+func (o *Spec) SetCpus(v int64) {
 	o.Cpus = &v
 }
 
@@ -145,9 +145,9 @@ func (o *Spec) SetGpus(v []GPU) {
 }
 
 // GetMemory returns the Memory field value if set, zero value otherwise.
-func (o *Spec) GetMemory() int32 {
+func (o *Spec) GetMemory() int64 {
 	if o == nil || IsNil(o.Memory) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Memory
@@ -155,7 +155,7 @@ func (o *Spec) GetMemory() int32 {
 
 // GetMemoryOk returns a tuple with the Memory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Spec) GetMemoryOk() (*int32, bool) {
+func (o *Spec) GetMemoryOk() (*int64, bool) {
 	if o == nil || IsNil(o.Memory) {
 		return nil, false
 	}
@@ -171,8 +171,8 @@ func (o *Spec) HasMemory() bool {
 	return false
 }
 
-// SetMemory gets a reference to the given int32 and assigns it to the Memory field.
-func (o *Spec) SetMemory(v int32) {
+// SetMemory gets a reference to the given int64 and assigns it to the Memory field.
+func (o *Spec) SetMemory(v int64) {
 	o.Memory = &v
 }
 

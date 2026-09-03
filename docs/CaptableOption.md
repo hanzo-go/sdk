@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CliffYears** | Pointer to **int32** | CliffYears is how many years before any of the grant vests. | [optional] 
+**CliffYears** | Pointer to **int64** | CliffYears is how many years before any of the grant vests. | [optional] 
 **EquityPlanId** | Pointer to **string** | EquityPlanID is the plan the grant draws from. | [optional] 
 **EquityPlanName** | Pointer to **string** | EquityPlanName is that plan&#39;s name. | [optional] 
-**ExercisePrice** | Pointer to **float32** | ExercisePrice is the strike price per share. | [optional] 
+**ExercisePrice** | Pointer to **float64** | ExercisePrice is the strike price per share. | [optional] 
 **ExpirationDate** | Pointer to **string** | ExpirationDate is the ISO date the grant expires. | [optional] 
 **GrantId** | Pointer to **string** | GrantID is the grant number, unique within the company. | [optional] 
 **Id** | Pointer to **string** | ID is the option id. | [optional] 
 **IssueDate** | Pointer to **string** | IssueDate is the ISO date the grant was issued. | [optional] 
-**Quantity** | Pointer to **int32** | Quantity is how many shares the grant covers. | [optional] 
+**Quantity** | Pointer to **int64** | Quantity is how many shares the grant covers. | [optional] 
 **StakeholderId** | Pointer to **string** | StakeholderID is the grantee. | [optional] 
 **StakeholderName** | Pointer to **string** | StakeholderName is that grantee&#39;s name. | [optional] 
 **Status** | Pointer to **string** | Status is the grant&#39;s state, e.g. DRAFT, ACTIVE, EXERCISED, EXPIRED or CANCELLED. Only non-terminal grants dilute the cap table. | [optional] 
 **Type** | Pointer to **string** | Type is the grant kind, ISO or NSO. | [optional] 
-**VestingYears** | Pointer to **int32** | VestingYears is the total vesting period in years. | [optional] 
+**VestingYears** | Pointer to **int64** | VestingYears is the total vesting period in years. | [optional] 
 
 ## Methods
 
@@ -40,20 +40,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCliffYears
 
-`func (o *CaptableOption) GetCliffYears() int32`
+`func (o *CaptableOption) GetCliffYears() int64`
 
 GetCliffYears returns the CliffYears field if non-nil, zero value otherwise.
 
 ### GetCliffYearsOk
 
-`func (o *CaptableOption) GetCliffYearsOk() (*int32, bool)`
+`func (o *CaptableOption) GetCliffYearsOk() (*int64, bool)`
 
 GetCliffYearsOk returns a tuple with the CliffYears field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCliffYears
 
-`func (o *CaptableOption) SetCliffYears(v int32)`
+`func (o *CaptableOption) SetCliffYears(v int64)`
 
 SetCliffYears sets CliffYears field to given value.
 
@@ -115,20 +115,20 @@ HasEquityPlanName returns a boolean if a field has been set.
 
 ### GetExercisePrice
 
-`func (o *CaptableOption) GetExercisePrice() float32`
+`func (o *CaptableOption) GetExercisePrice() float64`
 
 GetExercisePrice returns the ExercisePrice field if non-nil, zero value otherwise.
 
 ### GetExercisePriceOk
 
-`func (o *CaptableOption) GetExercisePriceOk() (*float32, bool)`
+`func (o *CaptableOption) GetExercisePriceOk() (*float64, bool)`
 
 GetExercisePriceOk returns a tuple with the ExercisePrice field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExercisePrice
 
-`func (o *CaptableOption) SetExercisePrice(v float32)`
+`func (o *CaptableOption) SetExercisePrice(v float64)`
 
 SetExercisePrice sets ExercisePrice field to given value.
 
@@ -240,20 +240,20 @@ HasIssueDate returns a boolean if a field has been set.
 
 ### GetQuantity
 
-`func (o *CaptableOption) GetQuantity() int32`
+`func (o *CaptableOption) GetQuantity() int64`
 
 GetQuantity returns the Quantity field if non-nil, zero value otherwise.
 
 ### GetQuantityOk
 
-`func (o *CaptableOption) GetQuantityOk() (*int32, bool)`
+`func (o *CaptableOption) GetQuantityOk() (*int64, bool)`
 
 GetQuantityOk returns a tuple with the Quantity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQuantity
 
-`func (o *CaptableOption) SetQuantity(v int32)`
+`func (o *CaptableOption) SetQuantity(v int64)`
 
 SetQuantity sets Quantity field to given value.
 
@@ -365,20 +365,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetVestingYears
 
-`func (o *CaptableOption) GetVestingYears() int32`
+`func (o *CaptableOption) GetVestingYears() int64`
 
 GetVestingYears returns the VestingYears field if non-nil, zero value otherwise.
 
 ### GetVestingYearsOk
 
-`func (o *CaptableOption) GetVestingYearsOk() (*int32, bool)`
+`func (o *CaptableOption) GetVestingYearsOk() (*int64, bool)`
 
 GetVestingYearsOk returns a tuple with the VestingYears field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVestingYears
 
-`func (o *CaptableOption) SetVestingYears(v int32)`
+`func (o *CaptableOption) SetVestingYears(v int64)`
 
 SetVestingYears sets VestingYears field to given value.
 

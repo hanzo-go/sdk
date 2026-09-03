@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | ID is the org-derived id of the overlay network — the key GET /v1/network/{id} addresses. | [optional] 
 **Name** | Pointer to **string** | Name is the org the overlay belongs to. | [optional] 
-**Nodes** | Pointer to **int32** | Nodes is how many edge-routers the org has on the fabric. | [optional] 
+**Nodes** | Pointer to **int64** | Nodes is how many edge-routers the org has on the fabric. | [optional] 
 **Status** | Pointer to **string** | Status is \&quot;connected\&quot; once at least one of the org&#39;s edge-routers is online, else \&quot;provisioning\&quot; (routers exist but none has dialed home). | [optional] 
 
 ## Methods
@@ -80,20 +80,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetNodes
 
-`func (o *NetworkView) GetNodes() int32`
+`func (o *NetworkView) GetNodes() int64`
 
 GetNodes returns the Nodes field if non-nil, zero value otherwise.
 
 ### GetNodesOk
 
-`func (o *NetworkView) GetNodesOk() (*int32, bool)`
+`func (o *NetworkView) GetNodesOk() (*int64, bool)`
 
 GetNodesOk returns a tuple with the Nodes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNodes
 
-`func (o *NetworkView) SetNodes(v int32)`
+`func (o *NetworkView) SetNodes(v int64)`
 
 SetNodes sets Nodes field to given value.
 

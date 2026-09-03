@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AmountCents** | Pointer to **int32** | AmountCents is that line&#39;s amount in whole cents. The scanner is instructed to return integer cents rather than a decimal, so no float rounding can enter the ledger through here. | [optional] 
+**AmountCents** | Pointer to **int64** | AmountCents is that line&#39;s amount in whole cents. The scanner is instructed to return integer cents rather than a decimal, so no float rounding can enter the ledger through here. | [optional] 
 **Description** | Pointer to **string** | Description is the line as it appears on the document. | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAmountCents
 
-`func (o *LineItem) GetAmountCents() int32`
+`func (o *LineItem) GetAmountCents() int64`
 
 GetAmountCents returns the AmountCents field if non-nil, zero value otherwise.
 
 ### GetAmountCentsOk
 
-`func (o *LineItem) GetAmountCentsOk() (*int32, bool)`
+`func (o *LineItem) GetAmountCentsOk() (*int64, bool)`
 
 GetAmountCentsOk returns a tuple with the AmountCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmountCents
 
-`func (o *LineItem) SetAmountCents(v int32)`
+`func (o *LineItem) SetAmountCents(v int64)`
 
 SetAmountCents sets AmountCents field to given value.
 

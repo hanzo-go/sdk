@@ -20,7 +20,7 @@ var _ MappedNullable = &TopupIn{}
 // TopupIn struct for TopupIn
 type TopupIn struct {
 	// AmountCents is how much to charge, in cents of Currency. Required.
-	AmountCents *int32 `json:"amountCents,omitempty"`
+	AmountCents *int64 `json:"amountCents,omitempty"`
 	// Currency is the ISO-4217 code to charge in. Empty takes the deployment's own default.
 	Currency *string `json:"currency,omitempty"`
 	// MethodID names a card the subject already saved, for the saved-card endpoint.
@@ -47,9 +47,9 @@ func NewTopupInWithDefaults() *TopupIn {
 }
 
 // GetAmountCents returns the AmountCents field value if set, zero value otherwise.
-func (o *TopupIn) GetAmountCents() int32 {
+func (o *TopupIn) GetAmountCents() int64 {
 	if o == nil || IsNil(o.AmountCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AmountCents
@@ -57,7 +57,7 @@ func (o *TopupIn) GetAmountCents() int32 {
 
 // GetAmountCentsOk returns a tuple with the AmountCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TopupIn) GetAmountCentsOk() (*int32, bool) {
+func (o *TopupIn) GetAmountCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AmountCents) {
 		return nil, false
 	}
@@ -73,8 +73,8 @@ func (o *TopupIn) HasAmountCents() bool {
 	return false
 }
 
-// SetAmountCents gets a reference to the given int32 and assigns it to the AmountCents field.
-func (o *TopupIn) SetAmountCents(v int32) {
+// SetAmountCents gets a reference to the given int64 and assigns it to the AmountCents field.
+func (o *TopupIn) SetAmountCents(v int64) {
 	o.AmountCents = &v
 }
 

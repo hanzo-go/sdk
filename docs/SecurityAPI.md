@@ -37,7 +37,7 @@ import (
 func main() {
 	scanId := "scanId_example" // string | ScanID narrows to a single scan. (optional)
 	minSeverity := "minSeverity_example" // string | MinSeverity drops everything below that rank: critical, high, medium or low. A value outside that set is refused rather than quietly ignored, so a filter typo cannot read as \"no findings\". (optional)
-	limit := int32(56) // int32 | Limit caps the page. (optional)
+	limit := int64(789) // int64 | Limit caps the page. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **scanId** | **string** | ScanID narrows to a single scan. | 
  **minSeverity** | **string** | MinSeverity drops everything below that rank: critical, high, medium or low. A value outside that set is refused rather than quietly ignored, so a filter typo cannot read as \&quot;no findings\&quot;. | 
- **limit** | **int32** | Limit caps the page. | 
+ **limit** | **int64** | Limit caps the page. | 
 
 ### Return type
 
@@ -297,7 +297,7 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 | Limit caps the page. (optional)
+	limit := int64(789) // int64 | Limit caps the page. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -322,7 +322,7 @@ Other parameters are passed through a pointer to a apiGetSecurityScansRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit caps the page. | 
+ **limit** | **int64** | Limit caps the page. | 
 
 ### Return type
 

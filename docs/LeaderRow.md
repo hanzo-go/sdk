@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CiHigh** | Pointer to **float32** | CIHigh is the upper bound of that interval. Wilson rather than the normal approximation because the normal one produces bounds past 100 exactly where benchmark scores live — at 194/198 that is the top of the board, not a corner case. | [optional] 
-**CiLow** | Pointer to **float32** | CILow and CIHigh are the 95% Wilson interval on Measured, in percent. They are what makes the score comparable: at n&#x3D;198 a 98% carries roughly ±2 points, so most differences at the top of a board are not distinguishable and a bare number implies a precision it does not have. Absent when there is no measurement. | [optional] 
-**Claims** | Pointer to **int32** | Claims is how many independent claims exist for this model on this benchmark. More than one means several sources reported it. | [optional] 
-**Gap** | Pointer to **float32** | published − measured (the arena signal) | [optional] 
-**Mean** | Pointer to **float32** | Mean is the unweighted average of every claim, which answers a different question from Published: what the field says on average, rather than what the vendor says about itself. With one claim the two are equal. | [optional] 
-**Measured** | Pointer to **float32** | hanzo-measured accuracy % (nil if unrun) | [optional] 
+**CiHigh** | Pointer to **float64** | CIHigh is the upper bound of that interval. Wilson rather than the normal approximation because the normal one produces bounds past 100 exactly where benchmark scores live — at 194/198 that is the top of the board, not a corner case. | [optional] 
+**CiLow** | Pointer to **float64** | CILow and CIHigh are the 95% Wilson interval on Measured, in percent. They are what makes the score comparable: at n&#x3D;198 a 98% carries roughly ±2 points, so most differences at the top of a board are not distinguishable and a bare number implies a precision it does not have. Absent when there is no measurement. | [optional] 
+**Claims** | Pointer to **int64** | Claims is how many independent claims exist for this model on this benchmark. More than one means several sources reported it. | [optional] 
+**Gap** | Pointer to **float64** | published − measured (the arena signal) | [optional] 
+**Mean** | Pointer to **float64** | Mean is the unweighted average of every claim, which answers a different question from Published: what the field says on average, rather than what the vendor says about itself. With one claim the two are equal. | [optional] 
+**Measured** | Pointer to **float64** | hanzo-measured accuracy % (nil if unrun) | [optional] 
 **MeasuredAt** | Pointer to **time.Time** | MeasuredAt is when the run behind Measured was recorded. | [optional] 
 **Model** | Pointer to **string** | the model this row scores | [optional] 
-**N** | Pointer to **int32** | coverage — NEVER compare across different n | [optional] 
+**N** | Pointer to **int64** | coverage — NEVER compare across different n | [optional] 
 **Protocol** | Pointer to **string** | how the vendor scored their claim: single-attempt, pass@k or agentic | [optional] 
-**Published** | Pointer to **float32** | provider-claimed % (nil if none) | [optional] 
+**Published** | Pointer to **float64** | provider-claimed % (nil if none) | [optional] 
 **Run** | Pointer to **string** | Run names the measurement Measured came from, and MeasuredAt is when it ran. A score with no date is not a fact about a model, it is a fact about a model on a day — and models change, so the date is what makes the number checkable rather than merely quoted. | [optional] 
-**Spread** | Pointer to **float32** | Spread is the distance between the highest and lowest of them, nil when there is only one. It is the disagreement AMONG sources, which a single Published number cannot show — signal in the same way the published-minus-measured gap is. | [optional] 
+**Spread** | Pointer to **float64** | Spread is the distance between the highest and lowest of them, nil when there is only one. It is the disagreement AMONG sources, which a single Published number cannot show — signal in the same way the published-minus-measured gap is. | [optional] 
 
 ## Methods
 
@@ -39,20 +39,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCiHigh
 
-`func (o *LeaderRow) GetCiHigh() float32`
+`func (o *LeaderRow) GetCiHigh() float64`
 
 GetCiHigh returns the CiHigh field if non-nil, zero value otherwise.
 
 ### GetCiHighOk
 
-`func (o *LeaderRow) GetCiHighOk() (*float32, bool)`
+`func (o *LeaderRow) GetCiHighOk() (*float64, bool)`
 
 GetCiHighOk returns a tuple with the CiHigh field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCiHigh
 
-`func (o *LeaderRow) SetCiHigh(v float32)`
+`func (o *LeaderRow) SetCiHigh(v float64)`
 
 SetCiHigh sets CiHigh field to given value.
 
@@ -64,20 +64,20 @@ HasCiHigh returns a boolean if a field has been set.
 
 ### GetCiLow
 
-`func (o *LeaderRow) GetCiLow() float32`
+`func (o *LeaderRow) GetCiLow() float64`
 
 GetCiLow returns the CiLow field if non-nil, zero value otherwise.
 
 ### GetCiLowOk
 
-`func (o *LeaderRow) GetCiLowOk() (*float32, bool)`
+`func (o *LeaderRow) GetCiLowOk() (*float64, bool)`
 
 GetCiLowOk returns a tuple with the CiLow field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCiLow
 
-`func (o *LeaderRow) SetCiLow(v float32)`
+`func (o *LeaderRow) SetCiLow(v float64)`
 
 SetCiLow sets CiLow field to given value.
 
@@ -89,20 +89,20 @@ HasCiLow returns a boolean if a field has been set.
 
 ### GetClaims
 
-`func (o *LeaderRow) GetClaims() int32`
+`func (o *LeaderRow) GetClaims() int64`
 
 GetClaims returns the Claims field if non-nil, zero value otherwise.
 
 ### GetClaimsOk
 
-`func (o *LeaderRow) GetClaimsOk() (*int32, bool)`
+`func (o *LeaderRow) GetClaimsOk() (*int64, bool)`
 
 GetClaimsOk returns a tuple with the Claims field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetClaims
 
-`func (o *LeaderRow) SetClaims(v int32)`
+`func (o *LeaderRow) SetClaims(v int64)`
 
 SetClaims sets Claims field to given value.
 
@@ -114,20 +114,20 @@ HasClaims returns a boolean if a field has been set.
 
 ### GetGap
 
-`func (o *LeaderRow) GetGap() float32`
+`func (o *LeaderRow) GetGap() float64`
 
 GetGap returns the Gap field if non-nil, zero value otherwise.
 
 ### GetGapOk
 
-`func (o *LeaderRow) GetGapOk() (*float32, bool)`
+`func (o *LeaderRow) GetGapOk() (*float64, bool)`
 
 GetGapOk returns a tuple with the Gap field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGap
 
-`func (o *LeaderRow) SetGap(v float32)`
+`func (o *LeaderRow) SetGap(v float64)`
 
 SetGap sets Gap field to given value.
 
@@ -139,20 +139,20 @@ HasGap returns a boolean if a field has been set.
 
 ### GetMean
 
-`func (o *LeaderRow) GetMean() float32`
+`func (o *LeaderRow) GetMean() float64`
 
 GetMean returns the Mean field if non-nil, zero value otherwise.
 
 ### GetMeanOk
 
-`func (o *LeaderRow) GetMeanOk() (*float32, bool)`
+`func (o *LeaderRow) GetMeanOk() (*float64, bool)`
 
 GetMeanOk returns a tuple with the Mean field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMean
 
-`func (o *LeaderRow) SetMean(v float32)`
+`func (o *LeaderRow) SetMean(v float64)`
 
 SetMean sets Mean field to given value.
 
@@ -164,20 +164,20 @@ HasMean returns a boolean if a field has been set.
 
 ### GetMeasured
 
-`func (o *LeaderRow) GetMeasured() float32`
+`func (o *LeaderRow) GetMeasured() float64`
 
 GetMeasured returns the Measured field if non-nil, zero value otherwise.
 
 ### GetMeasuredOk
 
-`func (o *LeaderRow) GetMeasuredOk() (*float32, bool)`
+`func (o *LeaderRow) GetMeasuredOk() (*float64, bool)`
 
 GetMeasuredOk returns a tuple with the Measured field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMeasured
 
-`func (o *LeaderRow) SetMeasured(v float32)`
+`func (o *LeaderRow) SetMeasured(v float64)`
 
 SetMeasured sets Measured field to given value.
 
@@ -239,20 +239,20 @@ HasModel returns a boolean if a field has been set.
 
 ### GetN
 
-`func (o *LeaderRow) GetN() int32`
+`func (o *LeaderRow) GetN() int64`
 
 GetN returns the N field if non-nil, zero value otherwise.
 
 ### GetNOk
 
-`func (o *LeaderRow) GetNOk() (*int32, bool)`
+`func (o *LeaderRow) GetNOk() (*int64, bool)`
 
 GetNOk returns a tuple with the N field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetN
 
-`func (o *LeaderRow) SetN(v int32)`
+`func (o *LeaderRow) SetN(v int64)`
 
 SetN sets N field to given value.
 
@@ -289,20 +289,20 @@ HasProtocol returns a boolean if a field has been set.
 
 ### GetPublished
 
-`func (o *LeaderRow) GetPublished() float32`
+`func (o *LeaderRow) GetPublished() float64`
 
 GetPublished returns the Published field if non-nil, zero value otherwise.
 
 ### GetPublishedOk
 
-`func (o *LeaderRow) GetPublishedOk() (*float32, bool)`
+`func (o *LeaderRow) GetPublishedOk() (*float64, bool)`
 
 GetPublishedOk returns a tuple with the Published field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPublished
 
-`func (o *LeaderRow) SetPublished(v float32)`
+`func (o *LeaderRow) SetPublished(v float64)`
 
 SetPublished sets Published field to given value.
 
@@ -339,20 +339,20 @@ HasRun returns a boolean if a field has been set.
 
 ### GetSpread
 
-`func (o *LeaderRow) GetSpread() float32`
+`func (o *LeaderRow) GetSpread() float64`
 
 GetSpread returns the Spread field if non-nil, zero value otherwise.
 
 ### GetSpreadOk
 
-`func (o *LeaderRow) GetSpreadOk() (*float32, bool)`
+`func (o *LeaderRow) GetSpreadOk() (*float64, bool)`
 
 GetSpreadOk returns a tuple with the Spread field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSpread
 
-`func (o *LeaderRow) SetSpread(v float32)`
+`func (o *LeaderRow) SetSpread(v float64)`
 
 SetSpread sets Spread field to given value.
 

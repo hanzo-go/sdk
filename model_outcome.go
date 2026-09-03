@@ -22,21 +22,21 @@ type Outcome struct {
 	// true on the baseline arm; its own lift and stats are zero
 	Control *bool `json:"control,omitempty"`
 	// of those, how many fired the metric event
-	Converted *int32 `json:"converted,omitempty"`
+	Converted *int64 `json:"converted,omitempty"`
 	// subjects the arm enrolled — the denominator
-	Exposed *int32 `json:"exposed,omitempty"`
+	Exposed *int64 `json:"exposed,omitempty"`
 	// relative to control: (rate-ctrl)/ctrl
-	Lift *float32 `json:"lift,omitempty"`
+	Lift *float64 `json:"lift,omitempty"`
 	// two-tailed p vs control
-	PValue *float32 `json:"pValue,omitempty"`
+	PValue *float64 `json:"pValue,omitempty"`
 	// converted over exposed
-	Rate *float32 `json:"rate,omitempty"`
+	Rate *float64 `json:"rate,omitempty"`
 	// pValue < alpha
 	Significant *bool `json:"significant,omitempty"`
 	// the arm this row measures
 	Variant *string `json:"variant,omitempty"`
 	// two-proportion z vs control
-	Z *float32 `json:"z,omitempty"`
+	Z *float64 `json:"z,omitempty"`
 }
 
 // NewOutcome instantiates a new Outcome object
@@ -89,9 +89,9 @@ func (o *Outcome) SetControl(v bool) {
 }
 
 // GetConverted returns the Converted field value if set, zero value otherwise.
-func (o *Outcome) GetConverted() int32 {
+func (o *Outcome) GetConverted() int64 {
 	if o == nil || IsNil(o.Converted) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Converted
@@ -99,7 +99,7 @@ func (o *Outcome) GetConverted() int32 {
 
 // GetConvertedOk returns a tuple with the Converted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Outcome) GetConvertedOk() (*int32, bool) {
+func (o *Outcome) GetConvertedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Converted) {
 		return nil, false
 	}
@@ -115,15 +115,15 @@ func (o *Outcome) HasConverted() bool {
 	return false
 }
 
-// SetConverted gets a reference to the given int32 and assigns it to the Converted field.
-func (o *Outcome) SetConverted(v int32) {
+// SetConverted gets a reference to the given int64 and assigns it to the Converted field.
+func (o *Outcome) SetConverted(v int64) {
 	o.Converted = &v
 }
 
 // GetExposed returns the Exposed field value if set, zero value otherwise.
-func (o *Outcome) GetExposed() int32 {
+func (o *Outcome) GetExposed() int64 {
 	if o == nil || IsNil(o.Exposed) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Exposed
@@ -131,7 +131,7 @@ func (o *Outcome) GetExposed() int32 {
 
 // GetExposedOk returns a tuple with the Exposed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Outcome) GetExposedOk() (*int32, bool) {
+func (o *Outcome) GetExposedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Exposed) {
 		return nil, false
 	}
@@ -147,15 +147,15 @@ func (o *Outcome) HasExposed() bool {
 	return false
 }
 
-// SetExposed gets a reference to the given int32 and assigns it to the Exposed field.
-func (o *Outcome) SetExposed(v int32) {
+// SetExposed gets a reference to the given int64 and assigns it to the Exposed field.
+func (o *Outcome) SetExposed(v int64) {
 	o.Exposed = &v
 }
 
 // GetLift returns the Lift field value if set, zero value otherwise.
-func (o *Outcome) GetLift() float32 {
+func (o *Outcome) GetLift() float64 {
 	if o == nil || IsNil(o.Lift) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Lift
@@ -163,7 +163,7 @@ func (o *Outcome) GetLift() float32 {
 
 // GetLiftOk returns a tuple with the Lift field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Outcome) GetLiftOk() (*float32, bool) {
+func (o *Outcome) GetLiftOk() (*float64, bool) {
 	if o == nil || IsNil(o.Lift) {
 		return nil, false
 	}
@@ -179,15 +179,15 @@ func (o *Outcome) HasLift() bool {
 	return false
 }
 
-// SetLift gets a reference to the given float32 and assigns it to the Lift field.
-func (o *Outcome) SetLift(v float32) {
+// SetLift gets a reference to the given float64 and assigns it to the Lift field.
+func (o *Outcome) SetLift(v float64) {
 	o.Lift = &v
 }
 
 // GetPValue returns the PValue field value if set, zero value otherwise.
-func (o *Outcome) GetPValue() float32 {
+func (o *Outcome) GetPValue() float64 {
 	if o == nil || IsNil(o.PValue) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.PValue
@@ -195,7 +195,7 @@ func (o *Outcome) GetPValue() float32 {
 
 // GetPValueOk returns a tuple with the PValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Outcome) GetPValueOk() (*float32, bool) {
+func (o *Outcome) GetPValueOk() (*float64, bool) {
 	if o == nil || IsNil(o.PValue) {
 		return nil, false
 	}
@@ -211,15 +211,15 @@ func (o *Outcome) HasPValue() bool {
 	return false
 }
 
-// SetPValue gets a reference to the given float32 and assigns it to the PValue field.
-func (o *Outcome) SetPValue(v float32) {
+// SetPValue gets a reference to the given float64 and assigns it to the PValue field.
+func (o *Outcome) SetPValue(v float64) {
 	o.PValue = &v
 }
 
 // GetRate returns the Rate field value if set, zero value otherwise.
-func (o *Outcome) GetRate() float32 {
+func (o *Outcome) GetRate() float64 {
 	if o == nil || IsNil(o.Rate) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Rate
@@ -227,7 +227,7 @@ func (o *Outcome) GetRate() float32 {
 
 // GetRateOk returns a tuple with the Rate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Outcome) GetRateOk() (*float32, bool) {
+func (o *Outcome) GetRateOk() (*float64, bool) {
 	if o == nil || IsNil(o.Rate) {
 		return nil, false
 	}
@@ -243,8 +243,8 @@ func (o *Outcome) HasRate() bool {
 	return false
 }
 
-// SetRate gets a reference to the given float32 and assigns it to the Rate field.
-func (o *Outcome) SetRate(v float32) {
+// SetRate gets a reference to the given float64 and assigns it to the Rate field.
+func (o *Outcome) SetRate(v float64) {
 	o.Rate = &v
 }
 
@@ -313,9 +313,9 @@ func (o *Outcome) SetVariant(v string) {
 }
 
 // GetZ returns the Z field value if set, zero value otherwise.
-func (o *Outcome) GetZ() float32 {
+func (o *Outcome) GetZ() float64 {
 	if o == nil || IsNil(o.Z) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Z
@@ -323,7 +323,7 @@ func (o *Outcome) GetZ() float32 {
 
 // GetZOk returns a tuple with the Z field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Outcome) GetZOk() (*float32, bool) {
+func (o *Outcome) GetZOk() (*float64, bool) {
 	if o == nil || IsNil(o.Z) {
 		return nil, false
 	}
@@ -339,8 +339,8 @@ func (o *Outcome) HasZ() bool {
 	return false
 }
 
-// SetZ gets a reference to the given float32 and assigns it to the Z field.
-func (o *Outcome) SetZ(v float32) {
+// SetZ gets a reference to the given float64 and assigns it to the Z field.
+func (o *Outcome) SetZ(v float64) {
 	o.Z = &v
 }
 

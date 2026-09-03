@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **AlertSourceTokenFile** | Pointer to **string** |  | [optional] 
 **HttpConfig** | Pointer to [**O11yHTTPClientConfig**](O11yHTTPClientConfig.md) |  | [optional] 
 **MaxAlerts** | Pointer to **int32** | MaxAlerts is the maximum number of alerts to be sent per incident.io message. Alerts exceeding this threshold will be truncated. Setting this to 0 allows an unlimited number of alerts. Note that if the payload exceeds incident.io&#39;s size limits, you will receive a 429 response and alerts will not be ingested. | [optional] 
-**Timeout** | Pointer to **int32** | Timeout is the maximum time allowed to invoke incident.io. Setting this to 0 does not impose a timeout. | [optional] 
+**Timeout** | Pointer to **int64** | Timeout is the maximum time allowed to invoke incident.io. Setting this to 0 does not impose a timeout. | [optional] 
 **Url** | Pointer to **interface{}** |  | [optional] 
 **UrlFile** | Pointer to **string** |  | [optional] 
 
@@ -169,20 +169,20 @@ HasMaxAlerts returns a boolean if a field has been set.
 
 ### GetTimeout
 
-`func (o *O11yIncidentioConfig) GetTimeout() int32`
+`func (o *O11yIncidentioConfig) GetTimeout() int64`
 
 GetTimeout returns the Timeout field if non-nil, zero value otherwise.
 
 ### GetTimeoutOk
 
-`func (o *O11yIncidentioConfig) GetTimeoutOk() (*int32, bool)`
+`func (o *O11yIncidentioConfig) GetTimeoutOk() (*int64, bool)`
 
 GetTimeoutOk returns a tuple with the Timeout field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeout
 
-`func (o *O11yIncidentioConfig) SetTimeout(v int32)`
+`func (o *O11yIncidentioConfig) SetTimeout(v int64)`
 
 SetTimeout sets Timeout field to given value.
 

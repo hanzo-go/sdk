@@ -20,7 +20,7 @@ var _ MappedNullable = &CaptableShare{}
 // CaptableShare struct for CaptableShare
 type CaptableShare struct {
 	// CapitalContribution is the cash paid for the certificate, if recorded.
-	CapitalContribution *float32 `json:"capitalContribution,omitempty"`
+	CapitalContribution *float64 `json:"capitalContribution,omitempty"`
 	// CertificateID is the certificate number, unique within the company.
 	CertificateId *string `json:"certificateId,omitempty"`
 	// CompanyLegends are the restrictive legends printed on the certificate.
@@ -30,9 +30,9 @@ type CaptableShare struct {
 	// IssueDate is the ISO date the certificate was issued.
 	IssueDate *string `json:"issueDate,omitempty"`
 	// PricePerShare is the price paid per share, if recorded.
-	PricePerShare *float32 `json:"pricePerShare,omitempty"`
+	PricePerShare *float64 `json:"pricePerShare,omitempty"`
 	// Quantity is how many shares the certificate covers.
-	Quantity *int32 `json:"quantity,omitempty"`
+	Quantity *int64 `json:"quantity,omitempty"`
 	// ShareClassID is the class the shares belong to.
 	ShareClassId *string `json:"shareClassId,omitempty"`
 	// ShareClassName is that class's name.
@@ -65,9 +65,9 @@ func NewCaptableShareWithDefaults() *CaptableShare {
 }
 
 // GetCapitalContribution returns the CapitalContribution field value if set, zero value otherwise.
-func (o *CaptableShare) GetCapitalContribution() float32 {
+func (o *CaptableShare) GetCapitalContribution() float64 {
 	if o == nil || IsNil(o.CapitalContribution) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.CapitalContribution
@@ -75,7 +75,7 @@ func (o *CaptableShare) GetCapitalContribution() float32 {
 
 // GetCapitalContributionOk returns a tuple with the CapitalContribution field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableShare) GetCapitalContributionOk() (*float32, bool) {
+func (o *CaptableShare) GetCapitalContributionOk() (*float64, bool) {
 	if o == nil || IsNil(o.CapitalContribution) {
 		return nil, false
 	}
@@ -91,8 +91,8 @@ func (o *CaptableShare) HasCapitalContribution() bool {
 	return false
 }
 
-// SetCapitalContribution gets a reference to the given float32 and assigns it to the CapitalContribution field.
-func (o *CaptableShare) SetCapitalContribution(v float32) {
+// SetCapitalContribution gets a reference to the given float64 and assigns it to the CapitalContribution field.
+func (o *CaptableShare) SetCapitalContribution(v float64) {
 	o.CapitalContribution = &v
 }
 
@@ -225,9 +225,9 @@ func (o *CaptableShare) SetIssueDate(v string) {
 }
 
 // GetPricePerShare returns the PricePerShare field value if set, zero value otherwise.
-func (o *CaptableShare) GetPricePerShare() float32 {
+func (o *CaptableShare) GetPricePerShare() float64 {
 	if o == nil || IsNil(o.PricePerShare) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.PricePerShare
@@ -235,7 +235,7 @@ func (o *CaptableShare) GetPricePerShare() float32 {
 
 // GetPricePerShareOk returns a tuple with the PricePerShare field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableShare) GetPricePerShareOk() (*float32, bool) {
+func (o *CaptableShare) GetPricePerShareOk() (*float64, bool) {
 	if o == nil || IsNil(o.PricePerShare) {
 		return nil, false
 	}
@@ -251,15 +251,15 @@ func (o *CaptableShare) HasPricePerShare() bool {
 	return false
 }
 
-// SetPricePerShare gets a reference to the given float32 and assigns it to the PricePerShare field.
-func (o *CaptableShare) SetPricePerShare(v float32) {
+// SetPricePerShare gets a reference to the given float64 and assigns it to the PricePerShare field.
+func (o *CaptableShare) SetPricePerShare(v float64) {
 	o.PricePerShare = &v
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise.
-func (o *CaptableShare) GetQuantity() int32 {
+func (o *CaptableShare) GetQuantity() int64 {
 	if o == nil || IsNil(o.Quantity) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Quantity
@@ -267,7 +267,7 @@ func (o *CaptableShare) GetQuantity() int32 {
 
 // GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableShare) GetQuantityOk() (*int32, bool) {
+func (o *CaptableShare) GetQuantityOk() (*int64, bool) {
 	if o == nil || IsNil(o.Quantity) {
 		return nil, false
 	}
@@ -283,8 +283,8 @@ func (o *CaptableShare) HasQuantity() bool {
 	return false
 }
 
-// SetQuantity gets a reference to the given int32 and assigns it to the Quantity field.
-func (o *CaptableShare) SetQuantity(v int32) {
+// SetQuantity gets a reference to the given int64 and assigns it to the Quantity field.
+func (o *CaptableShare) SetQuantity(v int64) {
 	o.Quantity = &v
 }
 

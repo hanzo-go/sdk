@@ -20,7 +20,7 @@ var _ MappedNullable = &IssueHits{}
 // IssueHits struct for IssueHits
 type IssueHits struct {
 	// Count is how many rows Issues carries — the size of THIS answer after the cap, not how many issues matched. A count equal to the limit means there are probably more; there is no total and no cursor.
-	Count *int32 `json:"count,omitempty"`
+	Count *int64 `json:"count,omitempty"`
 	// Issues are the matching rows grouped by status and oldest-first within a group, capped by the search's limit (50 by default, 200 at most). The cap is applied to that order, so a broad search returns the head of it rather than a sample.
 	Issues []IssueHit `json:"issues,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewIssueHitsWithDefaults() *IssueHits {
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *IssueHits) GetCount() int32 {
+func (o *IssueHits) GetCount() int64 {
 	if o == nil || IsNil(o.Count) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Count
@@ -53,7 +53,7 @@ func (o *IssueHits) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IssueHits) GetCountOk() (*int32, bool) {
+func (o *IssueHits) GetCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *IssueHits) HasCount() bool {
 	return false
 }
 
-// SetCount gets a reference to the given int32 and assigns it to the Count field.
-func (o *IssueHits) SetCount(v int32) {
+// SetCount gets a reference to the given int64 and assigns it to the Count field.
+func (o *IssueHits) SetCount(v int64) {
 	o.Count = &v
 }
 

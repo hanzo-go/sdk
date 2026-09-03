@@ -22,23 +22,23 @@ type TotalView struct {
 	// Confidence says how real the row's numbers are.
 	Confidence *string `json:"confidence,omitempty"`
 	// CostCents is the period's spend in cents, in the row's own ledger.
-	CostCents *int32 `json:"costCents,omitempty"`
+	CostCents *int64 `json:"costCents,omitempty"`
 	// Provider is the provider the row totals.
 	Provider *string `json:"provider,omitempty"`
 	// Requests is the period's request count.
-	Requests *int32 `json:"requests,omitempty"`
+	Requests *int64 `json:"requests,omitempty"`
 	// Scope is whose usage the row measures: user or org.
 	Scope *string `json:"scope,omitempty"`
 	// Source is whose meter the row came from: account or hanzo.
 	Source *string `json:"source,omitempty"`
 	// Tokens is the period's total token count.
-	Tokens *int32 `json:"tokens,omitempty"`
+	Tokens *int64 `json:"tokens,omitempty"`
 	// UsedPct is the plan consumption percentage, on the account side.
-	UsedPct *float32 `json:"usedPct,omitempty"`
+	UsedPct *float64 `json:"usedPct,omitempty"`
 	// Window is the window class the row totals, on the account side.
 	Window *string `json:"window,omitempty"`
 	// Windows is how many window instances the row folds.
-	Windows *int32 `json:"windows,omitempty"`
+	Windows *int64 `json:"windows,omitempty"`
 }
 
 // NewTotalView instantiates a new TotalView object
@@ -91,9 +91,9 @@ func (o *TotalView) SetConfidence(v string) {
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *TotalView) GetCostCents() int32 {
+func (o *TotalView) GetCostCents() int64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostCents
@@ -101,7 +101,7 @@ func (o *TotalView) GetCostCents() int32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TotalView) GetCostCentsOk() (*int32, bool) {
+func (o *TotalView) GetCostCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -117,8 +117,8 @@ func (o *TotalView) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *TotalView) SetCostCents(v int32) {
+// SetCostCents gets a reference to the given int64 and assigns it to the CostCents field.
+func (o *TotalView) SetCostCents(v int64) {
 	o.CostCents = &v
 }
 
@@ -155,9 +155,9 @@ func (o *TotalView) SetProvider(v string) {
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *TotalView) GetRequests() int32 {
+func (o *TotalView) GetRequests() int64 {
 	if o == nil || IsNil(o.Requests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Requests
@@ -165,7 +165,7 @@ func (o *TotalView) GetRequests() int32 {
 
 // GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TotalView) GetRequestsOk() (*int32, bool) {
+func (o *TotalView) GetRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Requests) {
 		return nil, false
 	}
@@ -181,8 +181,8 @@ func (o *TotalView) HasRequests() bool {
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *TotalView) SetRequests(v int32) {
+// SetRequests gets a reference to the given int64 and assigns it to the Requests field.
+func (o *TotalView) SetRequests(v int64) {
 	o.Requests = &v
 }
 
@@ -251,9 +251,9 @@ func (o *TotalView) SetSource(v string) {
 }
 
 // GetTokens returns the Tokens field value if set, zero value otherwise.
-func (o *TotalView) GetTokens() int32 {
+func (o *TotalView) GetTokens() int64 {
 	if o == nil || IsNil(o.Tokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Tokens
@@ -261,7 +261,7 @@ func (o *TotalView) GetTokens() int32 {
 
 // GetTokensOk returns a tuple with the Tokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TotalView) GetTokensOk() (*int32, bool) {
+func (o *TotalView) GetTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.Tokens) {
 		return nil, false
 	}
@@ -277,15 +277,15 @@ func (o *TotalView) HasTokens() bool {
 	return false
 }
 
-// SetTokens gets a reference to the given int32 and assigns it to the Tokens field.
-func (o *TotalView) SetTokens(v int32) {
+// SetTokens gets a reference to the given int64 and assigns it to the Tokens field.
+func (o *TotalView) SetTokens(v int64) {
 	o.Tokens = &v
 }
 
 // GetUsedPct returns the UsedPct field value if set, zero value otherwise.
-func (o *TotalView) GetUsedPct() float32 {
+func (o *TotalView) GetUsedPct() float64 {
 	if o == nil || IsNil(o.UsedPct) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.UsedPct
@@ -293,7 +293,7 @@ func (o *TotalView) GetUsedPct() float32 {
 
 // GetUsedPctOk returns a tuple with the UsedPct field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TotalView) GetUsedPctOk() (*float32, bool) {
+func (o *TotalView) GetUsedPctOk() (*float64, bool) {
 	if o == nil || IsNil(o.UsedPct) {
 		return nil, false
 	}
@@ -309,8 +309,8 @@ func (o *TotalView) HasUsedPct() bool {
 	return false
 }
 
-// SetUsedPct gets a reference to the given float32 and assigns it to the UsedPct field.
-func (o *TotalView) SetUsedPct(v float32) {
+// SetUsedPct gets a reference to the given float64 and assigns it to the UsedPct field.
+func (o *TotalView) SetUsedPct(v float64) {
 	o.UsedPct = &v
 }
 
@@ -347,9 +347,9 @@ func (o *TotalView) SetWindow(v string) {
 }
 
 // GetWindows returns the Windows field value if set, zero value otherwise.
-func (o *TotalView) GetWindows() int32 {
+func (o *TotalView) GetWindows() int64 {
 	if o == nil || IsNil(o.Windows) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Windows
@@ -357,7 +357,7 @@ func (o *TotalView) GetWindows() int32 {
 
 // GetWindowsOk returns a tuple with the Windows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TotalView) GetWindowsOk() (*int32, bool) {
+func (o *TotalView) GetWindowsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Windows) {
 		return nil, false
 	}
@@ -373,8 +373,8 @@ func (o *TotalView) HasWindows() bool {
 	return false
 }
 
-// SetWindows gets a reference to the given int32 and assigns it to the Windows field.
-func (o *TotalView) SetWindows(v int32) {
+// SetWindows gets a reference to the given int64 and assigns it to the Windows field.
+func (o *TotalView) SetWindows(v int64) {
 	o.Windows = &v
 }
 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Data** | Pointer to [**[]Benchmark**](Benchmark.md) | Data is one row per benchmark, in the catalog&#39;s own order. | [optional] 
-**Total** | Pointer to **int32** | Total is how many rows Data holds. | [optional] 
+**Total** | Pointer to **int64** | Total is how many rows Data holds. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasData returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *BenchmarkCatalog) GetTotal() int32`
+`func (o *BenchmarkCatalog) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *BenchmarkCatalog) GetTotalOk() (*int32, bool)`
+`func (o *BenchmarkCatalog) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *BenchmarkCatalog) SetTotal(v int32)`
+`func (o *BenchmarkCatalog) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

@@ -20,11 +20,11 @@ var _ MappedNullable = &SafeTxIn{}
 // SafeTxIn struct for SafeTxIn
 type SafeTxIn struct {
 	// ChainID is the EVM chain the Safe transaction is bound to. 0 uses the wallet's own chain, or the Hanzo L1 (36963) when it is chain-agnostic.
-	ChainId *int32 `json:"chainId,omitempty"`
+	ChainId *int64 `json:"chainId,omitempty"`
 	// Data is the call data, hex-encoded.
 	Data *string `json:"data,omitempty"`
 	// Nonce is the Safe's transaction nonce.
-	Nonce *int32 `json:"nonce,omitempty"`
+	Nonce *int64 `json:"nonce,omitempty"`
 	// To is the transaction's target address.
 	To *string `json:"to,omitempty"`
 	// Value is the native-token amount to send, as a decimal string in wei.
@@ -49,9 +49,9 @@ func NewSafeTxInWithDefaults() *SafeTxIn {
 }
 
 // GetChainId returns the ChainId field value if set, zero value otherwise.
-func (o *SafeTxIn) GetChainId() int32 {
+func (o *SafeTxIn) GetChainId() int64 {
 	if o == nil || IsNil(o.ChainId) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ChainId
@@ -59,7 +59,7 @@ func (o *SafeTxIn) GetChainId() int32 {
 
 // GetChainIdOk returns a tuple with the ChainId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeTxIn) GetChainIdOk() (*int32, bool) {
+func (o *SafeTxIn) GetChainIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.ChainId) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *SafeTxIn) HasChainId() bool {
 	return false
 }
 
-// SetChainId gets a reference to the given int32 and assigns it to the ChainId field.
-func (o *SafeTxIn) SetChainId(v int32) {
+// SetChainId gets a reference to the given int64 and assigns it to the ChainId field.
+func (o *SafeTxIn) SetChainId(v int64) {
 	o.ChainId = &v
 }
 
@@ -113,9 +113,9 @@ func (o *SafeTxIn) SetData(v string) {
 }
 
 // GetNonce returns the Nonce field value if set, zero value otherwise.
-func (o *SafeTxIn) GetNonce() int32 {
+func (o *SafeTxIn) GetNonce() int64 {
 	if o == nil || IsNil(o.Nonce) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Nonce
@@ -123,7 +123,7 @@ func (o *SafeTxIn) GetNonce() int32 {
 
 // GetNonceOk returns a tuple with the Nonce field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeTxIn) GetNonceOk() (*int32, bool) {
+func (o *SafeTxIn) GetNonceOk() (*int64, bool) {
 	if o == nil || IsNil(o.Nonce) {
 		return nil, false
 	}
@@ -139,8 +139,8 @@ func (o *SafeTxIn) HasNonce() bool {
 	return false
 }
 
-// SetNonce gets a reference to the given int32 and assigns it to the Nonce field.
-func (o *SafeTxIn) SetNonce(v int32) {
+// SetNonce gets a reference to the given int64 and assigns it to the Nonce field.
+func (o *SafeTxIn) SetNonce(v int64) {
 	o.Nonce = &v
 }
 

@@ -22,7 +22,7 @@ type CsrfResp struct {
 	// Token is the value to send back in the X-CSRF-Token header. It is bound to the caller's identity, so it authorizes changes as them and as nobody else.
 	CsrfToken *string `json:"csrfToken,omitempty"`
 	// ExpiresIn is the token's lifetime in seconds. Fetch a new one when it lapses; a change with an expired token is refused.
-	ExpiresIn *int32 `json:"expiresIn,omitempty"`
+	ExpiresIn *int64 `json:"expiresIn,omitempty"`
 }
 
 // NewCsrfResp instantiates a new CsrfResp object
@@ -75,9 +75,9 @@ func (o *CsrfResp) SetCsrfToken(v string) {
 }
 
 // GetExpiresIn returns the ExpiresIn field value if set, zero value otherwise.
-func (o *CsrfResp) GetExpiresIn() int32 {
+func (o *CsrfResp) GetExpiresIn() int64 {
 	if o == nil || IsNil(o.ExpiresIn) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ExpiresIn
@@ -85,7 +85,7 @@ func (o *CsrfResp) GetExpiresIn() int32 {
 
 // GetExpiresInOk returns a tuple with the ExpiresIn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CsrfResp) GetExpiresInOk() (*int32, bool) {
+func (o *CsrfResp) GetExpiresInOk() (*int64, bool) {
 	if o == nil || IsNil(o.ExpiresIn) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *CsrfResp) HasExpiresIn() bool {
 	return false
 }
 
-// SetExpiresIn gets a reference to the given int32 and assigns it to the ExpiresIn field.
-func (o *CsrfResp) SetExpiresIn(v int32) {
+// SetExpiresIn gets a reference to the given int64 and assigns it to the ExpiresIn field.
+func (o *CsrfResp) SetExpiresIn(v int64) {
 	o.ExpiresIn = &v
 }
 

@@ -24,11 +24,11 @@ type SessionDetail struct {
 	Agent   *string `json:"agent,omitempty"`
 	// Children is the session's DIRECT children, one level down, each with its own counts. The promoted `children` integer beside it is how many there are; this is who they are. For the whole subtree, read the tree.
 	ChildSessions   []SessionView    `json:"childSessions,omitempty"`
-	Children        *int32           `json:"children,omitempty"`
+	Children        *int64           `json:"children,omitempty"`
 	CreatedAt       *string          `json:"createdAt,omitempty"`
 	Cwd             *string          `json:"cwd,omitempty"`
 	EndedAt         *string          `json:"endedAt,omitempty"`
-	Events          *int32           `json:"events,omitempty"`
+	Events          *int64           `json:"events,omitempty"`
 	Host            *string          `json:"host,omitempty"`
 	Id              *string          `json:"id,omitempty"`
 	LastEvent       *LastEventView   `json:"lastEvent,omitempty"`
@@ -199,9 +199,9 @@ func (o *SessionDetail) SetChildSessions(v []SessionView) {
 }
 
 // GetChildren returns the Children field value if set, zero value otherwise.
-func (o *SessionDetail) GetChildren() int32 {
+func (o *SessionDetail) GetChildren() int64 {
 	if o == nil || IsNil(o.Children) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Children
@@ -209,7 +209,7 @@ func (o *SessionDetail) GetChildren() int32 {
 
 // GetChildrenOk returns a tuple with the Children field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SessionDetail) GetChildrenOk() (*int32, bool) {
+func (o *SessionDetail) GetChildrenOk() (*int64, bool) {
 	if o == nil || IsNil(o.Children) {
 		return nil, false
 	}
@@ -225,8 +225,8 @@ func (o *SessionDetail) HasChildren() bool {
 	return false
 }
 
-// SetChildren gets a reference to the given int32 and assigns it to the Children field.
-func (o *SessionDetail) SetChildren(v int32) {
+// SetChildren gets a reference to the given int64 and assigns it to the Children field.
+func (o *SessionDetail) SetChildren(v int64) {
 	o.Children = &v
 }
 
@@ -327,9 +327,9 @@ func (o *SessionDetail) SetEndedAt(v string) {
 }
 
 // GetEvents returns the Events field value if set, zero value otherwise.
-func (o *SessionDetail) GetEvents() int32 {
+func (o *SessionDetail) GetEvents() int64 {
 	if o == nil || IsNil(o.Events) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Events
@@ -337,7 +337,7 @@ func (o *SessionDetail) GetEvents() int32 {
 
 // GetEventsOk returns a tuple with the Events field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SessionDetail) GetEventsOk() (*int32, bool) {
+func (o *SessionDetail) GetEventsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Events) {
 		return nil, false
 	}
@@ -353,8 +353,8 @@ func (o *SessionDetail) HasEvents() bool {
 	return false
 }
 
-// SetEvents gets a reference to the given int32 and assigns it to the Events field.
-func (o *SessionDetail) SetEvents(v int32) {
+// SetEvents gets a reference to the given int64 and assigns it to the Events field.
+func (o *SessionDetail) SetEvents(v int64) {
 	o.Events = &v
 }
 

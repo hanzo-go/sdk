@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Consumers** | Pointer to [**[]Consumer**](Consumer.md) | Consumers is the page, ordered by name. | [optional] 
-**Total** | Pointer to **int32** | Total is the stream&#39;s consumer count before paging. | [optional] 
+**Total** | Pointer to **int64** | Total is the stream&#39;s consumer count before paging. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasConsumers returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *PickOut) GetTotal() int32`
+`func (o *PickOut) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *PickOut) GetTotalOk() (*int32, bool)`
+`func (o *PickOut) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *PickOut) SetTotal(v int32)`
+`func (o *PickOut) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

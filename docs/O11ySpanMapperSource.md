@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Context** | Pointer to **interface{}** |  | [optional] 
 **Key** | Pointer to **string** |  | [optional] 
 **Operation** | Pointer to **interface{}** |  | [optional] 
-**Priority** | Pointer to **int32** |  | [optional] 
+**Priority** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -125,20 +125,20 @@ HasOperation returns a boolean if a field has been set.
 UnsetOperation ensures that no value is present for Operation, not even an explicit nil
 ### GetPriority
 
-`func (o *O11ySpanMapperSource) GetPriority() int32`
+`func (o *O11ySpanMapperSource) GetPriority() int64`
 
 GetPriority returns the Priority field if non-nil, zero value otherwise.
 
 ### GetPriorityOk
 
-`func (o *O11ySpanMapperSource) GetPriorityOk() (*int32, bool)`
+`func (o *O11ySpanMapperSource) GetPriorityOk() (*int64, bool)`
 
 GetPriorityOk returns a tuple with the Priority field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPriority
 
-`func (o *O11ySpanMapperSource) SetPriority(v int32)`
+`func (o *O11ySpanMapperSource) SetPriority(v int64)`
 
 SetPriority sets Priority field to given value.
 

@@ -23,7 +23,7 @@ type IamCert struct {
 	AccessKey        *string    `json:"accessKey,omitempty"`
 	AccessSecret     *string    `json:"accessSecret,omitempty"`
 	Account          *string    `json:"account,omitempty"`
-	BitSize          *int32     `json:"bitSize,omitempty"`
+	BitSize          *int64     `json:"bitSize,omitempty"`
 	Certificate      *string    `json:"certificate,omitempty"`
 	CreatedAt        *time.Time `json:"createdAt,omitempty"`
 	CreatedTime      *string    `json:"createdTime,omitempty"`
@@ -31,7 +31,7 @@ type IamCert struct {
 	Deleted          *bool      `json:"deleted,omitempty"`
 	DisplayName      *string    `json:"displayName,omitempty"`
 	DomainExpireTime *string    `json:"domainExpireTime,omitempty"`
-	ExpireInYears    *int32     `json:"expireInYears,omitempty"`
+	ExpireInYears    *int64     `json:"expireInYears,omitempty"`
 	ExpireTime       *string    `json:"expireTime,omitempty"`
 	Id               *string    `json:"id,omitempty"`
 	Name             *string    `json:"name,omitempty"`
@@ -156,9 +156,9 @@ func (o *IamCert) SetAccount(v string) {
 }
 
 // GetBitSize returns the BitSize field value if set, zero value otherwise.
-func (o *IamCert) GetBitSize() int32 {
+func (o *IamCert) GetBitSize() int64 {
 	if o == nil || IsNil(o.BitSize) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.BitSize
@@ -166,7 +166,7 @@ func (o *IamCert) GetBitSize() int32 {
 
 // GetBitSizeOk returns a tuple with the BitSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamCert) GetBitSizeOk() (*int32, bool) {
+func (o *IamCert) GetBitSizeOk() (*int64, bool) {
 	if o == nil || IsNil(o.BitSize) {
 		return nil, false
 	}
@@ -182,8 +182,8 @@ func (o *IamCert) HasBitSize() bool {
 	return false
 }
 
-// SetBitSize gets a reference to the given int32 and assigns it to the BitSize field.
-func (o *IamCert) SetBitSize(v int32) {
+// SetBitSize gets a reference to the given int64 and assigns it to the BitSize field.
+func (o *IamCert) SetBitSize(v int64) {
 	o.BitSize = &v
 }
 
@@ -412,9 +412,9 @@ func (o *IamCert) SetDomainExpireTime(v string) {
 }
 
 // GetExpireInYears returns the ExpireInYears field value if set, zero value otherwise.
-func (o *IamCert) GetExpireInYears() int32 {
+func (o *IamCert) GetExpireInYears() int64 {
 	if o == nil || IsNil(o.ExpireInYears) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ExpireInYears
@@ -422,7 +422,7 @@ func (o *IamCert) GetExpireInYears() int32 {
 
 // GetExpireInYearsOk returns a tuple with the ExpireInYears field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamCert) GetExpireInYearsOk() (*int32, bool) {
+func (o *IamCert) GetExpireInYearsOk() (*int64, bool) {
 	if o == nil || IsNil(o.ExpireInYears) {
 		return nil, false
 	}
@@ -438,8 +438,8 @@ func (o *IamCert) HasExpireInYears() bool {
 	return false
 }
 
-// SetExpireInYears gets a reference to the given int32 and assigns it to the ExpireInYears field.
-func (o *IamCert) SetExpireInYears(v int32) {
+// SetExpireInYears gets a reference to the given int64 and assigns it to the ExpireInYears field.
+func (o *IamCert) SetExpireInYears(v int64) {
 	o.ExpireInYears = &v
 }
 

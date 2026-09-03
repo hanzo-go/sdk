@@ -22,8 +22,8 @@ type IamCartItem struct {
 	DisplayName *string  `json:"displayName,omitempty"`
 	Name        *string  `json:"name,omitempty"`
 	Owner       *string  `json:"owner,omitempty"`
-	Price       *float32 `json:"price,omitempty"`
-	Quantity    *int32   `json:"quantity,omitempty"`
+	Price       *float64 `json:"price,omitempty"`
+	Quantity    *int64   `json:"quantity,omitempty"`
 }
 
 // NewIamCartItem instantiates a new IamCartItem object
@@ -140,9 +140,9 @@ func (o *IamCartItem) SetOwner(v string) {
 }
 
 // GetPrice returns the Price field value if set, zero value otherwise.
-func (o *IamCartItem) GetPrice() float32 {
+func (o *IamCartItem) GetPrice() float64 {
 	if o == nil || IsNil(o.Price) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Price
@@ -150,7 +150,7 @@ func (o *IamCartItem) GetPrice() float32 {
 
 // GetPriceOk returns a tuple with the Price field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamCartItem) GetPriceOk() (*float32, bool) {
+func (o *IamCartItem) GetPriceOk() (*float64, bool) {
 	if o == nil || IsNil(o.Price) {
 		return nil, false
 	}
@@ -166,15 +166,15 @@ func (o *IamCartItem) HasPrice() bool {
 	return false
 }
 
-// SetPrice gets a reference to the given float32 and assigns it to the Price field.
-func (o *IamCartItem) SetPrice(v float32) {
+// SetPrice gets a reference to the given float64 and assigns it to the Price field.
+func (o *IamCartItem) SetPrice(v float64) {
 	o.Price = &v
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise.
-func (o *IamCartItem) GetQuantity() int32 {
+func (o *IamCartItem) GetQuantity() int64 {
 	if o == nil || IsNil(o.Quantity) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Quantity
@@ -182,7 +182,7 @@ func (o *IamCartItem) GetQuantity() int32 {
 
 // GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamCartItem) GetQuantityOk() (*int32, bool) {
+func (o *IamCartItem) GetQuantityOk() (*int64, bool) {
 	if o == nil || IsNil(o.Quantity) {
 		return nil, false
 	}
@@ -198,8 +198,8 @@ func (o *IamCartItem) HasQuantity() bool {
 	return false
 }
 
-// SetQuantity gets a reference to the given int32 and assigns it to the Quantity field.
-func (o *IamCartItem) SetQuantity(v int32) {
+// SetQuantity gets a reference to the given int64 and assigns it to the Quantity field.
+func (o *IamCartItem) SetQuantity(v int64) {
 	o.Quantity = &v
 }
 

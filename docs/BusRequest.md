@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Data** | Pointer to **string** | Data is the request payload, carried verbatim as UTF-8 text. | [optional] 
 **Headers** | Pointer to **map[string]string** | Headers are optional request headers, one value per name. | [optional] 
 **Subject** | Pointer to **string** | Subject is the subject a responder listens on, in the org&#39;s namespace. | [optional] 
-**TimeoutMs** | Pointer to **int32** | TimeoutMs bounds the wait for a reply. 0 or less means the default of 5000; anything above 30000 is clamped to 30000. | [optional] 
+**TimeoutMs** | Pointer to **int64** | TimeoutMs bounds the wait for a reply. 0 or less means the default of 5000; anything above 30000 is clamped to 30000. | [optional] 
 
 ## Methods
 
@@ -105,20 +105,20 @@ HasSubject returns a boolean if a field has been set.
 
 ### GetTimeoutMs
 
-`func (o *BusRequest) GetTimeoutMs() int32`
+`func (o *BusRequest) GetTimeoutMs() int64`
 
 GetTimeoutMs returns the TimeoutMs field if non-nil, zero value otherwise.
 
 ### GetTimeoutMsOk
 
-`func (o *BusRequest) GetTimeoutMsOk() (*int32, bool)`
+`func (o *BusRequest) GetTimeoutMsOk() (*int64, bool)`
 
 GetTimeoutMsOk returns a tuple with the TimeoutMs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeoutMs
 
-`func (o *BusRequest) SetTimeoutMs(v int32)`
+`func (o *BusRequest) SetTimeoutMs(v int64)`
 
 SetTimeoutMs sets TimeoutMs field to given value.
 

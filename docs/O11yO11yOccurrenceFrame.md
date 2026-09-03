@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AbsPath** | Pointer to **string** | AbsPath is the file&#39;s absolute path. | [optional] 
-**Colno** | Pointer to **int32** | Colno is the column number. | [optional] 
+**Colno** | Pointer to **int64** | Colno is the column number. | [optional] 
 **Filename** | Pointer to **string** | Filename is the file it is in. | [optional] 
 **Function** | Pointer to **string** | Function is the function the frame is in. | [optional] 
 **InApp** | Pointer to **bool** | InApp marks a frame in the reporting application&#39;s own code. | [optional] 
-**Lineno** | Pointer to **int32** | Lineno is the line number. | [optional] 
+**Lineno** | Pointer to **int64** | Lineno is the line number. | [optional] 
 **Module** | Pointer to **string** | Module is the module the function is in. | [optional] 
 
 ## Methods
@@ -58,20 +58,20 @@ HasAbsPath returns a boolean if a field has been set.
 
 ### GetColno
 
-`func (o *O11yO11yOccurrenceFrame) GetColno() int32`
+`func (o *O11yO11yOccurrenceFrame) GetColno() int64`
 
 GetColno returns the Colno field if non-nil, zero value otherwise.
 
 ### GetColnoOk
 
-`func (o *O11yO11yOccurrenceFrame) GetColnoOk() (*int32, bool)`
+`func (o *O11yO11yOccurrenceFrame) GetColnoOk() (*int64, bool)`
 
 GetColnoOk returns a tuple with the Colno field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetColno
 
-`func (o *O11yO11yOccurrenceFrame) SetColno(v int32)`
+`func (o *O11yO11yOccurrenceFrame) SetColno(v int64)`
 
 SetColno sets Colno field to given value.
 
@@ -158,20 +158,20 @@ HasInApp returns a boolean if a field has been set.
 
 ### GetLineno
 
-`func (o *O11yO11yOccurrenceFrame) GetLineno() int32`
+`func (o *O11yO11yOccurrenceFrame) GetLineno() int64`
 
 GetLineno returns the Lineno field if non-nil, zero value otherwise.
 
 ### GetLinenoOk
 
-`func (o *O11yO11yOccurrenceFrame) GetLinenoOk() (*int32, bool)`
+`func (o *O11yO11yOccurrenceFrame) GetLinenoOk() (*int64, bool)`
 
 GetLinenoOk returns a tuple with the Lineno field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLineno
 
-`func (o *O11yO11yOccurrenceFrame) SetLineno(v int32)`
+`func (o *O11yO11yOccurrenceFrame) SetLineno(v int64)`
 
 SetLineno sets Lineno field to given value.
 

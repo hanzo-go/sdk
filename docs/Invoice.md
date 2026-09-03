@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AmountDueCents** | Pointer to **int32** | AmountDueCents is what remains collectible. | [optional] 
-**AmountPaidCents** | Pointer to **int32** | AmountPaidCents is what has been collected so far. | [optional] 
+**AmountDueCents** | Pointer to **int64** | AmountDueCents is what remains collectible. | [optional] 
+**AmountPaidCents** | Pointer to **int64** | AmountPaidCents is what has been collected so far. | [optional] 
 **CreatedAt** | Pointer to **string** | CreatedAt is when the draft was raised, RFC3339. | [optional] 
 **Currency** | Pointer to **string** | Currency is the ISO 4217 code. | [optional] 
 **CustomerEmail** | Pointer to **string** | CustomerEmail is where it is sent. | [optional] 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **Number** | Pointer to **string** | Number is the human-facing invoice number, e.g. \&quot;INV-0042\&quot;. A draft has none; issuing assigns it. | [optional] 
 **PaymentRef** | Pointer to **string** | PaymentRef is the processor reference for the collection, once paid. | [optional] 
 **Status** | Pointer to **string** | Status is draft, open, paid, void or uncollectible. A draft is not collectible; issuing moves it to open. | [optional] 
-**SubtotalCents** | Pointer to **int32** | SubtotalCents is the sum of the lines. | [optional] 
+**SubtotalCents** | Pointer to **int64** | SubtotalCents is the sum of the lines. | [optional] 
 **UserId** | Pointer to **string** | UserID is the customer billed. | [optional] 
 
 ## Methods
@@ -38,20 +38,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAmountDueCents
 
-`func (o *Invoice) GetAmountDueCents() int32`
+`func (o *Invoice) GetAmountDueCents() int64`
 
 GetAmountDueCents returns the AmountDueCents field if non-nil, zero value otherwise.
 
 ### GetAmountDueCentsOk
 
-`func (o *Invoice) GetAmountDueCentsOk() (*int32, bool)`
+`func (o *Invoice) GetAmountDueCentsOk() (*int64, bool)`
 
 GetAmountDueCentsOk returns a tuple with the AmountDueCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmountDueCents
 
-`func (o *Invoice) SetAmountDueCents(v int32)`
+`func (o *Invoice) SetAmountDueCents(v int64)`
 
 SetAmountDueCents sets AmountDueCents field to given value.
 
@@ -63,20 +63,20 @@ HasAmountDueCents returns a boolean if a field has been set.
 
 ### GetAmountPaidCents
 
-`func (o *Invoice) GetAmountPaidCents() int32`
+`func (o *Invoice) GetAmountPaidCents() int64`
 
 GetAmountPaidCents returns the AmountPaidCents field if non-nil, zero value otherwise.
 
 ### GetAmountPaidCentsOk
 
-`func (o *Invoice) GetAmountPaidCentsOk() (*int32, bool)`
+`func (o *Invoice) GetAmountPaidCentsOk() (*int64, bool)`
 
 GetAmountPaidCentsOk returns a tuple with the AmountPaidCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmountPaidCents
 
-`func (o *Invoice) SetAmountPaidCents(v int32)`
+`func (o *Invoice) SetAmountPaidCents(v int64)`
 
 SetAmountPaidCents sets AmountPaidCents field to given value.
 
@@ -288,20 +288,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetSubtotalCents
 
-`func (o *Invoice) GetSubtotalCents() int32`
+`func (o *Invoice) GetSubtotalCents() int64`
 
 GetSubtotalCents returns the SubtotalCents field if non-nil, zero value otherwise.
 
 ### GetSubtotalCentsOk
 
-`func (o *Invoice) GetSubtotalCentsOk() (*int32, bool)`
+`func (o *Invoice) GetSubtotalCentsOk() (*int64, bool)`
 
 GetSubtotalCentsOk returns a tuple with the SubtotalCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSubtotalCents
 
-`func (o *Invoice) SetSubtotalCents(v int32)`
+`func (o *Invoice) SetSubtotalCents(v int64)`
 
 SetSubtotalCents sets SubtotalCents field to given value.
 

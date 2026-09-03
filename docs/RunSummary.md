@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AvgScore** | Pointer to **float32** | AvgScore is the mean over the scored examples, 0 when none scored. | [optional] 
+**AvgScore** | Pointer to **float64** | AvgScore is the mean over the scored examples, 0 when none scored. | [optional] 
 **Dataset** | Pointer to **string** | Dataset is the set that was scored. | [optional] 
-**Items** | Pointer to **int32** | Items is how many examples the run attempted. | [optional] 
+**Items** | Pointer to **int64** | Items is how many examples the run attempted. | [optional] 
 **JudgeModel** | Pointer to **string** | JudgeModel is the model that graded. | [optional] 
 **Model** | Pointer to **string** | Model is the model under test. | [optional] 
 **Results** | Pointer to [**[]ItemResult**](ItemResult.md) | Results is one row per attempted example. | [optional] 
 **RunName** | Pointer to **string** | RunName is the run&#39;s label, which scores and traces are filed under. | [optional] 
-**Scored** | Pointer to **int32** | Scored is how many produced a real score. It counts successes only, so a partial run is honest about what it achieved. | [optional] 
+**Scored** | Pointer to **int64** | Scored is how many produced a real score. It counts successes only, so a partial run is honest about what it achieved. | [optional] 
 
 ## Methods
 
@@ -34,20 +34,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAvgScore
 
-`func (o *RunSummary) GetAvgScore() float32`
+`func (o *RunSummary) GetAvgScore() float64`
 
 GetAvgScore returns the AvgScore field if non-nil, zero value otherwise.
 
 ### GetAvgScoreOk
 
-`func (o *RunSummary) GetAvgScoreOk() (*float32, bool)`
+`func (o *RunSummary) GetAvgScoreOk() (*float64, bool)`
 
 GetAvgScoreOk returns a tuple with the AvgScore field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAvgScore
 
-`func (o *RunSummary) SetAvgScore(v float32)`
+`func (o *RunSummary) SetAvgScore(v float64)`
 
 SetAvgScore sets AvgScore field to given value.
 
@@ -84,20 +84,20 @@ HasDataset returns a boolean if a field has been set.
 
 ### GetItems
 
-`func (o *RunSummary) GetItems() int32`
+`func (o *RunSummary) GetItems() int64`
 
 GetItems returns the Items field if non-nil, zero value otherwise.
 
 ### GetItemsOk
 
-`func (o *RunSummary) GetItemsOk() (*int32, bool)`
+`func (o *RunSummary) GetItemsOk() (*int64, bool)`
 
 GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItems
 
-`func (o *RunSummary) SetItems(v int32)`
+`func (o *RunSummary) SetItems(v int64)`
 
 SetItems sets Items field to given value.
 
@@ -209,20 +209,20 @@ HasRunName returns a boolean if a field has been set.
 
 ### GetScored
 
-`func (o *RunSummary) GetScored() int32`
+`func (o *RunSummary) GetScored() int64`
 
 GetScored returns the Scored field if non-nil, zero value otherwise.
 
 ### GetScoredOk
 
-`func (o *RunSummary) GetScoredOk() (*int32, bool)`
+`func (o *RunSummary) GetScoredOk() (*int64, bool)`
 
 GetScoredOk returns a tuple with the Scored field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScored
 
-`func (o *RunSummary) SetScored(v int32)`
+`func (o *RunSummary) SetScored(v int64)`
 
 SetScored sets Scored field to given value.
 

@@ -20,15 +20,15 @@ var _ MappedNullable = &LinearBackfillResult{}
 // LinearBackfillResult struct for LinearBackfillResult
 type LinearBackfillResult struct {
 	// Created is how many native issues this pass created.
-	Created *int32 `json:"created,omitempty"`
+	Created *int64 `json:"created,omitempty"`
 	// Failed is how many issues errored; the pass continues past each.
-	Failed *int32 `json:"failed,omitempty"`
+	Failed *int64 `json:"failed,omitempty"`
 	// Issues is how many Linear issues were seen.
-	Issues *int32 `json:"issues,omitempty"`
+	Issues *int64 `json:"issues,omitempty"`
 	// Truncated is set when the time budget or the issue cap stopped the pass early. Re-run to continue — the mirror is idempotent by ExtRef, so nothing duplicates.
 	Truncated *bool `json:"truncated,omitempty"`
 	// Updated is how many existing native issues this pass refreshed.
-	Updated *int32 `json:"updated,omitempty"`
+	Updated *int64 `json:"updated,omitempty"`
 }
 
 // NewLinearBackfillResult instantiates a new LinearBackfillResult object
@@ -49,9 +49,9 @@ func NewLinearBackfillResultWithDefaults() *LinearBackfillResult {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *LinearBackfillResult) GetCreated() int32 {
+func (o *LinearBackfillResult) GetCreated() int64 {
 	if o == nil || IsNil(o.Created) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Created
@@ -59,7 +59,7 @@ func (o *LinearBackfillResult) GetCreated() int32 {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LinearBackfillResult) GetCreatedOk() (*int32, bool) {
+func (o *LinearBackfillResult) GetCreatedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -75,15 +75,15 @@ func (o *LinearBackfillResult) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given int32 and assigns it to the Created field.
-func (o *LinearBackfillResult) SetCreated(v int32) {
+// SetCreated gets a reference to the given int64 and assigns it to the Created field.
+func (o *LinearBackfillResult) SetCreated(v int64) {
 	o.Created = &v
 }
 
 // GetFailed returns the Failed field value if set, zero value otherwise.
-func (o *LinearBackfillResult) GetFailed() int32 {
+func (o *LinearBackfillResult) GetFailed() int64 {
 	if o == nil || IsNil(o.Failed) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Failed
@@ -91,7 +91,7 @@ func (o *LinearBackfillResult) GetFailed() int32 {
 
 // GetFailedOk returns a tuple with the Failed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LinearBackfillResult) GetFailedOk() (*int32, bool) {
+func (o *LinearBackfillResult) GetFailedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Failed) {
 		return nil, false
 	}
@@ -107,15 +107,15 @@ func (o *LinearBackfillResult) HasFailed() bool {
 	return false
 }
 
-// SetFailed gets a reference to the given int32 and assigns it to the Failed field.
-func (o *LinearBackfillResult) SetFailed(v int32) {
+// SetFailed gets a reference to the given int64 and assigns it to the Failed field.
+func (o *LinearBackfillResult) SetFailed(v int64) {
 	o.Failed = &v
 }
 
 // GetIssues returns the Issues field value if set, zero value otherwise.
-func (o *LinearBackfillResult) GetIssues() int32 {
+func (o *LinearBackfillResult) GetIssues() int64 {
 	if o == nil || IsNil(o.Issues) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Issues
@@ -123,7 +123,7 @@ func (o *LinearBackfillResult) GetIssues() int32 {
 
 // GetIssuesOk returns a tuple with the Issues field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LinearBackfillResult) GetIssuesOk() (*int32, bool) {
+func (o *LinearBackfillResult) GetIssuesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Issues) {
 		return nil, false
 	}
@@ -139,8 +139,8 @@ func (o *LinearBackfillResult) HasIssues() bool {
 	return false
 }
 
-// SetIssues gets a reference to the given int32 and assigns it to the Issues field.
-func (o *LinearBackfillResult) SetIssues(v int32) {
+// SetIssues gets a reference to the given int64 and assigns it to the Issues field.
+func (o *LinearBackfillResult) SetIssues(v int64) {
 	o.Issues = &v
 }
 
@@ -177,9 +177,9 @@ func (o *LinearBackfillResult) SetTruncated(v bool) {
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *LinearBackfillResult) GetUpdated() int32 {
+func (o *LinearBackfillResult) GetUpdated() int64 {
 	if o == nil || IsNil(o.Updated) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Updated
@@ -187,7 +187,7 @@ func (o *LinearBackfillResult) GetUpdated() int32 {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LinearBackfillResult) GetUpdatedOk() (*int32, bool) {
+func (o *LinearBackfillResult) GetUpdatedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *LinearBackfillResult) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given int32 and assigns it to the Updated field.
-func (o *LinearBackfillResult) SetUpdated(v int32) {
+// SetUpdated gets a reference to the given int64 and assigns it to the Updated field.
+func (o *LinearBackfillResult) SetUpdated(v int64) {
 	o.Updated = &v
 }
 

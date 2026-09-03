@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Email** | Pointer to **string** | Email is the one address the link admits. | [optional] 
-**ExpiresAt** | Pointer to **int32** | ExpiresAt is when the grant closes, in unix milliseconds. | [optional] 
+**ExpiresAt** | Pointer to **int64** | ExpiresAt is when the grant closes, in unix milliseconds. | [optional] 
 **Item** | Pointer to **string** | Item is the item granted, empty when the whole released tier was granted. | [optional] 
 **Link** | Pointer to **string** | Link is the share link&#39;s id — the token the party opens. Reading it here does not widen it: the link admits only Email whoever holds the id. | [optional] 
 **Live** | Pointer to **bool** | Live is whether the grant is still open at the time of reading. | [optional] 
@@ -56,20 +56,20 @@ HasEmail returns a boolean if a field has been set.
 
 ### GetExpiresAt
 
-`func (o *TrustGrantView) GetExpiresAt() int32`
+`func (o *TrustGrantView) GetExpiresAt() int64`
 
 GetExpiresAt returns the ExpiresAt field if non-nil, zero value otherwise.
 
 ### GetExpiresAtOk
 
-`func (o *TrustGrantView) GetExpiresAtOk() (*int32, bool)`
+`func (o *TrustGrantView) GetExpiresAtOk() (*int64, bool)`
 
 GetExpiresAtOk returns a tuple with the ExpiresAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpiresAt
 
-`func (o *TrustGrantView) SetExpiresAt(v int32)`
+`func (o *TrustGrantView) SetExpiresAt(v int64)`
 
 SetExpiresAt sets ExpiresAt field to given value.
 

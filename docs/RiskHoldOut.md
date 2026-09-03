@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Changed** | Pointer to **int32** | Changed is how many records moved into that state. A record already in it is not counted and is not an error: the op is idempotent, so a retry after a network failure is safe. | [optional] 
-**Held** | Pointer to **int32** | Held is how many records this tenant is now holding, at any age. Retention never disposes of one. | [optional] 
+**Changed** | Pointer to **int64** | Changed is how many records moved into that state. A record already in it is not counted and is not an error: the op is idempotent, so a retry after a network failure is safe. | [optional] 
+**Held** | Pointer to **int64** | Held is how many records this tenant is now holding, at any age. Retention never disposes of one. | [optional] 
 **Hold** | Pointer to **bool** | Hold echoes the state asked for. | [optional] 
-**Missing** | Pointer to **int32** | Missing is how many of the named ids this tenant does not hold. It is reported rather than refused, so a sweep over a list that includes disposed records still places every hold it can — but it is REPORTED, because a hold that silently did nothing is a compliance control that lies. | [optional] 
+**Missing** | Pointer to **int64** | Missing is how many of the named ids this tenant does not hold. It is reported rather than refused, so a sweep over a list that includes disposed records still places every hold it can — but it is REPORTED, because a hold that silently did nothing is a compliance control that lies. | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetChanged
 
-`func (o *RiskHoldOut) GetChanged() int32`
+`func (o *RiskHoldOut) GetChanged() int64`
 
 GetChanged returns the Changed field if non-nil, zero value otherwise.
 
 ### GetChangedOk
 
-`func (o *RiskHoldOut) GetChangedOk() (*int32, bool)`
+`func (o *RiskHoldOut) GetChangedOk() (*int64, bool)`
 
 GetChangedOk returns a tuple with the Changed field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetChanged
 
-`func (o *RiskHoldOut) SetChanged(v int32)`
+`func (o *RiskHoldOut) SetChanged(v int64)`
 
 SetChanged sets Changed field to given value.
 
@@ -55,20 +55,20 @@ HasChanged returns a boolean if a field has been set.
 
 ### GetHeld
 
-`func (o *RiskHoldOut) GetHeld() int32`
+`func (o *RiskHoldOut) GetHeld() int64`
 
 GetHeld returns the Held field if non-nil, zero value otherwise.
 
 ### GetHeldOk
 
-`func (o *RiskHoldOut) GetHeldOk() (*int32, bool)`
+`func (o *RiskHoldOut) GetHeldOk() (*int64, bool)`
 
 GetHeldOk returns a tuple with the Held field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHeld
 
-`func (o *RiskHoldOut) SetHeld(v int32)`
+`func (o *RiskHoldOut) SetHeld(v int64)`
 
 SetHeld sets Held field to given value.
 
@@ -105,20 +105,20 @@ HasHold returns a boolean if a field has been set.
 
 ### GetMissing
 
-`func (o *RiskHoldOut) GetMissing() int32`
+`func (o *RiskHoldOut) GetMissing() int64`
 
 GetMissing returns the Missing field if non-nil, zero value otherwise.
 
 ### GetMissingOk
 
-`func (o *RiskHoldOut) GetMissingOk() (*int32, bool)`
+`func (o *RiskHoldOut) GetMissingOk() (*int64, bool)`
 
 GetMissingOk returns a tuple with the Missing field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMissing
 
-`func (o *RiskHoldOut) SetMissing(v int32)`
+`func (o *RiskHoldOut) SetMissing(v int64)`
 
 SetMissing sets Missing field to given value.
 

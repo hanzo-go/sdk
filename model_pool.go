@@ -21,9 +21,9 @@ var _ MappedNullable = &Pool{}
 type Pool struct {
 	// At is the pool contract's address, lowercase.
 	At    *string `json:"at,omitempty"`
-	Count *int32  `json:"count,omitempty"`
+	Count *int64  `json:"count,omitempty"`
 	// Fee is the pool's tier in hundredths of a basis point — 3000 is 0.3%. It is the integer the contract stores, unconverted, so nothing here rounds a rate.
-	Fee    *int32  `json:"fee,omitempty"`
+	Fee    *int64  `json:"fee,omitempty"`
 	Locked *string `json:"locked,omitempty"`
 	Token0 *Token  `json:"token0,omitempty"`
 	// Token0Price is token1 per token0, and Token1Price its reciprocal, both as the indexer computed them. Neither is a price ON anything: it is the ratio the pool's reserves stand at.
@@ -83,9 +83,9 @@ func (o *Pool) SetAt(v string) {
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *Pool) GetCount() int32 {
+func (o *Pool) GetCount() int64 {
 	if o == nil || IsNil(o.Count) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Count
@@ -93,7 +93,7 @@ func (o *Pool) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Pool) GetCountOk() (*int32, bool) {
+func (o *Pool) GetCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -109,15 +109,15 @@ func (o *Pool) HasCount() bool {
 	return false
 }
 
-// SetCount gets a reference to the given int32 and assigns it to the Count field.
-func (o *Pool) SetCount(v int32) {
+// SetCount gets a reference to the given int64 and assigns it to the Count field.
+func (o *Pool) SetCount(v int64) {
 	o.Count = &v
 }
 
 // GetFee returns the Fee field value if set, zero value otherwise.
-func (o *Pool) GetFee() int32 {
+func (o *Pool) GetFee() int64 {
 	if o == nil || IsNil(o.Fee) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Fee
@@ -125,7 +125,7 @@ func (o *Pool) GetFee() int32 {
 
 // GetFeeOk returns a tuple with the Fee field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Pool) GetFeeOk() (*int32, bool) {
+func (o *Pool) GetFeeOk() (*int64, bool) {
 	if o == nil || IsNil(o.Fee) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *Pool) HasFee() bool {
 	return false
 }
 
-// SetFee gets a reference to the given int32 and assigns it to the Fee field.
-func (o *Pool) SetFee(v int32) {
+// SetFee gets a reference to the given int64 and assigns it to the Fee field.
+func (o *Pool) SetFee(v int64) {
 	o.Fee = &v
 }
 

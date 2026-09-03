@@ -28,7 +28,7 @@ type Route struct {
 	// PathPrefix narrows the match to requests under this path; it must start with \"/\". Empty matches every path on the host.
 	PathPrefix *string `json:"pathPrefix,omitempty"`
 	// Priority orders routes that share a host: higher wins, and equal priorities fall back to the longer PathPrefix.
-	Priority *int32 `json:"priority,omitempty"`
+	Priority *int64 `json:"priority,omitempty"`
 	// Service is the id of the backend pool this route dispatches to. A route naming a service that does not exist is skipped at compile, not served.
 	Service *string `json:"service,omitempty"`
 	// TLS asks the edge to terminate TLS for Host with an ACME-managed certificate.
@@ -181,9 +181,9 @@ func (o *Route) SetPathPrefix(v string) {
 }
 
 // GetPriority returns the Priority field value if set, zero value otherwise.
-func (o *Route) GetPriority() int32 {
+func (o *Route) GetPriority() int64 {
 	if o == nil || IsNil(o.Priority) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Priority
@@ -191,7 +191,7 @@ func (o *Route) GetPriority() int32 {
 
 // GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Route) GetPriorityOk() (*int32, bool) {
+func (o *Route) GetPriorityOk() (*int64, bool) {
 	if o == nil || IsNil(o.Priority) {
 		return nil, false
 	}
@@ -207,8 +207,8 @@ func (o *Route) HasPriority() bool {
 	return false
 }
 
-// SetPriority gets a reference to the given int32 and assigns it to the Priority field.
-func (o *Route) SetPriority(v int32) {
+// SetPriority gets a reference to the given int64 and assigns it to the Priority field.
+func (o *Route) SetPriority(v int64) {
 	o.Priority = &v
 }
 

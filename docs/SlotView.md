@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BlsPubkey** | Pointer to **string** | BLSPubkey is the node&#39;s BLS public key, hex. | [optional] 
 **CrName** | Pointer to **string** | CRName is the LuxNetwork custom resource that materializes the node. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the slot was first claimed, as a Unix timestamp. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the slot was first claimed, as a Unix timestamp. | [optional] 
 **Namespace** | Pointer to **string** | Namespace is the Kubernetes namespace the node&#39;s CR lives in. | [optional] 
 **Network** | Pointer to **string** | Network is the luxd network slug the node joins. | [optional] 
 **NodeID** | Pointer to **string** | NodeID is the luxd node id derived from the sealed staking identity. It is stable across re-claims of the same slot. | [optional] 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **Registration** | Pointer to [**RegistrationView**](RegistrationView.md) | Registration is the queued owner-gated registration, absent until one exists. | [optional] 
 **Slot** | Pointer to **int32** | Slot is the validator slot number — the same value as tokenId, under the name the portal reads. | [optional] 
 **TokenId** | Pointer to **int32** | TokenID is the GenesisNFT token id that IS this slot. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is when the slot last changed, as a Unix timestamp. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is when the slot last changed, as a Unix timestamp. | [optional] 
 **Wallet** | Pointer to **string** | Wallet is the lowercase Ethereum address that proved ownership of the NFT. | [optional] 
 
 ## Methods
@@ -88,20 +88,20 @@ HasCrName returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *SlotView) GetCreatedAt() int32`
+`func (o *SlotView) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *SlotView) GetCreatedAtOk() (*int32, bool)`
+`func (o *SlotView) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *SlotView) SetCreatedAt(v int32)`
+`func (o *SlotView) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -288,20 +288,20 @@ HasTokenId returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *SlotView) GetUpdatedAt() int32`
+`func (o *SlotView) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *SlotView) GetUpdatedAtOk() (*int32, bool)`
+`func (o *SlotView) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *SlotView) SetUpdatedAt(v int32)`
+`func (o *SlotView) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Channel** | Pointer to **string** | Channel is the network to publish to: x, facebook, instagram, linkedin, tiktok, youtube or threads. Omitted means x.  Example: \&quot;x\&quot; | [optional] 
 **Content** | Pointer to **string** | Content is the post&#39;s text. Required — an empty body is a 400 — and bounded at 8192 characters, comfortably above every network&#39;s own limit.  Example: \&quot;Shipping today.\&quot; | [optional] 
 **Media** | Pointer to **[]string** | Media is the post&#39;s attached media as URLs, at most 10, each bounded at 1024 characters. Blank entries are dropped. Omitting it CLEARS any stored media. | [optional] 
-**ScheduleAt** | Pointer to **int32** | ScheduleAt is when to publish, as a unix timestamp in SECONDS. 0 means unscheduled. A negative value is clamped to 0. It only matters for a post whose status is scheduled. | [optional] 
+**ScheduleAt** | Pointer to **int64** | ScheduleAt is when to publish, as a unix timestamp in SECONDS. 0 means unscheduled. A negative value is clamped to 0. It only matters for a post whose status is scheduled. | [optional] 
 **Status** | Pointer to **string** | Status is the post&#39;s lifecycle state: draft, scheduled, published or failed. Omitted means draft. The transient publishing claim is never settable here — accepting it from a request would let a caller wedge or replay the guard that stops two publishers double-posting the same row. | [optional] 
 
 ## Methods
@@ -106,20 +106,20 @@ HasMedia returns a boolean if a field has been set.
 
 ### GetScheduleAt
 
-`func (o *SocialPostBody) GetScheduleAt() int32`
+`func (o *SocialPostBody) GetScheduleAt() int64`
 
 GetScheduleAt returns the ScheduleAt field if non-nil, zero value otherwise.
 
 ### GetScheduleAtOk
 
-`func (o *SocialPostBody) GetScheduleAtOk() (*int32, bool)`
+`func (o *SocialPostBody) GetScheduleAtOk() (*int64, bool)`
 
 GetScheduleAtOk returns a tuple with the ScheduleAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScheduleAt
 
-`func (o *SocialPostBody) SetScheduleAt(v int32)`
+`func (o *SocialPostBody) SetScheduleAt(v int64)`
 
 SetScheduleAt sets ScheduleAt field to given value.
 

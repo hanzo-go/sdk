@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Account** | Pointer to **string** | Account is the chart-of-accounts number this leg posts to. | [optional] 
 **Against** | Pointer to **string** | Against names the OTHER accounts in the same voucher — the contra side of this leg — so a single row reads as an entry rather than as half of one. | [optional] 
-**Credit** | Pointer to **int32** | Credit is the amount credited to that account, in whole cents. | [optional] 
-**Debit** | Pointer to **int32** | Debit is the amount debited to that account, in whole cents. Exactly one of debit and credit is non-zero on a leg; a negative amount is never used to mean the other side. | [optional] 
-**Id** | Pointer to **int32** | ID is the entry&#39;s position in the ledger. The ledger is append-only, so ids ascend with posting order and a higher id is a later entry. | [optional] 
+**Credit** | Pointer to **int64** | Credit is the amount credited to that account, in whole cents. | [optional] 
+**Debit** | Pointer to **int64** | Debit is the amount debited to that account, in whole cents. Exactly one of debit and credit is non-zero on a leg; a negative amount is never used to mean the other side. | [optional] 
+**Id** | Pointer to **int64** | ID is the entry&#39;s position in the ledger. The ledger is append-only, so ids ascend with posting order and a higher id is a later entry. | [optional] 
 **PostingAt** | Pointer to **string** | PostingAt is the accounting date this entry belongs to — what the reports window on, which need not be when the row was written. | [optional] 
 **Remarks** | Pointer to **string** | Remarks is the memo carried onto the entry, for a human reading the ledger. | [optional] 
 **SourceId** | Pointer to **string** | SourceID identifies that originating record within its kind. | [optional] 
@@ -85,20 +85,20 @@ HasAgainst returns a boolean if a field has been set.
 
 ### GetCredit
 
-`func (o *GLRow) GetCredit() int32`
+`func (o *GLRow) GetCredit() int64`
 
 GetCredit returns the Credit field if non-nil, zero value otherwise.
 
 ### GetCreditOk
 
-`func (o *GLRow) GetCreditOk() (*int32, bool)`
+`func (o *GLRow) GetCreditOk() (*int64, bool)`
 
 GetCreditOk returns a tuple with the Credit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCredit
 
-`func (o *GLRow) SetCredit(v int32)`
+`func (o *GLRow) SetCredit(v int64)`
 
 SetCredit sets Credit field to given value.
 
@@ -110,20 +110,20 @@ HasCredit returns a boolean if a field has been set.
 
 ### GetDebit
 
-`func (o *GLRow) GetDebit() int32`
+`func (o *GLRow) GetDebit() int64`
 
 GetDebit returns the Debit field if non-nil, zero value otherwise.
 
 ### GetDebitOk
 
-`func (o *GLRow) GetDebitOk() (*int32, bool)`
+`func (o *GLRow) GetDebitOk() (*int64, bool)`
 
 GetDebitOk returns a tuple with the Debit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDebit
 
-`func (o *GLRow) SetDebit(v int32)`
+`func (o *GLRow) SetDebit(v int64)`
 
 SetDebit sets Debit field to given value.
 
@@ -135,20 +135,20 @@ HasDebit returns a boolean if a field has been set.
 
 ### GetId
 
-`func (o *GLRow) GetId() int32`
+`func (o *GLRow) GetId() int64`
 
 GetId returns the Id field if non-nil, zero value otherwise.
 
 ### GetIdOk
 
-`func (o *GLRow) GetIdOk() (*int32, bool)`
+`func (o *GLRow) GetIdOk() (*int64, bool)`
 
 GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetId
 
-`func (o *GLRow) SetId(v int32)`
+`func (o *GLRow) SetId(v int64)`
 
 SetId sets Id field to given value.
 

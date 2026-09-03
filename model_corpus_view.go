@@ -20,7 +20,7 @@ var _ MappedNullable = &CorpusView{}
 // CorpusView struct for CorpusView
 type CorpusView struct {
 	// Count is how many tactics survived every filter.
-	Count *int32 `json:"count,omitempty"`
+	Count *int64 `json:"count,omitempty"`
 	// Stage is the growth stage the tag join ran at — the org's observed stage, or the one ?stage= previewed.
 	Stage *string `json:"stage,omitempty"`
 	// Strategies are the surviving tactics, in corpus authoring order.
@@ -45,9 +45,9 @@ func NewCorpusViewWithDefaults() *CorpusView {
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *CorpusView) GetCount() int32 {
+func (o *CorpusView) GetCount() int64 {
 	if o == nil || IsNil(o.Count) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Count
@@ -55,7 +55,7 @@ func (o *CorpusView) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CorpusView) GetCountOk() (*int32, bool) {
+func (o *CorpusView) GetCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *CorpusView) HasCount() bool {
 	return false
 }
 
-// SetCount gets a reference to the given int32 and assigns it to the Count field.
-func (o *CorpusView) SetCount(v int32) {
+// SetCount gets a reference to the given int64 and assigns it to the Count field.
+func (o *CorpusView) SetCount(v int64) {
 	o.Count = &v
 }
 

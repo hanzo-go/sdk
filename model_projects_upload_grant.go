@@ -20,11 +20,11 @@ var _ MappedNullable = &ProjectsUploadGrant{}
 // ProjectsUploadGrant struct for ProjectsUploadGrant
 type ProjectsUploadGrant struct {
 	// ExpiresAt is when the grant stops being accepted, as Unix seconds. It is short-lived by design and is handed out ONCE, on the response that queues the deployment — a later read of that deployment does not carry it, so a grant cannot be fetched again after the build it was minted for.
-	ExpiresAt *int32 `json:"expiresAt,omitempty"`
+	ExpiresAt *int64 `json:"expiresAt,omitempty"`
 	// Fields are form values every POST must carry VERBATIM, alongside `key` and `file`. The signature covers them, so altering any one of them — including widening the key to reach outside the prefix — invalidates the grant rather than extending it.
 	Fields map[string]string `json:"fields,omitempty"`
 	// MaxBytes bounds ONE object, not the upload as a whole.
-	MaxBytes *int32 `json:"maxBytes,omitempty"`
+	MaxBytes *int64 `json:"maxBytes,omitempty"`
 	// Prefix is the only place this grant can write: the deployment's own key prefix. It authorizes WRITES ONLY, which is why completing a deployment reconciles the prefix against a manifest instead of letting CI delete.
 	Prefix *string `json:"prefix,omitempty"`
 	// URL is the address to POST each object to. It is signed for the PUBLIC endpoint, because the signature covers the host and CI posts from outside the cluster.
@@ -49,9 +49,9 @@ func NewProjectsUploadGrantWithDefaults() *ProjectsUploadGrant {
 }
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
-func (o *ProjectsUploadGrant) GetExpiresAt() int32 {
+func (o *ProjectsUploadGrant) GetExpiresAt() int64 {
 	if o == nil || IsNil(o.ExpiresAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ExpiresAt
@@ -59,7 +59,7 @@ func (o *ProjectsUploadGrant) GetExpiresAt() int32 {
 
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsUploadGrant) GetExpiresAtOk() (*int32, bool) {
+func (o *ProjectsUploadGrant) GetExpiresAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *ProjectsUploadGrant) HasExpiresAt() bool {
 	return false
 }
 
-// SetExpiresAt gets a reference to the given int32 and assigns it to the ExpiresAt field.
-func (o *ProjectsUploadGrant) SetExpiresAt(v int32) {
+// SetExpiresAt gets a reference to the given int64 and assigns it to the ExpiresAt field.
+func (o *ProjectsUploadGrant) SetExpiresAt(v int64) {
 	o.ExpiresAt = &v
 }
 
@@ -113,9 +113,9 @@ func (o *ProjectsUploadGrant) SetFields(v map[string]string) {
 }
 
 // GetMaxBytes returns the MaxBytes field value if set, zero value otherwise.
-func (o *ProjectsUploadGrant) GetMaxBytes() int32 {
+func (o *ProjectsUploadGrant) GetMaxBytes() int64 {
 	if o == nil || IsNil(o.MaxBytes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxBytes
@@ -123,7 +123,7 @@ func (o *ProjectsUploadGrant) GetMaxBytes() int32 {
 
 // GetMaxBytesOk returns a tuple with the MaxBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsUploadGrant) GetMaxBytesOk() (*int32, bool) {
+func (o *ProjectsUploadGrant) GetMaxBytesOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxBytes) {
 		return nil, false
 	}
@@ -139,8 +139,8 @@ func (o *ProjectsUploadGrant) HasMaxBytes() bool {
 	return false
 }
 
-// SetMaxBytes gets a reference to the given int32 and assigns it to the MaxBytes field.
-func (o *ProjectsUploadGrant) SetMaxBytes(v int32) {
+// SetMaxBytes gets a reference to the given int64 and assigns it to the MaxBytes field.
+func (o *ProjectsUploadGrant) SetMaxBytes(v int64) {
 	o.MaxBytes = &v
 }
 

@@ -29,7 +29,7 @@ type EventView struct {
 	Kind    *string     `json:"kind,omitempty"`
 	Payload interface{} `json:"payload,omitempty"`
 	// Seq is the turn's position in this session's log: monotonic from 1, assigned by the store inside the insert, and unique PER SESSION rather than globally. It is the cursor a reader resumes from after a reconnect — ask for everything after your last-seen seq.
-	Seq *int32 `json:"seq,omitempty"`
+	Seq *int64 `json:"seq,omitempty"`
 	// SessionID is the session this turn belongs to. Carried on every event so a stream frame stands alone — a subscriber watching a whole tree gets turns from several sessions down one connection.
 	SessionId *string `json:"sessionId,omitempty"`
 }
@@ -213,9 +213,9 @@ func (o *EventView) SetPayload(v interface{}) {
 }
 
 // GetSeq returns the Seq field value if set, zero value otherwise.
-func (o *EventView) GetSeq() int32 {
+func (o *EventView) GetSeq() int64 {
 	if o == nil || IsNil(o.Seq) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Seq
@@ -223,7 +223,7 @@ func (o *EventView) GetSeq() int32 {
 
 // GetSeqOk returns a tuple with the Seq field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventView) GetSeqOk() (*int32, bool) {
+func (o *EventView) GetSeqOk() (*int64, bool) {
 	if o == nil || IsNil(o.Seq) {
 		return nil, false
 	}
@@ -239,8 +239,8 @@ func (o *EventView) HasSeq() bool {
 	return false
 }
 
-// SetSeq gets a reference to the given int32 and assigns it to the Seq field.
-func (o *EventView) SetSeq(v int32) {
+// SetSeq gets a reference to the given int64 and assigns it to the Seq field.
+func (o *EventView) SetSeq(v int64) {
 	o.Seq = &v
 }
 

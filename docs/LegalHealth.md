@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Status** | Pointer to **string** | Status is \&quot;ok\&quot; when the subsystem is serving. | [optional] 
-**Templates** | Pointer to **int32** | Templates is how many built-in templates the catalog carries. | [optional] 
+**Templates** | Pointer to **int64** | Templates is how many built-in templates the catalog carries. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetTemplates
 
-`func (o *LegalHealth) GetTemplates() int32`
+`func (o *LegalHealth) GetTemplates() int64`
 
 GetTemplates returns the Templates field if non-nil, zero value otherwise.
 
 ### GetTemplatesOk
 
-`func (o *LegalHealth) GetTemplatesOk() (*int32, bool)`
+`func (o *LegalHealth) GetTemplatesOk() (*int64, bool)`
 
 GetTemplatesOk returns a tuple with the Templates field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTemplates
 
-`func (o *LegalHealth) SetTemplates(v int32)`
+`func (o *LegalHealth) SetTemplates(v int64)`
 
 SetTemplates sets Templates field to given value.
 

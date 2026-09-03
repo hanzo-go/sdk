@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **Namespace** | Pointer to **string** | Namespace groups functions for display. It is cosmetic — the org is the isolation key — and is normalised to a DNS-safe label. | [optional] 
 **Runtime** | Pointer to **string** | Runtime is the language the code runs under: node, python or deno. | [optional] 
 **Target** | Pointer to **string** | Target is where the function runs: sandbox (the default) or fleet, the org&#39;s own GPU fleet. fleet supports runtime&#x3D;python only. | [optional] 
-**TimeoutSec** | Pointer to **int32** | TimeoutSec is the per-invocation deadline, defaulting to 30 and clamped at 900 — a larger value is capped rather than reset to the default. | [optional] 
+**TimeoutSec** | Pointer to **int64** | TimeoutSec is the per-invocation deadline, defaulting to 30 and clamped at 900 — a larger value is capped rather than reset to the default. | [optional] 
 
 ## Methods
 
@@ -282,20 +282,20 @@ HasTarget returns a boolean if a field has been set.
 
 ### GetTimeoutSec
 
-`func (o *Definition) GetTimeoutSec() int32`
+`func (o *Definition) GetTimeoutSec() int64`
 
 GetTimeoutSec returns the TimeoutSec field if non-nil, zero value otherwise.
 
 ### GetTimeoutSecOk
 
-`func (o *Definition) GetTimeoutSecOk() (*int32, bool)`
+`func (o *Definition) GetTimeoutSecOk() (*int64, bool)`
 
 GetTimeoutSecOk returns a tuple with the TimeoutSec field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeoutSec
 
-`func (o *Definition) SetTimeoutSec(v int32)`
+`func (o *Definition) SetTimeoutSec(v int64)`
 
 SetTimeoutSec sets TimeoutSec field to given value.
 

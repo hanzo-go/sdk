@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ExcludeStatusCodes** | Pointer to **string** | ExcludeStatusCodes are status codes excluded from the score, comma separated. | [optional] 
 **ServiceName** | Pointer to **string** | ServiceName is the service the threshold applies to. | [optional] 
-**Threshold** | Pointer to **float32** | Threshold is the satisfied-response time in seconds. | [optional] 
+**Threshold** | Pointer to **float64** | Threshold is the satisfied-response time in seconds. | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasServiceName returns a boolean if a field has been set.
 
 ### GetThreshold
 
-`func (o *O11yO11yApdexSetIn) GetThreshold() float32`
+`func (o *O11yO11yApdexSetIn) GetThreshold() float64`
 
 GetThreshold returns the Threshold field if non-nil, zero value otherwise.
 
 ### GetThresholdOk
 
-`func (o *O11yO11yApdexSetIn) GetThresholdOk() (*float32, bool)`
+`func (o *O11yO11yApdexSetIn) GetThresholdOk() (*float64, bool)`
 
 GetThresholdOk returns a tuple with the Threshold field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetThreshold
 
-`func (o *O11yO11yApdexSetIn) SetThreshold(v float32)`
+`func (o *O11yO11yApdexSetIn) SetThreshold(v float64)`
 
 SetThreshold sets Threshold field to given value.
 

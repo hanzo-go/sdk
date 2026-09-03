@@ -22,9 +22,9 @@ type VersionMeta struct {
 	// Brand is the white-label key this revision was authored under; empty is the shared base playbook. Revisions of two brands never share a number line.
 	Brand *string `json:"brand,omitempty"`
 	// UpdatedAt is when this revision was written, as Unix seconds — the \"who changed the playbook, and when\" half of the audit trail.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 	// Version is the store's own revision counter for that brand, starting at 1 for the seeded playbook and incrementing on every edit. Nothing is overwritten, so the highest number is the live one and every lower number is still readable. It is not the playbook's authored `version` string.
-	Version *int32 `json:"version,omitempty"`
+	Version *int64 `json:"version,omitempty"`
 }
 
 // NewVersionMeta instantiates a new VersionMeta object
@@ -77,9 +77,9 @@ func (o *VersionMeta) SetBrand(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *VersionMeta) GetUpdatedAt() int32 {
+func (o *VersionMeta) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -87,7 +87,7 @@ func (o *VersionMeta) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VersionMeta) GetUpdatedAtOk() (*int32, bool) {
+func (o *VersionMeta) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -103,15 +103,15 @@ func (o *VersionMeta) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *VersionMeta) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *VersionMeta) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 
 // GetVersion returns the Version field value if set, zero value otherwise.
-func (o *VersionMeta) GetVersion() int32 {
+func (o *VersionMeta) GetVersion() int64 {
 	if o == nil || IsNil(o.Version) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Version
@@ -119,7 +119,7 @@ func (o *VersionMeta) GetVersion() int32 {
 
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VersionMeta) GetVersionOk() (*int32, bool) {
+func (o *VersionMeta) GetVersionOk() (*int64, bool) {
 	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *VersionMeta) HasVersion() bool {
 	return false
 }
 
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
-func (o *VersionMeta) SetVersion(v int32) {
+// SetVersion gets a reference to the given int64 and assigns it to the Version field.
+func (o *VersionMeta) SetVersion(v int64) {
 	o.Version = &v
 }
 

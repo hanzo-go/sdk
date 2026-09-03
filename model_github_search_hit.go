@@ -34,7 +34,7 @@ type GithubSearchHit struct {
 	// Private is GitHub's visibility flag, passed through. This op reads the public index — the org's token only charges the rate limit to the installation — so it is false for everything a search can reach.
 	Private *bool `json:"private,omitempty"`
 	// Stars is GitHub's stargazers_count as the SEARCH INDEX held it when the query ran — a snapshot, not a live count off the repository.
-	Stars *int32 `json:"stars,omitempty"`
+	Stars *int64 `json:"stars,omitempty"`
 }
 
 // NewGithubSearchHit instantiates a new GithubSearchHit object
@@ -279,9 +279,9 @@ func (o *GithubSearchHit) SetPrivate(v bool) {
 }
 
 // GetStars returns the Stars field value if set, zero value otherwise.
-func (o *GithubSearchHit) GetStars() int32 {
+func (o *GithubSearchHit) GetStars() int64 {
 	if o == nil || IsNil(o.Stars) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Stars
@@ -289,7 +289,7 @@ func (o *GithubSearchHit) GetStars() int32 {
 
 // GetStarsOk returns a tuple with the Stars field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GithubSearchHit) GetStarsOk() (*int32, bool) {
+func (o *GithubSearchHit) GetStarsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Stars) {
 		return nil, false
 	}
@@ -305,8 +305,8 @@ func (o *GithubSearchHit) HasStars() bool {
 	return false
 }
 
-// SetStars gets a reference to the given int32 and assigns it to the Stars field.
-func (o *GithubSearchHit) SetStars(v int32) {
+// SetStars gets a reference to the given int64 and assigns it to the Stars field.
+func (o *GithubSearchHit) SetStars(v int64) {
 	o.Stars = &v
 }
 

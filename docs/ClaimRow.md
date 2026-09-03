@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Origin** | Pointer to **string** | Origin is \&quot;seed\&quot; for a compiled row and \&quot;stored\&quot; for one written through this surface. It is the difference between what we shipped and what an operator has since corrected. | [optional] 
 **Protocol** | Pointer to **string** | Protocol records HOW it was scored — provider-reported, agentic, third-party-leaderboard — so a provider card is never read as a measurement. | [optional] 
 **Provider** | Pointer to **string** | Provider is who the claim belongs to — the lab or leaderboard whose number this is. | [optional] 
-**Score** | Pointer to **float32** | Score is the reported aggregate, as a percentage. | [optional] 
+**Score** | Pointer to **float64** | Score is the reported aggregate, as a percentage. | [optional] 
 **Source** | Pointer to **string** | Source is the citation the row was read from. | [optional] 
 
 ## Methods
@@ -210,20 +210,20 @@ HasProvider returns a boolean if a field has been set.
 
 ### GetScore
 
-`func (o *ClaimRow) GetScore() float32`
+`func (o *ClaimRow) GetScore() float64`
 
 GetScore returns the Score field if non-nil, zero value otherwise.
 
 ### GetScoreOk
 
-`func (o *ClaimRow) GetScoreOk() (*float32, bool)`
+`func (o *ClaimRow) GetScoreOk() (*float64, bool)`
 
 GetScoreOk returns a tuple with the Score field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScore
 
-`func (o *ClaimRow) SetScore(v float32)`
+`func (o *ClaimRow) SetScore(v float64)`
 
 SetScore sets Score field to given value.
 

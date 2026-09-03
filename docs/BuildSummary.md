@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **StartedAt** | Pointer to **string** | StartedAt is when the session opened, RFC 3339 in UTC. | [optional] 
 **Status** | Pointer to **string** | Status is the session&#39;s own: running, paused, done or error — so a card can show a build still being written. | [optional] 
 **Title** | Pointer to **string** | Title is the human line for the card. Sent even when empty, like every field here, because that is what this route has always sent. | [optional] 
-**Turns** | Pointer to **int32** | Turns is HOW MANY turns the transcript holds — a COUNT, unlike the &#x60;turn&#x60; on each turn of the full story, which is that turn&#39;s position. The full read returns at most 1000 of them; this number is not capped. | [optional] 
+**Turns** | Pointer to **int64** | Turns is HOW MANY turns the transcript holds — a COUNT, unlike the &#x60;turn&#x60; on each turn of the full story, which is that turn&#39;s position. The full read returns at most 1000 of them; this number is not capped. | [optional] 
 
 ## Methods
 
@@ -261,20 +261,20 @@ HasTitle returns a boolean if a field has been set.
 
 ### GetTurns
 
-`func (o *BuildSummary) GetTurns() int32`
+`func (o *BuildSummary) GetTurns() int64`
 
 GetTurns returns the Turns field if non-nil, zero value otherwise.
 
 ### GetTurnsOk
 
-`func (o *BuildSummary) GetTurnsOk() (*int32, bool)`
+`func (o *BuildSummary) GetTurnsOk() (*int64, bool)`
 
 GetTurnsOk returns a tuple with the Turns field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTurns
 
-`func (o *BuildSummary) SetTurns(v int32)`
+`func (o *BuildSummary) SetTurns(v int64)`
 
 SetTurns sets Turns field to given value.
 

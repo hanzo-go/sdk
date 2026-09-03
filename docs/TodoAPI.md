@@ -195,7 +195,7 @@ func main() {
 	room := "room_example" // string | Room keeps issues bound to one collaboration room, spelled \"<space>_<room>\" — the exact value GET /v1/meet/call answers with, so a channel's call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
 	source := "source_example" // string | Source keeps one origin: team, git, crm, helpdesk, cms, agent. \"git\" is how you ask for the mirrored GitHub issues specifically. (optional)
 	assignee := "assignee_example" // string | Assignee keeps issues held by one person. Pass \"me\" for yourself. (optional)
-	limit := int32(56) // int32 | Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. (optional)
+	limit := int64(789) // int64 | Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -228,7 +228,7 @@ Name | Type | Description  | Notes
  **room** | **string** | Room keeps issues bound to one collaboration room, spelled \&quot;&lt;space&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. | 
  **source** | **string** | Source keeps one origin: team, git, crm, helpdesk, cms, agent. \&quot;git\&quot; is how you ask for the mirrored GitHub issues specifically. | 
  **assignee** | **string** | Assignee keeps issues held by one person. Pass \&quot;me\&quot; for yourself. | 
- **limit** | **int32** | Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. | 
+ **limit** | **int64** | Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. | 
 
 ### Return type
 
@@ -483,7 +483,7 @@ import (
 
 func main() {
 	key := "key_example" // string | Key is the board — the repository name, or an index board's key.
-	num := int32(56) // int32 | Num is the issue's number on that board.
+	num := int64(789) // int64 | Num is the issue's number on that board.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -504,7 +504,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **key** | **string** | Key is the board — the repository name, or an index board&#39;s key. | 
-**num** | **int32** | Num is the issue&#39;s number on that board. | 
+**num** | **int64** | Num is the issue&#39;s number on that board. | 
 
 ### Other Parameters
 
@@ -694,7 +694,7 @@ import (
 
 func main() {
 	key := "key_example" // string | Key is the board — the repository name, from the path.
-	num := int32(56) // int32 | Num is the issue number on that repository, from the path.
+	num := int64(789) // int64 | Num is the issue number on that repository, from the path.
 	issueEdit := *openapiclient.NewIssueEdit() // IssueEdit | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -716,7 +716,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **key** | **string** | Key is the board — the repository name, from the path. | 
-**num** | **int32** | Num is the issue number on that repository, from the path. | 
+**num** | **int64** | Num is the issue number on that repository, from the path. | 
 
 ### Other Parameters
 
@@ -900,7 +900,7 @@ import (
 
 func main() {
 	key := "key_example" // string | 
-	num := int32(56) // int32 | 
+	num := int64(789) // int64 | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -921,7 +921,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **key** | **string** |  | 
-**num** | **int32** |  | 
+**num** | **int64** |  | 
 
 ### Other Parameters
 

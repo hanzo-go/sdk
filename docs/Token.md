@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **At** | Pointer to **string** | At is the token&#39;s contract address, lowercase. | [optional] 
-**Decimals** | Pointer to **int32** |  | [optional] 
+**Decimals** | Pointer to **int64** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Symbol** | Pointer to **string** |  | [optional] 
 
@@ -55,20 +55,20 @@ HasAt returns a boolean if a field has been set.
 
 ### GetDecimals
 
-`func (o *Token) GetDecimals() int32`
+`func (o *Token) GetDecimals() int64`
 
 GetDecimals returns the Decimals field if non-nil, zero value otherwise.
 
 ### GetDecimalsOk
 
-`func (o *Token) GetDecimalsOk() (*int32, bool)`
+`func (o *Token) GetDecimalsOk() (*int64, bool)`
 
 GetDecimalsOk returns a tuple with the Decimals field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDecimals
 
-`func (o *Token) SetDecimals(v int32)`
+`func (o *Token) SetDecimals(v int64)`
 
 SetDecimals sets Decimals field to given value.
 

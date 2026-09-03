@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Address** | Pointer to **string** | Address is the normalized (lower-cased, trimmed) recipient. | [optional] 
 **Channel** | Pointer to **string** | Channel is the delivery surface the steps go out on. | [optional] 
-**CurrentStep** | Pointer to **int32** | CurrentStep is the index of the step that sends next. | [optional] 
-**EnrolledAt** | Pointer to **int32** | EnrolledAt is unix seconds when the contact joined the walk, and orders the enrollment list (newest first). | [optional] 
+**CurrentStep** | Pointer to **int64** | CurrentStep is the index of the step that sends next. | [optional] 
+**EnrolledAt** | Pointer to **int64** | EnrolledAt is unix seconds when the contact joined the walk, and orders the enrollment list (newest first). | [optional] 
 **Id** | Pointer to **string** | ID is the server-assigned enrollment id (\&quot;enr_\&quot; + 128 random bits). | [optional] 
-**NextRunAt** | Pointer to **int32** | NextRunAt is the unix time the current step comes due; 0 once the walk has ended. It IS the schedule — durable in SQLite, so it survives restarts. | [optional] 
+**NextRunAt** | Pointer to **int64** | NextRunAt is the unix time the current step comes due; 0 once the walk has ended. It IS the schedule — durable in SQLite, so it survives restarts. | [optional] 
 **SequenceId** | Pointer to **string** | SequenceID is the sequence being walked. | [optional] 
 **Status** | Pointer to **string** | Status is active, completed or canceled. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is unix seconds of the last move: the drip engine writes it each time it advances the walk a step, completes it or cancels it. Together with Status it says when the walk last did anything, which is how a stalled enrollment is told from a finished one. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is unix seconds of the last move: the drip engine writes it each time it advances the walk a step, completes it or cancels it. Together with Status it says when the walk last did anything, which is how a stalled enrollment is told from a finished one. | [optional] 
 
 ## Methods
 
@@ -85,20 +85,20 @@ HasChannel returns a boolean if a field has been set.
 
 ### GetCurrentStep
 
-`func (o *Enrollment) GetCurrentStep() int32`
+`func (o *Enrollment) GetCurrentStep() int64`
 
 GetCurrentStep returns the CurrentStep field if non-nil, zero value otherwise.
 
 ### GetCurrentStepOk
 
-`func (o *Enrollment) GetCurrentStepOk() (*int32, bool)`
+`func (o *Enrollment) GetCurrentStepOk() (*int64, bool)`
 
 GetCurrentStepOk returns a tuple with the CurrentStep field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCurrentStep
 
-`func (o *Enrollment) SetCurrentStep(v int32)`
+`func (o *Enrollment) SetCurrentStep(v int64)`
 
 SetCurrentStep sets CurrentStep field to given value.
 
@@ -110,20 +110,20 @@ HasCurrentStep returns a boolean if a field has been set.
 
 ### GetEnrolledAt
 
-`func (o *Enrollment) GetEnrolledAt() int32`
+`func (o *Enrollment) GetEnrolledAt() int64`
 
 GetEnrolledAt returns the EnrolledAt field if non-nil, zero value otherwise.
 
 ### GetEnrolledAtOk
 
-`func (o *Enrollment) GetEnrolledAtOk() (*int32, bool)`
+`func (o *Enrollment) GetEnrolledAtOk() (*int64, bool)`
 
 GetEnrolledAtOk returns a tuple with the EnrolledAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnrolledAt
 
-`func (o *Enrollment) SetEnrolledAt(v int32)`
+`func (o *Enrollment) SetEnrolledAt(v int64)`
 
 SetEnrolledAt sets EnrolledAt field to given value.
 
@@ -160,20 +160,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetNextRunAt
 
-`func (o *Enrollment) GetNextRunAt() int32`
+`func (o *Enrollment) GetNextRunAt() int64`
 
 GetNextRunAt returns the NextRunAt field if non-nil, zero value otherwise.
 
 ### GetNextRunAtOk
 
-`func (o *Enrollment) GetNextRunAtOk() (*int32, bool)`
+`func (o *Enrollment) GetNextRunAtOk() (*int64, bool)`
 
 GetNextRunAtOk returns a tuple with the NextRunAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNextRunAt
 
-`func (o *Enrollment) SetNextRunAt(v int32)`
+`func (o *Enrollment) SetNextRunAt(v int64)`
 
 SetNextRunAt sets NextRunAt field to given value.
 
@@ -235,20 +235,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *Enrollment) GetUpdatedAt() int32`
+`func (o *Enrollment) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *Enrollment) GetUpdatedAtOk() (*int32, bool)`
+`func (o *Enrollment) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *Enrollment) SetUpdatedAt(v int32)`
+`func (o *Enrollment) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

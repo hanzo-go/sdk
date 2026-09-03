@@ -20,23 +20,23 @@ var _ MappedNullable = &SelfRank{}
 // SelfRank struct for SelfRank
 type SelfRank struct {
 	// CostCents is the caller's own spend in whole US cents. Always populated — your own spend is never withheld from you — so here 0 really does mean zero.
-	CostCents *int32 `json:"costCents,omitempty"`
+	CostCents *int64 `json:"costCents,omitempty"`
 	// Handle is how the caller appears on this board: their chosen handle, falling back to their username, on a user board; their org id on the global board. Present even when unlisted — this is the caller looking at themselves.
 	Handle *string `json:"handle,omitempty"`
 	// Listed says whether the caller is publicly visible on this board: opted in on a user board, org opted in (or the viewer is a platform admin) on the global one. False is the prompt to offer the opt-in, and explains an unranked global self.
 	Listed *bool `json:"listed,omitempty"`
 	// Metric is whichever of the three values above the board was ranked by, so a client can compare the caller against the rows without re-reading the request. Metric <= 0 is exactly the case that leaves Ranked false.
-	Metric *int32 `json:"metric,omitempty"`
+	Metric *int64 `json:"metric,omitempty"`
 	// OfTotal is the size of the universe Rank is out of — \"rank N of OfTotal\". On a user board that is the org's users with any usage in the window; on the global board it is every active org for a platform admin, and the count of opted-in orgs for everyone else.
-	OfTotal *int32 `json:"ofTotal,omitempty"`
+	OfTotal *int64 `json:"ofTotal,omitempty"`
 	// Rank is the caller's 1-based standing, computed as (subjects whose windowed metric strictly exceeds the caller's) + 1. It is exact against the whole ranked universe, not just the returned page, so it can far exceed len(rows). Read it only when Ranked.
-	Rank *int32 `json:"rank,omitempty"`
+	Rank *int64 `json:"rank,omitempty"`
 	// Ranked is false when the caller holds no position: they had no usage in the window, or (on the global board) their org has not opted into public listing and so is not ranked against a set it never joined. Rank is then 0 and means nothing.
 	Ranked *bool `json:"ranked,omitempty"`
 	// Requests is the caller's own request count in the window, 0 if they were idle.
-	Requests *int32 `json:"requests,omitempty"`
+	Requests *int64 `json:"requests,omitempty"`
 	// Tokens is the caller's own prompt+completion tokens in the window.
-	Tokens *int32 `json:"tokens,omitempty"`
+	Tokens *int64 `json:"tokens,omitempty"`
 }
 
 // NewSelfRank instantiates a new SelfRank object
@@ -57,9 +57,9 @@ func NewSelfRankWithDefaults() *SelfRank {
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *SelfRank) GetCostCents() int32 {
+func (o *SelfRank) GetCostCents() int64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostCents
@@ -67,7 +67,7 @@ func (o *SelfRank) GetCostCents() int32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SelfRank) GetCostCentsOk() (*int32, bool) {
+func (o *SelfRank) GetCostCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -83,8 +83,8 @@ func (o *SelfRank) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *SelfRank) SetCostCents(v int32) {
+// SetCostCents gets a reference to the given int64 and assigns it to the CostCents field.
+func (o *SelfRank) SetCostCents(v int64) {
 	o.CostCents = &v
 }
 
@@ -153,9 +153,9 @@ func (o *SelfRank) SetListed(v bool) {
 }
 
 // GetMetric returns the Metric field value if set, zero value otherwise.
-func (o *SelfRank) GetMetric() int32 {
+func (o *SelfRank) GetMetric() int64 {
 	if o == nil || IsNil(o.Metric) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Metric
@@ -163,7 +163,7 @@ func (o *SelfRank) GetMetric() int32 {
 
 // GetMetricOk returns a tuple with the Metric field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SelfRank) GetMetricOk() (*int32, bool) {
+func (o *SelfRank) GetMetricOk() (*int64, bool) {
 	if o == nil || IsNil(o.Metric) {
 		return nil, false
 	}
@@ -179,15 +179,15 @@ func (o *SelfRank) HasMetric() bool {
 	return false
 }
 
-// SetMetric gets a reference to the given int32 and assigns it to the Metric field.
-func (o *SelfRank) SetMetric(v int32) {
+// SetMetric gets a reference to the given int64 and assigns it to the Metric field.
+func (o *SelfRank) SetMetric(v int64) {
 	o.Metric = &v
 }
 
 // GetOfTotal returns the OfTotal field value if set, zero value otherwise.
-func (o *SelfRank) GetOfTotal() int32 {
+func (o *SelfRank) GetOfTotal() int64 {
 	if o == nil || IsNil(o.OfTotal) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.OfTotal
@@ -195,7 +195,7 @@ func (o *SelfRank) GetOfTotal() int32 {
 
 // GetOfTotalOk returns a tuple with the OfTotal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SelfRank) GetOfTotalOk() (*int32, bool) {
+func (o *SelfRank) GetOfTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.OfTotal) {
 		return nil, false
 	}
@@ -211,15 +211,15 @@ func (o *SelfRank) HasOfTotal() bool {
 	return false
 }
 
-// SetOfTotal gets a reference to the given int32 and assigns it to the OfTotal field.
-func (o *SelfRank) SetOfTotal(v int32) {
+// SetOfTotal gets a reference to the given int64 and assigns it to the OfTotal field.
+func (o *SelfRank) SetOfTotal(v int64) {
 	o.OfTotal = &v
 }
 
 // GetRank returns the Rank field value if set, zero value otherwise.
-func (o *SelfRank) GetRank() int32 {
+func (o *SelfRank) GetRank() int64 {
 	if o == nil || IsNil(o.Rank) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Rank
@@ -227,7 +227,7 @@ func (o *SelfRank) GetRank() int32 {
 
 // GetRankOk returns a tuple with the Rank field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SelfRank) GetRankOk() (*int32, bool) {
+func (o *SelfRank) GetRankOk() (*int64, bool) {
 	if o == nil || IsNil(o.Rank) {
 		return nil, false
 	}
@@ -243,8 +243,8 @@ func (o *SelfRank) HasRank() bool {
 	return false
 }
 
-// SetRank gets a reference to the given int32 and assigns it to the Rank field.
-func (o *SelfRank) SetRank(v int32) {
+// SetRank gets a reference to the given int64 and assigns it to the Rank field.
+func (o *SelfRank) SetRank(v int64) {
 	o.Rank = &v
 }
 
@@ -281,9 +281,9 @@ func (o *SelfRank) SetRanked(v bool) {
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *SelfRank) GetRequests() int32 {
+func (o *SelfRank) GetRequests() int64 {
 	if o == nil || IsNil(o.Requests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Requests
@@ -291,7 +291,7 @@ func (o *SelfRank) GetRequests() int32 {
 
 // GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SelfRank) GetRequestsOk() (*int32, bool) {
+func (o *SelfRank) GetRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Requests) {
 		return nil, false
 	}
@@ -307,15 +307,15 @@ func (o *SelfRank) HasRequests() bool {
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *SelfRank) SetRequests(v int32) {
+// SetRequests gets a reference to the given int64 and assigns it to the Requests field.
+func (o *SelfRank) SetRequests(v int64) {
 	o.Requests = &v
 }
 
 // GetTokens returns the Tokens field value if set, zero value otherwise.
-func (o *SelfRank) GetTokens() int32 {
+func (o *SelfRank) GetTokens() int64 {
 	if o == nil || IsNil(o.Tokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Tokens
@@ -323,7 +323,7 @@ func (o *SelfRank) GetTokens() int32 {
 
 // GetTokensOk returns a tuple with the Tokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SelfRank) GetTokensOk() (*int32, bool) {
+func (o *SelfRank) GetTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.Tokens) {
 		return nil, false
 	}
@@ -339,8 +339,8 @@ func (o *SelfRank) HasTokens() bool {
 	return false
 }
 
-// SetTokens gets a reference to the given int32 and assigns it to the Tokens field.
-func (o *SelfRank) SetTokens(v int32) {
+// SetTokens gets a reference to the given int64 and assigns it to the Tokens field.
+func (o *SelfRank) SetTokens(v int64) {
 	o.Tokens = &v
 }
 

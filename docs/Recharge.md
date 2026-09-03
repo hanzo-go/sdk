@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Charged** | Pointer to **int32** | Charged is how many of them were actually charged. It is at most Orgs, and the difference is orgs whose balance was already above their threshold. | [optional] 
-**Orgs** | Pointer to **int32** | Orgs is how many orgs the sweep considered — every org with auto-recharge armed, whether or not it needed charging. | [optional] 
+**Charged** | Pointer to **int64** | Charged is how many of them were actually charged. It is at most Orgs, and the difference is orgs whose balance was already above their threshold. | [optional] 
+**Orgs** | Pointer to **int64** | Orgs is how many orgs the sweep considered — every org with auto-recharge armed, whether or not it needed charging. | [optional] 
 **Results** | Pointer to [**[]Recharged**](Recharged.md) | Results is one row per org considered, so a sweep that charged nobody is still explainable. Never null. | [optional] 
 
 ## Methods
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCharged
 
-`func (o *Recharge) GetCharged() int32`
+`func (o *Recharge) GetCharged() int64`
 
 GetCharged returns the Charged field if non-nil, zero value otherwise.
 
 ### GetChargedOk
 
-`func (o *Recharge) GetChargedOk() (*int32, bool)`
+`func (o *Recharge) GetChargedOk() (*int64, bool)`
 
 GetChargedOk returns a tuple with the Charged field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCharged
 
-`func (o *Recharge) SetCharged(v int32)`
+`func (o *Recharge) SetCharged(v int64)`
 
 SetCharged sets Charged field to given value.
 
@@ -54,20 +54,20 @@ HasCharged returns a boolean if a field has been set.
 
 ### GetOrgs
 
-`func (o *Recharge) GetOrgs() int32`
+`func (o *Recharge) GetOrgs() int64`
 
 GetOrgs returns the Orgs field if non-nil, zero value otherwise.
 
 ### GetOrgsOk
 
-`func (o *Recharge) GetOrgsOk() (*int32, bool)`
+`func (o *Recharge) GetOrgsOk() (*int64, bool)`
 
 GetOrgsOk returns a tuple with the Orgs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrgs
 
-`func (o *Recharge) SetOrgs(v int32)`
+`func (o *Recharge) SetOrgs(v int64)`
 
 SetOrgs sets Orgs field to given value.
 

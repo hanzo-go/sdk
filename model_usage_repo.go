@@ -24,7 +24,7 @@ type UsageRepo struct {
 	// Project is the sub-scope the repo lives in; absent for the default scope.
 	Project *string `json:"project,omitempty"`
 	// SizeBytes is the repo's on-disk size at its last measurement.
-	SizeBytes *int32 `json:"sizeBytes,omitempty"`
+	SizeBytes *int64 `json:"sizeBytes,omitempty"`
 }
 
 // NewUsageRepo instantiates a new UsageRepo object
@@ -109,9 +109,9 @@ func (o *UsageRepo) SetProject(v string) {
 }
 
 // GetSizeBytes returns the SizeBytes field value if set, zero value otherwise.
-func (o *UsageRepo) GetSizeBytes() int32 {
+func (o *UsageRepo) GetSizeBytes() int64 {
 	if o == nil || IsNil(o.SizeBytes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SizeBytes
@@ -119,7 +119,7 @@ func (o *UsageRepo) GetSizeBytes() int32 {
 
 // GetSizeBytesOk returns a tuple with the SizeBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsageRepo) GetSizeBytesOk() (*int32, bool) {
+func (o *UsageRepo) GetSizeBytesOk() (*int64, bool) {
 	if o == nil || IsNil(o.SizeBytes) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *UsageRepo) HasSizeBytes() bool {
 	return false
 }
 
-// SetSizeBytes gets a reference to the given int32 and assigns it to the SizeBytes field.
-func (o *UsageRepo) SetSizeBytes(v int32) {
+// SetSizeBytes gets a reference to the given int64 and assigns it to the SizeBytes field.
+func (o *UsageRepo) SetSizeBytes(v int64) {
 	o.SizeBytes = &v
 }
 

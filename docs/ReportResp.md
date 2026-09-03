@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Accepted** | Pointer to **int32** | Accepted is how many samples passed validation. Every one of them was accepted, or the whole report was refused — there is no partial success. | [optional] 
+**Accepted** | Pointer to **int64** | Accepted is how many samples passed validation. Every one of them was accepted, or the whole report was refused — there is no partial success. | [optional] 
 **Stored** | Pointer to **bool** | Stored is whether the warehouse actually persisted them. False means the datastore was unavailable and the poll of history was lost; the request still succeeded, so a device retries without being blocked. | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAccepted
 
-`func (o *ReportResp) GetAccepted() int32`
+`func (o *ReportResp) GetAccepted() int64`
 
 GetAccepted returns the Accepted field if non-nil, zero value otherwise.
 
 ### GetAcceptedOk
 
-`func (o *ReportResp) GetAcceptedOk() (*int32, bool)`
+`func (o *ReportResp) GetAcceptedOk() (*int64, bool)`
 
 GetAcceptedOk returns a tuple with the Accepted field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccepted
 
-`func (o *ReportResp) SetAccepted(v int32)`
+`func (o *ReportResp) SetAccepted(v int64)`
 
 SetAccepted sets Accepted field to given value.
 

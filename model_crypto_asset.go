@@ -20,7 +20,7 @@ var _ MappedNullable = &CryptoAsset{}
 // CryptoAsset struct for CryptoAsset
 type CryptoAsset struct {
 	// AmountCents is what the payer intends to send, for the record. Optional — the credit is what actually arrives, never what was announced.
-	AmountCents *int32 `json:"amountCents,omitempty"`
+	AmountCents *int64 `json:"amountCents,omitempty"`
 	// Chain is the network to receive on. Empty takes the rail's default.
 	Chain *string `json:"chain,omitempty"`
 	// Token is the asset on that chain. Empty takes the chain's native one.
@@ -45,9 +45,9 @@ func NewCryptoAssetWithDefaults() *CryptoAsset {
 }
 
 // GetAmountCents returns the AmountCents field value if set, zero value otherwise.
-func (o *CryptoAsset) GetAmountCents() int32 {
+func (o *CryptoAsset) GetAmountCents() int64 {
 	if o == nil || IsNil(o.AmountCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AmountCents
@@ -55,7 +55,7 @@ func (o *CryptoAsset) GetAmountCents() int32 {
 
 // GetAmountCentsOk returns a tuple with the AmountCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CryptoAsset) GetAmountCentsOk() (*int32, bool) {
+func (o *CryptoAsset) GetAmountCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AmountCents) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *CryptoAsset) HasAmountCents() bool {
 	return false
 }
 
-// SetAmountCents gets a reference to the given int32 and assigns it to the AmountCents field.
-func (o *CryptoAsset) SetAmountCents(v int32) {
+// SetAmountCents gets a reference to the given int64 and assigns it to the AmountCents field.
+func (o *CryptoAsset) SetAmountCents(v int64) {
 	o.AmountCents = &v
 }
 

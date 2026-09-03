@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Character** | Pointer to **int32** | Character is a 0-based UTF-16 code-unit offset within Line, per the LSP specification: not a byte offset and not a rune index. An emoji before the cursor counts as one here and as two in Go&#39;s arithmetic. | [optional] 
-**Line** | Pointer to **int32** | Line is 0-BASED, per the LSP specification — one less than the line an editor shows a human. | [optional] 
+**Character** | Pointer to **int64** | Character is a 0-based UTF-16 code-unit offset within Line, per the LSP specification: not a byte offset and not a rune index. An emoji before the cursor counts as one here and as two in Go&#39;s arithmetic. | [optional] 
+**Line** | Pointer to **int64** | Line is 0-BASED, per the LSP specification — one less than the line an editor shows a human. | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCharacter
 
-`func (o *Position) GetCharacter() int32`
+`func (o *Position) GetCharacter() int64`
 
 GetCharacter returns the Character field if non-nil, zero value otherwise.
 
 ### GetCharacterOk
 
-`func (o *Position) GetCharacterOk() (*int32, bool)`
+`func (o *Position) GetCharacterOk() (*int64, bool)`
 
 GetCharacterOk returns a tuple with the Character field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCharacter
 
-`func (o *Position) SetCharacter(v int32)`
+`func (o *Position) SetCharacter(v int64)`
 
 SetCharacter sets Character field to given value.
 
@@ -53,20 +53,20 @@ HasCharacter returns a boolean if a field has been set.
 
 ### GetLine
 
-`func (o *Position) GetLine() int32`
+`func (o *Position) GetLine() int64`
 
 GetLine returns the Line field if non-nil, zero value otherwise.
 
 ### GetLineOk
 
-`func (o *Position) GetLineOk() (*int32, bool)`
+`func (o *Position) GetLineOk() (*int64, bool)`
 
 GetLineOk returns a tuple with the Line field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLine
 
-`func (o *Position) SetLine(v int32)`
+`func (o *Position) SetLine(v int64)`
 
 SetLine sets Line field to given value.
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Exhausted** | Pointer to **int32** | Exhausted counts facts the bus abandoned after maxDeliver failed inserts. | [optional] 
-**Undecodable** | Pointer to **int32** | Undecodable counts messages acked without landing because they did not parse. | [optional] 
+**Exhausted** | Pointer to **int64** | Exhausted counts facts the bus abandoned after maxDeliver failed inserts. | [optional] 
+**Undecodable** | Pointer to **int64** | Undecodable counts messages acked without landing because they did not parse. | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetExhausted
 
-`func (o *Loss) GetExhausted() int32`
+`func (o *Loss) GetExhausted() int64`
 
 GetExhausted returns the Exhausted field if non-nil, zero value otherwise.
 
 ### GetExhaustedOk
 
-`func (o *Loss) GetExhaustedOk() (*int32, bool)`
+`func (o *Loss) GetExhaustedOk() (*int64, bool)`
 
 GetExhaustedOk returns a tuple with the Exhausted field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExhausted
 
-`func (o *Loss) SetExhausted(v int32)`
+`func (o *Loss) SetExhausted(v int64)`
 
 SetExhausted sets Exhausted field to given value.
 
@@ -53,20 +53,20 @@ HasExhausted returns a boolean if a field has been set.
 
 ### GetUndecodable
 
-`func (o *Loss) GetUndecodable() int32`
+`func (o *Loss) GetUndecodable() int64`
 
 GetUndecodable returns the Undecodable field if non-nil, zero value otherwise.
 
 ### GetUndecodableOk
 
-`func (o *Loss) GetUndecodableOk() (*int32, bool)`
+`func (o *Loss) GetUndecodableOk() (*int64, bool)`
 
 GetUndecodableOk returns a tuple with the Undecodable field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUndecodable
 
-`func (o *Loss) SetUndecodable(v int32)`
+`func (o *Loss) SetUndecodable(v int64)`
 
 SetUndecodable sets Undecodable field to given value.
 

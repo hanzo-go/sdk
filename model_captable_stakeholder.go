@@ -26,7 +26,7 @@ type CaptableStakeholder struct {
 	// Country is the stakeholder's two-letter country code.
 	Country *string `json:"country,omitempty"`
 	// CreatedAt is when the stakeholder was added, in unix milliseconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// CurrentRelationship is how the stakeholder relates to the company, e.g. FOUNDER, INVESTOR or EMPLOYEE.
 	CurrentRelationship *string `json:"currentRelationship,omitempty"`
 	// Email is the stakeholder's email, unique within the company.
@@ -163,9 +163,9 @@ func (o *CaptableStakeholder) SetCountry(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *CaptableStakeholder) GetCreatedAt() int32 {
+func (o *CaptableStakeholder) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -173,7 +173,7 @@ func (o *CaptableStakeholder) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableStakeholder) GetCreatedAtOk() (*int32, bool) {
+func (o *CaptableStakeholder) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -189,8 +189,8 @@ func (o *CaptableStakeholder) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *CaptableStakeholder) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *CaptableStakeholder) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 

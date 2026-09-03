@@ -31,13 +31,13 @@ type Consumer struct {
 	// Name is the consumer name.
 	Name *string `json:"name,omitempty"`
 	// AckPending is the number of delivered, not yet acknowledged messages.
-	NumAckPending *int32 `json:"num_ack_pending,omitempty"`
+	NumAckPending *int64 `json:"num_ack_pending,omitempty"`
 	// Pending is the number of messages yet to be delivered.
 	NumPending *int32 `json:"num_pending,omitempty"`
 	// Redelivered is the number of messages currently being redelivered.
-	NumRedelivered *int32 `json:"num_redelivered,omitempty"`
+	NumRedelivered *int64 `json:"num_redelivered,omitempty"`
 	// Waiting is the number of pull requests waiting for messages.
-	NumWaiting *int32 `json:"num_waiting,omitempty"`
+	NumWaiting *int64 `json:"num_waiting,omitempty"`
 	// Stream is the stream this consumer reads.
 	StreamName *string `json:"stream_name,omitempty"`
 }
@@ -220,9 +220,9 @@ func (o *Consumer) SetName(v string) {
 }
 
 // GetNumAckPending returns the NumAckPending field value if set, zero value otherwise.
-func (o *Consumer) GetNumAckPending() int32 {
+func (o *Consumer) GetNumAckPending() int64 {
 	if o == nil || IsNil(o.NumAckPending) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NumAckPending
@@ -230,7 +230,7 @@ func (o *Consumer) GetNumAckPending() int32 {
 
 // GetNumAckPendingOk returns a tuple with the NumAckPending field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Consumer) GetNumAckPendingOk() (*int32, bool) {
+func (o *Consumer) GetNumAckPendingOk() (*int64, bool) {
 	if o == nil || IsNil(o.NumAckPending) {
 		return nil, false
 	}
@@ -246,8 +246,8 @@ func (o *Consumer) HasNumAckPending() bool {
 	return false
 }
 
-// SetNumAckPending gets a reference to the given int32 and assigns it to the NumAckPending field.
-func (o *Consumer) SetNumAckPending(v int32) {
+// SetNumAckPending gets a reference to the given int64 and assigns it to the NumAckPending field.
+func (o *Consumer) SetNumAckPending(v int64) {
 	o.NumAckPending = &v
 }
 
@@ -284,9 +284,9 @@ func (o *Consumer) SetNumPending(v int32) {
 }
 
 // GetNumRedelivered returns the NumRedelivered field value if set, zero value otherwise.
-func (o *Consumer) GetNumRedelivered() int32 {
+func (o *Consumer) GetNumRedelivered() int64 {
 	if o == nil || IsNil(o.NumRedelivered) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NumRedelivered
@@ -294,7 +294,7 @@ func (o *Consumer) GetNumRedelivered() int32 {
 
 // GetNumRedeliveredOk returns a tuple with the NumRedelivered field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Consumer) GetNumRedeliveredOk() (*int32, bool) {
+func (o *Consumer) GetNumRedeliveredOk() (*int64, bool) {
 	if o == nil || IsNil(o.NumRedelivered) {
 		return nil, false
 	}
@@ -310,15 +310,15 @@ func (o *Consumer) HasNumRedelivered() bool {
 	return false
 }
 
-// SetNumRedelivered gets a reference to the given int32 and assigns it to the NumRedelivered field.
-func (o *Consumer) SetNumRedelivered(v int32) {
+// SetNumRedelivered gets a reference to the given int64 and assigns it to the NumRedelivered field.
+func (o *Consumer) SetNumRedelivered(v int64) {
 	o.NumRedelivered = &v
 }
 
 // GetNumWaiting returns the NumWaiting field value if set, zero value otherwise.
-func (o *Consumer) GetNumWaiting() int32 {
+func (o *Consumer) GetNumWaiting() int64 {
 	if o == nil || IsNil(o.NumWaiting) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NumWaiting
@@ -326,7 +326,7 @@ func (o *Consumer) GetNumWaiting() int32 {
 
 // GetNumWaitingOk returns a tuple with the NumWaiting field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Consumer) GetNumWaitingOk() (*int32, bool) {
+func (o *Consumer) GetNumWaitingOk() (*int64, bool) {
 	if o == nil || IsNil(o.NumWaiting) {
 		return nil, false
 	}
@@ -342,8 +342,8 @@ func (o *Consumer) HasNumWaiting() bool {
 	return false
 }
 
-// SetNumWaiting gets a reference to the given int32 and assigns it to the NumWaiting field.
-func (o *Consumer) SetNumWaiting(v int32) {
+// SetNumWaiting gets a reference to the given int64 and assigns it to the NumWaiting field.
+func (o *Consumer) SetNumWaiting(v int64) {
 	o.NumWaiting = &v
 }
 

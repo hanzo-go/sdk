@@ -20,15 +20,15 @@ var _ MappedNullable = &RiskPolicyOut{}
 // RiskPolicyOut struct for RiskPolicyOut
 type RiskPolicyOut struct {
 	// Changes is how many DISTINCT regimes may be adopted per Window. A restatement identical to the regime in force mints no version and is not counted against it.
-	Changes *int32 `json:"changes,omitempty"`
+	Changes *int64 `json:"changes,omitempty"`
 	// Disposed is how many versions retention has taken. It is NOT a silence: a history bounded on disk must say what it no longer holds, because a decision citing a disposed version can no longer be reconstructed from this record.
-	Disposed *int32 `json:"disposed,omitempty"`
+	Disposed *int64 `json:"disposed,omitempty"`
 	// History is the retained versions, newest first.
 	History []RiskPolicyVersion `json:"history,omitempty"`
 	// Retained is how many versions this organisation's history holds at most, derived from the byte budget its rows are a multiple of.
-	Retained *int32 `json:"retained,omitempty"`
+	Retained *int64 `json:"retained,omitempty"`
 	// Version is the version in force — the one every score currently cites. Zero means no regime has ever been stated and the default posture, shadow, is in force.
-	Version *int32 `json:"version,omitempty"`
+	Version *int64 `json:"version,omitempty"`
 	// Window is the period Changes is measured over.
 	Window *string `json:"window,omitempty"`
 }
@@ -51,9 +51,9 @@ func NewRiskPolicyOutWithDefaults() *RiskPolicyOut {
 }
 
 // GetChanges returns the Changes field value if set, zero value otherwise.
-func (o *RiskPolicyOut) GetChanges() int32 {
+func (o *RiskPolicyOut) GetChanges() int64 {
 	if o == nil || IsNil(o.Changes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Changes
@@ -61,7 +61,7 @@ func (o *RiskPolicyOut) GetChanges() int32 {
 
 // GetChangesOk returns a tuple with the Changes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskPolicyOut) GetChangesOk() (*int32, bool) {
+func (o *RiskPolicyOut) GetChangesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Changes) {
 		return nil, false
 	}
@@ -77,15 +77,15 @@ func (o *RiskPolicyOut) HasChanges() bool {
 	return false
 }
 
-// SetChanges gets a reference to the given int32 and assigns it to the Changes field.
-func (o *RiskPolicyOut) SetChanges(v int32) {
+// SetChanges gets a reference to the given int64 and assigns it to the Changes field.
+func (o *RiskPolicyOut) SetChanges(v int64) {
 	o.Changes = &v
 }
 
 // GetDisposed returns the Disposed field value if set, zero value otherwise.
-func (o *RiskPolicyOut) GetDisposed() int32 {
+func (o *RiskPolicyOut) GetDisposed() int64 {
 	if o == nil || IsNil(o.Disposed) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Disposed
@@ -93,7 +93,7 @@ func (o *RiskPolicyOut) GetDisposed() int32 {
 
 // GetDisposedOk returns a tuple with the Disposed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskPolicyOut) GetDisposedOk() (*int32, bool) {
+func (o *RiskPolicyOut) GetDisposedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Disposed) {
 		return nil, false
 	}
@@ -109,8 +109,8 @@ func (o *RiskPolicyOut) HasDisposed() bool {
 	return false
 }
 
-// SetDisposed gets a reference to the given int32 and assigns it to the Disposed field.
-func (o *RiskPolicyOut) SetDisposed(v int32) {
+// SetDisposed gets a reference to the given int64 and assigns it to the Disposed field.
+func (o *RiskPolicyOut) SetDisposed(v int64) {
 	o.Disposed = &v
 }
 
@@ -147,9 +147,9 @@ func (o *RiskPolicyOut) SetHistory(v []RiskPolicyVersion) {
 }
 
 // GetRetained returns the Retained field value if set, zero value otherwise.
-func (o *RiskPolicyOut) GetRetained() int32 {
+func (o *RiskPolicyOut) GetRetained() int64 {
 	if o == nil || IsNil(o.Retained) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Retained
@@ -157,7 +157,7 @@ func (o *RiskPolicyOut) GetRetained() int32 {
 
 // GetRetainedOk returns a tuple with the Retained field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskPolicyOut) GetRetainedOk() (*int32, bool) {
+func (o *RiskPolicyOut) GetRetainedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Retained) {
 		return nil, false
 	}
@@ -173,15 +173,15 @@ func (o *RiskPolicyOut) HasRetained() bool {
 	return false
 }
 
-// SetRetained gets a reference to the given int32 and assigns it to the Retained field.
-func (o *RiskPolicyOut) SetRetained(v int32) {
+// SetRetained gets a reference to the given int64 and assigns it to the Retained field.
+func (o *RiskPolicyOut) SetRetained(v int64) {
 	o.Retained = &v
 }
 
 // GetVersion returns the Version field value if set, zero value otherwise.
-func (o *RiskPolicyOut) GetVersion() int32 {
+func (o *RiskPolicyOut) GetVersion() int64 {
 	if o == nil || IsNil(o.Version) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Version
@@ -189,7 +189,7 @@ func (o *RiskPolicyOut) GetVersion() int32 {
 
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskPolicyOut) GetVersionOk() (*int32, bool) {
+func (o *RiskPolicyOut) GetVersionOk() (*int64, bool) {
 	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
@@ -205,8 +205,8 @@ func (o *RiskPolicyOut) HasVersion() bool {
 	return false
 }
 
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
-func (o *RiskPolicyOut) SetVersion(v int32) {
+// SetVersion gets a reference to the given int64 and assigns it to the Version field.
+func (o *RiskPolicyOut) SetVersion(v int64) {
 	o.Version = &v
 }
 

@@ -6,10 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CountByCondition** | Pointer to [**O11yNodeCountByCondition**](O11yNodeCountByCondition.md) |  | [optional] 
 **Meta** | Pointer to **map[string]string** |  | [optional] 
-**NodeCPUAllocatable** | Pointer to **float32** |  | [optional] 
-**NodeCPUUsage** | Pointer to **float32** |  | [optional] 
-**NodeMemoryAllocatable** | Pointer to **float32** |  | [optional] 
-**NodeMemoryUsage** | Pointer to **float32** |  | [optional] 
+**NodeCPUAllocatable** | Pointer to **float64** |  | [optional] 
+**NodeCPUUsage** | Pointer to **float64** |  | [optional] 
+**NodeMemoryAllocatable** | Pointer to **float64** |  | [optional] 
+**NodeMemoryUsage** | Pointer to **float64** |  | [optional] 
 **NodeUID** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -83,20 +83,20 @@ HasMeta returns a boolean if a field has been set.
 
 ### GetNodeCPUAllocatable
 
-`func (o *O11yNodeListRecord) GetNodeCPUAllocatable() float32`
+`func (o *O11yNodeListRecord) GetNodeCPUAllocatable() float64`
 
 GetNodeCPUAllocatable returns the NodeCPUAllocatable field if non-nil, zero value otherwise.
 
 ### GetNodeCPUAllocatableOk
 
-`func (o *O11yNodeListRecord) GetNodeCPUAllocatableOk() (*float32, bool)`
+`func (o *O11yNodeListRecord) GetNodeCPUAllocatableOk() (*float64, bool)`
 
 GetNodeCPUAllocatableOk returns a tuple with the NodeCPUAllocatable field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNodeCPUAllocatable
 
-`func (o *O11yNodeListRecord) SetNodeCPUAllocatable(v float32)`
+`func (o *O11yNodeListRecord) SetNodeCPUAllocatable(v float64)`
 
 SetNodeCPUAllocatable sets NodeCPUAllocatable field to given value.
 
@@ -108,20 +108,20 @@ HasNodeCPUAllocatable returns a boolean if a field has been set.
 
 ### GetNodeCPUUsage
 
-`func (o *O11yNodeListRecord) GetNodeCPUUsage() float32`
+`func (o *O11yNodeListRecord) GetNodeCPUUsage() float64`
 
 GetNodeCPUUsage returns the NodeCPUUsage field if non-nil, zero value otherwise.
 
 ### GetNodeCPUUsageOk
 
-`func (o *O11yNodeListRecord) GetNodeCPUUsageOk() (*float32, bool)`
+`func (o *O11yNodeListRecord) GetNodeCPUUsageOk() (*float64, bool)`
 
 GetNodeCPUUsageOk returns a tuple with the NodeCPUUsage field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNodeCPUUsage
 
-`func (o *O11yNodeListRecord) SetNodeCPUUsage(v float32)`
+`func (o *O11yNodeListRecord) SetNodeCPUUsage(v float64)`
 
 SetNodeCPUUsage sets NodeCPUUsage field to given value.
 
@@ -133,20 +133,20 @@ HasNodeCPUUsage returns a boolean if a field has been set.
 
 ### GetNodeMemoryAllocatable
 
-`func (o *O11yNodeListRecord) GetNodeMemoryAllocatable() float32`
+`func (o *O11yNodeListRecord) GetNodeMemoryAllocatable() float64`
 
 GetNodeMemoryAllocatable returns the NodeMemoryAllocatable field if non-nil, zero value otherwise.
 
 ### GetNodeMemoryAllocatableOk
 
-`func (o *O11yNodeListRecord) GetNodeMemoryAllocatableOk() (*float32, bool)`
+`func (o *O11yNodeListRecord) GetNodeMemoryAllocatableOk() (*float64, bool)`
 
 GetNodeMemoryAllocatableOk returns a tuple with the NodeMemoryAllocatable field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNodeMemoryAllocatable
 
-`func (o *O11yNodeListRecord) SetNodeMemoryAllocatable(v float32)`
+`func (o *O11yNodeListRecord) SetNodeMemoryAllocatable(v float64)`
 
 SetNodeMemoryAllocatable sets NodeMemoryAllocatable field to given value.
 
@@ -158,20 +158,20 @@ HasNodeMemoryAllocatable returns a boolean if a field has been set.
 
 ### GetNodeMemoryUsage
 
-`func (o *O11yNodeListRecord) GetNodeMemoryUsage() float32`
+`func (o *O11yNodeListRecord) GetNodeMemoryUsage() float64`
 
 GetNodeMemoryUsage returns the NodeMemoryUsage field if non-nil, zero value otherwise.
 
 ### GetNodeMemoryUsageOk
 
-`func (o *O11yNodeListRecord) GetNodeMemoryUsageOk() (*float32, bool)`
+`func (o *O11yNodeListRecord) GetNodeMemoryUsageOk() (*float64, bool)`
 
 GetNodeMemoryUsageOk returns a tuple with the NodeMemoryUsage field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNodeMemoryUsage
 
-`func (o *O11yNodeListRecord) SetNodeMemoryUsage(v float32)`
+`func (o *O11yNodeListRecord) SetNodeMemoryUsage(v float64)`
 
 SetNodeMemoryUsage sets NodeMemoryUsage field to given value.
 

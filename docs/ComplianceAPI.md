@@ -45,7 +45,7 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 | Limit caps the rows returned; non-positive means the server default. (optional)
+	limit := int64(789) // int64 | Limit caps the rows returned; non-positive means the server default. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -70,7 +70,7 @@ Other parameters are passed through a pointer to a apiGetComplianceAccreditation
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit caps the rows returned; non-positive means the server default. | 
+ **limit** | **int64** | Limit caps the rows returned; non-positive means the server default. | 
 
 ### Return type
 
@@ -308,7 +308,7 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 | Limit caps the rows returned; non-positive means the server default. (optional)
+	limit := int64(789) // int64 | Limit caps the rows returned; non-positive means the server default. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -333,7 +333,7 @@ Other parameters are passed through a pointer to a apiGetComplianceRecordsReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit caps the rows returned; non-positive means the server default. | 
+ **limit** | **int64** | Limit caps the rows returned; non-positive means the server default. | 
 
 ### Return type
 
@@ -435,7 +435,7 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 | Limit caps the rows returned; non-positive means the server default. (optional)
+	limit := int64(789) // int64 | Limit caps the rows returned; non-positive means the server default. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -460,7 +460,7 @@ Other parameters are passed through a pointer to a apiGetComplianceSubjectsReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit caps the rows returned; non-positive means the server default. | 
+ **limit** | **int64** | Limit caps the rows returned; non-positive means the server default. | 
 
 ### Return type
 
@@ -571,7 +571,7 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 | Limit caps the rows returned; non-positive means the server default. (optional)
+	limit := int64(789) // int64 | Limit caps the rows returned; non-positive means the server default. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -596,7 +596,7 @@ Other parameters are passed through a pointer to a apiGetComplianceVerifications
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit caps the rows returned; non-positive means the server default. | 
+ **limit** | **int64** | Limit caps the rows returned; non-positive means the server default. | 
 
 ### Return type
 

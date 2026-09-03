@@ -20,7 +20,7 @@ var _ MappedNullable = &PutClaimsOut{}
 // PutClaimsOut struct for PutClaimsOut
 type PutClaimsOut struct {
 	// Recorded is how many rows were written.
-	Recorded *int32 `json:"recorded,omitempty"`
+	Recorded *int64 `json:"recorded,omitempty"`
 	// Rejected names the rows that were not, and why.
 	Rejected []string `json:"rejected,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewPutClaimsOutWithDefaults() *PutClaimsOut {
 }
 
 // GetRecorded returns the Recorded field value if set, zero value otherwise.
-func (o *PutClaimsOut) GetRecorded() int32 {
+func (o *PutClaimsOut) GetRecorded() int64 {
 	if o == nil || IsNil(o.Recorded) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Recorded
@@ -53,7 +53,7 @@ func (o *PutClaimsOut) GetRecorded() int32 {
 
 // GetRecordedOk returns a tuple with the Recorded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PutClaimsOut) GetRecordedOk() (*int32, bool) {
+func (o *PutClaimsOut) GetRecordedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Recorded) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *PutClaimsOut) HasRecorded() bool {
 	return false
 }
 
-// SetRecorded gets a reference to the given int32 and assigns it to the Recorded field.
-func (o *PutClaimsOut) SetRecorded(v int32) {
+// SetRecorded gets a reference to the given int64 and assigns it to the Recorded field.
+func (o *PutClaimsOut) SetRecorded(v int64) {
 	o.Recorded = &v
 }
 

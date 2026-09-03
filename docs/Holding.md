@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CostCents** | Pointer to **int32** | wholesale cost | [optional] 
+**CostCents** | Pointer to **int64** | wholesale cost | [optional] 
 **Domain** | Pointer to **string** | the name owned | [optional] 
 **ExpiresAt** | Pointer to **string** | when the registration lapses, RFC3339 | [optional] 
 **Nameservers** | Pointer to **[]string** | the authoritative nameservers the name points at | [optional] 
-**Order** | Pointer to **int32** | registrar order id | [optional] 
+**Order** | Pointer to **int64** | registrar order id | [optional] 
 **Org** | Pointer to **string** | the org that owns the domain | [optional] 
-**PriceCents** | Pointer to **int32** | what the customer paid (sell) | [optional] 
-**RegisteredAt** | Pointer to **int32** | unix seconds | [optional] 
+**PriceCents** | Pointer to **int64** | what the customer paid (sell) | [optional] 
+**RegisteredAt** | Pointer to **int64** | unix seconds | [optional] 
 
 ## Methods
 
@@ -34,20 +34,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCostCents
 
-`func (o *Holding) GetCostCents() int32`
+`func (o *Holding) GetCostCents() int64`
 
 GetCostCents returns the CostCents field if non-nil, zero value otherwise.
 
 ### GetCostCentsOk
 
-`func (o *Holding) GetCostCentsOk() (*int32, bool)`
+`func (o *Holding) GetCostCentsOk() (*int64, bool)`
 
 GetCostCentsOk returns a tuple with the CostCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCostCents
 
-`func (o *Holding) SetCostCents(v int32)`
+`func (o *Holding) SetCostCents(v int64)`
 
 SetCostCents sets CostCents field to given value.
 
@@ -134,20 +134,20 @@ HasNameservers returns a boolean if a field has been set.
 
 ### GetOrder
 
-`func (o *Holding) GetOrder() int32`
+`func (o *Holding) GetOrder() int64`
 
 GetOrder returns the Order field if non-nil, zero value otherwise.
 
 ### GetOrderOk
 
-`func (o *Holding) GetOrderOk() (*int32, bool)`
+`func (o *Holding) GetOrderOk() (*int64, bool)`
 
 GetOrderOk returns a tuple with the Order field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrder
 
-`func (o *Holding) SetOrder(v int32)`
+`func (o *Holding) SetOrder(v int64)`
 
 SetOrder sets Order field to given value.
 
@@ -184,20 +184,20 @@ HasOrg returns a boolean if a field has been set.
 
 ### GetPriceCents
 
-`func (o *Holding) GetPriceCents() int32`
+`func (o *Holding) GetPriceCents() int64`
 
 GetPriceCents returns the PriceCents field if non-nil, zero value otherwise.
 
 ### GetPriceCentsOk
 
-`func (o *Holding) GetPriceCentsOk() (*int32, bool)`
+`func (o *Holding) GetPriceCentsOk() (*int64, bool)`
 
 GetPriceCentsOk returns a tuple with the PriceCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPriceCents
 
-`func (o *Holding) SetPriceCents(v int32)`
+`func (o *Holding) SetPriceCents(v int64)`
 
 SetPriceCents sets PriceCents field to given value.
 
@@ -209,20 +209,20 @@ HasPriceCents returns a boolean if a field has been set.
 
 ### GetRegisteredAt
 
-`func (o *Holding) GetRegisteredAt() int32`
+`func (o *Holding) GetRegisteredAt() int64`
 
 GetRegisteredAt returns the RegisteredAt field if non-nil, zero value otherwise.
 
 ### GetRegisteredAtOk
 
-`func (o *Holding) GetRegisteredAtOk() (*int32, bool)`
+`func (o *Holding) GetRegisteredAtOk() (*int64, bool)`
 
 GetRegisteredAtOk returns a tuple with the RegisteredAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRegisteredAt
 
-`func (o *Holding) SetRegisteredAt(v int32)`
+`func (o *Holding) SetRegisteredAt(v int64)`
 
 SetRegisteredAt sets RegisteredAt field to given value.
 

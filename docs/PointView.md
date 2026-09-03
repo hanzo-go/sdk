@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **T** | Pointer to **string** | the bucket&#39;s start, RFC3339 (UTC) | [optional] 
-**V** | Pointer to **int32** | how many invocations fell in it — a real count, never interpolated | [optional] 
+**V** | Pointer to **int64** | how many invocations fell in it — a real count, never interpolated | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasT returns a boolean if a field has been set.
 
 ### GetV
 
-`func (o *PointView) GetV() int32`
+`func (o *PointView) GetV() int64`
 
 GetV returns the V field if non-nil, zero value otherwise.
 
 ### GetVOk
 
-`func (o *PointView) GetVOk() (*int32, bool)`
+`func (o *PointView) GetVOk() (*int64, bool)`
 
 GetVOk returns a tuple with the V field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetV
 
-`func (o *PointView) SetV(v int32)`
+`func (o *PointView) SetV(v int64)`
 
 SetV sets V field to given value.
 

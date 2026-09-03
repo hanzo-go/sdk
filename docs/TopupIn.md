@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AmountCents** | Pointer to **int32** | AmountCents is how much to charge, in cents of Currency. Required. | [optional] 
+**AmountCents** | Pointer to **int64** | AmountCents is how much to charge, in cents of Currency. Required. | [optional] 
 **Currency** | Pointer to **string** | Currency is the ISO-4217 code to charge in. Empty takes the deployment&#39;s own default. | [optional] 
 **PaymentMethodId** | Pointer to **string** | MethodID names a card the subject already saved, for the saved-card endpoint. | [optional] 
 **SourceId** | Pointer to **string** | SourceID is a single-use card token from the payment form, for the token endpoint. It is vaulted as part of the charge, so a caller never holds card numbers and this service never sees one. | [optional] 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAmountCents
 
-`func (o *TopupIn) GetAmountCents() int32`
+`func (o *TopupIn) GetAmountCents() int64`
 
 GetAmountCents returns the AmountCents field if non-nil, zero value otherwise.
 
 ### GetAmountCentsOk
 
-`func (o *TopupIn) GetAmountCentsOk() (*int32, bool)`
+`func (o *TopupIn) GetAmountCentsOk() (*int64, bool)`
 
 GetAmountCentsOk returns a tuple with the AmountCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmountCents
 
-`func (o *TopupIn) SetAmountCents(v int32)`
+`func (o *TopupIn) SetAmountCents(v int64)`
 
 SetAmountCents sets AmountCents field to given value.
 

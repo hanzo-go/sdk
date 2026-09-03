@@ -20,23 +20,23 @@ var _ MappedNullable = &Quote{}
 // Quote struct for Quote
 type Quote struct {
 	// ChargeCents is what month one costs after the discount, in USD cents, totalled over the seats quoted. On team that is a multiple of the seat count, so it is not ListCents minus DiscountCents.
-	ChargeCents *int32 `json:"chargeCents,omitempty"`
+	ChargeCents *int64 `json:"chargeCents,omitempty"`
 	// Code is the promo that was priced, as stored.
 	Code *string `json:"code,omitempty"`
 	// DiscountCents is what the promo takes off month one, in USD cents. The promo rate reaches at most TeamSeatCap seats; seats past the cap bill at full list and add nothing here. It is arithmetic only — quoting credits nothing, counts nothing and reserves nothing.
-	DiscountCents *int32 `json:"discountCents,omitempty"`
+	DiscountCents *int64 `json:"discountCents,omitempty"`
 	// Eligible says whether a redeem would be accepted right now; Reason says why not when it would not.
 	Eligible *bool `json:"eligible,omitempty"`
 	// ListCents is the undiscounted month price in USD cents: PER SEAT on team, the whole month on pro and max, 0 for a plan with no list price.
-	ListCents *int32 `json:"listCents,omitempty"`
+	ListCents *int64 `json:"listCents,omitempty"`
 	// Plan is the tier priced, lower-cased and trimmed: pro, max or team. Unlike a redemption's plan this one comes from the REQUEST — quoting has no side effects, so it will happily price a plan the caller does not hold.
 	Plan *string `json:"plan,omitempty"`
 	// Reason is why Eligible is false, drawn from: \"promo redemption is closed\" (the subsystem is off, which is how it ships), \"promo redemption cap reached\", \"promo is not active\", \"plan is free or unknown; nothing to discount\", \"promo does not cover plan <plan>\". Absent when Eligible is true.
 	Reason *string `json:"reason,omitempty"`
 	// Remaining is how many redemptions are left under the fleet-wide cap.
-	Remaining *int32 `json:"remaining,omitempty"`
+	Remaining *int64 `json:"remaining,omitempty"`
 	// Seats is the seat count priced; a request of 0 or less was read as 1. It only bites on team, the one per-seat plan — pro and max are single-seat and ignore it.
-	Seats *int32 `json:"seats,omitempty"`
+	Seats *int64 `json:"seats,omitempty"`
 }
 
 // NewQuote instantiates a new Quote object
@@ -57,9 +57,9 @@ func NewQuoteWithDefaults() *Quote {
 }
 
 // GetChargeCents returns the ChargeCents field value if set, zero value otherwise.
-func (o *Quote) GetChargeCents() int32 {
+func (o *Quote) GetChargeCents() int64 {
 	if o == nil || IsNil(o.ChargeCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ChargeCents
@@ -67,7 +67,7 @@ func (o *Quote) GetChargeCents() int32 {
 
 // GetChargeCentsOk returns a tuple with the ChargeCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Quote) GetChargeCentsOk() (*int32, bool) {
+func (o *Quote) GetChargeCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.ChargeCents) {
 		return nil, false
 	}
@@ -83,8 +83,8 @@ func (o *Quote) HasChargeCents() bool {
 	return false
 }
 
-// SetChargeCents gets a reference to the given int32 and assigns it to the ChargeCents field.
-func (o *Quote) SetChargeCents(v int32) {
+// SetChargeCents gets a reference to the given int64 and assigns it to the ChargeCents field.
+func (o *Quote) SetChargeCents(v int64) {
 	o.ChargeCents = &v
 }
 
@@ -121,9 +121,9 @@ func (o *Quote) SetCode(v string) {
 }
 
 // GetDiscountCents returns the DiscountCents field value if set, zero value otherwise.
-func (o *Quote) GetDiscountCents() int32 {
+func (o *Quote) GetDiscountCents() int64 {
 	if o == nil || IsNil(o.DiscountCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DiscountCents
@@ -131,7 +131,7 @@ func (o *Quote) GetDiscountCents() int32 {
 
 // GetDiscountCentsOk returns a tuple with the DiscountCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Quote) GetDiscountCentsOk() (*int32, bool) {
+func (o *Quote) GetDiscountCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.DiscountCents) {
 		return nil, false
 	}
@@ -147,8 +147,8 @@ func (o *Quote) HasDiscountCents() bool {
 	return false
 }
 
-// SetDiscountCents gets a reference to the given int32 and assigns it to the DiscountCents field.
-func (o *Quote) SetDiscountCents(v int32) {
+// SetDiscountCents gets a reference to the given int64 and assigns it to the DiscountCents field.
+func (o *Quote) SetDiscountCents(v int64) {
 	o.DiscountCents = &v
 }
 
@@ -185,9 +185,9 @@ func (o *Quote) SetEligible(v bool) {
 }
 
 // GetListCents returns the ListCents field value if set, zero value otherwise.
-func (o *Quote) GetListCents() int32 {
+func (o *Quote) GetListCents() int64 {
 	if o == nil || IsNil(o.ListCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ListCents
@@ -195,7 +195,7 @@ func (o *Quote) GetListCents() int32 {
 
 // GetListCentsOk returns a tuple with the ListCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Quote) GetListCentsOk() (*int32, bool) {
+func (o *Quote) GetListCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.ListCents) {
 		return nil, false
 	}
@@ -211,8 +211,8 @@ func (o *Quote) HasListCents() bool {
 	return false
 }
 
-// SetListCents gets a reference to the given int32 and assigns it to the ListCents field.
-func (o *Quote) SetListCents(v int32) {
+// SetListCents gets a reference to the given int64 and assigns it to the ListCents field.
+func (o *Quote) SetListCents(v int64) {
 	o.ListCents = &v
 }
 
@@ -281,9 +281,9 @@ func (o *Quote) SetReason(v string) {
 }
 
 // GetRemaining returns the Remaining field value if set, zero value otherwise.
-func (o *Quote) GetRemaining() int32 {
+func (o *Quote) GetRemaining() int64 {
 	if o == nil || IsNil(o.Remaining) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Remaining
@@ -291,7 +291,7 @@ func (o *Quote) GetRemaining() int32 {
 
 // GetRemainingOk returns a tuple with the Remaining field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Quote) GetRemainingOk() (*int32, bool) {
+func (o *Quote) GetRemainingOk() (*int64, bool) {
 	if o == nil || IsNil(o.Remaining) {
 		return nil, false
 	}
@@ -307,15 +307,15 @@ func (o *Quote) HasRemaining() bool {
 	return false
 }
 
-// SetRemaining gets a reference to the given int32 and assigns it to the Remaining field.
-func (o *Quote) SetRemaining(v int32) {
+// SetRemaining gets a reference to the given int64 and assigns it to the Remaining field.
+func (o *Quote) SetRemaining(v int64) {
 	o.Remaining = &v
 }
 
 // GetSeats returns the Seats field value if set, zero value otherwise.
-func (o *Quote) GetSeats() int32 {
+func (o *Quote) GetSeats() int64 {
 	if o == nil || IsNil(o.Seats) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Seats
@@ -323,7 +323,7 @@ func (o *Quote) GetSeats() int32 {
 
 // GetSeatsOk returns a tuple with the Seats field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Quote) GetSeatsOk() (*int32, bool) {
+func (o *Quote) GetSeatsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Seats) {
 		return nil, false
 	}
@@ -339,8 +339,8 @@ func (o *Quote) HasSeats() bool {
 	return false
 }
 
-// SetSeats gets a reference to the given int32 and assigns it to the Seats field.
-func (o *Quote) SetSeats(v int32) {
+// SetSeats gets a reference to the given int64 and assigns it to the Seats field.
+func (o *Quote) SetSeats(v int64) {
 	o.Seats = &v
 }
 

@@ -25,11 +25,11 @@ type LegalAPIService service
 type LegalAPIGetLegalDocumentsRequest struct {
 	ctx        context.Context
 	ApiService *LegalAPIService
-	limit      *int32
+	limit      *int64
 }
 
 // Limit bounds the page. Absent or unparseable means the store&#39;s own default.
-func (r LegalAPIGetLegalDocumentsRequest) Limit(limit int32) LegalAPIGetLegalDocumentsRequest {
+func (r LegalAPIGetLegalDocumentsRequest) Limit(limit int64) LegalAPIGetLegalDocumentsRequest {
 	r.limit = &limit
 	return r
 }
@@ -248,11 +248,11 @@ func (a *LegalAPIService) GetLegalDocumentsByIdExecute(r LegalAPIGetLegalDocumen
 type LegalAPIGetLegalFilingsRequest struct {
 	ctx        context.Context
 	ApiService *LegalAPIService
-	limit      *int32
+	limit      *int64
 }
 
 // Limit bounds the page. Absent or unparseable means the store&#39;s own default.
-func (r LegalAPIGetLegalFilingsRequest) Limit(limit int32) LegalAPIGetLegalFilingsRequest {
+func (r LegalAPIGetLegalFilingsRequest) Limit(limit int64) LegalAPIGetLegalFilingsRequest {
 	r.limit = &limit
 	return r
 }

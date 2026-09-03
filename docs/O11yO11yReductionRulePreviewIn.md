@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Labels** | **[]string** | Labels are the label names the rule would match. Required, at least one. | 
-**LookbackMs** | Pointer to **int32** | LookbackMs is how far back to sample when estimating. | [optional] 
+**LookbackMs** | Pointer to **int64** | LookbackMs is how far back to sample when estimating. | [optional] 
 **MatchType** | **string** | MatchType is drop or keep. Required. | 
 **MetricName** | **string** | MetricName is the metric the rule would govern. Required. | 
 
@@ -50,20 +50,20 @@ SetLabels sets Labels field to given value.
 
 ### GetLookbackMs
 
-`func (o *O11yO11yReductionRulePreviewIn) GetLookbackMs() int32`
+`func (o *O11yO11yReductionRulePreviewIn) GetLookbackMs() int64`
 
 GetLookbackMs returns the LookbackMs field if non-nil, zero value otherwise.
 
 ### GetLookbackMsOk
 
-`func (o *O11yO11yReductionRulePreviewIn) GetLookbackMsOk() (*int32, bool)`
+`func (o *O11yO11yReductionRulePreviewIn) GetLookbackMsOk() (*int64, bool)`
 
 GetLookbackMsOk returns a tuple with the LookbackMs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLookbackMs
 
-`func (o *O11yO11yReductionRulePreviewIn) SetLookbackMs(v int32)`
+`func (o *O11yO11yReductionRulePreviewIn) SetLookbackMs(v int64)`
 
 SetLookbackMs sets LookbackMs field to given value.
 

@@ -28,7 +28,7 @@ Name | Type | Description | Notes
 **ShortFields** | Pointer to **bool** |  | [optional] 
 **Text** | Pointer to **string** |  | [optional] 
 **ThumbUrl** | Pointer to **string** |  | [optional] 
-**Timeout** | Pointer to **int32** | Timeout is the maximum time allowed to invoke the slack. Setting this to 0 does not impose a timeout. | [optional] 
+**Timeout** | Pointer to **int64** | Timeout is the maximum time allowed to invoke the slack. Setting this to 0 does not impose a timeout. | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **TitleLink** | Pointer to **string** |  | [optional] 
 **Username** | Pointer to **string** |  | [optional] 
@@ -684,20 +684,20 @@ HasThumbUrl returns a boolean if a field has been set.
 
 ### GetTimeout
 
-`func (o *O11ySlackConfig) GetTimeout() int32`
+`func (o *O11ySlackConfig) GetTimeout() int64`
 
 GetTimeout returns the Timeout field if non-nil, zero value otherwise.
 
 ### GetTimeoutOk
 
-`func (o *O11ySlackConfig) GetTimeoutOk() (*int32, bool)`
+`func (o *O11ySlackConfig) GetTimeoutOk() (*int64, bool)`
 
 GetTimeoutOk returns a tuple with the Timeout field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeout
 
-`func (o *O11ySlackConfig) SetTimeout(v int32)`
+`func (o *O11ySlackConfig) SetTimeout(v int64)`
 
 SetTimeout sets Timeout field to given value.
 

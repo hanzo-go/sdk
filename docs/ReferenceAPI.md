@@ -108,7 +108,7 @@ import (
 func main() {
 	set := "domain" // string | 
 	after := "after_example" // string | After pages the override listing: the last key of the previous page. (optional)
-	limit := int32(50) // int32 | Limit caps the override listing: default 200, maximum 1000. (optional)
+	limit := int64(50) // int64 | Limit caps the override listing: default 200, maximum 1000. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -139,7 +139,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **after** | **string** | After pages the override listing: the last key of the previous page. | 
- **limit** | **int32** | Limit caps the override listing: default 200, maximum 1000. | 
+ **limit** | **int64** | Limit caps the override listing: default 200, maximum 1000. | 
 
 ### Return type
 

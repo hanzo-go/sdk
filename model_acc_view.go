@@ -22,11 +22,11 @@ type AccView struct {
 	// Basis is the qualification category: income, net_worth, professional_license, or entity.
 	Basis *string `json:"basis,omitempty"`
 	// CreatedAt is the unix second the record was created.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// EvidenceDocID references an evidence document in the org's sealed data room.
 	EvidenceDocId *string `json:"evidenceDocId,omitempty"`
 	// ExpiresAt is the unix second a confirmation ages out; 0 means none.
-	ExpiresAt *int32 `json:"expiresAt,omitempty"`
+	ExpiresAt *int64 `json:"expiresAt,omitempty"`
 	// ID is the accreditation record's opaque id.
 	Id *string `json:"id,omitempty"`
 	// Method is how the state was established: self_attested, third_party_letter, or provider_verified.
@@ -40,7 +40,7 @@ type AccView struct {
 	// SubjectID is the opaque id of the subject the record is about.
 	SubjectId *string `json:"subjectId,omitempty"`
 	// UpdatedAt is the unix second the record last changed.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewAccView instantiates a new AccView object
@@ -93,9 +93,9 @@ func (o *AccView) SetBasis(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *AccView) GetCreatedAt() int32 {
+func (o *AccView) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -103,7 +103,7 @@ func (o *AccView) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccView) GetCreatedAtOk() (*int32, bool) {
+func (o *AccView) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -119,8 +119,8 @@ func (o *AccView) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *AccView) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *AccView) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -157,9 +157,9 @@ func (o *AccView) SetEvidenceDocId(v string) {
 }
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
-func (o *AccView) GetExpiresAt() int32 {
+func (o *AccView) GetExpiresAt() int64 {
 	if o == nil || IsNil(o.ExpiresAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ExpiresAt
@@ -167,7 +167,7 @@ func (o *AccView) GetExpiresAt() int32 {
 
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccView) GetExpiresAtOk() (*int32, bool) {
+func (o *AccView) GetExpiresAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
@@ -183,8 +183,8 @@ func (o *AccView) HasExpiresAt() bool {
 	return false
 }
 
-// SetExpiresAt gets a reference to the given int32 and assigns it to the ExpiresAt field.
-func (o *AccView) SetExpiresAt(v int32) {
+// SetExpiresAt gets a reference to the given int64 and assigns it to the ExpiresAt field.
+func (o *AccView) SetExpiresAt(v int64) {
 	o.ExpiresAt = &v
 }
 
@@ -381,9 +381,9 @@ func (o *AccView) SetSubjectId(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *AccView) GetUpdatedAt() int32 {
+func (o *AccView) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -391,7 +391,7 @@ func (o *AccView) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccView) GetUpdatedAtOk() (*int32, bool) {
+func (o *AccView) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -407,8 +407,8 @@ func (o *AccView) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *AccView) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *AccView) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

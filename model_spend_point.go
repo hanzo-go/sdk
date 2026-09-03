@@ -20,7 +20,7 @@ var _ MappedNullable = &SpendPoint{}
 // SpendPoint struct for SpendPoint
 type SpendPoint struct {
 	// Cents is the consumption recorded in that bucket, in US cents.
-	Cents *int32 `json:"cents,omitempty"`
+	Cents *int64 `json:"cents,omitempty"`
 	// T is the bucket's start instant, RFC3339 UTC. Buckets are gap-filled, so a window with no spend still has its points.
 	T *string `json:"t,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewSpendPointWithDefaults() *SpendPoint {
 }
 
 // GetCents returns the Cents field value if set, zero value otherwise.
-func (o *SpendPoint) GetCents() int32 {
+func (o *SpendPoint) GetCents() int64 {
 	if o == nil || IsNil(o.Cents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Cents
@@ -53,7 +53,7 @@ func (o *SpendPoint) GetCents() int32 {
 
 // GetCentsOk returns a tuple with the Cents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SpendPoint) GetCentsOk() (*int32, bool) {
+func (o *SpendPoint) GetCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Cents) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *SpendPoint) HasCents() bool {
 	return false
 }
 
-// SetCents gets a reference to the given int32 and assigns it to the Cents field.
-func (o *SpendPoint) SetCents(v int32) {
+// SetCents gets a reference to the given int64 and assigns it to the Cents field.
+func (o *SpendPoint) SetCents(v int64) {
 	o.Cents = &v
 }
 

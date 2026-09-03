@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **int32** | Created is how many native issues this pass created. | [optional] 
-**Failed** | Pointer to **int32** | Failed is how many repos or issues errored; the pass continues past each. | [optional] 
-**Issues** | Pointer to **int32** | Issues is how many upstream issues were seen. | [optional] 
-**Repos** | Pointer to **int32** | Repos is how many granted repos were walked (archived/disabled are skipped). | [optional] 
+**Created** | Pointer to **int64** | Created is how many native issues this pass created. | [optional] 
+**Failed** | Pointer to **int64** | Failed is how many repos or issues errored; the pass continues past each. | [optional] 
+**Issues** | Pointer to **int64** | Issues is how many upstream issues were seen. | [optional] 
+**Repos** | Pointer to **int64** | Repos is how many granted repos were walked (archived/disabled are skipped). | [optional] 
 **Truncated** | Pointer to **bool** | Truncated is set when the time budget or the issue cap stopped the pass early. Re-run to continue — the mirror is idempotent by ExtRef, so nothing duplicates. | [optional] 
-**Updated** | Pointer to **int32** | Updated is how many existing native issues this pass refreshed. | [optional] 
+**Updated** | Pointer to **int64** | Updated is how many existing native issues this pass refreshed. | [optional] 
 
 ## Methods
 
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreated
 
-`func (o *GithubBackfillResult) GetCreated() int32`
+`func (o *GithubBackfillResult) GetCreated() int64`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *GithubBackfillResult) GetCreatedOk() (*int32, bool)`
+`func (o *GithubBackfillResult) GetCreatedOk() (*int64, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *GithubBackfillResult) SetCreated(v int32)`
+`func (o *GithubBackfillResult) SetCreated(v int64)`
 
 SetCreated sets Created field to given value.
 
@@ -57,20 +57,20 @@ HasCreated returns a boolean if a field has been set.
 
 ### GetFailed
 
-`func (o *GithubBackfillResult) GetFailed() int32`
+`func (o *GithubBackfillResult) GetFailed() int64`
 
 GetFailed returns the Failed field if non-nil, zero value otherwise.
 
 ### GetFailedOk
 
-`func (o *GithubBackfillResult) GetFailedOk() (*int32, bool)`
+`func (o *GithubBackfillResult) GetFailedOk() (*int64, bool)`
 
 GetFailedOk returns a tuple with the Failed field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFailed
 
-`func (o *GithubBackfillResult) SetFailed(v int32)`
+`func (o *GithubBackfillResult) SetFailed(v int64)`
 
 SetFailed sets Failed field to given value.
 
@@ -82,20 +82,20 @@ HasFailed returns a boolean if a field has been set.
 
 ### GetIssues
 
-`func (o *GithubBackfillResult) GetIssues() int32`
+`func (o *GithubBackfillResult) GetIssues() int64`
 
 GetIssues returns the Issues field if non-nil, zero value otherwise.
 
 ### GetIssuesOk
 
-`func (o *GithubBackfillResult) GetIssuesOk() (*int32, bool)`
+`func (o *GithubBackfillResult) GetIssuesOk() (*int64, bool)`
 
 GetIssuesOk returns a tuple with the Issues field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIssues
 
-`func (o *GithubBackfillResult) SetIssues(v int32)`
+`func (o *GithubBackfillResult) SetIssues(v int64)`
 
 SetIssues sets Issues field to given value.
 
@@ -107,20 +107,20 @@ HasIssues returns a boolean if a field has been set.
 
 ### GetRepos
 
-`func (o *GithubBackfillResult) GetRepos() int32`
+`func (o *GithubBackfillResult) GetRepos() int64`
 
 GetRepos returns the Repos field if non-nil, zero value otherwise.
 
 ### GetReposOk
 
-`func (o *GithubBackfillResult) GetReposOk() (*int32, bool)`
+`func (o *GithubBackfillResult) GetReposOk() (*int64, bool)`
 
 GetReposOk returns a tuple with the Repos field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRepos
 
-`func (o *GithubBackfillResult) SetRepos(v int32)`
+`func (o *GithubBackfillResult) SetRepos(v int64)`
 
 SetRepos sets Repos field to given value.
 
@@ -157,20 +157,20 @@ HasTruncated returns a boolean if a field has been set.
 
 ### GetUpdated
 
-`func (o *GithubBackfillResult) GetUpdated() int32`
+`func (o *GithubBackfillResult) GetUpdated() int64`
 
 GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
 ### GetUpdatedOk
 
-`func (o *GithubBackfillResult) GetUpdatedOk() (*int32, bool)`
+`func (o *GithubBackfillResult) GetUpdatedOk() (*int64, bool)`
 
 GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdated
 
-`func (o *GithubBackfillResult) SetUpdated(v int32)`
+`func (o *GithubBackfillResult) SetUpdated(v int64)`
 
 SetUpdated sets Updated field to given value.
 

@@ -20,13 +20,13 @@ var _ MappedNullable = &UsagePoint{}
 // UsagePoint struct for UsagePoint
 type UsagePoint struct {
 	// Requests is how many LLM calls fell in this bucket.
-	Requests *int32 `json:"requests,omitempty"`
+	Requests *int64 `json:"requests,omitempty"`
 	// SpendCents is what they cost, in cents.
-	SpendCents *int32 `json:"spendCents,omitempty"`
+	SpendCents *int64 `json:"spendCents,omitempty"`
 	// T is the bucket's start, RFC3339 UTC, aligned to the interval.
 	T *string `json:"t,omitempty"`
 	// Tokens is prompt plus completion tokens over those calls.
-	Tokens *int32 `json:"tokens,omitempty"`
+	Tokens *int64 `json:"tokens,omitempty"`
 }
 
 // NewUsagePoint instantiates a new UsagePoint object
@@ -47,9 +47,9 @@ func NewUsagePointWithDefaults() *UsagePoint {
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *UsagePoint) GetRequests() int32 {
+func (o *UsagePoint) GetRequests() int64 {
 	if o == nil || IsNil(o.Requests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Requests
@@ -57,7 +57,7 @@ func (o *UsagePoint) GetRequests() int32 {
 
 // GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsagePoint) GetRequestsOk() (*int32, bool) {
+func (o *UsagePoint) GetRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Requests) {
 		return nil, false
 	}
@@ -73,15 +73,15 @@ func (o *UsagePoint) HasRequests() bool {
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *UsagePoint) SetRequests(v int32) {
+// SetRequests gets a reference to the given int64 and assigns it to the Requests field.
+func (o *UsagePoint) SetRequests(v int64) {
 	o.Requests = &v
 }
 
 // GetSpendCents returns the SpendCents field value if set, zero value otherwise.
-func (o *UsagePoint) GetSpendCents() int32 {
+func (o *UsagePoint) GetSpendCents() int64 {
 	if o == nil || IsNil(o.SpendCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SpendCents
@@ -89,7 +89,7 @@ func (o *UsagePoint) GetSpendCents() int32 {
 
 // GetSpendCentsOk returns a tuple with the SpendCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsagePoint) GetSpendCentsOk() (*int32, bool) {
+func (o *UsagePoint) GetSpendCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.SpendCents) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *UsagePoint) HasSpendCents() bool {
 	return false
 }
 
-// SetSpendCents gets a reference to the given int32 and assigns it to the SpendCents field.
-func (o *UsagePoint) SetSpendCents(v int32) {
+// SetSpendCents gets a reference to the given int64 and assigns it to the SpendCents field.
+func (o *UsagePoint) SetSpendCents(v int64) {
 	o.SpendCents = &v
 }
 
@@ -143,9 +143,9 @@ func (o *UsagePoint) SetT(v string) {
 }
 
 // GetTokens returns the Tokens field value if set, zero value otherwise.
-func (o *UsagePoint) GetTokens() int32 {
+func (o *UsagePoint) GetTokens() int64 {
 	if o == nil || IsNil(o.Tokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Tokens
@@ -153,7 +153,7 @@ func (o *UsagePoint) GetTokens() int32 {
 
 // GetTokensOk returns a tuple with the Tokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsagePoint) GetTokensOk() (*int32, bool) {
+func (o *UsagePoint) GetTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.Tokens) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *UsagePoint) HasTokens() bool {
 	return false
 }
 
-// SetTokens gets a reference to the given int32 and assigns it to the Tokens field.
-func (o *UsagePoint) SetTokens(v int32) {
+// SetTokens gets a reference to the given int64 and assigns it to the Tokens field.
+func (o *UsagePoint) SetTokens(v int64) {
 	o.Tokens = &v
 }
 

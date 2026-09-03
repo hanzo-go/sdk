@@ -22,9 +22,9 @@ type RiskDatasetDisposal struct {
 	// Dataset is the dataset that was disposed of. The NAME survives: declaring it again continues the version count rather than starting over at 1.
 	Dataset *string `json:"dataset,omitempty"`
 	// Rows is how many rows they held between them, as the REGISTER recorded them when each was materialised — not a count of what the drop deleted, which is gone by the time this answers.
-	Rows *int32 `json:"rows,omitempty"`
+	Rows *int64 `json:"rows,omitempty"`
 	// Versions is how many versions went.
-	Versions *int32 `json:"versions,omitempty"`
+	Versions *int64 `json:"versions,omitempty"`
 }
 
 // NewRiskDatasetDisposal instantiates a new RiskDatasetDisposal object
@@ -77,9 +77,9 @@ func (o *RiskDatasetDisposal) SetDataset(v string) {
 }
 
 // GetRows returns the Rows field value if set, zero value otherwise.
-func (o *RiskDatasetDisposal) GetRows() int32 {
+func (o *RiskDatasetDisposal) GetRows() int64 {
 	if o == nil || IsNil(o.Rows) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Rows
@@ -87,7 +87,7 @@ func (o *RiskDatasetDisposal) GetRows() int32 {
 
 // GetRowsOk returns a tuple with the Rows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskDatasetDisposal) GetRowsOk() (*int32, bool) {
+func (o *RiskDatasetDisposal) GetRowsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Rows) {
 		return nil, false
 	}
@@ -103,15 +103,15 @@ func (o *RiskDatasetDisposal) HasRows() bool {
 	return false
 }
 
-// SetRows gets a reference to the given int32 and assigns it to the Rows field.
-func (o *RiskDatasetDisposal) SetRows(v int32) {
+// SetRows gets a reference to the given int64 and assigns it to the Rows field.
+func (o *RiskDatasetDisposal) SetRows(v int64) {
 	o.Rows = &v
 }
 
 // GetVersions returns the Versions field value if set, zero value otherwise.
-func (o *RiskDatasetDisposal) GetVersions() int32 {
+func (o *RiskDatasetDisposal) GetVersions() int64 {
 	if o == nil || IsNil(o.Versions) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Versions
@@ -119,7 +119,7 @@ func (o *RiskDatasetDisposal) GetVersions() int32 {
 
 // GetVersionsOk returns a tuple with the Versions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskDatasetDisposal) GetVersionsOk() (*int32, bool) {
+func (o *RiskDatasetDisposal) GetVersionsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Versions) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *RiskDatasetDisposal) HasVersions() bool {
 	return false
 }
 
-// SetVersions gets a reference to the given int32 and assigns it to the Versions field.
-func (o *RiskDatasetDisposal) SetVersions(v int32) {
+// SetVersions gets a reference to the given int64 and assigns it to the Versions field.
+func (o *RiskDatasetDisposal) SetVersions(v int64) {
 	o.Versions = &v
 }
 

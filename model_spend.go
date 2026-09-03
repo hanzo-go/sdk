@@ -22,21 +22,21 @@ type Spend struct {
 	// Available is false when the commerce ledger was unconfigured or unreachable. Every number below is then an honest zero, NOT a measured one.
 	Available *bool `json:"available,omitempty"`
 	// AvailableCents is what of that balance is still spendable.
-	AvailableCents *int32 `json:"availableCents,omitempty"`
+	AvailableCents *int64 `json:"availableCents,omitempty"`
 	// BalanceCents is the prepaid wallet's balance, in US cents.
-	BalanceCents *int32 `json:"balanceCents,omitempty"`
+	BalanceCents *int64 `json:"balanceCents,omitempty"`
 	// ByCategory is the window's spend split by ledger category, largest first.
 	ByCategory []CategorySpend `json:"byCategory,omitempty"`
 	// MTDCents is commerce's authoritative month-to-date consumed figure, which is a different period from the window and is not derived from it.
-	MtdCents *int32 `json:"mtdCents,omitempty"`
+	MtdCents *int64 `json:"mtdCents,omitempty"`
 	// OverageCents is month-to-date consumption beyond the plan's allowance.
-	OverageCents *int32 `json:"overageCents,omitempty"`
+	OverageCents *int64 `json:"overageCents,omitempty"`
 	// Series is the window's spend over time, gap-filled at the window's interval.
 	Series []SpendPoint `json:"series,omitempty"`
 	// Source names where the roll-up came from.
 	Source *string `json:"source,omitempty"`
 	// TotalCents is consumption over the requested window, in US cents. It is self-consistent with ByCategory and Series.
-	TotalCents *int32 `json:"totalCents,omitempty"`
+	TotalCents *int64 `json:"totalCents,omitempty"`
 }
 
 // NewSpend instantiates a new Spend object
@@ -89,9 +89,9 @@ func (o *Spend) SetAvailable(v bool) {
 }
 
 // GetAvailableCents returns the AvailableCents field value if set, zero value otherwise.
-func (o *Spend) GetAvailableCents() int32 {
+func (o *Spend) GetAvailableCents() int64 {
 	if o == nil || IsNil(o.AvailableCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AvailableCents
@@ -99,7 +99,7 @@ func (o *Spend) GetAvailableCents() int32 {
 
 // GetAvailableCentsOk returns a tuple with the AvailableCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Spend) GetAvailableCentsOk() (*int32, bool) {
+func (o *Spend) GetAvailableCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AvailableCents) {
 		return nil, false
 	}
@@ -115,15 +115,15 @@ func (o *Spend) HasAvailableCents() bool {
 	return false
 }
 
-// SetAvailableCents gets a reference to the given int32 and assigns it to the AvailableCents field.
-func (o *Spend) SetAvailableCents(v int32) {
+// SetAvailableCents gets a reference to the given int64 and assigns it to the AvailableCents field.
+func (o *Spend) SetAvailableCents(v int64) {
 	o.AvailableCents = &v
 }
 
 // GetBalanceCents returns the BalanceCents field value if set, zero value otherwise.
-func (o *Spend) GetBalanceCents() int32 {
+func (o *Spend) GetBalanceCents() int64 {
 	if o == nil || IsNil(o.BalanceCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.BalanceCents
@@ -131,7 +131,7 @@ func (o *Spend) GetBalanceCents() int32 {
 
 // GetBalanceCentsOk returns a tuple with the BalanceCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Spend) GetBalanceCentsOk() (*int32, bool) {
+func (o *Spend) GetBalanceCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.BalanceCents) {
 		return nil, false
 	}
@@ -147,8 +147,8 @@ func (o *Spend) HasBalanceCents() bool {
 	return false
 }
 
-// SetBalanceCents gets a reference to the given int32 and assigns it to the BalanceCents field.
-func (o *Spend) SetBalanceCents(v int32) {
+// SetBalanceCents gets a reference to the given int64 and assigns it to the BalanceCents field.
+func (o *Spend) SetBalanceCents(v int64) {
 	o.BalanceCents = &v
 }
 
@@ -185,9 +185,9 @@ func (o *Spend) SetByCategory(v []CategorySpend) {
 }
 
 // GetMtdCents returns the MtdCents field value if set, zero value otherwise.
-func (o *Spend) GetMtdCents() int32 {
+func (o *Spend) GetMtdCents() int64 {
 	if o == nil || IsNil(o.MtdCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MtdCents
@@ -195,7 +195,7 @@ func (o *Spend) GetMtdCents() int32 {
 
 // GetMtdCentsOk returns a tuple with the MtdCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Spend) GetMtdCentsOk() (*int32, bool) {
+func (o *Spend) GetMtdCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.MtdCents) {
 		return nil, false
 	}
@@ -211,15 +211,15 @@ func (o *Spend) HasMtdCents() bool {
 	return false
 }
 
-// SetMtdCents gets a reference to the given int32 and assigns it to the MtdCents field.
-func (o *Spend) SetMtdCents(v int32) {
+// SetMtdCents gets a reference to the given int64 and assigns it to the MtdCents field.
+func (o *Spend) SetMtdCents(v int64) {
 	o.MtdCents = &v
 }
 
 // GetOverageCents returns the OverageCents field value if set, zero value otherwise.
-func (o *Spend) GetOverageCents() int32 {
+func (o *Spend) GetOverageCents() int64 {
 	if o == nil || IsNil(o.OverageCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.OverageCents
@@ -227,7 +227,7 @@ func (o *Spend) GetOverageCents() int32 {
 
 // GetOverageCentsOk returns a tuple with the OverageCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Spend) GetOverageCentsOk() (*int32, bool) {
+func (o *Spend) GetOverageCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.OverageCents) {
 		return nil, false
 	}
@@ -243,8 +243,8 @@ func (o *Spend) HasOverageCents() bool {
 	return false
 }
 
-// SetOverageCents gets a reference to the given int32 and assigns it to the OverageCents field.
-func (o *Spend) SetOverageCents(v int32) {
+// SetOverageCents gets a reference to the given int64 and assigns it to the OverageCents field.
+func (o *Spend) SetOverageCents(v int64) {
 	o.OverageCents = &v
 }
 
@@ -313,9 +313,9 @@ func (o *Spend) SetSource(v string) {
 }
 
 // GetTotalCents returns the TotalCents field value if set, zero value otherwise.
-func (o *Spend) GetTotalCents() int32 {
+func (o *Spend) GetTotalCents() int64 {
 	if o == nil || IsNil(o.TotalCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalCents
@@ -323,7 +323,7 @@ func (o *Spend) GetTotalCents() int32 {
 
 // GetTotalCentsOk returns a tuple with the TotalCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Spend) GetTotalCentsOk() (*int32, bool) {
+func (o *Spend) GetTotalCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalCents) {
 		return nil, false
 	}
@@ -339,8 +339,8 @@ func (o *Spend) HasTotalCents() bool {
 	return false
 }
 
-// SetTotalCents gets a reference to the given int32 and assigns it to the TotalCents field.
-func (o *Spend) SetTotalCents(v int32) {
+// SetTotalCents gets a reference to the given int64 and assigns it to the TotalCents field.
+func (o *Spend) SetTotalCents(v int64) {
 	o.TotalCents = &v
 }
 

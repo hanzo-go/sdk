@@ -164,7 +164,7 @@ import (
 )
 
 func main() {
-	days := int32(30) // int32 | Days is how far back to measure the organisation's own coverage, 1 to 400. Zero takes thirty. (optional)
+	days := int64(30) // int64 | Days is how far back to measure the organisation's own coverage, 1 to 400. Zero takes thirty. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -189,7 +189,7 @@ Other parameters are passed through a pointer to a apiRiskFeaturesRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **days** | **int32** | Days is how far back to measure the organisation&#39;s own coverage, 1 to 400. Zero takes thirty. | 
+ **days** | **int64** | Days is how far back to measure the organisation&#39;s own coverage, 1 to 400. Zero takes thirty. | 
 
 ### Return type
 

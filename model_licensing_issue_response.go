@@ -22,7 +22,7 @@ type LicensingIssueResponse struct {
 	// AppID is the brand this token runs under (\"hanzo\" | \"lux\" | \"zoo\"). The engine refuses a token whose app_id is not the one it was built for.
 	AppId *string `json:"app_id,omitempty"`
 	// Exp is the token's expiry, Unix seconds.
-	Exp *int32 `json:"exp,omitempty"`
+	Exp *int64 `json:"exp,omitempty"`
 	// Features are the capability grants copied verbatim from the plan the org bought. The engine enforces exactly these.
 	Features []string `json:"features,omitempty"`
 	// Bound reports whether a device fingerprint was folded into the token. An unbound token runs on any machine; a bound one runs only on the machine it was bound to.
@@ -85,9 +85,9 @@ func (o *LicensingIssueResponse) SetAppId(v string) {
 }
 
 // GetExp returns the Exp field value if set, zero value otherwise.
-func (o *LicensingIssueResponse) GetExp() int32 {
+func (o *LicensingIssueResponse) GetExp() int64 {
 	if o == nil || IsNil(o.Exp) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Exp
@@ -95,7 +95,7 @@ func (o *LicensingIssueResponse) GetExp() int32 {
 
 // GetExpOk returns a tuple with the Exp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LicensingIssueResponse) GetExpOk() (*int32, bool) {
+func (o *LicensingIssueResponse) GetExpOk() (*int64, bool) {
 	if o == nil || IsNil(o.Exp) {
 		return nil, false
 	}
@@ -111,8 +111,8 @@ func (o *LicensingIssueResponse) HasExp() bool {
 	return false
 }
 
-// SetExp gets a reference to the given int32 and assigns it to the Exp field.
-func (o *LicensingIssueResponse) SetExp(v int32) {
+// SetExp gets a reference to the given int64 and assigns it to the Exp field.
+func (o *LicensingIssueResponse) SetExp(v int64) {
 	o.Exp = &v
 }
 

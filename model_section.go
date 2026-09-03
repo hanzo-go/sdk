@@ -26,7 +26,7 @@ type Section struct {
 	// ID is the slug a step's `section` names to file itself under this phase.
 	Id *string `json:"id,omitempty"`
 	// Order places the phase in the journey, ascending. Ties fall back to authoring order, and an omitted order sorts as 0 — ahead of everything.
-	Order *int32 `json:"order,omitempty"`
+	Order *int64 `json:"order,omitempty"`
 	// Title is the phase heading a person reads above its steps.
 	Title *string `json:"title,omitempty"`
 }
@@ -145,9 +145,9 @@ func (o *Section) SetId(v string) {
 }
 
 // GetOrder returns the Order field value if set, zero value otherwise.
-func (o *Section) GetOrder() int32 {
+func (o *Section) GetOrder() int64 {
 	if o == nil || IsNil(o.Order) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Order
@@ -155,7 +155,7 @@ func (o *Section) GetOrder() int32 {
 
 // GetOrderOk returns a tuple with the Order field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Section) GetOrderOk() (*int32, bool) {
+func (o *Section) GetOrderOk() (*int64, bool) {
 	if o == nil || IsNil(o.Order) {
 		return nil, false
 	}
@@ -171,8 +171,8 @@ func (o *Section) HasOrder() bool {
 	return false
 }
 
-// SetOrder gets a reference to the given int32 and assigns it to the Order field.
-func (o *Section) SetOrder(v int32) {
+// SetOrder gets a reference to the given int64 and assigns it to the Order field.
+func (o *Section) SetOrder(v int64) {
 	o.Order = &v
 }
 

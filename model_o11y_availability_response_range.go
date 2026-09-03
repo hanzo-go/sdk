@@ -19,8 +19,8 @@ var _ MappedNullable = &O11yAvailabilityResponseRange{}
 
 // O11yAvailabilityResponseRange Range is the window and bucket width actually used, after clamping — not what was asked for, which is why a caller reads it back rather than assuming.
 type O11yAvailabilityResponseRange struct {
-	SinceSec *int32 `json:"sinceSec,omitempty"`
-	StepSec  *int32 `json:"stepSec,omitempty"`
+	SinceSec *int64 `json:"sinceSec,omitempty"`
+	StepSec  *int64 `json:"stepSec,omitempty"`
 }
 
 // NewO11yAvailabilityResponseRange instantiates a new O11yAvailabilityResponseRange object
@@ -41,9 +41,9 @@ func NewO11yAvailabilityResponseRangeWithDefaults() *O11yAvailabilityResponseRan
 }
 
 // GetSinceSec returns the SinceSec field value if set, zero value otherwise.
-func (o *O11yAvailabilityResponseRange) GetSinceSec() int32 {
+func (o *O11yAvailabilityResponseRange) GetSinceSec() int64 {
 	if o == nil || IsNil(o.SinceSec) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SinceSec
@@ -51,7 +51,7 @@ func (o *O11yAvailabilityResponseRange) GetSinceSec() int32 {
 
 // GetSinceSecOk returns a tuple with the SinceSec field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yAvailabilityResponseRange) GetSinceSecOk() (*int32, bool) {
+func (o *O11yAvailabilityResponseRange) GetSinceSecOk() (*int64, bool) {
 	if o == nil || IsNil(o.SinceSec) {
 		return nil, false
 	}
@@ -67,15 +67,15 @@ func (o *O11yAvailabilityResponseRange) HasSinceSec() bool {
 	return false
 }
 
-// SetSinceSec gets a reference to the given int32 and assigns it to the SinceSec field.
-func (o *O11yAvailabilityResponseRange) SetSinceSec(v int32) {
+// SetSinceSec gets a reference to the given int64 and assigns it to the SinceSec field.
+func (o *O11yAvailabilityResponseRange) SetSinceSec(v int64) {
 	o.SinceSec = &v
 }
 
 // GetStepSec returns the StepSec field value if set, zero value otherwise.
-func (o *O11yAvailabilityResponseRange) GetStepSec() int32 {
+func (o *O11yAvailabilityResponseRange) GetStepSec() int64 {
 	if o == nil || IsNil(o.StepSec) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.StepSec
@@ -83,7 +83,7 @@ func (o *O11yAvailabilityResponseRange) GetStepSec() int32 {
 
 // GetStepSecOk returns a tuple with the StepSec field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yAvailabilityResponseRange) GetStepSecOk() (*int32, bool) {
+func (o *O11yAvailabilityResponseRange) GetStepSecOk() (*int64, bool) {
 	if o == nil || IsNil(o.StepSec) {
 		return nil, false
 	}
@@ -99,8 +99,8 @@ func (o *O11yAvailabilityResponseRange) HasStepSec() bool {
 	return false
 }
 
-// SetStepSec gets a reference to the given int32 and assigns it to the StepSec field.
-func (o *O11yAvailabilityResponseRange) SetStepSec(v int32) {
+// SetStepSec gets a reference to the given int64 and assigns it to the StepSec field.
+func (o *O11yAvailabilityResponseRange) SetStepSec(v int64) {
 	o.StepSec = &v
 }
 

@@ -20,7 +20,7 @@ var _ MappedNullable = &GpuJob{}
 // GpuJob struct for GpuJob
 type GpuJob struct {
 	// Attempt is which try this is, counting from 1. Above 1 means the job was retried after a failed or abandoned run.
-	Attempt *int32 `json:"attempt,omitempty"`
+	Attempt *int64 `json:"attempt,omitempty"`
 	// CloseTime is when the job reached a terminal state, RFC 3339. Empty means it is still live — queued, running or stalled.
 	CloseTime *string `json:"closeTime,omitempty"`
 	// FailureCause is the engine's reason the job failed. Empty unless it did.
@@ -65,9 +65,9 @@ func NewGpuJobWithDefaults() *GpuJob {
 }
 
 // GetAttempt returns the Attempt field value if set, zero value otherwise.
-func (o *GpuJob) GetAttempt() int32 {
+func (o *GpuJob) GetAttempt() int64 {
 	if o == nil || IsNil(o.Attempt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Attempt
@@ -75,7 +75,7 @@ func (o *GpuJob) GetAttempt() int32 {
 
 // GetAttemptOk returns a tuple with the Attempt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GpuJob) GetAttemptOk() (*int32, bool) {
+func (o *GpuJob) GetAttemptOk() (*int64, bool) {
 	if o == nil || IsNil(o.Attempt) {
 		return nil, false
 	}
@@ -91,8 +91,8 @@ func (o *GpuJob) HasAttempt() bool {
 	return false
 }
 
-// SetAttempt gets a reference to the given int32 and assigns it to the Attempt field.
-func (o *GpuJob) SetAttempt(v int32) {
+// SetAttempt gets a reference to the given int64 and assigns it to the Attempt field.
+func (o *GpuJob) SetAttempt(v int64) {
 	o.Attempt = &v
 }
 

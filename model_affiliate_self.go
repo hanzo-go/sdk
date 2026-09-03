@@ -20,13 +20,13 @@ var _ MappedNullable = &AffiliateSelf{}
 // AffiliateSelf struct for AffiliateSelf
 type AffiliateSelf struct {
 	// AccruedCents is lifetime commission accrued, in cents. It only grows — a payout is recorded against paidCents and never reduces this.
-	AccruedCents *int32 `json:"accruedCents,omitempty"`
+	AccruedCents *int64 `json:"accruedCents,omitempty"`
 	// Code is the minted referral code, the slug the ?aff link carries. Absent until staff approve; codes live in ONE global namespace across all affiliates.
 	Code *string `json:"code,omitempty"`
 	// DefaultRateBps is the direct rate a new affiliate starts at, in basis points of margin (2000 = 20%). Answered ONLY to a caller that has not applied, as the quote beside `schedule`.
-	DefaultRateBps *int32 `json:"defaultRateBps,omitempty"`
+	DefaultRateBps *int64 `json:"defaultRateBps,omitempty"`
 	// DownlineTotal counts every org in the caller's downline across the levels.
-	DownlineTotal *int32 `json:"downlineTotal,omitempty"`
+	DownlineTotal *int64 `json:"downlineTotal,omitempty"`
 	// Handle is the opt-in public leaderboard name. Empty means opted out: the caller keeps its rank and still sees its own row, it is just not listed.
 	Handle *string `json:"handle,omitempty"`
 	// ID is the affiliate's server-minted handle, \"aff_\"-prefixed. Absent until the org applies.
@@ -38,15 +38,15 @@ type AffiliateSelf struct {
 	// Link is the shareable ?aff URL built from the code. Empty until a code is minted, since there is nothing to share before approval.
 	Link *string `json:"link,omitempty"`
 	// MarginBps is the platform gross-margin fraction, in basis points, that every rate here is a rate OF. Read live per request, so it is the value in force now, not the one that applied to commission already accrued.
-	MarginBps *int32 `json:"marginBps,omitempty"`
+	MarginBps *int64 `json:"marginBps,omitempty"`
 	// PaidCents is lifetime commission already paid out, in cents — credits grants and record-only cash disbursements alike.
-	PaidCents *int32 `json:"paidCents,omitempty"`
+	PaidCents *int64 `json:"paidCents,omitempty"`
 	// Payouts is the payout history, newest first, bounded to the last 100 rows.
 	Payouts []Remittance `json:"payouts,omitempty"`
 	// PendingCents is accrued minus paid, in cents — what the platform still owes and the ceiling on the next payout. Never negative.
-	PendingCents *int32 `json:"pendingCents,omitempty"`
+	PendingCents *int64 `json:"pendingCents,omitempty"`
 	// RateBps is the caller's OWN direct (level 1) commission rate, in basis points of margin. Levels 2 and 3 are platform-wide and appear in `levels`.
-	RateBps *int32 `json:"rateBps,omitempty"`
+	RateBps *int64 `json:"rateBps,omitempty"`
 	// Schedule is the rate schedule quoted to a caller that has not applied.
 	Schedule []LevelView `json:"schedule,omitempty"`
 	// Status is \"applied\", \"approved\" or \"suspended\"; absent for a caller that never applied. Only \"approved\" mints links and accrues.
@@ -71,9 +71,9 @@ func NewAffiliateSelfWithDefaults() *AffiliateSelf {
 }
 
 // GetAccruedCents returns the AccruedCents field value if set, zero value otherwise.
-func (o *AffiliateSelf) GetAccruedCents() int32 {
+func (o *AffiliateSelf) GetAccruedCents() int64 {
 	if o == nil || IsNil(o.AccruedCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AccruedCents
@@ -81,7 +81,7 @@ func (o *AffiliateSelf) GetAccruedCents() int32 {
 
 // GetAccruedCentsOk returns a tuple with the AccruedCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AffiliateSelf) GetAccruedCentsOk() (*int32, bool) {
+func (o *AffiliateSelf) GetAccruedCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AccruedCents) {
 		return nil, false
 	}
@@ -97,8 +97,8 @@ func (o *AffiliateSelf) HasAccruedCents() bool {
 	return false
 }
 
-// SetAccruedCents gets a reference to the given int32 and assigns it to the AccruedCents field.
-func (o *AffiliateSelf) SetAccruedCents(v int32) {
+// SetAccruedCents gets a reference to the given int64 and assigns it to the AccruedCents field.
+func (o *AffiliateSelf) SetAccruedCents(v int64) {
 	o.AccruedCents = &v
 }
 
@@ -135,9 +135,9 @@ func (o *AffiliateSelf) SetCode(v string) {
 }
 
 // GetDefaultRateBps returns the DefaultRateBps field value if set, zero value otherwise.
-func (o *AffiliateSelf) GetDefaultRateBps() int32 {
+func (o *AffiliateSelf) GetDefaultRateBps() int64 {
 	if o == nil || IsNil(o.DefaultRateBps) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DefaultRateBps
@@ -145,7 +145,7 @@ func (o *AffiliateSelf) GetDefaultRateBps() int32 {
 
 // GetDefaultRateBpsOk returns a tuple with the DefaultRateBps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AffiliateSelf) GetDefaultRateBpsOk() (*int32, bool) {
+func (o *AffiliateSelf) GetDefaultRateBpsOk() (*int64, bool) {
 	if o == nil || IsNil(o.DefaultRateBps) {
 		return nil, false
 	}
@@ -161,15 +161,15 @@ func (o *AffiliateSelf) HasDefaultRateBps() bool {
 	return false
 }
 
-// SetDefaultRateBps gets a reference to the given int32 and assigns it to the DefaultRateBps field.
-func (o *AffiliateSelf) SetDefaultRateBps(v int32) {
+// SetDefaultRateBps gets a reference to the given int64 and assigns it to the DefaultRateBps field.
+func (o *AffiliateSelf) SetDefaultRateBps(v int64) {
 	o.DefaultRateBps = &v
 }
 
 // GetDownlineTotal returns the DownlineTotal field value if set, zero value otherwise.
-func (o *AffiliateSelf) GetDownlineTotal() int32 {
+func (o *AffiliateSelf) GetDownlineTotal() int64 {
 	if o == nil || IsNil(o.DownlineTotal) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DownlineTotal
@@ -177,7 +177,7 @@ func (o *AffiliateSelf) GetDownlineTotal() int32 {
 
 // GetDownlineTotalOk returns a tuple with the DownlineTotal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AffiliateSelf) GetDownlineTotalOk() (*int32, bool) {
+func (o *AffiliateSelf) GetDownlineTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.DownlineTotal) {
 		return nil, false
 	}
@@ -193,8 +193,8 @@ func (o *AffiliateSelf) HasDownlineTotal() bool {
 	return false
 }
 
-// SetDownlineTotal gets a reference to the given int32 and assigns it to the DownlineTotal field.
-func (o *AffiliateSelf) SetDownlineTotal(v int32) {
+// SetDownlineTotal gets a reference to the given int64 and assigns it to the DownlineTotal field.
+func (o *AffiliateSelf) SetDownlineTotal(v int64) {
 	o.DownlineTotal = &v
 }
 
@@ -359,9 +359,9 @@ func (o *AffiliateSelf) SetLink(v string) {
 }
 
 // GetMarginBps returns the MarginBps field value if set, zero value otherwise.
-func (o *AffiliateSelf) GetMarginBps() int32 {
+func (o *AffiliateSelf) GetMarginBps() int64 {
 	if o == nil || IsNil(o.MarginBps) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MarginBps
@@ -369,7 +369,7 @@ func (o *AffiliateSelf) GetMarginBps() int32 {
 
 // GetMarginBpsOk returns a tuple with the MarginBps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AffiliateSelf) GetMarginBpsOk() (*int32, bool) {
+func (o *AffiliateSelf) GetMarginBpsOk() (*int64, bool) {
 	if o == nil || IsNil(o.MarginBps) {
 		return nil, false
 	}
@@ -385,15 +385,15 @@ func (o *AffiliateSelf) HasMarginBps() bool {
 	return false
 }
 
-// SetMarginBps gets a reference to the given int32 and assigns it to the MarginBps field.
-func (o *AffiliateSelf) SetMarginBps(v int32) {
+// SetMarginBps gets a reference to the given int64 and assigns it to the MarginBps field.
+func (o *AffiliateSelf) SetMarginBps(v int64) {
 	o.MarginBps = &v
 }
 
 // GetPaidCents returns the PaidCents field value if set, zero value otherwise.
-func (o *AffiliateSelf) GetPaidCents() int32 {
+func (o *AffiliateSelf) GetPaidCents() int64 {
 	if o == nil || IsNil(o.PaidCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PaidCents
@@ -401,7 +401,7 @@ func (o *AffiliateSelf) GetPaidCents() int32 {
 
 // GetPaidCentsOk returns a tuple with the PaidCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AffiliateSelf) GetPaidCentsOk() (*int32, bool) {
+func (o *AffiliateSelf) GetPaidCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.PaidCents) {
 		return nil, false
 	}
@@ -417,8 +417,8 @@ func (o *AffiliateSelf) HasPaidCents() bool {
 	return false
 }
 
-// SetPaidCents gets a reference to the given int32 and assigns it to the PaidCents field.
-func (o *AffiliateSelf) SetPaidCents(v int32) {
+// SetPaidCents gets a reference to the given int64 and assigns it to the PaidCents field.
+func (o *AffiliateSelf) SetPaidCents(v int64) {
 	o.PaidCents = &v
 }
 
@@ -455,9 +455,9 @@ func (o *AffiliateSelf) SetPayouts(v []Remittance) {
 }
 
 // GetPendingCents returns the PendingCents field value if set, zero value otherwise.
-func (o *AffiliateSelf) GetPendingCents() int32 {
+func (o *AffiliateSelf) GetPendingCents() int64 {
 	if o == nil || IsNil(o.PendingCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PendingCents
@@ -465,7 +465,7 @@ func (o *AffiliateSelf) GetPendingCents() int32 {
 
 // GetPendingCentsOk returns a tuple with the PendingCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AffiliateSelf) GetPendingCentsOk() (*int32, bool) {
+func (o *AffiliateSelf) GetPendingCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.PendingCents) {
 		return nil, false
 	}
@@ -481,15 +481,15 @@ func (o *AffiliateSelf) HasPendingCents() bool {
 	return false
 }
 
-// SetPendingCents gets a reference to the given int32 and assigns it to the PendingCents field.
-func (o *AffiliateSelf) SetPendingCents(v int32) {
+// SetPendingCents gets a reference to the given int64 and assigns it to the PendingCents field.
+func (o *AffiliateSelf) SetPendingCents(v int64) {
 	o.PendingCents = &v
 }
 
 // GetRateBps returns the RateBps field value if set, zero value otherwise.
-func (o *AffiliateSelf) GetRateBps() int32 {
+func (o *AffiliateSelf) GetRateBps() int64 {
 	if o == nil || IsNil(o.RateBps) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RateBps
@@ -497,7 +497,7 @@ func (o *AffiliateSelf) GetRateBps() int32 {
 
 // GetRateBpsOk returns a tuple with the RateBps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AffiliateSelf) GetRateBpsOk() (*int32, bool) {
+func (o *AffiliateSelf) GetRateBpsOk() (*int64, bool) {
 	if o == nil || IsNil(o.RateBps) {
 		return nil, false
 	}
@@ -513,8 +513,8 @@ func (o *AffiliateSelf) HasRateBps() bool {
 	return false
 }
 
-// SetRateBps gets a reference to the given int32 and assigns it to the RateBps field.
-func (o *AffiliateSelf) SetRateBps(v int32) {
+// SetRateBps gets a reference to the given int64 and assigns it to the RateBps field.
+func (o *AffiliateSelf) SetRateBps(v int64) {
 	o.RateBps = &v
 }
 

@@ -28,7 +28,7 @@ type ActivityRow struct {
 	// Detail is free-form context about the change. Nothing writes it today, so it is absent from every row the store serves.
 	Detail *string `json:"detail,omitempty"`
 	// ID is the log's own sequence number, rising with each entry. The log is served newest-first, which is this descending.
-	Id *int32 `json:"id,omitempty"`
+	Id *int64 `json:"id,omitempty"`
 	// Key is the flag that changed. It survives a delete, so the log still names flags the definition store no longer holds.
 	Key *string `json:"key,omitempty"`
 }
@@ -179,9 +179,9 @@ func (o *ActivityRow) SetDetail(v string) {
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *ActivityRow) GetId() int32 {
+func (o *ActivityRow) GetId() int64 {
 	if o == nil || IsNil(o.Id) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Id
@@ -189,7 +189,7 @@ func (o *ActivityRow) GetId() int32 {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ActivityRow) GetIdOk() (*int32, bool) {
+func (o *ActivityRow) GetIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -205,8 +205,8 @@ func (o *ActivityRow) HasId() bool {
 	return false
 }
 
-// SetId gets a reference to the given int32 and assigns it to the Id field.
-func (o *ActivityRow) SetId(v int32) {
+// SetId gets a reference to the given int64 and assigns it to the Id field.
+func (o *ActivityRow) SetId(v int64) {
 	o.Id = &v
 }
 

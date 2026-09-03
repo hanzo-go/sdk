@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Stopped** | Pointer to **int32** | Stopped counts the commands that were still running and were interrupted. Zero says the sandbox was idle, not that the stop failed — see above. | [optional] 
+**Stopped** | Pointer to **int64** | Stopped counts the commands that were still running and were interrupted. Zero says the sandbox was idle, not that the stop failed — see above. | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetStopped
 
-`func (o *Stopped) GetStopped() int32`
+`func (o *Stopped) GetStopped() int64`
 
 GetStopped returns the Stopped field if non-nil, zero value otherwise.
 
 ### GetStoppedOk
 
-`func (o *Stopped) GetStoppedOk() (*int32, bool)`
+`func (o *Stopped) GetStoppedOk() (*int64, bool)`
 
 GetStoppedOk returns a tuple with the Stopped field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStopped
 
-`func (o *Stopped) SetStopped(v int32)`
+`func (o *Stopped) SetStopped(v int64)`
 
 SetStopped sets Stopped field to given value.
 

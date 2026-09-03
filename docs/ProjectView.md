@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Applications** | Pointer to **int32** | Applications is how many platform apps this org has under the project, counted per request. It is the one fact IAM cannot answer about a project. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is IAM&#39;s creation time as unix seconds. 0 when IAM&#39;s timestamp is absent or unparseable — never a fabricated time. | [optional] 
+**Applications** | Pointer to **int64** | Applications is how many platform apps this org has under the project, counted per request. It is the one fact IAM cannot answer about a project. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is IAM&#39;s creation time as unix seconds. 0 when IAM&#39;s timestamp is absent or unparseable — never a fabricated time. | [optional] 
 **Description** | Pointer to **string** | Description is IAM&#39;s free text about the project. Nothing derives from it. | [optional] 
 **Name** | Pointer to **string** | Name is IAM&#39;s display name, falling back to the slug when the project has none, so this is never empty. | [optional] 
 **Org** | Pointer to **string** | Org is the project&#39;s IAM owner, and the tenant every app under it deploys into. It comes from the validated identity, never from the request. | [optional] 
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetApplications
 
-`func (o *ProjectView) GetApplications() int32`
+`func (o *ProjectView) GetApplications() int64`
 
 GetApplications returns the Applications field if non-nil, zero value otherwise.
 
 ### GetApplicationsOk
 
-`func (o *ProjectView) GetApplicationsOk() (*int32, bool)`
+`func (o *ProjectView) GetApplicationsOk() (*int64, bool)`
 
 GetApplicationsOk returns a tuple with the Applications field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetApplications
 
-`func (o *ProjectView) SetApplications(v int32)`
+`func (o *ProjectView) SetApplications(v int64)`
 
 SetApplications sets Applications field to given value.
 
@@ -57,20 +57,20 @@ HasApplications returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *ProjectView) GetCreatedAt() int32`
+`func (o *ProjectView) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *ProjectView) GetCreatedAtOk() (*int32, bool)`
+`func (o *ProjectView) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *ProjectView) SetCreatedAt(v int32)`
+`func (o *ProjectView) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 

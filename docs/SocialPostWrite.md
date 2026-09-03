@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Channel** | Pointer to **string** | Channel is the network to publish to: x, facebook, instagram, linkedin, tiktok, youtube or threads. Omitted means x.  Example: \&quot;x\&quot; | [optional] 
 **Content** | Pointer to **string** | Content is the post&#39;s text. Required on every update, and bounded at 8192 characters.  Example: \&quot;Shipping today.\&quot; | [optional] 
 **Media** | Pointer to **[]string** | Media is the post&#39;s attached media as URLs, at most 10. Omitting it CLEARS any stored media: this is a replacement, not a merge. | [optional] 
-**ScheduleAt** | Pointer to **int32** | ScheduleAt is when to publish, as a unix timestamp in SECONDS. 0 means unscheduled. Moving it into the past here does NOT publish the post — that is the scheduler&#39;s to notice, or the publish operation&#39;s. | [optional] 
+**ScheduleAt** | Pointer to **int64** | ScheduleAt is when to publish, as a unix timestamp in SECONDS. 0 means unscheduled. Moving it into the past here does NOT publish the post — that is the scheduler&#39;s to notice, or the publish operation&#39;s. | [optional] 
 **Status** | Pointer to **string** | Status is the post&#39;s lifecycle state: draft, scheduled, published or failed. Omitting it RESETS the post to draft. | [optional] 
 
 ## Methods
@@ -106,20 +106,20 @@ HasMedia returns a boolean if a field has been set.
 
 ### GetScheduleAt
 
-`func (o *SocialPostWrite) GetScheduleAt() int32`
+`func (o *SocialPostWrite) GetScheduleAt() int64`
 
 GetScheduleAt returns the ScheduleAt field if non-nil, zero value otherwise.
 
 ### GetScheduleAtOk
 
-`func (o *SocialPostWrite) GetScheduleAtOk() (*int32, bool)`
+`func (o *SocialPostWrite) GetScheduleAtOk() (*int64, bool)`
 
 GetScheduleAtOk returns a tuple with the ScheduleAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScheduleAt
 
-`func (o *SocialPostWrite) SetScheduleAt(v int32)`
+`func (o *SocialPostWrite) SetScheduleAt(v int64)`
 
 SetScheduleAt sets ScheduleAt field to given value.
 

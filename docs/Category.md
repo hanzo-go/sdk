@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Brands** | Pointer to **[]string** | Brands are the brands whose console shows this category. Absent means every brand. | [optional] 
 **Id** | Pointer to **string** | ID is the stable slug this category is addressed by, e.g. \&quot;observe\&quot;. | [optional] 
 **Label** | Pointer to **string** | Label is the display name, e.g. \&quot;Observe\&quot;. | [optional] 
-**Order** | Pointer to **int32** | Order is where the category sits among its siblings, ascending. | [optional] 
+**Order** | Pointer to **int64** | Order is where the category sits among its siblings, ascending. | [optional] 
 **Owner** | Pointer to **string** | Owner is the org this category belongs to: the platform&#39;s own org for a category every tenant sees, or your org for one you added. It tells a console which rows it may offer to edit. | [optional] 
 **Summary** | Pointer to **string** | Summary is the one line describing what the category groups, shown as the header copy on its landing page. | [optional] 
 **Taxa** | Pointer to [**[]Taxon**](Taxon.md) | Taxa are the products filed under this category, in display order. | [optional] 
@@ -108,20 +108,20 @@ HasLabel returns a boolean if a field has been set.
 
 ### GetOrder
 
-`func (o *Category) GetOrder() int32`
+`func (o *Category) GetOrder() int64`
 
 GetOrder returns the Order field if non-nil, zero value otherwise.
 
 ### GetOrderOk
 
-`func (o *Category) GetOrderOk() (*int32, bool)`
+`func (o *Category) GetOrderOk() (*int64, bool)`
 
 GetOrderOk returns a tuple with the Order field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrder
 
-`func (o *Category) SetOrder(v int32)`
+`func (o *Category) SetOrder(v int64)`
 
 SetOrder sets Order field to given value.
 

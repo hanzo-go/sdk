@@ -7,9 +7,9 @@ Name | Type | Description | Notes
 **ErrorCount** | Pointer to **int32** | ErrorCount is how many of those runs errored. | [optional] 
 **Name** | Pointer to **string** | Name is the operation (span name). | [optional] 
 **NumCalls** | Pointer to **int32** | NumCalls is how many times it ran in the window. | [optional] 
-**P50** | Pointer to **float32** | P50 is its median latency, nanoseconds. | [optional] 
-**P95** | Pointer to **float32** | P95 is its p95 latency, nanoseconds. | [optional] 
-**P99** | Pointer to **float32** | P99 is its p99 latency, nanoseconds. | [optional] 
+**P50** | Pointer to **float64** | P50 is its median latency, nanoseconds. | [optional] 
+**P95** | Pointer to **float64** | P95 is its p95 latency, nanoseconds. | [optional] 
+**P99** | Pointer to **float64** | P99 is its p99 latency, nanoseconds. | [optional] 
 
 ## Methods
 
@@ -107,20 +107,20 @@ HasNumCalls returns a boolean if a field has been set.
 
 ### GetP50
 
-`func (o *O11yO11yOperation) GetP50() float32`
+`func (o *O11yO11yOperation) GetP50() float64`
 
 GetP50 returns the P50 field if non-nil, zero value otherwise.
 
 ### GetP50Ok
 
-`func (o *O11yO11yOperation) GetP50Ok() (*float32, bool)`
+`func (o *O11yO11yOperation) GetP50Ok() (*float64, bool)`
 
 GetP50Ok returns a tuple with the P50 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetP50
 
-`func (o *O11yO11yOperation) SetP50(v float32)`
+`func (o *O11yO11yOperation) SetP50(v float64)`
 
 SetP50 sets P50 field to given value.
 
@@ -132,20 +132,20 @@ HasP50 returns a boolean if a field has been set.
 
 ### GetP95
 
-`func (o *O11yO11yOperation) GetP95() float32`
+`func (o *O11yO11yOperation) GetP95() float64`
 
 GetP95 returns the P95 field if non-nil, zero value otherwise.
 
 ### GetP95Ok
 
-`func (o *O11yO11yOperation) GetP95Ok() (*float32, bool)`
+`func (o *O11yO11yOperation) GetP95Ok() (*float64, bool)`
 
 GetP95Ok returns a tuple with the P95 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetP95
 
-`func (o *O11yO11yOperation) SetP95(v float32)`
+`func (o *O11yO11yOperation) SetP95(v float64)`
 
 SetP95 sets P95 field to given value.
 
@@ -157,20 +157,20 @@ HasP95 returns a boolean if a field has been set.
 
 ### GetP99
 
-`func (o *O11yO11yOperation) GetP99() float32`
+`func (o *O11yO11yOperation) GetP99() float64`
 
 GetP99 returns the P99 field if non-nil, zero value otherwise.
 
 ### GetP99Ok
 
-`func (o *O11yO11yOperation) GetP99Ok() (*float32, bool)`
+`func (o *O11yO11yOperation) GetP99Ok() (*float64, bool)`
 
 GetP99Ok returns a tuple with the P99 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetP99
 
-`func (o *O11yO11yOperation) SetP99(v float32)`
+`func (o *O11yO11yOperation) SetP99(v float64)`
 
 SetP99 sets P99 field to given value.
 

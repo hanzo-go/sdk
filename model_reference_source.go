@@ -24,7 +24,7 @@ type ReferenceSource struct {
 	// Basis is the KIND of permission this publisher's data reaches you under: licence (an explicit grant), registry (the registry of record publishing for anyone to consult), operator (an operator's own machine-readable statement about its own network, published for third parties to filter by — not a licence, and not claimed as one), own (computed here), or none (nothing reaches you: the membership is held by the component that screens against it). It is on the wire so the licence position is an audit you can run.
 	Basis *string `json:"basis,omitempty"`
 	// Keys is how many members this publisher contributed.
-	Keys *int32 `json:"keys,omitempty"`
+	Keys *int64 `json:"keys,omitempty"`
 	// Origin is exactly where it was taken from, so it can be taken again.
 	Origin *string `json:"origin,omitempty"`
 	// Refusal is why this publisher's last take failed, if it did. The set keeps its previous version of this source and ages out visibly rather than silently shrinking.
@@ -119,9 +119,9 @@ func (o *ReferenceSource) SetBasis(v string) {
 }
 
 // GetKeys returns the Keys field value if set, zero value otherwise.
-func (o *ReferenceSource) GetKeys() int32 {
+func (o *ReferenceSource) GetKeys() int64 {
 	if o == nil || IsNil(o.Keys) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Keys
@@ -129,7 +129,7 @@ func (o *ReferenceSource) GetKeys() int32 {
 
 // GetKeysOk returns a tuple with the Keys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReferenceSource) GetKeysOk() (*int32, bool) {
+func (o *ReferenceSource) GetKeysOk() (*int64, bool) {
 	if o == nil || IsNil(o.Keys) {
 		return nil, false
 	}
@@ -145,8 +145,8 @@ func (o *ReferenceSource) HasKeys() bool {
 	return false
 }
 
-// SetKeys gets a reference to the given int32 and assigns it to the Keys field.
-func (o *ReferenceSource) SetKeys(v int32) {
+// SetKeys gets a reference to the given int64 and assigns it to the Keys field.
+func (o *ReferenceSource) SetKeys(v int64) {
 	o.Keys = &v
 }
 

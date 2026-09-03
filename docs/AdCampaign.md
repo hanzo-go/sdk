@@ -5,16 +5,16 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Account** | Pointer to **string** | Account is the provider ad-account the campaign runs under, in Meta&#39;s act_&lt;id&gt; form. Empty until the org supplies one or a launch resolves it. | [optional] 
-**Budget** | Pointer to **int32** | Budget is the campaign&#39;s authorized spend in MINOR units (cents). Negative clamps to 0. It is the org&#39;s stored plan: a Meta launch creates the campaign object only, and the delivering budget lives on the ad set. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the campaign was first stored, in unix seconds. It never changes, including across a full-replace update. | [optional] 
+**Budget** | Pointer to **int64** | Budget is the campaign&#39;s authorized spend in MINOR units (cents). Negative clamps to 0. It is the org&#39;s stored plan: a Meta launch creates the campaign object only, and the delivering budget lives on the ad set. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the campaign was first stored, in unix seconds. It never changes, including across a full-replace update. | [optional] 
 **ExternalId** | Pointer to **string** | ExternalID is the ad network&#39;s own campaign id, written by a successful launch and by nothing else — an update never touches it. Empty means this campaign has never reached its network. | [optional] 
 **Id** | Pointer to **string** | ID is the campaign&#39;s server-minted handle, \&quot;camp_\&quot; + 32 hex. A create body cannot choose it, and it is the id every other route addresses. | [optional] 
 **Name** | Pointer to **string** | Name is the campaign&#39;s display label, and the name Meta creates the campaign object under at launch. Required; trimmed and bounded to 1024 bytes. | [optional] 
 **Objective** | Pointer to **string** | Objective is the campaign goal spelled as the provider names it (\&quot;conversions\&quot;, \&quot;OUTCOME_TRAFFIC\&quot;), passed through to the network verbatim at launch — Meta defaults an empty one to OUTCOME_TRAFFIC. Free text, bounded to 1024 bytes; no vocabulary is enforced here. | [optional] 
 **Platform** | Pointer to **string** | Platform is the ad network: meta, google, tiktok or x, and nothing else — a write naming another is 400. Empty stores as meta. Only meta executes today; launching any of the other three is 501. | [optional] 
-**Spend** | Pointer to **int32** | Spend is spend-to-date in MINOR units (cents), as last written through create or update. Negative clamps to 0. It is NOT read back from the network — that is a separate insights call — so 0 means nothing was recorded here, not that nothing was spent. | [optional] 
+**Spend** | Pointer to **int64** | Spend is spend-to-date in MINOR units (cents), as last written through create or update. Negative clamps to 0. It is NOT read back from the network — that is a separate insights call — so 0 means nothing was recorded here, not that nothing was spent. | [optional] 
 **Status** | Pointer to **string** | Status is the lifecycle: draft, active, paused or completed, and nothing else — a write naming another is 400. Empty stores as draft; a successful launch sets active. It records what this deployment did, not what the ad network currently reports. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is when the row was last written, in unix seconds — set by create, update and launch. Listings are ordered by it, newest first. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is when the row was last written, in unix seconds — set by create, update and launch. Listings are ordered by it, newest first. | [optional] 
 
 ## Methods
 
@@ -62,20 +62,20 @@ HasAccount returns a boolean if a field has been set.
 
 ### GetBudget
 
-`func (o *AdCampaign) GetBudget() int32`
+`func (o *AdCampaign) GetBudget() int64`
 
 GetBudget returns the Budget field if non-nil, zero value otherwise.
 
 ### GetBudgetOk
 
-`func (o *AdCampaign) GetBudgetOk() (*int32, bool)`
+`func (o *AdCampaign) GetBudgetOk() (*int64, bool)`
 
 GetBudgetOk returns a tuple with the Budget field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBudget
 
-`func (o *AdCampaign) SetBudget(v int32)`
+`func (o *AdCampaign) SetBudget(v int64)`
 
 SetBudget sets Budget field to given value.
 
@@ -87,20 +87,20 @@ HasBudget returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *AdCampaign) GetCreatedAt() int32`
+`func (o *AdCampaign) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *AdCampaign) GetCreatedAtOk() (*int32, bool)`
+`func (o *AdCampaign) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *AdCampaign) SetCreatedAt(v int32)`
+`func (o *AdCampaign) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -237,20 +237,20 @@ HasPlatform returns a boolean if a field has been set.
 
 ### GetSpend
 
-`func (o *AdCampaign) GetSpend() int32`
+`func (o *AdCampaign) GetSpend() int64`
 
 GetSpend returns the Spend field if non-nil, zero value otherwise.
 
 ### GetSpendOk
 
-`func (o *AdCampaign) GetSpendOk() (*int32, bool)`
+`func (o *AdCampaign) GetSpendOk() (*int64, bool)`
 
 GetSpendOk returns a tuple with the Spend field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSpend
 
-`func (o *AdCampaign) SetSpend(v int32)`
+`func (o *AdCampaign) SetSpend(v int64)`
 
 SetSpend sets Spend field to given value.
 
@@ -287,20 +287,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *AdCampaign) GetUpdatedAt() int32`
+`func (o *AdCampaign) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *AdCampaign) GetUpdatedAtOk() (*int32, bool)`
+`func (o *AdCampaign) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *AdCampaign) SetUpdatedAt(v int32)`
+`func (o *AdCampaign) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

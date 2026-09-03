@@ -24,7 +24,7 @@ type O11yO11yServiceTag struct {
 	// Key is the span attribute to test.
 	Key *string `json:"Key,omitempty"`
 	// NumberValues are the numeric operands, when the attribute is a number.
-	NumberValues []float32 `json:"NumberValues,omitempty"`
+	NumberValues []float64 `json:"NumberValues,omitempty"`
 	// Operator is how to test it, e.g. in, not_in.
 	Operator *string `json:"Operator,omitempty"`
 	// StringValues are the string operands, when the attribute is a string.
@@ -115,9 +115,9 @@ func (o *O11yO11yServiceTag) SetKey(v string) {
 }
 
 // GetNumberValues returns the NumberValues field value if set, zero value otherwise.
-func (o *O11yO11yServiceTag) GetNumberValues() []float32 {
+func (o *O11yO11yServiceTag) GetNumberValues() []float64 {
 	if o == nil || IsNil(o.NumberValues) {
-		var ret []float32
+		var ret []float64
 		return ret
 	}
 	return o.NumberValues
@@ -125,7 +125,7 @@ func (o *O11yO11yServiceTag) GetNumberValues() []float32 {
 
 // GetNumberValuesOk returns a tuple with the NumberValues field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yServiceTag) GetNumberValuesOk() ([]float32, bool) {
+func (o *O11yO11yServiceTag) GetNumberValuesOk() ([]float64, bool) {
 	if o == nil || IsNil(o.NumberValues) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *O11yO11yServiceTag) HasNumberValues() bool {
 	return false
 }
 
-// SetNumberValues gets a reference to the given []float32 and assigns it to the NumberValues field.
-func (o *O11yO11yServiceTag) SetNumberValues(v []float32) {
+// SetNumberValues gets a reference to the given []float64 and assigns it to the NumberValues field.
+func (o *O11yO11yServiceTag) SetNumberValues(v []float64) {
 	o.NumberValues = v
 }
 

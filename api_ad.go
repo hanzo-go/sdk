@@ -121,7 +121,7 @@ type AdAPIGetAdCampaignsRequest struct {
 	ctx        context.Context
 	ApiService *AdAPIService
 	status     *string
-	limit      *int32
+	limit      *int64
 }
 
 // Status filters to one lifecycle state (draft, active, paused, completed). Empty returns every campaign the org has.
@@ -131,7 +131,7 @@ func (r AdAPIGetAdCampaignsRequest) Status(status string) AdAPIGetAdCampaignsReq
 }
 
 // Limit caps how many campaigns come back: default 200, maximum 1000. A value that is not a positive integer reads as the default.
-func (r AdAPIGetAdCampaignsRequest) Limit(limit int32) AdAPIGetAdCampaignsRequest {
+func (r AdAPIGetAdCampaignsRequest) Limit(limit int64) AdAPIGetAdCampaignsRequest {
 	r.limit = &limit
 	return r
 }

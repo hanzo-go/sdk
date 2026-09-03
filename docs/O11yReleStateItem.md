@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**End** | Pointer to **int32** |  | [optional] 
-**Start** | Pointer to **int32** |  | [optional] 
+**End** | Pointer to **int64** |  | [optional] 
+**Start** | Pointer to **int64** |  | [optional] 
 **State** | Pointer to **interface{}** |  | [optional] 
 
 ## Methods
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetEnd
 
-`func (o *O11yReleStateItem) GetEnd() int32`
+`func (o *O11yReleStateItem) GetEnd() int64`
 
 GetEnd returns the End field if non-nil, zero value otherwise.
 
 ### GetEndOk
 
-`func (o *O11yReleStateItem) GetEndOk() (*int32, bool)`
+`func (o *O11yReleStateItem) GetEndOk() (*int64, bool)`
 
 GetEndOk returns a tuple with the End field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnd
 
-`func (o *O11yReleStateItem) SetEnd(v int32)`
+`func (o *O11yReleStateItem) SetEnd(v int64)`
 
 SetEnd sets End field to given value.
 
@@ -54,20 +54,20 @@ HasEnd returns a boolean if a field has been set.
 
 ### GetStart
 
-`func (o *O11yReleStateItem) GetStart() int32`
+`func (o *O11yReleStateItem) GetStart() int64`
 
 GetStart returns the Start field if non-nil, zero value otherwise.
 
 ### GetStartOk
 
-`func (o *O11yReleStateItem) GetStartOk() (*int32, bool)`
+`func (o *O11yReleStateItem) GetStartOk() (*int64, bool)`
 
 GetStartOk returns a tuple with the Start field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStart
 
-`func (o *O11yReleStateItem) SetStart(v int32)`
+`func (o *O11yReleStateItem) SetStart(v int64)`
 
 SetStart sets Start field to given value.
 

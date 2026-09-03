@@ -25,7 +25,7 @@ type SectionWrite struct {
 	// Kind is the section being written. The URL is the authority.
 	Kind *string `json:"kind,omitempty"`
 	// Ord orders this record within its section, ascending, ties broken by id. It is the organization's own ordering — the page renders in it.
-	Ord *int32 `json:"ord,omitempty"`
+	Ord *int64 `json:"ord,omitempty"`
 }
 
 // NewSectionWrite instantiates a new SectionWrite object
@@ -143,9 +143,9 @@ func (o *SectionWrite) SetKind(v string) {
 }
 
 // GetOrd returns the Ord field value if set, zero value otherwise.
-func (o *SectionWrite) GetOrd() int32 {
+func (o *SectionWrite) GetOrd() int64 {
 	if o == nil || IsNil(o.Ord) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Ord
@@ -153,7 +153,7 @@ func (o *SectionWrite) GetOrd() int32 {
 
 // GetOrdOk returns a tuple with the Ord field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SectionWrite) GetOrdOk() (*int32, bool) {
+func (o *SectionWrite) GetOrdOk() (*int64, bool) {
 	if o == nil || IsNil(o.Ord) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *SectionWrite) HasOrd() bool {
 	return false
 }
 
-// SetOrd gets a reference to the given int32 and assigns it to the Ord field.
-func (o *SectionWrite) SetOrd(v int32) {
+// SetOrd gets a reference to the given int64 and assigns it to the Ord field.
+func (o *SectionWrite) SetOrd(v int64) {
 	o.Ord = &v
 }
 

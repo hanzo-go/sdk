@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Bytes** | Pointer to **int32** | Bytes is the store&#39;s size on disk, present only once it exists. It is what this Base occupies, not a quota. | [optional] 
+**Bytes** | Pointer to **int64** | Bytes is the store&#39;s size on disk, present only once it exists. It is what this Base occupies, not a quota. | [optional] 
 **Exists** | Pointer to **bool** | Exists reports whether this Base&#39;s store has been provisioned. False is an org nobody has stored anything for yet, which is a state to name rather than an error: the store is created the first time anything writes. | [optional] 
 **Org** | Pointer to **string** | Org is the org this Base belongs to. It is the address every other Base call is scoped by, and a Base has no name of its own. | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetBytes
 
-`func (o *BaseView) GetBytes() int32`
+`func (o *BaseView) GetBytes() int64`
 
 GetBytes returns the Bytes field if non-nil, zero value otherwise.
 
 ### GetBytesOk
 
-`func (o *BaseView) GetBytesOk() (*int32, bool)`
+`func (o *BaseView) GetBytesOk() (*int64, bool)`
 
 GetBytesOk returns a tuple with the Bytes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBytes
 
-`func (o *BaseView) SetBytes(v int32)`
+`func (o *BaseView) SetBytes(v int64)`
 
 SetBytes sets Bytes field to given value.
 

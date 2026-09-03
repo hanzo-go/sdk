@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 ## DeleteTelCallsById
 
-> map[string]interface{} DeleteTelCallsById(ctx, id).Execute()
+> DeleteTelCallsById(ctx, id).Execute()
 
 Ends a call this org placed.
 
@@ -42,13 +42,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TelAPI.DeleteTelCallsById(context.Background(), id).Execute()
+	r, err := apiClient.TelAPI.DeleteTelCallsById(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TelAPI.DeleteTelCallsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteTelCallsById`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `TelAPI.DeleteTelCallsById`: %v\n", resp)
 }
 ```
 
@@ -71,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+ (empty response body)
 
 ### Authorization
 
@@ -80,7 +78,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -89,7 +87,7 @@ Name | Type | Description  | Notes
 
 ## DeleteTelNumbersById
 
-> map[string]interface{} DeleteTelNumbersById(ctx, id).Execute()
+> DeleteTelNumbersById(ctx, id).Execute()
 
 Checks the holding is THIS org's before it reaches the carrier.
 
@@ -112,13 +110,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TelAPI.DeleteTelNumbersById(context.Background(), id).Execute()
+	r, err := apiClient.TelAPI.DeleteTelNumbersById(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TelAPI.DeleteTelNumbersById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteTelNumbersById`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `TelAPI.DeleteTelNumbersById`: %v\n", resp)
 }
 ```
 
@@ -141,7 +137,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+ (empty response body)
 
 ### Authorization
 
@@ -150,7 +146,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -364,7 +360,7 @@ func main() {
 	country := "country_example" // string |  (optional)
 	area := "area_example" // string |  (optional)
 	type_ := "type__example" // string |  (optional)
-	limit := int32(56) // int32 |  (optional)
+	limit := int64(789) // int64 |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -392,7 +388,7 @@ Name | Type | Description  | Notes
  **country** | **string** |  | 
  **area** | **string** |  | 
  **type_** | **string** |  | 
- **limit** | **int32** |  | 
+ **limit** | **int64** |  | 
 
 ### Return type
 

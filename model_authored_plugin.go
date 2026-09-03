@@ -20,7 +20,7 @@ var _ MappedNullable = &AuthoredPlugin{}
 // AuthoredPlugin struct for AuthoredPlugin
 type AuthoredPlugin struct {
 	// CreatedAt is when the plugin was last built, Unix seconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// ID is the plugin's id within the org, and the id a delete addresses.
 	Id *string `json:"id,omitempty"`
 	// Name is the plugin's name: one lowercase path segment, the id it runs by.
@@ -51,9 +51,9 @@ func NewAuthoredPluginWithDefaults() *AuthoredPlugin {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *AuthoredPlugin) GetCreatedAt() int32 {
+func (o *AuthoredPlugin) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -61,7 +61,7 @@ func (o *AuthoredPlugin) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuthoredPlugin) GetCreatedAtOk() (*int32, bool) {
+func (o *AuthoredPlugin) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -77,8 +77,8 @@ func (o *AuthoredPlugin) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *AuthoredPlugin) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *AuthoredPlugin) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 

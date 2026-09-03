@@ -20,11 +20,11 @@ var _ MappedNullable = &CaptableClassHolding{}
 // CaptableClassHolding struct for CaptableClassHolding
 type CaptableClassHolding struct {
 	// Authorized is how many shares of the class are authorized.
-	Authorized *int32 `json:"authorized,omitempty"`
+	Authorized *int64 `json:"authorized,omitempty"`
 	// ClassType is COMMON or PREFERRED.
 	ClassType *string `json:"classType,omitempty"`
 	// Issued is how many shares of the class have been issued.
-	Issued *int32 `json:"issued,omitempty"`
+	Issued *int64 `json:"issued,omitempty"`
 	// Name is the class name.
 	Name *string `json:"name,omitempty"`
 	// ShareClassID addresses the class this position is for.
@@ -49,9 +49,9 @@ func NewCaptableClassHoldingWithDefaults() *CaptableClassHolding {
 }
 
 // GetAuthorized returns the Authorized field value if set, zero value otherwise.
-func (o *CaptableClassHolding) GetAuthorized() int32 {
+func (o *CaptableClassHolding) GetAuthorized() int64 {
 	if o == nil || IsNil(o.Authorized) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Authorized
@@ -59,7 +59,7 @@ func (o *CaptableClassHolding) GetAuthorized() int32 {
 
 // GetAuthorizedOk returns a tuple with the Authorized field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableClassHolding) GetAuthorizedOk() (*int32, bool) {
+func (o *CaptableClassHolding) GetAuthorizedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Authorized) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *CaptableClassHolding) HasAuthorized() bool {
 	return false
 }
 
-// SetAuthorized gets a reference to the given int32 and assigns it to the Authorized field.
-func (o *CaptableClassHolding) SetAuthorized(v int32) {
+// SetAuthorized gets a reference to the given int64 and assigns it to the Authorized field.
+func (o *CaptableClassHolding) SetAuthorized(v int64) {
 	o.Authorized = &v
 }
 
@@ -113,9 +113,9 @@ func (o *CaptableClassHolding) SetClassType(v string) {
 }
 
 // GetIssued returns the Issued field value if set, zero value otherwise.
-func (o *CaptableClassHolding) GetIssued() int32 {
+func (o *CaptableClassHolding) GetIssued() int64 {
 	if o == nil || IsNil(o.Issued) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Issued
@@ -123,7 +123,7 @@ func (o *CaptableClassHolding) GetIssued() int32 {
 
 // GetIssuedOk returns a tuple with the Issued field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableClassHolding) GetIssuedOk() (*int32, bool) {
+func (o *CaptableClassHolding) GetIssuedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Issued) {
 		return nil, false
 	}
@@ -139,8 +139,8 @@ func (o *CaptableClassHolding) HasIssued() bool {
 	return false
 }
 
-// SetIssued gets a reference to the given int32 and assigns it to the Issued field.
-func (o *CaptableClassHolding) SetIssued(v int32) {
+// SetIssued gets a reference to the given int64 and assigns it to the Issued field.
+func (o *CaptableClassHolding) SetIssued(v int64) {
 	o.Issued = &v
 }
 

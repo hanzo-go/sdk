@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AvailableCents** | Pointer to **int32** |  | [optional] 
-**BalanceCents** | Pointer to **int32** |  | [optional] 
-**HoldsCents** | Pointer to **int32** |  | [optional] 
+**AvailableCents** | Pointer to **int64** |  | [optional] 
+**BalanceCents** | Pointer to **int64** |  | [optional] 
+**HoldsCents** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAvailableCents
 
-`func (o *RollupBalance) GetAvailableCents() int32`
+`func (o *RollupBalance) GetAvailableCents() int64`
 
 GetAvailableCents returns the AvailableCents field if non-nil, zero value otherwise.
 
 ### GetAvailableCentsOk
 
-`func (o *RollupBalance) GetAvailableCentsOk() (*int32, bool)`
+`func (o *RollupBalance) GetAvailableCentsOk() (*int64, bool)`
 
 GetAvailableCentsOk returns a tuple with the AvailableCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAvailableCents
 
-`func (o *RollupBalance) SetAvailableCents(v int32)`
+`func (o *RollupBalance) SetAvailableCents(v int64)`
 
 SetAvailableCents sets AvailableCents field to given value.
 
@@ -54,20 +54,20 @@ HasAvailableCents returns a boolean if a field has been set.
 
 ### GetBalanceCents
 
-`func (o *RollupBalance) GetBalanceCents() int32`
+`func (o *RollupBalance) GetBalanceCents() int64`
 
 GetBalanceCents returns the BalanceCents field if non-nil, zero value otherwise.
 
 ### GetBalanceCentsOk
 
-`func (o *RollupBalance) GetBalanceCentsOk() (*int32, bool)`
+`func (o *RollupBalance) GetBalanceCentsOk() (*int64, bool)`
 
 GetBalanceCentsOk returns a tuple with the BalanceCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBalanceCents
 
-`func (o *RollupBalance) SetBalanceCents(v int32)`
+`func (o *RollupBalance) SetBalanceCents(v int64)`
 
 SetBalanceCents sets BalanceCents field to given value.
 
@@ -79,20 +79,20 @@ HasBalanceCents returns a boolean if a field has been set.
 
 ### GetHoldsCents
 
-`func (o *RollupBalance) GetHoldsCents() int32`
+`func (o *RollupBalance) GetHoldsCents() int64`
 
 GetHoldsCents returns the HoldsCents field if non-nil, zero value otherwise.
 
 ### GetHoldsCentsOk
 
-`func (o *RollupBalance) GetHoldsCentsOk() (*int32, bool)`
+`func (o *RollupBalance) GetHoldsCentsOk() (*int64, bool)`
 
 GetHoldsCentsOk returns a tuple with the HoldsCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHoldsCents
 
-`func (o *RollupBalance) SetHoldsCents(v int32)`
+`func (o *RollupBalance) SetHoldsCents(v int64)`
 
 SetHoldsCents sets HoldsCents field to given value.
 

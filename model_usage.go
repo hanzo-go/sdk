@@ -20,7 +20,7 @@ var _ MappedNullable = &Usage{}
 // Usage struct for Usage
 type Usage struct {
 	// null — no per-invocation cost source
-	CostCents *int32 `json:"costCents,omitempty"`
+	CostCents *int64 `json:"costCents,omitempty"`
 	// one line per function that ran in the window
 	Series []CostLine `json:"series,omitempty"`
 	// how those invocations ended
@@ -45,9 +45,9 @@ func NewUsageWithDefaults() *Usage {
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *Usage) GetCostCents() int32 {
+func (o *Usage) GetCostCents() int64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostCents
@@ -55,7 +55,7 @@ func (o *Usage) GetCostCents() int32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Usage) GetCostCentsOk() (*int32, bool) {
+func (o *Usage) GetCostCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *Usage) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *Usage) SetCostCents(v int32) {
+// SetCostCents gets a reference to the given int64 and assigns it to the CostCents field.
+func (o *Usage) SetCostCents(v int64) {
 	o.CostCents = &v
 }
 

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AvgDurationMs** | Pointer to **float32** |  | [optional] 
+**AvgDurationMs** | Pointer to **float64** |  | [optional] 
 **CreatedAt** | Pointer to **string** |  | [optional] 
 **Endpoint** | Pointer to **string** |  | [optional] 
-**EnvCount** | Pointer to **int32** |  | [optional] 
+**EnvCount** | Pointer to **int64** |  | [optional] 
 **Environment** | Pointer to **string** |  | [optional] 
-**Errors7d** | Pointer to **int32** |  | [optional] 
+**Errors7d** | Pointer to **int64** |  | [optional] 
 **Image** | Pointer to **string** |  | [optional] 
-**Invocations7d** | Pointer to **int32** |  | [optional] 
+**Invocations7d** | Pointer to **int64** |  | [optional] 
 **LastDeployedAt** | Pointer to **string** |  | [optional] 
 **MemoryLimit** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
@@ -19,9 +19,9 @@ Name | Type | Description | Notes
 **RecentInvocations** | Pointer to [**[]InvocationView**](InvocationView.md) | RecentInvocations is its twenty most recent runs, newest first. | [optional] 
 **Secrets** | Pointer to **[]string** | Secrets are the NAMES it mounts. Values are never read or returned. | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
-**SuccessRate** | Pointer to **float32** |  | [optional] 
+**SuccessRate** | Pointer to **float64** |  | [optional] 
 **Target** | Pointer to **string** |  | [optional] 
-**TimeoutSec** | Pointer to **int32** |  | [optional] 
+**TimeoutSec** | Pointer to **int64** |  | [optional] 
 **Triggers** | Pointer to [**[]TriggerView**](TriggerView.md) | Triggers is how this function is reached. | [optional] 
 
 ## Methods
@@ -45,20 +45,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAvgDurationMs
 
-`func (o *FunctionDetail) GetAvgDurationMs() float32`
+`func (o *FunctionDetail) GetAvgDurationMs() float64`
 
 GetAvgDurationMs returns the AvgDurationMs field if non-nil, zero value otherwise.
 
 ### GetAvgDurationMsOk
 
-`func (o *FunctionDetail) GetAvgDurationMsOk() (*float32, bool)`
+`func (o *FunctionDetail) GetAvgDurationMsOk() (*float64, bool)`
 
 GetAvgDurationMsOk returns a tuple with the AvgDurationMs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAvgDurationMs
 
-`func (o *FunctionDetail) SetAvgDurationMs(v float32)`
+`func (o *FunctionDetail) SetAvgDurationMs(v float64)`
 
 SetAvgDurationMs sets AvgDurationMs field to given value.
 
@@ -120,20 +120,20 @@ HasEndpoint returns a boolean if a field has been set.
 
 ### GetEnvCount
 
-`func (o *FunctionDetail) GetEnvCount() int32`
+`func (o *FunctionDetail) GetEnvCount() int64`
 
 GetEnvCount returns the EnvCount field if non-nil, zero value otherwise.
 
 ### GetEnvCountOk
 
-`func (o *FunctionDetail) GetEnvCountOk() (*int32, bool)`
+`func (o *FunctionDetail) GetEnvCountOk() (*int64, bool)`
 
 GetEnvCountOk returns a tuple with the EnvCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnvCount
 
-`func (o *FunctionDetail) SetEnvCount(v int32)`
+`func (o *FunctionDetail) SetEnvCount(v int64)`
 
 SetEnvCount sets EnvCount field to given value.
 
@@ -170,20 +170,20 @@ HasEnvironment returns a boolean if a field has been set.
 
 ### GetErrors7d
 
-`func (o *FunctionDetail) GetErrors7d() int32`
+`func (o *FunctionDetail) GetErrors7d() int64`
 
 GetErrors7d returns the Errors7d field if non-nil, zero value otherwise.
 
 ### GetErrors7dOk
 
-`func (o *FunctionDetail) GetErrors7dOk() (*int32, bool)`
+`func (o *FunctionDetail) GetErrors7dOk() (*int64, bool)`
 
 GetErrors7dOk returns a tuple with the Errors7d field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetErrors7d
 
-`func (o *FunctionDetail) SetErrors7d(v int32)`
+`func (o *FunctionDetail) SetErrors7d(v int64)`
 
 SetErrors7d sets Errors7d field to given value.
 
@@ -220,20 +220,20 @@ HasImage returns a boolean if a field has been set.
 
 ### GetInvocations7d
 
-`func (o *FunctionDetail) GetInvocations7d() int32`
+`func (o *FunctionDetail) GetInvocations7d() int64`
 
 GetInvocations7d returns the Invocations7d field if non-nil, zero value otherwise.
 
 ### GetInvocations7dOk
 
-`func (o *FunctionDetail) GetInvocations7dOk() (*int32, bool)`
+`func (o *FunctionDetail) GetInvocations7dOk() (*int64, bool)`
 
 GetInvocations7dOk returns a tuple with the Invocations7d field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInvocations7d
 
-`func (o *FunctionDetail) SetInvocations7d(v int32)`
+`func (o *FunctionDetail) SetInvocations7d(v int64)`
 
 SetInvocations7d sets Invocations7d field to given value.
 
@@ -420,20 +420,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetSuccessRate
 
-`func (o *FunctionDetail) GetSuccessRate() float32`
+`func (o *FunctionDetail) GetSuccessRate() float64`
 
 GetSuccessRate returns the SuccessRate field if non-nil, zero value otherwise.
 
 ### GetSuccessRateOk
 
-`func (o *FunctionDetail) GetSuccessRateOk() (*float32, bool)`
+`func (o *FunctionDetail) GetSuccessRateOk() (*float64, bool)`
 
 GetSuccessRateOk returns a tuple with the SuccessRate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSuccessRate
 
-`func (o *FunctionDetail) SetSuccessRate(v float32)`
+`func (o *FunctionDetail) SetSuccessRate(v float64)`
 
 SetSuccessRate sets SuccessRate field to given value.
 
@@ -470,20 +470,20 @@ HasTarget returns a boolean if a field has been set.
 
 ### GetTimeoutSec
 
-`func (o *FunctionDetail) GetTimeoutSec() int32`
+`func (o *FunctionDetail) GetTimeoutSec() int64`
 
 GetTimeoutSec returns the TimeoutSec field if non-nil, zero value otherwise.
 
 ### GetTimeoutSecOk
 
-`func (o *FunctionDetail) GetTimeoutSecOk() (*int32, bool)`
+`func (o *FunctionDetail) GetTimeoutSecOk() (*int64, bool)`
 
 GetTimeoutSecOk returns a tuple with the TimeoutSec field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeoutSec
 
-`func (o *FunctionDetail) SetTimeoutSec(v int32)`
+`func (o *FunctionDetail) SetTimeoutSec(v int64)`
 
 SetTimeoutSec sets TimeoutSec field to given value.
 

@@ -259,11 +259,11 @@ func (a *RiskAPIService) RiskAdoptModelExecute(r RiskAPIRiskAdoptModelRequest) (
 type RiskAPIRiskFeaturesRequest struct {
 	ctx        context.Context
 	ApiService *RiskAPIService
-	days       *int32
+	days       *int64
 }
 
 // Days is how far back to measure the organisation&#39;s own coverage, 1 to 400. Zero takes thirty.
-func (r RiskAPIRiskFeaturesRequest) Days(days int32) RiskAPIRiskFeaturesRequest {
+func (r RiskAPIRiskFeaturesRequest) Days(days int64) RiskAPIRiskFeaturesRequest {
 	r.days = &days
 	return r
 }

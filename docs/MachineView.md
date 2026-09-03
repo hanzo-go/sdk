@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **Region** | Pointer to **string** | Region is the provider region slug (\&quot;sfo3\&quot;), or the zone when the provider reports only that. \&quot;on-prem\&quot; for a BYO machine, which has no cloud region. | [optional] 
 **Status** | Pointer to **string** | Status is the lifecycle state in the PROVIDER&#39;s own words (\&quot;active\&quot;, \&quot;running\&quot;, \&quot;off\&quot;), passed through rather than mapped onto a vocabulary of ours. A BYO machine&#39;s is \&quot;online\&quot; or \&quot;offline\&quot;, decided by whether its last heartbeat is within 90s. | [optional] 
 **Type** | Pointer to **string** | Type is the provider SIZE SLUG the machine runs at (\&quot;s-2vcpu-4gb\&quot;, \&quot;gpu-h100x8-640gb\&quot;) — the value a launch asks for, and what Vcpu/Mem/GPU are read out of when the provider states them no other way. \&quot;byo-gpu\&quot; for a dialed-in machine, which was never bought from a size catalog. | [optional] 
-**Vcpu** | Pointer to **int32** | Vcpu is logical cores — the provider&#39;s own cpuSize when that is a clean integer, else the count read out of the size slug (4 from \&quot;s-4vcpu-8gb\&quot;). ABSENT, never 0, when neither says. A BYO machine leaves it absent here; its real core count is on GET /v1/visor/fleet/workers. | [optional] 
+**Vcpu** | Pointer to **int64** | Vcpu is logical cores — the provider&#39;s own cpuSize when that is a clean integer, else the count read out of the size slug (4 from \&quot;s-4vcpu-8gb\&quot;). ABSENT, never 0, when neither says. A BYO machine leaves it absent here; its real core count is on GET /v1/visor/fleet/workers. | [optional] 
 
 ## Methods
 
@@ -365,20 +365,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetVcpu
 
-`func (o *MachineView) GetVcpu() int32`
+`func (o *MachineView) GetVcpu() int64`
 
 GetVcpu returns the Vcpu field if non-nil, zero value otherwise.
 
 ### GetVcpuOk
 
-`func (o *MachineView) GetVcpuOk() (*int32, bool)`
+`func (o *MachineView) GetVcpuOk() (*int64, bool)`
 
 GetVcpuOk returns a tuple with the Vcpu field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVcpu
 
-`func (o *MachineView) SetVcpu(v int32)`
+`func (o *MachineView) SetVcpu(v int64)`
 
 SetVcpu sets Vcpu field to given value.
 

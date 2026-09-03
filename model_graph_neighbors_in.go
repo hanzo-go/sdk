@@ -22,7 +22,7 @@ type GraphNeighborsIn struct {
 	// AsOf walks the graph as it stood at an instant, RFC 3339. Absent walks it as it stands now.
 	AsOf *string `json:"as_of,omitempty"`
 	// Depth is how many hops. Absent is one.
-	Depth *int32 `json:"depth,omitempty"`
+	Depth *int64 `json:"depth,omitempty"`
 	// Direction is out, in or both. Out follows an edge from its entity to its value — what the node points at; in follows it the other way — what points at the node; both is the union of the two, not a third rule. Absent is out.
 	Direction *string `json:"direction,omitempty"`
 	// Relation narrows the walk to one edge relation. Absent follows all. Only edges are ever followed: an assertion whose value is a scalar is a property and is never a hop.
@@ -81,9 +81,9 @@ func (o *GraphNeighborsIn) SetAsOf(v string) {
 }
 
 // GetDepth returns the Depth field value if set, zero value otherwise.
-func (o *GraphNeighborsIn) GetDepth() int32 {
+func (o *GraphNeighborsIn) GetDepth() int64 {
 	if o == nil || IsNil(o.Depth) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Depth
@@ -91,7 +91,7 @@ func (o *GraphNeighborsIn) GetDepth() int32 {
 
 // GetDepthOk returns a tuple with the Depth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphNeighborsIn) GetDepthOk() (*int32, bool) {
+func (o *GraphNeighborsIn) GetDepthOk() (*int64, bool) {
 	if o == nil || IsNil(o.Depth) {
 		return nil, false
 	}
@@ -107,8 +107,8 @@ func (o *GraphNeighborsIn) HasDepth() bool {
 	return false
 }
 
-// SetDepth gets a reference to the given int32 and assigns it to the Depth field.
-func (o *GraphNeighborsIn) SetDepth(v int32) {
+// SetDepth gets a reference to the given int64 and assigns it to the Depth field.
+func (o *GraphNeighborsIn) SetDepth(v int64) {
 	o.Depth = &v
 }
 

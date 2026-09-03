@@ -22,15 +22,15 @@ type SeoRanking struct {
 	// Keyword is the phrase searched.
 	Keyword *string `json:"keyword,omitempty"`
 	// Position is the absolute rank on the results page, counting every element — so it is what a person scrolling actually passes, not the organic-only rank.
-	Position *int32 `json:"position,omitempty"`
+	Position *int64 `json:"position,omitempty"`
 	// Title is that result's headline.
 	Title *string `json:"title,omitempty"`
 	// Traffic is the estimated monthly visits this placement earns.
-	Traffic *float32 `json:"traffic,omitempty"`
+	Traffic *float64 `json:"traffic,omitempty"`
 	// URL is the page of the target that placed.
 	Url *string `json:"url,omitempty"`
 	// Volume is the phrase's average monthly searches.
-	Volume *int32 `json:"volume,omitempty"`
+	Volume *int64 `json:"volume,omitempty"`
 }
 
 // NewSeoRanking instantiates a new SeoRanking object
@@ -83,9 +83,9 @@ func (o *SeoRanking) SetKeyword(v string) {
 }
 
 // GetPosition returns the Position field value if set, zero value otherwise.
-func (o *SeoRanking) GetPosition() int32 {
+func (o *SeoRanking) GetPosition() int64 {
 	if o == nil || IsNil(o.Position) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Position
@@ -93,7 +93,7 @@ func (o *SeoRanking) GetPosition() int32 {
 
 // GetPositionOk returns a tuple with the Position field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoRanking) GetPositionOk() (*int32, bool) {
+func (o *SeoRanking) GetPositionOk() (*int64, bool) {
 	if o == nil || IsNil(o.Position) {
 		return nil, false
 	}
@@ -109,8 +109,8 @@ func (o *SeoRanking) HasPosition() bool {
 	return false
 }
 
-// SetPosition gets a reference to the given int32 and assigns it to the Position field.
-func (o *SeoRanking) SetPosition(v int32) {
+// SetPosition gets a reference to the given int64 and assigns it to the Position field.
+func (o *SeoRanking) SetPosition(v int64) {
 	o.Position = &v
 }
 
@@ -147,9 +147,9 @@ func (o *SeoRanking) SetTitle(v string) {
 }
 
 // GetTraffic returns the Traffic field value if set, zero value otherwise.
-func (o *SeoRanking) GetTraffic() float32 {
+func (o *SeoRanking) GetTraffic() float64 {
 	if o == nil || IsNil(o.Traffic) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Traffic
@@ -157,7 +157,7 @@ func (o *SeoRanking) GetTraffic() float32 {
 
 // GetTrafficOk returns a tuple with the Traffic field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoRanking) GetTrafficOk() (*float32, bool) {
+func (o *SeoRanking) GetTrafficOk() (*float64, bool) {
 	if o == nil || IsNil(o.Traffic) {
 		return nil, false
 	}
@@ -173,8 +173,8 @@ func (o *SeoRanking) HasTraffic() bool {
 	return false
 }
 
-// SetTraffic gets a reference to the given float32 and assigns it to the Traffic field.
-func (o *SeoRanking) SetTraffic(v float32) {
+// SetTraffic gets a reference to the given float64 and assigns it to the Traffic field.
+func (o *SeoRanking) SetTraffic(v float64) {
 	o.Traffic = &v
 }
 
@@ -211,9 +211,9 @@ func (o *SeoRanking) SetUrl(v string) {
 }
 
 // GetVolume returns the Volume field value if set, zero value otherwise.
-func (o *SeoRanking) GetVolume() int32 {
+func (o *SeoRanking) GetVolume() int64 {
 	if o == nil || IsNil(o.Volume) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Volume
@@ -221,7 +221,7 @@ func (o *SeoRanking) GetVolume() int32 {
 
 // GetVolumeOk returns a tuple with the Volume field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SeoRanking) GetVolumeOk() (*int32, bool) {
+func (o *SeoRanking) GetVolumeOk() (*int64, bool) {
 	if o == nil || IsNil(o.Volume) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *SeoRanking) HasVolume() bool {
 	return false
 }
 
-// SetVolume gets a reference to the given int32 and assigns it to the Volume field.
-func (o *SeoRanking) SetVolume(v int32) {
+// SetVolume gets a reference to the given int64 and assigns it to the Volume field.
+func (o *SeoRanking) SetVolume(v int64) {
 	o.Volume = &v
 }
 

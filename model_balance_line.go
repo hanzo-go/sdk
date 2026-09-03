@@ -22,7 +22,7 @@ type BalanceLine struct {
 	// Account is the chart-of-accounts number this line reports on. ABSENT marks a DERIVED line that no account holds — retained earnings is the one such line, computed from cumulative income minus expense.
 	Account *string `json:"account,omitempty"`
 	// Amount is the balance as of the statement date, in whole cents, in its NATURAL sign: positive when the account behaved normally, on all three sides. Assets are debit-normal and shown as stored; liabilities and equity are credit-normal and flipped once here for display. A negative asset is a real overdraft, not a sign convention.
-	Amount *int32 `json:"amount,omitempty"`
+	Amount *int64 `json:"amount,omitempty"`
 	// Name is the account's human name, or the derived line's own name.
 	Name *string `json:"name,omitempty"`
 	// Type is the account's fundamental class. Absent on a derived line, which belongs to no account and therefore has none.
@@ -79,9 +79,9 @@ func (o *BalanceLine) SetAccount(v string) {
 }
 
 // GetAmount returns the Amount field value if set, zero value otherwise.
-func (o *BalanceLine) GetAmount() int32 {
+func (o *BalanceLine) GetAmount() int64 {
 	if o == nil || IsNil(o.Amount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Amount
@@ -89,7 +89,7 @@ func (o *BalanceLine) GetAmount() int32 {
 
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BalanceLine) GetAmountOk() (*int32, bool) {
+func (o *BalanceLine) GetAmountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Amount) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *BalanceLine) HasAmount() bool {
 	return false
 }
 
-// SetAmount gets a reference to the given int32 and assigns it to the Amount field.
-func (o *BalanceLine) SetAmount(v int32) {
+// SetAmount gets a reference to the given int64 and assigns it to the Amount field.
+func (o *BalanceLine) SetAmount(v int64) {
 	o.Amount = &v
 }
 

@@ -19,9 +19,9 @@ var _ MappedNullable = &O11yNodeCountByCondition{}
 
 // O11yNodeCountByCondition struct for O11yNodeCountByCondition
 type O11yNodeCountByCondition struct {
-	NotReady *int32 `json:"notReady,omitempty"`
-	Ready    *int32 `json:"ready,omitempty"`
-	Unknown  *int32 `json:"unknown,omitempty"`
+	NotReady *int64 `json:"notReady,omitempty"`
+	Ready    *int64 `json:"ready,omitempty"`
+	Unknown  *int64 `json:"unknown,omitempty"`
 }
 
 // NewO11yNodeCountByCondition instantiates a new O11yNodeCountByCondition object
@@ -42,9 +42,9 @@ func NewO11yNodeCountByConditionWithDefaults() *O11yNodeCountByCondition {
 }
 
 // GetNotReady returns the NotReady field value if set, zero value otherwise.
-func (o *O11yNodeCountByCondition) GetNotReady() int32 {
+func (o *O11yNodeCountByCondition) GetNotReady() int64 {
 	if o == nil || IsNil(o.NotReady) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NotReady
@@ -52,7 +52,7 @@ func (o *O11yNodeCountByCondition) GetNotReady() int32 {
 
 // GetNotReadyOk returns a tuple with the NotReady field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yNodeCountByCondition) GetNotReadyOk() (*int32, bool) {
+func (o *O11yNodeCountByCondition) GetNotReadyOk() (*int64, bool) {
 	if o == nil || IsNil(o.NotReady) {
 		return nil, false
 	}
@@ -68,15 +68,15 @@ func (o *O11yNodeCountByCondition) HasNotReady() bool {
 	return false
 }
 
-// SetNotReady gets a reference to the given int32 and assigns it to the NotReady field.
-func (o *O11yNodeCountByCondition) SetNotReady(v int32) {
+// SetNotReady gets a reference to the given int64 and assigns it to the NotReady field.
+func (o *O11yNodeCountByCondition) SetNotReady(v int64) {
 	o.NotReady = &v
 }
 
 // GetReady returns the Ready field value if set, zero value otherwise.
-func (o *O11yNodeCountByCondition) GetReady() int32 {
+func (o *O11yNodeCountByCondition) GetReady() int64 {
 	if o == nil || IsNil(o.Ready) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Ready
@@ -84,7 +84,7 @@ func (o *O11yNodeCountByCondition) GetReady() int32 {
 
 // GetReadyOk returns a tuple with the Ready field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yNodeCountByCondition) GetReadyOk() (*int32, bool) {
+func (o *O11yNodeCountByCondition) GetReadyOk() (*int64, bool) {
 	if o == nil || IsNil(o.Ready) {
 		return nil, false
 	}
@@ -100,15 +100,15 @@ func (o *O11yNodeCountByCondition) HasReady() bool {
 	return false
 }
 
-// SetReady gets a reference to the given int32 and assigns it to the Ready field.
-func (o *O11yNodeCountByCondition) SetReady(v int32) {
+// SetReady gets a reference to the given int64 and assigns it to the Ready field.
+func (o *O11yNodeCountByCondition) SetReady(v int64) {
 	o.Ready = &v
 }
 
 // GetUnknown returns the Unknown field value if set, zero value otherwise.
-func (o *O11yNodeCountByCondition) GetUnknown() int32 {
+func (o *O11yNodeCountByCondition) GetUnknown() int64 {
 	if o == nil || IsNil(o.Unknown) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Unknown
@@ -116,7 +116,7 @@ func (o *O11yNodeCountByCondition) GetUnknown() int32 {
 
 // GetUnknownOk returns a tuple with the Unknown field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yNodeCountByCondition) GetUnknownOk() (*int32, bool) {
+func (o *O11yNodeCountByCondition) GetUnknownOk() (*int64, bool) {
 	if o == nil || IsNil(o.Unknown) {
 		return nil, false
 	}
@@ -132,8 +132,8 @@ func (o *O11yNodeCountByCondition) HasUnknown() bool {
 	return false
 }
 
-// SetUnknown gets a reference to the given int32 and assigns it to the Unknown field.
-func (o *O11yNodeCountByCondition) SetUnknown(v int32) {
+// SetUnknown gets a reference to the given int64 and assigns it to the Unknown field.
+func (o *O11yNodeCountByCondition) SetUnknown(v int64) {
 	o.Unknown = &v
 }
 

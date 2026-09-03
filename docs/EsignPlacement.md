@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | ID is the new field&#39;s id. | [optional] 
-**Page** | Pointer to **float32** | Page is the page it was placed on. | [optional] 
+**Page** | Pointer to **float64** | Page is the page it was placed on. | [optional] 
 **RecipientId** | Pointer to **string** | RecipientID is who must fill it. | [optional] 
 **Type** | Pointer to **string** | Type is what it collects. | [optional] 
 
@@ -55,20 +55,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetPage
 
-`func (o *EsignPlacement) GetPage() float32`
+`func (o *EsignPlacement) GetPage() float64`
 
 GetPage returns the Page field if non-nil, zero value otherwise.
 
 ### GetPageOk
 
-`func (o *EsignPlacement) GetPageOk() (*float32, bool)`
+`func (o *EsignPlacement) GetPageOk() (*float64, bool)`
 
 GetPageOk returns a tuple with the Page field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPage
 
-`func (o *EsignPlacement) SetPage(v float32)`
+`func (o *EsignPlacement) SetPage(v float64)`
 
 SetPage sets Page field to given value.
 

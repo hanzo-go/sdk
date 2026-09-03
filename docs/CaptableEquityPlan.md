@@ -6,10 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BoardApprovalDate** | Pointer to **string** | BoardApprovalDate is the ISO date the board approved the plan. | [optional] 
 **Comments** | Pointer to **string** | Comments is free-form notes on the plan. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the plan was recorded, in unix milliseconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the plan was recorded, in unix milliseconds. | [optional] 
 **DefaultCancellatonBehavior** | Pointer to **string** | DefaultCancellatonBehavior is what happens to cancelled grants, RETIRE or RETURN_TO_POOL. The key is spelled as the cap-table wire spells it. | [optional] 
 **Id** | Pointer to **string** | ID is the equity plan id. | [optional] 
-**InitialSharesReserved** | Pointer to **int32** | InitialSharesReserved is how many shares the plan reserves. | [optional] 
+**InitialSharesReserved** | Pointer to **int64** | InitialSharesReserved is how many shares the plan reserves. | [optional] 
 **Name** | Pointer to **string** | Name is the plan name, e.g. \&quot;2026 Stock Option Plan\&quot;. | [optional] 
 **PlanEffectiveDate** | Pointer to **string** | PlanEffectiveDate is the ISO date the plan takes effect. | [optional] 
 **ShareClassId** | Pointer to **string** | ShareClassID is the class the reserved shares come from. | [optional] 
@@ -85,20 +85,20 @@ HasComments returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *CaptableEquityPlan) GetCreatedAt() int32`
+`func (o *CaptableEquityPlan) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *CaptableEquityPlan) GetCreatedAtOk() (*int32, bool)`
+`func (o *CaptableEquityPlan) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *CaptableEquityPlan) SetCreatedAt(v int32)`
+`func (o *CaptableEquityPlan) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -160,20 +160,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetInitialSharesReserved
 
-`func (o *CaptableEquityPlan) GetInitialSharesReserved() int32`
+`func (o *CaptableEquityPlan) GetInitialSharesReserved() int64`
 
 GetInitialSharesReserved returns the InitialSharesReserved field if non-nil, zero value otherwise.
 
 ### GetInitialSharesReservedOk
 
-`func (o *CaptableEquityPlan) GetInitialSharesReservedOk() (*int32, bool)`
+`func (o *CaptableEquityPlan) GetInitialSharesReservedOk() (*int64, bool)`
 
 GetInitialSharesReservedOk returns a tuple with the InitialSharesReserved field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInitialSharesReserved
 
-`func (o *CaptableEquityPlan) SetInitialSharesReserved(v int32)`
+`func (o *CaptableEquityPlan) SetInitialSharesReserved(v int64)`
 
 SetInitialSharesReserved sets InitialSharesReserved field to given value.
 

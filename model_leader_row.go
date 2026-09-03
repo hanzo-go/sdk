@@ -21,31 +21,31 @@ var _ MappedNullable = &LeaderRow{}
 // LeaderRow struct for LeaderRow
 type LeaderRow struct {
 	// CIHigh is the upper bound of that interval. Wilson rather than the normal approximation because the normal one produces bounds past 100 exactly where benchmark scores live — at 194/198 that is the top of the board, not a corner case.
-	CiHigh *float32 `json:"ciHigh,omitempty"`
+	CiHigh *float64 `json:"ciHigh,omitempty"`
 	// CILow and CIHigh are the 95% Wilson interval on Measured, in percent. They are what makes the score comparable: at n=198 a 98% carries roughly ±2 points, so most differences at the top of a board are not distinguishable and a bare number implies a precision it does not have. Absent when there is no measurement.
-	CiLow *float32 `json:"ciLow,omitempty"`
+	CiLow *float64 `json:"ciLow,omitempty"`
 	// Claims is how many independent claims exist for this model on this benchmark. More than one means several sources reported it.
-	Claims *int32 `json:"claims,omitempty"`
+	Claims *int64 `json:"claims,omitempty"`
 	// published − measured (the arena signal)
-	Gap *float32 `json:"gap,omitempty"`
+	Gap *float64 `json:"gap,omitempty"`
 	// Mean is the unweighted average of every claim, which answers a different question from Published: what the field says on average, rather than what the vendor says about itself. With one claim the two are equal.
-	Mean *float32 `json:"mean,omitempty"`
+	Mean *float64 `json:"mean,omitempty"`
 	// hanzo-measured accuracy % (nil if unrun)
-	Measured *float32 `json:"measured,omitempty"`
+	Measured *float64 `json:"measured,omitempty"`
 	// MeasuredAt is when the run behind Measured was recorded.
 	MeasuredAt *time.Time `json:"measuredAt,omitempty"`
 	// the model this row scores
 	Model *string `json:"model,omitempty"`
 	// coverage — NEVER compare across different n
-	N *int32 `json:"n,omitempty"`
+	N *int64 `json:"n,omitempty"`
 	// how the vendor scored their claim: single-attempt, pass@k or agentic
 	Protocol *string `json:"protocol,omitempty"`
 	// provider-claimed % (nil if none)
-	Published *float32 `json:"published,omitempty"`
+	Published *float64 `json:"published,omitempty"`
 	// Run names the measurement Measured came from, and MeasuredAt is when it ran. A score with no date is not a fact about a model, it is a fact about a model on a day — and models change, so the date is what makes the number checkable rather than merely quoted.
 	Run *string `json:"run,omitempty"`
 	// Spread is the distance between the highest and lowest of them, nil when there is only one. It is the disagreement AMONG sources, which a single Published number cannot show — signal in the same way the published-minus-measured gap is.
-	Spread *float32 `json:"spread,omitempty"`
+	Spread *float64 `json:"spread,omitempty"`
 }
 
 // NewLeaderRow instantiates a new LeaderRow object
@@ -66,9 +66,9 @@ func NewLeaderRowWithDefaults() *LeaderRow {
 }
 
 // GetCiHigh returns the CiHigh field value if set, zero value otherwise.
-func (o *LeaderRow) GetCiHigh() float32 {
+func (o *LeaderRow) GetCiHigh() float64 {
 	if o == nil || IsNil(o.CiHigh) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.CiHigh
@@ -76,7 +76,7 @@ func (o *LeaderRow) GetCiHigh() float32 {
 
 // GetCiHighOk returns a tuple with the CiHigh field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LeaderRow) GetCiHighOk() (*float32, bool) {
+func (o *LeaderRow) GetCiHighOk() (*float64, bool) {
 	if o == nil || IsNil(o.CiHigh) {
 		return nil, false
 	}
@@ -92,15 +92,15 @@ func (o *LeaderRow) HasCiHigh() bool {
 	return false
 }
 
-// SetCiHigh gets a reference to the given float32 and assigns it to the CiHigh field.
-func (o *LeaderRow) SetCiHigh(v float32) {
+// SetCiHigh gets a reference to the given float64 and assigns it to the CiHigh field.
+func (o *LeaderRow) SetCiHigh(v float64) {
 	o.CiHigh = &v
 }
 
 // GetCiLow returns the CiLow field value if set, zero value otherwise.
-func (o *LeaderRow) GetCiLow() float32 {
+func (o *LeaderRow) GetCiLow() float64 {
 	if o == nil || IsNil(o.CiLow) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.CiLow
@@ -108,7 +108,7 @@ func (o *LeaderRow) GetCiLow() float32 {
 
 // GetCiLowOk returns a tuple with the CiLow field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LeaderRow) GetCiLowOk() (*float32, bool) {
+func (o *LeaderRow) GetCiLowOk() (*float64, bool) {
 	if o == nil || IsNil(o.CiLow) {
 		return nil, false
 	}
@@ -124,15 +124,15 @@ func (o *LeaderRow) HasCiLow() bool {
 	return false
 }
 
-// SetCiLow gets a reference to the given float32 and assigns it to the CiLow field.
-func (o *LeaderRow) SetCiLow(v float32) {
+// SetCiLow gets a reference to the given float64 and assigns it to the CiLow field.
+func (o *LeaderRow) SetCiLow(v float64) {
 	o.CiLow = &v
 }
 
 // GetClaims returns the Claims field value if set, zero value otherwise.
-func (o *LeaderRow) GetClaims() int32 {
+func (o *LeaderRow) GetClaims() int64 {
 	if o == nil || IsNil(o.Claims) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Claims
@@ -140,7 +140,7 @@ func (o *LeaderRow) GetClaims() int32 {
 
 // GetClaimsOk returns a tuple with the Claims field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LeaderRow) GetClaimsOk() (*int32, bool) {
+func (o *LeaderRow) GetClaimsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Claims) {
 		return nil, false
 	}
@@ -156,15 +156,15 @@ func (o *LeaderRow) HasClaims() bool {
 	return false
 }
 
-// SetClaims gets a reference to the given int32 and assigns it to the Claims field.
-func (o *LeaderRow) SetClaims(v int32) {
+// SetClaims gets a reference to the given int64 and assigns it to the Claims field.
+func (o *LeaderRow) SetClaims(v int64) {
 	o.Claims = &v
 }
 
 // GetGap returns the Gap field value if set, zero value otherwise.
-func (o *LeaderRow) GetGap() float32 {
+func (o *LeaderRow) GetGap() float64 {
 	if o == nil || IsNil(o.Gap) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Gap
@@ -172,7 +172,7 @@ func (o *LeaderRow) GetGap() float32 {
 
 // GetGapOk returns a tuple with the Gap field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LeaderRow) GetGapOk() (*float32, bool) {
+func (o *LeaderRow) GetGapOk() (*float64, bool) {
 	if o == nil || IsNil(o.Gap) {
 		return nil, false
 	}
@@ -188,15 +188,15 @@ func (o *LeaderRow) HasGap() bool {
 	return false
 }
 
-// SetGap gets a reference to the given float32 and assigns it to the Gap field.
-func (o *LeaderRow) SetGap(v float32) {
+// SetGap gets a reference to the given float64 and assigns it to the Gap field.
+func (o *LeaderRow) SetGap(v float64) {
 	o.Gap = &v
 }
 
 // GetMean returns the Mean field value if set, zero value otherwise.
-func (o *LeaderRow) GetMean() float32 {
+func (o *LeaderRow) GetMean() float64 {
 	if o == nil || IsNil(o.Mean) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Mean
@@ -204,7 +204,7 @@ func (o *LeaderRow) GetMean() float32 {
 
 // GetMeanOk returns a tuple with the Mean field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LeaderRow) GetMeanOk() (*float32, bool) {
+func (o *LeaderRow) GetMeanOk() (*float64, bool) {
 	if o == nil || IsNil(o.Mean) {
 		return nil, false
 	}
@@ -220,15 +220,15 @@ func (o *LeaderRow) HasMean() bool {
 	return false
 }
 
-// SetMean gets a reference to the given float32 and assigns it to the Mean field.
-func (o *LeaderRow) SetMean(v float32) {
+// SetMean gets a reference to the given float64 and assigns it to the Mean field.
+func (o *LeaderRow) SetMean(v float64) {
 	o.Mean = &v
 }
 
 // GetMeasured returns the Measured field value if set, zero value otherwise.
-func (o *LeaderRow) GetMeasured() float32 {
+func (o *LeaderRow) GetMeasured() float64 {
 	if o == nil || IsNil(o.Measured) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Measured
@@ -236,7 +236,7 @@ func (o *LeaderRow) GetMeasured() float32 {
 
 // GetMeasuredOk returns a tuple with the Measured field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LeaderRow) GetMeasuredOk() (*float32, bool) {
+func (o *LeaderRow) GetMeasuredOk() (*float64, bool) {
 	if o == nil || IsNil(o.Measured) {
 		return nil, false
 	}
@@ -252,8 +252,8 @@ func (o *LeaderRow) HasMeasured() bool {
 	return false
 }
 
-// SetMeasured gets a reference to the given float32 and assigns it to the Measured field.
-func (o *LeaderRow) SetMeasured(v float32) {
+// SetMeasured gets a reference to the given float64 and assigns it to the Measured field.
+func (o *LeaderRow) SetMeasured(v float64) {
 	o.Measured = &v
 }
 
@@ -322,9 +322,9 @@ func (o *LeaderRow) SetModel(v string) {
 }
 
 // GetN returns the N field value if set, zero value otherwise.
-func (o *LeaderRow) GetN() int32 {
+func (o *LeaderRow) GetN() int64 {
 	if o == nil || IsNil(o.N) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.N
@@ -332,7 +332,7 @@ func (o *LeaderRow) GetN() int32 {
 
 // GetNOk returns a tuple with the N field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LeaderRow) GetNOk() (*int32, bool) {
+func (o *LeaderRow) GetNOk() (*int64, bool) {
 	if o == nil || IsNil(o.N) {
 		return nil, false
 	}
@@ -348,8 +348,8 @@ func (o *LeaderRow) HasN() bool {
 	return false
 }
 
-// SetN gets a reference to the given int32 and assigns it to the N field.
-func (o *LeaderRow) SetN(v int32) {
+// SetN gets a reference to the given int64 and assigns it to the N field.
+func (o *LeaderRow) SetN(v int64) {
 	o.N = &v
 }
 
@@ -386,9 +386,9 @@ func (o *LeaderRow) SetProtocol(v string) {
 }
 
 // GetPublished returns the Published field value if set, zero value otherwise.
-func (o *LeaderRow) GetPublished() float32 {
+func (o *LeaderRow) GetPublished() float64 {
 	if o == nil || IsNil(o.Published) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Published
@@ -396,7 +396,7 @@ func (o *LeaderRow) GetPublished() float32 {
 
 // GetPublishedOk returns a tuple with the Published field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LeaderRow) GetPublishedOk() (*float32, bool) {
+func (o *LeaderRow) GetPublishedOk() (*float64, bool) {
 	if o == nil || IsNil(o.Published) {
 		return nil, false
 	}
@@ -412,8 +412,8 @@ func (o *LeaderRow) HasPublished() bool {
 	return false
 }
 
-// SetPublished gets a reference to the given float32 and assigns it to the Published field.
-func (o *LeaderRow) SetPublished(v float32) {
+// SetPublished gets a reference to the given float64 and assigns it to the Published field.
+func (o *LeaderRow) SetPublished(v float64) {
 	o.Published = &v
 }
 
@@ -450,9 +450,9 @@ func (o *LeaderRow) SetRun(v string) {
 }
 
 // GetSpread returns the Spread field value if set, zero value otherwise.
-func (o *LeaderRow) GetSpread() float32 {
+func (o *LeaderRow) GetSpread() float64 {
 	if o == nil || IsNil(o.Spread) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Spread
@@ -460,7 +460,7 @@ func (o *LeaderRow) GetSpread() float32 {
 
 // GetSpreadOk returns a tuple with the Spread field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LeaderRow) GetSpreadOk() (*float32, bool) {
+func (o *LeaderRow) GetSpreadOk() (*float64, bool) {
 	if o == nil || IsNil(o.Spread) {
 		return nil, false
 	}
@@ -476,8 +476,8 @@ func (o *LeaderRow) HasSpread() bool {
 	return false
 }
 
-// SetSpread gets a reference to the given float32 and assigns it to the Spread field.
-func (o *LeaderRow) SetSpread(v float32) {
+// SetSpread gets a reference to the given float64 and assigns it to the Spread field.
+func (o *LeaderRow) SetSpread(v float64) {
 	o.Spread = &v
 }
 

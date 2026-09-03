@@ -22,7 +22,7 @@ type EsignPlacement struct {
 	// ID is the new field's id.
 	Id *string `json:"id,omitempty"`
 	// Page is the page it was placed on.
-	Page *float32 `json:"page,omitempty"`
+	Page *float64 `json:"page,omitempty"`
 	// RecipientID is who must fill it.
 	RecipientId *string `json:"recipientId,omitempty"`
 	// Type is what it collects.
@@ -79,9 +79,9 @@ func (o *EsignPlacement) SetId(v string) {
 }
 
 // GetPage returns the Page field value if set, zero value otherwise.
-func (o *EsignPlacement) GetPage() float32 {
+func (o *EsignPlacement) GetPage() float64 {
 	if o == nil || IsNil(o.Page) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Page
@@ -89,7 +89,7 @@ func (o *EsignPlacement) GetPage() float32 {
 
 // GetPageOk returns a tuple with the Page field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsignPlacement) GetPageOk() (*float32, bool) {
+func (o *EsignPlacement) GetPageOk() (*float64, bool) {
 	if o == nil || IsNil(o.Page) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *EsignPlacement) HasPage() bool {
 	return false
 }
 
-// SetPage gets a reference to the given float32 and assigns it to the Page field.
-func (o *EsignPlacement) SetPage(v float32) {
+// SetPage gets a reference to the given float64 and assigns it to the Page field.
+func (o *EsignPlacement) SetPage(v float64) {
 	o.Page = &v
 }
 

@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AllowedModels** | Pointer to **[]string** |  | [optional] 
-**DailyCreditsCents** | Pointer to **int32** |  | [optional] 
+**DailyCreditsCents** | Pointer to **int64** |  | [optional] 
 **DisplayName** | Pointer to **string** |  | [optional] 
-**MaxAgents** | Pointer to **int32** |  | [optional] 
+**MaxAgents** | Pointer to **int64** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **UnlimitedAgents** | Pointer to **bool** | UnlimitedAgents reports that MaxAgents 0 means \&quot;no ceiling\&quot; rather than \&quot;no agents\&quot; — the reading a bare zero cannot carry. | [optional] 
 
@@ -57,20 +57,20 @@ HasAllowedModels returns a boolean if a field has been set.
 
 ### GetDailyCreditsCents
 
-`func (o *TierLimits) GetDailyCreditsCents() int32`
+`func (o *TierLimits) GetDailyCreditsCents() int64`
 
 GetDailyCreditsCents returns the DailyCreditsCents field if non-nil, zero value otherwise.
 
 ### GetDailyCreditsCentsOk
 
-`func (o *TierLimits) GetDailyCreditsCentsOk() (*int32, bool)`
+`func (o *TierLimits) GetDailyCreditsCentsOk() (*int64, bool)`
 
 GetDailyCreditsCentsOk returns a tuple with the DailyCreditsCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDailyCreditsCents
 
-`func (o *TierLimits) SetDailyCreditsCents(v int32)`
+`func (o *TierLimits) SetDailyCreditsCents(v int64)`
 
 SetDailyCreditsCents sets DailyCreditsCents field to given value.
 
@@ -107,20 +107,20 @@ HasDisplayName returns a boolean if a field has been set.
 
 ### GetMaxAgents
 
-`func (o *TierLimits) GetMaxAgents() int32`
+`func (o *TierLimits) GetMaxAgents() int64`
 
 GetMaxAgents returns the MaxAgents field if non-nil, zero value otherwise.
 
 ### GetMaxAgentsOk
 
-`func (o *TierLimits) GetMaxAgentsOk() (*int32, bool)`
+`func (o *TierLimits) GetMaxAgentsOk() (*int64, bool)`
 
 GetMaxAgentsOk returns a tuple with the MaxAgents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxAgents
 
-`func (o *TierLimits) SetMaxAgents(v int32)`
+`func (o *TierLimits) SetMaxAgents(v int64)`
 
 SetMaxAgents sets MaxAgents field to given value.
 

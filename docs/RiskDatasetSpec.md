@@ -7,10 +7,12 @@ Name | Type | Description | Notes
 **Cuts** | Pointer to **[]string** | Cuts are the two RFC 3339 instants dividing train | val | test. Omit them to take 70% and 85% of the window by time. Splitting is TEMPORAL and then grouped by subject — a random split puts one device on both sides of the line and the model memorises the entity instead of the behaviour. | [optional] 
 **Dims** | Pointer to **[]string** | Dims are the coordinates to carry, by published name. Empty takes the whole surface. They are stored in the plane&#39;s own order, never the order given, so two requests naming the same dims produce identical rows. | [optional] 
 **From** | Pointer to **string** | From is where the event window opens, RFC 3339, INCLUSIVE. The window may not be longer than the source&#39;s own retention: past that, its older half is already gone and the dataset would silently be shorter than it says. | [optional] 
+**Horizon** | Pointer to **int64** | Horizon is how many days a row must have aged before it may be admitted. It is what keeps a fact that was not yet knowable at scoring time out of a training set: a chargeback lands 30 to 120 days after the transaction it condemns, so 120 for the payment lane and 14 for signup abuse. Zero admits the whole window and is honest only where the outcome is immediate. | [optional] 
 **Kind** | Pointer to **string** | Kind narrows to one subject kind — person, session or account. Empty takes every kind. | [optional] 
 **Name** | Pointer to **string** | Name identifies the dataset across its versions: lower-case letters, digits and hyphens, starting with a letter. | [optional] 
-**Rows** | Pointer to **int32** | Rows caps the materialisation. Zero takes the plane&#39;s own bound. | [optional] 
+**Rows** | Pointer to **int64** | Rows caps the materialisation. Zero takes the plane&#39;s own bound. | [optional] 
 **Seed** | Pointer to **string** | Seed decides WHICH subjects are admitted when the window holds more rows than the cap allows. It is recorded on the version, so a capped dataset is reproducible rather than being whichever rows the store returned first. Omit it to seed from the dataset&#39;s name. | [optional] 
+**To** | Pointer to **string** | To is where the window ends, EXCLUSIVE, so two datasets meeting at one instant share no row. A materialisation reads less than this — the end is pulled back by Horizon, and the lineage reports the window it actually read. | [optional] 
 
 ## Methods
 
@@ -108,20 +110,20 @@ HasFrom returns a boolean if a field has been set.
 
 ### GetHorizon
 
-`func (o *RiskDatasetSpec) GetHorizon() int32`
+`func (o *RiskDatasetSpec) GetHorizon() int64`
 
 GetHorizon returns the Horizon field if non-nil, zero value otherwise.
 
 ### GetHorizonOk
 
-`func (o *RiskDatasetSpec) GetHorizonOk() (*int32, bool)`
+`func (o *RiskDatasetSpec) GetHorizonOk() (*int64, bool)`
 
 GetHorizonOk returns a tuple with the Horizon field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHorizon
 
-`func (o *RiskDatasetSpec) SetHorizon(v int32)`
+`func (o *RiskDatasetSpec) SetHorizon(v int64)`
 
 SetHorizon sets Horizon field to given value.
 
@@ -183,20 +185,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetRows
 
-`func (o *RiskDatasetSpec) GetRows() int32`
+`func (o *RiskDatasetSpec) GetRows() int64`
 
 GetRows returns the Rows field if non-nil, zero value otherwise.
 
 ### GetRowsOk
 
-`func (o *RiskDatasetSpec) GetRowsOk() (*int32, bool)`
+`func (o *RiskDatasetSpec) GetRowsOk() (*int64, bool)`
 
 GetRowsOk returns a tuple with the Rows field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRows
 
-`func (o *RiskDatasetSpec) SetRows(v int32)`
+`func (o *RiskDatasetSpec) SetRows(v int64)`
 
 SetRows sets Rows field to given value.
 

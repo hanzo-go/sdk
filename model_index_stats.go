@@ -20,7 +20,7 @@ var _ MappedNullable = &IndexStats{}
 // IndexStats struct for IndexStats
 type IndexStats struct {
 	// DatabaseSize is the org's total document count across its indexes. It is a count, not bytes: the store is shared by every tenant, so a byte figure would either be the whole file (another tenant's size) or a fiction.
-	DatabaseSize *int32 `json:"databaseSize,omitempty"`
+	DatabaseSize *int64 `json:"databaseSize,omitempty"`
 	// Indexes maps each index uid to its own count.
 	Indexes map[string]IndexCount `json:"indexes,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewIndexStatsWithDefaults() *IndexStats {
 }
 
 // GetDatabaseSize returns the DatabaseSize field value if set, zero value otherwise.
-func (o *IndexStats) GetDatabaseSize() int32 {
+func (o *IndexStats) GetDatabaseSize() int64 {
 	if o == nil || IsNil(o.DatabaseSize) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DatabaseSize
@@ -53,7 +53,7 @@ func (o *IndexStats) GetDatabaseSize() int32 {
 
 // GetDatabaseSizeOk returns a tuple with the DatabaseSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexStats) GetDatabaseSizeOk() (*int32, bool) {
+func (o *IndexStats) GetDatabaseSizeOk() (*int64, bool) {
 	if o == nil || IsNil(o.DatabaseSize) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *IndexStats) HasDatabaseSize() bool {
 	return false
 }
 
-// SetDatabaseSize gets a reference to the given int32 and assigns it to the DatabaseSize field.
-func (o *IndexStats) SetDatabaseSize(v int32) {
+// SetDatabaseSize gets a reference to the given int64 and assigns it to the DatabaseSize field.
+func (o *IndexStats) SetDatabaseSize(v int64) {
 	o.DatabaseSize = &v
 }
 

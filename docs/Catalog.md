@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ConnectorCount** | Pointer to **int32** |  | [optional] 
+**ConnectorCount** | Pointer to **int64** |  | [optional] 
 **Connectors** | Pointer to [**[]ConnectorMetadata**](ConnectorMetadata.md) |  | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetConnectorCount
 
-`func (o *Catalog) GetConnectorCount() int32`
+`func (o *Catalog) GetConnectorCount() int64`
 
 GetConnectorCount returns the ConnectorCount field if non-nil, zero value otherwise.
 
 ### GetConnectorCountOk
 
-`func (o *Catalog) GetConnectorCountOk() (*int32, bool)`
+`func (o *Catalog) GetConnectorCountOk() (*int64, bool)`
 
 GetConnectorCountOk returns a tuple with the ConnectorCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConnectorCount
 
-`func (o *Catalog) SetConnectorCount(v int32)`
+`func (o *Catalog) SetConnectorCount(v int64)`
 
 SetConnectorCount sets ConnectorCount field to given value.
 

@@ -22,15 +22,15 @@ type SampleIngest struct {
 	// GPUModel names the representative accelerator (\"GB10\"); GPUs carries how many. A heterogeneous host names its first card rather than inventing a summary.
 	GpuModel *string `json:"gpuModel,omitempty"`
 	// GPUUtil is accelerator utilization as a fraction 0..1; the warehouse clamps anything outside that.
-	GpuUtil *float32 `json:"gpuUtil,omitempty"`
+	GpuUtil *float64 `json:"gpuUtil,omitempty"`
 	// GPUs is how many accelerators this reading covers.
-	Gpus *int32 `json:"gpus,omitempty"`
+	Gpus *int64 `json:"gpus,omitempty"`
 	// Host is the node's hostname, for display.
 	Host *string `json:"host,omitempty"`
 	// MemFree is host memory still available, in BYTES.
-	MemFree *int32 `json:"memFree,omitempty"`
+	MemFree *int64 `json:"memFree,omitempty"`
 	// MemUsed is host memory in use, in BYTES.
-	MemUsed *int32 `json:"memUsed,omitempty"`
+	MemUsed *int64 `json:"memUsed,omitempty"`
 	// Unit is the reporting node's own id — the same id it registered under, and the key the board joins this series onto. Required.
 	Unit *string `json:"unit,omitempty"`
 }
@@ -85,9 +85,9 @@ func (o *SampleIngest) SetGpuModel(v string) {
 }
 
 // GetGpuUtil returns the GpuUtil field value if set, zero value otherwise.
-func (o *SampleIngest) GetGpuUtil() float32 {
+func (o *SampleIngest) GetGpuUtil() float64 {
 	if o == nil || IsNil(o.GpuUtil) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.GpuUtil
@@ -95,7 +95,7 @@ func (o *SampleIngest) GetGpuUtil() float32 {
 
 // GetGpuUtilOk returns a tuple with the GpuUtil field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SampleIngest) GetGpuUtilOk() (*float32, bool) {
+func (o *SampleIngest) GetGpuUtilOk() (*float64, bool) {
 	if o == nil || IsNil(o.GpuUtil) {
 		return nil, false
 	}
@@ -111,15 +111,15 @@ func (o *SampleIngest) HasGpuUtil() bool {
 	return false
 }
 
-// SetGpuUtil gets a reference to the given float32 and assigns it to the GpuUtil field.
-func (o *SampleIngest) SetGpuUtil(v float32) {
+// SetGpuUtil gets a reference to the given float64 and assigns it to the GpuUtil field.
+func (o *SampleIngest) SetGpuUtil(v float64) {
 	o.GpuUtil = &v
 }
 
 // GetGpus returns the Gpus field value if set, zero value otherwise.
-func (o *SampleIngest) GetGpus() int32 {
+func (o *SampleIngest) GetGpus() int64 {
 	if o == nil || IsNil(o.Gpus) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Gpus
@@ -127,7 +127,7 @@ func (o *SampleIngest) GetGpus() int32 {
 
 // GetGpusOk returns a tuple with the Gpus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SampleIngest) GetGpusOk() (*int32, bool) {
+func (o *SampleIngest) GetGpusOk() (*int64, bool) {
 	if o == nil || IsNil(o.Gpus) {
 		return nil, false
 	}
@@ -143,8 +143,8 @@ func (o *SampleIngest) HasGpus() bool {
 	return false
 }
 
-// SetGpus gets a reference to the given int32 and assigns it to the Gpus field.
-func (o *SampleIngest) SetGpus(v int32) {
+// SetGpus gets a reference to the given int64 and assigns it to the Gpus field.
+func (o *SampleIngest) SetGpus(v int64) {
 	o.Gpus = &v
 }
 
@@ -181,9 +181,9 @@ func (o *SampleIngest) SetHost(v string) {
 }
 
 // GetMemFree returns the MemFree field value if set, zero value otherwise.
-func (o *SampleIngest) GetMemFree() int32 {
+func (o *SampleIngest) GetMemFree() int64 {
 	if o == nil || IsNil(o.MemFree) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MemFree
@@ -191,7 +191,7 @@ func (o *SampleIngest) GetMemFree() int32 {
 
 // GetMemFreeOk returns a tuple with the MemFree field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SampleIngest) GetMemFreeOk() (*int32, bool) {
+func (o *SampleIngest) GetMemFreeOk() (*int64, bool) {
 	if o == nil || IsNil(o.MemFree) {
 		return nil, false
 	}
@@ -207,15 +207,15 @@ func (o *SampleIngest) HasMemFree() bool {
 	return false
 }
 
-// SetMemFree gets a reference to the given int32 and assigns it to the MemFree field.
-func (o *SampleIngest) SetMemFree(v int32) {
+// SetMemFree gets a reference to the given int64 and assigns it to the MemFree field.
+func (o *SampleIngest) SetMemFree(v int64) {
 	o.MemFree = &v
 }
 
 // GetMemUsed returns the MemUsed field value if set, zero value otherwise.
-func (o *SampleIngest) GetMemUsed() int32 {
+func (o *SampleIngest) GetMemUsed() int64 {
 	if o == nil || IsNil(o.MemUsed) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MemUsed
@@ -223,7 +223,7 @@ func (o *SampleIngest) GetMemUsed() int32 {
 
 // GetMemUsedOk returns a tuple with the MemUsed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SampleIngest) GetMemUsedOk() (*int32, bool) {
+func (o *SampleIngest) GetMemUsedOk() (*int64, bool) {
 	if o == nil || IsNil(o.MemUsed) {
 		return nil, false
 	}
@@ -239,8 +239,8 @@ func (o *SampleIngest) HasMemUsed() bool {
 	return false
 }
 
-// SetMemUsed gets a reference to the given int32 and assigns it to the MemUsed field.
-func (o *SampleIngest) SetMemUsed(v int32) {
+// SetMemUsed gets a reference to the given int64 and assigns it to the MemUsed field.
+func (o *SampleIngest) SetMemUsed(v int64) {
 	o.MemUsed = &v
 }
 

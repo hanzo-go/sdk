@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Count** | Pointer to **int32** | Count is the row count beside the rows, which is the shape this address has always answered with. | [optional] 
+**Count** | Pointer to **int64** | Count is the row count beside the rows, which is the shape this address has always answered with. | [optional] 
 **Subscriptions** | Pointer to [**[]Subscription**](Subscription.md) |  | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCount
 
-`func (o *Subscriptions) GetCount() int32`
+`func (o *Subscriptions) GetCount() int64`
 
 GetCount returns the Count field if non-nil, zero value otherwise.
 
 ### GetCountOk
 
-`func (o *Subscriptions) GetCountOk() (*int32, bool)`
+`func (o *Subscriptions) GetCountOk() (*int64, bool)`
 
 GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCount
 
-`func (o *Subscriptions) SetCount(v int32)`
+`func (o *Subscriptions) SetCount(v int64)`
 
 SetCount sets Count field to given value.
 

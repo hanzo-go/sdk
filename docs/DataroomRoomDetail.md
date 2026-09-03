@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the room was created, in unix milliseconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the room was created, in unix milliseconds. | [optional] 
 **Description** | Pointer to **string** | Description is the room&#39;s description, null when none was given. | [optional] 
 **Documents** | Pointer to [**[]DataroomMember**](DataroomMember.md) | Documents is every document in the room, in the order a visitor sees them. | [optional] 
 **Id** | Pointer to **string** | ID is the room id. | [optional] 
 **Name** | Pointer to **string** | Name is the room&#39;s display name. | [optional] 
 **PId** | Pointer to **string** | PId is the room&#39;s short public identifier. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is when the room last changed, in unix milliseconds. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is when the room last changed, in unix milliseconds. | [optional] 
 
 ## Methods
 
@@ -33,20 +33,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreatedAt
 
-`func (o *DataroomRoomDetail) GetCreatedAt() int32`
+`func (o *DataroomRoomDetail) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *DataroomRoomDetail) GetCreatedAtOk() (*int32, bool)`
+`func (o *DataroomRoomDetail) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *DataroomRoomDetail) SetCreatedAt(v int32)`
+`func (o *DataroomRoomDetail) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -183,20 +183,20 @@ HasPId returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *DataroomRoomDetail) GetUpdatedAt() int32`
+`func (o *DataroomRoomDetail) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *DataroomRoomDetail) GetUpdatedAtOk() (*int32, bool)`
+`func (o *DataroomRoomDetail) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *DataroomRoomDetail) SetUpdatedAt(v int32)`
+`func (o *DataroomRoomDetail) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

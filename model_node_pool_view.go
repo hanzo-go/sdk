@@ -22,11 +22,11 @@ type NodePoolView struct {
 	// AutoScale reports whether the provider's cluster autoscaler owns this pool's size, moving Count between MinNodes and MaxNodes as workloads demand. False means Count changes only when someone scales the pool.
 	AutoScale *bool `json:"autoScale,omitempty"`
 	// Count is how many nodes the pool has right now. Always present, so 0 means a pool that is genuinely empty rather than a figure the provider withheld.
-	Count *int32 `json:"count,omitempty"`
+	Count *int64 `json:"count,omitempty"`
 	// MaxNodes is the ceiling the autoscaler will not grow the pool past, and so the bound on what this pool can cost. Read it only with AutoScale set.
-	MaxNodes *int32 `json:"maxNodes,omitempty"`
+	MaxNodes *int64 `json:"maxNodes,omitempty"`
 	// MinNodes is the floor the autoscaler will not shrink the pool below. Read it only with AutoScale set — the provider ignores it otherwise.
-	MinNodes *int32 `json:"minNodes,omitempty"`
+	MinNodes *int64 `json:"minNodes,omitempty"`
 	// Name is the pool's name as the provider knows it.
 	Name *string `json:"name,omitempty"`
 	// PoolID is the provider's id for the pool — the value the scale and delete routes address it by. It falls back to the pool's name when the provider answered without one, so it is always something the routes accept.
@@ -85,9 +85,9 @@ func (o *NodePoolView) SetAutoScale(v bool) {
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *NodePoolView) GetCount() int32 {
+func (o *NodePoolView) GetCount() int64 {
 	if o == nil || IsNil(o.Count) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Count
@@ -95,7 +95,7 @@ func (o *NodePoolView) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NodePoolView) GetCountOk() (*int32, bool) {
+func (o *NodePoolView) GetCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -111,15 +111,15 @@ func (o *NodePoolView) HasCount() bool {
 	return false
 }
 
-// SetCount gets a reference to the given int32 and assigns it to the Count field.
-func (o *NodePoolView) SetCount(v int32) {
+// SetCount gets a reference to the given int64 and assigns it to the Count field.
+func (o *NodePoolView) SetCount(v int64) {
 	o.Count = &v
 }
 
 // GetMaxNodes returns the MaxNodes field value if set, zero value otherwise.
-func (o *NodePoolView) GetMaxNodes() int32 {
+func (o *NodePoolView) GetMaxNodes() int64 {
 	if o == nil || IsNil(o.MaxNodes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxNodes
@@ -127,7 +127,7 @@ func (o *NodePoolView) GetMaxNodes() int32 {
 
 // GetMaxNodesOk returns a tuple with the MaxNodes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NodePoolView) GetMaxNodesOk() (*int32, bool) {
+func (o *NodePoolView) GetMaxNodesOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxNodes) {
 		return nil, false
 	}
@@ -143,15 +143,15 @@ func (o *NodePoolView) HasMaxNodes() bool {
 	return false
 }
 
-// SetMaxNodes gets a reference to the given int32 and assigns it to the MaxNodes field.
-func (o *NodePoolView) SetMaxNodes(v int32) {
+// SetMaxNodes gets a reference to the given int64 and assigns it to the MaxNodes field.
+func (o *NodePoolView) SetMaxNodes(v int64) {
 	o.MaxNodes = &v
 }
 
 // GetMinNodes returns the MinNodes field value if set, zero value otherwise.
-func (o *NodePoolView) GetMinNodes() int32 {
+func (o *NodePoolView) GetMinNodes() int64 {
 	if o == nil || IsNil(o.MinNodes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MinNodes
@@ -159,7 +159,7 @@ func (o *NodePoolView) GetMinNodes() int32 {
 
 // GetMinNodesOk returns a tuple with the MinNodes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NodePoolView) GetMinNodesOk() (*int32, bool) {
+func (o *NodePoolView) GetMinNodesOk() (*int64, bool) {
 	if o == nil || IsNil(o.MinNodes) {
 		return nil, false
 	}
@@ -175,8 +175,8 @@ func (o *NodePoolView) HasMinNodes() bool {
 	return false
 }
 
-// SetMinNodes gets a reference to the given int32 and assigns it to the MinNodes field.
-func (o *NodePoolView) SetMinNodes(v int32) {
+// SetMinNodes gets a reference to the given int64 and assigns it to the MinNodes field.
+func (o *NodePoolView) SetMinNodes(v int64) {
 	o.MinNodes = &v
 }
 

@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EndLine** | Pointer to **int32** | EndLine is its last line, inclusive. | [optional] 
+**EndLine** | Pointer to **int64** | EndLine is its last line, inclusive. | [optional] 
 **File** | Pointer to **string** | File is the path inside the repo, relative to its root. | [optional] 
-**Line** | Pointer to **int32** | Line is the first line of the cited region, 1-based. | [optional] 
+**Line** | Pointer to **int64** | Line is the first line of the cited region, 1-based. | [optional] 
 **Repo** | Pointer to **string** | Repo is the repository the cited code lives in (\&quot;owner/name\&quot;), absent when the ask was already scoped to one. | [optional] 
 **Symbol** | Pointer to **string** | Symbol is the declaration the region belongs to, when it belongs to one. | [optional] 
 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetEndLine
 
-`func (o *Citation) GetEndLine() int32`
+`func (o *Citation) GetEndLine() int64`
 
 GetEndLine returns the EndLine field if non-nil, zero value otherwise.
 
 ### GetEndLineOk
 
-`func (o *Citation) GetEndLineOk() (*int32, bool)`
+`func (o *Citation) GetEndLineOk() (*int64, bool)`
 
 GetEndLineOk returns a tuple with the EndLine field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndLine
 
-`func (o *Citation) SetEndLine(v int32)`
+`func (o *Citation) SetEndLine(v int64)`
 
 SetEndLine sets EndLine field to given value.
 
@@ -81,20 +81,20 @@ HasFile returns a boolean if a field has been set.
 
 ### GetLine
 
-`func (o *Citation) GetLine() int32`
+`func (o *Citation) GetLine() int64`
 
 GetLine returns the Line field if non-nil, zero value otherwise.
 
 ### GetLineOk
 
-`func (o *Citation) GetLineOk() (*int32, bool)`
+`func (o *Citation) GetLineOk() (*int64, bool)`
 
 GetLineOk returns a tuple with the Line field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLine
 
-`func (o *Citation) SetLine(v int32)`
+`func (o *Citation) SetLine(v int64)`
 
 SetLine sets Line field to given value.
 

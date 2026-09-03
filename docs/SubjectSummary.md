@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** | CreatedAt is the unix second the subject was recorded. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is the unix second the subject was recorded. | [optional] 
 **HasEmail** | Pointer to **bool** | HasEmail reports whether a contact email is on file, without exposing it. | [optional] 
 **Id** | Pointer to **string** | ID is the subject&#39;s opaque id. | [optional] 
 **Kind** | Pointer to **string** | Kind is the party type: \&quot;individual\&quot; (KYC) or \&quot;business\&quot; (KYB). | [optional] 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreatedAt
 
-`func (o *SubjectSummary) GetCreatedAt() int32`
+`func (o *SubjectSummary) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *SubjectSummary) GetCreatedAtOk() (*int32, bool)`
+`func (o *SubjectSummary) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *SubjectSummary) SetCreatedAt(v int32)`
+`func (o *SubjectSummary) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 

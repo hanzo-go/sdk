@@ -22,7 +22,7 @@ type ImportDocumentsOut struct {
 	// Formation is the org's incorporation record with the imported document ids.
 	Formation *Formation `json:"formation,omitempty"`
 	// Ingested is how many files this call put in the data room.
-	Ingested *int32 `json:"ingested,omitempty"`
+	Ingested *int64 `json:"ingested,omitempty"`
 }
 
 // NewImportDocumentsOut instantiates a new ImportDocumentsOut object
@@ -75,9 +75,9 @@ func (o *ImportDocumentsOut) SetFormation(v Formation) {
 }
 
 // GetIngested returns the Ingested field value if set, zero value otherwise.
-func (o *ImportDocumentsOut) GetIngested() int32 {
+func (o *ImportDocumentsOut) GetIngested() int64 {
 	if o == nil || IsNil(o.Ingested) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Ingested
@@ -85,7 +85,7 @@ func (o *ImportDocumentsOut) GetIngested() int32 {
 
 // GetIngestedOk returns a tuple with the Ingested field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportDocumentsOut) GetIngestedOk() (*int32, bool) {
+func (o *ImportDocumentsOut) GetIngestedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Ingested) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *ImportDocumentsOut) HasIngested() bool {
 	return false
 }
 
-// SetIngested gets a reference to the given int32 and assigns it to the Ingested field.
-func (o *ImportDocumentsOut) SetIngested(v int32) {
+// SetIngested gets a reference to the given int64 and assigns it to the Ingested field.
+func (o *ImportDocumentsOut) SetIngested(v int64) {
 	o.Ingested = &v
 }
 

@@ -20,7 +20,7 @@ var _ MappedNullable = &TrustDecision{}
 // TrustDecision struct for TrustDecision
 type TrustDecision struct {
 	// Days is how long the grant stays open, from now. Optional; 14 by default and 365 at most — a longer release is describing a customer relationship rather than a document.
-	Days *int32 `json:"days,omitempty"`
+	Days *int64 `json:"days,omitempty"`
 	// ID is the request to answer, taken from the path.
 	Id *string `json:"id,omitempty"`
 	// Note is why. Recorded on the request either way, and it is what the record shows a year later.
@@ -45,9 +45,9 @@ func NewTrustDecisionWithDefaults() *TrustDecision {
 }
 
 // GetDays returns the Days field value if set, zero value otherwise.
-func (o *TrustDecision) GetDays() int32 {
+func (o *TrustDecision) GetDays() int64 {
 	if o == nil || IsNil(o.Days) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Days
@@ -55,7 +55,7 @@ func (o *TrustDecision) GetDays() int32 {
 
 // GetDaysOk returns a tuple with the Days field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrustDecision) GetDaysOk() (*int32, bool) {
+func (o *TrustDecision) GetDaysOk() (*int64, bool) {
 	if o == nil || IsNil(o.Days) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *TrustDecision) HasDays() bool {
 	return false
 }
 
-// SetDays gets a reference to the given int32 and assigns it to the Days field.
-func (o *TrustDecision) SetDays(v int32) {
+// SetDays gets a reference to the given int64 and assigns it to the Days field.
+func (o *TrustDecision) SetDays(v int64) {
 	o.Days = &v
 }
 

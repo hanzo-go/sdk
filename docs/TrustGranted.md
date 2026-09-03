@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Delivery** | Pointer to **string** | Delivery is empty when the asker was mailed, and otherwise says what happened instead — so an approver is never left believing a mail went out that did not. | [optional] 
-**ExpiresAt** | Pointer to **int32** | ExpiresAt is when the grant closes, in unix milliseconds. | [optional] 
+**ExpiresAt** | Pointer to **int64** | ExpiresAt is when the grant closes, in unix milliseconds. | [optional] 
 **Link** | Pointer to **string** | Link is the share link&#39;s id. The link admits only the address that asked. | [optional] 
 **State** | Pointer to **string** | State is \&quot;granted\&quot;. | [optional] 
 
@@ -55,20 +55,20 @@ HasDelivery returns a boolean if a field has been set.
 
 ### GetExpiresAt
 
-`func (o *TrustGranted) GetExpiresAt() int32`
+`func (o *TrustGranted) GetExpiresAt() int64`
 
 GetExpiresAt returns the ExpiresAt field if non-nil, zero value otherwise.
 
 ### GetExpiresAtOk
 
-`func (o *TrustGranted) GetExpiresAtOk() (*int32, bool)`
+`func (o *TrustGranted) GetExpiresAtOk() (*int64, bool)`
 
 GetExpiresAtOk returns a tuple with the ExpiresAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpiresAt
 
-`func (o *TrustGranted) SetExpiresAt(v int32)`
+`func (o *TrustGranted) SetExpiresAt(v int64)`
 
 SetExpiresAt sets ExpiresAt field to given value.
 

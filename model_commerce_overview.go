@@ -20,15 +20,15 @@ var _ MappedNullable = &CommerceOverview{}
 // CommerceOverview struct for CommerceOverview
 type CommerceOverview struct {
 	// AOV is average order value — Revenue/Orders, rounded to two places. Zero when there were no orders.
-	Aov *float32 `json:"aov,omitempty"`
+	Aov *float64 `json:"aov,omitempty"`
 	// Available is false when the product-event table could not be read — the lens is reported missing rather than as zeros that look like no sales.
 	Available *bool `json:"available,omitempty"`
 	// Orders is how many order_completed events landed in the window.
-	Orders *int32 `json:"orders,omitempty"`
+	Orders *int64 `json:"orders,omitempty"`
 	// Reason says why the lens is unavailable. Omitted when it is available.
 	Reason *string `json:"reason,omitempty"`
 	// Revenue is the total those orders carried, in the events' own currency unit.
-	Revenue *float32 `json:"revenue,omitempty"`
+	Revenue *float64 `json:"revenue,omitempty"`
 	// Source is the warehouse table the lens read.
 	Source *string `json:"source,omitempty"`
 }
@@ -51,9 +51,9 @@ func NewCommerceOverviewWithDefaults() *CommerceOverview {
 }
 
 // GetAov returns the Aov field value if set, zero value otherwise.
-func (o *CommerceOverview) GetAov() float32 {
+func (o *CommerceOverview) GetAov() float64 {
 	if o == nil || IsNil(o.Aov) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Aov
@@ -61,7 +61,7 @@ func (o *CommerceOverview) GetAov() float32 {
 
 // GetAovOk returns a tuple with the Aov field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CommerceOverview) GetAovOk() (*float32, bool) {
+func (o *CommerceOverview) GetAovOk() (*float64, bool) {
 	if o == nil || IsNil(o.Aov) {
 		return nil, false
 	}
@@ -77,8 +77,8 @@ func (o *CommerceOverview) HasAov() bool {
 	return false
 }
 
-// SetAov gets a reference to the given float32 and assigns it to the Aov field.
-func (o *CommerceOverview) SetAov(v float32) {
+// SetAov gets a reference to the given float64 and assigns it to the Aov field.
+func (o *CommerceOverview) SetAov(v float64) {
 	o.Aov = &v
 }
 
@@ -115,9 +115,9 @@ func (o *CommerceOverview) SetAvailable(v bool) {
 }
 
 // GetOrders returns the Orders field value if set, zero value otherwise.
-func (o *CommerceOverview) GetOrders() int32 {
+func (o *CommerceOverview) GetOrders() int64 {
 	if o == nil || IsNil(o.Orders) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Orders
@@ -125,7 +125,7 @@ func (o *CommerceOverview) GetOrders() int32 {
 
 // GetOrdersOk returns a tuple with the Orders field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CommerceOverview) GetOrdersOk() (*int32, bool) {
+func (o *CommerceOverview) GetOrdersOk() (*int64, bool) {
 	if o == nil || IsNil(o.Orders) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *CommerceOverview) HasOrders() bool {
 	return false
 }
 
-// SetOrders gets a reference to the given int32 and assigns it to the Orders field.
-func (o *CommerceOverview) SetOrders(v int32) {
+// SetOrders gets a reference to the given int64 and assigns it to the Orders field.
+func (o *CommerceOverview) SetOrders(v int64) {
 	o.Orders = &v
 }
 
@@ -179,9 +179,9 @@ func (o *CommerceOverview) SetReason(v string) {
 }
 
 // GetRevenue returns the Revenue field value if set, zero value otherwise.
-func (o *CommerceOverview) GetRevenue() float32 {
+func (o *CommerceOverview) GetRevenue() float64 {
 	if o == nil || IsNil(o.Revenue) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Revenue
@@ -189,7 +189,7 @@ func (o *CommerceOverview) GetRevenue() float32 {
 
 // GetRevenueOk returns a tuple with the Revenue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CommerceOverview) GetRevenueOk() (*float32, bool) {
+func (o *CommerceOverview) GetRevenueOk() (*float64, bool) {
 	if o == nil || IsNil(o.Revenue) {
 		return nil, false
 	}
@@ -205,8 +205,8 @@ func (o *CommerceOverview) HasRevenue() bool {
 	return false
 }
 
-// SetRevenue gets a reference to the given float32 and assigns it to the Revenue field.
-func (o *CommerceOverview) SetRevenue(v float32) {
+// SetRevenue gets a reference to the given float64 and assigns it to the Revenue field.
+func (o *CommerceOverview) SetRevenue(v float64) {
 	o.Revenue = &v
 }
 

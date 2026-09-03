@@ -30,7 +30,7 @@ type Recording struct {
 	// Room is the room this recording is of.
 	Room *string `json:"room,omitempty"`
 	// Started is when the recording began, as the media server reports it: its own `started_at`, verbatim and unconverted. LiveKit's egress service sets that field from UnixNano, and a conversion this side cannot check against the running server would be a number that looks right and is wrong by a factor of a billion. 0 means it has not started.
-	Started *int32 `json:"started,omitempty"`
+	Started *int64 `json:"started,omitempty"`
 	// Status is the media server's own state name: EGRESS_STARTING, EGRESS_ACTIVE, EGRESS_ENDING, EGRESS_COMPLETE, EGRESS_FAILED, EGRESS_ABORTED or EGRESS_LIMIT_REACHED. It is passed through rather than folded into a vocabulary of ours, so the answer cannot mean something the media server did not say.
 	Status *string `json:"status,omitempty"`
 }
@@ -213,9 +213,9 @@ func (o *Recording) SetRoom(v string) {
 }
 
 // GetStarted returns the Started field value if set, zero value otherwise.
-func (o *Recording) GetStarted() int32 {
+func (o *Recording) GetStarted() int64 {
 	if o == nil || IsNil(o.Started) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Started
@@ -223,7 +223,7 @@ func (o *Recording) GetStarted() int32 {
 
 // GetStartedOk returns a tuple with the Started field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Recording) GetStartedOk() (*int32, bool) {
+func (o *Recording) GetStartedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Started) {
 		return nil, false
 	}
@@ -239,8 +239,8 @@ func (o *Recording) HasStarted() bool {
 	return false
 }
 
-// SetStarted gets a reference to the given int32 and assigns it to the Started field.
-func (o *Recording) SetStarted(v int32) {
+// SetStarted gets a reference to the given int64 and assigns it to the Started field.
+func (o *Recording) SetStarted(v int64) {
 	o.Started = &v
 }
 

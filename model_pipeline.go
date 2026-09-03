@@ -21,7 +21,7 @@ var _ MappedNullable = &Pipeline{}
 // Pipeline struct for Pipeline
 type Pipeline struct {
 	// Behind counts commits after the one that last produced an image whose own build has FINISHED without producing one, and Since is when the oldest of them landed. A commit still building is not counted, so a push in flight is not drift and a service appears here only once something has actually stopped without shipping. How long that has stood is the number worth acting on; that it is true says nothing about whether anyone should move.
-	Behind   *int32    `json:"behind,omitempty"`
+	Behind   *int64    `json:"behind,omitempty"`
 	Built    *Artifact `json:"built,omitempty"`
 	Declared *Artifact `json:"declared,omitempty"`
 	Drift    []string  `json:"drift,omitempty"`
@@ -35,12 +35,12 @@ type Pipeline struct {
 	// Hanzo Git owner; empty when the repo is unresolved
 	Org      *string    `json:"org,omitempty"`
 	PinnedAt *time.Time `json:"pinnedAt,omitempty"`
-	Ready    *int32     `json:"ready,omitempty"`
+	Ready    *int64     `json:"ready,omitempty"`
 	// hanzo-inc/cloud
 	Repo    *string    `json:"repo,omitempty"`
 	Running *Artifact  `json:"running,omitempty"`
 	Since   *time.Time `json:"since,omitempty"`
-	Want    *int32     `json:"want,omitempty"`
+	Want    *int64     `json:"want,omitempty"`
 }
 
 // NewPipeline instantiates a new Pipeline object
@@ -61,9 +61,9 @@ func NewPipelineWithDefaults() *Pipeline {
 }
 
 // GetBehind returns the Behind field value if set, zero value otherwise.
-func (o *Pipeline) GetBehind() int32 {
+func (o *Pipeline) GetBehind() int64 {
 	if o == nil || IsNil(o.Behind) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Behind
@@ -71,7 +71,7 @@ func (o *Pipeline) GetBehind() int32 {
 
 // GetBehindOk returns a tuple with the Behind field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Pipeline) GetBehindOk() (*int32, bool) {
+func (o *Pipeline) GetBehindOk() (*int64, bool) {
 	if o == nil || IsNil(o.Behind) {
 		return nil, false
 	}
@@ -87,8 +87,8 @@ func (o *Pipeline) HasBehind() bool {
 	return false
 }
 
-// SetBehind gets a reference to the given int32 and assigns it to the Behind field.
-func (o *Pipeline) SetBehind(v int32) {
+// SetBehind gets a reference to the given int64 and assigns it to the Behind field.
+func (o *Pipeline) SetBehind(v int64) {
 	o.Behind = &v
 }
 
@@ -381,9 +381,9 @@ func (o *Pipeline) SetPinnedAt(v time.Time) {
 }
 
 // GetReady returns the Ready field value if set, zero value otherwise.
-func (o *Pipeline) GetReady() int32 {
+func (o *Pipeline) GetReady() int64 {
 	if o == nil || IsNil(o.Ready) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Ready
@@ -391,7 +391,7 @@ func (o *Pipeline) GetReady() int32 {
 
 // GetReadyOk returns a tuple with the Ready field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Pipeline) GetReadyOk() (*int32, bool) {
+func (o *Pipeline) GetReadyOk() (*int64, bool) {
 	if o == nil || IsNil(o.Ready) {
 		return nil, false
 	}
@@ -407,8 +407,8 @@ func (o *Pipeline) HasReady() bool {
 	return false
 }
 
-// SetReady gets a reference to the given int32 and assigns it to the Ready field.
-func (o *Pipeline) SetReady(v int32) {
+// SetReady gets a reference to the given int64 and assigns it to the Ready field.
+func (o *Pipeline) SetReady(v int64) {
 	o.Ready = &v
 }
 
@@ -509,9 +509,9 @@ func (o *Pipeline) SetSince(v time.Time) {
 }
 
 // GetWant returns the Want field value if set, zero value otherwise.
-func (o *Pipeline) GetWant() int32 {
+func (o *Pipeline) GetWant() int64 {
 	if o == nil || IsNil(o.Want) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Want
@@ -519,7 +519,7 @@ func (o *Pipeline) GetWant() int32 {
 
 // GetWantOk returns a tuple with the Want field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Pipeline) GetWantOk() (*int32, bool) {
+func (o *Pipeline) GetWantOk() (*int64, bool) {
 	if o == nil || IsNil(o.Want) {
 		return nil, false
 	}
@@ -535,8 +535,8 @@ func (o *Pipeline) HasWant() bool {
 	return false
 }
 
-// SetWant gets a reference to the given int32 and assigns it to the Want field.
-func (o *Pipeline) SetWant(v int32) {
+// SetWant gets a reference to the given int64 and assigns it to the Want field.
+func (o *Pipeline) SetWant(v int64) {
 	o.Want = &v
 }
 

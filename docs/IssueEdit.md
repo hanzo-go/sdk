@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Assignee** | Pointer to **string** | Assignee hands the work to somebody — a person or an agent, by the name they are known by on the forge. \&quot;\&quot; TAKES IT OFF whoever holds it, which is why this is a pointer: absent leaves the holder alone.  It is the other half of &#x60;claim&#x60;, which that handler already named: a claim takes work for the CALLER and refuses to name anyone else, because giving work away is a different act with different authority. This is that act, and until it existed a board could only be worked by whoever clicked first — an agent could never be given anything. | [optional] 
 **Description** | Pointer to **string** | Description rewrites the body. | [optional] 
 **Key** | Pointer to **string** | Key is the board — the repository name, from the path. | [optional] 
-**Num** | Pointer to **int32** | Num is the issue number on that repository, from the path. | [optional] 
+**Num** | Pointer to **int64** | Num is the issue number on that repository, from the path. | [optional] 
 **Priority** | Pointer to **string** | Priority re-prioritises it. | [optional] 
 **Status** | Pointer to **string** | Status moves the card to another column. | [optional] 
 **Title** | Pointer to **string** | Title renames the work item. | [optional] 
@@ -108,20 +108,20 @@ HasKey returns a boolean if a field has been set.
 
 ### GetNum
 
-`func (o *IssueEdit) GetNum() int32`
+`func (o *IssueEdit) GetNum() int64`
 
 GetNum returns the Num field if non-nil, zero value otherwise.
 
 ### GetNumOk
 
-`func (o *IssueEdit) GetNumOk() (*int32, bool)`
+`func (o *IssueEdit) GetNumOk() (*int64, bool)`
 
 GetNumOk returns a tuple with the Num field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNum
 
-`func (o *IssueEdit) SetNum(v int32)`
+`func (o *IssueEdit) SetNum(v int64)`
 
 SetNum sets Num field to given value.
 

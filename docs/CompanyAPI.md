@@ -115,8 +115,8 @@ import (
 func main() {
 	stage := "founders" // string | Stage keeps only formations at that stage. Empty means any. (optional)
 	structure := "structure_example" // string | Structure keeps only formations of that entity kind. Empty means any. (optional)
-	limit := int32(50) // int32 | Limit bounds the page; 0 or less means the default of 200. (optional)
-	offset := int32(56) // int32 | Offset skips that many rows. (optional)
+	limit := int64(50) // int64 | Limit bounds the page; 0 or less means the default of 200. (optional)
+	offset := int64(789) // int64 | Offset skips that many rows. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -143,8 +143,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **stage** | **string** | Stage keeps only formations at that stage. Empty means any. | 
  **structure** | **string** | Structure keeps only formations of that entity kind. Empty means any. | 
- **limit** | **int32** | Limit bounds the page; 0 or less means the default of 200. | 
- **offset** | **int32** | Offset skips that many rows. | 
+ **limit** | **int64** | Limit bounds the page; 0 or less means the default of 200. | 
+ **offset** | **int64** | Offset skips that many rows. | 
 
 ### Return type
 
@@ -246,7 +246,7 @@ import (
 )
 
 func main() {
-	limit := int32(50) // int32 | Limit bounds how many formations are scanned; 0 or less means the default of 200. (optional)
+	limit := int64(50) // int64 | Limit bounds how many formations are scanned; 0 or less means the default of 200. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -271,7 +271,7 @@ Other parameters are passed through a pointer to a apiGetCompanyReviewRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit bounds how many formations are scanned; 0 or less means the default of 200. | 
+ **limit** | **int64** | Limit bounds how many formations are scanned; 0 or less means the default of 200. | 
 
 ### Return type
 

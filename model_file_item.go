@@ -24,11 +24,11 @@ type FileItem struct {
 	// Folder is true for a folder entry, which is emergent from \"/\" in the names beneath it rather than a thing that was created.
 	IsFolder *bool `json:"isFolder,omitempty"`
 	// ModifiedAt is when the file was last written, in unix seconds, and 0 for a folder.
-	ModifiedAt *int32 `json:"modifiedAt,omitempty"`
+	ModifiedAt *int64 `json:"modifiedAt,omitempty"`
 	// Name is the entry's name RELATIVE to the folder that was listed.
 	Name *string `json:"name,omitempty"`
 	// Size is the file's size in bytes, and 0 for a folder.
-	Size *int32 `json:"size,omitempty"`
+	Size *int64 `json:"size,omitempty"`
 }
 
 // NewFileItem instantiates a new FileItem object
@@ -113,9 +113,9 @@ func (o *FileItem) SetIsFolder(v bool) {
 }
 
 // GetModifiedAt returns the ModifiedAt field value if set, zero value otherwise.
-func (o *FileItem) GetModifiedAt() int32 {
+func (o *FileItem) GetModifiedAt() int64 {
 	if o == nil || IsNil(o.ModifiedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ModifiedAt
@@ -123,7 +123,7 @@ func (o *FileItem) GetModifiedAt() int32 {
 
 // GetModifiedAtOk returns a tuple with the ModifiedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FileItem) GetModifiedAtOk() (*int32, bool) {
+func (o *FileItem) GetModifiedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.ModifiedAt) {
 		return nil, false
 	}
@@ -139,8 +139,8 @@ func (o *FileItem) HasModifiedAt() bool {
 	return false
 }
 
-// SetModifiedAt gets a reference to the given int32 and assigns it to the ModifiedAt field.
-func (o *FileItem) SetModifiedAt(v int32) {
+// SetModifiedAt gets a reference to the given int64 and assigns it to the ModifiedAt field.
+func (o *FileItem) SetModifiedAt(v int64) {
 	o.ModifiedAt = &v
 }
 
@@ -177,9 +177,9 @@ func (o *FileItem) SetName(v string) {
 }
 
 // GetSize returns the Size field value if set, zero value otherwise.
-func (o *FileItem) GetSize() int32 {
+func (o *FileItem) GetSize() int64 {
 	if o == nil || IsNil(o.Size) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Size
@@ -187,7 +187,7 @@ func (o *FileItem) GetSize() int32 {
 
 // GetSizeOk returns a tuple with the Size field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FileItem) GetSizeOk() (*int32, bool) {
+func (o *FileItem) GetSizeOk() (*int64, bool) {
 	if o == nil || IsNil(o.Size) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *FileItem) HasSize() bool {
 	return false
 }
 
-// SetSize gets a reference to the given int32 and assigns it to the Size field.
-func (o *FileItem) SetSize(v int32) {
+// SetSize gets a reference to the given int64 and assigns it to the Size field.
+func (o *FileItem) SetSize(v int64) {
 	o.Size = &v
 }
 

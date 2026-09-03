@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the plugin was last built, Unix seconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the plugin was last built, Unix seconds. | [optional] 
 **Id** | Pointer to **string** | ID is the plugin&#39;s id within the org, and the id a delete addresses. | [optional] 
 **Name** | Pointer to **string** | Name is the plugin&#39;s name: one lowercase path segment, the id it runs by. | [optional] 
 **Org** | Pointer to **string** | Org is the org that built the plugin — the validated caller&#39;s. | [optional] 
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreatedAt
 
-`func (o *AuthoredPlugin) GetCreatedAt() int32`
+`func (o *AuthoredPlugin) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *AuthoredPlugin) GetCreatedAtOk() (*int32, bool)`
+`func (o *AuthoredPlugin) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *AuthoredPlugin) SetCreatedAt(v int32)`
+`func (o *AuthoredPlugin) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 

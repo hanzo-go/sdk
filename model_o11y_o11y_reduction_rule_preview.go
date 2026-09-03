@@ -31,7 +31,7 @@ type O11yO11yReductionRulePreview struct {
 	// IngestedSeries is how many series the metric ingests today.
 	IngestedSeries *int32 `json:"ingestedSeries,omitempty"`
 	// ReductionPercent is the estimated reduction, in percent.
-	ReductionPercent *float32 `json:"reductionPercent,omitempty"`
+	ReductionPercent *float64 `json:"reductionPercent,omitempty"`
 	// RetainedSeries is how many would survive with the candidate rule.
 	RetainedSeries *int32 `json:"retainedSeries,omitempty"`
 }
@@ -214,9 +214,9 @@ func (o *O11yO11yReductionRulePreview) SetIngestedSeries(v int32) {
 }
 
 // GetReductionPercent returns the ReductionPercent field value if set, zero value otherwise.
-func (o *O11yO11yReductionRulePreview) GetReductionPercent() float32 {
+func (o *O11yO11yReductionRulePreview) GetReductionPercent() float64 {
 	if o == nil || IsNil(o.ReductionPercent) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.ReductionPercent
@@ -224,7 +224,7 @@ func (o *O11yO11yReductionRulePreview) GetReductionPercent() float32 {
 
 // GetReductionPercentOk returns a tuple with the ReductionPercent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yReductionRulePreview) GetReductionPercentOk() (*float32, bool) {
+func (o *O11yO11yReductionRulePreview) GetReductionPercentOk() (*float64, bool) {
 	if o == nil || IsNil(o.ReductionPercent) {
 		return nil, false
 	}
@@ -240,8 +240,8 @@ func (o *O11yO11yReductionRulePreview) HasReductionPercent() bool {
 	return false
 }
 
-// SetReductionPercent gets a reference to the given float32 and assigns it to the ReductionPercent field.
-func (o *O11yO11yReductionRulePreview) SetReductionPercent(v float32) {
+// SetReductionPercent gets a reference to the given float64 and assigns it to the ReductionPercent field.
+func (o *O11yO11yReductionRulePreview) SetReductionPercent(v float64) {
 	o.ReductionPercent = &v
 }
 

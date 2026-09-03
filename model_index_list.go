@@ -20,13 +20,13 @@ var _ MappedNullable = &IndexList{}
 // IndexList struct for IndexList
 type IndexList struct {
 	// Limit is how many rows this page could hold.
-	Limit *int32 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 	// Offset is where this page starts.
-	Offset *int32 `json:"offset,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
 	// Results are the index definitions themselves.
 	Results []IndexView `json:"results,omitempty"`
 	// Total is how many indexes the org holds altogether.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 }
 
 // NewIndexList instantiates a new IndexList object
@@ -47,9 +47,9 @@ func NewIndexListWithDefaults() *IndexList {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *IndexList) GetLimit() int32 {
+func (o *IndexList) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -57,7 +57,7 @@ func (o *IndexList) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexList) GetLimitOk() (*int32, bool) {
+func (o *IndexList) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -73,15 +73,15 @@ func (o *IndexList) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *IndexList) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *IndexList) SetLimit(v int64) {
 	o.Limit = &v
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
-func (o *IndexList) GetOffset() int32 {
+func (o *IndexList) GetOffset() int64 {
 	if o == nil || IsNil(o.Offset) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Offset
@@ -89,7 +89,7 @@ func (o *IndexList) GetOffset() int32 {
 
 // GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexList) GetOffsetOk() (*int32, bool) {
+func (o *IndexList) GetOffsetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Offset) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *IndexList) HasOffset() bool {
 	return false
 }
 
-// SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *IndexList) SetOffset(v int32) {
+// SetOffset gets a reference to the given int64 and assigns it to the Offset field.
+func (o *IndexList) SetOffset(v int64) {
 	o.Offset = &v
 }
 
@@ -143,9 +143,9 @@ func (o *IndexList) SetResults(v []IndexView) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *IndexList) GetTotal() int32 {
+func (o *IndexList) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -153,7 +153,7 @@ func (o *IndexList) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexList) GetTotalOk() (*int32, bool) {
+func (o *IndexList) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *IndexList) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *IndexList) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *IndexList) SetTotal(v int64) {
 	o.Total = &v
 }
 

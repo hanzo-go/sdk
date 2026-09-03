@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FieldDataType** | Pointer to **string** | FieldDataType is the path&#39;s data type, e.g. string, number, bool. | [optional] 
-**Granularity** | Pointer to **int32** | Granularity is the index granularity in rows. | [optional] 
+**Granularity** | Pointer to **int64** | Granularity is the index granularity in rows. | [optional] 
 **Type** | Pointer to **string** | Type is the index type, e.g. minmax, set(N), bloom_filter(P). | [optional] 
 
 ## Methods
@@ -54,20 +54,20 @@ HasFieldDataType returns a boolean if a field has been set.
 
 ### GetGranularity
 
-`func (o *O11yO11yLogPromoteIndex) GetGranularity() int32`
+`func (o *O11yO11yLogPromoteIndex) GetGranularity() int64`
 
 GetGranularity returns the Granularity field if non-nil, zero value otherwise.
 
 ### GetGranularityOk
 
-`func (o *O11yO11yLogPromoteIndex) GetGranularityOk() (*int32, bool)`
+`func (o *O11yO11yLogPromoteIndex) GetGranularityOk() (*int64, bool)`
 
 GetGranularityOk returns a tuple with the Granularity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGranularity
 
-`func (o *O11yO11yLogPromoteIndex) SetGranularity(v int32)`
+`func (o *O11yO11yLogPromoteIndex) SetGranularity(v int64)`
 
 SetGranularity sets Granularity field to given value.
 

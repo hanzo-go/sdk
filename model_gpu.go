@@ -20,7 +20,7 @@ var _ MappedNullable = &GPU{}
 // GPU struct for GPU
 type GPU struct {
 	// VRAM bytes, 0 = unknown
-	Memory *int32 `json:"memory,omitempty"`
+	Memory *int64 `json:"memory,omitempty"`
 	// \"GB10\", \"8060S\", \"RTX 4090\"
 	Model *string `json:"model,omitempty"`
 	// nvidia | amd | apple | intel | ...
@@ -45,9 +45,9 @@ func NewGPUWithDefaults() *GPU {
 }
 
 // GetMemory returns the Memory field value if set, zero value otherwise.
-func (o *GPU) GetMemory() int32 {
+func (o *GPU) GetMemory() int64 {
 	if o == nil || IsNil(o.Memory) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Memory
@@ -55,7 +55,7 @@ func (o *GPU) GetMemory() int32 {
 
 // GetMemoryOk returns a tuple with the Memory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GPU) GetMemoryOk() (*int32, bool) {
+func (o *GPU) GetMemoryOk() (*int64, bool) {
 	if o == nil || IsNil(o.Memory) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *GPU) HasMemory() bool {
 	return false
 }
 
-// SetMemory gets a reference to the given int32 and assigns it to the Memory field.
-func (o *GPU) SetMemory(v int32) {
+// SetMemory gets a reference to the given int64 and assigns it to the Memory field.
+func (o *GPU) SetMemory(v int64) {
 	o.Memory = &v
 }
 

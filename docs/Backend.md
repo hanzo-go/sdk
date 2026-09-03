@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Url** | Pointer to **string** | URL is the upstream server, http(s)://host[:port]. | [optional] 
-**Weight** | Pointer to **int32** | Weight is this member&#39;s share of the round-robin; must be &gt;&#x3D; 0. | [optional] 
+**Weight** | Pointer to **int64** | Weight is this member&#39;s share of the round-robin; must be &gt;&#x3D; 0. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasUrl returns a boolean if a field has been set.
 
 ### GetWeight
 
-`func (o *Backend) GetWeight() int32`
+`func (o *Backend) GetWeight() int64`
 
 GetWeight returns the Weight field if non-nil, zero value otherwise.
 
 ### GetWeightOk
 
-`func (o *Backend) GetWeightOk() (*int32, bool)`
+`func (o *Backend) GetWeightOk() (*int64, bool)`
 
 GetWeightOk returns a tuple with the Weight field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWeight
 
-`func (o *Backend) SetWeight(v int32)`
+`func (o *Backend) SetWeight(v int64)`
 
 SetWeight sets Weight field to given value.
 

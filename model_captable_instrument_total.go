@@ -20,9 +20,9 @@ var _ MappedNullable = &CaptableInstrumentTotal{}
 // CaptableInstrumentTotal struct for CaptableInstrumentTotal
 type CaptableInstrumentTotal struct {
 	// Capital is the total capital across those instruments.
-	Capital *float32 `json:"capital,omitempty"`
+	Capital *float64 `json:"capital,omitempty"`
 	// Count is how many instruments there are.
-	Count *int32 `json:"count,omitempty"`
+	Count *int64 `json:"count,omitempty"`
 }
 
 // NewCaptableInstrumentTotal instantiates a new CaptableInstrumentTotal object
@@ -43,9 +43,9 @@ func NewCaptableInstrumentTotalWithDefaults() *CaptableInstrumentTotal {
 }
 
 // GetCapital returns the Capital field value if set, zero value otherwise.
-func (o *CaptableInstrumentTotal) GetCapital() float32 {
+func (o *CaptableInstrumentTotal) GetCapital() float64 {
 	if o == nil || IsNil(o.Capital) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Capital
@@ -53,7 +53,7 @@ func (o *CaptableInstrumentTotal) GetCapital() float32 {
 
 // GetCapitalOk returns a tuple with the Capital field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableInstrumentTotal) GetCapitalOk() (*float32, bool) {
+func (o *CaptableInstrumentTotal) GetCapitalOk() (*float64, bool) {
 	if o == nil || IsNil(o.Capital) {
 		return nil, false
 	}
@@ -69,15 +69,15 @@ func (o *CaptableInstrumentTotal) HasCapital() bool {
 	return false
 }
 
-// SetCapital gets a reference to the given float32 and assigns it to the Capital field.
-func (o *CaptableInstrumentTotal) SetCapital(v float32) {
+// SetCapital gets a reference to the given float64 and assigns it to the Capital field.
+func (o *CaptableInstrumentTotal) SetCapital(v float64) {
 	o.Capital = &v
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *CaptableInstrumentTotal) GetCount() int32 {
+func (o *CaptableInstrumentTotal) GetCount() int64 {
 	if o == nil || IsNil(o.Count) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Count
@@ -85,7 +85,7 @@ func (o *CaptableInstrumentTotal) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableInstrumentTotal) GetCountOk() (*int32, bool) {
+func (o *CaptableInstrumentTotal) GetCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *CaptableInstrumentTotal) HasCount() bool {
 	return false
 }
 
-// SetCount gets a reference to the given int32 and assigns it to the Count field.
-func (o *CaptableInstrumentTotal) SetCount(v int32) {
+// SetCount gets a reference to the given int64 and assigns it to the Count field.
+func (o *CaptableInstrumentTotal) SetCount(v int64) {
 	o.Count = &v
 }
 

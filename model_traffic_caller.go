@@ -24,15 +24,15 @@ type TrafficCaller struct {
 	// Cred is the caller's key: a credential fingerprint (a per-process one-way digest, not a key) for a validated caller, and \"ip:<addr>\" for one that presented no credential we could validate.
 	Cred *string `json:"cred,omitempty"`
 	// Failures is how many ended 401 or 403.
-	Failures *int32 `json:"failures,omitempty"`
+	Failures *int64 `json:"failures,omitempty"`
 	// HeldUntil is when the held verdict lapses, unix seconds.
-	HeldUntil *int32 `json:"held_until,omitempty"`
+	HeldUntil *int64 `json:"held_until,omitempty"`
 	// Paths is the approximate number of distinct paths it touched (max 64).
-	Paths *int32 `json:"paths,omitempty"`
+	Paths *int64 `json:"paths,omitempty"`
 	// Reason is why that verdict was reached.
 	Reason *string `json:"reason,omitempty"`
 	// Requests is its request count in the window.
-	Requests *int32 `json:"requests,omitempty"`
+	Requests *int64 `json:"requests,omitempty"`
 }
 
 // NewTrafficCaller instantiates a new TrafficCaller object
@@ -117,9 +117,9 @@ func (o *TrafficCaller) SetCred(v string) {
 }
 
 // GetFailures returns the Failures field value if set, zero value otherwise.
-func (o *TrafficCaller) GetFailures() int32 {
+func (o *TrafficCaller) GetFailures() int64 {
 	if o == nil || IsNil(o.Failures) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Failures
@@ -127,7 +127,7 @@ func (o *TrafficCaller) GetFailures() int32 {
 
 // GetFailuresOk returns a tuple with the Failures field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrafficCaller) GetFailuresOk() (*int32, bool) {
+func (o *TrafficCaller) GetFailuresOk() (*int64, bool) {
 	if o == nil || IsNil(o.Failures) {
 		return nil, false
 	}
@@ -143,15 +143,15 @@ func (o *TrafficCaller) HasFailures() bool {
 	return false
 }
 
-// SetFailures gets a reference to the given int32 and assigns it to the Failures field.
-func (o *TrafficCaller) SetFailures(v int32) {
+// SetFailures gets a reference to the given int64 and assigns it to the Failures field.
+func (o *TrafficCaller) SetFailures(v int64) {
 	o.Failures = &v
 }
 
 // GetHeldUntil returns the HeldUntil field value if set, zero value otherwise.
-func (o *TrafficCaller) GetHeldUntil() int32 {
+func (o *TrafficCaller) GetHeldUntil() int64 {
 	if o == nil || IsNil(o.HeldUntil) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.HeldUntil
@@ -159,7 +159,7 @@ func (o *TrafficCaller) GetHeldUntil() int32 {
 
 // GetHeldUntilOk returns a tuple with the HeldUntil field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrafficCaller) GetHeldUntilOk() (*int32, bool) {
+func (o *TrafficCaller) GetHeldUntilOk() (*int64, bool) {
 	if o == nil || IsNil(o.HeldUntil) {
 		return nil, false
 	}
@@ -175,15 +175,15 @@ func (o *TrafficCaller) HasHeldUntil() bool {
 	return false
 }
 
-// SetHeldUntil gets a reference to the given int32 and assigns it to the HeldUntil field.
-func (o *TrafficCaller) SetHeldUntil(v int32) {
+// SetHeldUntil gets a reference to the given int64 and assigns it to the HeldUntil field.
+func (o *TrafficCaller) SetHeldUntil(v int64) {
 	o.HeldUntil = &v
 }
 
 // GetPaths returns the Paths field value if set, zero value otherwise.
-func (o *TrafficCaller) GetPaths() int32 {
+func (o *TrafficCaller) GetPaths() int64 {
 	if o == nil || IsNil(o.Paths) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Paths
@@ -191,7 +191,7 @@ func (o *TrafficCaller) GetPaths() int32 {
 
 // GetPathsOk returns a tuple with the Paths field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrafficCaller) GetPathsOk() (*int32, bool) {
+func (o *TrafficCaller) GetPathsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Paths) {
 		return nil, false
 	}
@@ -207,8 +207,8 @@ func (o *TrafficCaller) HasPaths() bool {
 	return false
 }
 
-// SetPaths gets a reference to the given int32 and assigns it to the Paths field.
-func (o *TrafficCaller) SetPaths(v int32) {
+// SetPaths gets a reference to the given int64 and assigns it to the Paths field.
+func (o *TrafficCaller) SetPaths(v int64) {
 	o.Paths = &v
 }
 
@@ -245,9 +245,9 @@ func (o *TrafficCaller) SetReason(v string) {
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *TrafficCaller) GetRequests() int32 {
+func (o *TrafficCaller) GetRequests() int64 {
 	if o == nil || IsNil(o.Requests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Requests
@@ -255,7 +255,7 @@ func (o *TrafficCaller) GetRequests() int32 {
 
 // GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrafficCaller) GetRequestsOk() (*int32, bool) {
+func (o *TrafficCaller) GetRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Requests) {
 		return nil, false
 	}
@@ -271,8 +271,8 @@ func (o *TrafficCaller) HasRequests() bool {
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *TrafficCaller) SetRequests(v int32) {
+// SetRequests gets a reference to the given int64 and assigns it to the Requests field.
+func (o *TrafficCaller) SetRequests(v int64) {
 	o.Requests = &v
 }
 

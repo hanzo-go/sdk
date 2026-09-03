@@ -22,7 +22,7 @@ var _ MappedNullable = &Suite{}
 // Suite struct for Suite
 type Suite struct {
 	// Attempts is how many times to try each item; the harness's default applies when it is omitted.
-	Attempts *int32 `json:"attempts,omitempty"`
+	Attempts *int64 `json:"attempts,omitempty"`
 	// Benchmarks are the catalog ids to run. At least one is required, and every id must be in the catalog.
 	Benchmarks []string `json:"benchmarks"`
 	// Endpoint is your own chat-completions URL, for benchmarking a model this arena does not host. Either this or model is required.
@@ -52,9 +52,9 @@ func NewSuiteWithDefaults() *Suite {
 }
 
 // GetAttempts returns the Attempts field value if set, zero value otherwise.
-func (o *Suite) GetAttempts() int32 {
+func (o *Suite) GetAttempts() int64 {
 	if o == nil || IsNil(o.Attempts) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Attempts
@@ -62,7 +62,7 @@ func (o *Suite) GetAttempts() int32 {
 
 // GetAttemptsOk returns a tuple with the Attempts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Suite) GetAttemptsOk() (*int32, bool) {
+func (o *Suite) GetAttemptsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Attempts) {
 		return nil, false
 	}
@@ -78,8 +78,8 @@ func (o *Suite) HasAttempts() bool {
 	return false
 }
 
-// SetAttempts gets a reference to the given int32 and assigns it to the Attempts field.
-func (o *Suite) SetAttempts(v int32) {
+// SetAttempts gets a reference to the given int64 and assigns it to the Attempts field.
+func (o *Suite) SetAttempts(v int64) {
 	o.Attempts = &v
 }
 

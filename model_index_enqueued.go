@@ -26,7 +26,7 @@ type IndexEnqueued struct {
 	// Status is always `enqueued`, for dialect compatibility. The work is already done.
 	Status *string `json:"status,omitempty"`
 	// TaskUID identifies the task for a client that polls it. Polling resolves immediately.
-	TaskUid *int32 `json:"taskUid,omitempty"`
+	TaskUid *int64 `json:"taskUid,omitempty"`
 	// Type is the dialect's name for the kind of write: indexCreation, indexDeletion, settingsUpdate, documentAdditionOrUpdate, documentDeletion.
 	Type *string `json:"type,omitempty"`
 }
@@ -145,9 +145,9 @@ func (o *IndexEnqueued) SetStatus(v string) {
 }
 
 // GetTaskUid returns the TaskUid field value if set, zero value otherwise.
-func (o *IndexEnqueued) GetTaskUid() int32 {
+func (o *IndexEnqueued) GetTaskUid() int64 {
 	if o == nil || IsNil(o.TaskUid) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TaskUid
@@ -155,7 +155,7 @@ func (o *IndexEnqueued) GetTaskUid() int32 {
 
 // GetTaskUidOk returns a tuple with the TaskUid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexEnqueued) GetTaskUidOk() (*int32, bool) {
+func (o *IndexEnqueued) GetTaskUidOk() (*int64, bool) {
 	if o == nil || IsNil(o.TaskUid) {
 		return nil, false
 	}
@@ -171,8 +171,8 @@ func (o *IndexEnqueued) HasTaskUid() bool {
 	return false
 }
 
-// SetTaskUid gets a reference to the given int32 and assigns it to the TaskUid field.
-func (o *IndexEnqueued) SetTaskUid(v int32) {
+// SetTaskUid gets a reference to the given int64 and assigns it to the TaskUid field.
+func (o *IndexEnqueued) SetTaskUid(v int64) {
 	o.TaskUid = &v
 }
 

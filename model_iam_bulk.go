@@ -19,8 +19,8 @@ var _ MappedNullable = &IamBulk{}
 
 // IamBulk struct for IamBulk
 type IamBulk struct {
-	MaxOperations  *int32 `json:"maxOperations,omitempty"`
-	MaxPayloadSize *int32 `json:"maxPayloadSize,omitempty"`
+	MaxOperations  *int64 `json:"maxOperations,omitempty"`
+	MaxPayloadSize *int64 `json:"maxPayloadSize,omitempty"`
 	Supported      *bool  `json:"supported,omitempty"`
 }
 
@@ -42,9 +42,9 @@ func NewIamBulkWithDefaults() *IamBulk {
 }
 
 // GetMaxOperations returns the MaxOperations field value if set, zero value otherwise.
-func (o *IamBulk) GetMaxOperations() int32 {
+func (o *IamBulk) GetMaxOperations() int64 {
 	if o == nil || IsNil(o.MaxOperations) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxOperations
@@ -52,7 +52,7 @@ func (o *IamBulk) GetMaxOperations() int32 {
 
 // GetMaxOperationsOk returns a tuple with the MaxOperations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamBulk) GetMaxOperationsOk() (*int32, bool) {
+func (o *IamBulk) GetMaxOperationsOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxOperations) {
 		return nil, false
 	}
@@ -68,15 +68,15 @@ func (o *IamBulk) HasMaxOperations() bool {
 	return false
 }
 
-// SetMaxOperations gets a reference to the given int32 and assigns it to the MaxOperations field.
-func (o *IamBulk) SetMaxOperations(v int32) {
+// SetMaxOperations gets a reference to the given int64 and assigns it to the MaxOperations field.
+func (o *IamBulk) SetMaxOperations(v int64) {
 	o.MaxOperations = &v
 }
 
 // GetMaxPayloadSize returns the MaxPayloadSize field value if set, zero value otherwise.
-func (o *IamBulk) GetMaxPayloadSize() int32 {
+func (o *IamBulk) GetMaxPayloadSize() int64 {
 	if o == nil || IsNil(o.MaxPayloadSize) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxPayloadSize
@@ -84,7 +84,7 @@ func (o *IamBulk) GetMaxPayloadSize() int32 {
 
 // GetMaxPayloadSizeOk returns a tuple with the MaxPayloadSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamBulk) GetMaxPayloadSizeOk() (*int32, bool) {
+func (o *IamBulk) GetMaxPayloadSizeOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxPayloadSize) {
 		return nil, false
 	}
@@ -100,8 +100,8 @@ func (o *IamBulk) HasMaxPayloadSize() bool {
 	return false
 }
 
-// SetMaxPayloadSize gets a reference to the given int32 and assigns it to the MaxPayloadSize field.
-func (o *IamBulk) SetMaxPayloadSize(v int32) {
+// SetMaxPayloadSize gets a reference to the given int64 and assigns it to the MaxPayloadSize field.
+func (o *IamBulk) SetMaxPayloadSize(v int64) {
 	o.MaxPayloadSize = &v
 }
 

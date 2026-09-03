@@ -10,8 +10,8 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Description says what this consumer is for. | [optional] 
 **DurableName** | Pointer to **string** | Name is the durable consumer name (alphanumeric, hyphens, underscores). | [optional] 
 **FilterSubject** | Pointer to **string** | Filter delivers only messages on this org-relative subject (wildcards supported). | [optional] 
-**MaxAckPending** | Pointer to **int32** | MaxAckPending caps unacknowledged messages in flight (default 1000). | [optional] 
-**MaxDeliver** | Pointer to **int32** | MaxDeliver caps delivery attempts per message; -1 (default) is unlimited. | [optional] 
+**MaxAckPending** | Pointer to **int64** | MaxAckPending caps unacknowledged messages in flight (default 1000). | [optional] 
+**MaxDeliver** | Pointer to **int64** | MaxDeliver caps delivery attempts per message; -1 (default) is unlimited. | [optional] 
 **OptStartSeq** | Pointer to **int32** | StartSeq is the starting sequence for deliver_policy by_start_sequence. | [optional] 
 **OptStartTime** | Pointer to **time.Time** | StartTime is the starting instant for deliver_policy by_start_time. | [optional] 
 **ReplayPolicy** | Pointer to **string** | Replay is the replay pacing: instant (default) or original. | [optional] 
@@ -187,20 +187,20 @@ HasFilterSubject returns a boolean if a field has been set.
 
 ### GetMaxAckPending
 
-`func (o *Durable) GetMaxAckPending() int32`
+`func (o *Durable) GetMaxAckPending() int64`
 
 GetMaxAckPending returns the MaxAckPending field if non-nil, zero value otherwise.
 
 ### GetMaxAckPendingOk
 
-`func (o *Durable) GetMaxAckPendingOk() (*int32, bool)`
+`func (o *Durable) GetMaxAckPendingOk() (*int64, bool)`
 
 GetMaxAckPendingOk returns a tuple with the MaxAckPending field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxAckPending
 
-`func (o *Durable) SetMaxAckPending(v int32)`
+`func (o *Durable) SetMaxAckPending(v int64)`
 
 SetMaxAckPending sets MaxAckPending field to given value.
 
@@ -212,20 +212,20 @@ HasMaxAckPending returns a boolean if a field has been set.
 
 ### GetMaxDeliver
 
-`func (o *Durable) GetMaxDeliver() int32`
+`func (o *Durable) GetMaxDeliver() int64`
 
 GetMaxDeliver returns the MaxDeliver field if non-nil, zero value otherwise.
 
 ### GetMaxDeliverOk
 
-`func (o *Durable) GetMaxDeliverOk() (*int32, bool)`
+`func (o *Durable) GetMaxDeliverOk() (*int64, bool)`
 
 GetMaxDeliverOk returns a tuple with the MaxDeliver field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxDeliver
 
-`func (o *Durable) SetMaxDeliver(v int32)`
+`func (o *Durable) SetMaxDeliver(v int64)`
 
 SetMaxDeliver sets MaxDeliver field to given value.
 

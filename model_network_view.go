@@ -24,7 +24,7 @@ type NetworkView struct {
 	// Name is the org the overlay belongs to.
 	Name *string `json:"name,omitempty"`
 	// Nodes is how many edge-routers the org has on the fabric.
-	Nodes *int32 `json:"nodes,omitempty"`
+	Nodes *int64 `json:"nodes,omitempty"`
 	// Status is \"connected\" once at least one of the org's edge-routers is online, else \"provisioning\" (routers exist but none has dialed home).
 	Status *string `json:"status,omitempty"`
 }
@@ -111,9 +111,9 @@ func (o *NetworkView) SetName(v string) {
 }
 
 // GetNodes returns the Nodes field value if set, zero value otherwise.
-func (o *NetworkView) GetNodes() int32 {
+func (o *NetworkView) GetNodes() int64 {
 	if o == nil || IsNil(o.Nodes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Nodes
@@ -121,7 +121,7 @@ func (o *NetworkView) GetNodes() int32 {
 
 // GetNodesOk returns a tuple with the Nodes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NetworkView) GetNodesOk() (*int32, bool) {
+func (o *NetworkView) GetNodesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Nodes) {
 		return nil, false
 	}
@@ -137,8 +137,8 @@ func (o *NetworkView) HasNodes() bool {
 	return false
 }
 
-// SetNodes gets a reference to the given int32 and assigns it to the Nodes field.
-func (o *NetworkView) SetNodes(v int32) {
+// SetNodes gets a reference to the given int64 and assigns it to the Nodes field.
+func (o *NetworkView) SetNodes(v int64) {
 	o.Nodes = &v
 }
 

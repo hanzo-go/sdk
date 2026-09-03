@@ -26,7 +26,7 @@ type SessionProgress struct {
 	// Estimated says a MODEL produced this, from the run's transcript, and it may be wrong. False means the session's own row said it: a finished run is 100% because it finished, not because anything guessed. Never treat a true here as a measurement — it is the reason to look, not the answer.
 	Estimated *bool `json:"estimated,omitempty"`
 	// Pct is how much of the run is done, 0 to 100. THE KEY IS ABSENT when progress is indeterminate — a run nobody can estimate is not a run that has done nothing, and rendering the second for the first is the mistake this omission exists to make impossible. Read `phase` before reaching for it.
-	Pct *int32 `json:"pct,omitempty"`
+	Pct *int64 `json:"pct,omitempty"`
 	// Phase is what shape the run is in: running, blocked, done, error, or unknown when nothing has estimated it yet. blocked means the transcript shows the run waiting on something — an approval, a credential, an answer — which is the one state the running surface cannot report about itself. error only ever comes from the session's own terminal status.
 	Phase *string `json:"phase,omitempty"`
 }
@@ -145,9 +145,9 @@ func (o *SessionProgress) SetEstimated(v bool) {
 }
 
 // GetPct returns the Pct field value if set, zero value otherwise.
-func (o *SessionProgress) GetPct() int32 {
+func (o *SessionProgress) GetPct() int64 {
 	if o == nil || IsNil(o.Pct) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Pct
@@ -155,7 +155,7 @@ func (o *SessionProgress) GetPct() int32 {
 
 // GetPctOk returns a tuple with the Pct field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SessionProgress) GetPctOk() (*int32, bool) {
+func (o *SessionProgress) GetPctOk() (*int64, bool) {
 	if o == nil || IsNil(o.Pct) {
 		return nil, false
 	}
@@ -171,8 +171,8 @@ func (o *SessionProgress) HasPct() bool {
 	return false
 }
 
-// SetPct gets a reference to the given int32 and assigns it to the Pct field.
-func (o *SessionProgress) SetPct(v int32) {
+// SetPct gets a reference to the given int64 and assigns it to the Pct field.
+func (o *SessionProgress) SetPct(v int64) {
 	o.Pct = &v
 }
 

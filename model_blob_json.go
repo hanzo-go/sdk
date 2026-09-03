@@ -28,7 +28,7 @@ type BlobJSON struct {
 	// Path is the file's repo-relative path.
 	Path *string `json:"path,omitempty"`
 	// Size is the file's byte length in the repo, whatever was returned below.
-	Size *int32 `json:"size,omitempty"`
+	Size *int64 `json:"size,omitempty"`
 	// Truncated marks a file past the 1 MiB view cap. No content is sent — clone the repo for it.
 	Truncated *bool `json:"truncated,omitempty"`
 }
@@ -179,9 +179,9 @@ func (o *BlobJSON) SetPath(v string) {
 }
 
 // GetSize returns the Size field value if set, zero value otherwise.
-func (o *BlobJSON) GetSize() int32 {
+func (o *BlobJSON) GetSize() int64 {
 	if o == nil || IsNil(o.Size) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Size
@@ -189,7 +189,7 @@ func (o *BlobJSON) GetSize() int32 {
 
 // GetSizeOk returns a tuple with the Size field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BlobJSON) GetSizeOk() (*int32, bool) {
+func (o *BlobJSON) GetSizeOk() (*int64, bool) {
 	if o == nil || IsNil(o.Size) {
 		return nil, false
 	}
@@ -205,8 +205,8 @@ func (o *BlobJSON) HasSize() bool {
 	return false
 }
 
-// SetSize gets a reference to the given int32 and assigns it to the Size field.
-func (o *BlobJSON) SetSize(v int32) {
+// SetSize gets a reference to the given int64 and assigns it to the Size field.
+func (o *BlobJSON) SetSize(v int64) {
 	o.Size = &v
 }
 

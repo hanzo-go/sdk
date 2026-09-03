@@ -20,7 +20,7 @@ var _ MappedNullable = &NextIn{}
 // NextIn struct for NextIn
 type NextIn struct {
 	// Batch is how many messages to pull (1–1000, default 1).
-	Batch *int32 `json:"batch,omitempty"`
+	Batch *int64 `json:"batch,omitempty"`
 	// Expires is how long to wait for messages, e.g. \"5s\" (default \"30s\", max \"60s\").
 	Expires *string `json:"expires,omitempty"`
 	// Name is the consumer name, from the path.
@@ -49,9 +49,9 @@ func NewNextInWithDefaults() *NextIn {
 }
 
 // GetBatch returns the Batch field value if set, zero value otherwise.
-func (o *NextIn) GetBatch() int32 {
+func (o *NextIn) GetBatch() int64 {
 	if o == nil || IsNil(o.Batch) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Batch
@@ -59,7 +59,7 @@ func (o *NextIn) GetBatch() int32 {
 
 // GetBatchOk returns a tuple with the Batch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NextIn) GetBatchOk() (*int32, bool) {
+func (o *NextIn) GetBatchOk() (*int64, bool) {
 	if o == nil || IsNil(o.Batch) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *NextIn) HasBatch() bool {
 	return false
 }
 
-// SetBatch gets a reference to the given int32 and assigns it to the Batch field.
-func (o *NextIn) SetBatch(v int32) {
+// SetBatch gets a reference to the given int64 and assigns it to the Batch field.
+func (o *NextIn) SetBatch(v int64) {
 	o.Batch = &v
 }
 

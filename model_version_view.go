@@ -24,7 +24,7 @@ type VersionView struct {
 	// Type is the kind this revision was written with, which may differ from the current one.
 	Type *string `json:"type,omitempty"`
 	// Version is this revision's number, 1 for the first. Numbers are dense and never reused: deleting the prompt drops the whole history with it.
-	Version *int32 `json:"version,omitempty"`
+	Version *int64 `json:"version,omitempty"`
 }
 
 // NewVersionView instantiates a new VersionView object
@@ -109,9 +109,9 @@ func (o *VersionView) SetType(v string) {
 }
 
 // GetVersion returns the Version field value if set, zero value otherwise.
-func (o *VersionView) GetVersion() int32 {
+func (o *VersionView) GetVersion() int64 {
 	if o == nil || IsNil(o.Version) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Version
@@ -119,7 +119,7 @@ func (o *VersionView) GetVersion() int32 {
 
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VersionView) GetVersionOk() (*int32, bool) {
+func (o *VersionView) GetVersionOk() (*int64, bool) {
 	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *VersionView) HasVersion() bool {
 	return false
 }
 
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
-func (o *VersionView) SetVersion(v int32) {
+// SetVersion gets a reference to the given int64 and assigns it to the Version field.
+func (o *VersionView) SetVersion(v int64) {
 	o.Version = &v
 }
 

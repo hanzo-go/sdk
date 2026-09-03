@@ -22,13 +22,13 @@ type FleetMetrics struct {
 	// At is when this reading was MEASURED, RFC 3339 in UTC — not when the board was built. A console decides staleness by comparing it to now; the board deliberately does not decide that for it.
 	At *string `json:"at,omitempty"`
 	// GPUUtil is aggregate accelerator utilization as a FRACTION of 1 — 0.42 is 42% busy, never 42. Across all of the unit's cards, not one of them.
-	GpuUtil *float32 `json:"gpuUtil,omitempty"`
+	GpuUtil *float64 `json:"gpuUtil,omitempty"`
 	// Load1 is the host's 1-minute load average — runnable processes, not a percentage, so it is read against the unit's core count and can exceed 1.
-	Load1 *float32 `json:"load1,omitempty"`
+	Load1 *float64 `json:"load1,omitempty"`
 	// MemFree is host memory still available, in BYTES. It is what the source reported, not fleetSpec.Memory minus MemUsed.
-	MemFree *int32 `json:"memFree,omitempty"`
+	MemFree *int64 `json:"memFree,omitempty"`
 	// MemUsed is host memory in use, in BYTES.
-	MemUsed *int32 `json:"memUsed,omitempty"`
+	MemUsed *int64 `json:"memUsed,omitempty"`
 }
 
 // NewFleetMetrics instantiates a new FleetMetrics object
@@ -81,9 +81,9 @@ func (o *FleetMetrics) SetAt(v string) {
 }
 
 // GetGpuUtil returns the GpuUtil field value if set, zero value otherwise.
-func (o *FleetMetrics) GetGpuUtil() float32 {
+func (o *FleetMetrics) GetGpuUtil() float64 {
 	if o == nil || IsNil(o.GpuUtil) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.GpuUtil
@@ -91,7 +91,7 @@ func (o *FleetMetrics) GetGpuUtil() float32 {
 
 // GetGpuUtilOk returns a tuple with the GpuUtil field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FleetMetrics) GetGpuUtilOk() (*float32, bool) {
+func (o *FleetMetrics) GetGpuUtilOk() (*float64, bool) {
 	if o == nil || IsNil(o.GpuUtil) {
 		return nil, false
 	}
@@ -107,15 +107,15 @@ func (o *FleetMetrics) HasGpuUtil() bool {
 	return false
 }
 
-// SetGpuUtil gets a reference to the given float32 and assigns it to the GpuUtil field.
-func (o *FleetMetrics) SetGpuUtil(v float32) {
+// SetGpuUtil gets a reference to the given float64 and assigns it to the GpuUtil field.
+func (o *FleetMetrics) SetGpuUtil(v float64) {
 	o.GpuUtil = &v
 }
 
 // GetLoad1 returns the Load1 field value if set, zero value otherwise.
-func (o *FleetMetrics) GetLoad1() float32 {
+func (o *FleetMetrics) GetLoad1() float64 {
 	if o == nil || IsNil(o.Load1) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Load1
@@ -123,7 +123,7 @@ func (o *FleetMetrics) GetLoad1() float32 {
 
 // GetLoad1Ok returns a tuple with the Load1 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FleetMetrics) GetLoad1Ok() (*float32, bool) {
+func (o *FleetMetrics) GetLoad1Ok() (*float64, bool) {
 	if o == nil || IsNil(o.Load1) {
 		return nil, false
 	}
@@ -139,15 +139,15 @@ func (o *FleetMetrics) HasLoad1() bool {
 	return false
 }
 
-// SetLoad1 gets a reference to the given float32 and assigns it to the Load1 field.
-func (o *FleetMetrics) SetLoad1(v float32) {
+// SetLoad1 gets a reference to the given float64 and assigns it to the Load1 field.
+func (o *FleetMetrics) SetLoad1(v float64) {
 	o.Load1 = &v
 }
 
 // GetMemFree returns the MemFree field value if set, zero value otherwise.
-func (o *FleetMetrics) GetMemFree() int32 {
+func (o *FleetMetrics) GetMemFree() int64 {
 	if o == nil || IsNil(o.MemFree) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MemFree
@@ -155,7 +155,7 @@ func (o *FleetMetrics) GetMemFree() int32 {
 
 // GetMemFreeOk returns a tuple with the MemFree field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FleetMetrics) GetMemFreeOk() (*int32, bool) {
+func (o *FleetMetrics) GetMemFreeOk() (*int64, bool) {
 	if o == nil || IsNil(o.MemFree) {
 		return nil, false
 	}
@@ -171,15 +171,15 @@ func (o *FleetMetrics) HasMemFree() bool {
 	return false
 }
 
-// SetMemFree gets a reference to the given int32 and assigns it to the MemFree field.
-func (o *FleetMetrics) SetMemFree(v int32) {
+// SetMemFree gets a reference to the given int64 and assigns it to the MemFree field.
+func (o *FleetMetrics) SetMemFree(v int64) {
 	o.MemFree = &v
 }
 
 // GetMemUsed returns the MemUsed field value if set, zero value otherwise.
-func (o *FleetMetrics) GetMemUsed() int32 {
+func (o *FleetMetrics) GetMemUsed() int64 {
 	if o == nil || IsNil(o.MemUsed) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MemUsed
@@ -187,7 +187,7 @@ func (o *FleetMetrics) GetMemUsed() int32 {
 
 // GetMemUsedOk returns a tuple with the MemUsed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FleetMetrics) GetMemUsedOk() (*int32, bool) {
+func (o *FleetMetrics) GetMemUsedOk() (*int64, bool) {
 	if o == nil || IsNil(o.MemUsed) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *FleetMetrics) HasMemUsed() bool {
 	return false
 }
 
-// SetMemUsed gets a reference to the given int32 and assigns it to the MemUsed field.
-func (o *FleetMetrics) SetMemUsed(v int32) {
+// SetMemUsed gets a reference to the given int64 and assigns it to the MemUsed field.
+func (o *FleetMetrics) SetMemUsed(v int64) {
 	o.MemUsed = &v
 }
 

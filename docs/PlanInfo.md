@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Active** | Pointer to **bool** | Active is whether that plan&#39;s entitlement is live. | [optional] 
-**GuestLimit** | Pointer to **int32** | GuestLimit is the plan&#39;s team.guests cap, when the plan carries one. | [optional] 
-**Guests** | Pointer to **int32** | Guests is how many of those seats are guests. | [optional] 
+**GuestLimit** | Pointer to **int64** | GuestLimit is the plan&#39;s team.guests cap, when the plan carries one. | [optional] 
+**Guests** | Pointer to **int64** | Guests is how many of those seats are guests. | [optional] 
 **Plan** | Pointer to **string** | Plan is the licensed plan id, empty when it cannot be resolved here — an honest dash on the page, never a fabricated tier. | [optional] 
-**Seats** | Pointer to **int32** | Seats is the org&#39;s distinct active human members. | [optional] 
+**Seats** | Pointer to **int64** | Seats is the org&#39;s distinct active human members. | [optional] 
 **UpgradeUrl** | Pointer to **string** | UpgradeURL is where the page sends a caller who wants a bigger plan. | [optional] 
 
 ## Methods
@@ -57,20 +57,20 @@ HasActive returns a boolean if a field has been set.
 
 ### GetGuestLimit
 
-`func (o *PlanInfo) GetGuestLimit() int32`
+`func (o *PlanInfo) GetGuestLimit() int64`
 
 GetGuestLimit returns the GuestLimit field if non-nil, zero value otherwise.
 
 ### GetGuestLimitOk
 
-`func (o *PlanInfo) GetGuestLimitOk() (*int32, bool)`
+`func (o *PlanInfo) GetGuestLimitOk() (*int64, bool)`
 
 GetGuestLimitOk returns a tuple with the GuestLimit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGuestLimit
 
-`func (o *PlanInfo) SetGuestLimit(v int32)`
+`func (o *PlanInfo) SetGuestLimit(v int64)`
 
 SetGuestLimit sets GuestLimit field to given value.
 
@@ -82,20 +82,20 @@ HasGuestLimit returns a boolean if a field has been set.
 
 ### GetGuests
 
-`func (o *PlanInfo) GetGuests() int32`
+`func (o *PlanInfo) GetGuests() int64`
 
 GetGuests returns the Guests field if non-nil, zero value otherwise.
 
 ### GetGuestsOk
 
-`func (o *PlanInfo) GetGuestsOk() (*int32, bool)`
+`func (o *PlanInfo) GetGuestsOk() (*int64, bool)`
 
 GetGuestsOk returns a tuple with the Guests field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGuests
 
-`func (o *PlanInfo) SetGuests(v int32)`
+`func (o *PlanInfo) SetGuests(v int64)`
 
 SetGuests sets Guests field to given value.
 
@@ -132,20 +132,20 @@ HasPlan returns a boolean if a field has been set.
 
 ### GetSeats
 
-`func (o *PlanInfo) GetSeats() int32`
+`func (o *PlanInfo) GetSeats() int64`
 
 GetSeats returns the Seats field if non-nil, zero value otherwise.
 
 ### GetSeatsOk
 
-`func (o *PlanInfo) GetSeatsOk() (*int32, bool)`
+`func (o *PlanInfo) GetSeatsOk() (*int64, bool)`
 
 GetSeatsOk returns a tuple with the Seats field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSeats
 
-`func (o *PlanInfo) SetSeats(v int32)`
+`func (o *PlanInfo) SetSeats(v int64)`
 
 SetSeats sets Seats field to given value.
 

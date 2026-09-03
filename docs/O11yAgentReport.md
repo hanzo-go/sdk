@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Data** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
-**TimestampMillis** | Pointer to **int32** |  | [optional] 
+**TimestampMillis** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasData returns a boolean if a field has been set.
 
 ### GetTimestampMillis
 
-`func (o *O11yAgentReport) GetTimestampMillis() int32`
+`func (o *O11yAgentReport) GetTimestampMillis() int64`
 
 GetTimestampMillis returns the TimestampMillis field if non-nil, zero value otherwise.
 
 ### GetTimestampMillisOk
 
-`func (o *O11yAgentReport) GetTimestampMillisOk() (*int32, bool)`
+`func (o *O11yAgentReport) GetTimestampMillisOk() (*int64, bool)`
 
 GetTimestampMillisOk returns a tuple with the TimestampMillis field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimestampMillis
 
-`func (o *O11yAgentReport) SetTimestampMillis(v int32)`
+`func (o *O11yAgentReport) SetTimestampMillis(v int64)`
 
 SetTimestampMillis sets TimestampMillis field to given value.
 

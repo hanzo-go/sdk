@@ -20,9 +20,9 @@ var _ MappedNullable = &Recharge{}
 // Recharge struct for Recharge
 type Recharge struct {
 	// Charged is how many of them were actually charged. It is at most Orgs, and the difference is orgs whose balance was already above their threshold.
-	Charged *int32 `json:"charged,omitempty"`
+	Charged *int64 `json:"charged,omitempty"`
 	// Orgs is how many orgs the sweep considered — every org with auto-recharge armed, whether or not it needed charging.
-	Orgs *int32 `json:"orgs,omitempty"`
+	Orgs *int64 `json:"orgs,omitempty"`
 	// Results is one row per org considered, so a sweep that charged nobody is still explainable. Never null.
 	Results []Recharged `json:"results,omitempty"`
 }
@@ -45,9 +45,9 @@ func NewRechargeWithDefaults() *Recharge {
 }
 
 // GetCharged returns the Charged field value if set, zero value otherwise.
-func (o *Recharge) GetCharged() int32 {
+func (o *Recharge) GetCharged() int64 {
 	if o == nil || IsNil(o.Charged) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Charged
@@ -55,7 +55,7 @@ func (o *Recharge) GetCharged() int32 {
 
 // GetChargedOk returns a tuple with the Charged field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Recharge) GetChargedOk() (*int32, bool) {
+func (o *Recharge) GetChargedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Charged) {
 		return nil, false
 	}
@@ -71,15 +71,15 @@ func (o *Recharge) HasCharged() bool {
 	return false
 }
 
-// SetCharged gets a reference to the given int32 and assigns it to the Charged field.
-func (o *Recharge) SetCharged(v int32) {
+// SetCharged gets a reference to the given int64 and assigns it to the Charged field.
+func (o *Recharge) SetCharged(v int64) {
 	o.Charged = &v
 }
 
 // GetOrgs returns the Orgs field value if set, zero value otherwise.
-func (o *Recharge) GetOrgs() int32 {
+func (o *Recharge) GetOrgs() int64 {
 	if o == nil || IsNil(o.Orgs) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Orgs
@@ -87,7 +87,7 @@ func (o *Recharge) GetOrgs() int32 {
 
 // GetOrgsOk returns a tuple with the Orgs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Recharge) GetOrgsOk() (*int32, bool) {
+func (o *Recharge) GetOrgsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Orgs) {
 		return nil, false
 	}
@@ -103,8 +103,8 @@ func (o *Recharge) HasOrgs() bool {
 	return false
 }
 
-// SetOrgs gets a reference to the given int32 and assigns it to the Orgs field.
-func (o *Recharge) SetOrgs(v int32) {
+// SetOrgs gets a reference to the given int64 and assigns it to the Orgs field.
+func (o *Recharge) SetOrgs(v int64) {
 	o.Orgs = &v
 }
 

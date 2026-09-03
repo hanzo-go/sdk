@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Bucket** | Pointer to **string** | Bucket is the object-store bucket its files were written to. | [optional] 
-**Bytes** | Pointer to **int32** | Bytes is their total size in bytes. | [optional] 
+**Bytes** | Pointer to **int64** | Bytes is their total size in bytes. | [optional] 
 **Commit** | Pointer to **string** | Commit is the revision that was built, for a deployment that came from a repository. Absent for an uploaded artifact, which has no revision. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the deployment was queued, as Unix seconds. | [optional] 
-**Files** | Pointer to **int32** | Files is how many objects the deployment published. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the deployment was queued, as Unix seconds. | [optional] 
+**Files** | Pointer to **int64** | Files is how many objects the deployment published. | [optional] 
 **Id** | Pointer to **string** | ID identifies this one deployment attempt, and is what CI quotes back to complete it. | [optional] 
 **LiveUrl** | Pointer to **string** | LiveURL is where this deployment serves, once it is live. | [optional] 
 **Message** | Pointer to **string** | Message is what happened, in words — the build&#39;s own note, or on a failure why it failed. | [optional] 
@@ -16,9 +16,9 @@ Name | Type | Description | Notes
 **ProjectId** | Pointer to **string** | ProjectID is the project this deployment belongs to. | [optional] 
 **Source** | Pointer to **string** | Source is what caused the deployment — a git push, an uploaded artifact, a generated site. | [optional] 
 **Status** | Pointer to **string** | Status is where the attempt got to — queued, live, or failed. A deployment that is live is not necessarily the one SERVING: the project&#39;s own currentDeploymentId says which is. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is when it last changed state, as Unix seconds — so the gap between the two is how long the build took. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is when it last changed state, as Unix seconds — so the gap between the two is how long the build took. | [optional] 
 **Upload** | Pointer to [**ProjectsUploadGrant**](ProjectsUploadGrant.md) | Upload is the prefix-scoped, short-lived S3 write grant handed to CI with a queued git deployment, so it needs no bucket credential (grant.go). Present ONLY on the 202 that creates the deployment — it is never stored and never replayed on a later read, so a grant cannot outlive the build it was minted for by being fetched again. | [optional] 
-**Version** | Pointer to **int32** | Version counts deployments of this project from 1, so the history reads as an ordered sequence rather than by timestamp. It is per project, not global. | [optional] 
+**Version** | Pointer to **int64** | Version counts deployments of this project from 1, so the history reads as an ordered sequence rather than by timestamp. It is per project, not global. | [optional] 
 
 ## Methods
 
@@ -66,20 +66,20 @@ HasBucket returns a boolean if a field has been set.
 
 ### GetBytes
 
-`func (o *ProjectsDeployment) GetBytes() int32`
+`func (o *ProjectsDeployment) GetBytes() int64`
 
 GetBytes returns the Bytes field if non-nil, zero value otherwise.
 
 ### GetBytesOk
 
-`func (o *ProjectsDeployment) GetBytesOk() (*int32, bool)`
+`func (o *ProjectsDeployment) GetBytesOk() (*int64, bool)`
 
 GetBytesOk returns a tuple with the Bytes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBytes
 
-`func (o *ProjectsDeployment) SetBytes(v int32)`
+`func (o *ProjectsDeployment) SetBytes(v int64)`
 
 SetBytes sets Bytes field to given value.
 
@@ -116,20 +116,20 @@ HasCommit returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *ProjectsDeployment) GetCreatedAt() int32`
+`func (o *ProjectsDeployment) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *ProjectsDeployment) GetCreatedAtOk() (*int32, bool)`
+`func (o *ProjectsDeployment) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *ProjectsDeployment) SetCreatedAt(v int32)`
+`func (o *ProjectsDeployment) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -141,20 +141,20 @@ HasCreatedAt returns a boolean if a field has been set.
 
 ### GetFiles
 
-`func (o *ProjectsDeployment) GetFiles() int32`
+`func (o *ProjectsDeployment) GetFiles() int64`
 
 GetFiles returns the Files field if non-nil, zero value otherwise.
 
 ### GetFilesOk
 
-`func (o *ProjectsDeployment) GetFilesOk() (*int32, bool)`
+`func (o *ProjectsDeployment) GetFilesOk() (*int64, bool)`
 
 GetFilesOk returns a tuple with the Files field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFiles
 
-`func (o *ProjectsDeployment) SetFiles(v int32)`
+`func (o *ProjectsDeployment) SetFiles(v int64)`
 
 SetFiles sets Files field to given value.
 
@@ -341,20 +341,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *ProjectsDeployment) GetUpdatedAt() int32`
+`func (o *ProjectsDeployment) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *ProjectsDeployment) GetUpdatedAtOk() (*int32, bool)`
+`func (o *ProjectsDeployment) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *ProjectsDeployment) SetUpdatedAt(v int32)`
+`func (o *ProjectsDeployment) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
@@ -391,20 +391,20 @@ HasUpload returns a boolean if a field has been set.
 
 ### GetVersion
 
-`func (o *ProjectsDeployment) GetVersion() int32`
+`func (o *ProjectsDeployment) GetVersion() int64`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *ProjectsDeployment) GetVersionOk() (*int32, bool)`
+`func (o *ProjectsDeployment) GetVersionOk() (*int64, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *ProjectsDeployment) SetVersion(v int32)`
+`func (o *ProjectsDeployment) SetVersion(v int64)`
 
 SetVersion sets Version field to given value.
 

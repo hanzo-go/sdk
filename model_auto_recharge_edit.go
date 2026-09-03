@@ -19,10 +19,10 @@ var _ MappedNullable = &AutoRechargeEdit{}
 
 // AutoRechargeEdit struct for AutoRechargeEdit
 type AutoRechargeEdit struct {
-	AmountCents    *int32  `json:"amountCents,omitempty"`
+	AmountCents    *int64  `json:"amountCents,omitempty"`
 	Currency       *string `json:"currency,omitempty"`
 	Enabled        *bool   `json:"enabled,omitempty"`
-	ThresholdCents *int32  `json:"thresholdCents,omitempty"`
+	ThresholdCents *int64  `json:"thresholdCents,omitempty"`
 }
 
 // NewAutoRechargeEdit instantiates a new AutoRechargeEdit object
@@ -43,9 +43,9 @@ func NewAutoRechargeEditWithDefaults() *AutoRechargeEdit {
 }
 
 // GetAmountCents returns the AmountCents field value if set, zero value otherwise.
-func (o *AutoRechargeEdit) GetAmountCents() int32 {
+func (o *AutoRechargeEdit) GetAmountCents() int64 {
 	if o == nil || IsNil(o.AmountCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AmountCents
@@ -53,7 +53,7 @@ func (o *AutoRechargeEdit) GetAmountCents() int32 {
 
 // GetAmountCentsOk returns a tuple with the AmountCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AutoRechargeEdit) GetAmountCentsOk() (*int32, bool) {
+func (o *AutoRechargeEdit) GetAmountCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AmountCents) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *AutoRechargeEdit) HasAmountCents() bool {
 	return false
 }
 
-// SetAmountCents gets a reference to the given int32 and assigns it to the AmountCents field.
-func (o *AutoRechargeEdit) SetAmountCents(v int32) {
+// SetAmountCents gets a reference to the given int64 and assigns it to the AmountCents field.
+func (o *AutoRechargeEdit) SetAmountCents(v int64) {
 	o.AmountCents = &v
 }
 
@@ -139,9 +139,9 @@ func (o *AutoRechargeEdit) SetEnabled(v bool) {
 }
 
 // GetThresholdCents returns the ThresholdCents field value if set, zero value otherwise.
-func (o *AutoRechargeEdit) GetThresholdCents() int32 {
+func (o *AutoRechargeEdit) GetThresholdCents() int64 {
 	if o == nil || IsNil(o.ThresholdCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ThresholdCents
@@ -149,7 +149,7 @@ func (o *AutoRechargeEdit) GetThresholdCents() int32 {
 
 // GetThresholdCentsOk returns a tuple with the ThresholdCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AutoRechargeEdit) GetThresholdCentsOk() (*int32, bool) {
+func (o *AutoRechargeEdit) GetThresholdCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.ThresholdCents) {
 		return nil, false
 	}
@@ -165,8 +165,8 @@ func (o *AutoRechargeEdit) HasThresholdCents() bool {
 	return false
 }
 
-// SetThresholdCents gets a reference to the given int32 and assigns it to the ThresholdCents field.
-func (o *AutoRechargeEdit) SetThresholdCents(v int32) {
+// SetThresholdCents gets a reference to the given int64 and assigns it to the ThresholdCents field.
+func (o *AutoRechargeEdit) SetThresholdCents(v int64) {
 	o.ThresholdCents = &v
 }
 

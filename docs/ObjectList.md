@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Bucket** | Pointer to **string** | Bucket is the bucket that was listed, friendly name. | [optional] 
 **Objects** | Pointer to [**[]ObjectItem**](ObjectItem.md) | Objects are the entries at this level, keys RELATIVE to Prefix. | [optional] 
 **Prefix** | Pointer to **string** | Prefix is the sub-folder the listing was scoped to, cleaned. Empty for the bucket root. | [optional] 
-**Total** | Pointer to **int32** | Total is how many entries came back. The listing is BOUNDED, so a bucket with more keys than the cap answers the cap and this says so — it is not a count of what the bucket holds. | [optional] 
+**Total** | Pointer to **int64** | Total is how many entries came back. The listing is BOUNDED, so a bucket with more keys than the cap answers the cap and this says so — it is not a count of what the bucket holds. | [optional] 
 
 ## Methods
 
@@ -105,20 +105,20 @@ HasPrefix returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *ObjectList) GetTotal() int32`
+`func (o *ObjectList) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *ObjectList) GetTotalOk() (*int32, bool)`
+`func (o *ObjectList) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *ObjectList) SetTotal(v int32)`
+`func (o *ObjectList) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

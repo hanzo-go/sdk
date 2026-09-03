@@ -24,7 +24,7 @@ type CartItemSet struct {
 	// Product names the catalog product to set, by its id or its URL slug. Give this or Variant, never both; a request naming neither is refused.
 	Product *string `json:"product,omitempty"`
 	// Quantity is how many of that item the cart should hold AFTER this call — it is the resulting count, not a delta, so sending 3 twice leaves 3 and not 6. ZERO REMOVES the line, which is the only way to take an item out.
-	Quantity *int32 `json:"quantity,omitempty"`
+	Quantity *int64 `json:"quantity,omitempty"`
 	// Variant names the specific sellable variant to set, by its id or its SKU. Prefer it over Product for anything sold in sizes, colours or tiers — the price and the stock are the variant's, not the product's.
 	Variant *string `json:"variant,omitempty"`
 }
@@ -111,9 +111,9 @@ func (o *CartItemSet) SetProduct(v string) {
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise.
-func (o *CartItemSet) GetQuantity() int32 {
+func (o *CartItemSet) GetQuantity() int64 {
 	if o == nil || IsNil(o.Quantity) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Quantity
@@ -121,7 +121,7 @@ func (o *CartItemSet) GetQuantity() int32 {
 
 // GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CartItemSet) GetQuantityOk() (*int32, bool) {
+func (o *CartItemSet) GetQuantityOk() (*int64, bool) {
 	if o == nil || IsNil(o.Quantity) {
 		return nil, false
 	}
@@ -137,8 +137,8 @@ func (o *CartItemSet) HasQuantity() bool {
 	return false
 }
 
-// SetQuantity gets a reference to the given int32 and assigns it to the Quantity field.
-func (o *CartItemSet) SetQuantity(v int32) {
+// SetQuantity gets a reference to the given int64 and assigns it to the Quantity field.
+func (o *CartItemSet) SetQuantity(v int64) {
 	o.Quantity = &v
 }
 

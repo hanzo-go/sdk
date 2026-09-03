@@ -22,7 +22,7 @@ type IamMfaProps struct {
 	CountryCode        *string `json:"countryCode,omitempty"`
 	Enabled            *bool   `json:"enabled,omitempty"`
 	IsPreferred        *bool   `json:"isPreferred,omitempty"`
-	MfaRememberInHours *int32  `json:"mfaRememberInHours,omitempty"`
+	MfaRememberInHours *int64  `json:"mfaRememberInHours,omitempty"`
 	MfaType            *string `json:"mfaType,omitempty"`
 	Url                *string `json:"url,omitempty"`
 }
@@ -141,9 +141,9 @@ func (o *IamMfaProps) SetIsPreferred(v bool) {
 }
 
 // GetMfaRememberInHours returns the MfaRememberInHours field value if set, zero value otherwise.
-func (o *IamMfaProps) GetMfaRememberInHours() int32 {
+func (o *IamMfaProps) GetMfaRememberInHours() int64 {
 	if o == nil || IsNil(o.MfaRememberInHours) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MfaRememberInHours
@@ -151,7 +151,7 @@ func (o *IamMfaProps) GetMfaRememberInHours() int32 {
 
 // GetMfaRememberInHoursOk returns a tuple with the MfaRememberInHours field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamMfaProps) GetMfaRememberInHoursOk() (*int32, bool) {
+func (o *IamMfaProps) GetMfaRememberInHoursOk() (*int64, bool) {
 	if o == nil || IsNil(o.MfaRememberInHours) {
 		return nil, false
 	}
@@ -167,8 +167,8 @@ func (o *IamMfaProps) HasMfaRememberInHours() bool {
 	return false
 }
 
-// SetMfaRememberInHours gets a reference to the given int32 and assigns it to the MfaRememberInHours field.
-func (o *IamMfaProps) SetMfaRememberInHours(v int32) {
+// SetMfaRememberInHours gets a reference to the given int64 and assigns it to the MfaRememberInHours field.
+func (o *IamMfaProps) SetMfaRememberInHours(v int64) {
 	o.MfaRememberInHours = &v
 }
 

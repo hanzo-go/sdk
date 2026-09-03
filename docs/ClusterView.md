@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AmdGpu** | Pointer to **int32** | AmdGPU is the same count for &#x60;amd.com/gpu&#x60;: AMD accelerators across the BYO cluster&#39;s nodes, as of the attach. | [optional] 
+**AmdGpu** | Pointer to **int64** | AmdGPU is the same count for &#x60;amd.com/gpu&#x60;: AMD accelerators across the BYO cluster&#39;s nodes, as of the attach. | [optional] 
 **CreatedAt** | Pointer to **string** | CreatedAt is when the cluster started existing: the earliest creation time among its pools for a managed cluster, and for a BYO one the RFC 3339 moment it was attached. Empty when the source states none. | [optional] 
 **DoClusterId** | Pointer to **string** | DoClusterID carries the SAME id as DoksClusterID. Both names exist because the console&#39;s Cluster type reads either one; neither is a second identifier. | [optional] 
 **DoksClusterId** | Pointer to **string** | DoksClusterID is the provider&#39;s own id for the cluster, and the value the /v1/visor/k8s/clusters/:id routes take. Empty for a BYO cluster: an attached kubeconfig was never provisioned, so there is no provider id to state. | [optional] 
 **Kind** | Pointer to **string** | Kind says which of the two kinds of cluster this row is, and there are only two: \&quot;managed\&quot; — Visor provisioned it and Hanzo&#39;s account pays the provider — or \&quot;byo\&quot;, an existing cluster the org attached by kubeconfig. | [optional] 
 **Name** | Pointer to **string** | Name is the cluster&#39;s name: the provider&#39;s for a managed cluster, and for a BYO one the lower-cased fleet name it was attached under — which is also how the detach route addresses it. | [optional] 
-**NodeCount** | Pointer to **int32** | NodeCount is how many worker nodes the cluster has — the sum over its pools for a managed cluster, and for a BYO one the node count read off the cluster when it was attached. | [optional] 
+**NodeCount** | Pointer to **int64** | NodeCount is how many worker nodes the cluster has — the sum over its pools for a managed cluster, and for a BYO one the node count read off the cluster when it was attached. | [optional] 
 **NodePools** | Pointer to [**[]NodePoolView**](NodePoolView.md) | NodePools is the authoritative node inventory — every pool, each with its own size and count. It is empty in two cases that are not \&quot;no pools\&quot;: a row from the /v1/visor/k8s/clusters LIST, which is deliberately lightweight and whose :id detail carries them, and a BYO cluster, whose pools were never read. | [optional] 
 **NodeSize** | Pointer to **string** | NodeSize is a display convenience: the size slug of the FIRST pool. A cluster mixing sizes has more than one, and NodePools is where they all are. | [optional] 
-**NvidiaGpu** | Pointer to **int32** | NvidiaGPU is how many NVIDIA accelerators the cluster&#39;s nodes advertise, the sum of &#x60;nvidia.com/gpu&#x60; allocatable across them. BYO only, and counted ONCE when the cluster was attached — it is an inventory, not live capacity. | [optional] 
+**NvidiaGpu** | Pointer to **int64** | NvidiaGPU is how many NVIDIA accelerators the cluster&#39;s nodes advertise, the sum of &#x60;nvidia.com/gpu&#x60; allocatable across them. BYO only, and counted ONCE when the cluster was attached — it is an inventory, not live capacity. | [optional] 
 **Region** | Pointer to **string** | Region is the provider region slug for a managed cluster. A BYO cluster has no region we can read, so it carries the free-form &#x60;provider&#x60; label the attach named it with (\&quot;gke\&quot;, \&quot;on-prem\&quot;) instead. | [optional] 
 **Status** | Pointer to **string** | Status is the cluster&#39;s state: the provider&#39;s own word for a managed cluster (\&quot;running\&quot;, \&quot;provisioning\&quot;), \&quot;unknown\&quot; when the provider stated none, and always \&quot;attached\&quot; for a BYO cluster — that one says the kubeconfig is on file, not that the cluster is reachable this second. | [optional] 
 
@@ -38,20 +38,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAmdGpu
 
-`func (o *ClusterView) GetAmdGpu() int32`
+`func (o *ClusterView) GetAmdGpu() int64`
 
 GetAmdGpu returns the AmdGpu field if non-nil, zero value otherwise.
 
 ### GetAmdGpuOk
 
-`func (o *ClusterView) GetAmdGpuOk() (*int32, bool)`
+`func (o *ClusterView) GetAmdGpuOk() (*int64, bool)`
 
 GetAmdGpuOk returns a tuple with the AmdGpu field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmdGpu
 
-`func (o *ClusterView) SetAmdGpu(v int32)`
+`func (o *ClusterView) SetAmdGpu(v int64)`
 
 SetAmdGpu sets AmdGpu field to given value.
 
@@ -188,20 +188,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetNodeCount
 
-`func (o *ClusterView) GetNodeCount() int32`
+`func (o *ClusterView) GetNodeCount() int64`
 
 GetNodeCount returns the NodeCount field if non-nil, zero value otherwise.
 
 ### GetNodeCountOk
 
-`func (o *ClusterView) GetNodeCountOk() (*int32, bool)`
+`func (o *ClusterView) GetNodeCountOk() (*int64, bool)`
 
 GetNodeCountOk returns a tuple with the NodeCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNodeCount
 
-`func (o *ClusterView) SetNodeCount(v int32)`
+`func (o *ClusterView) SetNodeCount(v int64)`
 
 SetNodeCount sets NodeCount field to given value.
 
@@ -263,20 +263,20 @@ HasNodeSize returns a boolean if a field has been set.
 
 ### GetNvidiaGpu
 
-`func (o *ClusterView) GetNvidiaGpu() int32`
+`func (o *ClusterView) GetNvidiaGpu() int64`
 
 GetNvidiaGpu returns the NvidiaGpu field if non-nil, zero value otherwise.
 
 ### GetNvidiaGpuOk
 
-`func (o *ClusterView) GetNvidiaGpuOk() (*int32, bool)`
+`func (o *ClusterView) GetNvidiaGpuOk() (*int64, bool)`
 
 GetNvidiaGpuOk returns a tuple with the NvidiaGpu field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNvidiaGpu
 
-`func (o *ClusterView) SetNvidiaGpu(v int32)`
+`func (o *ClusterView) SetNvidiaGpu(v int64)`
 
 SetNvidiaGpu sets NvidiaGpu field to given value.
 

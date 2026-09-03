@@ -24,9 +24,9 @@ type ProfileMetrics struct {
 	// LaunchProgress is the org's own position in the launch checklist, folded in so a profile carries both what the org has BUILT and what it has DONE.
 	LaunchProgress *ProgressView `json:"launchProgress,omitempty"`
 	// Records is how many business records the org holds — the volume that tells a real book of customers from an empty account. It feeds the `customers` signal, which crosses at a threshold rather than at one row.
-	Records *int32 `json:"records,omitempty"`
+	Records *int64 `json:"records,omitempty"`
 	// RevenueCents is the org's money OF RECORD — what its books say, in whole cents, never a float and never a display string. This is the number the scaling stage is decided on; funnel.revenue is the beacon's separate, unreconciled view of the same business. Zero when the org has none, and also zero when the books could not be read, which is why the `revenue` signal beside it is the thing to trust.
-	RevenueCents *int32 `json:"revenueCents,omitempty"`
+	RevenueCents *int64 `json:"revenueCents,omitempty"`
 }
 
 // NewProfileMetrics instantiates a new ProfileMetrics object
@@ -111,9 +111,9 @@ func (o *ProfileMetrics) SetLaunchProgress(v ProgressView) {
 }
 
 // GetRecords returns the Records field value if set, zero value otherwise.
-func (o *ProfileMetrics) GetRecords() int32 {
+func (o *ProfileMetrics) GetRecords() int64 {
 	if o == nil || IsNil(o.Records) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Records
@@ -121,7 +121,7 @@ func (o *ProfileMetrics) GetRecords() int32 {
 
 // GetRecordsOk returns a tuple with the Records field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProfileMetrics) GetRecordsOk() (*int32, bool) {
+func (o *ProfileMetrics) GetRecordsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Records) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *ProfileMetrics) HasRecords() bool {
 	return false
 }
 
-// SetRecords gets a reference to the given int32 and assigns it to the Records field.
-func (o *ProfileMetrics) SetRecords(v int32) {
+// SetRecords gets a reference to the given int64 and assigns it to the Records field.
+func (o *ProfileMetrics) SetRecords(v int64) {
 	o.Records = &v
 }
 
 // GetRevenueCents returns the RevenueCents field value if set, zero value otherwise.
-func (o *ProfileMetrics) GetRevenueCents() int32 {
+func (o *ProfileMetrics) GetRevenueCents() int64 {
 	if o == nil || IsNil(o.RevenueCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RevenueCents
@@ -153,7 +153,7 @@ func (o *ProfileMetrics) GetRevenueCents() int32 {
 
 // GetRevenueCentsOk returns a tuple with the RevenueCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProfileMetrics) GetRevenueCentsOk() (*int32, bool) {
+func (o *ProfileMetrics) GetRevenueCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.RevenueCents) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *ProfileMetrics) HasRevenueCents() bool {
 	return false
 }
 
-// SetRevenueCents gets a reference to the given int32 and assigns it to the RevenueCents field.
-func (o *ProfileMetrics) SetRevenueCents(v int32) {
+// SetRevenueCents gets a reference to the given int64 and assigns it to the RevenueCents field.
+func (o *ProfileMetrics) SetRevenueCents(v int64) {
 	o.RevenueCents = &v
 }
 

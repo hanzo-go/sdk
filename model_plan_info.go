@@ -22,13 +22,13 @@ type PlanInfo struct {
 	// Active is whether that plan's entitlement is live.
 	Active *bool `json:"active,omitempty"`
 	// GuestLimit is the plan's team.guests cap, when the plan carries one.
-	GuestLimit *int32 `json:"guestLimit,omitempty"`
+	GuestLimit *int64 `json:"guestLimit,omitempty"`
 	// Guests is how many of those seats are guests.
-	Guests *int32 `json:"guests,omitempty"`
+	Guests *int64 `json:"guests,omitempty"`
 	// Plan is the licensed plan id, empty when it cannot be resolved here — an honest dash on the page, never a fabricated tier.
 	Plan *string `json:"plan,omitempty"`
 	// Seats is the org's distinct active human members.
-	Seats *int32 `json:"seats,omitempty"`
+	Seats *int64 `json:"seats,omitempty"`
 	// UpgradeURL is where the page sends a caller who wants a bigger plan.
 	UpgradeUrl *string `json:"upgradeUrl,omitempty"`
 }
@@ -83,9 +83,9 @@ func (o *PlanInfo) SetActive(v bool) {
 }
 
 // GetGuestLimit returns the GuestLimit field value if set, zero value otherwise.
-func (o *PlanInfo) GetGuestLimit() int32 {
+func (o *PlanInfo) GetGuestLimit() int64 {
 	if o == nil || IsNil(o.GuestLimit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.GuestLimit
@@ -93,7 +93,7 @@ func (o *PlanInfo) GetGuestLimit() int32 {
 
 // GetGuestLimitOk returns a tuple with the GuestLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PlanInfo) GetGuestLimitOk() (*int32, bool) {
+func (o *PlanInfo) GetGuestLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.GuestLimit) {
 		return nil, false
 	}
@@ -109,15 +109,15 @@ func (o *PlanInfo) HasGuestLimit() bool {
 	return false
 }
 
-// SetGuestLimit gets a reference to the given int32 and assigns it to the GuestLimit field.
-func (o *PlanInfo) SetGuestLimit(v int32) {
+// SetGuestLimit gets a reference to the given int64 and assigns it to the GuestLimit field.
+func (o *PlanInfo) SetGuestLimit(v int64) {
 	o.GuestLimit = &v
 }
 
 // GetGuests returns the Guests field value if set, zero value otherwise.
-func (o *PlanInfo) GetGuests() int32 {
+func (o *PlanInfo) GetGuests() int64 {
 	if o == nil || IsNil(o.Guests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Guests
@@ -125,7 +125,7 @@ func (o *PlanInfo) GetGuests() int32 {
 
 // GetGuestsOk returns a tuple with the Guests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PlanInfo) GetGuestsOk() (*int32, bool) {
+func (o *PlanInfo) GetGuestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Guests) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *PlanInfo) HasGuests() bool {
 	return false
 }
 
-// SetGuests gets a reference to the given int32 and assigns it to the Guests field.
-func (o *PlanInfo) SetGuests(v int32) {
+// SetGuests gets a reference to the given int64 and assigns it to the Guests field.
+func (o *PlanInfo) SetGuests(v int64) {
 	o.Guests = &v
 }
 
@@ -179,9 +179,9 @@ func (o *PlanInfo) SetPlan(v string) {
 }
 
 // GetSeats returns the Seats field value if set, zero value otherwise.
-func (o *PlanInfo) GetSeats() int32 {
+func (o *PlanInfo) GetSeats() int64 {
 	if o == nil || IsNil(o.Seats) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Seats
@@ -189,7 +189,7 @@ func (o *PlanInfo) GetSeats() int32 {
 
 // GetSeatsOk returns a tuple with the Seats field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PlanInfo) GetSeatsOk() (*int32, bool) {
+func (o *PlanInfo) GetSeatsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Seats) {
 		return nil, false
 	}
@@ -205,8 +205,8 @@ func (o *PlanInfo) HasSeats() bool {
 	return false
 }
 
-// SetSeats gets a reference to the given int32 and assigns it to the Seats field.
-func (o *PlanInfo) SetSeats(v int32) {
+// SetSeats gets a reference to the given int64 and assigns it to the Seats field.
+func (o *PlanInfo) SetSeats(v int64) {
 	o.Seats = &v
 }
 

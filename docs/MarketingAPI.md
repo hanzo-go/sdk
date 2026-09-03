@@ -270,7 +270,7 @@ func main() {
 	channel := "email" // string | Channel is the surface opted out of: email, sms, social, meta, google or tiktok. Empty means email. Opting out of one leaves the others reachable. (optional)
 	address := "person@example.com" // string | Address is the recipient, normalized (lower-cased, trimmed) so an opt-out cannot be slipped past on a case or whitespace difference. Required. (optional)
 	reason := "reason_example" // string | Reason is a free-text note, capped at 1024 bytes. The public one-click endpoint records \"one-click unsubscribe\". (optional)
-	createdAt := int32(56) // int32 | CreatedAt is unix seconds, server-assigned. (optional)
+	createdAt := int64(789) // int64 | CreatedAt is unix seconds, server-assigned. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -296,7 +296,7 @@ Name | Type | Description  | Notes
  **channel** | **string** | Channel is the surface opted out of: email, sms, social, meta, google or tiktok. Empty means email. Opting out of one leaves the others reachable. | 
  **address** | **string** | Address is the recipient, normalized (lower-cased, trimmed) so an opt-out cannot be slipped past on a case or whitespace difference. Required. | 
  **reason** | **string** | Reason is a free-text note, capped at 1024 bytes. The public one-click endpoint records \&quot;one-click unsubscribe\&quot;. | 
- **createdAt** | **int32** | CreatedAt is unix seconds, server-assigned. | 
+ **createdAt** | **int64** | CreatedAt is unix seconds, server-assigned. | 
 
 ### Return type
 
@@ -337,7 +337,7 @@ import (
 )
 
 func main() {
-	limit := int32(50) // int32 | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+	limit := int64(50) // int64 | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -362,7 +362,7 @@ Other parameters are passed through a pointer to a apiGetMarketingAudiencesReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. | 
+ **limit** | **int64** | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. | 
 
 ### Return type
 
@@ -544,7 +544,7 @@ import (
 
 func main() {
 	status := "scheduled" // string | Status keeps only posts in that state (draft, scheduled, published, failed, canceled). Empty means every post. (optional)
-	limit := int32(50) // int32 | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+	limit := int64(50) // int64 | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -570,7 +570,7 @@ Other parameters are passed through a pointer to a apiGetMarketingCalendarReques
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **status** | **string** | Status keeps only posts in that state (draft, scheduled, published, failed, canceled). Empty means every post. | 
- **limit** | **int32** | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. | 
+ **limit** | **int64** | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. | 
 
 ### Return type
 
@@ -682,7 +682,7 @@ import (
 
 func main() {
 	status := "active" // string | Status keeps only campaigns in that lifecycle state (draft, scheduled, active, paused, completed). Empty means every campaign. (optional)
-	limit := int32(25) // int32 | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+	limit := int64(25) // int64 | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -708,7 +708,7 @@ Other parameters are passed through a pointer to a apiGetMarketingCampaignsReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **status** | **string** | Status keeps only campaigns in that lifecycle state (draft, scheduled, active, paused, completed). Empty means every campaign. | 
- **limit** | **int32** | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. | 
+ **limit** | **int64** | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. | 
 
 ### Return type
 
@@ -882,7 +882,7 @@ import (
 func main() {
 	code := "first1000" // string | Code is the promo code from the path.
 	plan := "team" // string | Plan is the plan being priced: pro, max or team. Anything else (including the free Developer plan) has no list price and so nothing to discount. (optional)
-	seats := int32(12) // int32 | Seats is the Team seat count; 0 means 1, and it is ignored for the single-seat plans. (optional)
+	seats := int64(12) // int64 | Seats is the Team seat count; 0 means 1, and it is ignored for the single-seat plans. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -913,7 +913,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **plan** | **string** | Plan is the plan being priced: pro, max or team. Anything else (including the free Developer plan) has no list price and so nothing to discount. | 
- **seats** | **int32** | Seats is the Team seat count; 0 means 1, and it is ignored for the single-seat plans. | 
+ **seats** | **int64** | Seats is the Team seat count; 0 means 1, and it is ignored for the single-seat plans. | 
 
 ### Return type
 
@@ -1024,7 +1024,7 @@ import (
 )
 
 func main() {
-	limit := int32(50) // int32 | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+	limit := int64(50) // int64 | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1049,7 +1049,7 @@ Other parameters are passed through a pointer to a apiGetMarketingSequencesReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. | 
+ **limit** | **int64** | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. | 
 
 ### Return type
 
@@ -1161,7 +1161,7 @@ import (
 
 func main() {
 	id := "seq_7b3e5a1c9d024f68b0a3e7c5d9f1a248" // string | ID is the sequence id from the path.
-	limit := int32(100) // int32 | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+	limit := int64(100) // int64 | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1191,7 +1191,7 @@ Other parameters are passed through a pointer to a apiGetMarketingSequencesByIdE
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **limit** | **int32** | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. | 
+ **limit** | **int64** | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. | 
 
 ### Return type
 
@@ -1363,7 +1363,7 @@ import (
 )
 
 func main() {
-	limit := int32(100) // int32 | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+	limit := int64(100) // int64 | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1388,7 +1388,7 @@ Other parameters are passed through a pointer to a apiGetMarketingSuppressionsRe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. | 
+ **limit** | **int64** | Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. | 
 
 ### Return type
 

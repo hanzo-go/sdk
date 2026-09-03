@@ -22,7 +22,7 @@ type AppView struct {
 	// BuildType is how a git app builds: `pack`, the zero-config default that detects the project, or `dockerfile`. An image app carries `image`, which means it never builds.
 	BuildType *string `json:"buildType,omitempty"`
 	// CreatedAt is when the app was created, unix seconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// CurrentDeploymentID is the deployment that is live — the pointer a deploy advances monotonically by version, so it never regresses to an older one. Empty until the first deploy reaches the cluster.
 	CurrentDeploymentId *string `json:"currentDeploymentId,omitempty"`
 	// Description is free text about what the app is. Nothing derives from it.
@@ -50,11 +50,11 @@ type AppView struct {
 	// Phase is the operator's own `status.phase` for the app's Service CR, read from the cluster on this request. Empty when there is no CR yet or the cluster could not be read.
 	Phase *string `json:"phase,omitempty"`
 	// Port is the container port traffic is sent to. 8080 when the create asked for none, or for one outside 1–65535.
-	Port *int32 `json:"port,omitempty"`
+	Port *int64 `json:"port,omitempty"`
 	// ProjectID is the IAM project the app lives under, and it is that project's NAME — the (org,name) key IAM identifies it by, which is also what the `:project` path segment carries. There is no platform-minted project id.
 	ProjectId *string `json:"projectId,omitempty"`
 	// Replicas is how many copies the CR declares. It is CLAMPED to the deployment's ceiling rather than refused, so it can be below what was asked.
-	Replicas *int32 `json:"replicas,omitempty"`
+	Replicas *int64 `json:"replicas,omitempty"`
 	// Repo is the git origin a source `git` app builds from, and the repo+branch a landed push has to match to build it.
 	Repo *GitSource `json:"repo,omitempty"`
 	// SecretSync is how far the app's secret env has got into the cluster: \"\"|pending|syncing|ready|failed (secrets.go). It is best-effort and never fails a deploy, so `pending` is ordinary right after one.
@@ -68,9 +68,9 @@ type AppView struct {
 	// Status is the lifecycle THIS store records: draft (created, nothing in the cluster yet), building, deploying, live, stopped or error. What the cluster itself says is Phase and Health.
 	Status *string `json:"status,omitempty"`
 	// StorageGB is the persistent volume size in GiB. Absent means stateless — no volume at all — and it is clamped like Replicas.
-	StorageGb *int32 `json:"storageGb,omitempty"`
+	StorageGb *int64 `json:"storageGb,omitempty"`
 	// UpdatedAt is when it last changed, unix seconds. Every lifecycle transition moves it, so it tracks deploys as well as edits.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewAppView instantiates a new AppView object
@@ -123,9 +123,9 @@ func (o *AppView) SetBuildType(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *AppView) GetCreatedAt() int32 {
+func (o *AppView) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -133,7 +133,7 @@ func (o *AppView) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AppView) GetCreatedAtOk() (*int32, bool) {
+func (o *AppView) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -149,8 +149,8 @@ func (o *AppView) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *AppView) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *AppView) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -571,9 +571,9 @@ func (o *AppView) SetPhase(v string) {
 }
 
 // GetPort returns the Port field value if set, zero value otherwise.
-func (o *AppView) GetPort() int32 {
+func (o *AppView) GetPort() int64 {
 	if o == nil || IsNil(o.Port) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Port
@@ -581,7 +581,7 @@ func (o *AppView) GetPort() int32 {
 
 // GetPortOk returns a tuple with the Port field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AppView) GetPortOk() (*int32, bool) {
+func (o *AppView) GetPortOk() (*int64, bool) {
 	if o == nil || IsNil(o.Port) {
 		return nil, false
 	}
@@ -597,8 +597,8 @@ func (o *AppView) HasPort() bool {
 	return false
 }
 
-// SetPort gets a reference to the given int32 and assigns it to the Port field.
-func (o *AppView) SetPort(v int32) {
+// SetPort gets a reference to the given int64 and assigns it to the Port field.
+func (o *AppView) SetPort(v int64) {
 	o.Port = &v
 }
 
@@ -635,9 +635,9 @@ func (o *AppView) SetProjectId(v string) {
 }
 
 // GetReplicas returns the Replicas field value if set, zero value otherwise.
-func (o *AppView) GetReplicas() int32 {
+func (o *AppView) GetReplicas() int64 {
 	if o == nil || IsNil(o.Replicas) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Replicas
@@ -645,7 +645,7 @@ func (o *AppView) GetReplicas() int32 {
 
 // GetReplicasOk returns a tuple with the Replicas field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AppView) GetReplicasOk() (*int32, bool) {
+func (o *AppView) GetReplicasOk() (*int64, bool) {
 	if o == nil || IsNil(o.Replicas) {
 		return nil, false
 	}
@@ -661,8 +661,8 @@ func (o *AppView) HasReplicas() bool {
 	return false
 }
 
-// SetReplicas gets a reference to the given int32 and assigns it to the Replicas field.
-func (o *AppView) SetReplicas(v int32) {
+// SetReplicas gets a reference to the given int64 and assigns it to the Replicas field.
+func (o *AppView) SetReplicas(v int64) {
 	o.Replicas = &v
 }
 
@@ -859,9 +859,9 @@ func (o *AppView) SetStatus(v string) {
 }
 
 // GetStorageGb returns the StorageGb field value if set, zero value otherwise.
-func (o *AppView) GetStorageGb() int32 {
+func (o *AppView) GetStorageGb() int64 {
 	if o == nil || IsNil(o.StorageGb) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.StorageGb
@@ -869,7 +869,7 @@ func (o *AppView) GetStorageGb() int32 {
 
 // GetStorageGbOk returns a tuple with the StorageGb field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AppView) GetStorageGbOk() (*int32, bool) {
+func (o *AppView) GetStorageGbOk() (*int64, bool) {
 	if o == nil || IsNil(o.StorageGb) {
 		return nil, false
 	}
@@ -885,15 +885,15 @@ func (o *AppView) HasStorageGb() bool {
 	return false
 }
 
-// SetStorageGb gets a reference to the given int32 and assigns it to the StorageGb field.
-func (o *AppView) SetStorageGb(v int32) {
+// SetStorageGb gets a reference to the given int64 and assigns it to the StorageGb field.
+func (o *AppView) SetStorageGb(v int64) {
 	o.StorageGb = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *AppView) GetUpdatedAt() int32 {
+func (o *AppView) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -901,7 +901,7 @@ func (o *AppView) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AppView) GetUpdatedAtOk() (*int32, bool) {
+func (o *AppView) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -917,8 +917,8 @@ func (o *AppView) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *AppView) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *AppView) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

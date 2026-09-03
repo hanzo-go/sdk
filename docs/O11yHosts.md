@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **EndTimeBeforeRetention** | Pointer to **bool** |  | [optional] 
 **Records** | Pointer to [**[]O11yHostRecord**](O11yHostRecord.md) |  | [optional] 
-**Total** | Pointer to **int32** |  | [optional] 
+**Total** | Pointer to **int64** |  | [optional] 
 **Type** | Pointer to **interface{}** |  | [optional] 
 **Warning** | Pointer to [**O11yQueryWarnData**](O11yQueryWarnData.md) |  | [optional] 
 
@@ -81,20 +81,20 @@ HasRecords returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *O11yHosts) GetTotal() int32`
+`func (o *O11yHosts) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *O11yHosts) GetTotalOk() (*int32, bool)`
+`func (o *O11yHosts) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *O11yHosts) SetTotal(v int32)`
+`func (o *O11yHosts) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

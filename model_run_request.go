@@ -26,7 +26,7 @@ type RunRequest struct {
 	// Judge is the judge to grade with. Omitted, the model under test grades itself against a default correctness criterion under the score name \"llm-judge\".
 	Judge *JudgeSpec `json:"judge,omitempty"`
 	// Limit caps how many examples this run scores. It defaults to 20, and anything above 100 falls back to that default.
-	Limit *int32 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 	// Model is the model under test.
 	Model string `json:"model"`
 	// RunName labels the run and is generated from the clock when omitted. It must match ^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$.
@@ -111,9 +111,9 @@ func (o *RunRequest) SetJudge(v JudgeSpec) {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *RunRequest) GetLimit() int32 {
+func (o *RunRequest) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -121,7 +121,7 @@ func (o *RunRequest) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RunRequest) GetLimitOk() (*int32, bool) {
+func (o *RunRequest) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -137,8 +137,8 @@ func (o *RunRequest) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *RunRequest) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *RunRequest) SetLimit(v int64) {
 	o.Limit = &v
 }
 

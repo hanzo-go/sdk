@@ -20,7 +20,7 @@ var _ MappedNullable = &CaptableRoundInvestment{}
 // CaptableRoundInvestment struct for CaptableRoundInvestment
 type CaptableRoundInvestment struct {
 	// Amount is the cash invested.
-	Amount *float32 `json:"amount,omitempty"`
+	Amount *float64 `json:"amount,omitempty"`
 	// Comments is the note recorded with the cheque, if any.
 	Comments *string `json:"comments,omitempty"`
 	// Date is the ISO date of the investment.
@@ -28,7 +28,7 @@ type CaptableRoundInvestment struct {
 	// ID is the investment id.
 	Id *string `json:"id,omitempty"`
 	// Shares is how many shares the investment bought; 0 when the round issues no equity at the time of investment.
-	Shares *int32 `json:"shares,omitempty"`
+	Shares *int64 `json:"shares,omitempty"`
 	// StakeholderID is the investor.
 	StakeholderId *string `json:"stakeholderId,omitempty"`
 	// StakeholderName is that investor's name.
@@ -53,9 +53,9 @@ func NewCaptableRoundInvestmentWithDefaults() *CaptableRoundInvestment {
 }
 
 // GetAmount returns the Amount field value if set, zero value otherwise.
-func (o *CaptableRoundInvestment) GetAmount() float32 {
+func (o *CaptableRoundInvestment) GetAmount() float64 {
 	if o == nil || IsNil(o.Amount) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Amount
@@ -63,7 +63,7 @@ func (o *CaptableRoundInvestment) GetAmount() float32 {
 
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableRoundInvestment) GetAmountOk() (*float32, bool) {
+func (o *CaptableRoundInvestment) GetAmountOk() (*float64, bool) {
 	if o == nil || IsNil(o.Amount) {
 		return nil, false
 	}
@@ -79,8 +79,8 @@ func (o *CaptableRoundInvestment) HasAmount() bool {
 	return false
 }
 
-// SetAmount gets a reference to the given float32 and assigns it to the Amount field.
-func (o *CaptableRoundInvestment) SetAmount(v float32) {
+// SetAmount gets a reference to the given float64 and assigns it to the Amount field.
+func (o *CaptableRoundInvestment) SetAmount(v float64) {
 	o.Amount = &v
 }
 
@@ -181,9 +181,9 @@ func (o *CaptableRoundInvestment) SetId(v string) {
 }
 
 // GetShares returns the Shares field value if set, zero value otherwise.
-func (o *CaptableRoundInvestment) GetShares() int32 {
+func (o *CaptableRoundInvestment) GetShares() int64 {
 	if o == nil || IsNil(o.Shares) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Shares
@@ -191,7 +191,7 @@ func (o *CaptableRoundInvestment) GetShares() int32 {
 
 // GetSharesOk returns a tuple with the Shares field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableRoundInvestment) GetSharesOk() (*int32, bool) {
+func (o *CaptableRoundInvestment) GetSharesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Shares) {
 		return nil, false
 	}
@@ -207,8 +207,8 @@ func (o *CaptableRoundInvestment) HasShares() bool {
 	return false
 }
 
-// SetShares gets a reference to the given int32 and assigns it to the Shares field.
-func (o *CaptableRoundInvestment) SetShares(v int32) {
+// SetShares gets a reference to the given int64 and assigns it to the Shares field.
+func (o *CaptableRoundInvestment) SetShares(v int64) {
 	o.Shares = &v
 }
 

@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CurrentPods** | Pointer to **int32** |  | [optional] 
-**DesiredPods** | Pointer to **int32** |  | [optional] 
+**CurrentPods** | Pointer to **int64** |  | [optional] 
+**DesiredPods** | Pointer to **int64** |  | [optional] 
 **Meta** | Pointer to **map[string]string** |  | [optional] 
 **PodCountsByPhase** | Pointer to [**O11yPodCountsByPhase**](O11yPodCountsByPhase.md) |  | [optional] 
-**StatefulSetCPU** | Pointer to **float32** |  | [optional] 
-**StatefulSetCPULimit** | Pointer to **float32** |  | [optional] 
-**StatefulSetCPURequest** | Pointer to **float32** |  | [optional] 
-**StatefulSetMemory** | Pointer to **float32** |  | [optional] 
-**StatefulSetMemoryLimit** | Pointer to **float32** |  | [optional] 
-**StatefulSetMemoryRequest** | Pointer to **float32** |  | [optional] 
+**StatefulSetCPU** | Pointer to **float64** |  | [optional] 
+**StatefulSetCPULimit** | Pointer to **float64** |  | [optional] 
+**StatefulSetCPURequest** | Pointer to **float64** |  | [optional] 
+**StatefulSetMemory** | Pointer to **float64** |  | [optional] 
+**StatefulSetMemoryLimit** | Pointer to **float64** |  | [optional] 
+**StatefulSetMemoryRequest** | Pointer to **float64** |  | [optional] 
 **StatefulSetName** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -37,20 +37,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCurrentPods
 
-`func (o *O11yStatefulSetRecord) GetCurrentPods() int32`
+`func (o *O11yStatefulSetRecord) GetCurrentPods() int64`
 
 GetCurrentPods returns the CurrentPods field if non-nil, zero value otherwise.
 
 ### GetCurrentPodsOk
 
-`func (o *O11yStatefulSetRecord) GetCurrentPodsOk() (*int32, bool)`
+`func (o *O11yStatefulSetRecord) GetCurrentPodsOk() (*int64, bool)`
 
 GetCurrentPodsOk returns a tuple with the CurrentPods field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCurrentPods
 
-`func (o *O11yStatefulSetRecord) SetCurrentPods(v int32)`
+`func (o *O11yStatefulSetRecord) SetCurrentPods(v int64)`
 
 SetCurrentPods sets CurrentPods field to given value.
 
@@ -62,20 +62,20 @@ HasCurrentPods returns a boolean if a field has been set.
 
 ### GetDesiredPods
 
-`func (o *O11yStatefulSetRecord) GetDesiredPods() int32`
+`func (o *O11yStatefulSetRecord) GetDesiredPods() int64`
 
 GetDesiredPods returns the DesiredPods field if non-nil, zero value otherwise.
 
 ### GetDesiredPodsOk
 
-`func (o *O11yStatefulSetRecord) GetDesiredPodsOk() (*int32, bool)`
+`func (o *O11yStatefulSetRecord) GetDesiredPodsOk() (*int64, bool)`
 
 GetDesiredPodsOk returns a tuple with the DesiredPods field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDesiredPods
 
-`func (o *O11yStatefulSetRecord) SetDesiredPods(v int32)`
+`func (o *O11yStatefulSetRecord) SetDesiredPods(v int64)`
 
 SetDesiredPods sets DesiredPods field to given value.
 
@@ -137,20 +137,20 @@ HasPodCountsByPhase returns a boolean if a field has been set.
 
 ### GetStatefulSetCPU
 
-`func (o *O11yStatefulSetRecord) GetStatefulSetCPU() float32`
+`func (o *O11yStatefulSetRecord) GetStatefulSetCPU() float64`
 
 GetStatefulSetCPU returns the StatefulSetCPU field if non-nil, zero value otherwise.
 
 ### GetStatefulSetCPUOk
 
-`func (o *O11yStatefulSetRecord) GetStatefulSetCPUOk() (*float32, bool)`
+`func (o *O11yStatefulSetRecord) GetStatefulSetCPUOk() (*float64, bool)`
 
 GetStatefulSetCPUOk returns a tuple with the StatefulSetCPU field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatefulSetCPU
 
-`func (o *O11yStatefulSetRecord) SetStatefulSetCPU(v float32)`
+`func (o *O11yStatefulSetRecord) SetStatefulSetCPU(v float64)`
 
 SetStatefulSetCPU sets StatefulSetCPU field to given value.
 
@@ -162,20 +162,20 @@ HasStatefulSetCPU returns a boolean if a field has been set.
 
 ### GetStatefulSetCPULimit
 
-`func (o *O11yStatefulSetRecord) GetStatefulSetCPULimit() float32`
+`func (o *O11yStatefulSetRecord) GetStatefulSetCPULimit() float64`
 
 GetStatefulSetCPULimit returns the StatefulSetCPULimit field if non-nil, zero value otherwise.
 
 ### GetStatefulSetCPULimitOk
 
-`func (o *O11yStatefulSetRecord) GetStatefulSetCPULimitOk() (*float32, bool)`
+`func (o *O11yStatefulSetRecord) GetStatefulSetCPULimitOk() (*float64, bool)`
 
 GetStatefulSetCPULimitOk returns a tuple with the StatefulSetCPULimit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatefulSetCPULimit
 
-`func (o *O11yStatefulSetRecord) SetStatefulSetCPULimit(v float32)`
+`func (o *O11yStatefulSetRecord) SetStatefulSetCPULimit(v float64)`
 
 SetStatefulSetCPULimit sets StatefulSetCPULimit field to given value.
 
@@ -187,20 +187,20 @@ HasStatefulSetCPULimit returns a boolean if a field has been set.
 
 ### GetStatefulSetCPURequest
 
-`func (o *O11yStatefulSetRecord) GetStatefulSetCPURequest() float32`
+`func (o *O11yStatefulSetRecord) GetStatefulSetCPURequest() float64`
 
 GetStatefulSetCPURequest returns the StatefulSetCPURequest field if non-nil, zero value otherwise.
 
 ### GetStatefulSetCPURequestOk
 
-`func (o *O11yStatefulSetRecord) GetStatefulSetCPURequestOk() (*float32, bool)`
+`func (o *O11yStatefulSetRecord) GetStatefulSetCPURequestOk() (*float64, bool)`
 
 GetStatefulSetCPURequestOk returns a tuple with the StatefulSetCPURequest field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatefulSetCPURequest
 
-`func (o *O11yStatefulSetRecord) SetStatefulSetCPURequest(v float32)`
+`func (o *O11yStatefulSetRecord) SetStatefulSetCPURequest(v float64)`
 
 SetStatefulSetCPURequest sets StatefulSetCPURequest field to given value.
 
@@ -212,20 +212,20 @@ HasStatefulSetCPURequest returns a boolean if a field has been set.
 
 ### GetStatefulSetMemory
 
-`func (o *O11yStatefulSetRecord) GetStatefulSetMemory() float32`
+`func (o *O11yStatefulSetRecord) GetStatefulSetMemory() float64`
 
 GetStatefulSetMemory returns the StatefulSetMemory field if non-nil, zero value otherwise.
 
 ### GetStatefulSetMemoryOk
 
-`func (o *O11yStatefulSetRecord) GetStatefulSetMemoryOk() (*float32, bool)`
+`func (o *O11yStatefulSetRecord) GetStatefulSetMemoryOk() (*float64, bool)`
 
 GetStatefulSetMemoryOk returns a tuple with the StatefulSetMemory field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatefulSetMemory
 
-`func (o *O11yStatefulSetRecord) SetStatefulSetMemory(v float32)`
+`func (o *O11yStatefulSetRecord) SetStatefulSetMemory(v float64)`
 
 SetStatefulSetMemory sets StatefulSetMemory field to given value.
 
@@ -237,20 +237,20 @@ HasStatefulSetMemory returns a boolean if a field has been set.
 
 ### GetStatefulSetMemoryLimit
 
-`func (o *O11yStatefulSetRecord) GetStatefulSetMemoryLimit() float32`
+`func (o *O11yStatefulSetRecord) GetStatefulSetMemoryLimit() float64`
 
 GetStatefulSetMemoryLimit returns the StatefulSetMemoryLimit field if non-nil, zero value otherwise.
 
 ### GetStatefulSetMemoryLimitOk
 
-`func (o *O11yStatefulSetRecord) GetStatefulSetMemoryLimitOk() (*float32, bool)`
+`func (o *O11yStatefulSetRecord) GetStatefulSetMemoryLimitOk() (*float64, bool)`
 
 GetStatefulSetMemoryLimitOk returns a tuple with the StatefulSetMemoryLimit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatefulSetMemoryLimit
 
-`func (o *O11yStatefulSetRecord) SetStatefulSetMemoryLimit(v float32)`
+`func (o *O11yStatefulSetRecord) SetStatefulSetMemoryLimit(v float64)`
 
 SetStatefulSetMemoryLimit sets StatefulSetMemoryLimit field to given value.
 
@@ -262,20 +262,20 @@ HasStatefulSetMemoryLimit returns a boolean if a field has been set.
 
 ### GetStatefulSetMemoryRequest
 
-`func (o *O11yStatefulSetRecord) GetStatefulSetMemoryRequest() float32`
+`func (o *O11yStatefulSetRecord) GetStatefulSetMemoryRequest() float64`
 
 GetStatefulSetMemoryRequest returns the StatefulSetMemoryRequest field if non-nil, zero value otherwise.
 
 ### GetStatefulSetMemoryRequestOk
 
-`func (o *O11yStatefulSetRecord) GetStatefulSetMemoryRequestOk() (*float32, bool)`
+`func (o *O11yStatefulSetRecord) GetStatefulSetMemoryRequestOk() (*float64, bool)`
 
 GetStatefulSetMemoryRequestOk returns a tuple with the StatefulSetMemoryRequest field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatefulSetMemoryRequest
 
-`func (o *O11yStatefulSetRecord) SetStatefulSetMemoryRequest(v float32)`
+`func (o *O11yStatefulSetRecord) SetStatefulSetMemoryRequest(v float64)`
 
 SetStatefulSetMemoryRequest sets StatefulSetMemoryRequest field to given value.
 

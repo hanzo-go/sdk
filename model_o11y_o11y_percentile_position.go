@@ -22,7 +22,7 @@ type O11yO11yPercentilePosition struct {
 	// Description says the same in words.
 	Description *string `json:"description,omitempty"`
 	// Percentile is the percentile the duration lands at.
-	Percentile *float32 `json:"percentile,omitempty"`
+	Percentile *float64 `json:"percentile,omitempty"`
 }
 
 // NewO11yO11yPercentilePosition instantiates a new O11yO11yPercentilePosition object
@@ -75,9 +75,9 @@ func (o *O11yO11yPercentilePosition) SetDescription(v string) {
 }
 
 // GetPercentile returns the Percentile field value if set, zero value otherwise.
-func (o *O11yO11yPercentilePosition) GetPercentile() float32 {
+func (o *O11yO11yPercentilePosition) GetPercentile() float64 {
 	if o == nil || IsNil(o.Percentile) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Percentile
@@ -85,7 +85,7 @@ func (o *O11yO11yPercentilePosition) GetPercentile() float32 {
 
 // GetPercentileOk returns a tuple with the Percentile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yPercentilePosition) GetPercentileOk() (*float32, bool) {
+func (o *O11yO11yPercentilePosition) GetPercentileOk() (*float64, bool) {
 	if o == nil || IsNil(o.Percentile) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *O11yO11yPercentilePosition) HasPercentile() bool {
 	return false
 }
 
-// SetPercentile gets a reference to the given float32 and assigns it to the Percentile field.
-func (o *O11yO11yPercentilePosition) SetPercentile(v float32) {
+// SetPercentile gets a reference to the given float64 and assigns it to the Percentile field.
+func (o *O11yO11yPercentilePosition) SetPercentile(v float64) {
 	o.Percentile = &v
 }
 

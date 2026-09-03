@@ -7,9 +7,9 @@ Name | Type | Description | Notes
 **At** | Pointer to **string** | At is when it entered force, RFC 3339, from the server clock. | [optional] 
 **By** | Pointer to **string** | By is the identity that stated it, stamped server-side from the validated principal at the moment it entered force. | [optional] 
 **Live** | Pointer to **bool** | Live is whether the model was permitted to change an outcome under it. | [optional] 
-**Review** | Pointer to **float32** | Review is the share of the stream the regime states may be examined. The threshold in force is derived from it, which is why a decision is only defensible against the version that produced it. | [optional] 
-**Sample** | Pointer to **float32** | Sample is the share of below-the-line events the regime retains for review. | [optional] 
-**Version** | Pointer to **int32** | Version names this regime in this organisation&#39;s history. | [optional] 
+**Review** | Pointer to **float64** | Review is the share of the stream the regime states may be examined. The threshold in force is derived from it, which is why a decision is only defensible against the version that produced it. | [optional] 
+**Sample** | Pointer to **float64** | Sample is the share of below-the-line events the regime retains for review. | [optional] 
+**Version** | Pointer to **int64** | Version names this regime in this organisation&#39;s history. | [optional] 
 
 ## Methods
 
@@ -107,20 +107,20 @@ HasLive returns a boolean if a field has been set.
 
 ### GetReview
 
-`func (o *RiskPolicyVersion) GetReview() float32`
+`func (o *RiskPolicyVersion) GetReview() float64`
 
 GetReview returns the Review field if non-nil, zero value otherwise.
 
 ### GetReviewOk
 
-`func (o *RiskPolicyVersion) GetReviewOk() (*float32, bool)`
+`func (o *RiskPolicyVersion) GetReviewOk() (*float64, bool)`
 
 GetReviewOk returns a tuple with the Review field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReview
 
-`func (o *RiskPolicyVersion) SetReview(v float32)`
+`func (o *RiskPolicyVersion) SetReview(v float64)`
 
 SetReview sets Review field to given value.
 
@@ -132,20 +132,20 @@ HasReview returns a boolean if a field has been set.
 
 ### GetSample
 
-`func (o *RiskPolicyVersion) GetSample() float32`
+`func (o *RiskPolicyVersion) GetSample() float64`
 
 GetSample returns the Sample field if non-nil, zero value otherwise.
 
 ### GetSampleOk
 
-`func (o *RiskPolicyVersion) GetSampleOk() (*float32, bool)`
+`func (o *RiskPolicyVersion) GetSampleOk() (*float64, bool)`
 
 GetSampleOk returns a tuple with the Sample field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSample
 
-`func (o *RiskPolicyVersion) SetSample(v float32)`
+`func (o *RiskPolicyVersion) SetSample(v float64)`
 
 SetSample sets Sample field to given value.
 
@@ -157,20 +157,20 @@ HasSample returns a boolean if a field has been set.
 
 ### GetVersion
 
-`func (o *RiskPolicyVersion) GetVersion() int32`
+`func (o *RiskPolicyVersion) GetVersion() int64`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *RiskPolicyVersion) GetVersionOk() (*int32, bool)`
+`func (o *RiskPolicyVersion) GetVersionOk() (*int64, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *RiskPolicyVersion) SetVersion(v int32)`
+`func (o *RiskPolicyVersion) SetVersion(v int64)`
 
 SetVersion sets Version field to given value.
 

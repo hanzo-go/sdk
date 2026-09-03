@@ -510,18 +510,18 @@ func (a *MqAPIService) GetMqInfoExecute(r MqAPIGetMqInfoRequest) (*InfoOut, *htt
 type MqAPIGetMqStreamRequest struct {
 	ctx        context.Context
 	ApiService *MqAPIService
-	limit      *int32
-	offset     *int32
+	limit      *int64
+	offset     *int64
 }
 
 // Limit caps the streams returned (1–1000, default 100).
-func (r MqAPIGetMqStreamRequest) Limit(limit int32) MqAPIGetMqStreamRequest {
+func (r MqAPIGetMqStreamRequest) Limit(limit int64) MqAPIGetMqStreamRequest {
 	r.limit = &limit
 	return r
 }
 
 // Offset skips that many streams, name-ordered.
-func (r MqAPIGetMqStreamRequest) Offset(offset int32) MqAPIGetMqStreamRequest {
+func (r MqAPIGetMqStreamRequest) Offset(offset int64) MqAPIGetMqStreamRequest {
 	r.offset = &offset
 	return r
 }
@@ -738,7 +738,7 @@ type MqAPIGetMqStreamByNameMessageRequest struct {
 	seq           *int32
 	lastBySubject *string
 	nextBySubject *string
-	limit         *int32
+	limit         *int64
 }
 
 // Seq reads the message at this sequence (with next_by_subject: the walk&#39;s start).
@@ -760,7 +760,7 @@ func (r MqAPIGetMqStreamByNameMessageRequest) NextBySubject(nextBySubject string
 }
 
 // Limit caps a next_by_subject walk (1–1000, default 100).
-func (r MqAPIGetMqStreamByNameMessageRequest) Limit(limit int32) MqAPIGetMqStreamByNameMessageRequest {
+func (r MqAPIGetMqStreamByNameMessageRequest) Limit(limit int64) MqAPIGetMqStreamByNameMessageRequest {
 	r.limit = &limit
 	return r
 }
@@ -880,18 +880,18 @@ type MqAPIGetMqStreamByStreamConsumerRequest struct {
 	ctx        context.Context
 	ApiService *MqAPIService
 	stream     string
-	limit      *int32
-	offset     *int32
+	limit      *int64
+	offset     *int64
 }
 
 // Limit caps the consumers returned (1–1000, default 100).
-func (r MqAPIGetMqStreamByStreamConsumerRequest) Limit(limit int32) MqAPIGetMqStreamByStreamConsumerRequest {
+func (r MqAPIGetMqStreamByStreamConsumerRequest) Limit(limit int64) MqAPIGetMqStreamByStreamConsumerRequest {
 	r.limit = &limit
 	return r
 }
 
 // Offset skips that many consumers, name-ordered.
-func (r MqAPIGetMqStreamByStreamConsumerRequest) Offset(offset int32) MqAPIGetMqStreamByStreamConsumerRequest {
+func (r MqAPIGetMqStreamByStreamConsumerRequest) Offset(offset int64) MqAPIGetMqStreamByStreamConsumerRequest {
 	r.offset = &offset
 	return r
 }

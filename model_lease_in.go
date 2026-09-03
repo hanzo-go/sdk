@@ -21,6 +21,8 @@ var _ MappedNullable = &LeaseIn{}
 type LeaseIn struct {
 	// Class is what the sandbox is FOR: \"exec\" for a code-interpreter call, \"dev\" for a workspace bound to a project, \"desktop\" for one with a screen. It decides the image, the working directory and the isolation.
 	Class *string `json:"class,omitempty"`
+	// Cluster names one of the org's attached clusters to run the sandbox on — the fleet-local name it was registered under. Empty runs on the home cluster. The named cluster must carry the sandbox namespace and the gvisor runtime class; a name the org has not attached is 404.
+	Cluster *string `json:"cluster,omitempty"`
 	// Image overrides the image the class would pick. Honoured only for a caller the policy admits, and the sandbox that comes back names the image it GOT.
 	Image *string `json:"image,omitempty"`
 	// Project binds the sandbox to one of the org's projects. Required for a dev or desktop class, which are single-attach per project; an exec sandbox carries none.
@@ -28,7 +30,7 @@ type LeaseIn struct {
 	// Runtime asks for an isolation: runc, gvisor, kata-clh or kata-fc. It is a REQUEST, not a guarantee — the sandbox that comes back carries the runtime it was actually given, which is the field to read.
 	Runtime *string `json:"runtime,omitempty"`
 	// TTLSec is how long the lease runs before the reaper may take it, in seconds. Zero takes the class's own default.
-	TtlSec *int32 `json:"ttlSec,omitempty"`
+	TtlSec *int64 `json:"ttlSec,omitempty"`
 }
 
 // NewLeaseIn instantiates a new LeaseIn object
@@ -78,6 +80,38 @@ func (o *LeaseIn) HasClass() bool {
 // SetClass gets a reference to the given string and assigns it to the Class field.
 func (o *LeaseIn) SetClass(v string) {
 	o.Class = &v
+}
+
+// GetCluster returns the Cluster field value if set, zero value otherwise.
+func (o *LeaseIn) GetCluster() string {
+	if o == nil || IsNil(o.Cluster) {
+		var ret string
+		return ret
+	}
+	return *o.Cluster
+}
+
+// GetClusterOk returns a tuple with the Cluster field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LeaseIn) GetClusterOk() (*string, bool) {
+	if o == nil || IsNil(o.Cluster) {
+		return nil, false
+	}
+	return o.Cluster, true
+}
+
+// HasCluster returns a boolean if a field has been set.
+func (o *LeaseIn) HasCluster() bool {
+	if o != nil && !IsNil(o.Cluster) {
+		return true
+	}
+
+	return false
+}
+
+// SetCluster gets a reference to the given string and assigns it to the Cluster field.
+func (o *LeaseIn) SetCluster(v string) {
+	o.Cluster = &v
 }
 
 // GetImage returns the Image field value if set, zero value otherwise.
@@ -177,9 +211,9 @@ func (o *LeaseIn) SetRuntime(v string) {
 }
 
 // GetTtlSec returns the TtlSec field value if set, zero value otherwise.
-func (o *LeaseIn) GetTtlSec() int32 {
+func (o *LeaseIn) GetTtlSec() int64 {
 	if o == nil || IsNil(o.TtlSec) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TtlSec
@@ -187,7 +221,7 @@ func (o *LeaseIn) GetTtlSec() int32 {
 
 // GetTtlSecOk returns a tuple with the TtlSec field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LeaseIn) GetTtlSecOk() (*int32, bool) {
+func (o *LeaseIn) GetTtlSecOk() (*int64, bool) {
 	if o == nil || IsNil(o.TtlSec) {
 		return nil, false
 	}
@@ -203,8 +237,8 @@ func (o *LeaseIn) HasTtlSec() bool {
 	return false
 }
 
-// SetTtlSec gets a reference to the given int32 and assigns it to the TtlSec field.
-func (o *LeaseIn) SetTtlSec(v int32) {
+// SetTtlSec gets a reference to the given int64 and assigns it to the TtlSec field.
+func (o *LeaseIn) SetTtlSec(v int64) {
 	o.TtlSec = &v
 }
 
@@ -220,6 +254,9 @@ func (o LeaseIn) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Class) {
 		toSerialize["class"] = o.Class
+	}
+	if !IsNil(o.Cluster) {
+		toSerialize["cluster"] = o.Cluster
 	}
 	if !IsNil(o.Image) {
 		toSerialize["image"] = o.Image

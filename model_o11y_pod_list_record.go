@@ -21,14 +21,14 @@ var _ MappedNullable = &O11yPodListRecord{}
 type O11yPodListRecord struct {
 	CountByPhase     *O11yPodCountByPhase `json:"countByPhase,omitempty"`
 	Meta             map[string]string    `json:"meta,omitempty"`
-	PodCPU           *float32             `json:"podCPU,omitempty"`
-	PodCPULimit      *float32             `json:"podCPULimit,omitempty"`
-	PodCPURequest    *float32             `json:"podCPURequest,omitempty"`
-	PodMemory        *float32             `json:"podMemory,omitempty"`
-	PodMemoryLimit   *float32             `json:"podMemoryLimit,omitempty"`
-	PodMemoryRequest *float32             `json:"podMemoryRequest,omitempty"`
+	PodCPU           *float64             `json:"podCPU,omitempty"`
+	PodCPULimit      *float64             `json:"podCPULimit,omitempty"`
+	PodCPURequest    *float64             `json:"podCPURequest,omitempty"`
+	PodMemory        *float64             `json:"podMemory,omitempty"`
+	PodMemoryLimit   *float64             `json:"podMemoryLimit,omitempty"`
+	PodMemoryRequest *float64             `json:"podMemoryRequest,omitempty"`
 	PodUID           *string              `json:"podUID,omitempty"`
-	RestartCount     *int32               `json:"restartCount,omitempty"`
+	RestartCount     *int64               `json:"restartCount,omitempty"`
 }
 
 // NewO11yPodListRecord instantiates a new O11yPodListRecord object
@@ -113,9 +113,9 @@ func (o *O11yPodListRecord) SetMeta(v map[string]string) {
 }
 
 // GetPodCPU returns the PodCPU field value if set, zero value otherwise.
-func (o *O11yPodListRecord) GetPodCPU() float32 {
+func (o *O11yPodListRecord) GetPodCPU() float64 {
 	if o == nil || IsNil(o.PodCPU) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.PodCPU
@@ -123,7 +123,7 @@ func (o *O11yPodListRecord) GetPodCPU() float32 {
 
 // GetPodCPUOk returns a tuple with the PodCPU field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPodListRecord) GetPodCPUOk() (*float32, bool) {
+func (o *O11yPodListRecord) GetPodCPUOk() (*float64, bool) {
 	if o == nil || IsNil(o.PodCPU) {
 		return nil, false
 	}
@@ -139,15 +139,15 @@ func (o *O11yPodListRecord) HasPodCPU() bool {
 	return false
 }
 
-// SetPodCPU gets a reference to the given float32 and assigns it to the PodCPU field.
-func (o *O11yPodListRecord) SetPodCPU(v float32) {
+// SetPodCPU gets a reference to the given float64 and assigns it to the PodCPU field.
+func (o *O11yPodListRecord) SetPodCPU(v float64) {
 	o.PodCPU = &v
 }
 
 // GetPodCPULimit returns the PodCPULimit field value if set, zero value otherwise.
-func (o *O11yPodListRecord) GetPodCPULimit() float32 {
+func (o *O11yPodListRecord) GetPodCPULimit() float64 {
 	if o == nil || IsNil(o.PodCPULimit) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.PodCPULimit
@@ -155,7 +155,7 @@ func (o *O11yPodListRecord) GetPodCPULimit() float32 {
 
 // GetPodCPULimitOk returns a tuple with the PodCPULimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPodListRecord) GetPodCPULimitOk() (*float32, bool) {
+func (o *O11yPodListRecord) GetPodCPULimitOk() (*float64, bool) {
 	if o == nil || IsNil(o.PodCPULimit) {
 		return nil, false
 	}
@@ -171,15 +171,15 @@ func (o *O11yPodListRecord) HasPodCPULimit() bool {
 	return false
 }
 
-// SetPodCPULimit gets a reference to the given float32 and assigns it to the PodCPULimit field.
-func (o *O11yPodListRecord) SetPodCPULimit(v float32) {
+// SetPodCPULimit gets a reference to the given float64 and assigns it to the PodCPULimit field.
+func (o *O11yPodListRecord) SetPodCPULimit(v float64) {
 	o.PodCPULimit = &v
 }
 
 // GetPodCPURequest returns the PodCPURequest field value if set, zero value otherwise.
-func (o *O11yPodListRecord) GetPodCPURequest() float32 {
+func (o *O11yPodListRecord) GetPodCPURequest() float64 {
 	if o == nil || IsNil(o.PodCPURequest) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.PodCPURequest
@@ -187,7 +187,7 @@ func (o *O11yPodListRecord) GetPodCPURequest() float32 {
 
 // GetPodCPURequestOk returns a tuple with the PodCPURequest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPodListRecord) GetPodCPURequestOk() (*float32, bool) {
+func (o *O11yPodListRecord) GetPodCPURequestOk() (*float64, bool) {
 	if o == nil || IsNil(o.PodCPURequest) {
 		return nil, false
 	}
@@ -203,15 +203,15 @@ func (o *O11yPodListRecord) HasPodCPURequest() bool {
 	return false
 }
 
-// SetPodCPURequest gets a reference to the given float32 and assigns it to the PodCPURequest field.
-func (o *O11yPodListRecord) SetPodCPURequest(v float32) {
+// SetPodCPURequest gets a reference to the given float64 and assigns it to the PodCPURequest field.
+func (o *O11yPodListRecord) SetPodCPURequest(v float64) {
 	o.PodCPURequest = &v
 }
 
 // GetPodMemory returns the PodMemory field value if set, zero value otherwise.
-func (o *O11yPodListRecord) GetPodMemory() float32 {
+func (o *O11yPodListRecord) GetPodMemory() float64 {
 	if o == nil || IsNil(o.PodMemory) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.PodMemory
@@ -219,7 +219,7 @@ func (o *O11yPodListRecord) GetPodMemory() float32 {
 
 // GetPodMemoryOk returns a tuple with the PodMemory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPodListRecord) GetPodMemoryOk() (*float32, bool) {
+func (o *O11yPodListRecord) GetPodMemoryOk() (*float64, bool) {
 	if o == nil || IsNil(o.PodMemory) {
 		return nil, false
 	}
@@ -235,15 +235,15 @@ func (o *O11yPodListRecord) HasPodMemory() bool {
 	return false
 }
 
-// SetPodMemory gets a reference to the given float32 and assigns it to the PodMemory field.
-func (o *O11yPodListRecord) SetPodMemory(v float32) {
+// SetPodMemory gets a reference to the given float64 and assigns it to the PodMemory field.
+func (o *O11yPodListRecord) SetPodMemory(v float64) {
 	o.PodMemory = &v
 }
 
 // GetPodMemoryLimit returns the PodMemoryLimit field value if set, zero value otherwise.
-func (o *O11yPodListRecord) GetPodMemoryLimit() float32 {
+func (o *O11yPodListRecord) GetPodMemoryLimit() float64 {
 	if o == nil || IsNil(o.PodMemoryLimit) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.PodMemoryLimit
@@ -251,7 +251,7 @@ func (o *O11yPodListRecord) GetPodMemoryLimit() float32 {
 
 // GetPodMemoryLimitOk returns a tuple with the PodMemoryLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPodListRecord) GetPodMemoryLimitOk() (*float32, bool) {
+func (o *O11yPodListRecord) GetPodMemoryLimitOk() (*float64, bool) {
 	if o == nil || IsNil(o.PodMemoryLimit) {
 		return nil, false
 	}
@@ -267,15 +267,15 @@ func (o *O11yPodListRecord) HasPodMemoryLimit() bool {
 	return false
 }
 
-// SetPodMemoryLimit gets a reference to the given float32 and assigns it to the PodMemoryLimit field.
-func (o *O11yPodListRecord) SetPodMemoryLimit(v float32) {
+// SetPodMemoryLimit gets a reference to the given float64 and assigns it to the PodMemoryLimit field.
+func (o *O11yPodListRecord) SetPodMemoryLimit(v float64) {
 	o.PodMemoryLimit = &v
 }
 
 // GetPodMemoryRequest returns the PodMemoryRequest field value if set, zero value otherwise.
-func (o *O11yPodListRecord) GetPodMemoryRequest() float32 {
+func (o *O11yPodListRecord) GetPodMemoryRequest() float64 {
 	if o == nil || IsNil(o.PodMemoryRequest) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.PodMemoryRequest
@@ -283,7 +283,7 @@ func (o *O11yPodListRecord) GetPodMemoryRequest() float32 {
 
 // GetPodMemoryRequestOk returns a tuple with the PodMemoryRequest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPodListRecord) GetPodMemoryRequestOk() (*float32, bool) {
+func (o *O11yPodListRecord) GetPodMemoryRequestOk() (*float64, bool) {
 	if o == nil || IsNil(o.PodMemoryRequest) {
 		return nil, false
 	}
@@ -299,8 +299,8 @@ func (o *O11yPodListRecord) HasPodMemoryRequest() bool {
 	return false
 }
 
-// SetPodMemoryRequest gets a reference to the given float32 and assigns it to the PodMemoryRequest field.
-func (o *O11yPodListRecord) SetPodMemoryRequest(v float32) {
+// SetPodMemoryRequest gets a reference to the given float64 and assigns it to the PodMemoryRequest field.
+func (o *O11yPodListRecord) SetPodMemoryRequest(v float64) {
 	o.PodMemoryRequest = &v
 }
 
@@ -337,9 +337,9 @@ func (o *O11yPodListRecord) SetPodUID(v string) {
 }
 
 // GetRestartCount returns the RestartCount field value if set, zero value otherwise.
-func (o *O11yPodListRecord) GetRestartCount() int32 {
+func (o *O11yPodListRecord) GetRestartCount() int64 {
 	if o == nil || IsNil(o.RestartCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RestartCount
@@ -347,7 +347,7 @@ func (o *O11yPodListRecord) GetRestartCount() int32 {
 
 // GetRestartCountOk returns a tuple with the RestartCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPodListRecord) GetRestartCountOk() (*int32, bool) {
+func (o *O11yPodListRecord) GetRestartCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.RestartCount) {
 		return nil, false
 	}
@@ -363,8 +363,8 @@ func (o *O11yPodListRecord) HasRestartCount() bool {
 	return false
 }
 
-// SetRestartCount gets a reference to the given int32 and assigns it to the RestartCount field.
-func (o *O11yPodListRecord) SetRestartCount(v int32) {
+// SetRestartCount gets a reference to the given int64 and assigns it to the RestartCount field.
+func (o *O11yPodListRecord) SetRestartCount(v int64) {
 	o.RestartCount = &v
 }
 

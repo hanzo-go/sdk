@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**End** | **int32** | End is the end of the window as a Unix timestamp in milliseconds, at most thirty minutes after start. Required. | 
+**End** | **int64** | End is the end of the window as a Unix timestamp in milliseconds, at most thirty minutes after start. Required. | 
 **Filter** | Pointer to [**O11yO11yMetricFilter**](O11yO11yMetricFilter.md) | Filter narrows the series returned. | [optional] 
 **MetricName** | **string** | MetricName is the metric to inspect. Required. | 
-**Start** | **int32** | Start is the start of the window as a Unix timestamp in milliseconds. Required. | 
+**Start** | **int64** | Start is the start of the window as a Unix timestamp in milliseconds. Required. | 
 
 ## Methods
 
 ### NewO11yO11yMetricInspectIn
 
-`func NewO11yO11yMetricInspectIn(end int32, metricName string, start int32, ) *O11yO11yMetricInspectIn`
+`func NewO11yO11yMetricInspectIn(end int64, metricName string, start int64, ) *O11yO11yMetricInspectIn`
 
 NewO11yO11yMetricInspectIn instantiates a new O11yO11yMetricInspectIn object
 This constructor will assign default values to properties that have it defined,
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetEnd
 
-`func (o *O11yO11yMetricInspectIn) GetEnd() int32`
+`func (o *O11yO11yMetricInspectIn) GetEnd() int64`
 
 GetEnd returns the End field if non-nil, zero value otherwise.
 
 ### GetEndOk
 
-`func (o *O11yO11yMetricInspectIn) GetEndOk() (*int32, bool)`
+`func (o *O11yO11yMetricInspectIn) GetEndOk() (*int64, bool)`
 
 GetEndOk returns a tuple with the End field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnd
 
-`func (o *O11yO11yMetricInspectIn) SetEnd(v int32)`
+`func (o *O11yO11yMetricInspectIn) SetEnd(v int64)`
 
 SetEnd sets End field to given value.
 
@@ -95,20 +95,20 @@ SetMetricName sets MetricName field to given value.
 
 ### GetStart
 
-`func (o *O11yO11yMetricInspectIn) GetStart() int32`
+`func (o *O11yO11yMetricInspectIn) GetStart() int64`
 
 GetStart returns the Start field if non-nil, zero value otherwise.
 
 ### GetStartOk
 
-`func (o *O11yO11yMetricInspectIn) GetStartOk() (*int32, bool)`
+`func (o *O11yO11yMetricInspectIn) GetStartOk() (*int64, bool)`
 
 GetStartOk returns a tuple with the Start field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStart
 
-`func (o *O11yO11yMetricInspectIn) SetStart(v int32)`
+`func (o *O11yO11yMetricInspectIn) SetStart(v int64)`
 
 SetStart sets Start field to given value.
 

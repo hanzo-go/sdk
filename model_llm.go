@@ -22,19 +22,19 @@ type LLM struct {
 	// Available is false when the warehouse was not connected or a query blipped. The totals below are then honest zeros, NOT measured ones.
 	Available *bool `json:"available,omitempty"`
 	// CompletionTokens is the output half.
-	CompletionTokens *int32 `json:"completionTokens,omitempty"`
+	CompletionTokens *int64 `json:"completionTokens,omitempty"`
 	// CostCents is what they cost the org, in US cents. This IS a Hanzo charge.
-	CostCents *int32 `json:"costCents,omitempty"`
+	CostCents *int64 `json:"costCents,omitempty"`
 	// Models is how many distinct models were used.
-	Models *int32 `json:"models,omitempty"`
+	Models *int64 `json:"models,omitempty"`
 	// PromptTokens is the input half of that total.
-	PromptTokens *int32 `json:"promptTokens,omitempty"`
+	PromptTokens *int64 `json:"promptTokens,omitempty"`
 	// Requests is how many completions the org made in the window.
-	Requests *int32 `json:"requests,omitempty"`
+	Requests *int64 `json:"requests,omitempty"`
 	// Source names the warehouse table the totals came from.
 	Source *string `json:"source,omitempty"`
 	// Tokens is the total tokens those completions consumed.
-	Tokens *int32 `json:"tokens,omitempty"`
+	Tokens *int64 `json:"tokens,omitempty"`
 }
 
 // NewLLM instantiates a new LLM object
@@ -87,9 +87,9 @@ func (o *LLM) SetAvailable(v bool) {
 }
 
 // GetCompletionTokens returns the CompletionTokens field value if set, zero value otherwise.
-func (o *LLM) GetCompletionTokens() int32 {
+func (o *LLM) GetCompletionTokens() int64 {
 	if o == nil || IsNil(o.CompletionTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CompletionTokens
@@ -97,7 +97,7 @@ func (o *LLM) GetCompletionTokens() int32 {
 
 // GetCompletionTokensOk returns a tuple with the CompletionTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LLM) GetCompletionTokensOk() (*int32, bool) {
+func (o *LLM) GetCompletionTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.CompletionTokens) {
 		return nil, false
 	}
@@ -113,15 +113,15 @@ func (o *LLM) HasCompletionTokens() bool {
 	return false
 }
 
-// SetCompletionTokens gets a reference to the given int32 and assigns it to the CompletionTokens field.
-func (o *LLM) SetCompletionTokens(v int32) {
+// SetCompletionTokens gets a reference to the given int64 and assigns it to the CompletionTokens field.
+func (o *LLM) SetCompletionTokens(v int64) {
 	o.CompletionTokens = &v
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *LLM) GetCostCents() int32 {
+func (o *LLM) GetCostCents() int64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostCents
@@ -129,7 +129,7 @@ func (o *LLM) GetCostCents() int32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LLM) GetCostCentsOk() (*int32, bool) {
+func (o *LLM) GetCostCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -145,15 +145,15 @@ func (o *LLM) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *LLM) SetCostCents(v int32) {
+// SetCostCents gets a reference to the given int64 and assigns it to the CostCents field.
+func (o *LLM) SetCostCents(v int64) {
 	o.CostCents = &v
 }
 
 // GetModels returns the Models field value if set, zero value otherwise.
-func (o *LLM) GetModels() int32 {
+func (o *LLM) GetModels() int64 {
 	if o == nil || IsNil(o.Models) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Models
@@ -161,7 +161,7 @@ func (o *LLM) GetModels() int32 {
 
 // GetModelsOk returns a tuple with the Models field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LLM) GetModelsOk() (*int32, bool) {
+func (o *LLM) GetModelsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Models) {
 		return nil, false
 	}
@@ -177,15 +177,15 @@ func (o *LLM) HasModels() bool {
 	return false
 }
 
-// SetModels gets a reference to the given int32 and assigns it to the Models field.
-func (o *LLM) SetModels(v int32) {
+// SetModels gets a reference to the given int64 and assigns it to the Models field.
+func (o *LLM) SetModels(v int64) {
 	o.Models = &v
 }
 
 // GetPromptTokens returns the PromptTokens field value if set, zero value otherwise.
-func (o *LLM) GetPromptTokens() int32 {
+func (o *LLM) GetPromptTokens() int64 {
 	if o == nil || IsNil(o.PromptTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PromptTokens
@@ -193,7 +193,7 @@ func (o *LLM) GetPromptTokens() int32 {
 
 // GetPromptTokensOk returns a tuple with the PromptTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LLM) GetPromptTokensOk() (*int32, bool) {
+func (o *LLM) GetPromptTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.PromptTokens) {
 		return nil, false
 	}
@@ -209,15 +209,15 @@ func (o *LLM) HasPromptTokens() bool {
 	return false
 }
 
-// SetPromptTokens gets a reference to the given int32 and assigns it to the PromptTokens field.
-func (o *LLM) SetPromptTokens(v int32) {
+// SetPromptTokens gets a reference to the given int64 and assigns it to the PromptTokens field.
+func (o *LLM) SetPromptTokens(v int64) {
 	o.PromptTokens = &v
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *LLM) GetRequests() int32 {
+func (o *LLM) GetRequests() int64 {
 	if o == nil || IsNil(o.Requests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Requests
@@ -225,7 +225,7 @@ func (o *LLM) GetRequests() int32 {
 
 // GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LLM) GetRequestsOk() (*int32, bool) {
+func (o *LLM) GetRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Requests) {
 		return nil, false
 	}
@@ -241,8 +241,8 @@ func (o *LLM) HasRequests() bool {
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *LLM) SetRequests(v int32) {
+// SetRequests gets a reference to the given int64 and assigns it to the Requests field.
+func (o *LLM) SetRequests(v int64) {
 	o.Requests = &v
 }
 
@@ -279,9 +279,9 @@ func (o *LLM) SetSource(v string) {
 }
 
 // GetTokens returns the Tokens field value if set, zero value otherwise.
-func (o *LLM) GetTokens() int32 {
+func (o *LLM) GetTokens() int64 {
 	if o == nil || IsNil(o.Tokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Tokens
@@ -289,7 +289,7 @@ func (o *LLM) GetTokens() int32 {
 
 // GetTokensOk returns a tuple with the Tokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LLM) GetTokensOk() (*int32, bool) {
+func (o *LLM) GetTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.Tokens) {
 		return nil, false
 	}
@@ -305,8 +305,8 @@ func (o *LLM) HasTokens() bool {
 	return false
 }
 
-// SetTokens gets a reference to the given int32 and assigns it to the Tokens field.
-func (o *LLM) SetTokens(v int32) {
+// SetTokens gets a reference to the given int64 and assigns it to the Tokens field.
+func (o *LLM) SetTokens(v int64) {
 	o.Tokens = &v
 }
 

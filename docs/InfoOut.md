@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Jetstream** | Pointer to **bool** | JetStream is true when durable streams are enabled. | [optional] 
-**MaxPayload** | Pointer to **int32** | MaxPayload is the broker&#39;s message-size ceiling in bytes. | [optional] 
+**MaxPayload** | Pointer to **int64** | MaxPayload is the broker&#39;s message-size ceiling in bytes. | [optional] 
 **ServerId** | Pointer to **string** | Server is the broker&#39;s server id. | [optional] 
 **ServerName** | Pointer to **string** | Name is the broker&#39;s server name. | [optional] 
-**Streams** | Pointer to **int32** | Streams is the org&#39;s stream count. | [optional] 
+**Streams** | Pointer to **int64** | Streams is the org&#39;s stream count. | [optional] 
 **Version** | Pointer to **string** | Version is the broker&#39;s server version. | [optional] 
 
 ## Methods
@@ -57,20 +57,20 @@ HasJetstream returns a boolean if a field has been set.
 
 ### GetMaxPayload
 
-`func (o *InfoOut) GetMaxPayload() int32`
+`func (o *InfoOut) GetMaxPayload() int64`
 
 GetMaxPayload returns the MaxPayload field if non-nil, zero value otherwise.
 
 ### GetMaxPayloadOk
 
-`func (o *InfoOut) GetMaxPayloadOk() (*int32, bool)`
+`func (o *InfoOut) GetMaxPayloadOk() (*int64, bool)`
 
 GetMaxPayloadOk returns a tuple with the MaxPayload field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxPayload
 
-`func (o *InfoOut) SetMaxPayload(v int32)`
+`func (o *InfoOut) SetMaxPayload(v int64)`
 
 SetMaxPayload sets MaxPayload field to given value.
 
@@ -132,20 +132,20 @@ HasServerName returns a boolean if a field has been set.
 
 ### GetStreams
 
-`func (o *InfoOut) GetStreams() int32`
+`func (o *InfoOut) GetStreams() int64`
 
 GetStreams returns the Streams field if non-nil, zero value otherwise.
 
 ### GetStreamsOk
 
-`func (o *InfoOut) GetStreamsOk() (*int32, bool)`
+`func (o *InfoOut) GetStreamsOk() (*int64, bool)`
 
 GetStreamsOk returns a tuple with the Streams field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStreams
 
-`func (o *InfoOut) SetStreams(v int32)`
+`func (o *InfoOut) SetStreams(v int64)`
 
 SetStreams sets Streams field to given value.
 

@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AvailablePods** | Pointer to **int32** |  | [optional] 
-**CpuLimit** | Pointer to **float32** |  | [optional] 
-**CpuRequest** | Pointer to **float32** |  | [optional] 
-**CpuUsage** | Pointer to **float32** |  | [optional] 
+**AvailablePods** | Pointer to **int64** |  | [optional] 
+**CpuLimit** | Pointer to **float64** |  | [optional] 
+**CpuRequest** | Pointer to **float64** |  | [optional] 
+**CpuUsage** | Pointer to **float64** |  | [optional] 
 **DeploymentName** | Pointer to **string** |  | [optional] 
-**DesiredPods** | Pointer to **int32** |  | [optional] 
-**MemoryLimit** | Pointer to **float32** |  | [optional] 
-**MemoryRequest** | Pointer to **float32** |  | [optional] 
-**MemoryUsage** | Pointer to **float32** |  | [optional] 
+**DesiredPods** | Pointer to **int64** |  | [optional] 
+**MemoryLimit** | Pointer to **float64** |  | [optional] 
+**MemoryRequest** | Pointer to **float64** |  | [optional] 
+**MemoryUsage** | Pointer to **float64** |  | [optional] 
 **Meta** | Pointer to **map[string]string** |  | [optional] 
-**Restarts** | Pointer to **int32** |  | [optional] 
+**Restarts** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -37,20 +37,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAvailablePods
 
-`func (o *O11yDeploymentListRecord) GetAvailablePods() int32`
+`func (o *O11yDeploymentListRecord) GetAvailablePods() int64`
 
 GetAvailablePods returns the AvailablePods field if non-nil, zero value otherwise.
 
 ### GetAvailablePodsOk
 
-`func (o *O11yDeploymentListRecord) GetAvailablePodsOk() (*int32, bool)`
+`func (o *O11yDeploymentListRecord) GetAvailablePodsOk() (*int64, bool)`
 
 GetAvailablePodsOk returns a tuple with the AvailablePods field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAvailablePods
 
-`func (o *O11yDeploymentListRecord) SetAvailablePods(v int32)`
+`func (o *O11yDeploymentListRecord) SetAvailablePods(v int64)`
 
 SetAvailablePods sets AvailablePods field to given value.
 
@@ -62,20 +62,20 @@ HasAvailablePods returns a boolean if a field has been set.
 
 ### GetCpuLimit
 
-`func (o *O11yDeploymentListRecord) GetCpuLimit() float32`
+`func (o *O11yDeploymentListRecord) GetCpuLimit() float64`
 
 GetCpuLimit returns the CpuLimit field if non-nil, zero value otherwise.
 
 ### GetCpuLimitOk
 
-`func (o *O11yDeploymentListRecord) GetCpuLimitOk() (*float32, bool)`
+`func (o *O11yDeploymentListRecord) GetCpuLimitOk() (*float64, bool)`
 
 GetCpuLimitOk returns a tuple with the CpuLimit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCpuLimit
 
-`func (o *O11yDeploymentListRecord) SetCpuLimit(v float32)`
+`func (o *O11yDeploymentListRecord) SetCpuLimit(v float64)`
 
 SetCpuLimit sets CpuLimit field to given value.
 
@@ -87,20 +87,20 @@ HasCpuLimit returns a boolean if a field has been set.
 
 ### GetCpuRequest
 
-`func (o *O11yDeploymentListRecord) GetCpuRequest() float32`
+`func (o *O11yDeploymentListRecord) GetCpuRequest() float64`
 
 GetCpuRequest returns the CpuRequest field if non-nil, zero value otherwise.
 
 ### GetCpuRequestOk
 
-`func (o *O11yDeploymentListRecord) GetCpuRequestOk() (*float32, bool)`
+`func (o *O11yDeploymentListRecord) GetCpuRequestOk() (*float64, bool)`
 
 GetCpuRequestOk returns a tuple with the CpuRequest field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCpuRequest
 
-`func (o *O11yDeploymentListRecord) SetCpuRequest(v float32)`
+`func (o *O11yDeploymentListRecord) SetCpuRequest(v float64)`
 
 SetCpuRequest sets CpuRequest field to given value.
 
@@ -112,20 +112,20 @@ HasCpuRequest returns a boolean if a field has been set.
 
 ### GetCpuUsage
 
-`func (o *O11yDeploymentListRecord) GetCpuUsage() float32`
+`func (o *O11yDeploymentListRecord) GetCpuUsage() float64`
 
 GetCpuUsage returns the CpuUsage field if non-nil, zero value otherwise.
 
 ### GetCpuUsageOk
 
-`func (o *O11yDeploymentListRecord) GetCpuUsageOk() (*float32, bool)`
+`func (o *O11yDeploymentListRecord) GetCpuUsageOk() (*float64, bool)`
 
 GetCpuUsageOk returns a tuple with the CpuUsage field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCpuUsage
 
-`func (o *O11yDeploymentListRecord) SetCpuUsage(v float32)`
+`func (o *O11yDeploymentListRecord) SetCpuUsage(v float64)`
 
 SetCpuUsage sets CpuUsage field to given value.
 
@@ -162,20 +162,20 @@ HasDeploymentName returns a boolean if a field has been set.
 
 ### GetDesiredPods
 
-`func (o *O11yDeploymentListRecord) GetDesiredPods() int32`
+`func (o *O11yDeploymentListRecord) GetDesiredPods() int64`
 
 GetDesiredPods returns the DesiredPods field if non-nil, zero value otherwise.
 
 ### GetDesiredPodsOk
 
-`func (o *O11yDeploymentListRecord) GetDesiredPodsOk() (*int32, bool)`
+`func (o *O11yDeploymentListRecord) GetDesiredPodsOk() (*int64, bool)`
 
 GetDesiredPodsOk returns a tuple with the DesiredPods field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDesiredPods
 
-`func (o *O11yDeploymentListRecord) SetDesiredPods(v int32)`
+`func (o *O11yDeploymentListRecord) SetDesiredPods(v int64)`
 
 SetDesiredPods sets DesiredPods field to given value.
 
@@ -187,20 +187,20 @@ HasDesiredPods returns a boolean if a field has been set.
 
 ### GetMemoryLimit
 
-`func (o *O11yDeploymentListRecord) GetMemoryLimit() float32`
+`func (o *O11yDeploymentListRecord) GetMemoryLimit() float64`
 
 GetMemoryLimit returns the MemoryLimit field if non-nil, zero value otherwise.
 
 ### GetMemoryLimitOk
 
-`func (o *O11yDeploymentListRecord) GetMemoryLimitOk() (*float32, bool)`
+`func (o *O11yDeploymentListRecord) GetMemoryLimitOk() (*float64, bool)`
 
 GetMemoryLimitOk returns a tuple with the MemoryLimit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMemoryLimit
 
-`func (o *O11yDeploymentListRecord) SetMemoryLimit(v float32)`
+`func (o *O11yDeploymentListRecord) SetMemoryLimit(v float64)`
 
 SetMemoryLimit sets MemoryLimit field to given value.
 
@@ -212,20 +212,20 @@ HasMemoryLimit returns a boolean if a field has been set.
 
 ### GetMemoryRequest
 
-`func (o *O11yDeploymentListRecord) GetMemoryRequest() float32`
+`func (o *O11yDeploymentListRecord) GetMemoryRequest() float64`
 
 GetMemoryRequest returns the MemoryRequest field if non-nil, zero value otherwise.
 
 ### GetMemoryRequestOk
 
-`func (o *O11yDeploymentListRecord) GetMemoryRequestOk() (*float32, bool)`
+`func (o *O11yDeploymentListRecord) GetMemoryRequestOk() (*float64, bool)`
 
 GetMemoryRequestOk returns a tuple with the MemoryRequest field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMemoryRequest
 
-`func (o *O11yDeploymentListRecord) SetMemoryRequest(v float32)`
+`func (o *O11yDeploymentListRecord) SetMemoryRequest(v float64)`
 
 SetMemoryRequest sets MemoryRequest field to given value.
 
@@ -237,20 +237,20 @@ HasMemoryRequest returns a boolean if a field has been set.
 
 ### GetMemoryUsage
 
-`func (o *O11yDeploymentListRecord) GetMemoryUsage() float32`
+`func (o *O11yDeploymentListRecord) GetMemoryUsage() float64`
 
 GetMemoryUsage returns the MemoryUsage field if non-nil, zero value otherwise.
 
 ### GetMemoryUsageOk
 
-`func (o *O11yDeploymentListRecord) GetMemoryUsageOk() (*float32, bool)`
+`func (o *O11yDeploymentListRecord) GetMemoryUsageOk() (*float64, bool)`
 
 GetMemoryUsageOk returns a tuple with the MemoryUsage field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMemoryUsage
 
-`func (o *O11yDeploymentListRecord) SetMemoryUsage(v float32)`
+`func (o *O11yDeploymentListRecord) SetMemoryUsage(v float64)`
 
 SetMemoryUsage sets MemoryUsage field to given value.
 
@@ -287,20 +287,20 @@ HasMeta returns a boolean if a field has been set.
 
 ### GetRestarts
 
-`func (o *O11yDeploymentListRecord) GetRestarts() int32`
+`func (o *O11yDeploymentListRecord) GetRestarts() int64`
 
 GetRestarts returns the Restarts field if non-nil, zero value otherwise.
 
 ### GetRestartsOk
 
-`func (o *O11yDeploymentListRecord) GetRestartsOk() (*int32, bool)`
+`func (o *O11yDeploymentListRecord) GetRestartsOk() (*int64, bool)`
 
 GetRestartsOk returns a tuple with the Restarts field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRestarts
 
-`func (o *O11yDeploymentListRecord) SetRestarts(v int32)`
+`func (o *O11yDeploymentListRecord) SetRestarts(v int64)`
 
 SetRestarts sets Restarts field to given value.
 

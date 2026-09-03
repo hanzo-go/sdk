@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PaidCents** | Pointer to **int32** | what this renewal cost, in cents | [optional] 
+**PaidCents** | Pointer to **int64** | what this renewal cost, in cents | [optional] 
 **Record** | Pointer to [**Holding**](Holding.md) | the ownership row with its new expiry | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetPaidCents
 
-`func (o *RenewResult) GetPaidCents() int32`
+`func (o *RenewResult) GetPaidCents() int64`
 
 GetPaidCents returns the PaidCents field if non-nil, zero value otherwise.
 
 ### GetPaidCentsOk
 
-`func (o *RenewResult) GetPaidCentsOk() (*int32, bool)`
+`func (o *RenewResult) GetPaidCentsOk() (*int64, bool)`
 
 GetPaidCentsOk returns a tuple with the PaidCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPaidCents
 
-`func (o *RenewResult) SetPaidCents(v int32)`
+`func (o *RenewResult) SetPaidCents(v int64)`
 
 SetPaidCents sets PaidCents field to given value.
 

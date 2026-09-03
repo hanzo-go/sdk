@@ -26,7 +26,7 @@ type CategoryIn struct {
 	// Label is the display name. Required.
 	Label *string `json:"label,omitempty"`
 	// Order is where the category sits among its siblings, ascending.
-	Order *int32 `json:"order,omitempty"`
+	Order *int64 `json:"order,omitempty"`
 	// Summary is the one line describing what the category groups.
 	Summary *string `json:"summary,omitempty"`
 }
@@ -145,9 +145,9 @@ func (o *CategoryIn) SetLabel(v string) {
 }
 
 // GetOrder returns the Order field value if set, zero value otherwise.
-func (o *CategoryIn) GetOrder() int32 {
+func (o *CategoryIn) GetOrder() int64 {
 	if o == nil || IsNil(o.Order) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Order
@@ -155,7 +155,7 @@ func (o *CategoryIn) GetOrder() int32 {
 
 // GetOrderOk returns a tuple with the Order field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CategoryIn) GetOrderOk() (*int32, bool) {
+func (o *CategoryIn) GetOrderOk() (*int64, bool) {
 	if o == nil || IsNil(o.Order) {
 		return nil, false
 	}
@@ -171,8 +171,8 @@ func (o *CategoryIn) HasOrder() bool {
 	return false
 }
 
-// SetOrder gets a reference to the given int32 and assigns it to the Order field.
-func (o *CategoryIn) SetOrder(v int32) {
+// SetOrder gets a reference to the given int64 and assigns it to the Order field.
+func (o *CategoryIn) SetOrder(v int64) {
 	o.Order = &v
 }
 

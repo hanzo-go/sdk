@@ -24,7 +24,7 @@ type ConnectorView struct {
 	// Configured is true when this deployment holds OAuth credentials for the provider.
 	Configured *bool `json:"configured,omitempty"`
 	// DocCount is the live count of this provider's documents in the org's store.
-	DocCount *int32 `json:"docCount,omitempty"`
+	DocCount *int64 `json:"docCount,omitempty"`
 	// Error is the last sync failure, if any. Absent until the org connects.
 	Error *string `json:"error,omitempty"`
 	// Kind is \"native\" for a first-party Go connector, \"piece\" for a long-tail one.
@@ -119,9 +119,9 @@ func (o *ConnectorView) SetConfigured(v bool) {
 }
 
 // GetDocCount returns the DocCount field value if set, zero value otherwise.
-func (o *ConnectorView) GetDocCount() int32 {
+func (o *ConnectorView) GetDocCount() int64 {
 	if o == nil || IsNil(o.DocCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DocCount
@@ -129,7 +129,7 @@ func (o *ConnectorView) GetDocCount() int32 {
 
 // GetDocCountOk returns a tuple with the DocCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConnectorView) GetDocCountOk() (*int32, bool) {
+func (o *ConnectorView) GetDocCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.DocCount) {
 		return nil, false
 	}
@@ -145,8 +145,8 @@ func (o *ConnectorView) HasDocCount() bool {
 	return false
 }
 
-// SetDocCount gets a reference to the given int32 and assigns it to the DocCount field.
-func (o *ConnectorView) SetDocCount(v int32) {
+// SetDocCount gets a reference to the given int64 and assigns it to the DocCount field.
+func (o *ConnectorView) SetDocCount(v int64) {
 	o.DocCount = &v
 }
 

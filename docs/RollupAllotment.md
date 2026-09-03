@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ConsumedCents** | Pointer to **int32** |  | [optional] 
-**GrantedCents** | Pointer to **int32** |  | [optional] 
-**MonthlyCents** | Pointer to **int32** |  | [optional] 
-**RemainingCents** | Pointer to **int32** |  | [optional] 
+**ConsumedCents** | Pointer to **int64** |  | [optional] 
+**GrantedCents** | Pointer to **int64** |  | [optional] 
+**MonthlyCents** | Pointer to **int64** |  | [optional] 
+**RemainingCents** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetConsumedCents
 
-`func (o *RollupAllotment) GetConsumedCents() int32`
+`func (o *RollupAllotment) GetConsumedCents() int64`
 
 GetConsumedCents returns the ConsumedCents field if non-nil, zero value otherwise.
 
 ### GetConsumedCentsOk
 
-`func (o *RollupAllotment) GetConsumedCentsOk() (*int32, bool)`
+`func (o *RollupAllotment) GetConsumedCentsOk() (*int64, bool)`
 
 GetConsumedCentsOk returns a tuple with the ConsumedCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConsumedCents
 
-`func (o *RollupAllotment) SetConsumedCents(v int32)`
+`func (o *RollupAllotment) SetConsumedCents(v int64)`
 
 SetConsumedCents sets ConsumedCents field to given value.
 
@@ -55,20 +55,20 @@ HasConsumedCents returns a boolean if a field has been set.
 
 ### GetGrantedCents
 
-`func (o *RollupAllotment) GetGrantedCents() int32`
+`func (o *RollupAllotment) GetGrantedCents() int64`
 
 GetGrantedCents returns the GrantedCents field if non-nil, zero value otherwise.
 
 ### GetGrantedCentsOk
 
-`func (o *RollupAllotment) GetGrantedCentsOk() (*int32, bool)`
+`func (o *RollupAllotment) GetGrantedCentsOk() (*int64, bool)`
 
 GetGrantedCentsOk returns a tuple with the GrantedCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGrantedCents
 
-`func (o *RollupAllotment) SetGrantedCents(v int32)`
+`func (o *RollupAllotment) SetGrantedCents(v int64)`
 
 SetGrantedCents sets GrantedCents field to given value.
 
@@ -80,20 +80,20 @@ HasGrantedCents returns a boolean if a field has been set.
 
 ### GetMonthlyCents
 
-`func (o *RollupAllotment) GetMonthlyCents() int32`
+`func (o *RollupAllotment) GetMonthlyCents() int64`
 
 GetMonthlyCents returns the MonthlyCents field if non-nil, zero value otherwise.
 
 ### GetMonthlyCentsOk
 
-`func (o *RollupAllotment) GetMonthlyCentsOk() (*int32, bool)`
+`func (o *RollupAllotment) GetMonthlyCentsOk() (*int64, bool)`
 
 GetMonthlyCentsOk returns a tuple with the MonthlyCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMonthlyCents
 
-`func (o *RollupAllotment) SetMonthlyCents(v int32)`
+`func (o *RollupAllotment) SetMonthlyCents(v int64)`
 
 SetMonthlyCents sets MonthlyCents field to given value.
 
@@ -105,20 +105,20 @@ HasMonthlyCents returns a boolean if a field has been set.
 
 ### GetRemainingCents
 
-`func (o *RollupAllotment) GetRemainingCents() int32`
+`func (o *RollupAllotment) GetRemainingCents() int64`
 
 GetRemainingCents returns the RemainingCents field if non-nil, zero value otherwise.
 
 ### GetRemainingCentsOk
 
-`func (o *RollupAllotment) GetRemainingCentsOk() (*int32, bool)`
+`func (o *RollupAllotment) GetRemainingCentsOk() (*int64, bool)`
 
 GetRemainingCentsOk returns a tuple with the RemainingCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRemainingCents
 
-`func (o *RollupAllotment) SetRemainingCents(v int32)`
+`func (o *RollupAllotment) SetRemainingCents(v int64)`
 
 SetRemainingCents sets RemainingCents field to given value.
 

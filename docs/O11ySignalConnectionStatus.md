@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **LastReceivedFrom** | Pointer to **string** | resource identifier | [optional] 
-**LastReceivedTsMs** | Pointer to **int32** | epoch milliseconds | [optional] 
+**LastReceivedTsMs** | Pointer to **int64** | epoch milliseconds | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasLastReceivedFrom returns a boolean if a field has been set.
 
 ### GetLastReceivedTsMs
 
-`func (o *O11ySignalConnectionStatus) GetLastReceivedTsMs() int32`
+`func (o *O11ySignalConnectionStatus) GetLastReceivedTsMs() int64`
 
 GetLastReceivedTsMs returns the LastReceivedTsMs field if non-nil, zero value otherwise.
 
 ### GetLastReceivedTsMsOk
 
-`func (o *O11ySignalConnectionStatus) GetLastReceivedTsMsOk() (*int32, bool)`
+`func (o *O11ySignalConnectionStatus) GetLastReceivedTsMsOk() (*int64, bool)`
 
 GetLastReceivedTsMsOk returns a tuple with the LastReceivedTsMs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastReceivedTsMs
 
-`func (o *O11ySignalConnectionStatus) SetLastReceivedTsMs(v int32)`
+`func (o *O11ySignalConnectionStatus) SetLastReceivedTsMs(v int64)`
 
 SetLastReceivedTsMs sets LastReceivedTsMs field to given value.
 

@@ -21,7 +21,7 @@ var _ MappedNullable = &O11yBuilderQuery{}
 type O11yBuilderQuery struct {
 	IsAnomaly            *bool              `json:"IsAnomaly,omitempty"`
 	QueriesUsedInFormula []string           `json:"QueriesUsedInFormula,omitempty"`
-	ShiftBy              *int32             `json:"ShiftBy,omitempty"`
+	ShiftBy              *int64             `json:"ShiftBy,omitempty"`
 	AggregateAttribute   *O11yAttributeKey  `json:"aggregateAttribute,omitempty"`
 	AggregateOperator    *string            `json:"aggregateOperator,omitempty"`
 	DataSource           *string            `json:"dataSource,omitempty"`
@@ -41,7 +41,7 @@ type O11yBuilderQuery struct {
 	SelectColumns        []O11yAttributeKey `json:"selectColumns,omitempty"`
 	SeriesAggregation    *string            `json:"seriesAggregation,omitempty"`
 	SpaceAggregation     *string            `json:"spaceAggregation,omitempty"`
-	StepInterval         *int32             `json:"stepInterval,omitempty"`
+	StepInterval         *int64             `json:"stepInterval,omitempty"`
 	Temporality          *string            `json:"temporality,omitempty"`
 	TimeAggregation      *string            `json:"timeAggregation,omitempty"`
 }
@@ -128,9 +128,9 @@ func (o *O11yBuilderQuery) SetQueriesUsedInFormula(v []string) {
 }
 
 // GetShiftBy returns the ShiftBy field value if set, zero value otherwise.
-func (o *O11yBuilderQuery) GetShiftBy() int32 {
+func (o *O11yBuilderQuery) GetShiftBy() int64 {
 	if o == nil || IsNil(o.ShiftBy) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ShiftBy
@@ -138,7 +138,7 @@ func (o *O11yBuilderQuery) GetShiftBy() int32 {
 
 // GetShiftByOk returns a tuple with the ShiftBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yBuilderQuery) GetShiftByOk() (*int32, bool) {
+func (o *O11yBuilderQuery) GetShiftByOk() (*int64, bool) {
 	if o == nil || IsNil(o.ShiftBy) {
 		return nil, false
 	}
@@ -154,8 +154,8 @@ func (o *O11yBuilderQuery) HasShiftBy() bool {
 	return false
 }
 
-// SetShiftBy gets a reference to the given int32 and assigns it to the ShiftBy field.
-func (o *O11yBuilderQuery) SetShiftBy(v int32) {
+// SetShiftBy gets a reference to the given int64 and assigns it to the ShiftBy field.
+func (o *O11yBuilderQuery) SetShiftBy(v int64) {
 	o.ShiftBy = &v
 }
 
@@ -768,9 +768,9 @@ func (o *O11yBuilderQuery) SetSpaceAggregation(v string) {
 }
 
 // GetStepInterval returns the StepInterval field value if set, zero value otherwise.
-func (o *O11yBuilderQuery) GetStepInterval() int32 {
+func (o *O11yBuilderQuery) GetStepInterval() int64 {
 	if o == nil || IsNil(o.StepInterval) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.StepInterval
@@ -778,7 +778,7 @@ func (o *O11yBuilderQuery) GetStepInterval() int32 {
 
 // GetStepIntervalOk returns a tuple with the StepInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yBuilderQuery) GetStepIntervalOk() (*int32, bool) {
+func (o *O11yBuilderQuery) GetStepIntervalOk() (*int64, bool) {
 	if o == nil || IsNil(o.StepInterval) {
 		return nil, false
 	}
@@ -794,8 +794,8 @@ func (o *O11yBuilderQuery) HasStepInterval() bool {
 	return false
 }
 
-// SetStepInterval gets a reference to the given int32 and assigns it to the StepInterval field.
-func (o *O11yBuilderQuery) SetStepInterval(v int32) {
+// SetStepInterval gets a reference to the given int64 and assigns it to the StepInterval field.
+func (o *O11yBuilderQuery) SetStepInterval(v int64) {
 	o.StepInterval = &v
 }
 

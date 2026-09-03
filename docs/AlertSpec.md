@@ -7,11 +7,11 @@ Name | Type | Description | Notes
 **Currency** | Pointer to **string** |  | [optional] 
 **Enforce** | Pointer to **bool** |  | [optional] 
 **Project** | Pointer to **string** |  | [optional] 
-**RateLimitRpm** | Pointer to **int32** |  | [optional] 
+**RateLimitRpm** | Pointer to **int64** |  | [optional] 
 **Service** | Pointer to **string** |  | [optional] 
-**SoftPct** | Pointer to **int32** |  | [optional] 
+**SoftPct** | Pointer to **int64** |  | [optional] 
 **Subject** | Pointer to **string** |  | [optional] 
-**Threshold** | Pointer to **int32** |  | [optional] 
+**Threshold** | Pointer to **int64** |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -110,20 +110,20 @@ HasProject returns a boolean if a field has been set.
 
 ### GetRateLimitRpm
 
-`func (o *AlertSpec) GetRateLimitRpm() int32`
+`func (o *AlertSpec) GetRateLimitRpm() int64`
 
 GetRateLimitRpm returns the RateLimitRpm field if non-nil, zero value otherwise.
 
 ### GetRateLimitRpmOk
 
-`func (o *AlertSpec) GetRateLimitRpmOk() (*int32, bool)`
+`func (o *AlertSpec) GetRateLimitRpmOk() (*int64, bool)`
 
 GetRateLimitRpmOk returns a tuple with the RateLimitRpm field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRateLimitRpm
 
-`func (o *AlertSpec) SetRateLimitRpm(v int32)`
+`func (o *AlertSpec) SetRateLimitRpm(v int64)`
 
 SetRateLimitRpm sets RateLimitRpm field to given value.
 
@@ -160,20 +160,20 @@ HasService returns a boolean if a field has been set.
 
 ### GetSoftPct
 
-`func (o *AlertSpec) GetSoftPct() int32`
+`func (o *AlertSpec) GetSoftPct() int64`
 
 GetSoftPct returns the SoftPct field if non-nil, zero value otherwise.
 
 ### GetSoftPctOk
 
-`func (o *AlertSpec) GetSoftPctOk() (*int32, bool)`
+`func (o *AlertSpec) GetSoftPctOk() (*int64, bool)`
 
 GetSoftPctOk returns a tuple with the SoftPct field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSoftPct
 
-`func (o *AlertSpec) SetSoftPct(v int32)`
+`func (o *AlertSpec) SetSoftPct(v int64)`
 
 SetSoftPct sets SoftPct field to given value.
 
@@ -210,20 +210,20 @@ HasSubject returns a boolean if a field has been set.
 
 ### GetThreshold
 
-`func (o *AlertSpec) GetThreshold() int32`
+`func (o *AlertSpec) GetThreshold() int64`
 
 GetThreshold returns the Threshold field if non-nil, zero value otherwise.
 
 ### GetThresholdOk
 
-`func (o *AlertSpec) GetThresholdOk() (*int32, bool)`
+`func (o *AlertSpec) GetThresholdOk() (*int64, bool)`
 
 GetThresholdOk returns a tuple with the Threshold field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetThreshold
 
-`func (o *AlertSpec) SetThreshold(v int32)`
+`func (o *AlertSpec) SetThreshold(v int64)`
 
 SetThreshold sets Threshold field to given value.
 

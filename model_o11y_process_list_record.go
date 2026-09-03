@@ -22,9 +22,9 @@ type O11yProcessListRecord struct {
 	Meta           map[string]string `json:"meta,omitempty"`
 	ProcessCMD     *string           `json:"processCMD,omitempty"`
 	ProcessCMDLine *string           `json:"processCMDLine,omitempty"`
-	ProcessCPU     *float32          `json:"processCPU,omitempty"`
+	ProcessCPU     *float64          `json:"processCPU,omitempty"`
 	ProcessID      *string           `json:"processID,omitempty"`
-	ProcessMemory  *float32          `json:"processMemory,omitempty"`
+	ProcessMemory  *float64          `json:"processMemory,omitempty"`
 	ProcessName    *string           `json:"processName,omitempty"`
 }
 
@@ -142,9 +142,9 @@ func (o *O11yProcessListRecord) SetProcessCMDLine(v string) {
 }
 
 // GetProcessCPU returns the ProcessCPU field value if set, zero value otherwise.
-func (o *O11yProcessListRecord) GetProcessCPU() float32 {
+func (o *O11yProcessListRecord) GetProcessCPU() float64 {
 	if o == nil || IsNil(o.ProcessCPU) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.ProcessCPU
@@ -152,7 +152,7 @@ func (o *O11yProcessListRecord) GetProcessCPU() float32 {
 
 // GetProcessCPUOk returns a tuple with the ProcessCPU field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yProcessListRecord) GetProcessCPUOk() (*float32, bool) {
+func (o *O11yProcessListRecord) GetProcessCPUOk() (*float64, bool) {
 	if o == nil || IsNil(o.ProcessCPU) {
 		return nil, false
 	}
@@ -168,8 +168,8 @@ func (o *O11yProcessListRecord) HasProcessCPU() bool {
 	return false
 }
 
-// SetProcessCPU gets a reference to the given float32 and assigns it to the ProcessCPU field.
-func (o *O11yProcessListRecord) SetProcessCPU(v float32) {
+// SetProcessCPU gets a reference to the given float64 and assigns it to the ProcessCPU field.
+func (o *O11yProcessListRecord) SetProcessCPU(v float64) {
 	o.ProcessCPU = &v
 }
 
@@ -206,9 +206,9 @@ func (o *O11yProcessListRecord) SetProcessID(v string) {
 }
 
 // GetProcessMemory returns the ProcessMemory field value if set, zero value otherwise.
-func (o *O11yProcessListRecord) GetProcessMemory() float32 {
+func (o *O11yProcessListRecord) GetProcessMemory() float64 {
 	if o == nil || IsNil(o.ProcessMemory) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.ProcessMemory
@@ -216,7 +216,7 @@ func (o *O11yProcessListRecord) GetProcessMemory() float32 {
 
 // GetProcessMemoryOk returns a tuple with the ProcessMemory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yProcessListRecord) GetProcessMemoryOk() (*float32, bool) {
+func (o *O11yProcessListRecord) GetProcessMemoryOk() (*float64, bool) {
 	if o == nil || IsNil(o.ProcessMemory) {
 		return nil, false
 	}
@@ -232,8 +232,8 @@ func (o *O11yProcessListRecord) HasProcessMemory() bool {
 	return false
 }
 
-// SetProcessMemory gets a reference to the given float32 and assigns it to the ProcessMemory field.
-func (o *O11yProcessListRecord) SetProcessMemory(v float32) {
+// SetProcessMemory gets a reference to the given float64 and assigns it to the ProcessMemory field.
+func (o *O11yProcessListRecord) SetProcessMemory(v float64) {
 	o.ProcessMemory = &v
 }
 

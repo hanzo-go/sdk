@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccruedCents** | Pointer to **int32** | AccruedCents is lifetime commission accrued, in cents. It only grows — a payout is recorded against paidCents and never reduces this. | [optional] 
+**AccruedCents** | Pointer to **int64** | AccruedCents is lifetime commission accrued, in cents. It only grows — a payout is recorded against paidCents and never reduces this. | [optional] 
 **Code** | Pointer to **string** | Code is the minted referral code, the slug the ?aff link carries. Absent until staff approve; codes live in ONE global namespace across all affiliates. | [optional] 
-**DefaultRateBps** | Pointer to **int32** | DefaultRateBps is the direct rate a new affiliate starts at, in basis points of margin (2000 &#x3D; 20%). Answered ONLY to a caller that has not applied, as the quote beside &#x60;schedule&#x60;. | [optional] 
-**DownlineTotal** | Pointer to **int32** | DownlineTotal counts every org in the caller&#39;s downline across the levels. | [optional] 
+**DefaultRateBps** | Pointer to **int64** | DefaultRateBps is the direct rate a new affiliate starts at, in basis points of margin (2000 &#x3D; 20%). Answered ONLY to a caller that has not applied, as the quote beside &#x60;schedule&#x60;. | [optional] 
+**DownlineTotal** | Pointer to **int64** | DownlineTotal counts every org in the caller&#39;s downline across the levels. | [optional] 
 **Handle** | Pointer to **string** | Handle is the opt-in public leaderboard name. Empty means opted out: the caller keeps its rank and still sees its own row, it is just not listed. | [optional] 
 **Id** | Pointer to **string** | ID is the affiliate&#39;s server-minted handle, \&quot;aff_\&quot;-prefixed. Absent until the org applies. | [optional] 
 **IsAffiliate** | Pointer to **bool** | IsAffiliate says whether the caller org has an affiliate record. On false the answer carries the rate SCHEDULE and the default rate instead of a downline, so the console can show what the caller would earn. | [optional] 
 **Levels** | Pointer to [**[]LevelView**](LevelView.md) | Levels is the caller&#39;s downline per upline level, with the rate paid there. | [optional] 
 **Link** | Pointer to **string** | Link is the shareable ?aff URL built from the code. Empty until a code is minted, since there is nothing to share before approval. | [optional] 
-**MarginBps** | Pointer to **int32** | MarginBps is the platform gross-margin fraction, in basis points, that every rate here is a rate OF. Read live per request, so it is the value in force now, not the one that applied to commission already accrued. | [optional] 
-**PaidCents** | Pointer to **int32** | PaidCents is lifetime commission already paid out, in cents — credits grants and record-only cash disbursements alike. | [optional] 
+**MarginBps** | Pointer to **int64** | MarginBps is the platform gross-margin fraction, in basis points, that every rate here is a rate OF. Read live per request, so it is the value in force now, not the one that applied to commission already accrued. | [optional] 
+**PaidCents** | Pointer to **int64** | PaidCents is lifetime commission already paid out, in cents — credits grants and record-only cash disbursements alike. | [optional] 
 **Payouts** | Pointer to [**[]Remittance**](Remittance.md) | Payouts is the payout history, newest first, bounded to the last 100 rows. | [optional] 
-**PendingCents** | Pointer to **int32** | PendingCents is accrued minus paid, in cents — what the platform still owes and the ceiling on the next payout. Never negative. | [optional] 
-**RateBps** | Pointer to **int32** | RateBps is the caller&#39;s OWN direct (level 1) commission rate, in basis points of margin. Levels 2 and 3 are platform-wide and appear in &#x60;levels&#x60;. | [optional] 
+**PendingCents** | Pointer to **int64** | PendingCents is accrued minus paid, in cents — what the platform still owes and the ceiling on the next payout. Never negative. | [optional] 
+**RateBps** | Pointer to **int64** | RateBps is the caller&#39;s OWN direct (level 1) commission rate, in basis points of margin. Levels 2 and 3 are platform-wide and appear in &#x60;levels&#x60;. | [optional] 
 **Schedule** | Pointer to [**[]LevelView**](LevelView.md) | Schedule is the rate schedule quoted to a caller that has not applied. | [optional] 
 **Status** | Pointer to **string** | Status is \&quot;applied\&quot;, \&quot;approved\&quot; or \&quot;suspended\&quot;; absent for a caller that never applied. Only \&quot;approved\&quot; mints links and accrues. | [optional] 
 
@@ -42,20 +42,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAccruedCents
 
-`func (o *AffiliateSelf) GetAccruedCents() int32`
+`func (o *AffiliateSelf) GetAccruedCents() int64`
 
 GetAccruedCents returns the AccruedCents field if non-nil, zero value otherwise.
 
 ### GetAccruedCentsOk
 
-`func (o *AffiliateSelf) GetAccruedCentsOk() (*int32, bool)`
+`func (o *AffiliateSelf) GetAccruedCentsOk() (*int64, bool)`
 
 GetAccruedCentsOk returns a tuple with the AccruedCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccruedCents
 
-`func (o *AffiliateSelf) SetAccruedCents(v int32)`
+`func (o *AffiliateSelf) SetAccruedCents(v int64)`
 
 SetAccruedCents sets AccruedCents field to given value.
 
@@ -92,20 +92,20 @@ HasCode returns a boolean if a field has been set.
 
 ### GetDefaultRateBps
 
-`func (o *AffiliateSelf) GetDefaultRateBps() int32`
+`func (o *AffiliateSelf) GetDefaultRateBps() int64`
 
 GetDefaultRateBps returns the DefaultRateBps field if non-nil, zero value otherwise.
 
 ### GetDefaultRateBpsOk
 
-`func (o *AffiliateSelf) GetDefaultRateBpsOk() (*int32, bool)`
+`func (o *AffiliateSelf) GetDefaultRateBpsOk() (*int64, bool)`
 
 GetDefaultRateBpsOk returns a tuple with the DefaultRateBps field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDefaultRateBps
 
-`func (o *AffiliateSelf) SetDefaultRateBps(v int32)`
+`func (o *AffiliateSelf) SetDefaultRateBps(v int64)`
 
 SetDefaultRateBps sets DefaultRateBps field to given value.
 
@@ -117,20 +117,20 @@ HasDefaultRateBps returns a boolean if a field has been set.
 
 ### GetDownlineTotal
 
-`func (o *AffiliateSelf) GetDownlineTotal() int32`
+`func (o *AffiliateSelf) GetDownlineTotal() int64`
 
 GetDownlineTotal returns the DownlineTotal field if non-nil, zero value otherwise.
 
 ### GetDownlineTotalOk
 
-`func (o *AffiliateSelf) GetDownlineTotalOk() (*int32, bool)`
+`func (o *AffiliateSelf) GetDownlineTotalOk() (*int64, bool)`
 
 GetDownlineTotalOk returns a tuple with the DownlineTotal field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDownlineTotal
 
-`func (o *AffiliateSelf) SetDownlineTotal(v int32)`
+`func (o *AffiliateSelf) SetDownlineTotal(v int64)`
 
 SetDownlineTotal sets DownlineTotal field to given value.
 
@@ -267,20 +267,20 @@ HasLink returns a boolean if a field has been set.
 
 ### GetMarginBps
 
-`func (o *AffiliateSelf) GetMarginBps() int32`
+`func (o *AffiliateSelf) GetMarginBps() int64`
 
 GetMarginBps returns the MarginBps field if non-nil, zero value otherwise.
 
 ### GetMarginBpsOk
 
-`func (o *AffiliateSelf) GetMarginBpsOk() (*int32, bool)`
+`func (o *AffiliateSelf) GetMarginBpsOk() (*int64, bool)`
 
 GetMarginBpsOk returns a tuple with the MarginBps field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMarginBps
 
-`func (o *AffiliateSelf) SetMarginBps(v int32)`
+`func (o *AffiliateSelf) SetMarginBps(v int64)`
 
 SetMarginBps sets MarginBps field to given value.
 
@@ -292,20 +292,20 @@ HasMarginBps returns a boolean if a field has been set.
 
 ### GetPaidCents
 
-`func (o *AffiliateSelf) GetPaidCents() int32`
+`func (o *AffiliateSelf) GetPaidCents() int64`
 
 GetPaidCents returns the PaidCents field if non-nil, zero value otherwise.
 
 ### GetPaidCentsOk
 
-`func (o *AffiliateSelf) GetPaidCentsOk() (*int32, bool)`
+`func (o *AffiliateSelf) GetPaidCentsOk() (*int64, bool)`
 
 GetPaidCentsOk returns a tuple with the PaidCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPaidCents
 
-`func (o *AffiliateSelf) SetPaidCents(v int32)`
+`func (o *AffiliateSelf) SetPaidCents(v int64)`
 
 SetPaidCents sets PaidCents field to given value.
 
@@ -342,20 +342,20 @@ HasPayouts returns a boolean if a field has been set.
 
 ### GetPendingCents
 
-`func (o *AffiliateSelf) GetPendingCents() int32`
+`func (o *AffiliateSelf) GetPendingCents() int64`
 
 GetPendingCents returns the PendingCents field if non-nil, zero value otherwise.
 
 ### GetPendingCentsOk
 
-`func (o *AffiliateSelf) GetPendingCentsOk() (*int32, bool)`
+`func (o *AffiliateSelf) GetPendingCentsOk() (*int64, bool)`
 
 GetPendingCentsOk returns a tuple with the PendingCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPendingCents
 
-`func (o *AffiliateSelf) SetPendingCents(v int32)`
+`func (o *AffiliateSelf) SetPendingCents(v int64)`
 
 SetPendingCents sets PendingCents field to given value.
 
@@ -367,20 +367,20 @@ HasPendingCents returns a boolean if a field has been set.
 
 ### GetRateBps
 
-`func (o *AffiliateSelf) GetRateBps() int32`
+`func (o *AffiliateSelf) GetRateBps() int64`
 
 GetRateBps returns the RateBps field if non-nil, zero value otherwise.
 
 ### GetRateBpsOk
 
-`func (o *AffiliateSelf) GetRateBpsOk() (*int32, bool)`
+`func (o *AffiliateSelf) GetRateBpsOk() (*int64, bool)`
 
 GetRateBpsOk returns a tuple with the RateBps field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRateBps
 
-`func (o *AffiliateSelf) SetRateBps(v int32)`
+`func (o *AffiliateSelf) SetRateBps(v int64)`
 
 SetRateBps sets RateBps field to given value.
 

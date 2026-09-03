@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CompletionTokens** | Pointer to **int32** | CompletionTokens is the output token count. | [optional] 
+**CompletionTokens** | Pointer to **int64** | CompletionTokens is the output token count. | [optional] 
 **Id** | Pointer to **string** | ID is the observation&#39;s id (the span id). | [optional] 
-**LatencyMs** | Pointer to **float32** | LatencyMs is how long it took, in milliseconds. | [optional] 
+**LatencyMs** | Pointer to **float64** | LatencyMs is how long it took, in milliseconds. | [optional] 
 **Model** | Pointer to **string** | Model is the model that served it. | [optional] 
 **Name** | Pointer to **string** | Name is the observation&#39;s name. | [optional] 
 **ParentObservationId** | Pointer to **string** | ParentID is the parent observation, when the span has one. | [optional] 
-**PromptTokens** | Pointer to **int32** | PromptTokens is the input token count. | [optional] 
+**PromptTokens** | Pointer to **int64** | PromptTokens is the input token count. | [optional] 
 **Provider** | Pointer to **string** | Provider is the model&#39;s provider. | [optional] 
 **ServiceName** | Pointer to **string** | ServiceName is the app that emitted it. | [optional] 
 **SessionId** | Pointer to **string** | SessionID is the conversation the observation belongs to. | [optional] 
 **StartTime** | Pointer to **time.Time** | StartTime is when the observation started. | [optional] 
 **StatusCode** | Pointer to **string** | StatusCode is the observation&#39;s status, e.g. OK, ERROR. | [optional] 
-**TotalCost** | Pointer to **float32** | TotalCost is the observation&#39;s cost. | [optional] 
-**TotalTokens** | Pointer to **int32** | TotalTokens is the sum of prompt and completion tokens. | [optional] 
+**TotalCost** | Pointer to **float64** | TotalCost is the observation&#39;s cost. | [optional] 
+**TotalTokens** | Pointer to **int64** | TotalTokens is the sum of prompt and completion tokens. | [optional] 
 **TraceId** | Pointer to **string** | TraceID is the trace the observation belongs to. | [optional] 
 **Type** | Pointer to **string** | Type is the observation kind, e.g. chat, embeddings, tool. | [optional] 
 **UserId** | Pointer to **string** | UserID is the end user the observation is attributed to. | [optional] 
@@ -43,20 +43,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCompletionTokens
 
-`func (o *O11yO11yLLMObservation) GetCompletionTokens() int32`
+`func (o *O11yO11yLLMObservation) GetCompletionTokens() int64`
 
 GetCompletionTokens returns the CompletionTokens field if non-nil, zero value otherwise.
 
 ### GetCompletionTokensOk
 
-`func (o *O11yO11yLLMObservation) GetCompletionTokensOk() (*int32, bool)`
+`func (o *O11yO11yLLMObservation) GetCompletionTokensOk() (*int64, bool)`
 
 GetCompletionTokensOk returns a tuple with the CompletionTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCompletionTokens
 
-`func (o *O11yO11yLLMObservation) SetCompletionTokens(v int32)`
+`func (o *O11yO11yLLMObservation) SetCompletionTokens(v int64)`
 
 SetCompletionTokens sets CompletionTokens field to given value.
 
@@ -93,20 +93,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetLatencyMs
 
-`func (o *O11yO11yLLMObservation) GetLatencyMs() float32`
+`func (o *O11yO11yLLMObservation) GetLatencyMs() float64`
 
 GetLatencyMs returns the LatencyMs field if non-nil, zero value otherwise.
 
 ### GetLatencyMsOk
 
-`func (o *O11yO11yLLMObservation) GetLatencyMsOk() (*float32, bool)`
+`func (o *O11yO11yLLMObservation) GetLatencyMsOk() (*float64, bool)`
 
 GetLatencyMsOk returns a tuple with the LatencyMs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLatencyMs
 
-`func (o *O11yO11yLLMObservation) SetLatencyMs(v float32)`
+`func (o *O11yO11yLLMObservation) SetLatencyMs(v float64)`
 
 SetLatencyMs sets LatencyMs field to given value.
 
@@ -193,20 +193,20 @@ HasParentObservationId returns a boolean if a field has been set.
 
 ### GetPromptTokens
 
-`func (o *O11yO11yLLMObservation) GetPromptTokens() int32`
+`func (o *O11yO11yLLMObservation) GetPromptTokens() int64`
 
 GetPromptTokens returns the PromptTokens field if non-nil, zero value otherwise.
 
 ### GetPromptTokensOk
 
-`func (o *O11yO11yLLMObservation) GetPromptTokensOk() (*int32, bool)`
+`func (o *O11yO11yLLMObservation) GetPromptTokensOk() (*int64, bool)`
 
 GetPromptTokensOk returns a tuple with the PromptTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPromptTokens
 
-`func (o *O11yO11yLLMObservation) SetPromptTokens(v int32)`
+`func (o *O11yO11yLLMObservation) SetPromptTokens(v int64)`
 
 SetPromptTokens sets PromptTokens field to given value.
 
@@ -343,20 +343,20 @@ HasStatusCode returns a boolean if a field has been set.
 
 ### GetTotalCost
 
-`func (o *O11yO11yLLMObservation) GetTotalCost() float32`
+`func (o *O11yO11yLLMObservation) GetTotalCost() float64`
 
 GetTotalCost returns the TotalCost field if non-nil, zero value otherwise.
 
 ### GetTotalCostOk
 
-`func (o *O11yO11yLLMObservation) GetTotalCostOk() (*float32, bool)`
+`func (o *O11yO11yLLMObservation) GetTotalCostOk() (*float64, bool)`
 
 GetTotalCostOk returns a tuple with the TotalCost field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalCost
 
-`func (o *O11yO11yLLMObservation) SetTotalCost(v float32)`
+`func (o *O11yO11yLLMObservation) SetTotalCost(v float64)`
 
 SetTotalCost sets TotalCost field to given value.
 
@@ -368,20 +368,20 @@ HasTotalCost returns a boolean if a field has been set.
 
 ### GetTotalTokens
 
-`func (o *O11yO11yLLMObservation) GetTotalTokens() int32`
+`func (o *O11yO11yLLMObservation) GetTotalTokens() int64`
 
 GetTotalTokens returns the TotalTokens field if non-nil, zero value otherwise.
 
 ### GetTotalTokensOk
 
-`func (o *O11yO11yLLMObservation) GetTotalTokensOk() (*int32, bool)`
+`func (o *O11yO11yLLMObservation) GetTotalTokensOk() (*int64, bool)`
 
 GetTotalTokensOk returns a tuple with the TotalTokens field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalTokens
 
-`func (o *O11yO11yLLMObservation) SetTotalTokens(v int32)`
+`func (o *O11yO11yLLMObservation) SetTotalTokens(v int64)`
 
 SetTotalTokens sets TotalTokens field to given value.
 

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **CountryCode** | Pointer to **string** |  | [optional] 
 **Enabled** | Pointer to **bool** |  | [optional] 
 **IsPreferred** | Pointer to **bool** |  | [optional] 
-**MfaRememberInHours** | Pointer to **int32** |  | [optional] 
+**MfaRememberInHours** | Pointer to **int64** |  | [optional] 
 **MfaType** | Pointer to **string** |  | [optional] 
 **Url** | Pointer to **string** |  | [optional] 
 
@@ -107,20 +107,20 @@ HasIsPreferred returns a boolean if a field has been set.
 
 ### GetMfaRememberInHours
 
-`func (o *IamMfaProps) GetMfaRememberInHours() int32`
+`func (o *IamMfaProps) GetMfaRememberInHours() int64`
 
 GetMfaRememberInHours returns the MfaRememberInHours field if non-nil, zero value otherwise.
 
 ### GetMfaRememberInHoursOk
 
-`func (o *IamMfaProps) GetMfaRememberInHoursOk() (*int32, bool)`
+`func (o *IamMfaProps) GetMfaRememberInHoursOk() (*int64, bool)`
 
 GetMfaRememberInHoursOk returns a tuple with the MfaRememberInHours field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMfaRememberInHours
 
-`func (o *IamMfaProps) SetMfaRememberInHours(v int32)`
+`func (o *IamMfaProps) SetMfaRememberInHours(v int64)`
 
 SetMfaRememberInHours sets MfaRememberInHours field to given value.
 

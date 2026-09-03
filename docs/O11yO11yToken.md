@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccessToken** | Pointer to **string** | AccessToken authenticates requests until it expires. | [optional] 
-**ExpiresIn** | Pointer to **int32** | ExpiresIn is the access token&#39;s lifetime in seconds. | [optional] 
+**ExpiresIn** | Pointer to **int64** | ExpiresIn is the access token&#39;s lifetime in seconds. | [optional] 
 **RefreshToken** | Pointer to **string** | RefreshToken buys the next pair via rotateSession. | [optional] 
 **TokenType** | Pointer to **string** | TokenType is how to present the access token, e.g. bearer. | [optional] 
 
@@ -55,20 +55,20 @@ HasAccessToken returns a boolean if a field has been set.
 
 ### GetExpiresIn
 
-`func (o *O11yO11yToken) GetExpiresIn() int32`
+`func (o *O11yO11yToken) GetExpiresIn() int64`
 
 GetExpiresIn returns the ExpiresIn field if non-nil, zero value otherwise.
 
 ### GetExpiresInOk
 
-`func (o *O11yO11yToken) GetExpiresInOk() (*int32, bool)`
+`func (o *O11yO11yToken) GetExpiresInOk() (*int64, bool)`
 
 GetExpiresInOk returns a tuple with the ExpiresIn field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpiresIn
 
-`func (o *O11yO11yToken) SetExpiresIn(v int32)`
+`func (o *O11yO11yToken) SetExpiresIn(v int64)`
 
 SetExpiresIn sets ExpiresIn field to given value.
 

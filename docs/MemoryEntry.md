@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Target** | Pointer to **string** | Target is the target language tag (BCP-47, e.g. \&quot;es\&quot; or \&quot;pt-BR\&quot;). Part of the identity. | [optional] 
 **Text** | Pointer to **string** | Text is the stored translation. A memory hit returns it verbatim, which is the idempotence contract. | [optional] 
 **Tier** | Pointer to **string** | Tier is the engine tier the entry belongs to, quality or bulk. Part of the identity: the two tiers keep separate renderings of the same source. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is the unix second the entry last changed. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is the unix second the entry last changed. | [optional] 
 
 ## Methods
 
@@ -209,20 +209,20 @@ HasTier returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *MemoryEntry) GetUpdatedAt() int32`
+`func (o *MemoryEntry) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *MemoryEntry) GetUpdatedAtOk() (*int32, bool)`
+`func (o *MemoryEntry) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *MemoryEntry) SetUpdatedAt(v int32)`
+`func (o *MemoryEntry) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

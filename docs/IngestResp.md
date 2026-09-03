@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Accepted** | Pointer to **int32** | Accepted is how many samples this report landed. | [optional] 
+**Accepted** | Pointer to **int64** | Accepted is how many samples this report landed. | [optional] 
 **Links** | Pointer to [**[]LinkView**](LinkView.md) | Links is the link row each distinct (machine, provider, account) in the batch refreshed. | [optional] 
 **Stored** | Pointer to **bool** | Stored reports whether history was durably written; false means the warehouse was unavailable and only the link rows were refreshed. | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAccepted
 
-`func (o *IngestResp) GetAccepted() int32`
+`func (o *IngestResp) GetAccepted() int64`
 
 GetAccepted returns the Accepted field if non-nil, zero value otherwise.
 
 ### GetAcceptedOk
 
-`func (o *IngestResp) GetAcceptedOk() (*int32, bool)`
+`func (o *IngestResp) GetAcceptedOk() (*int64, bool)`
 
 GetAcceptedOk returns a tuple with the Accepted field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccepted
 
-`func (o *IngestResp) SetAccepted(v int32)`
+`func (o *IngestResp) SetAccepted(v int64)`
 
 SetAccepted sets Accepted field to given value.
 

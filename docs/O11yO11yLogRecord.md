@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AttributesBool** | Pointer to **map[string]bool** | AttributesBool are the record&#39;s boolean attributes. | [optional] 
-**AttributesFloat** | Pointer to **map[string]float32** | AttributesFloat are the record&#39;s float attributes. | [optional] 
-**AttributesInt** | Pointer to **map[string]int32** | AttributesInt are the record&#39;s integer attributes. | [optional] 
+**AttributesFloat** | Pointer to **map[string]float64** | AttributesFloat are the record&#39;s float attributes. | [optional] 
+**AttributesInt** | Pointer to **map[string]int64** | AttributesInt are the record&#39;s integer attributes. | [optional] 
 **AttributesString** | Pointer to **map[string]string** | AttributesString are the record&#39;s string attributes. | [optional] 
 **Body** | Pointer to **string** | Body is the record&#39;s body. | [optional] 
 **Id** | Pointer to **string** | ID is the record&#39;s id. | [optional] 
@@ -64,20 +64,20 @@ HasAttributesBool returns a boolean if a field has been set.
 
 ### GetAttributesFloat
 
-`func (o *O11yO11yLogRecord) GetAttributesFloat() map[string]float32`
+`func (o *O11yO11yLogRecord) GetAttributesFloat() map[string]float64`
 
 GetAttributesFloat returns the AttributesFloat field if non-nil, zero value otherwise.
 
 ### GetAttributesFloatOk
 
-`func (o *O11yO11yLogRecord) GetAttributesFloatOk() (*map[string]float32, bool)`
+`func (o *O11yO11yLogRecord) GetAttributesFloatOk() (*map[string]float64, bool)`
 
 GetAttributesFloatOk returns a tuple with the AttributesFloat field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAttributesFloat
 
-`func (o *O11yO11yLogRecord) SetAttributesFloat(v map[string]float32)`
+`func (o *O11yO11yLogRecord) SetAttributesFloat(v map[string]float64)`
 
 SetAttributesFloat sets AttributesFloat field to given value.
 
@@ -89,20 +89,20 @@ HasAttributesFloat returns a boolean if a field has been set.
 
 ### GetAttributesInt
 
-`func (o *O11yO11yLogRecord) GetAttributesInt() map[string]int32`
+`func (o *O11yO11yLogRecord) GetAttributesInt() map[string]int64`
 
 GetAttributesInt returns the AttributesInt field if non-nil, zero value otherwise.
 
 ### GetAttributesIntOk
 
-`func (o *O11yO11yLogRecord) GetAttributesIntOk() (*map[string]int32, bool)`
+`func (o *O11yO11yLogRecord) GetAttributesIntOk() (*map[string]int64, bool)`
 
 GetAttributesIntOk returns a tuple with the AttributesInt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAttributesInt
 
-`func (o *O11yO11yLogRecord) SetAttributesInt(v map[string]int32)`
+`func (o *O11yO11yLogRecord) SetAttributesInt(v map[string]int64)`
 
 SetAttributesInt sets AttributesInt field to given value.
 

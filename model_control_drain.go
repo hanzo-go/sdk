@@ -22,7 +22,7 @@ type ControlDrain struct {
 	// Commands is the session's control commands newer than the cursor, oldest first.
 	Commands []ControlCommandView `json:"commands,omitempty"`
 	// Cursor is the seq to send as `after` on the next poll — the highest seq in this page, or the cursor sent in when the page is empty.
-	Cursor *int32 `json:"cursor,omitempty"`
+	Cursor *int64 `json:"cursor,omitempty"`
 }
 
 // NewControlDrain instantiates a new ControlDrain object
@@ -75,9 +75,9 @@ func (o *ControlDrain) SetCommands(v []ControlCommandView) {
 }
 
 // GetCursor returns the Cursor field value if set, zero value otherwise.
-func (o *ControlDrain) GetCursor() int32 {
+func (o *ControlDrain) GetCursor() int64 {
 	if o == nil || IsNil(o.Cursor) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Cursor
@@ -85,7 +85,7 @@ func (o *ControlDrain) GetCursor() int32 {
 
 // GetCursorOk returns a tuple with the Cursor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ControlDrain) GetCursorOk() (*int32, bool) {
+func (o *ControlDrain) GetCursorOk() (*int64, bool) {
 	if o == nil || IsNil(o.Cursor) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *ControlDrain) HasCursor() bool {
 	return false
 }
 
-// SetCursor gets a reference to the given int32 and assigns it to the Cursor field.
-func (o *ControlDrain) SetCursor(v int32) {
+// SetCursor gets a reference to the given int64 and assigns it to the Cursor field.
+func (o *ControlDrain) SetCursor(v int64) {
 	o.Cursor = &v
 }
 

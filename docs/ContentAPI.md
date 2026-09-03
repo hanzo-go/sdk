@@ -37,7 +37,7 @@ func main() {
 	status := "queued" // string | Status keeps only items in one lifecycle state (draft, in_review, approved, queued, published, archived). An undefined state is refused. (optional)
 	project := "project_example" // string | Project keeps only items in one brand/site sub-scope. (optional)
 	doctype := "doctype_example" // string | DocType keeps only one content type; omitted, the board spans every publishable type. An unknown type is refused. (optional)
-	limit := int32(50) // int32 | Limit caps the rows returned, clamped to 1000. Defaults to 200, which is also what a non-positive or unparseable value takes. (optional)
+	limit := int64(50) // int64 | Limit caps the rows returned, clamped to 1000. Defaults to 200, which is also what a non-positive or unparseable value takes. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
  **status** | **string** | Status keeps only items in one lifecycle state (draft, in_review, approved, queued, published, archived). An undefined state is refused. | 
  **project** | **string** | Project keeps only items in one brand/site sub-scope. | 
  **doctype** | **string** | DocType keeps only one content type; omitted, the board spans every publishable type. An unknown type is refused. | 
- **limit** | **int32** | Limit caps the rows returned, clamped to 1000. Defaults to 200, which is also what a non-positive or unparseable value takes. | 
+ **limit** | **int64** | Limit caps the rows returned, clamped to 1000. Defaults to 200, which is also what a non-positive or unparseable value takes. | 
 
 ### Return type
 

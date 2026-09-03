@@ -28,7 +28,7 @@ type EvalAPIDeleteEvalDatasetsByNameRequest struct {
 	name       string
 }
 
-func (r EvalAPIDeleteEvalDatasetsByNameRequest) Execute() (map[string]interface{}, *http.Response, error) {
+func (r EvalAPIDeleteEvalDatasetsByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteEvalDatasetsByNameExecute(r)
 }
 
@@ -58,19 +58,16 @@ func (a *EvalAPIService) DeleteEvalDatasetsByName(ctx context.Context, name stri
 }
 
 // Execute executes the request
-//
-//	@return map[string]interface{}
-func (a *EvalAPIService) DeleteEvalDatasetsByNameExecute(r EvalAPIDeleteEvalDatasetsByNameRequest) (map[string]interface{}, *http.Response, error) {
+func (a *EvalAPIService) DeleteEvalDatasetsByNameExecute(r EvalAPIDeleteEvalDatasetsByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EvalAPIService.DeleteEvalDatasetsByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/eval/datasets/{name}"
@@ -90,7 +87,7 @@ func (a *EvalAPIService) DeleteEvalDatasetsByNameExecute(r EvalAPIDeleteEvalData
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -99,19 +96,19 @@ func (a *EvalAPIService) DeleteEvalDatasetsByNameExecute(r EvalAPIDeleteEvalData
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -119,29 +116,20 @@ func (a *EvalAPIService) DeleteEvalDatasetsByNameExecute(r EvalAPIDeleteEvalData
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type EvalAPIGetEvalDatasetsRequest struct {
 	ctx        context.Context
 	ApiService *EvalAPIService
-	limit      *int32
+	limit      *int64
 }
 
 // Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read.
-func (r EvalAPIGetEvalDatasetsRequest) Limit(limit int32) EvalAPIGetEvalDatasetsRequest {
+func (r EvalAPIGetEvalDatasetsRequest) Limit(limit int64) EvalAPIGetEvalDatasetsRequest {
 	r.limit = &limit
 	return r
 }
@@ -362,10 +350,10 @@ type EvalAPIGetEvalDatasetsByNameItemsRequest struct {
 	ctx        context.Context
 	ApiService *EvalAPIService
 	name       string
-	limit      *int32
+	limit      *int64
 }
 
-func (r EvalAPIGetEvalDatasetsByNameItemsRequest) Limit(limit int32) EvalAPIGetEvalDatasetsByNameItemsRequest {
+func (r EvalAPIGetEvalDatasetsByNameItemsRequest) Limit(limit int64) EvalAPIGetEvalDatasetsByNameItemsRequest {
 	r.limit = &limit
 	return r
 }
@@ -480,11 +468,11 @@ func (a *EvalAPIService) GetEvalDatasetsByNameItemsExecute(r EvalAPIGetEvalDatas
 type EvalAPIGetEvalEvaluatorsRequest struct {
 	ctx        context.Context
 	ApiService *EvalAPIService
-	limit      *int32
+	limit      *int64
 }
 
 // Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read.
-func (r EvalAPIGetEvalEvaluatorsRequest) Limit(limit int32) EvalAPIGetEvalEvaluatorsRequest {
+func (r EvalAPIGetEvalEvaluatorsRequest) Limit(limit int64) EvalAPIGetEvalEvaluatorsRequest {
 	r.limit = &limit
 	return r
 }
@@ -727,11 +715,11 @@ func (a *EvalAPIService) GetEvalMetricsExecute(r EvalAPIGetEvalMetricsRequest) (
 type EvalAPIGetEvalRubricsRequest struct {
 	ctx        context.Context
 	ApiService *EvalAPIService
-	limit      *int32
+	limit      *int64
 }
 
 // Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read.
-func (r EvalAPIGetEvalRubricsRequest) Limit(limit int32) EvalAPIGetEvalRubricsRequest {
+func (r EvalAPIGetEvalRubricsRequest) Limit(limit int64) EvalAPIGetEvalRubricsRequest {
 	r.limit = &limit
 	return r
 }
@@ -842,7 +830,7 @@ type EvalAPIGetEvalRunsRequest struct {
 	ctx         context.Context
 	ApiService  *EvalAPIService
 	datasetName *string
-	limit       *int32
+	limit       *int64
 }
 
 // Dataset narrows to the runs against one dataset.
@@ -851,7 +839,7 @@ func (r EvalAPIGetEvalRunsRequest) DatasetName(datasetName string) EvalAPIGetEva
 	return r
 }
 
-func (r EvalAPIGetEvalRunsRequest) Limit(limit int32) EvalAPIGetEvalRunsRequest {
+func (r EvalAPIGetEvalRunsRequest) Limit(limit int64) EvalAPIGetEvalRunsRequest {
 	r.limit = &limit
 	return r
 }
@@ -970,7 +958,7 @@ type EvalAPIGetEvalScoresRequest struct {
 	name       *string
 	runName    *string
 	traceId    *string
-	limit      *int32
+	limit      *int64
 }
 
 // Name narrows to one score name.
@@ -991,7 +979,7 @@ func (r EvalAPIGetEvalScoresRequest) TraceId(traceId string) EvalAPIGetEvalScore
 	return r
 }
 
-func (r EvalAPIGetEvalScoresRequest) Limit(limit int32) EvalAPIGetEvalScoresRequest {
+func (r EvalAPIGetEvalScoresRequest) Limit(limit int64) EvalAPIGetEvalScoresRequest {
 	r.limit = &limit
 	return r
 }
@@ -1116,7 +1104,7 @@ type EvalAPIGetEvalTracesRequest struct {
 	sessionId   *string
 	runName     *string
 	datasetName *string
-	limit       *int32
+	limit       *int64
 }
 
 // SessionID narrows to one session, which for an evaluation is one run.
@@ -1137,7 +1125,7 @@ func (r EvalAPIGetEvalTracesRequest) DatasetName(datasetName string) EvalAPIGetE
 	return r
 }
 
-func (r EvalAPIGetEvalTracesRequest) Limit(limit int32) EvalAPIGetEvalTracesRequest {
+func (r EvalAPIGetEvalTracesRequest) Limit(limit int64) EvalAPIGetEvalTracesRequest {
 	r.limit = &limit
 	return r
 }

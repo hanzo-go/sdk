@@ -20,7 +20,7 @@ var _ MappedNullable = &ClusterView{}
 // ClusterView struct for ClusterView
 type ClusterView struct {
 	// AmdGPU is the same count for `amd.com/gpu`: AMD accelerators across the BYO cluster's nodes, as of the attach.
-	AmdGpu *int32 `json:"amdGpu,omitempty"`
+	AmdGpu *int64 `json:"amdGpu,omitempty"`
 	// CreatedAt is when the cluster started existing: the earliest creation time among its pools for a managed cluster, and for a BYO one the RFC 3339 moment it was attached. Empty when the source states none.
 	CreatedAt *string `json:"createdAt,omitempty"`
 	// DoClusterID carries the SAME id as DoksClusterID. Both names exist because the console's Cluster type reads either one; neither is a second identifier.
@@ -32,13 +32,13 @@ type ClusterView struct {
 	// Name is the cluster's name: the provider's for a managed cluster, and for a BYO one the lower-cased fleet name it was attached under — which is also how the detach route addresses it.
 	Name *string `json:"name,omitempty"`
 	// NodeCount is how many worker nodes the cluster has — the sum over its pools for a managed cluster, and for a BYO one the node count read off the cluster when it was attached.
-	NodeCount *int32 `json:"nodeCount,omitempty"`
+	NodeCount *int64 `json:"nodeCount,omitempty"`
 	// NodePools is the authoritative node inventory — every pool, each with its own size and count. It is empty in two cases that are not \"no pools\": a row from the /v1/visor/k8s/clusters LIST, which is deliberately lightweight and whose :id detail carries them, and a BYO cluster, whose pools were never read.
 	NodePools []NodePoolView `json:"nodePools,omitempty"`
 	// NodeSize is a display convenience: the size slug of the FIRST pool. A cluster mixing sizes has more than one, and NodePools is where they all are.
 	NodeSize *string `json:"nodeSize,omitempty"`
 	// NvidiaGPU is how many NVIDIA accelerators the cluster's nodes advertise, the sum of `nvidia.com/gpu` allocatable across them. BYO only, and counted ONCE when the cluster was attached — it is an inventory, not live capacity.
-	NvidiaGpu *int32 `json:"nvidiaGpu,omitempty"`
+	NvidiaGpu *int64 `json:"nvidiaGpu,omitempty"`
 	// Region is the provider region slug for a managed cluster. A BYO cluster has no region we can read, so it carries the free-form `provider` label the attach named it with (\"gke\", \"on-prem\") instead.
 	Region *string `json:"region,omitempty"`
 	// Status is the cluster's state: the provider's own word for a managed cluster (\"running\", \"provisioning\"), \"unknown\" when the provider stated none, and always \"attached\" for a BYO cluster — that one says the kubeconfig is on file, not that the cluster is reachable this second.
@@ -63,9 +63,9 @@ func NewClusterViewWithDefaults() *ClusterView {
 }
 
 // GetAmdGpu returns the AmdGpu field value if set, zero value otherwise.
-func (o *ClusterView) GetAmdGpu() int32 {
+func (o *ClusterView) GetAmdGpu() int64 {
 	if o == nil || IsNil(o.AmdGpu) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AmdGpu
@@ -73,7 +73,7 @@ func (o *ClusterView) GetAmdGpu() int32 {
 
 // GetAmdGpuOk returns a tuple with the AmdGpu field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ClusterView) GetAmdGpuOk() (*int32, bool) {
+func (o *ClusterView) GetAmdGpuOk() (*int64, bool) {
 	if o == nil || IsNil(o.AmdGpu) {
 		return nil, false
 	}
@@ -89,8 +89,8 @@ func (o *ClusterView) HasAmdGpu() bool {
 	return false
 }
 
-// SetAmdGpu gets a reference to the given int32 and assigns it to the AmdGpu field.
-func (o *ClusterView) SetAmdGpu(v int32) {
+// SetAmdGpu gets a reference to the given int64 and assigns it to the AmdGpu field.
+func (o *ClusterView) SetAmdGpu(v int64) {
 	o.AmdGpu = &v
 }
 
@@ -255,9 +255,9 @@ func (o *ClusterView) SetName(v string) {
 }
 
 // GetNodeCount returns the NodeCount field value if set, zero value otherwise.
-func (o *ClusterView) GetNodeCount() int32 {
+func (o *ClusterView) GetNodeCount() int64 {
 	if o == nil || IsNil(o.NodeCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NodeCount
@@ -265,7 +265,7 @@ func (o *ClusterView) GetNodeCount() int32 {
 
 // GetNodeCountOk returns a tuple with the NodeCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ClusterView) GetNodeCountOk() (*int32, bool) {
+func (o *ClusterView) GetNodeCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.NodeCount) {
 		return nil, false
 	}
@@ -281,8 +281,8 @@ func (o *ClusterView) HasNodeCount() bool {
 	return false
 }
 
-// SetNodeCount gets a reference to the given int32 and assigns it to the NodeCount field.
-func (o *ClusterView) SetNodeCount(v int32) {
+// SetNodeCount gets a reference to the given int64 and assigns it to the NodeCount field.
+func (o *ClusterView) SetNodeCount(v int64) {
 	o.NodeCount = &v
 }
 
@@ -351,9 +351,9 @@ func (o *ClusterView) SetNodeSize(v string) {
 }
 
 // GetNvidiaGpu returns the NvidiaGpu field value if set, zero value otherwise.
-func (o *ClusterView) GetNvidiaGpu() int32 {
+func (o *ClusterView) GetNvidiaGpu() int64 {
 	if o == nil || IsNil(o.NvidiaGpu) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NvidiaGpu
@@ -361,7 +361,7 @@ func (o *ClusterView) GetNvidiaGpu() int32 {
 
 // GetNvidiaGpuOk returns a tuple with the NvidiaGpu field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ClusterView) GetNvidiaGpuOk() (*int32, bool) {
+func (o *ClusterView) GetNvidiaGpuOk() (*int64, bool) {
 	if o == nil || IsNil(o.NvidiaGpu) {
 		return nil, false
 	}
@@ -377,8 +377,8 @@ func (o *ClusterView) HasNvidiaGpu() bool {
 	return false
 }
 
-// SetNvidiaGpu gets a reference to the given int32 and assigns it to the NvidiaGpu field.
-func (o *ClusterView) SetNvidiaGpu(v int32) {
+// SetNvidiaGpu gets a reference to the given int64 and assigns it to the NvidiaGpu field.
+func (o *ClusterView) SetNvidiaGpu(v int64) {
 	o.NvidiaGpu = &v
 }
 

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AsOf** | Pointer to **string** | AsOf is when this publisher was current, RFC 3339. | [optional] 
 **Basis** | Pointer to **string** | Basis is the KIND of permission this publisher&#39;s data reaches you under: licence (an explicit grant), registry (the registry of record publishing for anyone to consult), operator (an operator&#39;s own machine-readable statement about its own network, published for third parties to filter by — not a licence, and not claimed as one), own (computed here), or none (nothing reaches you: the membership is held by the component that screens against it). It is on the wire so the licence position is an audit you can run. | [optional] 
-**Keys** | Pointer to **int32** | Keys is how many members this publisher contributed. | [optional] 
+**Keys** | Pointer to **int64** | Keys is how many members this publisher contributed. | [optional] 
 **Origin** | Pointer to **string** | Origin is exactly where it was taken from, so it can be taken again. | [optional] 
 **Refusal** | Pointer to **string** | Refusal is why this publisher&#39;s last take failed, if it did. The set keeps its previous version of this source and ages out visibly rather than silently shrinking. | [optional] 
 **Source** | Pointer to **string** | Source is the publisher. | [optional] 
@@ -84,20 +84,20 @@ HasBasis returns a boolean if a field has been set.
 
 ### GetKeys
 
-`func (o *ReferenceSource) GetKeys() int32`
+`func (o *ReferenceSource) GetKeys() int64`
 
 GetKeys returns the Keys field if non-nil, zero value otherwise.
 
 ### GetKeysOk
 
-`func (o *ReferenceSource) GetKeysOk() (*int32, bool)`
+`func (o *ReferenceSource) GetKeysOk() (*int64, bool)`
 
 GetKeysOk returns a tuple with the Keys field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetKeys
 
-`func (o *ReferenceSource) SetKeys(v int32)`
+`func (o *ReferenceSource) SetKeys(v int64)`
 
 SetKeys sets Keys field to given value.
 

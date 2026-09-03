@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **At** | Pointer to **string** | At is when the judged event happened, RFC 3339. | [optional] 
-**Confidence** | Pointer to **float32** | Confidence in [0,1]. A processor chargeback is 1; an analyst&#39;s hunch is not. It breaks a tie WITHIN a precedence rank and can never lift a weak source above a strong one — otherwise every caller would send 1.  A litigation hold is NOT a field here. It is a fact about the record and not about the world, so it is not part of what was asserted, it is not in the content digest, and it has its own op — which is also the only way one can be released. Carried here it was silently a no-op on any record that already existed: the digest was the same, the insert was ignored, and the caller was told &#x60;duplicate&#x60; while the hold it asked for was never placed. | [optional] 
+**Confidence** | Pointer to **float64** | Confidence in [0,1]. A processor chargeback is 1; an analyst&#39;s hunch is not. It breaks a tie WITHIN a precedence rank and can never lift a weak source above a strong one — otherwise every caller would send 1.  A litigation hold is NOT a field here. It is a fact about the record and not about the world, so it is not part of what was asserted, it is not in the content digest, and it has its own op — which is also the only way one can be released. Carried here it was silently a no-op on any record that already existed: the digest was the same, the insert was ignored, and the caller was told &#x60;duplicate&#x60; while the hold it asked for was never placed. | [optional] 
 **Disposition** | Pointer to **string** | Disposition is productive, unproductive, or empty for an explicit unjudged — the AML engine&#39;s own vocabulary, verbatim. | [optional] 
 **Evidence** | Pointer to **string** | Evidence points at the record this conclusion came from: a dispute id, a case id, a decision id. Required, because a label with no evidence cannot be defended when the adverse action it fed is challenged. | [optional] 
 **Kind** | Pointer to **string** | Kind is what the subject is: account, agent, merchant, payout, person, session or transaction. Closed, because a typo in an open field would shard a tenant&#39;s labels into a partition nothing reads and nothing would say so. | [optional] 
@@ -59,20 +59,20 @@ HasAt returns a boolean if a field has been set.
 
 ### GetConfidence
 
-`func (o *RiskLabelFact) GetConfidence() float32`
+`func (o *RiskLabelFact) GetConfidence() float64`
 
 GetConfidence returns the Confidence field if non-nil, zero value otherwise.
 
 ### GetConfidenceOk
 
-`func (o *RiskLabelFact) GetConfidenceOk() (*float32, bool)`
+`func (o *RiskLabelFact) GetConfidenceOk() (*float64, bool)`
 
 GetConfidenceOk returns a tuple with the Confidence field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConfidence
 
-`func (o *RiskLabelFact) SetConfidence(v float32)`
+`func (o *RiskLabelFact) SetConfidence(v float64)`
 
 SetConfidence sets Confidence field to given value.
 

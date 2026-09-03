@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DataType** | **string** | DataType is the field&#39;s data type, e.g. string, int64, float64, bool. Required. | 
 **Index** | Pointer to **string** | Index is the index expression to put on the column, e.g. minmax, set(N), bloom_filter(P), tokenbf_v1(S,H,SEED). Empty keeps the default. | [optional] 
-**IndexGranularity** | Pointer to **int32** | IndexGranularity is the index granularity in rows. | [optional] 
+**IndexGranularity** | Pointer to **int64** | IndexGranularity is the index granularity in rows. | [optional] 
 **Name** | **string** | Name is the field to tune. Required. | 
 **Selected** | Pointer to **bool** | Selected materializes the field as its own column when true. | [optional] 
 **Type** | **string** | Type is where the field lives: attributes or resources. Required. | 
@@ -77,20 +77,20 @@ HasIndex returns a boolean if a field has been set.
 
 ### GetIndexGranularity
 
-`func (o *O11yO11yFieldSetting) GetIndexGranularity() int32`
+`func (o *O11yO11yFieldSetting) GetIndexGranularity() int64`
 
 GetIndexGranularity returns the IndexGranularity field if non-nil, zero value otherwise.
 
 ### GetIndexGranularityOk
 
-`func (o *O11yO11yFieldSetting) GetIndexGranularityOk() (*int32, bool)`
+`func (o *O11yO11yFieldSetting) GetIndexGranularityOk() (*int64, bool)`
 
 GetIndexGranularityOk returns a tuple with the IndexGranularity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIndexGranularity
 
-`func (o *O11yO11yFieldSetting) SetIndexGranularity(v int32)`
+`func (o *O11yO11yFieldSetting) SetIndexGranularity(v int64)`
 
 SetIndexGranularity sets IndexGranularity field to given value.
 

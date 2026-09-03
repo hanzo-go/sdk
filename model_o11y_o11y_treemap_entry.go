@@ -22,7 +22,7 @@ type O11yO11yTreemapEntry struct {
 	// MetricName is the metric's name.
 	MetricName *string `json:"metricName,omitempty"`
 	// Percentage is the metric's share, in percent.
-	Percentage *float32 `json:"percentage,omitempty"`
+	Percentage *float64 `json:"percentage,omitempty"`
 	// TotalValue is the metric's absolute count.
 	TotalValue *int32 `json:"totalValue,omitempty"`
 }
@@ -77,9 +77,9 @@ func (o *O11yO11yTreemapEntry) SetMetricName(v string) {
 }
 
 // GetPercentage returns the Percentage field value if set, zero value otherwise.
-func (o *O11yO11yTreemapEntry) GetPercentage() float32 {
+func (o *O11yO11yTreemapEntry) GetPercentage() float64 {
 	if o == nil || IsNil(o.Percentage) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Percentage
@@ -87,7 +87,7 @@ func (o *O11yO11yTreemapEntry) GetPercentage() float32 {
 
 // GetPercentageOk returns a tuple with the Percentage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yTreemapEntry) GetPercentageOk() (*float32, bool) {
+func (o *O11yO11yTreemapEntry) GetPercentageOk() (*float64, bool) {
 	if o == nil || IsNil(o.Percentage) {
 		return nil, false
 	}
@@ -103,8 +103,8 @@ func (o *O11yO11yTreemapEntry) HasPercentage() bool {
 	return false
 }
 
-// SetPercentage gets a reference to the given float32 and assigns it to the Percentage field.
-func (o *O11yO11yTreemapEntry) SetPercentage(v float32) {
+// SetPercentage gets a reference to the given float64 and assigns it to the Percentage field.
+func (o *O11yO11yTreemapEntry) SetPercentage(v float64) {
 	o.Percentage = &v
 }
 

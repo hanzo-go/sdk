@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Address** | Pointer to **string** | Address is the on-chain address. For kms/mpc/treasury it is the EOA a signature from this wallet recovers to; for safe it is the CREATE2 address of the Safe CONTRACT, which holds no key — its approvals recover to the MPC owner instead. Rotating a kms wallet mints a new key and therefore a NEW address, and funds and approvals at the old one do not follow; mpc, treasury and safe addresses are invariant under rotation. | [optional] 
 **Agent** | Pointer to **string** |  | [optional] 
 **Chain** | Pointer to **string** | Chain is the EVM chain the wallet is bound to, CAIP-2 \&quot;eip155:&lt;n&gt;\&quot; or a bare decimal chain id. Empty is chain-agnostic: the ring signs an unbound digest, and a Safe falls back to the Hanzo L1 (36963) because a Safe and its EIP-712 domain must be chain-bound. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the wallet was provisioned, Unix seconds. Listings order by it, newest first. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the wallet was provisioned, Unix seconds. Listings order by it, newest first. | [optional] 
 **Custody** | Pointer to **string** | Custody is the backend holding the signing material, fixed at creation: \&quot;kms\&quot; (a secp256k1 key sealed under KMS and opened in-process), \&quot;mpc\&quot; or \&quot;treasury\&quot; (an m-of-n threshold key on the deployed ring, which differ by governance and not by signing mechanics), or \&quot;safe\&quot; (a Safe contract owned by an MPC key). A kind the deployment has not wired refuses with 503 rather than fabricating a signature. | [optional] 
 **FinanceAccount** | Pointer to **string** | FinanceAccount is the finance ledger account bound to this wallet — the lookup that turns a ledger account back into an on-chain signer. Absent is the normal state and means unbound; the column is NULL until something binds it. | [optional] 
 **Id** | Pointer to **string** | ID is the wallet id, minted by the server as \&quot;wal_\&quot; + 24 hex. It is the last segment of the key ref, and it is the LEDGER SUBJECT an x402 payment into this wallet credits — so it names money as well as key material. | [optional] 
@@ -138,20 +138,20 @@ HasChain returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *Wallet) GetCreatedAt() int32`
+`func (o *Wallet) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *Wallet) GetCreatedAtOk() (*int32, bool)`
+`func (o *Wallet) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *Wallet) SetCreatedAt(v int32)`
+`func (o *Wallet) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 

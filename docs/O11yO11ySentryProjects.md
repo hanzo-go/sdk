@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Items** | Pointer to [**[]O11yO11ySentryProject**](O11yO11ySentryProject.md) | Items are the projects. | [optional] 
-**Total** | Pointer to **int32** | Total is how many the org has. | [optional] 
+**Total** | Pointer to **int64** | Total is how many the org has. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasItems returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *O11yO11ySentryProjects) GetTotal() int32`
+`func (o *O11yO11ySentryProjects) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *O11yO11ySentryProjects) GetTotalOk() (*int32, bool)`
+`func (o *O11yO11ySentryProjects) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *O11yO11ySentryProjects) SetTotal(v int32)`
+`func (o *O11yO11ySentryProjects) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

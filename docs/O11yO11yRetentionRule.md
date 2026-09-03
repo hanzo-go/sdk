@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Conditions** | Pointer to [**[]O11yO11yRetentionMatch**](O11yO11yRetentionMatch.md) | Conditions all have to hold for the rule to match. | [optional] 
-**TtlDays** | Pointer to **int32** | TTLDays is the retention applied when it does, in days. | [optional] 
+**TtlDays** | Pointer to **int64** | TTLDays is the retention applied when it does, in days. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasConditions returns a boolean if a field has been set.
 
 ### GetTtlDays
 
-`func (o *O11yO11yRetentionRule) GetTtlDays() int32`
+`func (o *O11yO11yRetentionRule) GetTtlDays() int64`
 
 GetTtlDays returns the TtlDays field if non-nil, zero value otherwise.
 
 ### GetTtlDaysOk
 
-`func (o *O11yO11yRetentionRule) GetTtlDaysOk() (*int32, bool)`
+`func (o *O11yO11yRetentionRule) GetTtlDaysOk() (*int64, bool)`
 
 GetTtlDaysOk returns a tuple with the TtlDays field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTtlDays
 
-`func (o *O11yO11yRetentionRule) SetTtlDays(v int32)`
+`func (o *O11yO11yRetentionRule) SetTtlDays(v int64)`
 
 SetTtlDays sets TtlDays field to given value.
 

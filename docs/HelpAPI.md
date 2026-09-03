@@ -33,7 +33,7 @@ import (
 
 func main() {
 	category := "category_example" // string | Category narrows the list to one knowledge-base section, matched against the article's category by exact name. Empty lists every section. (optional)
-	limit := int32(56) // int32 | Limit caps how many articles are returned. Anything that is not a positive integer uses 50, and values above 200 are clamped to 200. (optional)
+	limit := int64(789) // int64 | Limit caps how many articles are returned. Anything that is not a positive integer uses 50, and values above 200 are clamped to 200. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to a apiGetHelpArticlesRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **category** | **string** | Category narrows the list to one knowledge-base section, matched against the article&#39;s category by exact name. Empty lists every section. | 
- **limit** | **int32** | Limit caps how many articles are returned. Anything that is not a positive integer uses 50, and values above 200 are clamped to 200. | 
+ **limit** | **int64** | Limit caps how many articles are returned. Anything that is not a positive integer uses 50, and values above 200 are clamped to 200. | 
 
 ### Return type
 

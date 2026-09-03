@@ -20,11 +20,11 @@ var _ MappedNullable = &SetReferenceOut{}
 // SetReferenceOut struct for SetReferenceOut
 type SetReferenceOut struct {
 	// Overrides is how many your org now holds in this set.
-	Overrides *int32 `json:"overrides,omitempty"`
+	Overrides *int64 `json:"overrides,omitempty"`
 	// Set is the set written in.
 	Set *string `json:"set,omitempty"`
 	// Written is how many entries this call wrote.
-	Written *int32 `json:"written,omitempty"`
+	Written *int64 `json:"written,omitempty"`
 }
 
 // NewSetReferenceOut instantiates a new SetReferenceOut object
@@ -45,9 +45,9 @@ func NewSetReferenceOutWithDefaults() *SetReferenceOut {
 }
 
 // GetOverrides returns the Overrides field value if set, zero value otherwise.
-func (o *SetReferenceOut) GetOverrides() int32 {
+func (o *SetReferenceOut) GetOverrides() int64 {
 	if o == nil || IsNil(o.Overrides) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Overrides
@@ -55,7 +55,7 @@ func (o *SetReferenceOut) GetOverrides() int32 {
 
 // GetOverridesOk returns a tuple with the Overrides field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SetReferenceOut) GetOverridesOk() (*int32, bool) {
+func (o *SetReferenceOut) GetOverridesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Overrides) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *SetReferenceOut) HasOverrides() bool {
 	return false
 }
 
-// SetOverrides gets a reference to the given int32 and assigns it to the Overrides field.
-func (o *SetReferenceOut) SetOverrides(v int32) {
+// SetOverrides gets a reference to the given int64 and assigns it to the Overrides field.
+func (o *SetReferenceOut) SetOverrides(v int64) {
 	o.Overrides = &v
 }
 
@@ -109,9 +109,9 @@ func (o *SetReferenceOut) SetSet(v string) {
 }
 
 // GetWritten returns the Written field value if set, zero value otherwise.
-func (o *SetReferenceOut) GetWritten() int32 {
+func (o *SetReferenceOut) GetWritten() int64 {
 	if o == nil || IsNil(o.Written) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Written
@@ -119,7 +119,7 @@ func (o *SetReferenceOut) GetWritten() int32 {
 
 // GetWrittenOk returns a tuple with the Written field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SetReferenceOut) GetWrittenOk() (*int32, bool) {
+func (o *SetReferenceOut) GetWrittenOk() (*int64, bool) {
 	if o == nil || IsNil(o.Written) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *SetReferenceOut) HasWritten() bool {
 	return false
 }
 
-// SetWritten gets a reference to the given int32 and assigns it to the Written field.
-func (o *SetReferenceOut) SetWritten(v int32) {
+// SetWritten gets a reference to the given int64 and assigns it to the Written field.
+func (o *SetReferenceOut) SetWritten(v int64) {
 	o.Written = &v
 }
 

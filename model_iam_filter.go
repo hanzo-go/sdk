@@ -19,7 +19,7 @@ var _ MappedNullable = &IamFilter{}
 
 // IamFilter struct for IamFilter
 type IamFilter struct {
-	MaxResults *int32 `json:"maxResults,omitempty"`
+	MaxResults *int64 `json:"maxResults,omitempty"`
 	Supported  *bool  `json:"supported,omitempty"`
 }
 
@@ -41,9 +41,9 @@ func NewIamFilterWithDefaults() *IamFilter {
 }
 
 // GetMaxResults returns the MaxResults field value if set, zero value otherwise.
-func (o *IamFilter) GetMaxResults() int32 {
+func (o *IamFilter) GetMaxResults() int64 {
 	if o == nil || IsNil(o.MaxResults) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxResults
@@ -51,7 +51,7 @@ func (o *IamFilter) GetMaxResults() int32 {
 
 // GetMaxResultsOk returns a tuple with the MaxResults field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamFilter) GetMaxResultsOk() (*int32, bool) {
+func (o *IamFilter) GetMaxResultsOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxResults) {
 		return nil, false
 	}
@@ -67,8 +67,8 @@ func (o *IamFilter) HasMaxResults() bool {
 	return false
 }
 
-// SetMaxResults gets a reference to the given int32 and assigns it to the MaxResults field.
-func (o *IamFilter) SetMaxResults(v int32) {
+// SetMaxResults gets a reference to the given int64 and assigns it to the MaxResults field.
+func (o *IamFilter) SetMaxResults(v int64) {
 	o.MaxResults = &v
 }
 

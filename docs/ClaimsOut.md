@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Data** | Pointer to [**[]ClaimRow**](ClaimRow.md) | Data is one row per (benchmark, model, SOURCE) — every independent claim, not one per model. Effective values only: the row that wins after layering for each source, never the superseded readings behind it. | [optional] 
-**Total** | Pointer to **int32** | Total is how many rows Data holds. | [optional] 
+**Total** | Pointer to **int64** | Total is how many rows Data holds. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasData returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *ClaimsOut) GetTotal() int32`
+`func (o *ClaimsOut) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *ClaimsOut) GetTotalOk() (*int32, bool)`
+`func (o *ClaimsOut) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *ClaimsOut) SetTotal(v int32)`
+`func (o *ClaimsOut) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Description** | Pointer to **string** | Description says the same in words. | [optional] 
-**Percentile** | Pointer to **float32** | Percentile is the percentile the duration lands at. | [optional] 
+**Percentile** | Pointer to **float64** | Percentile is the percentile the duration lands at. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetPercentile
 
-`func (o *O11yO11yPercentilePosition) GetPercentile() float32`
+`func (o *O11yO11yPercentilePosition) GetPercentile() float64`
 
 GetPercentile returns the Percentile field if non-nil, zero value otherwise.
 
 ### GetPercentileOk
 
-`func (o *O11yO11yPercentilePosition) GetPercentileOk() (*float32, bool)`
+`func (o *O11yO11yPercentilePosition) GetPercentileOk() (*float64, bool)`
 
 GetPercentileOk returns a tuple with the Percentile field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPercentile
 
-`func (o *O11yO11yPercentilePosition) SetPercentile(v float32)`
+`func (o *O11yO11yPercentilePosition) SetPercentile(v float64)`
 
 SetPercentile sets Percentile field to given value.
 

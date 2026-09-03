@@ -35,7 +35,7 @@ type IamAuditLog struct {
 	Owner        *string    `json:"owner,omitempty"`
 	RequestUri   *string    `json:"requestUri,omitempty"`
 	Response     *string    `json:"response,omitempty"`
-	StatusCode   *int32     `json:"statusCode,omitempty"`
+	StatusCode   *int64     `json:"statusCode,omitempty"`
 	UpdatedAt    *time.Time `json:"updatedAt,omitempty"`
 	User         *string    `json:"user,omitempty"`
 }
@@ -538,9 +538,9 @@ func (o *IamAuditLog) SetResponse(v string) {
 }
 
 // GetStatusCode returns the StatusCode field value if set, zero value otherwise.
-func (o *IamAuditLog) GetStatusCode() int32 {
+func (o *IamAuditLog) GetStatusCode() int64 {
 	if o == nil || IsNil(o.StatusCode) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.StatusCode
@@ -548,7 +548,7 @@ func (o *IamAuditLog) GetStatusCode() int32 {
 
 // GetStatusCodeOk returns a tuple with the StatusCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamAuditLog) GetStatusCodeOk() (*int32, bool) {
+func (o *IamAuditLog) GetStatusCodeOk() (*int64, bool) {
 	if o == nil || IsNil(o.StatusCode) {
 		return nil, false
 	}
@@ -564,8 +564,8 @@ func (o *IamAuditLog) HasStatusCode() bool {
 	return false
 }
 
-// SetStatusCode gets a reference to the given int32 and assigns it to the StatusCode field.
-func (o *IamAuditLog) SetStatusCode(v int32) {
+// SetStatusCode gets a reference to the given int64 and assigns it to the StatusCode field.
+func (o *IamAuditLog) SetStatusCode(v int64) {
 	o.StatusCode = &v
 }
 

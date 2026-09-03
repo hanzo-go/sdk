@@ -32,7 +32,7 @@ type LicensingIssueRequest struct {
 	// Signals binds the device at issue time, as an alternative to a pre-registered fingerprint. The raw signals are never stored or echoed — they are folded immediately into the one-way binding value.
 	Signals *LicensingDeviceSignals `json:"signals,omitempty"`
 	// TTLSeconds requests a token lifetime in seconds. It is clamped to the deployment maximum AND to the entitlement's own expiry — a token never outlives the subscription that paid for it.
-	TtlSeconds *int32 `json:"ttl_seconds,omitempty"`
+	TtlSeconds *int64 `json:"ttl_seconds,omitempty"`
 }
 
 type _LicensingIssueRequest LicensingIssueRequest
@@ -208,9 +208,9 @@ func (o *LicensingIssueRequest) SetSignals(v LicensingDeviceSignals) {
 }
 
 // GetTtlSeconds returns the TtlSeconds field value if set, zero value otherwise.
-func (o *LicensingIssueRequest) GetTtlSeconds() int32 {
+func (o *LicensingIssueRequest) GetTtlSeconds() int64 {
 	if o == nil || IsNil(o.TtlSeconds) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TtlSeconds
@@ -218,7 +218,7 @@ func (o *LicensingIssueRequest) GetTtlSeconds() int32 {
 
 // GetTtlSecondsOk returns a tuple with the TtlSeconds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LicensingIssueRequest) GetTtlSecondsOk() (*int32, bool) {
+func (o *LicensingIssueRequest) GetTtlSecondsOk() (*int64, bool) {
 	if o == nil || IsNil(o.TtlSeconds) {
 		return nil, false
 	}
@@ -234,8 +234,8 @@ func (o *LicensingIssueRequest) HasTtlSeconds() bool {
 	return false
 }
 
-// SetTtlSeconds gets a reference to the given int32 and assigns it to the TtlSeconds field.
-func (o *LicensingIssueRequest) SetTtlSeconds(v int32) {
+// SetTtlSeconds gets a reference to the given int64 and assigns it to the TtlSeconds field.
+func (o *LicensingIssueRequest) SetTtlSeconds(v int64) {
 	o.TtlSeconds = &v
 }
 

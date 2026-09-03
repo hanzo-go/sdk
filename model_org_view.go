@@ -22,7 +22,7 @@ type OrgView struct {
 	// BadgeMarkdown is the ready-to-paste README snippet, DERIVED for each response from this deployment's badge host and never stored — here it deep-links the OWNER's template import rather than one repository's.
 	BadgeMarkdown *string `json:"badgeMarkdown,omitempty"`
 	// CreatedAt is unix seconds when the owner claim was first recorded — equal to verifiedAt on the first proof, then fixed while verifiedAt moves.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Method is HOW the owner was proven, always against its \".github\" control repository: \"oauth\" — an IAM-linked forge token showed admin or push on it; or \"file\" — a hanzo.json on its default branch carried this author's verify code. The \"maintainer\" shortcut is a per-repository attribution and never appears here. Omitted on a row written before the method was recorded.
 	Method *string `json:"method,omitempty"`
 	// OwnerURL is the claim key in canonical form — lowercased \"host/owner\" with NO repository segment, host ∈ {github.com, gitlab.com}. It covers every repository under that owner, so code with no claim of its own still earns; a per-repository claim outranks it. UNIQUE across every author: first proven claim wins.
@@ -30,7 +30,7 @@ type OrgView struct {
 	// Verified reports that ownership of the WHOLE owner was proven — against that owner's \".github\" control repository, which is exactly as strong as a per-repository claim. Only a proven claim is written, so every row returned here is true.
 	Verified *bool `json:"verified,omitempty"`
 	// VerifiedAt is unix seconds of the most recent successful proof of the owner; re-verifying refreshes it, and the method beside it, in place.
-	VerifiedAt *int32 `json:"verifiedAt,omitempty"`
+	VerifiedAt *int64 `json:"verifiedAt,omitempty"`
 }
 
 // NewOrgView instantiates a new OrgView object
@@ -83,9 +83,9 @@ func (o *OrgView) SetBadgeMarkdown(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *OrgView) GetCreatedAt() int32 {
+func (o *OrgView) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -93,7 +93,7 @@ func (o *OrgView) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OrgView) GetCreatedAtOk() (*int32, bool) {
+func (o *OrgView) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -109,8 +109,8 @@ func (o *OrgView) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *OrgView) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *OrgView) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -211,9 +211,9 @@ func (o *OrgView) SetVerified(v bool) {
 }
 
 // GetVerifiedAt returns the VerifiedAt field value if set, zero value otherwise.
-func (o *OrgView) GetVerifiedAt() int32 {
+func (o *OrgView) GetVerifiedAt() int64 {
 	if o == nil || IsNil(o.VerifiedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.VerifiedAt
@@ -221,7 +221,7 @@ func (o *OrgView) GetVerifiedAt() int32 {
 
 // GetVerifiedAtOk returns a tuple with the VerifiedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OrgView) GetVerifiedAtOk() (*int32, bool) {
+func (o *OrgView) GetVerifiedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.VerifiedAt) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *OrgView) HasVerifiedAt() bool {
 	return false
 }
 
-// SetVerifiedAt gets a reference to the given int32 and assigns it to the VerifiedAt field.
-func (o *OrgView) SetVerifiedAt(v int32) {
+// SetVerifiedAt gets a reference to the given int64 and assigns it to the VerifiedAt field.
+func (o *OrgView) SetVerifiedAt(v int64) {
 	o.VerifiedAt = &v
 }
 

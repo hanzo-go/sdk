@@ -20,7 +20,7 @@ var _ MappedNullable = &GithubImportOut{}
 // GithubImportOut struct for GithubImportOut
 type GithubImportOut struct {
 	// Queued is how many repositories were handed to the background importer.
-	Queued *int32 `json:"queued,omitempty"`
+	Queued *int64 `json:"queued,omitempty"`
 	// Repos names those repositories, in the installation's listing order.
 	Repos []string `json:"repos,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewGithubImportOutWithDefaults() *GithubImportOut {
 }
 
 // GetQueued returns the Queued field value if set, zero value otherwise.
-func (o *GithubImportOut) GetQueued() int32 {
+func (o *GithubImportOut) GetQueued() int64 {
 	if o == nil || IsNil(o.Queued) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Queued
@@ -53,7 +53,7 @@ func (o *GithubImportOut) GetQueued() int32 {
 
 // GetQueuedOk returns a tuple with the Queued field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GithubImportOut) GetQueuedOk() (*int32, bool) {
+func (o *GithubImportOut) GetQueuedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Queued) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *GithubImportOut) HasQueued() bool {
 	return false
 }
 
-// SetQueued gets a reference to the given int32 and assigns it to the Queued field.
-func (o *GithubImportOut) SetQueued(v int32) {
+// SetQueued gets a reference to the given int64 and assigns it to the Queued field.
+func (o *GithubImportOut) SetQueued(v int64) {
 	o.Queued = &v
 }
 

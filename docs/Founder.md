@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DecidedBy** | Pointer to **string** | DecidedBy is who settled a terminal KYC status: the provider name, or a reviewer&#39;s user id. | [optional] 
 **Email** | Pointer to **string** | Email is the founder&#39;s email, and the key a KYC decision addresses a founder by — POST /v1/company/kyc/decision matches on it. | [optional] 
-**EquityBps** | Pointer to **int32** | EquityBps is the founder&#39;s ownership in basis points, 0–10000 (1% &#x3D;&#x3D; 100 bps, so 10000 is the whole company). The founders&#39; shares seed the cap-table genesis. | [optional] 
+**EquityBps** | Pointer to **int64** | EquityBps is the founder&#39;s ownership in basis points, 0–10000 (1% &#x3D;&#x3D; 100 bps, so 10000 is the whole company). The founders&#39; shares seed the cap-table genesis. | [optional] 
 **KycRef** | Pointer to **string** | KYCRef is the idv provider&#39;s session reference for this founder. | [optional] 
 **KycStatus** | Pointer to **string** | KYCStatus is the founder&#39;s identity-verification state: pending, verified (a real idv provider reported a pass), reviewer_confirmed (a privileged reviewer confirmed out-of-band) or failed. The payment stage is unreachable until every founder passes. | [optional] 
 **Name** | Pointer to **string** | Name is the founder&#39;s full legal name, as it appears on the formation documents. | [optional] 
@@ -82,20 +82,20 @@ HasEmail returns a boolean if a field has been set.
 
 ### GetEquityBps
 
-`func (o *Founder) GetEquityBps() int32`
+`func (o *Founder) GetEquityBps() int64`
 
 GetEquityBps returns the EquityBps field if non-nil, zero value otherwise.
 
 ### GetEquityBpsOk
 
-`func (o *Founder) GetEquityBpsOk() (*int32, bool)`
+`func (o *Founder) GetEquityBpsOk() (*int64, bool)`
 
 GetEquityBpsOk returns a tuple with the EquityBps field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEquityBps
 
-`func (o *Founder) SetEquityBps(v int32)`
+`func (o *Founder) SetEquityBps(v int64)`
 
 SetEquityBps sets EquityBps field to given value.
 

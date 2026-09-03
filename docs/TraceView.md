@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **EndTime** | Pointer to **string** | EndTime is when it returned. | [optional] 
 **Id** | Pointer to **string** | ID is the trace&#39;s handle, the value a score points at. | [optional] 
 **Input** | Pointer to **map[string]interface{}** | Input is what the model was given. | [optional] 
-**LatencyMs** | Pointer to **float32** | LatencyMs is EndTime-StartTime in milliseconds, nil when the trace carries no timing (so the console renders \&quot;—\&quot;, never a fabricated 0). | [optional] 
+**LatencyMs** | Pointer to **float64** | LatencyMs is EndTime-StartTime in milliseconds, nil when the trace carries no timing (so the console renders \&quot;—\&quot;, never a fabricated 0). | [optional] 
 **Model** | Pointer to **string** | Model is the model that answered. | [optional] 
 **Name** | Pointer to **string** | Name is the trace&#39;s label, \&quot;eval:&lt;run&gt;\&quot; for a call a run made. | [optional] 
 **Output** | Pointer to **string** | Output is what it answered. | [optional] 
@@ -191,20 +191,20 @@ HasInput returns a boolean if a field has been set.
 
 ### GetLatencyMs
 
-`func (o *TraceView) GetLatencyMs() float32`
+`func (o *TraceView) GetLatencyMs() float64`
 
 GetLatencyMs returns the LatencyMs field if non-nil, zero value otherwise.
 
 ### GetLatencyMsOk
 
-`func (o *TraceView) GetLatencyMsOk() (*float32, bool)`
+`func (o *TraceView) GetLatencyMsOk() (*float64, bool)`
 
 GetLatencyMsOk returns a tuple with the LatencyMs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLatencyMs
 
-`func (o *TraceView) SetLatencyMs(v float32)`
+`func (o *TraceView) SetLatencyMs(v float64)`
 
 SetLatencyMs sets LatencyMs field to given value.
 

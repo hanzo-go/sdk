@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Leaders** | Pointer to [**[]LeaderboardRow**](LeaderboardRow.md) | Leaders are the top opt-in affiliates, by handle and aggregate figures only. | [optional] 
-**Total** | Pointer to **int32** | Total is the approved population where it is known; omitted where the top page truncated and the caller has no rank to derive it from. | [optional] 
+**Total** | Pointer to **int64** | Total is the approved population where it is known; omitted where the top page truncated and the caller has no rank to derive it from. | [optional] 
 **You** | Pointer to [**LeaderboardRow**](LeaderboardRow.md) | You is the caller&#39;s own row with its exact global rank; only an approved affiliate has one. | [optional] 
 
 ## Methods
@@ -54,20 +54,20 @@ HasLeaders returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *AffiliateBoard) GetTotal() int32`
+`func (o *AffiliateBoard) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *AffiliateBoard) GetTotalOk() (*int32, bool)`
+`func (o *AffiliateBoard) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *AffiliateBoard) SetTotal(v int32)`
+`func (o *AffiliateBoard) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

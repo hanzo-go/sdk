@@ -24,7 +24,7 @@ type O11yO11yTagQuery struct {
 	// Key is the tag to test.
 	Key *string `json:"key,omitempty"`
 	// NumberValues are the numeric values to test against.
-	NumberValues []float32 `json:"numberValues,omitempty"`
+	NumberValues []float64 `json:"numberValues,omitempty"`
 	// Operator is the comparison, e.g. in, nin, contains, exists.
 	Operator *string `json:"operator,omitempty"`
 	// StringValues are the string values to test against.
@@ -115,9 +115,9 @@ func (o *O11yO11yTagQuery) SetKey(v string) {
 }
 
 // GetNumberValues returns the NumberValues field value if set, zero value otherwise.
-func (o *O11yO11yTagQuery) GetNumberValues() []float32 {
+func (o *O11yO11yTagQuery) GetNumberValues() []float64 {
 	if o == nil || IsNil(o.NumberValues) {
-		var ret []float32
+		var ret []float64
 		return ret
 	}
 	return o.NumberValues
@@ -125,7 +125,7 @@ func (o *O11yO11yTagQuery) GetNumberValues() []float32 {
 
 // GetNumberValuesOk returns a tuple with the NumberValues field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yTagQuery) GetNumberValuesOk() ([]float32, bool) {
+func (o *O11yO11yTagQuery) GetNumberValuesOk() ([]float64, bool) {
 	if o == nil || IsNil(o.NumberValues) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *O11yO11yTagQuery) HasNumberValues() bool {
 	return false
 }
 
-// SetNumberValues gets a reference to the given []float32 and assigns it to the NumberValues field.
-func (o *O11yO11yTagQuery) SetNumberValues(v []float32) {
+// SetNumberValues gets a reference to the given []float64 and assigns it to the NumberValues field.
+func (o *O11yO11yTagQuery) SetNumberValues(v []float64) {
 	o.NumberValues = v
 }
 

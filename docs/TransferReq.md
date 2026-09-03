@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AuthCode** | **string** | AuthCode is the transfer authorization the losing registrar issued. It is required. | 
 **Domain** | **string** | Domain is the name to move in. It is required. | 
-**Years** | Pointer to **int32** | Years is the term to buy on transfer, defaulting to 1. | [optional] 
+**Years** | Pointer to **int64** | Years is the term to buy on transfer, defaulting to 1. | [optional] 
 
 ## Methods
 
@@ -69,20 +69,20 @@ SetDomain sets Domain field to given value.
 
 ### GetYears
 
-`func (o *TransferReq) GetYears() int32`
+`func (o *TransferReq) GetYears() int64`
 
 GetYears returns the Years field if non-nil, zero value otherwise.
 
 ### GetYearsOk
 
-`func (o *TransferReq) GetYearsOk() (*int32, bool)`
+`func (o *TransferReq) GetYearsOk() (*int64, bool)`
 
 GetYearsOk returns a tuple with the Years field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetYears
 
-`func (o *TransferReq) SetYears(v int32)`
+`func (o *TransferReq) SetYears(v int64)`
 
 SetYears sets Years field to given value.
 

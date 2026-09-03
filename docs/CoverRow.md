@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Automated** | Pointer to **int32** | Automated is how many clauses have an automated control behind them that something can fail on behalf of. | [optional] 
+**Automated** | Pointer to **int64** | Automated is how many clauses have an automated control behind them that something can fail on behalf of. | [optional] 
 **Edition** | Pointer to **string** | Edition is which edition the clause list is taken from. | [optional] 
 **Framework** | Pointer to **string** | Framework is the framework id — \&quot;soc2\&quot;, \&quot;iso27001\&quot;, \&quot;nist80053\&quot;. | [optional] 
 **Name** | Pointer to **string** | Name is the published standard&#39;s name. | [optional] 
-**None** | Pointer to **int32** | None is how many have nothing behind them. It stays visible rather than dropping out of the fraction. | [optional] 
+**None** | Pointer to **int64** | None is how many have nothing behind them. It stays visible rather than dropping out of the fraction. | [optional] 
 **Note** | Pointer to **string** | Note is what the clause list itself is scoped to, when the framework&#39;s catalog says something a count alone would misrepresent. | [optional] 
-**Partial** | Pointer to **int32** | Partial is how many are answered in part. | [optional] 
+**Partial** | Pointer to **int64** | Partial is how many are answered in part. | [optional] 
 **Publisher** | Pointer to **string** | Publisher is who publishes it — AICPA, ISO/IEC, NIST. | [optional] 
 **Statement** | Pointer to **string** | Statement is the counts as one sentence, carrying the unit. | [optional] 
-**Total** | Pointer to **int32** | Total is the framework&#39;s WHOLE published clause list — the denominator. Counting only the clauses some control happened to name would report 100% every time. | [optional] 
+**Total** | Pointer to **int64** | Total is the framework&#39;s WHOLE published clause list — the denominator. Counting only the clauses some control happened to name would report 100% every time. | [optional] 
 **Unit** | Pointer to **string** | Unit is what ONE clause is — \&quot;criterion\&quot;, \&quot;control\&quot;, \&quot;family\&quot;. A count without its unit is not a fact, so it travels with every number here. | [optional] 
 **Units** | Pointer to **string** | Units is the plural of Unit, for rendering a sentence. | [optional] 
 
@@ -38,20 +38,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAutomated
 
-`func (o *CoverRow) GetAutomated() int32`
+`func (o *CoverRow) GetAutomated() int64`
 
 GetAutomated returns the Automated field if non-nil, zero value otherwise.
 
 ### GetAutomatedOk
 
-`func (o *CoverRow) GetAutomatedOk() (*int32, bool)`
+`func (o *CoverRow) GetAutomatedOk() (*int64, bool)`
 
 GetAutomatedOk returns a tuple with the Automated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAutomated
 
-`func (o *CoverRow) SetAutomated(v int32)`
+`func (o *CoverRow) SetAutomated(v int64)`
 
 SetAutomated sets Automated field to given value.
 
@@ -138,20 +138,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetNone
 
-`func (o *CoverRow) GetNone() int32`
+`func (o *CoverRow) GetNone() int64`
 
 GetNone returns the None field if non-nil, zero value otherwise.
 
 ### GetNoneOk
 
-`func (o *CoverRow) GetNoneOk() (*int32, bool)`
+`func (o *CoverRow) GetNoneOk() (*int64, bool)`
 
 GetNoneOk returns a tuple with the None field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNone
 
-`func (o *CoverRow) SetNone(v int32)`
+`func (o *CoverRow) SetNone(v int64)`
 
 SetNone sets None field to given value.
 
@@ -188,20 +188,20 @@ HasNote returns a boolean if a field has been set.
 
 ### GetPartial
 
-`func (o *CoverRow) GetPartial() int32`
+`func (o *CoverRow) GetPartial() int64`
 
 GetPartial returns the Partial field if non-nil, zero value otherwise.
 
 ### GetPartialOk
 
-`func (o *CoverRow) GetPartialOk() (*int32, bool)`
+`func (o *CoverRow) GetPartialOk() (*int64, bool)`
 
 GetPartialOk returns a tuple with the Partial field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPartial
 
-`func (o *CoverRow) SetPartial(v int32)`
+`func (o *CoverRow) SetPartial(v int64)`
 
 SetPartial sets Partial field to given value.
 
@@ -263,20 +263,20 @@ HasStatement returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *CoverRow) GetTotal() int32`
+`func (o *CoverRow) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *CoverRow) GetTotalOk() (*int32, bool)`
+`func (o *CoverRow) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *CoverRow) SetTotal(v int32)`
+`func (o *CoverRow) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

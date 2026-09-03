@@ -22,17 +22,17 @@ type CaptableRound struct {
 	// CloseDate is the ISO date the round closed, once it has.
 	CloseDate *string `json:"closeDate,omitempty"`
 	// CreatedAt is when the round was recorded, in unix milliseconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// ID is the round id.
 	Id *string `json:"id,omitempty"`
 	// Name is the round name, e.g. \"Series A\".
 	Name *string `json:"name,omitempty"`
 	// PreMoneyValuation is the pre-money valuation, for a priced round.
-	PreMoneyValuation *float32 `json:"preMoneyValuation,omitempty"`
+	PreMoneyValuation *float64 `json:"preMoneyValuation,omitempty"`
 	// PricePerShare is the price per share, for a priced round.
-	PricePerShare *float32 `json:"pricePerShare,omitempty"`
+	PricePerShare *float64 `json:"pricePerShare,omitempty"`
 	// RaisedAmount is how much has been invested so far.
-	RaisedAmount *float32 `json:"raisedAmount,omitempty"`
+	RaisedAmount *float64 `json:"raisedAmount,omitempty"`
 	// RoundType is PRICED, SAFE or CONVERTIBLE_NOTE.
 	RoundType *string `json:"roundType,omitempty"`
 	// ShareClassID is the class a priced round issues into.
@@ -40,7 +40,7 @@ type CaptableRound struct {
 	// Status is OPEN or CLOSED.
 	Status *string `json:"status,omitempty"`
 	// TargetAmount is how much the round set out to raise.
-	TargetAmount *float32 `json:"targetAmount,omitempty"`
+	TargetAmount *float64 `json:"targetAmount,omitempty"`
 }
 
 // NewCaptableRound instantiates a new CaptableRound object
@@ -93,9 +93,9 @@ func (o *CaptableRound) SetCloseDate(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *CaptableRound) GetCreatedAt() int32 {
+func (o *CaptableRound) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -103,7 +103,7 @@ func (o *CaptableRound) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableRound) GetCreatedAtOk() (*int32, bool) {
+func (o *CaptableRound) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -119,8 +119,8 @@ func (o *CaptableRound) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *CaptableRound) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *CaptableRound) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -189,9 +189,9 @@ func (o *CaptableRound) SetName(v string) {
 }
 
 // GetPreMoneyValuation returns the PreMoneyValuation field value if set, zero value otherwise.
-func (o *CaptableRound) GetPreMoneyValuation() float32 {
+func (o *CaptableRound) GetPreMoneyValuation() float64 {
 	if o == nil || IsNil(o.PreMoneyValuation) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.PreMoneyValuation
@@ -199,7 +199,7 @@ func (o *CaptableRound) GetPreMoneyValuation() float32 {
 
 // GetPreMoneyValuationOk returns a tuple with the PreMoneyValuation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableRound) GetPreMoneyValuationOk() (*float32, bool) {
+func (o *CaptableRound) GetPreMoneyValuationOk() (*float64, bool) {
 	if o == nil || IsNil(o.PreMoneyValuation) {
 		return nil, false
 	}
@@ -215,15 +215,15 @@ func (o *CaptableRound) HasPreMoneyValuation() bool {
 	return false
 }
 
-// SetPreMoneyValuation gets a reference to the given float32 and assigns it to the PreMoneyValuation field.
-func (o *CaptableRound) SetPreMoneyValuation(v float32) {
+// SetPreMoneyValuation gets a reference to the given float64 and assigns it to the PreMoneyValuation field.
+func (o *CaptableRound) SetPreMoneyValuation(v float64) {
 	o.PreMoneyValuation = &v
 }
 
 // GetPricePerShare returns the PricePerShare field value if set, zero value otherwise.
-func (o *CaptableRound) GetPricePerShare() float32 {
+func (o *CaptableRound) GetPricePerShare() float64 {
 	if o == nil || IsNil(o.PricePerShare) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.PricePerShare
@@ -231,7 +231,7 @@ func (o *CaptableRound) GetPricePerShare() float32 {
 
 // GetPricePerShareOk returns a tuple with the PricePerShare field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableRound) GetPricePerShareOk() (*float32, bool) {
+func (o *CaptableRound) GetPricePerShareOk() (*float64, bool) {
 	if o == nil || IsNil(o.PricePerShare) {
 		return nil, false
 	}
@@ -247,15 +247,15 @@ func (o *CaptableRound) HasPricePerShare() bool {
 	return false
 }
 
-// SetPricePerShare gets a reference to the given float32 and assigns it to the PricePerShare field.
-func (o *CaptableRound) SetPricePerShare(v float32) {
+// SetPricePerShare gets a reference to the given float64 and assigns it to the PricePerShare field.
+func (o *CaptableRound) SetPricePerShare(v float64) {
 	o.PricePerShare = &v
 }
 
 // GetRaisedAmount returns the RaisedAmount field value if set, zero value otherwise.
-func (o *CaptableRound) GetRaisedAmount() float32 {
+func (o *CaptableRound) GetRaisedAmount() float64 {
 	if o == nil || IsNil(o.RaisedAmount) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.RaisedAmount
@@ -263,7 +263,7 @@ func (o *CaptableRound) GetRaisedAmount() float32 {
 
 // GetRaisedAmountOk returns a tuple with the RaisedAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableRound) GetRaisedAmountOk() (*float32, bool) {
+func (o *CaptableRound) GetRaisedAmountOk() (*float64, bool) {
 	if o == nil || IsNil(o.RaisedAmount) {
 		return nil, false
 	}
@@ -279,8 +279,8 @@ func (o *CaptableRound) HasRaisedAmount() bool {
 	return false
 }
 
-// SetRaisedAmount gets a reference to the given float32 and assigns it to the RaisedAmount field.
-func (o *CaptableRound) SetRaisedAmount(v float32) {
+// SetRaisedAmount gets a reference to the given float64 and assigns it to the RaisedAmount field.
+func (o *CaptableRound) SetRaisedAmount(v float64) {
 	o.RaisedAmount = &v
 }
 
@@ -381,9 +381,9 @@ func (o *CaptableRound) SetStatus(v string) {
 }
 
 // GetTargetAmount returns the TargetAmount field value if set, zero value otherwise.
-func (o *CaptableRound) GetTargetAmount() float32 {
+func (o *CaptableRound) GetTargetAmount() float64 {
 	if o == nil || IsNil(o.TargetAmount) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.TargetAmount
@@ -391,7 +391,7 @@ func (o *CaptableRound) GetTargetAmount() float32 {
 
 // GetTargetAmountOk returns a tuple with the TargetAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableRound) GetTargetAmountOk() (*float32, bool) {
+func (o *CaptableRound) GetTargetAmountOk() (*float64, bool) {
 	if o == nil || IsNil(o.TargetAmount) {
 		return nil, false
 	}
@@ -407,8 +407,8 @@ func (o *CaptableRound) HasTargetAmount() bool {
 	return false
 }
 
-// SetTargetAmount gets a reference to the given float32 and assigns it to the TargetAmount field.
-func (o *CaptableRound) SetTargetAmount(v float32) {
+// SetTargetAmount gets a reference to the given float64 and assigns it to the TargetAmount field.
+func (o *CaptableRound) SetTargetAmount(v float64) {
 	o.TargetAmount = &v
 }
 

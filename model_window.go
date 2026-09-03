@@ -19,11 +19,11 @@ var _ MappedNullable = &Window{}
 
 // Window struct for Window
 type Window struct {
-	Limit     *int32  `json:"limit,omitempty"`
-	Remaining *int32  `json:"remaining,omitempty"`
+	Limit     *int64  `json:"limit,omitempty"`
+	Remaining *int64  `json:"remaining,omitempty"`
 	Resets    *string `json:"resets,omitempty"`
 	Span      *string `json:"span,omitempty"`
-	Used      *int32  `json:"used,omitempty"`
+	Used      *int64  `json:"used,omitempty"`
 }
 
 // NewWindow instantiates a new Window object
@@ -44,9 +44,9 @@ func NewWindowWithDefaults() *Window {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *Window) GetLimit() int32 {
+func (o *Window) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -54,7 +54,7 @@ func (o *Window) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Window) GetLimitOk() (*int32, bool) {
+func (o *Window) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -70,15 +70,15 @@ func (o *Window) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *Window) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *Window) SetLimit(v int64) {
 	o.Limit = &v
 }
 
 // GetRemaining returns the Remaining field value if set, zero value otherwise.
-func (o *Window) GetRemaining() int32 {
+func (o *Window) GetRemaining() int64 {
 	if o == nil || IsNil(o.Remaining) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Remaining
@@ -86,7 +86,7 @@ func (o *Window) GetRemaining() int32 {
 
 // GetRemainingOk returns a tuple with the Remaining field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Window) GetRemainingOk() (*int32, bool) {
+func (o *Window) GetRemainingOk() (*int64, bool) {
 	if o == nil || IsNil(o.Remaining) {
 		return nil, false
 	}
@@ -102,8 +102,8 @@ func (o *Window) HasRemaining() bool {
 	return false
 }
 
-// SetRemaining gets a reference to the given int32 and assigns it to the Remaining field.
-func (o *Window) SetRemaining(v int32) {
+// SetRemaining gets a reference to the given int64 and assigns it to the Remaining field.
+func (o *Window) SetRemaining(v int64) {
 	o.Remaining = &v
 }
 
@@ -172,9 +172,9 @@ func (o *Window) SetSpan(v string) {
 }
 
 // GetUsed returns the Used field value if set, zero value otherwise.
-func (o *Window) GetUsed() int32 {
+func (o *Window) GetUsed() int64 {
 	if o == nil || IsNil(o.Used) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Used
@@ -182,7 +182,7 @@ func (o *Window) GetUsed() int32 {
 
 // GetUsedOk returns a tuple with the Used field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Window) GetUsedOk() (*int32, bool) {
+func (o *Window) GetUsedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Used) {
 		return nil, false
 	}
@@ -198,8 +198,8 @@ func (o *Window) HasUsed() bool {
 	return false
 }
 
-// SetUsed gets a reference to the given int32 and assigns it to the Used field.
-func (o *Window) SetUsed(v int32) {
+// SetUsed gets a reference to the given int64 and assigns it to the Used field.
+func (o *Window) SetUsed(v int64) {
 	o.Used = &v
 }
 

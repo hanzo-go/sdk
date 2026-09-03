@@ -20,15 +20,15 @@ var _ MappedNullable = &ReconcileReport{}
 // ReconcileReport struct for ReconcileReport
 type ReconcileReport struct {
 	// Declared is how many objects the rendered source declares — the denominator the three outcome counts below are read against. Zero means the render produced nothing, which trips the prune fuse rather than sweeping the fleet.
-	Declared *int32 `json:"declared,omitempty"`
+	Declared *int64 `json:"declared,omitempty"`
 	// Failed is how many objects the apply could not reconcile. Non-zero is a PARTIAL run reported at 200: the engine applied what it could and each failure names itself in Results, so a caller reads this number rather than the status code to learn whether the fleet matches the source.
-	Failed *int32 `json:"failed,omitempty"`
+	Failed *int64 `json:"failed,omitempty"`
 	// Instance is the tracking id this run stamps on everything it manages, so a later run can tell the objects it owns from objects another instance declares. DEPLOY_ENGINE_INSTANCE names it; the default is `universe`.
 	Instance *string `json:"instance,omitempty"`
 	// Prune reports whether DELETION was enabled for this run. False means an object the source no longer declares was left alone rather than removed, so a zero Pruned below means \"nothing to delete\" only when this is true.
 	Prune *bool `json:"prune,omitempty"`
 	// Pruned is how many live objects this run DELETED because the source no longer declares them. Always 0 when Prune is false.
-	Pruned *int32 `json:"pruned,omitempty"`
+	Pruned *int64 `json:"pruned,omitempty"`
 	// Results is one entry per object the run acted on, in the order the engine applied them. Empty (never null) when the run reconciled nothing.
 	Results []AppliedResource `json:"results,omitempty"`
 	// Revision is the source commit this run applied, as the source resolved it — a git commit SHA, not an image tag. It is what an operator cites when asking what the cluster was last made to match.
@@ -36,7 +36,7 @@ type ReconcileReport struct {
 	// Source is the git coordinate the run rendered. It is this deployment's own configuration echoed back, never a request parameter, and it is reported so a reader of the answer knows WHICH tree the revision names.
 	Source *ReconcileSource `json:"source,omitempty"`
 	// Synced is how many objects the run applied successfully.
-	Synced *int32 `json:"synced,omitempty"`
+	Synced *int64 `json:"synced,omitempty"`
 }
 
 // NewReconcileReport instantiates a new ReconcileReport object
@@ -57,9 +57,9 @@ func NewReconcileReportWithDefaults() *ReconcileReport {
 }
 
 // GetDeclared returns the Declared field value if set, zero value otherwise.
-func (o *ReconcileReport) GetDeclared() int32 {
+func (o *ReconcileReport) GetDeclared() int64 {
 	if o == nil || IsNil(o.Declared) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Declared
@@ -67,7 +67,7 @@ func (o *ReconcileReport) GetDeclared() int32 {
 
 // GetDeclaredOk returns a tuple with the Declared field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReconcileReport) GetDeclaredOk() (*int32, bool) {
+func (o *ReconcileReport) GetDeclaredOk() (*int64, bool) {
 	if o == nil || IsNil(o.Declared) {
 		return nil, false
 	}
@@ -83,15 +83,15 @@ func (o *ReconcileReport) HasDeclared() bool {
 	return false
 }
 
-// SetDeclared gets a reference to the given int32 and assigns it to the Declared field.
-func (o *ReconcileReport) SetDeclared(v int32) {
+// SetDeclared gets a reference to the given int64 and assigns it to the Declared field.
+func (o *ReconcileReport) SetDeclared(v int64) {
 	o.Declared = &v
 }
 
 // GetFailed returns the Failed field value if set, zero value otherwise.
-func (o *ReconcileReport) GetFailed() int32 {
+func (o *ReconcileReport) GetFailed() int64 {
 	if o == nil || IsNil(o.Failed) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Failed
@@ -99,7 +99,7 @@ func (o *ReconcileReport) GetFailed() int32 {
 
 // GetFailedOk returns a tuple with the Failed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReconcileReport) GetFailedOk() (*int32, bool) {
+func (o *ReconcileReport) GetFailedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Failed) {
 		return nil, false
 	}
@@ -115,8 +115,8 @@ func (o *ReconcileReport) HasFailed() bool {
 	return false
 }
 
-// SetFailed gets a reference to the given int32 and assigns it to the Failed field.
-func (o *ReconcileReport) SetFailed(v int32) {
+// SetFailed gets a reference to the given int64 and assigns it to the Failed field.
+func (o *ReconcileReport) SetFailed(v int64) {
 	o.Failed = &v
 }
 
@@ -185,9 +185,9 @@ func (o *ReconcileReport) SetPrune(v bool) {
 }
 
 // GetPruned returns the Pruned field value if set, zero value otherwise.
-func (o *ReconcileReport) GetPruned() int32 {
+func (o *ReconcileReport) GetPruned() int64 {
 	if o == nil || IsNil(o.Pruned) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Pruned
@@ -195,7 +195,7 @@ func (o *ReconcileReport) GetPruned() int32 {
 
 // GetPrunedOk returns a tuple with the Pruned field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReconcileReport) GetPrunedOk() (*int32, bool) {
+func (o *ReconcileReport) GetPrunedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Pruned) {
 		return nil, false
 	}
@@ -211,8 +211,8 @@ func (o *ReconcileReport) HasPruned() bool {
 	return false
 }
 
-// SetPruned gets a reference to the given int32 and assigns it to the Pruned field.
-func (o *ReconcileReport) SetPruned(v int32) {
+// SetPruned gets a reference to the given int64 and assigns it to the Pruned field.
+func (o *ReconcileReport) SetPruned(v int64) {
 	o.Pruned = &v
 }
 
@@ -313,9 +313,9 @@ func (o *ReconcileReport) SetSource(v ReconcileSource) {
 }
 
 // GetSynced returns the Synced field value if set, zero value otherwise.
-func (o *ReconcileReport) GetSynced() int32 {
+func (o *ReconcileReport) GetSynced() int64 {
 	if o == nil || IsNil(o.Synced) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Synced
@@ -323,7 +323,7 @@ func (o *ReconcileReport) GetSynced() int32 {
 
 // GetSyncedOk returns a tuple with the Synced field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReconcileReport) GetSyncedOk() (*int32, bool) {
+func (o *ReconcileReport) GetSyncedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Synced) {
 		return nil, false
 	}
@@ -339,8 +339,8 @@ func (o *ReconcileReport) HasSynced() bool {
 	return false
 }
 
-// SetSynced gets a reference to the given int32 and assigns it to the Synced field.
-func (o *ReconcileReport) SetSynced(v int32) {
+// SetSynced gets a reference to the given int64 and assigns it to the Synced field.
+func (o *ReconcileReport) SetSynced(v int64) {
 	o.Synced = &v
 }
 

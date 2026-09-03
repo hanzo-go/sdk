@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Data** | Pointer to **string** | Data is the payload, base64-encoded. | [optional] 
 **Headers** | Pointer to **map[string][]string** | Headers are the message headers, when any were published. | [optional] 
-**NumDelivered** | Pointer to **int32** | Delivered is how many times a consumer has been handed this message (pulls only). | [optional] 
+**NumDelivered** | Pointer to **int64** | Delivered is how many times a consumer has been handed this message (pulls only). | [optional] 
 **NumPending** | Pointer to **int32** | Remaining is how many messages follow this one for the consumer (pulls only). | [optional] 
 **Sequence** | Pointer to **int32** | Sequence is the message&#39;s stream sequence. | [optional] 
 **Subject** | Pointer to **string** | Subject is the org-relative subject the message was stored under. | [optional] 
@@ -83,20 +83,20 @@ HasHeaders returns a boolean if a field has been set.
 
 ### GetNumDelivered
 
-`func (o *Delivery) GetNumDelivered() int32`
+`func (o *Delivery) GetNumDelivered() int64`
 
 GetNumDelivered returns the NumDelivered field if non-nil, zero value otherwise.
 
 ### GetNumDeliveredOk
 
-`func (o *Delivery) GetNumDeliveredOk() (*int32, bool)`
+`func (o *Delivery) GetNumDeliveredOk() (*int64, bool)`
 
 GetNumDeliveredOk returns a tuple with the NumDelivered field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumDelivered
 
-`func (o *Delivery) SetNumDelivered(v int32)`
+`func (o *Delivery) SetNumDelivered(v int64)`
 
 SetNumDelivered sets NumDelivered field to given value.
 

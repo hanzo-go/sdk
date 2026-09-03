@@ -26,13 +26,13 @@ type PnL struct {
 	// Income is the revenue lines that moved in the period, one per account. Accounts that did not move are omitted rather than listed at zero.
 	Income []PnLLine `json:"income,omitempty"`
 	// NetIncome is totalIncome minus totalExpense, in cents. Negative is a loss.
-	NetIncome *int32 `json:"netIncome,omitempty"`
+	NetIncome *int64 `json:"netIncome,omitempty"`
 	// To closes the period and is inclusive. Absent means up to now.
 	To *string `json:"to,omitempty"`
 	// TotalExpense is cost MATCHED to that revenue, in cents, including accrued infrastructure that has not been billed yet.
-	TotalExpense *int32 `json:"totalExpense,omitempty"`
+	TotalExpense *int64 `json:"totalExpense,omitempty"`
 	// TotalIncome is revenue RECOGNIZED in the period, in cents — accrual, not cash, so a prepaid top-up is not in it until the credit is consumed.
-	TotalIncome *int32 `json:"totalIncome,omitempty"`
+	TotalIncome *int64 `json:"totalIncome,omitempty"`
 }
 
 // NewPnL instantiates a new PnL object
@@ -149,9 +149,9 @@ func (o *PnL) SetIncome(v []PnLLine) {
 }
 
 // GetNetIncome returns the NetIncome field value if set, zero value otherwise.
-func (o *PnL) GetNetIncome() int32 {
+func (o *PnL) GetNetIncome() int64 {
 	if o == nil || IsNil(o.NetIncome) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NetIncome
@@ -159,7 +159,7 @@ func (o *PnL) GetNetIncome() int32 {
 
 // GetNetIncomeOk returns a tuple with the NetIncome field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PnL) GetNetIncomeOk() (*int32, bool) {
+func (o *PnL) GetNetIncomeOk() (*int64, bool) {
 	if o == nil || IsNil(o.NetIncome) {
 		return nil, false
 	}
@@ -175,8 +175,8 @@ func (o *PnL) HasNetIncome() bool {
 	return false
 }
 
-// SetNetIncome gets a reference to the given int32 and assigns it to the NetIncome field.
-func (o *PnL) SetNetIncome(v int32) {
+// SetNetIncome gets a reference to the given int64 and assigns it to the NetIncome field.
+func (o *PnL) SetNetIncome(v int64) {
 	o.NetIncome = &v
 }
 
@@ -213,9 +213,9 @@ func (o *PnL) SetTo(v string) {
 }
 
 // GetTotalExpense returns the TotalExpense field value if set, zero value otherwise.
-func (o *PnL) GetTotalExpense() int32 {
+func (o *PnL) GetTotalExpense() int64 {
 	if o == nil || IsNil(o.TotalExpense) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalExpense
@@ -223,7 +223,7 @@ func (o *PnL) GetTotalExpense() int32 {
 
 // GetTotalExpenseOk returns a tuple with the TotalExpense field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PnL) GetTotalExpenseOk() (*int32, bool) {
+func (o *PnL) GetTotalExpenseOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalExpense) {
 		return nil, false
 	}
@@ -239,15 +239,15 @@ func (o *PnL) HasTotalExpense() bool {
 	return false
 }
 
-// SetTotalExpense gets a reference to the given int32 and assigns it to the TotalExpense field.
-func (o *PnL) SetTotalExpense(v int32) {
+// SetTotalExpense gets a reference to the given int64 and assigns it to the TotalExpense field.
+func (o *PnL) SetTotalExpense(v int64) {
 	o.TotalExpense = &v
 }
 
 // GetTotalIncome returns the TotalIncome field value if set, zero value otherwise.
-func (o *PnL) GetTotalIncome() int32 {
+func (o *PnL) GetTotalIncome() int64 {
 	if o == nil || IsNil(o.TotalIncome) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalIncome
@@ -255,7 +255,7 @@ func (o *PnL) GetTotalIncome() int32 {
 
 // GetTotalIncomeOk returns a tuple with the TotalIncome field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PnL) GetTotalIncomeOk() (*int32, bool) {
+func (o *PnL) GetTotalIncomeOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalIncome) {
 		return nil, false
 	}
@@ -271,8 +271,8 @@ func (o *PnL) HasTotalIncome() bool {
 	return false
 }
 
-// SetTotalIncome gets a reference to the given int32 and assigns it to the TotalIncome field.
-func (o *PnL) SetTotalIncome(v int32) {
+// SetTotalIncome gets a reference to the given int64 and assigns it to the TotalIncome field.
+func (o *PnL) SetTotalIncome(v int64) {
 	o.TotalIncome = &v
 }
 

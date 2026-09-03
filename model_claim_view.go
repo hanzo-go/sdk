@@ -24,7 +24,7 @@ type ClaimView struct {
 	// Created is true when this call recorded the referral and false when it found one already recorded for this referee — the idempotent replay.
 	Created *bool `json:"created,omitempty"`
 	// CreatedAt is when the referral was first recorded, as a Unix timestamp.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// ID is the referral's handle.
 	Id *string `json:"id,omitempty"`
 	// Status is the referral's lifecycle state: \"signup\" until the referee makes metered spend, then \"qualified\", then \"credited\".
@@ -113,9 +113,9 @@ func (o *ClaimView) SetCreated(v bool) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *ClaimView) GetCreatedAt() int32 {
+func (o *ClaimView) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -123,7 +123,7 @@ func (o *ClaimView) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ClaimView) GetCreatedAtOk() (*int32, bool) {
+func (o *ClaimView) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -139,8 +139,8 @@ func (o *ClaimView) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *ClaimView) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *ClaimView) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 

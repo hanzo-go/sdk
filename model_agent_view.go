@@ -38,7 +38,7 @@ type AgentView struct {
 	// Name is the agent's org-unique handle, matching ^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$. It addresses the agent everywhere ID does, it is what a run row records, and it is the suffix of the `agent_<name>` tool other agents call this one by. Set once at create; no update route moves it, because moving it would orphan that history.
 	Name *string `json:"name,omitempty"`
 	// Runs is how many executions the org has recorded against this agent, counted at read time. The list and update reads count the WHOLE history; the detail read reports the size of the RecentRuns page it carries, which stops at 20 — so a detail row saying 20 means \"at least 20\", not \"exactly 20\".
-	Runs *int32 `json:"runs,omitempty"`
+	Runs *int64 `json:"runs,omitempty"`
 	// Schedule is the 5-field cron the scheduler fires a long-running agent on, evaluated once a minute. Required for long-running and DROPPED for one-shot — a one-shot agent's schedule is not stored, so absence here is the mode's answer rather than a value nobody set.
 	Schedule *string `json:"schedule,omitempty"`
 	// ServiceAccountID is the IAM agent service account (<org>-<agent>) a scheduled run is billed AS. It is what makes an autonomous run attributable to a principal rather than only to the org; empty means the org itself wears the spend.
@@ -357,9 +357,9 @@ func (o *AgentView) SetName(v string) {
 }
 
 // GetRuns returns the Runs field value if set, zero value otherwise.
-func (o *AgentView) GetRuns() int32 {
+func (o *AgentView) GetRuns() int64 {
 	if o == nil || IsNil(o.Runs) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Runs
@@ -367,7 +367,7 @@ func (o *AgentView) GetRuns() int32 {
 
 // GetRunsOk returns a tuple with the Runs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentView) GetRunsOk() (*int32, bool) {
+func (o *AgentView) GetRunsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Runs) {
 		return nil, false
 	}
@@ -383,8 +383,8 @@ func (o *AgentView) HasRuns() bool {
 	return false
 }
 
-// SetRuns gets a reference to the given int32 and assigns it to the Runs field.
-func (o *AgentView) SetRuns(v int32) {
+// SetRuns gets a reference to the given int64 and assigns it to the Runs field.
+func (o *AgentView) SetRuns(v int64) {
 	o.Runs = &v
 }
 

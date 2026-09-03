@@ -20,11 +20,11 @@ var _ MappedNullable = &Summary{}
 // Summary struct for Summary
 type Summary struct {
 	// Calls is how many calls this org has placed or received, over its whole history — a running total, not a window.
-	Calls *int32 `json:"calls,omitempty"`
+	Calls *int64 `json:"calls,omitempty"`
 	// Messages is the same running total for messages.
-	Messages *int32 `json:"messages,omitempty"`
+	Messages *int64 `json:"messages,omitempty"`
 	// Numbers is how many numbers this org holds right now.
-	Numbers *int32 `json:"numbers,omitempty"`
+	Numbers *int64 `json:"numbers,omitempty"`
 }
 
 // NewSummary instantiates a new Summary object
@@ -45,9 +45,9 @@ func NewSummaryWithDefaults() *Summary {
 }
 
 // GetCalls returns the Calls field value if set, zero value otherwise.
-func (o *Summary) GetCalls() int32 {
+func (o *Summary) GetCalls() int64 {
 	if o == nil || IsNil(o.Calls) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Calls
@@ -55,7 +55,7 @@ func (o *Summary) GetCalls() int32 {
 
 // GetCallsOk returns a tuple with the Calls field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Summary) GetCallsOk() (*int32, bool) {
+func (o *Summary) GetCallsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Calls) {
 		return nil, false
 	}
@@ -71,15 +71,15 @@ func (o *Summary) HasCalls() bool {
 	return false
 }
 
-// SetCalls gets a reference to the given int32 and assigns it to the Calls field.
-func (o *Summary) SetCalls(v int32) {
+// SetCalls gets a reference to the given int64 and assigns it to the Calls field.
+func (o *Summary) SetCalls(v int64) {
 	o.Calls = &v
 }
 
 // GetMessages returns the Messages field value if set, zero value otherwise.
-func (o *Summary) GetMessages() int32 {
+func (o *Summary) GetMessages() int64 {
 	if o == nil || IsNil(o.Messages) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Messages
@@ -87,7 +87,7 @@ func (o *Summary) GetMessages() int32 {
 
 // GetMessagesOk returns a tuple with the Messages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Summary) GetMessagesOk() (*int32, bool) {
+func (o *Summary) GetMessagesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Messages) {
 		return nil, false
 	}
@@ -103,15 +103,15 @@ func (o *Summary) HasMessages() bool {
 	return false
 }
 
-// SetMessages gets a reference to the given int32 and assigns it to the Messages field.
-func (o *Summary) SetMessages(v int32) {
+// SetMessages gets a reference to the given int64 and assigns it to the Messages field.
+func (o *Summary) SetMessages(v int64) {
 	o.Messages = &v
 }
 
 // GetNumbers returns the Numbers field value if set, zero value otherwise.
-func (o *Summary) GetNumbers() int32 {
+func (o *Summary) GetNumbers() int64 {
 	if o == nil || IsNil(o.Numbers) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Numbers
@@ -119,7 +119,7 @@ func (o *Summary) GetNumbers() int32 {
 
 // GetNumbersOk returns a tuple with the Numbers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Summary) GetNumbersOk() (*int32, bool) {
+func (o *Summary) GetNumbersOk() (*int64, bool) {
 	if o == nil || IsNil(o.Numbers) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *Summary) HasNumbers() bool {
 	return false
 }
 
-// SetNumbers gets a reference to the given int32 and assigns it to the Numbers field.
-func (o *Summary) SetNumbers(v int32) {
+// SetNumbers gets a reference to the given int64 and assigns it to the Numbers field.
+func (o *Summary) SetNumbers(v int64) {
 	o.Numbers = &v
 }
 

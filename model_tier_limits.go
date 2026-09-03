@@ -20,9 +20,9 @@ var _ MappedNullable = &TierLimits{}
 // TierLimits struct for TierLimits
 type TierLimits struct {
 	AllowedModels     []string `json:"allowedModels,omitempty"`
-	DailyCreditsCents *int32   `json:"dailyCreditsCents,omitempty"`
+	DailyCreditsCents *int64   `json:"dailyCreditsCents,omitempty"`
 	DisplayName       *string  `json:"displayName,omitempty"`
-	MaxAgents         *int32   `json:"maxAgents,omitempty"`
+	MaxAgents         *int64   `json:"maxAgents,omitempty"`
 	Name              *string  `json:"name,omitempty"`
 	// UnlimitedAgents reports that MaxAgents 0 means \"no ceiling\" rather than \"no agents\" — the reading a bare zero cannot carry.
 	UnlimitedAgents *bool `json:"unlimitedAgents,omitempty"`
@@ -78,9 +78,9 @@ func (o *TierLimits) SetAllowedModels(v []string) {
 }
 
 // GetDailyCreditsCents returns the DailyCreditsCents field value if set, zero value otherwise.
-func (o *TierLimits) GetDailyCreditsCents() int32 {
+func (o *TierLimits) GetDailyCreditsCents() int64 {
 	if o == nil || IsNil(o.DailyCreditsCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DailyCreditsCents
@@ -88,7 +88,7 @@ func (o *TierLimits) GetDailyCreditsCents() int32 {
 
 // GetDailyCreditsCentsOk returns a tuple with the DailyCreditsCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TierLimits) GetDailyCreditsCentsOk() (*int32, bool) {
+func (o *TierLimits) GetDailyCreditsCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.DailyCreditsCents) {
 		return nil, false
 	}
@@ -104,8 +104,8 @@ func (o *TierLimits) HasDailyCreditsCents() bool {
 	return false
 }
 
-// SetDailyCreditsCents gets a reference to the given int32 and assigns it to the DailyCreditsCents field.
-func (o *TierLimits) SetDailyCreditsCents(v int32) {
+// SetDailyCreditsCents gets a reference to the given int64 and assigns it to the DailyCreditsCents field.
+func (o *TierLimits) SetDailyCreditsCents(v int64) {
 	o.DailyCreditsCents = &v
 }
 
@@ -142,9 +142,9 @@ func (o *TierLimits) SetDisplayName(v string) {
 }
 
 // GetMaxAgents returns the MaxAgents field value if set, zero value otherwise.
-func (o *TierLimits) GetMaxAgents() int32 {
+func (o *TierLimits) GetMaxAgents() int64 {
 	if o == nil || IsNil(o.MaxAgents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxAgents
@@ -152,7 +152,7 @@ func (o *TierLimits) GetMaxAgents() int32 {
 
 // GetMaxAgentsOk returns a tuple with the MaxAgents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TierLimits) GetMaxAgentsOk() (*int32, bool) {
+func (o *TierLimits) GetMaxAgentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxAgents) {
 		return nil, false
 	}
@@ -168,8 +168,8 @@ func (o *TierLimits) HasMaxAgents() bool {
 	return false
 }
 
-// SetMaxAgents gets a reference to the given int32 and assigns it to the MaxAgents field.
-func (o *TierLimits) SetMaxAgents(v int32) {
+// SetMaxAgents gets a reference to the given int64 and assigns it to the MaxAgents field.
+func (o *TierLimits) SetMaxAgents(v int64) {
 	o.MaxAgents = &v
 }
 

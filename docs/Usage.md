@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CostCents** | Pointer to **int32** | null — no per-invocation cost source | [optional] 
+**CostCents** | Pointer to **int64** | null — no per-invocation cost source | [optional] 
 **Series** | Pointer to [**[]CostLine**](CostLine.md) | one line per function that ran in the window | [optional] 
 **Status** | Pointer to [**StatusBreakdown**](StatusBreakdown.md) | how those invocations ended | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCostCents
 
-`func (o *Usage) GetCostCents() int32`
+`func (o *Usage) GetCostCents() int64`
 
 GetCostCents returns the CostCents field if non-nil, zero value otherwise.
 
 ### GetCostCentsOk
 
-`func (o *Usage) GetCostCentsOk() (*int32, bool)`
+`func (o *Usage) GetCostCentsOk() (*int64, bool)`
 
 GetCostCentsOk returns a tuple with the CostCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCostCents
 
-`func (o *Usage) SetCostCents(v int32)`
+`func (o *Usage) SetCostCents(v int64)`
 
 SetCostCents sets CostCents field to given value.
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ChainId** | Pointer to **int32** |  | [optional] 
-**Height** | Pointer to **int32** | Height is the latest block, omitted when the chain did not answer rather than reported as zero — a zero height is a real value on a fresh chain. | [optional] 
+**ChainId** | Pointer to **int64** |  | [optional] 
+**Height** | Pointer to **int64** | Height is the latest block, omitted when the chain did not answer rather than reported as zero — a zero height is a real value on a fresh chain. | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Live** | Pointer to **bool** | Live is whether the upstream answered eth_blockNumber. | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetChainId
 
-`func (o *ChainStatus) GetChainId() int32`
+`func (o *ChainStatus) GetChainId() int64`
 
 GetChainId returns the ChainId field if non-nil, zero value otherwise.
 
 ### GetChainIdOk
 
-`func (o *ChainStatus) GetChainIdOk() (*int32, bool)`
+`func (o *ChainStatus) GetChainIdOk() (*int64, bool)`
 
 GetChainIdOk returns a tuple with the ChainId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetChainId
 
-`func (o *ChainStatus) SetChainId(v int32)`
+`func (o *ChainStatus) SetChainId(v int64)`
 
 SetChainId sets ChainId field to given value.
 
@@ -56,20 +56,20 @@ HasChainId returns a boolean if a field has been set.
 
 ### GetHeight
 
-`func (o *ChainStatus) GetHeight() int32`
+`func (o *ChainStatus) GetHeight() int64`
 
 GetHeight returns the Height field if non-nil, zero value otherwise.
 
 ### GetHeightOk
 
-`func (o *ChainStatus) GetHeightOk() (*int32, bool)`
+`func (o *ChainStatus) GetHeightOk() (*int64, bool)`
 
 GetHeightOk returns a tuple with the Height field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHeight
 
-`func (o *ChainStatus) SetHeight(v int32)`
+`func (o *ChainStatus) SetHeight(v int64)`
 
 SetHeight sets Height field to given value.
 

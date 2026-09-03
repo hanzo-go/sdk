@@ -20,9 +20,9 @@ var _ MappedNullable = &Loss{}
 // Loss struct for Loss
 type Loss struct {
 	// Exhausted counts facts the bus abandoned after maxDeliver failed inserts.
-	Exhausted *int32 `json:"exhausted,omitempty"`
+	Exhausted *int64 `json:"exhausted,omitempty"`
 	// Undecodable counts messages acked without landing because they did not parse.
-	Undecodable *int32 `json:"undecodable,omitempty"`
+	Undecodable *int64 `json:"undecodable,omitempty"`
 }
 
 // NewLoss instantiates a new Loss object
@@ -43,9 +43,9 @@ func NewLossWithDefaults() *Loss {
 }
 
 // GetExhausted returns the Exhausted field value if set, zero value otherwise.
-func (o *Loss) GetExhausted() int32 {
+func (o *Loss) GetExhausted() int64 {
 	if o == nil || IsNil(o.Exhausted) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Exhausted
@@ -53,7 +53,7 @@ func (o *Loss) GetExhausted() int32 {
 
 // GetExhaustedOk returns a tuple with the Exhausted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Loss) GetExhaustedOk() (*int32, bool) {
+func (o *Loss) GetExhaustedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Exhausted) {
 		return nil, false
 	}
@@ -69,15 +69,15 @@ func (o *Loss) HasExhausted() bool {
 	return false
 }
 
-// SetExhausted gets a reference to the given int32 and assigns it to the Exhausted field.
-func (o *Loss) SetExhausted(v int32) {
+// SetExhausted gets a reference to the given int64 and assigns it to the Exhausted field.
+func (o *Loss) SetExhausted(v int64) {
 	o.Exhausted = &v
 }
 
 // GetUndecodable returns the Undecodable field value if set, zero value otherwise.
-func (o *Loss) GetUndecodable() int32 {
+func (o *Loss) GetUndecodable() int64 {
 	if o == nil || IsNil(o.Undecodable) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Undecodable
@@ -85,7 +85,7 @@ func (o *Loss) GetUndecodable() int32 {
 
 // GetUndecodableOk returns a tuple with the Undecodable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Loss) GetUndecodableOk() (*int32, bool) {
+func (o *Loss) GetUndecodableOk() (*int64, bool) {
 	if o == nil || IsNil(o.Undecodable) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *Loss) HasUndecodable() bool {
 	return false
 }
 
-// SetUndecodable gets a reference to the given int32 and assigns it to the Undecodable field.
-func (o *Loss) SetUndecodable(v int32) {
+// SetUndecodable gets a reference to the given int64 and assigns it to the Undecodable field.
+func (o *Loss) SetUndecodable(v int64) {
 	o.Undecodable = &v
 }
 

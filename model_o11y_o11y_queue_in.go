@@ -20,11 +20,11 @@ var _ MappedNullable = &O11yO11yQueueIn{}
 // O11yO11yQueueIn struct for O11yO11yQueueIn
 type O11yO11yQueueIn struct {
 	// End is the window's end, epoch nanoseconds.
-	End *int32 `json:"end,omitempty"`
+	End *int64 `json:"end,omitempty"`
 	// EvalTime bounds the span-evaluation scan, nanoseconds; only the span/evaluation view reads it.
-	EvalTime *int32 `json:"eval_time,omitempty"`
+	EvalTime *int64 `json:"eval_time,omitempty"`
 	// Start is the window's start, epoch nanoseconds.
-	Start *int32 `json:"start,omitempty"`
+	Start *int64 `json:"start,omitempty"`
 	// Variables name what the view drills into — topic, partition, service, consumer_group — keyed by the name the view expects.
 	Variables map[string]string `json:"variables,omitempty"`
 }
@@ -47,9 +47,9 @@ func NewO11yO11yQueueInWithDefaults() *O11yO11yQueueIn {
 }
 
 // GetEnd returns the End field value if set, zero value otherwise.
-func (o *O11yO11yQueueIn) GetEnd() int32 {
+func (o *O11yO11yQueueIn) GetEnd() int64 {
 	if o == nil || IsNil(o.End) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.End
@@ -57,7 +57,7 @@ func (o *O11yO11yQueueIn) GetEnd() int32 {
 
 // GetEndOk returns a tuple with the End field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yQueueIn) GetEndOk() (*int32, bool) {
+func (o *O11yO11yQueueIn) GetEndOk() (*int64, bool) {
 	if o == nil || IsNil(o.End) {
 		return nil, false
 	}
@@ -73,15 +73,15 @@ func (o *O11yO11yQueueIn) HasEnd() bool {
 	return false
 }
 
-// SetEnd gets a reference to the given int32 and assigns it to the End field.
-func (o *O11yO11yQueueIn) SetEnd(v int32) {
+// SetEnd gets a reference to the given int64 and assigns it to the End field.
+func (o *O11yO11yQueueIn) SetEnd(v int64) {
 	o.End = &v
 }
 
 // GetEvalTime returns the EvalTime field value if set, zero value otherwise.
-func (o *O11yO11yQueueIn) GetEvalTime() int32 {
+func (o *O11yO11yQueueIn) GetEvalTime() int64 {
 	if o == nil || IsNil(o.EvalTime) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.EvalTime
@@ -89,7 +89,7 @@ func (o *O11yO11yQueueIn) GetEvalTime() int32 {
 
 // GetEvalTimeOk returns a tuple with the EvalTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yQueueIn) GetEvalTimeOk() (*int32, bool) {
+func (o *O11yO11yQueueIn) GetEvalTimeOk() (*int64, bool) {
 	if o == nil || IsNil(o.EvalTime) {
 		return nil, false
 	}
@@ -105,15 +105,15 @@ func (o *O11yO11yQueueIn) HasEvalTime() bool {
 	return false
 }
 
-// SetEvalTime gets a reference to the given int32 and assigns it to the EvalTime field.
-func (o *O11yO11yQueueIn) SetEvalTime(v int32) {
+// SetEvalTime gets a reference to the given int64 and assigns it to the EvalTime field.
+func (o *O11yO11yQueueIn) SetEvalTime(v int64) {
 	o.EvalTime = &v
 }
 
 // GetStart returns the Start field value if set, zero value otherwise.
-func (o *O11yO11yQueueIn) GetStart() int32 {
+func (o *O11yO11yQueueIn) GetStart() int64 {
 	if o == nil || IsNil(o.Start) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Start
@@ -121,7 +121,7 @@ func (o *O11yO11yQueueIn) GetStart() int32 {
 
 // GetStartOk returns a tuple with the Start field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yQueueIn) GetStartOk() (*int32, bool) {
+func (o *O11yO11yQueueIn) GetStartOk() (*int64, bool) {
 	if o == nil || IsNil(o.Start) {
 		return nil, false
 	}
@@ -137,8 +137,8 @@ func (o *O11yO11yQueueIn) HasStart() bool {
 	return false
 }
 
-// SetStart gets a reference to the given int32 and assigns it to the Start field.
-func (o *O11yO11yQueueIn) SetStart(v int32) {
+// SetStart gets a reference to the given int64 and assigns it to the Start field.
+func (o *O11yO11yQueueIn) SetStart(v int64) {
 	o.Start = &v
 }
 

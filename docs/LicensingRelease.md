@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **ArtifactRef** | Pointer to **string** | ArtifactRef is where the binary lives (object-store key / OCI ref / path). | [optional] 
 **CosignCert** | Pointer to **string** | CosignCert is the cosign/Fulcio cert (keyless) or public key ref used to verify CosignSignature. The download response hands this to the client. | [optional] 
 **CosignSignature** | Pointer to **string** | CosignSignature is the base64 cosign signature over the artifact digest. | [optional] 
-**CreatedAt** | Pointer to **int32** |  | [optional] 
+**CreatedAt** | Pointer to **int64** |  | [optional] 
 **Id** | Pointer to **string** | ID is the release identifier, e.g. \&quot;engine-rocm-0.4.2-linux-amd64\&quot;. The accelerator belongs here — one product is built several ways — and never in Product below. | [optional] 
 **MinFeatures** | Pointer to **[]string** | MinFeatures, when set, are features the license must include to download. | [optional] 
 **Platform** | Pointer to **string** | Platform is \&quot;&lt;os&gt;/&lt;arch&gt;\&quot;, e.g. \&quot;linux/amd64\&quot;. | [optional] 
@@ -138,20 +138,20 @@ HasCosignSignature returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *LicensingRelease) GetCreatedAt() int32`
+`func (o *LicensingRelease) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *LicensingRelease) GetCreatedAtOk() (*int32, bool)`
+`func (o *LicensingRelease) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *LicensingRelease) SetCreatedAt(v int32)`
+`func (o *LicensingRelease) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 

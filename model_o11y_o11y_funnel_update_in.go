@@ -24,7 +24,7 @@ type O11yO11yFunnelUpdateIn struct {
 	// Name replaces the funnel's name. Empty leaves it as it was.
 	FunnelName *string `json:"funnel_name,omitempty"`
 	// Timestamp is when the change was made, as a millisecond epoch.
-	Timestamp *int32 `json:"timestamp,omitempty"`
+	Timestamp *int64 `json:"timestamp,omitempty"`
 }
 
 // NewO11yO11yFunnelUpdateIn instantiates a new O11yO11yFunnelUpdateIn object
@@ -109,9 +109,9 @@ func (o *O11yO11yFunnelUpdateIn) SetFunnelName(v string) {
 }
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
-func (o *O11yO11yFunnelUpdateIn) GetTimestamp() int32 {
+func (o *O11yO11yFunnelUpdateIn) GetTimestamp() int64 {
 	if o == nil || IsNil(o.Timestamp) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Timestamp
@@ -119,7 +119,7 @@ func (o *O11yO11yFunnelUpdateIn) GetTimestamp() int32 {
 
 // GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yFunnelUpdateIn) GetTimestampOk() (*int32, bool) {
+func (o *O11yO11yFunnelUpdateIn) GetTimestampOk() (*int64, bool) {
 	if o == nil || IsNil(o.Timestamp) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *O11yO11yFunnelUpdateIn) HasTimestamp() bool {
 	return false
 }
 
-// SetTimestamp gets a reference to the given int32 and assigns it to the Timestamp field.
-func (o *O11yO11yFunnelUpdateIn) SetTimestamp(v int32) {
+// SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
+func (o *O11yO11yFunnelUpdateIn) SetTimestamp(v int64) {
 	o.Timestamp = &v
 }
 

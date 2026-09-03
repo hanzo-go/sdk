@@ -20,7 +20,7 @@ var _ MappedNullable = &ReportResp{}
 // ReportResp struct for ReportResp
 type ReportResp struct {
 	// Accepted is how many samples passed validation. Every one of them was accepted, or the whole report was refused — there is no partial success.
-	Accepted *int32 `json:"accepted,omitempty"`
+	Accepted *int64 `json:"accepted,omitempty"`
 	// Stored is whether the warehouse actually persisted them. False means the datastore was unavailable and the poll of history was lost; the request still succeeded, so a device retries without being blocked.
 	Stored *bool `json:"stored,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewReportRespWithDefaults() *ReportResp {
 }
 
 // GetAccepted returns the Accepted field value if set, zero value otherwise.
-func (o *ReportResp) GetAccepted() int32 {
+func (o *ReportResp) GetAccepted() int64 {
 	if o == nil || IsNil(o.Accepted) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Accepted
@@ -53,7 +53,7 @@ func (o *ReportResp) GetAccepted() int32 {
 
 // GetAcceptedOk returns a tuple with the Accepted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReportResp) GetAcceptedOk() (*int32, bool) {
+func (o *ReportResp) GetAcceptedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Accepted) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *ReportResp) HasAccepted() bool {
 	return false
 }
 
-// SetAccepted gets a reference to the given int32 and assigns it to the Accepted field.
-func (o *ReportResp) SetAccepted(v int32) {
+// SetAccepted gets a reference to the given int64 and assigns it to the Accepted field.
+func (o *ReportResp) SetAccepted(v int64) {
 	o.Accepted = &v
 }
 

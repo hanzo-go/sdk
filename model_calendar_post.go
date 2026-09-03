@@ -24,21 +24,21 @@ type CalendarPost struct {
 	// Channel is the target network: x, facebook, instagram, linkedin, tiktok, youtube or threads. Required — a post must name where it goes.
 	Channel *string `json:"channel,omitempty"`
 	// CreatedAt is unix seconds when the post was added, server-assigned and never rewritten.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Error is the exact reason the last publish attempt failed — the honest record behind a \"failed\" status, never a faked success.
 	Error *string `json:"error,omitempty"`
 	// ID is the server-assigned post id (\"cal_\" + 128 random bits).
 	Id *string `json:"id,omitempty"`
 	// PublishedAt is when the publish succeeded; 0 until it does.
-	PublishedAt *int32 `json:"publishedAt,omitempty"`
+	PublishedAt *int64 `json:"publishedAt,omitempty"`
 	// ScheduledAt is the unix publish time; 0 leaves the post a draft, and any value makes it \"scheduled\" for the durable sweep to pick up.
-	ScheduledAt *int32 `json:"scheduledAt,omitempty"`
+	ScheduledAt *int64 `json:"scheduledAt,omitempty"`
 	// Status is draft, scheduled, published, failed or canceled. Server-owned.
 	Status *string `json:"status,omitempty"`
 	// Title is the post's internal label, capped at 1024 bytes.
 	Title *string `json:"title,omitempty"`
 	// UpdatedAt is unix seconds of the last write, server-assigned. The durable sweep writes too — claiming a due post, publishing it and recording a failure each bump it — so this moves without anyone editing the post.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewCalendarPost instantiates a new CalendarPost object
@@ -123,9 +123,9 @@ func (o *CalendarPost) SetChannel(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *CalendarPost) GetCreatedAt() int32 {
+func (o *CalendarPost) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -133,7 +133,7 @@ func (o *CalendarPost) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CalendarPost) GetCreatedAtOk() (*int32, bool) {
+func (o *CalendarPost) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -149,8 +149,8 @@ func (o *CalendarPost) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *CalendarPost) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *CalendarPost) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -219,9 +219,9 @@ func (o *CalendarPost) SetId(v string) {
 }
 
 // GetPublishedAt returns the PublishedAt field value if set, zero value otherwise.
-func (o *CalendarPost) GetPublishedAt() int32 {
+func (o *CalendarPost) GetPublishedAt() int64 {
 	if o == nil || IsNil(o.PublishedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PublishedAt
@@ -229,7 +229,7 @@ func (o *CalendarPost) GetPublishedAt() int32 {
 
 // GetPublishedAtOk returns a tuple with the PublishedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CalendarPost) GetPublishedAtOk() (*int32, bool) {
+func (o *CalendarPost) GetPublishedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.PublishedAt) {
 		return nil, false
 	}
@@ -245,15 +245,15 @@ func (o *CalendarPost) HasPublishedAt() bool {
 	return false
 }
 
-// SetPublishedAt gets a reference to the given int32 and assigns it to the PublishedAt field.
-func (o *CalendarPost) SetPublishedAt(v int32) {
+// SetPublishedAt gets a reference to the given int64 and assigns it to the PublishedAt field.
+func (o *CalendarPost) SetPublishedAt(v int64) {
 	o.PublishedAt = &v
 }
 
 // GetScheduledAt returns the ScheduledAt field value if set, zero value otherwise.
-func (o *CalendarPost) GetScheduledAt() int32 {
+func (o *CalendarPost) GetScheduledAt() int64 {
 	if o == nil || IsNil(o.ScheduledAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ScheduledAt
@@ -261,7 +261,7 @@ func (o *CalendarPost) GetScheduledAt() int32 {
 
 // GetScheduledAtOk returns a tuple with the ScheduledAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CalendarPost) GetScheduledAtOk() (*int32, bool) {
+func (o *CalendarPost) GetScheduledAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.ScheduledAt) {
 		return nil, false
 	}
@@ -277,8 +277,8 @@ func (o *CalendarPost) HasScheduledAt() bool {
 	return false
 }
 
-// SetScheduledAt gets a reference to the given int32 and assigns it to the ScheduledAt field.
-func (o *CalendarPost) SetScheduledAt(v int32) {
+// SetScheduledAt gets a reference to the given int64 and assigns it to the ScheduledAt field.
+func (o *CalendarPost) SetScheduledAt(v int64) {
 	o.ScheduledAt = &v
 }
 
@@ -347,9 +347,9 @@ func (o *CalendarPost) SetTitle(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *CalendarPost) GetUpdatedAt() int32 {
+func (o *CalendarPost) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -357,7 +357,7 @@ func (o *CalendarPost) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CalendarPost) GetUpdatedAtOk() (*int32, bool) {
+func (o *CalendarPost) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -373,8 +373,8 @@ func (o *CalendarPost) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *CalendarPost) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *CalendarPost) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

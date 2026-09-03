@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Category** | Pointer to **string** | Category is the bucket the ledger&#39;s own tag mapped to. An untagged or unrecognised line gets its own honest bucket rather than being folded away. | [optional] 
-**Cents** | Pointer to **int32** | Cents is what the org spent in that bucket over the window, in US cents. | [optional] 
-**Count** | Pointer to **int32** | Count is how many ledger lines rolled up into it. | [optional] 
+**Cents** | Pointer to **int64** | Cents is what the org spent in that bucket over the window, in US cents. | [optional] 
+**Count** | Pointer to **int64** | Count is how many ledger lines rolled up into it. | [optional] 
 
 ## Methods
 
@@ -54,20 +54,20 @@ HasCategory returns a boolean if a field has been set.
 
 ### GetCents
 
-`func (o *CategorySpend) GetCents() int32`
+`func (o *CategorySpend) GetCents() int64`
 
 GetCents returns the Cents field if non-nil, zero value otherwise.
 
 ### GetCentsOk
 
-`func (o *CategorySpend) GetCentsOk() (*int32, bool)`
+`func (o *CategorySpend) GetCentsOk() (*int64, bool)`
 
 GetCentsOk returns a tuple with the Cents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCents
 
-`func (o *CategorySpend) SetCents(v int32)`
+`func (o *CategorySpend) SetCents(v int64)`
 
 SetCents sets Cents field to given value.
 
@@ -79,20 +79,20 @@ HasCents returns a boolean if a field has been set.
 
 ### GetCount
 
-`func (o *CategorySpend) GetCount() int32`
+`func (o *CategorySpend) GetCount() int64`
 
 GetCount returns the Count field if non-nil, zero value otherwise.
 
 ### GetCountOk
 
-`func (o *CategorySpend) GetCountOk() (*int32, bool)`
+`func (o *CategorySpend) GetCountOk() (*int64, bool)`
 
 GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCount
 
-`func (o *CategorySpend) SetCount(v int32)`
+`func (o *CategorySpend) SetCount(v int64)`
 
 SetCount sets Count field to given value.
 

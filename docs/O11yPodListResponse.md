@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Records** | Pointer to [**[]O11yPodListRecord**](O11yPodListRecord.md) |  | [optional] 
-**Total** | Pointer to **int32** |  | [optional] 
+**Total** | Pointer to **int64** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -54,20 +54,20 @@ HasRecords returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *O11yPodListResponse) GetTotal() int32`
+`func (o *O11yPodListResponse) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *O11yPodListResponse) GetTotalOk() (*int32, bool)`
+`func (o *O11yPodListResponse) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *O11yPodListResponse) SetTotal(v int32)`
+`func (o *O11yPodListResponse) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

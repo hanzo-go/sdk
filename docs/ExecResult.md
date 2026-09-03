@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ExitCode** | Pointer to **int32** | ExitCode is the command&#39;s own exit status. A non-zero one is a SUCCESSFUL call carrying a failed command — the HTTP status stays 200, because \&quot;the command failed\&quot; and \&quot;the call failed\&quot; are different facts and a caller has to be able to tell them apart. | [optional] 
+**ExitCode** | Pointer to **int64** | ExitCode is the command&#39;s own exit status. A non-zero one is a SUCCESSFUL call carrying a failed command — the HTTP status stays 200, because \&quot;the command failed\&quot; and \&quot;the call failed\&quot; are different facts and a caller has to be able to tell them apart. | [optional] 
 **Stderr** | Pointer to **string** | Stderr is everything it wrote to standard error. It is populated on a successful run too — plenty of tools report progress there — so it is not a signal that anything went wrong; ExitCode is. | [optional] 
 **Stdout** | Pointer to **string** | Stdout is everything the command wrote to standard output, as text. | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetExitCode
 
-`func (o *ExecResult) GetExitCode() int32`
+`func (o *ExecResult) GetExitCode() int64`
 
 GetExitCode returns the ExitCode field if non-nil, zero value otherwise.
 
 ### GetExitCodeOk
 
-`func (o *ExecResult) GetExitCodeOk() (*int32, bool)`
+`func (o *ExecResult) GetExitCodeOk() (*int64, bool)`
 
 GetExitCodeOk returns a tuple with the ExitCode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExitCode
 
-`func (o *ExecResult) SetExitCode(v int32)`
+`func (o *ExecResult) SetExitCode(v int64)`
 
 SetExitCode sets ExitCode field to given value.
 

@@ -20,7 +20,7 @@ var _ MappedNullable = &Obligation{}
 // Obligation struct for Obligation
 type Obligation struct {
 	// AmountCents is what it costs each period.
-	AmountCents *int32 `json:"amountCents,omitempty"`
+	AmountCents *int64 `json:"amountCents,omitempty"`
 	// AsOf is when that amount was last checked against its source, RFC 3339 date.
 	AsOf *string `json:"asOf,omitempty"`
 	// Code names the obligation so a caller can branch without reading prose.
@@ -57,9 +57,9 @@ func NewObligationWithDefaults() *Obligation {
 }
 
 // GetAmountCents returns the AmountCents field value if set, zero value otherwise.
-func (o *Obligation) GetAmountCents() int32 {
+func (o *Obligation) GetAmountCents() int64 {
 	if o == nil || IsNil(o.AmountCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AmountCents
@@ -67,7 +67,7 @@ func (o *Obligation) GetAmountCents() int32 {
 
 // GetAmountCentsOk returns a tuple with the AmountCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Obligation) GetAmountCentsOk() (*int32, bool) {
+func (o *Obligation) GetAmountCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AmountCents) {
 		return nil, false
 	}
@@ -83,8 +83,8 @@ func (o *Obligation) HasAmountCents() bool {
 	return false
 }
 
-// SetAmountCents gets a reference to the given int32 and assigns it to the AmountCents field.
-func (o *Obligation) SetAmountCents(v int32) {
+// SetAmountCents gets a reference to the given int64 and assigns it to the AmountCents field.
+func (o *Obligation) SetAmountCents(v int64) {
 	o.AmountCents = &v
 }
 

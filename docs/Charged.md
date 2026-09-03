@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BalanceCents** | Pointer to **int32** | BalanceCents is the subject&#39;s balance AFTER the charge settled, in cents, so a caller does not have to re-read to show the new number. | [optional] 
+**BalanceCents** | Pointer to **int64** | BalanceCents is the subject&#39;s balance AFTER the charge settled, in cents, so a caller does not have to re-read to show the new number. | [optional] 
 **ProcessorRef** | Pointer to **string** | ProcessorRef is the payment processor&#39;s own reference. It is the only field that proves money moved at the GATEWAY rather than merely in our ledger, which is why it is answered and not only logged. Absent where the processor returned none. | [optional] 
 **Status** | Pointer to **string** | Status is how the charge ended. Read it rather than inferring success from the HTTP status: the call succeeded whenever this field is present, and what the PROCESSOR did is what this says. | [optional] 
 **Test** | Pointer to **bool** | Test states which bucket was credited — sandbox money or real money — so no reader has to guess whether a receipt is real. Sandbox and live funds are physically separate ledgers, and a reader that conflates them restates the company&#39;s revenue. | [optional] 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetBalanceCents
 
-`func (o *Charged) GetBalanceCents() int32`
+`func (o *Charged) GetBalanceCents() int64`
 
 GetBalanceCents returns the BalanceCents field if non-nil, zero value otherwise.
 
 ### GetBalanceCentsOk
 
-`func (o *Charged) GetBalanceCentsOk() (*int32, bool)`
+`func (o *Charged) GetBalanceCentsOk() (*int64, bool)`
 
 GetBalanceCentsOk returns a tuple with the BalanceCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBalanceCents
 
-`func (o *Charged) SetBalanceCents(v int32)`
+`func (o *Charged) SetBalanceCents(v int64)`
 
 SetBalanceCents sets BalanceCents field to given value.
 

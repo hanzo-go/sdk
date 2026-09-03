@@ -181,7 +181,7 @@ import (
 
 func main() {
 	status := "live" // string | Status keeps only campaigns in that state: draft, live, paused or failed. Empty means any. (optional)
-	limit := int32(50) // int32 | Limit bounds the page. 0 or less means the default of 200; anything above 1000 is clamped to 1000. (optional)
+	limit := int64(50) // int64 | Limit bounds the page. 0 or less means the default of 200; anything above 1000 is clamped to 1000. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -207,7 +207,7 @@ Other parameters are passed through a pointer to a apiGetCampaignRequest struct 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **status** | **string** | Status keeps only campaigns in that state: draft, live, paused or failed. Empty means any. | 
- **limit** | **int32** | Limit bounds the page. 0 or less means the default of 200; anything above 1000 is clamped to 1000. | 
+ **limit** | **int64** | Limit bounds the page. 0 or less means the default of 200; anything above 1000 is clamped to 1000. | 
 
 ### Return type
 

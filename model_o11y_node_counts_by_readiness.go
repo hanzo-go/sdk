@@ -19,8 +19,8 @@ var _ MappedNullable = &O11yNodeCountsByReadiness{}
 
 // O11yNodeCountsByReadiness struct for O11yNodeCountsByReadiness
 type O11yNodeCountsByReadiness struct {
-	NotReady *int32 `json:"notReady,omitempty"`
-	Ready    *int32 `json:"ready,omitempty"`
+	NotReady *int64 `json:"notReady,omitempty"`
+	Ready    *int64 `json:"ready,omitempty"`
 }
 
 // NewO11yNodeCountsByReadiness instantiates a new O11yNodeCountsByReadiness object
@@ -41,9 +41,9 @@ func NewO11yNodeCountsByReadinessWithDefaults() *O11yNodeCountsByReadiness {
 }
 
 // GetNotReady returns the NotReady field value if set, zero value otherwise.
-func (o *O11yNodeCountsByReadiness) GetNotReady() int32 {
+func (o *O11yNodeCountsByReadiness) GetNotReady() int64 {
 	if o == nil || IsNil(o.NotReady) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NotReady
@@ -51,7 +51,7 @@ func (o *O11yNodeCountsByReadiness) GetNotReady() int32 {
 
 // GetNotReadyOk returns a tuple with the NotReady field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yNodeCountsByReadiness) GetNotReadyOk() (*int32, bool) {
+func (o *O11yNodeCountsByReadiness) GetNotReadyOk() (*int64, bool) {
 	if o == nil || IsNil(o.NotReady) {
 		return nil, false
 	}
@@ -67,15 +67,15 @@ func (o *O11yNodeCountsByReadiness) HasNotReady() bool {
 	return false
 }
 
-// SetNotReady gets a reference to the given int32 and assigns it to the NotReady field.
-func (o *O11yNodeCountsByReadiness) SetNotReady(v int32) {
+// SetNotReady gets a reference to the given int64 and assigns it to the NotReady field.
+func (o *O11yNodeCountsByReadiness) SetNotReady(v int64) {
 	o.NotReady = &v
 }
 
 // GetReady returns the Ready field value if set, zero value otherwise.
-func (o *O11yNodeCountsByReadiness) GetReady() int32 {
+func (o *O11yNodeCountsByReadiness) GetReady() int64 {
 	if o == nil || IsNil(o.Ready) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Ready
@@ -83,7 +83,7 @@ func (o *O11yNodeCountsByReadiness) GetReady() int32 {
 
 // GetReadyOk returns a tuple with the Ready field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yNodeCountsByReadiness) GetReadyOk() (*int32, bool) {
+func (o *O11yNodeCountsByReadiness) GetReadyOk() (*int64, bool) {
 	if o == nil || IsNil(o.Ready) {
 		return nil, false
 	}
@@ -99,8 +99,8 @@ func (o *O11yNodeCountsByReadiness) HasReady() bool {
 	return false
 }
 
-// SetReady gets a reference to the given int32 and assigns it to the Ready field.
-func (o *O11yNodeCountsByReadiness) SetReady(v int32) {
+// SetReady gets a reference to the given int64 and assigns it to the Ready field.
+func (o *O11yNodeCountsByReadiness) SetReady(v int64) {
 	o.Ready = &v
 }
 

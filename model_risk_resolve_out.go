@@ -20,15 +20,15 @@ var _ MappedNullable = &RiskResolveOut{}
 // RiskResolveOut struct for RiskResolveOut
 type RiskResolveOut struct {
 	// Horizon is the maturity horizon this answer was computed under, IN DAYS — the caller's, or 120 when it stated none. Each event's as-of is its own `at` plus this many days, and that as-of is what decides which assertions were visible to it; an event whose as-of falls after Now is not resolved at all and is counted in Unmatured instead.
-	Horizon *int32 `json:"horizon,omitempty"`
+	Horizon *int64 `json:"horizon,omitempty"`
 	// Labels is one entry per named event that BOTH matured and had at least one assertion knowable by its own as-of, in the order the events were named. The three outcomes partition the ask: len(labels) + Unmatured + Unlabelled is the number of DISTINCT events named, an event named twice having been answered once.
 	Labels []RiskResolved `json:"labels,omitempty"`
 	// Now and Horizon echo the observation this answer was computed under. A resolved label without them is a claim nobody can check.
 	Now *string `json:"now,omitempty"`
 	// Unlabelled is how many matured events had no assertion knowable by their own as-of. That is the ordinary state of most traffic and it is reported rather than answered as unproductive: manufacturing negatives is how a fraud model comes to describe the incumbent block list.
-	Unlabelled *int32 `json:"unlabelled,omitempty"`
+	Unlabelled *int64 `json:"unlabelled,omitempty"`
 	// Unmatured is how many named events had not aged past the horizon. They are not unlabelled — they are not yet ASKABLE, and a supervised training set must exclude them rather than treat them as negatives.
-	Unmatured *int32 `json:"unmatured,omitempty"`
+	Unmatured *int64 `json:"unmatured,omitempty"`
 }
 
 // NewRiskResolveOut instantiates a new RiskResolveOut object
@@ -49,9 +49,9 @@ func NewRiskResolveOutWithDefaults() *RiskResolveOut {
 }
 
 // GetHorizon returns the Horizon field value if set, zero value otherwise.
-func (o *RiskResolveOut) GetHorizon() int32 {
+func (o *RiskResolveOut) GetHorizon() int64 {
 	if o == nil || IsNil(o.Horizon) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Horizon
@@ -59,7 +59,7 @@ func (o *RiskResolveOut) GetHorizon() int32 {
 
 // GetHorizonOk returns a tuple with the Horizon field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskResolveOut) GetHorizonOk() (*int32, bool) {
+func (o *RiskResolveOut) GetHorizonOk() (*int64, bool) {
 	if o == nil || IsNil(o.Horizon) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *RiskResolveOut) HasHorizon() bool {
 	return false
 }
 
-// SetHorizon gets a reference to the given int32 and assigns it to the Horizon field.
-func (o *RiskResolveOut) SetHorizon(v int32) {
+// SetHorizon gets a reference to the given int64 and assigns it to the Horizon field.
+func (o *RiskResolveOut) SetHorizon(v int64) {
 	o.Horizon = &v
 }
 
@@ -145,9 +145,9 @@ func (o *RiskResolveOut) SetNow(v string) {
 }
 
 // GetUnlabelled returns the Unlabelled field value if set, zero value otherwise.
-func (o *RiskResolveOut) GetUnlabelled() int32 {
+func (o *RiskResolveOut) GetUnlabelled() int64 {
 	if o == nil || IsNil(o.Unlabelled) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Unlabelled
@@ -155,7 +155,7 @@ func (o *RiskResolveOut) GetUnlabelled() int32 {
 
 // GetUnlabelledOk returns a tuple with the Unlabelled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskResolveOut) GetUnlabelledOk() (*int32, bool) {
+func (o *RiskResolveOut) GetUnlabelledOk() (*int64, bool) {
 	if o == nil || IsNil(o.Unlabelled) {
 		return nil, false
 	}
@@ -171,15 +171,15 @@ func (o *RiskResolveOut) HasUnlabelled() bool {
 	return false
 }
 
-// SetUnlabelled gets a reference to the given int32 and assigns it to the Unlabelled field.
-func (o *RiskResolveOut) SetUnlabelled(v int32) {
+// SetUnlabelled gets a reference to the given int64 and assigns it to the Unlabelled field.
+func (o *RiskResolveOut) SetUnlabelled(v int64) {
 	o.Unlabelled = &v
 }
 
 // GetUnmatured returns the Unmatured field value if set, zero value otherwise.
-func (o *RiskResolveOut) GetUnmatured() int32 {
+func (o *RiskResolveOut) GetUnmatured() int64 {
 	if o == nil || IsNil(o.Unmatured) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Unmatured
@@ -187,7 +187,7 @@ func (o *RiskResolveOut) GetUnmatured() int32 {
 
 // GetUnmaturedOk returns a tuple with the Unmatured field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskResolveOut) GetUnmaturedOk() (*int32, bool) {
+func (o *RiskResolveOut) GetUnmaturedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Unmatured) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *RiskResolveOut) HasUnmatured() bool {
 	return false
 }
 
-// SetUnmatured gets a reference to the given int32 and assigns it to the Unmatured field.
-func (o *RiskResolveOut) SetUnmatured(v int32) {
+// SetUnmatured gets a reference to the given int64 and assigns it to the Unmatured field.
+func (o *RiskResolveOut) SetUnmatured(v int64) {
 	o.Unmatured = &v
 }
 

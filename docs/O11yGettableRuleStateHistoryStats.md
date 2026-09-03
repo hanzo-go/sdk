@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CurrentAvgResolutionTime** | Pointer to **float32** |  | [optional] 
+**CurrentAvgResolutionTime** | Pointer to **float64** |  | [optional] 
 **CurrentAvgResolutionTimeSeries** | Pointer to [**O11yTimeSeries**](O11yTimeSeries.md) |  | [optional] 
 **CurrentTriggersSeries** | Pointer to [**O11yTimeSeries**](O11yTimeSeries.md) |  | [optional] 
-**PastAvgResolutionTime** | Pointer to **float32** |  | [optional] 
+**PastAvgResolutionTime** | Pointer to **float64** |  | [optional] 
 **PastAvgResolutionTimeSeries** | Pointer to [**O11yTimeSeries**](O11yTimeSeries.md) |  | [optional] 
 **PastTriggersSeries** | Pointer to [**O11yTimeSeries**](O11yTimeSeries.md) |  | [optional] 
 **TotalCurrentTriggers** | Pointer to **int32** |  | [optional] 
@@ -34,20 +34,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCurrentAvgResolutionTime
 
-`func (o *O11yGettableRuleStateHistoryStats) GetCurrentAvgResolutionTime() float32`
+`func (o *O11yGettableRuleStateHistoryStats) GetCurrentAvgResolutionTime() float64`
 
 GetCurrentAvgResolutionTime returns the CurrentAvgResolutionTime field if non-nil, zero value otherwise.
 
 ### GetCurrentAvgResolutionTimeOk
 
-`func (o *O11yGettableRuleStateHistoryStats) GetCurrentAvgResolutionTimeOk() (*float32, bool)`
+`func (o *O11yGettableRuleStateHistoryStats) GetCurrentAvgResolutionTimeOk() (*float64, bool)`
 
 GetCurrentAvgResolutionTimeOk returns a tuple with the CurrentAvgResolutionTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCurrentAvgResolutionTime
 
-`func (o *O11yGettableRuleStateHistoryStats) SetCurrentAvgResolutionTime(v float32)`
+`func (o *O11yGettableRuleStateHistoryStats) SetCurrentAvgResolutionTime(v float64)`
 
 SetCurrentAvgResolutionTime sets CurrentAvgResolutionTime field to given value.
 
@@ -109,20 +109,20 @@ HasCurrentTriggersSeries returns a boolean if a field has been set.
 
 ### GetPastAvgResolutionTime
 
-`func (o *O11yGettableRuleStateHistoryStats) GetPastAvgResolutionTime() float32`
+`func (o *O11yGettableRuleStateHistoryStats) GetPastAvgResolutionTime() float64`
 
 GetPastAvgResolutionTime returns the PastAvgResolutionTime field if non-nil, zero value otherwise.
 
 ### GetPastAvgResolutionTimeOk
 
-`func (o *O11yGettableRuleStateHistoryStats) GetPastAvgResolutionTimeOk() (*float32, bool)`
+`func (o *O11yGettableRuleStateHistoryStats) GetPastAvgResolutionTimeOk() (*float64, bool)`
 
 GetPastAvgResolutionTimeOk returns a tuple with the PastAvgResolutionTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPastAvgResolutionTime
 
-`func (o *O11yGettableRuleStateHistoryStats) SetPastAvgResolutionTime(v float32)`
+`func (o *O11yGettableRuleStateHistoryStats) SetPastAvgResolutionTime(v float64)`
 
 SetPastAvgResolutionTime sets PastAvgResolutionTime field to given value.
 

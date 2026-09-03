@@ -20,13 +20,13 @@ var _ MappedNullable = &AdSummary{}
 // AdSummary struct for AdSummary
 type AdSummary struct {
 	// Active is how many of those campaigns are in the active state.
-	Active *int32 `json:"active,omitempty"`
+	Active *int64 `json:"active,omitempty"`
 	// Budget is the summed budget of every campaign in the org, in cents.
-	Budget *int32 `json:"budget,omitempty"`
+	Budget *int64 `json:"budget,omitempty"`
 	// Campaigns is how many campaigns the org has, in every state.
-	Campaigns *int32 `json:"campaigns,omitempty"`
+	Campaigns *int64 `json:"campaigns,omitempty"`
 	// Spend is the summed spend of every campaign in the org, in cents.
-	Spend *int32 `json:"spend,omitempty"`
+	Spend *int64 `json:"spend,omitempty"`
 }
 
 // NewAdSummary instantiates a new AdSummary object
@@ -47,9 +47,9 @@ func NewAdSummaryWithDefaults() *AdSummary {
 }
 
 // GetActive returns the Active field value if set, zero value otherwise.
-func (o *AdSummary) GetActive() int32 {
+func (o *AdSummary) GetActive() int64 {
 	if o == nil || IsNil(o.Active) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Active
@@ -57,7 +57,7 @@ func (o *AdSummary) GetActive() int32 {
 
 // GetActiveOk returns a tuple with the Active field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AdSummary) GetActiveOk() (*int32, bool) {
+func (o *AdSummary) GetActiveOk() (*int64, bool) {
 	if o == nil || IsNil(o.Active) {
 		return nil, false
 	}
@@ -73,15 +73,15 @@ func (o *AdSummary) HasActive() bool {
 	return false
 }
 
-// SetActive gets a reference to the given int32 and assigns it to the Active field.
-func (o *AdSummary) SetActive(v int32) {
+// SetActive gets a reference to the given int64 and assigns it to the Active field.
+func (o *AdSummary) SetActive(v int64) {
 	o.Active = &v
 }
 
 // GetBudget returns the Budget field value if set, zero value otherwise.
-func (o *AdSummary) GetBudget() int32 {
+func (o *AdSummary) GetBudget() int64 {
 	if o == nil || IsNil(o.Budget) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Budget
@@ -89,7 +89,7 @@ func (o *AdSummary) GetBudget() int32 {
 
 // GetBudgetOk returns a tuple with the Budget field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AdSummary) GetBudgetOk() (*int32, bool) {
+func (o *AdSummary) GetBudgetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Budget) {
 		return nil, false
 	}
@@ -105,15 +105,15 @@ func (o *AdSummary) HasBudget() bool {
 	return false
 }
 
-// SetBudget gets a reference to the given int32 and assigns it to the Budget field.
-func (o *AdSummary) SetBudget(v int32) {
+// SetBudget gets a reference to the given int64 and assigns it to the Budget field.
+func (o *AdSummary) SetBudget(v int64) {
 	o.Budget = &v
 }
 
 // GetCampaigns returns the Campaigns field value if set, zero value otherwise.
-func (o *AdSummary) GetCampaigns() int32 {
+func (o *AdSummary) GetCampaigns() int64 {
 	if o == nil || IsNil(o.Campaigns) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Campaigns
@@ -121,7 +121,7 @@ func (o *AdSummary) GetCampaigns() int32 {
 
 // GetCampaignsOk returns a tuple with the Campaigns field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AdSummary) GetCampaignsOk() (*int32, bool) {
+func (o *AdSummary) GetCampaignsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Campaigns) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *AdSummary) HasCampaigns() bool {
 	return false
 }
 
-// SetCampaigns gets a reference to the given int32 and assigns it to the Campaigns field.
-func (o *AdSummary) SetCampaigns(v int32) {
+// SetCampaigns gets a reference to the given int64 and assigns it to the Campaigns field.
+func (o *AdSummary) SetCampaigns(v int64) {
 	o.Campaigns = &v
 }
 
 // GetSpend returns the Spend field value if set, zero value otherwise.
-func (o *AdSummary) GetSpend() int32 {
+func (o *AdSummary) GetSpend() int64 {
 	if o == nil || IsNil(o.Spend) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Spend
@@ -153,7 +153,7 @@ func (o *AdSummary) GetSpend() int32 {
 
 // GetSpendOk returns a tuple with the Spend field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AdSummary) GetSpendOk() (*int32, bool) {
+func (o *AdSummary) GetSpendOk() (*int64, bool) {
 	if o == nil || IsNil(o.Spend) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *AdSummary) HasSpend() bool {
 	return false
 }
 
-// SetSpend gets a reference to the given int32 and assigns it to the Spend field.
-func (o *AdSummary) SetSpend(v int32) {
+// SetSpend gets a reference to the given int64 and assigns it to the Spend field.
+func (o *AdSummary) SetSpend(v int64) {
 	o.Spend = &v
 }
 

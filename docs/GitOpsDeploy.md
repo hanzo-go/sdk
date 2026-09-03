@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Automated** | Pointer to **bool** | Automated is whether CD started this deploy itself, from its own polling of the tracked git ref (initiatedBy.automated), rather than someone asking for it. | [optional] 
 **DeployedAt** | Pointer to **string** | DeployedAt is when the apply finished, RFC 3339. Absent when CD recorded none. | [optional] 
-**Id** | Pointer to **int32** | ID is CD&#39;s own sequence number for this deploy (status.history[].id). It increases with every applied revision, so the largest id in &#x60;history&#x60; is the most recent deploy — which is the first entry, since the list is reversed. | [optional] 
+**Id** | Pointer to **int64** | ID is CD&#39;s own sequence number for this deploy (status.history[].id). It increases with every applied revision, so the largest id in &#x60;history&#x60; is the most recent deploy — which is the first entry, since the list is reversed. | [optional] 
 **Revision** | Pointer to **string** | Revision is the git commit this deploy applied, as CD recorded it. | [optional] 
 **StartedAt** | Pointer to **string** | StartedAt is when CD began applying the revision (deployStartedAt), RFC 3339. Absent when CD recorded none. | [optional] 
 
@@ -81,20 +81,20 @@ HasDeployedAt returns a boolean if a field has been set.
 
 ### GetId
 
-`func (o *GitOpsDeploy) GetId() int32`
+`func (o *GitOpsDeploy) GetId() int64`
 
 GetId returns the Id field if non-nil, zero value otherwise.
 
 ### GetIdOk
 
-`func (o *GitOpsDeploy) GetIdOk() (*int32, bool)`
+`func (o *GitOpsDeploy) GetIdOk() (*int64, bool)`
 
 GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetId
 
-`func (o *GitOpsDeploy) SetId(v int32)`
+`func (o *GitOpsDeploy) SetId(v int64)`
 
 SetId sets Id field to given value.
 

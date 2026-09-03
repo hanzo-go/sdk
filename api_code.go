@@ -276,7 +276,7 @@ type CodeAPIGetCodeSearchRequest struct {
 	q          *string
 	type_      *string
 	repo       *string
-	limit      *int32
+	limit      *int64
 }
 
 // Q is the search query. Required, max 4000 bytes. For type&#x3D;regex it is a regular expression; for type&#x3D;symbol it is a symbol name.
@@ -298,7 +298,7 @@ func (r CodeAPIGetCodeSearchRequest) Repo(repo string) CodeAPIGetCodeSearchReque
 }
 
 // Limit caps how many spans come back: default 20, maximum 100. A value that is not a positive integer reads as the default.
-func (r CodeAPIGetCodeSearchRequest) Limit(limit int32) CodeAPIGetCodeSearchRequest {
+func (r CodeAPIGetCodeSearchRequest) Limit(limit int64) CodeAPIGetCodeSearchRequest {
 	r.limit = &limit
 	return r
 }

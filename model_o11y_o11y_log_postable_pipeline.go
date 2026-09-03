@@ -34,7 +34,7 @@ type O11yO11yLogPostablePipeline struct {
 	// Name is the pipeline's display name.
 	Name *string `json:"name,omitempty"`
 	// OrderID is the pipeline's 1-based position in the set.
-	OrderId *int32 `json:"orderId,omitempty"`
+	OrderId *int64 `json:"orderId,omitempty"`
 }
 
 // NewO11yO11yLogPostablePipeline instantiates a new O11yO11yLogPostablePipeline object
@@ -279,9 +279,9 @@ func (o *O11yO11yLogPostablePipeline) SetName(v string) {
 }
 
 // GetOrderId returns the OrderId field value if set, zero value otherwise.
-func (o *O11yO11yLogPostablePipeline) GetOrderId() int32 {
+func (o *O11yO11yLogPostablePipeline) GetOrderId() int64 {
 	if o == nil || IsNil(o.OrderId) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.OrderId
@@ -289,7 +289,7 @@ func (o *O11yO11yLogPostablePipeline) GetOrderId() int32 {
 
 // GetOrderIdOk returns a tuple with the OrderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLogPostablePipeline) GetOrderIdOk() (*int32, bool) {
+func (o *O11yO11yLogPostablePipeline) GetOrderIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.OrderId) {
 		return nil, false
 	}
@@ -305,8 +305,8 @@ func (o *O11yO11yLogPostablePipeline) HasOrderId() bool {
 	return false
 }
 
-// SetOrderId gets a reference to the given int32 and assigns it to the OrderId field.
-func (o *O11yO11yLogPostablePipeline) SetOrderId(v int32) {
+// SetOrderId gets a reference to the given int64 and assigns it to the OrderId field.
+func (o *O11yO11yLogPostablePipeline) SetOrderId(v int64) {
 	o.OrderId = &v
 }
 

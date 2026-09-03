@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AlreadyIncorporated** | Pointer to **bool** | AlreadyIncorporated declares an org that already has a legal entity, which takes the import path (structure → import → company) instead of forming one. | [optional] 
 **CapTableImported** | Pointer to **bool** | CapTableImported reports whether the existing company&#39;s cap table has been imported onto the canonical cap table. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is the unix second the formation was opened. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is the unix second the formation was opened. | [optional] 
 **DocumentIds** | Pointer to **[]string** | DocumentIDs are the data room ids of the GENERATED formation documents. | [optional] 
 **EsignRef** | Pointer to **string** | EsignRef is the e-signature provider&#39;s reference for the signature request. | [optional] 
 **Filing** | Pointer to [**Filing**](Filing.md) | Filing is the state-of-incorporation filing record, once documents exist. | [optional] 
@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **Signed** | Pointer to **bool** | Signed reports whether the formation documents have come back signed — the e-signature provider&#39;s answer, which a real provider&#39;s webhook drives. | [optional] 
 **Stage** | Pointer to **string** | Stage is the machine&#39;s current state: structure, founders, payment, documents, esign or genesis on the formation path, import on the skip path, and company at the terminal. | [optional] 
 **Structure** | Pointer to **string** | Structure is the legal entity being formed: c-corp, llc or dao-llc. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is the unix second of the most recent write to the formation. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is the unix second of the most recent write to the formation. | [optional] 
 
 ## Methods
 
@@ -95,20 +95,20 @@ HasCapTableImported returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *Formation) GetCreatedAt() int32`
+`func (o *Formation) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *Formation) GetCreatedAtOk() (*int32, bool)`
+`func (o *Formation) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *Formation) SetCreatedAt(v int32)`
+`func (o *Formation) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -495,20 +495,20 @@ HasStructure returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *Formation) GetUpdatedAt() int32`
+`func (o *Formation) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *Formation) GetUpdatedAtOk() (*int32, bool)`
+`func (o *Formation) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *Formation) SetUpdatedAt(v int32)`
+`func (o *Formation) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

@@ -19,11 +19,11 @@ var _ MappedNullable = &O11yPodCountsByPhase{}
 
 // O11yPodCountsByPhase struct for O11yPodCountsByPhase
 type O11yPodCountsByPhase struct {
-	Failed    *int32 `json:"failed,omitempty"`
-	Pending   *int32 `json:"pending,omitempty"`
-	Running   *int32 `json:"running,omitempty"`
-	Succeeded *int32 `json:"succeeded,omitempty"`
-	Unknown   *int32 `json:"unknown,omitempty"`
+	Failed    *int64 `json:"failed,omitempty"`
+	Pending   *int64 `json:"pending,omitempty"`
+	Running   *int64 `json:"running,omitempty"`
+	Succeeded *int64 `json:"succeeded,omitempty"`
+	Unknown   *int64 `json:"unknown,omitempty"`
 }
 
 // NewO11yPodCountsByPhase instantiates a new O11yPodCountsByPhase object
@@ -44,9 +44,9 @@ func NewO11yPodCountsByPhaseWithDefaults() *O11yPodCountsByPhase {
 }
 
 // GetFailed returns the Failed field value if set, zero value otherwise.
-func (o *O11yPodCountsByPhase) GetFailed() int32 {
+func (o *O11yPodCountsByPhase) GetFailed() int64 {
 	if o == nil || IsNil(o.Failed) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Failed
@@ -54,7 +54,7 @@ func (o *O11yPodCountsByPhase) GetFailed() int32 {
 
 // GetFailedOk returns a tuple with the Failed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPodCountsByPhase) GetFailedOk() (*int32, bool) {
+func (o *O11yPodCountsByPhase) GetFailedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Failed) {
 		return nil, false
 	}
@@ -70,15 +70,15 @@ func (o *O11yPodCountsByPhase) HasFailed() bool {
 	return false
 }
 
-// SetFailed gets a reference to the given int32 and assigns it to the Failed field.
-func (o *O11yPodCountsByPhase) SetFailed(v int32) {
+// SetFailed gets a reference to the given int64 and assigns it to the Failed field.
+func (o *O11yPodCountsByPhase) SetFailed(v int64) {
 	o.Failed = &v
 }
 
 // GetPending returns the Pending field value if set, zero value otherwise.
-func (o *O11yPodCountsByPhase) GetPending() int32 {
+func (o *O11yPodCountsByPhase) GetPending() int64 {
 	if o == nil || IsNil(o.Pending) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Pending
@@ -86,7 +86,7 @@ func (o *O11yPodCountsByPhase) GetPending() int32 {
 
 // GetPendingOk returns a tuple with the Pending field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPodCountsByPhase) GetPendingOk() (*int32, bool) {
+func (o *O11yPodCountsByPhase) GetPendingOk() (*int64, bool) {
 	if o == nil || IsNil(o.Pending) {
 		return nil, false
 	}
@@ -102,15 +102,15 @@ func (o *O11yPodCountsByPhase) HasPending() bool {
 	return false
 }
 
-// SetPending gets a reference to the given int32 and assigns it to the Pending field.
-func (o *O11yPodCountsByPhase) SetPending(v int32) {
+// SetPending gets a reference to the given int64 and assigns it to the Pending field.
+func (o *O11yPodCountsByPhase) SetPending(v int64) {
 	o.Pending = &v
 }
 
 // GetRunning returns the Running field value if set, zero value otherwise.
-func (o *O11yPodCountsByPhase) GetRunning() int32 {
+func (o *O11yPodCountsByPhase) GetRunning() int64 {
 	if o == nil || IsNil(o.Running) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Running
@@ -118,7 +118,7 @@ func (o *O11yPodCountsByPhase) GetRunning() int32 {
 
 // GetRunningOk returns a tuple with the Running field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPodCountsByPhase) GetRunningOk() (*int32, bool) {
+func (o *O11yPodCountsByPhase) GetRunningOk() (*int64, bool) {
 	if o == nil || IsNil(o.Running) {
 		return nil, false
 	}
@@ -134,15 +134,15 @@ func (o *O11yPodCountsByPhase) HasRunning() bool {
 	return false
 }
 
-// SetRunning gets a reference to the given int32 and assigns it to the Running field.
-func (o *O11yPodCountsByPhase) SetRunning(v int32) {
+// SetRunning gets a reference to the given int64 and assigns it to the Running field.
+func (o *O11yPodCountsByPhase) SetRunning(v int64) {
 	o.Running = &v
 }
 
 // GetSucceeded returns the Succeeded field value if set, zero value otherwise.
-func (o *O11yPodCountsByPhase) GetSucceeded() int32 {
+func (o *O11yPodCountsByPhase) GetSucceeded() int64 {
 	if o == nil || IsNil(o.Succeeded) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Succeeded
@@ -150,7 +150,7 @@ func (o *O11yPodCountsByPhase) GetSucceeded() int32 {
 
 // GetSucceededOk returns a tuple with the Succeeded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPodCountsByPhase) GetSucceededOk() (*int32, bool) {
+func (o *O11yPodCountsByPhase) GetSucceededOk() (*int64, bool) {
 	if o == nil || IsNil(o.Succeeded) {
 		return nil, false
 	}
@@ -166,15 +166,15 @@ func (o *O11yPodCountsByPhase) HasSucceeded() bool {
 	return false
 }
 
-// SetSucceeded gets a reference to the given int32 and assigns it to the Succeeded field.
-func (o *O11yPodCountsByPhase) SetSucceeded(v int32) {
+// SetSucceeded gets a reference to the given int64 and assigns it to the Succeeded field.
+func (o *O11yPodCountsByPhase) SetSucceeded(v int64) {
 	o.Succeeded = &v
 }
 
 // GetUnknown returns the Unknown field value if set, zero value otherwise.
-func (o *O11yPodCountsByPhase) GetUnknown() int32 {
+func (o *O11yPodCountsByPhase) GetUnknown() int64 {
 	if o == nil || IsNil(o.Unknown) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Unknown
@@ -182,7 +182,7 @@ func (o *O11yPodCountsByPhase) GetUnknown() int32 {
 
 // GetUnknownOk returns a tuple with the Unknown field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPodCountsByPhase) GetUnknownOk() (*int32, bool) {
+func (o *O11yPodCountsByPhase) GetUnknownOk() (*int64, bool) {
 	if o == nil || IsNil(o.Unknown) {
 		return nil, false
 	}
@@ -198,8 +198,8 @@ func (o *O11yPodCountsByPhase) HasUnknown() bool {
 	return false
 }
 
-// SetUnknown gets a reference to the given int32 and assigns it to the Unknown field.
-func (o *O11yPodCountsByPhase) SetUnknown(v int32) {
+// SetUnknown gets a reference to the given int64 and assigns it to the Unknown field.
+func (o *O11yPodCountsByPhase) SetUnknown(v int64) {
 	o.Unknown = &v
 }
 

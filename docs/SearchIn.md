@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Doctypes** | Pointer to **[]string** | DocTypes restricts retrieval to a subset of the indexed knowledge doctypes (kb.page, kb.memory, kb.source). An empty or foreign list reads all of them. | [optional] 
-**Limit** | Pointer to **int32** | Limit bounds the hits returned. Default 10, maximum 50. | [optional] 
+**Limit** | Pointer to **int64** | Limit bounds the hits returned. Default 10, maximum 50. | [optional] 
 **Project** | Pointer to **string** | Project narrows retrieval to one project scope. | [optional] 
 **Query** | Pointer to **string** | Query is the natural-language question. Required. | [optional] 
 
@@ -55,20 +55,20 @@ HasDoctypes returns a boolean if a field has been set.
 
 ### GetLimit
 
-`func (o *SearchIn) GetLimit() int32`
+`func (o *SearchIn) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *SearchIn) GetLimitOk() (*int32, bool)`
+`func (o *SearchIn) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *SearchIn) SetLimit(v int32)`
+`func (o *SearchIn) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 

@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CurrentNodes** | Pointer to **int32** |  | [optional] 
-**DaemonSetCPU** | Pointer to **float32** |  | [optional] 
-**DaemonSetCPULimit** | Pointer to **float32** |  | [optional] 
-**DaemonSetCPURequest** | Pointer to **float32** |  | [optional] 
-**DaemonSetMemory** | Pointer to **float32** |  | [optional] 
-**DaemonSetMemoryLimit** | Pointer to **float32** |  | [optional] 
-**DaemonSetMemoryRequest** | Pointer to **float32** |  | [optional] 
+**CurrentNodes** | Pointer to **int64** |  | [optional] 
+**DaemonSetCPU** | Pointer to **float64** |  | [optional] 
+**DaemonSetCPULimit** | Pointer to **float64** |  | [optional] 
+**DaemonSetCPURequest** | Pointer to **float64** |  | [optional] 
+**DaemonSetMemory** | Pointer to **float64** |  | [optional] 
+**DaemonSetMemoryLimit** | Pointer to **float64** |  | [optional] 
+**DaemonSetMemoryRequest** | Pointer to **float64** |  | [optional] 
 **DaemonSetName** | Pointer to **string** |  | [optional] 
-**DesiredNodes** | Pointer to **int32** |  | [optional] 
+**DesiredNodes** | Pointer to **int64** |  | [optional] 
 **Meta** | Pointer to **map[string]string** |  | [optional] 
 **PodCountsByPhase** | Pointer to [**O11yPodCountsByPhase**](O11yPodCountsByPhase.md) |  | [optional] 
 
@@ -37,20 +37,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCurrentNodes
 
-`func (o *O11yDaemonSetRecord) GetCurrentNodes() int32`
+`func (o *O11yDaemonSetRecord) GetCurrentNodes() int64`
 
 GetCurrentNodes returns the CurrentNodes field if non-nil, zero value otherwise.
 
 ### GetCurrentNodesOk
 
-`func (o *O11yDaemonSetRecord) GetCurrentNodesOk() (*int32, bool)`
+`func (o *O11yDaemonSetRecord) GetCurrentNodesOk() (*int64, bool)`
 
 GetCurrentNodesOk returns a tuple with the CurrentNodes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCurrentNodes
 
-`func (o *O11yDaemonSetRecord) SetCurrentNodes(v int32)`
+`func (o *O11yDaemonSetRecord) SetCurrentNodes(v int64)`
 
 SetCurrentNodes sets CurrentNodes field to given value.
 
@@ -62,20 +62,20 @@ HasCurrentNodes returns a boolean if a field has been set.
 
 ### GetDaemonSetCPU
 
-`func (o *O11yDaemonSetRecord) GetDaemonSetCPU() float32`
+`func (o *O11yDaemonSetRecord) GetDaemonSetCPU() float64`
 
 GetDaemonSetCPU returns the DaemonSetCPU field if non-nil, zero value otherwise.
 
 ### GetDaemonSetCPUOk
 
-`func (o *O11yDaemonSetRecord) GetDaemonSetCPUOk() (*float32, bool)`
+`func (o *O11yDaemonSetRecord) GetDaemonSetCPUOk() (*float64, bool)`
 
 GetDaemonSetCPUOk returns a tuple with the DaemonSetCPU field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDaemonSetCPU
 
-`func (o *O11yDaemonSetRecord) SetDaemonSetCPU(v float32)`
+`func (o *O11yDaemonSetRecord) SetDaemonSetCPU(v float64)`
 
 SetDaemonSetCPU sets DaemonSetCPU field to given value.
 
@@ -87,20 +87,20 @@ HasDaemonSetCPU returns a boolean if a field has been set.
 
 ### GetDaemonSetCPULimit
 
-`func (o *O11yDaemonSetRecord) GetDaemonSetCPULimit() float32`
+`func (o *O11yDaemonSetRecord) GetDaemonSetCPULimit() float64`
 
 GetDaemonSetCPULimit returns the DaemonSetCPULimit field if non-nil, zero value otherwise.
 
 ### GetDaemonSetCPULimitOk
 
-`func (o *O11yDaemonSetRecord) GetDaemonSetCPULimitOk() (*float32, bool)`
+`func (o *O11yDaemonSetRecord) GetDaemonSetCPULimitOk() (*float64, bool)`
 
 GetDaemonSetCPULimitOk returns a tuple with the DaemonSetCPULimit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDaemonSetCPULimit
 
-`func (o *O11yDaemonSetRecord) SetDaemonSetCPULimit(v float32)`
+`func (o *O11yDaemonSetRecord) SetDaemonSetCPULimit(v float64)`
 
 SetDaemonSetCPULimit sets DaemonSetCPULimit field to given value.
 
@@ -112,20 +112,20 @@ HasDaemonSetCPULimit returns a boolean if a field has been set.
 
 ### GetDaemonSetCPURequest
 
-`func (o *O11yDaemonSetRecord) GetDaemonSetCPURequest() float32`
+`func (o *O11yDaemonSetRecord) GetDaemonSetCPURequest() float64`
 
 GetDaemonSetCPURequest returns the DaemonSetCPURequest field if non-nil, zero value otherwise.
 
 ### GetDaemonSetCPURequestOk
 
-`func (o *O11yDaemonSetRecord) GetDaemonSetCPURequestOk() (*float32, bool)`
+`func (o *O11yDaemonSetRecord) GetDaemonSetCPURequestOk() (*float64, bool)`
 
 GetDaemonSetCPURequestOk returns a tuple with the DaemonSetCPURequest field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDaemonSetCPURequest
 
-`func (o *O11yDaemonSetRecord) SetDaemonSetCPURequest(v float32)`
+`func (o *O11yDaemonSetRecord) SetDaemonSetCPURequest(v float64)`
 
 SetDaemonSetCPURequest sets DaemonSetCPURequest field to given value.
 
@@ -137,20 +137,20 @@ HasDaemonSetCPURequest returns a boolean if a field has been set.
 
 ### GetDaemonSetMemory
 
-`func (o *O11yDaemonSetRecord) GetDaemonSetMemory() float32`
+`func (o *O11yDaemonSetRecord) GetDaemonSetMemory() float64`
 
 GetDaemonSetMemory returns the DaemonSetMemory field if non-nil, zero value otherwise.
 
 ### GetDaemonSetMemoryOk
 
-`func (o *O11yDaemonSetRecord) GetDaemonSetMemoryOk() (*float32, bool)`
+`func (o *O11yDaemonSetRecord) GetDaemonSetMemoryOk() (*float64, bool)`
 
 GetDaemonSetMemoryOk returns a tuple with the DaemonSetMemory field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDaemonSetMemory
 
-`func (o *O11yDaemonSetRecord) SetDaemonSetMemory(v float32)`
+`func (o *O11yDaemonSetRecord) SetDaemonSetMemory(v float64)`
 
 SetDaemonSetMemory sets DaemonSetMemory field to given value.
 
@@ -162,20 +162,20 @@ HasDaemonSetMemory returns a boolean if a field has been set.
 
 ### GetDaemonSetMemoryLimit
 
-`func (o *O11yDaemonSetRecord) GetDaemonSetMemoryLimit() float32`
+`func (o *O11yDaemonSetRecord) GetDaemonSetMemoryLimit() float64`
 
 GetDaemonSetMemoryLimit returns the DaemonSetMemoryLimit field if non-nil, zero value otherwise.
 
 ### GetDaemonSetMemoryLimitOk
 
-`func (o *O11yDaemonSetRecord) GetDaemonSetMemoryLimitOk() (*float32, bool)`
+`func (o *O11yDaemonSetRecord) GetDaemonSetMemoryLimitOk() (*float64, bool)`
 
 GetDaemonSetMemoryLimitOk returns a tuple with the DaemonSetMemoryLimit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDaemonSetMemoryLimit
 
-`func (o *O11yDaemonSetRecord) SetDaemonSetMemoryLimit(v float32)`
+`func (o *O11yDaemonSetRecord) SetDaemonSetMemoryLimit(v float64)`
 
 SetDaemonSetMemoryLimit sets DaemonSetMemoryLimit field to given value.
 
@@ -187,20 +187,20 @@ HasDaemonSetMemoryLimit returns a boolean if a field has been set.
 
 ### GetDaemonSetMemoryRequest
 
-`func (o *O11yDaemonSetRecord) GetDaemonSetMemoryRequest() float32`
+`func (o *O11yDaemonSetRecord) GetDaemonSetMemoryRequest() float64`
 
 GetDaemonSetMemoryRequest returns the DaemonSetMemoryRequest field if non-nil, zero value otherwise.
 
 ### GetDaemonSetMemoryRequestOk
 
-`func (o *O11yDaemonSetRecord) GetDaemonSetMemoryRequestOk() (*float32, bool)`
+`func (o *O11yDaemonSetRecord) GetDaemonSetMemoryRequestOk() (*float64, bool)`
 
 GetDaemonSetMemoryRequestOk returns a tuple with the DaemonSetMemoryRequest field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDaemonSetMemoryRequest
 
-`func (o *O11yDaemonSetRecord) SetDaemonSetMemoryRequest(v float32)`
+`func (o *O11yDaemonSetRecord) SetDaemonSetMemoryRequest(v float64)`
 
 SetDaemonSetMemoryRequest sets DaemonSetMemoryRequest field to given value.
 
@@ -237,20 +237,20 @@ HasDaemonSetName returns a boolean if a field has been set.
 
 ### GetDesiredNodes
 
-`func (o *O11yDaemonSetRecord) GetDesiredNodes() int32`
+`func (o *O11yDaemonSetRecord) GetDesiredNodes() int64`
 
 GetDesiredNodes returns the DesiredNodes field if non-nil, zero value otherwise.
 
 ### GetDesiredNodesOk
 
-`func (o *O11yDaemonSetRecord) GetDesiredNodesOk() (*int32, bool)`
+`func (o *O11yDaemonSetRecord) GetDesiredNodesOk() (*int64, bool)`
 
 GetDesiredNodesOk returns a tuple with the DesiredNodes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDesiredNodes
 
-`func (o *O11yDaemonSetRecord) SetDesiredNodes(v int32)`
+`func (o *O11yDaemonSetRecord) SetDesiredNodes(v int64)`
 
 SetDesiredNodes sets DesiredNodes field to given value.
 

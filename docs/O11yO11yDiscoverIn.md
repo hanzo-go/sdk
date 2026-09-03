@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Aggregations** | Pointer to **[]string** | Aggregations are the measures to compute per group. Empty means a count. | [optional] 
 **Filters** | Pointer to [**[]O11yO11yFilter**](O11yO11yFilter.md) | Filters narrow the scan; each is a field, an operator (eq, neq, like) and a value, and they combine with AND. | [optional] 
 **GroupBy** | Pointer to **[]string** | GroupBy are the columns to group the rows by. | [optional] 
-**Limit** | Pointer to **int32** | Limit caps how many rows come back. | [optional] 
+**Limit** | Pointer to **int64** | Limit caps how many rows come back. | [optional] 
 **OrderBy** | Pointer to **string** | OrderBy is the column or aggregation to sort the rows on. | [optional] 
 **OrderDir** | Pointer to **string** | OrderDir is asc or desc. | [optional] 
 **Period** | Pointer to **string** | Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d. | [optional] 
@@ -109,20 +109,20 @@ HasGroupBy returns a boolean if a field has been set.
 
 ### GetLimit
 
-`func (o *O11yO11yDiscoverIn) GetLimit() int32`
+`func (o *O11yO11yDiscoverIn) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *O11yO11yDiscoverIn) GetLimitOk() (*int32, bool)`
+`func (o *O11yO11yDiscoverIn) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *O11yO11yDiscoverIn) SetLimit(v int32)`
+`func (o *O11yO11yDiscoverIn) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 

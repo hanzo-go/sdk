@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | step name | [optional] 
 **ServiceName** | Pointer to **string** |  | [optional] 
 **SpanName** | Pointer to **string** |  | [optional] 
-**StepOrder** | Pointer to **int32** |  | [optional] 
+**StepOrder** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -271,20 +271,20 @@ HasSpanName returns a boolean if a field has been set.
 
 ### GetStepOrder
 
-`func (o *O11yFunnelStep) GetStepOrder() int32`
+`func (o *O11yFunnelStep) GetStepOrder() int64`
 
 GetStepOrder returns the StepOrder field if non-nil, zero value otherwise.
 
 ### GetStepOrderOk
 
-`func (o *O11yFunnelStep) GetStepOrderOk() (*int32, bool)`
+`func (o *O11yFunnelStep) GetStepOrderOk() (*int64, bool)`
 
 GetStepOrderOk returns a tuple with the StepOrder field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStepOrder
 
-`func (o *O11yFunnelStep) SetStepOrder(v int32)`
+`func (o *O11yFunnelStep) SetStepOrder(v int64)`
 
 SetStepOrder sets StepOrder field to given value.
 

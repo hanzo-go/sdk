@@ -21,12 +21,12 @@ var _ MappedNullable = &O11yVolumeRecord{}
 type O11yVolumeRecord struct {
 	Meta                      map[string]string `json:"meta,omitempty"`
 	PersistentVolumeClaimName *string           `json:"persistentVolumeClaimName,omitempty"`
-	VolumeAvailable           *float32          `json:"volumeAvailable,omitempty"`
-	VolumeCapacity            *float32          `json:"volumeCapacity,omitempty"`
-	VolumeInodes              *float32          `json:"volumeInodes,omitempty"`
-	VolumeInodesFree          *float32          `json:"volumeInodesFree,omitempty"`
-	VolumeInodesUsed          *float32          `json:"volumeInodesUsed,omitempty"`
-	VolumeUsage               *float32          `json:"volumeUsage,omitempty"`
+	VolumeAvailable           *float64          `json:"volumeAvailable,omitempty"`
+	VolumeCapacity            *float64          `json:"volumeCapacity,omitempty"`
+	VolumeInodes              *float64          `json:"volumeInodes,omitempty"`
+	VolumeInodesFree          *float64          `json:"volumeInodesFree,omitempty"`
+	VolumeInodesUsed          *float64          `json:"volumeInodesUsed,omitempty"`
+	VolumeUsage               *float64          `json:"volumeUsage,omitempty"`
 }
 
 // NewO11yVolumeRecord instantiates a new O11yVolumeRecord object
@@ -111,9 +111,9 @@ func (o *O11yVolumeRecord) SetPersistentVolumeClaimName(v string) {
 }
 
 // GetVolumeAvailable returns the VolumeAvailable field value if set, zero value otherwise.
-func (o *O11yVolumeRecord) GetVolumeAvailable() float32 {
+func (o *O11yVolumeRecord) GetVolumeAvailable() float64 {
 	if o == nil || IsNil(o.VolumeAvailable) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.VolumeAvailable
@@ -121,7 +121,7 @@ func (o *O11yVolumeRecord) GetVolumeAvailable() float32 {
 
 // GetVolumeAvailableOk returns a tuple with the VolumeAvailable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yVolumeRecord) GetVolumeAvailableOk() (*float32, bool) {
+func (o *O11yVolumeRecord) GetVolumeAvailableOk() (*float64, bool) {
 	if o == nil || IsNil(o.VolumeAvailable) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *O11yVolumeRecord) HasVolumeAvailable() bool {
 	return false
 }
 
-// SetVolumeAvailable gets a reference to the given float32 and assigns it to the VolumeAvailable field.
-func (o *O11yVolumeRecord) SetVolumeAvailable(v float32) {
+// SetVolumeAvailable gets a reference to the given float64 and assigns it to the VolumeAvailable field.
+func (o *O11yVolumeRecord) SetVolumeAvailable(v float64) {
 	o.VolumeAvailable = &v
 }
 
 // GetVolumeCapacity returns the VolumeCapacity field value if set, zero value otherwise.
-func (o *O11yVolumeRecord) GetVolumeCapacity() float32 {
+func (o *O11yVolumeRecord) GetVolumeCapacity() float64 {
 	if o == nil || IsNil(o.VolumeCapacity) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.VolumeCapacity
@@ -153,7 +153,7 @@ func (o *O11yVolumeRecord) GetVolumeCapacity() float32 {
 
 // GetVolumeCapacityOk returns a tuple with the VolumeCapacity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yVolumeRecord) GetVolumeCapacityOk() (*float32, bool) {
+func (o *O11yVolumeRecord) GetVolumeCapacityOk() (*float64, bool) {
 	if o == nil || IsNil(o.VolumeCapacity) {
 		return nil, false
 	}
@@ -169,15 +169,15 @@ func (o *O11yVolumeRecord) HasVolumeCapacity() bool {
 	return false
 }
 
-// SetVolumeCapacity gets a reference to the given float32 and assigns it to the VolumeCapacity field.
-func (o *O11yVolumeRecord) SetVolumeCapacity(v float32) {
+// SetVolumeCapacity gets a reference to the given float64 and assigns it to the VolumeCapacity field.
+func (o *O11yVolumeRecord) SetVolumeCapacity(v float64) {
 	o.VolumeCapacity = &v
 }
 
 // GetVolumeInodes returns the VolumeInodes field value if set, zero value otherwise.
-func (o *O11yVolumeRecord) GetVolumeInodes() float32 {
+func (o *O11yVolumeRecord) GetVolumeInodes() float64 {
 	if o == nil || IsNil(o.VolumeInodes) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.VolumeInodes
@@ -185,7 +185,7 @@ func (o *O11yVolumeRecord) GetVolumeInodes() float32 {
 
 // GetVolumeInodesOk returns a tuple with the VolumeInodes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yVolumeRecord) GetVolumeInodesOk() (*float32, bool) {
+func (o *O11yVolumeRecord) GetVolumeInodesOk() (*float64, bool) {
 	if o == nil || IsNil(o.VolumeInodes) {
 		return nil, false
 	}
@@ -201,15 +201,15 @@ func (o *O11yVolumeRecord) HasVolumeInodes() bool {
 	return false
 }
 
-// SetVolumeInodes gets a reference to the given float32 and assigns it to the VolumeInodes field.
-func (o *O11yVolumeRecord) SetVolumeInodes(v float32) {
+// SetVolumeInodes gets a reference to the given float64 and assigns it to the VolumeInodes field.
+func (o *O11yVolumeRecord) SetVolumeInodes(v float64) {
 	o.VolumeInodes = &v
 }
 
 // GetVolumeInodesFree returns the VolumeInodesFree field value if set, zero value otherwise.
-func (o *O11yVolumeRecord) GetVolumeInodesFree() float32 {
+func (o *O11yVolumeRecord) GetVolumeInodesFree() float64 {
 	if o == nil || IsNil(o.VolumeInodesFree) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.VolumeInodesFree
@@ -217,7 +217,7 @@ func (o *O11yVolumeRecord) GetVolumeInodesFree() float32 {
 
 // GetVolumeInodesFreeOk returns a tuple with the VolumeInodesFree field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yVolumeRecord) GetVolumeInodesFreeOk() (*float32, bool) {
+func (o *O11yVolumeRecord) GetVolumeInodesFreeOk() (*float64, bool) {
 	if o == nil || IsNil(o.VolumeInodesFree) {
 		return nil, false
 	}
@@ -233,15 +233,15 @@ func (o *O11yVolumeRecord) HasVolumeInodesFree() bool {
 	return false
 }
 
-// SetVolumeInodesFree gets a reference to the given float32 and assigns it to the VolumeInodesFree field.
-func (o *O11yVolumeRecord) SetVolumeInodesFree(v float32) {
+// SetVolumeInodesFree gets a reference to the given float64 and assigns it to the VolumeInodesFree field.
+func (o *O11yVolumeRecord) SetVolumeInodesFree(v float64) {
 	o.VolumeInodesFree = &v
 }
 
 // GetVolumeInodesUsed returns the VolumeInodesUsed field value if set, zero value otherwise.
-func (o *O11yVolumeRecord) GetVolumeInodesUsed() float32 {
+func (o *O11yVolumeRecord) GetVolumeInodesUsed() float64 {
 	if o == nil || IsNil(o.VolumeInodesUsed) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.VolumeInodesUsed
@@ -249,7 +249,7 @@ func (o *O11yVolumeRecord) GetVolumeInodesUsed() float32 {
 
 // GetVolumeInodesUsedOk returns a tuple with the VolumeInodesUsed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yVolumeRecord) GetVolumeInodesUsedOk() (*float32, bool) {
+func (o *O11yVolumeRecord) GetVolumeInodesUsedOk() (*float64, bool) {
 	if o == nil || IsNil(o.VolumeInodesUsed) {
 		return nil, false
 	}
@@ -265,15 +265,15 @@ func (o *O11yVolumeRecord) HasVolumeInodesUsed() bool {
 	return false
 }
 
-// SetVolumeInodesUsed gets a reference to the given float32 and assigns it to the VolumeInodesUsed field.
-func (o *O11yVolumeRecord) SetVolumeInodesUsed(v float32) {
+// SetVolumeInodesUsed gets a reference to the given float64 and assigns it to the VolumeInodesUsed field.
+func (o *O11yVolumeRecord) SetVolumeInodesUsed(v float64) {
 	o.VolumeInodesUsed = &v
 }
 
 // GetVolumeUsage returns the VolumeUsage field value if set, zero value otherwise.
-func (o *O11yVolumeRecord) GetVolumeUsage() float32 {
+func (o *O11yVolumeRecord) GetVolumeUsage() float64 {
 	if o == nil || IsNil(o.VolumeUsage) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.VolumeUsage
@@ -281,7 +281,7 @@ func (o *O11yVolumeRecord) GetVolumeUsage() float32 {
 
 // GetVolumeUsageOk returns a tuple with the VolumeUsage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yVolumeRecord) GetVolumeUsageOk() (*float32, bool) {
+func (o *O11yVolumeRecord) GetVolumeUsageOk() (*float64, bool) {
 	if o == nil || IsNil(o.VolumeUsage) {
 		return nil, false
 	}
@@ -297,8 +297,8 @@ func (o *O11yVolumeRecord) HasVolumeUsage() bool {
 	return false
 }
 
-// SetVolumeUsage gets a reference to the given float32 and assigns it to the VolumeUsage field.
-func (o *O11yVolumeRecord) SetVolumeUsage(v float32) {
+// SetVolumeUsage gets a reference to the given float64 and assigns it to the VolumeUsage field.
+func (o *O11yVolumeRecord) SetVolumeUsage(v float64) {
 	o.VolumeUsage = &v
 }
 

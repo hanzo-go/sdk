@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **int32** | Created is how many native issues this pass created. | [optional] 
-**Failed** | Pointer to **int32** | Failed is how many issues errored; the pass continues past each. | [optional] 
-**Issues** | Pointer to **int32** | Issues is how many Linear issues were seen. | [optional] 
+**Created** | Pointer to **int64** | Created is how many native issues this pass created. | [optional] 
+**Failed** | Pointer to **int64** | Failed is how many issues errored; the pass continues past each. | [optional] 
+**Issues** | Pointer to **int64** | Issues is how many Linear issues were seen. | [optional] 
 **Truncated** | Pointer to **bool** | Truncated is set when the time budget or the issue cap stopped the pass early. Re-run to continue — the mirror is idempotent by ExtRef, so nothing duplicates. | [optional] 
-**Updated** | Pointer to **int32** | Updated is how many existing native issues this pass refreshed. | [optional] 
+**Updated** | Pointer to **int64** | Updated is how many existing native issues this pass refreshed. | [optional] 
 
 ## Methods
 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreated
 
-`func (o *LinearBackfillResult) GetCreated() int32`
+`func (o *LinearBackfillResult) GetCreated() int64`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *LinearBackfillResult) GetCreatedOk() (*int32, bool)`
+`func (o *LinearBackfillResult) GetCreatedOk() (*int64, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *LinearBackfillResult) SetCreated(v int32)`
+`func (o *LinearBackfillResult) SetCreated(v int64)`
 
 SetCreated sets Created field to given value.
 
@@ -56,20 +56,20 @@ HasCreated returns a boolean if a field has been set.
 
 ### GetFailed
 
-`func (o *LinearBackfillResult) GetFailed() int32`
+`func (o *LinearBackfillResult) GetFailed() int64`
 
 GetFailed returns the Failed field if non-nil, zero value otherwise.
 
 ### GetFailedOk
 
-`func (o *LinearBackfillResult) GetFailedOk() (*int32, bool)`
+`func (o *LinearBackfillResult) GetFailedOk() (*int64, bool)`
 
 GetFailedOk returns a tuple with the Failed field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFailed
 
-`func (o *LinearBackfillResult) SetFailed(v int32)`
+`func (o *LinearBackfillResult) SetFailed(v int64)`
 
 SetFailed sets Failed field to given value.
 
@@ -81,20 +81,20 @@ HasFailed returns a boolean if a field has been set.
 
 ### GetIssues
 
-`func (o *LinearBackfillResult) GetIssues() int32`
+`func (o *LinearBackfillResult) GetIssues() int64`
 
 GetIssues returns the Issues field if non-nil, zero value otherwise.
 
 ### GetIssuesOk
 
-`func (o *LinearBackfillResult) GetIssuesOk() (*int32, bool)`
+`func (o *LinearBackfillResult) GetIssuesOk() (*int64, bool)`
 
 GetIssuesOk returns a tuple with the Issues field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIssues
 
-`func (o *LinearBackfillResult) SetIssues(v int32)`
+`func (o *LinearBackfillResult) SetIssues(v int64)`
 
 SetIssues sets Issues field to given value.
 
@@ -131,20 +131,20 @@ HasTruncated returns a boolean if a field has been set.
 
 ### GetUpdated
 
-`func (o *LinearBackfillResult) GetUpdated() int32`
+`func (o *LinearBackfillResult) GetUpdated() int64`
 
 GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
 ### GetUpdatedOk
 
-`func (o *LinearBackfillResult) GetUpdatedOk() (*int32, bool)`
+`func (o *LinearBackfillResult) GetUpdatedOk() (*int64, bool)`
 
 GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdated
 
-`func (o *LinearBackfillResult) SetUpdated(v int32)`
+`func (o *LinearBackfillResult) SetUpdated(v int64)`
 
 SetUpdated sets Updated field to given value.
 

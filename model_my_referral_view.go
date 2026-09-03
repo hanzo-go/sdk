@@ -20,11 +20,11 @@ var _ MappedNullable = &MyReferralView{}
 // MyReferralView struct for MyReferralView
 type MyReferralView struct {
 	// CreatedAt is when the referral was recorded, as a Unix timestamp.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// ID is the referral's handle.
 	Id *string `json:"id,omitempty"`
 	// QualifiedAt is when the referee first made metered spend, as a Unix timestamp; 0 while the referral is still pending.
-	QualifiedAt *int32 `json:"qualifiedAt,omitempty"`
+	QualifiedAt *int64 `json:"qualifiedAt,omitempty"`
 	// Referee is the org that signed up with my code.
 	Referee *string `json:"referee,omitempty"`
 	// Status is the referral's lifecycle state: \"signup\" until the referee makes metered spend, then \"qualified\".
@@ -49,9 +49,9 @@ func NewMyReferralViewWithDefaults() *MyReferralView {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *MyReferralView) GetCreatedAt() int32 {
+func (o *MyReferralView) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -59,7 +59,7 @@ func (o *MyReferralView) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MyReferralView) GetCreatedAtOk() (*int32, bool) {
+func (o *MyReferralView) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *MyReferralView) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *MyReferralView) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *MyReferralView) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -113,9 +113,9 @@ func (o *MyReferralView) SetId(v string) {
 }
 
 // GetQualifiedAt returns the QualifiedAt field value if set, zero value otherwise.
-func (o *MyReferralView) GetQualifiedAt() int32 {
+func (o *MyReferralView) GetQualifiedAt() int64 {
 	if o == nil || IsNil(o.QualifiedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.QualifiedAt
@@ -123,7 +123,7 @@ func (o *MyReferralView) GetQualifiedAt() int32 {
 
 // GetQualifiedAtOk returns a tuple with the QualifiedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MyReferralView) GetQualifiedAtOk() (*int32, bool) {
+func (o *MyReferralView) GetQualifiedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.QualifiedAt) {
 		return nil, false
 	}
@@ -139,8 +139,8 @@ func (o *MyReferralView) HasQualifiedAt() bool {
 	return false
 }
 
-// SetQualifiedAt gets a reference to the given int32 and assigns it to the QualifiedAt field.
-func (o *MyReferralView) SetQualifiedAt(v int32) {
+// SetQualifiedAt gets a reference to the given int64 and assigns it to the QualifiedAt field.
+func (o *MyReferralView) SetQualifiedAt(v int64) {
 	o.QualifiedAt = &v
 }
 

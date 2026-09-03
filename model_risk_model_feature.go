@@ -20,7 +20,7 @@ var _ MappedNullable = &RiskModelFeature{}
 // RiskModelFeature struct for RiskModelFeature
 type RiskModelFeature struct {
 	// Blind is how often this dimension took that neutral value for THIS organisation.
-	Blind *int32 `json:"blind,omitempty"`
+	Blind *int64 `json:"blind,omitempty"`
 	// Citation is where those words come from, so the claim is checkable rather than asserted.
 	Citation *string `json:"citation,omitempty"`
 	// Indicator is the supervisor's own words for the thing being looked for.
@@ -28,7 +28,7 @@ type RiskModelFeature struct {
 	// Name is the dimension.
 	Name *string `json:"name,omitempty"`
 	// Neutral is the value the coordinate takes when the data cannot support it.
-	Neutral *float32 `json:"neutral,omitempty"`
+	Neutral *float64 `json:"neutral,omitempty"`
 	// Severity is how much weight an alert on it carries.
 	Severity *string `json:"severity,omitempty"`
 	// Typology is the pattern this dimension detects.
@@ -57,9 +57,9 @@ func NewRiskModelFeatureWithDefaults() *RiskModelFeature {
 }
 
 // GetBlind returns the Blind field value if set, zero value otherwise.
-func (o *RiskModelFeature) GetBlind() int32 {
+func (o *RiskModelFeature) GetBlind() int64 {
 	if o == nil || IsNil(o.Blind) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Blind
@@ -67,7 +67,7 @@ func (o *RiskModelFeature) GetBlind() int32 {
 
 // GetBlindOk returns a tuple with the Blind field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskModelFeature) GetBlindOk() (*int32, bool) {
+func (o *RiskModelFeature) GetBlindOk() (*int64, bool) {
 	if o == nil || IsNil(o.Blind) {
 		return nil, false
 	}
@@ -83,8 +83,8 @@ func (o *RiskModelFeature) HasBlind() bool {
 	return false
 }
 
-// SetBlind gets a reference to the given int32 and assigns it to the Blind field.
-func (o *RiskModelFeature) SetBlind(v int32) {
+// SetBlind gets a reference to the given int64 and assigns it to the Blind field.
+func (o *RiskModelFeature) SetBlind(v int64) {
 	o.Blind = &v
 }
 
@@ -185,9 +185,9 @@ func (o *RiskModelFeature) SetName(v string) {
 }
 
 // GetNeutral returns the Neutral field value if set, zero value otherwise.
-func (o *RiskModelFeature) GetNeutral() float32 {
+func (o *RiskModelFeature) GetNeutral() float64 {
 	if o == nil || IsNil(o.Neutral) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Neutral
@@ -195,7 +195,7 @@ func (o *RiskModelFeature) GetNeutral() float32 {
 
 // GetNeutralOk returns a tuple with the Neutral field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskModelFeature) GetNeutralOk() (*float32, bool) {
+func (o *RiskModelFeature) GetNeutralOk() (*float64, bool) {
 	if o == nil || IsNil(o.Neutral) {
 		return nil, false
 	}
@@ -211,8 +211,8 @@ func (o *RiskModelFeature) HasNeutral() bool {
 	return false
 }
 
-// SetNeutral gets a reference to the given float32 and assigns it to the Neutral field.
-func (o *RiskModelFeature) SetNeutral(v float32) {
+// SetNeutral gets a reference to the given float64 and assigns it to the Neutral field.
+func (o *RiskModelFeature) SetNeutral(v float64) {
 	o.Neutral = &v
 }
 

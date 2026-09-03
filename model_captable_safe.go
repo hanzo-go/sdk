@@ -20,9 +20,9 @@ var _ MappedNullable = &CaptableSafe{}
 // CaptableSafe struct for CaptableSafe
 type CaptableSafe struct {
 	// Capital is the cash the investor put in.
-	Capital *float32 `json:"capital,omitempty"`
+	Capital *float64 `json:"capital,omitempty"`
 	// DiscountRate is the discount to the next round's price, if any.
-	DiscountRate *float32 `json:"discountRate,omitempty"`
+	DiscountRate *float64 `json:"discountRate,omitempty"`
 	// ID is the SAFE id.
 	Id *string `json:"id,omitempty"`
 	// IssueDate is the ISO date the SAFE was signed.
@@ -42,7 +42,7 @@ type CaptableSafe struct {
 	// Type is POST_MONEY or PRE_MONEY.
 	Type *string `json:"type,omitempty"`
 	// ValuationCap is the valuation cap, if any.
-	ValuationCap *float32 `json:"valuationCap,omitempty"`
+	ValuationCap *float64 `json:"valuationCap,omitempty"`
 }
 
 // NewCaptableSafe instantiates a new CaptableSafe object
@@ -63,9 +63,9 @@ func NewCaptableSafeWithDefaults() *CaptableSafe {
 }
 
 // GetCapital returns the Capital field value if set, zero value otherwise.
-func (o *CaptableSafe) GetCapital() float32 {
+func (o *CaptableSafe) GetCapital() float64 {
 	if o == nil || IsNil(o.Capital) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Capital
@@ -73,7 +73,7 @@ func (o *CaptableSafe) GetCapital() float32 {
 
 // GetCapitalOk returns a tuple with the Capital field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableSafe) GetCapitalOk() (*float32, bool) {
+func (o *CaptableSafe) GetCapitalOk() (*float64, bool) {
 	if o == nil || IsNil(o.Capital) {
 		return nil, false
 	}
@@ -89,15 +89,15 @@ func (o *CaptableSafe) HasCapital() bool {
 	return false
 }
 
-// SetCapital gets a reference to the given float32 and assigns it to the Capital field.
-func (o *CaptableSafe) SetCapital(v float32) {
+// SetCapital gets a reference to the given float64 and assigns it to the Capital field.
+func (o *CaptableSafe) SetCapital(v float64) {
 	o.Capital = &v
 }
 
 // GetDiscountRate returns the DiscountRate field value if set, zero value otherwise.
-func (o *CaptableSafe) GetDiscountRate() float32 {
+func (o *CaptableSafe) GetDiscountRate() float64 {
 	if o == nil || IsNil(o.DiscountRate) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.DiscountRate
@@ -105,7 +105,7 @@ func (o *CaptableSafe) GetDiscountRate() float32 {
 
 // GetDiscountRateOk returns a tuple with the DiscountRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableSafe) GetDiscountRateOk() (*float32, bool) {
+func (o *CaptableSafe) GetDiscountRateOk() (*float64, bool) {
 	if o == nil || IsNil(o.DiscountRate) {
 		return nil, false
 	}
@@ -121,8 +121,8 @@ func (o *CaptableSafe) HasDiscountRate() bool {
 	return false
 }
 
-// SetDiscountRate gets a reference to the given float32 and assigns it to the DiscountRate field.
-func (o *CaptableSafe) SetDiscountRate(v float32) {
+// SetDiscountRate gets a reference to the given float64 and assigns it to the DiscountRate field.
+func (o *CaptableSafe) SetDiscountRate(v float64) {
 	o.DiscountRate = &v
 }
 
@@ -415,9 +415,9 @@ func (o *CaptableSafe) SetType(v string) {
 }
 
 // GetValuationCap returns the ValuationCap field value if set, zero value otherwise.
-func (o *CaptableSafe) GetValuationCap() float32 {
+func (o *CaptableSafe) GetValuationCap() float64 {
 	if o == nil || IsNil(o.ValuationCap) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.ValuationCap
@@ -425,7 +425,7 @@ func (o *CaptableSafe) GetValuationCap() float32 {
 
 // GetValuationCapOk returns a tuple with the ValuationCap field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableSafe) GetValuationCapOk() (*float32, bool) {
+func (o *CaptableSafe) GetValuationCapOk() (*float64, bool) {
 	if o == nil || IsNil(o.ValuationCap) {
 		return nil, false
 	}
@@ -441,8 +441,8 @@ func (o *CaptableSafe) HasValuationCap() bool {
 	return false
 }
 
-// SetValuationCap gets a reference to the given float32 and assigns it to the ValuationCap field.
-func (o *CaptableSafe) SetValuationCap(v float32) {
+// SetValuationCap gets a reference to the given float64 and assigns it to the ValuationCap field.
+func (o *CaptableSafe) SetValuationCap(v float64) {
 	o.ValuationCap = &v
 }
 

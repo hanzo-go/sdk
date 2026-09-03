@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Cost** | Pointer to **string** | Cost is what this call cost, in USD, as an exact decimal string. | [optional] 
 **Rankings** | Pointer to [**[]SeoRanking**](SeoRanking.md) | Rankings is one row per phrase the domain places for. | [optional] 
-**Total** | Pointer to **int32** | Total is how many placements the upstream holds for this domain. | [optional] 
+**Total** | Pointer to **int64** | Total is how many placements the upstream holds for this domain. | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasRankings returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *SeoRankOut) GetTotal() int32`
+`func (o *SeoRankOut) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *SeoRankOut) GetTotalOk() (*int32, bool)`
+`func (o *SeoRankOut) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *SeoRankOut) SetTotal(v int32)`
+`func (o *SeoRankOut) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

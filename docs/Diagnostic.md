@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Code** | Pointer to **map[string]interface{}** | Code is the checker&#39;s own identifier for the rule, a string or a number depending on the server. Absent when it published none. | [optional] 
 **Message** | Pointer to **string** | Message is the problem in the server&#39;s own words, meant to be shown. | [optional] 
 **Range** | Pointer to [**Range**](Range.md) | Range is the span the problem is about. | [optional] 
-**Severity** | Pointer to **int32** | Severity is the LSP&#39;s: 1 error, 2 warning, 3 information, 4 hint. A file with only 3s and 4s still compiles. | [optional] 
+**Severity** | Pointer to **int64** | Severity is the LSP&#39;s: 1 error, 2 warning, 3 information, 4 hint. A file with only 3s and 4s still compiles. | [optional] 
 **Source** | Pointer to **string** | Source is which checker reported it (\&quot;compiler\&quot;, \&quot;go vet\&quot;, a linter&#39;s name), which is what separates a build error from a style opinion. | [optional] 
 
 ## Methods
@@ -106,20 +106,20 @@ HasRange returns a boolean if a field has been set.
 
 ### GetSeverity
 
-`func (o *Diagnostic) GetSeverity() int32`
+`func (o *Diagnostic) GetSeverity() int64`
 
 GetSeverity returns the Severity field if non-nil, zero value otherwise.
 
 ### GetSeverityOk
 
-`func (o *Diagnostic) GetSeverityOk() (*int32, bool)`
+`func (o *Diagnostic) GetSeverityOk() (*int64, bool)`
 
 GetSeverityOk returns a tuple with the Severity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSeverity
 
-`func (o *Diagnostic) SetSeverity(v int32)`
+`func (o *Diagnostic) SetSeverity(v int64)`
 
 SetSeverity sets Severity field to given value.
 

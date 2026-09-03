@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ExpiresAt** | Pointer to **int32** | ExpiresAt is when the nonce stops being redeemable, as a Unix timestamp. | [optional] 
+**ExpiresAt** | Pointer to **int64** | ExpiresAt is when the nonce stops being redeemable, as a Unix timestamp. | [optional] 
 **Message** | Pointer to **string** | Message is the EXACT text to personal_sign. It is reconstructed server-side from the validated org, the slot and the nonce at redemption, so signing anything else cannot claim the slot. | [optional] 
 **Nonce** | Pointer to **string** | Nonce is the single-use, org-bound challenge value to send back with the signature. | [optional] 
 **TokenId** | Pointer to **int32** | TokenID is the slot the challenge was issued for. | [optional] 
-**TtlSeconds** | Pointer to **int32** | TTLSeconds is the challenge lifetime in seconds. | [optional] 
+**TtlSeconds** | Pointer to **int64** | TTLSeconds is the challenge lifetime in seconds. | [optional] 
 
 ## Methods
 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetExpiresAt
 
-`func (o *ChallengeView) GetExpiresAt() int32`
+`func (o *ChallengeView) GetExpiresAt() int64`
 
 GetExpiresAt returns the ExpiresAt field if non-nil, zero value otherwise.
 
 ### GetExpiresAtOk
 
-`func (o *ChallengeView) GetExpiresAtOk() (*int32, bool)`
+`func (o *ChallengeView) GetExpiresAtOk() (*int64, bool)`
 
 GetExpiresAtOk returns a tuple with the ExpiresAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpiresAt
 
-`func (o *ChallengeView) SetExpiresAt(v int32)`
+`func (o *ChallengeView) SetExpiresAt(v int64)`
 
 SetExpiresAt sets ExpiresAt field to given value.
 
@@ -131,20 +131,20 @@ HasTokenId returns a boolean if a field has been set.
 
 ### GetTtlSeconds
 
-`func (o *ChallengeView) GetTtlSeconds() int32`
+`func (o *ChallengeView) GetTtlSeconds() int64`
 
 GetTtlSeconds returns the TtlSeconds field if non-nil, zero value otherwise.
 
 ### GetTtlSecondsOk
 
-`func (o *ChallengeView) GetTtlSecondsOk() (*int32, bool)`
+`func (o *ChallengeView) GetTtlSecondsOk() (*int64, bool)`
 
 GetTtlSecondsOk returns a tuple with the TtlSeconds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTtlSeconds
 
-`func (o *ChallengeView) SetTtlSeconds(v int32)`
+`func (o *ChallengeView) SetTtlSeconds(v int64)`
 
 SetTtlSeconds sets TtlSeconds field to given value.
 

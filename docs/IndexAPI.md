@@ -658,7 +658,7 @@ import (
 )
 
 func main() {
-	uid := int32(56) // int32 | 
+	uid := int64(789) // int64 | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -678,7 +678,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**uid** | **int32** |  | 
+**uid** | **int64** |  | 
 
 ### Other Parameters
 

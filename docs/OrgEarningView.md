@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CommissionCents** | Pointer to **int32** | CommissionCents is what the caller earned from that org across ALL periods, in cents. Deliberately the caller&#39;s own share and nothing else: that org&#39;s spend and the margin on it are not restated here. | [optional] 
+**CommissionCents** | Pointer to **int64** | CommissionCents is what the caller earned from that org across ALL periods, in cents. Deliberately the caller&#39;s own share and nothing else: that org&#39;s spend and the margin on it are not restated here. | [optional] 
 **ReferredOrg** | Pointer to **string** | ReferredOrg is the org slug this contribution came from — one the caller referred, directly or up to three levels down. | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCommissionCents
 
-`func (o *OrgEarningView) GetCommissionCents() int32`
+`func (o *OrgEarningView) GetCommissionCents() int64`
 
 GetCommissionCents returns the CommissionCents field if non-nil, zero value otherwise.
 
 ### GetCommissionCentsOk
 
-`func (o *OrgEarningView) GetCommissionCentsOk() (*int32, bool)`
+`func (o *OrgEarningView) GetCommissionCentsOk() (*int64, bool)`
 
 GetCommissionCentsOk returns a tuple with the CommissionCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCommissionCents
 
-`func (o *OrgEarningView) SetCommissionCents(v int32)`
+`func (o *OrgEarningView) SetCommissionCents(v int64)`
 
 SetCommissionCents sets CommissionCents field to given value.
 

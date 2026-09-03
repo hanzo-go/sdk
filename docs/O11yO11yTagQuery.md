@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BoolValues** | Pointer to **[]bool** | BoolValues are the boolean values to test against. | [optional] 
 **Key** | Pointer to **string** | Key is the tag to test. | [optional] 
-**NumberValues** | Pointer to **[]float32** | NumberValues are the numeric values to test against. | [optional] 
+**NumberValues** | Pointer to **[]float64** | NumberValues are the numeric values to test against. | [optional] 
 **Operator** | Pointer to **string** | Operator is the comparison, e.g. in, nin, contains, exists. | [optional] 
 **StringValues** | Pointer to **[]string** | StringValues are the string values to test against. | [optional] 
 **TagType** | Pointer to **string** | TagType is where the tag lives, e.g. ResourceAttribute, SpanAttribute. | [optional] 
@@ -82,20 +82,20 @@ HasKey returns a boolean if a field has been set.
 
 ### GetNumberValues
 
-`func (o *O11yO11yTagQuery) GetNumberValues() []float32`
+`func (o *O11yO11yTagQuery) GetNumberValues() []float64`
 
 GetNumberValues returns the NumberValues field if non-nil, zero value otherwise.
 
 ### GetNumberValuesOk
 
-`func (o *O11yO11yTagQuery) GetNumberValuesOk() (*[]float32, bool)`
+`func (o *O11yO11yTagQuery) GetNumberValuesOk() (*[]float64, bool)`
 
 GetNumberValuesOk returns a tuple with the NumberValues field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumberValues
 
-`func (o *O11yO11yTagQuery) SetNumberValues(v []float32)`
+`func (o *O11yO11yTagQuery) SetNumberValues(v []float64)`
 
 SetNumberValues sets NumberValues field to given value.
 

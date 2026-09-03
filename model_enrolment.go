@@ -26,7 +26,7 @@ type Enrolment struct {
 	// ID is the author record's server-minted handle, \"aut_\"-prefixed.
 	Id *string `json:"id,omitempty"`
 	// ShareBps is this author's royalty share in basis points of the spend their deployed work generates.
-	ShareBps *int32 `json:"shareBps,omitempty"`
+	ShareBps *int64 `json:"shareBps,omitempty"`
 	// Status is connected, approved or suspended. Only an approved author earns.
 	Status *string `json:"status,omitempty"`
 	// Verified reports whether any repository or owner claim has been proven yet.
@@ -153,9 +153,9 @@ func (o *Enrolment) SetId(v string) {
 }
 
 // GetShareBps returns the ShareBps field value if set, zero value otherwise.
-func (o *Enrolment) GetShareBps() int32 {
+func (o *Enrolment) GetShareBps() int64 {
 	if o == nil || IsNil(o.ShareBps) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ShareBps
@@ -163,7 +163,7 @@ func (o *Enrolment) GetShareBps() int32 {
 
 // GetShareBpsOk returns a tuple with the ShareBps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Enrolment) GetShareBpsOk() (*int32, bool) {
+func (o *Enrolment) GetShareBpsOk() (*int64, bool) {
 	if o == nil || IsNil(o.ShareBps) {
 		return nil, false
 	}
@@ -179,8 +179,8 @@ func (o *Enrolment) HasShareBps() bool {
 	return false
 }
 
-// SetShareBps gets a reference to the given int32 and assigns it to the ShareBps field.
-func (o *Enrolment) SetShareBps(v int32) {
+// SetShareBps gets a reference to the given int64 and assigns it to the ShareBps field.
+func (o *Enrolment) SetShareBps(v int64) {
 	o.ShareBps = &v
 }
 

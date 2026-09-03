@@ -5,19 +5,19 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **At** | Pointer to **string** | At is when the reading was MEASURED, RFC 3339 in UTC — the x-axis a chart plots against. The series is returned oldest first, so it only increases. | [optional] 
-**CostCents** | Pointer to **int32** | CostCents is what this unit resold for over the hour the reading falls in, in whole US cents. 0 means UNPRICED, not free: the operator&#39;s own machines — a linked run-target, a dialed-in BYO worker — are metered for utilization and never resold, so only a priced source ever fills it. | [optional] 
-**Cpus** | Pointer to **int32** | CPUs is logical cores. The static capability rides every row on purpose: a chart can size load against cores without joining a registry whose row may since have been rewritten or the unit deregistered. | [optional] 
+**CostCents** | Pointer to **int64** | CostCents is what this unit resold for over the hour the reading falls in, in whole US cents. 0 means UNPRICED, not free: the operator&#39;s own machines — a linked run-target, a dialed-in BYO worker — are metered for utilization and never resold, so only a priced source ever fills it. | [optional] 
+**Cpus** | Pointer to **int64** | CPUs is logical cores. The static capability rides every row on purpose: a chart can size load against cores without joining a registry whose row may since have been rewritten or the unit deregistered. | [optional] 
 **GpuModel** | Pointer to **string** | GPUModel names the representative accelerator (\&quot;GB10\&quot;); GPUs carries how many. | [optional] 
-**GpuUtil** | Pointer to **float32** | GPUUtil is aggregate accelerator utilization as a FRACTION of 1 — 0.42 is 42% busy. Anything a reporter sends outside 0..1 is clamped into it on write. | [optional] 
-**Gpus** | Pointer to **int32** | GPUs is how many accelerators the reading covers. | [optional] 
+**GpuUtil** | Pointer to **float64** | GPUUtil is aggregate accelerator utilization as a FRACTION of 1 — 0.42 is 42% busy. Anything a reporter sends outside 0..1 is clamped into it on write. | [optional] 
+**Gpus** | Pointer to **int64** | GPUs is how many accelerators the reading covers. | [optional] 
 **Host** | Pointer to **string** | Host is the hostname the unit reported at the time of the reading. | [optional] 
 **Kind** | Pointer to **string** | Kind is what the measured unit is: laptop, cloud, gpu, cluster, machine or worker. | [optional] 
-**Load1** | Pointer to **float32** | Load1 is the 1-minute load average — runnable processes, not a percentage. | [optional] 
-**Load5** | Pointer to **float32** | Load5 is the 5-minute load average, the same units as Load1. | [optional] 
-**Load15** | Pointer to **float32** | Load15 is the 15-minute load average, the same units as Load1. | [optional] 
-**MemFree** | Pointer to **int32** | MemFree is host memory available, in BYTES, as reported rather than derived. | [optional] 
-**MemUsed** | Pointer to **int32** | MemUsed is host memory in use, in BYTES. | [optional] 
-**Memory** | Pointer to **int32** | Memory is total system RAM in BYTES at the time of the reading. | [optional] 
+**Load1** | Pointer to **float64** | Load1 is the 1-minute load average — runnable processes, not a percentage. | [optional] 
+**Load5** | Pointer to **float64** | Load5 is the 5-minute load average, the same units as Load1. | [optional] 
+**Load15** | Pointer to **float64** | Load15 is the 15-minute load average, the same units as Load1. | [optional] 
+**MemFree** | Pointer to **int64** | MemFree is host memory available, in BYTES, as reported rather than derived. | [optional] 
+**MemUsed** | Pointer to **int64** | MemUsed is host memory in use, in BYTES. | [optional] 
+**Memory** | Pointer to **int64** | Memory is total system RAM in BYTES at the time of the reading. | [optional] 
 **Source** | Pointer to **string** | Source is the plane that reported the reading: \&quot;agent\&quot;, \&quot;byo\&quot; or \&quot;visor\&quot; — the same vocabulary the board&#39;s rows carry, and what ?source&#x3D; narrows on. | [optional] 
 **Unit** | Pointer to **string** | Unit is the source&#39;s own id for the measured unit. With Source it is the key the chart groups by, and the key the board joins a unit&#39;s latest reading on. | [optional] 
 
@@ -67,20 +67,20 @@ HasAt returns a boolean if a field has been set.
 
 ### GetCostCents
 
-`func (o *SampleView) GetCostCents() int32`
+`func (o *SampleView) GetCostCents() int64`
 
 GetCostCents returns the CostCents field if non-nil, zero value otherwise.
 
 ### GetCostCentsOk
 
-`func (o *SampleView) GetCostCentsOk() (*int32, bool)`
+`func (o *SampleView) GetCostCentsOk() (*int64, bool)`
 
 GetCostCentsOk returns a tuple with the CostCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCostCents
 
-`func (o *SampleView) SetCostCents(v int32)`
+`func (o *SampleView) SetCostCents(v int64)`
 
 SetCostCents sets CostCents field to given value.
 
@@ -92,20 +92,20 @@ HasCostCents returns a boolean if a field has been set.
 
 ### GetCpus
 
-`func (o *SampleView) GetCpus() int32`
+`func (o *SampleView) GetCpus() int64`
 
 GetCpus returns the Cpus field if non-nil, zero value otherwise.
 
 ### GetCpusOk
 
-`func (o *SampleView) GetCpusOk() (*int32, bool)`
+`func (o *SampleView) GetCpusOk() (*int64, bool)`
 
 GetCpusOk returns a tuple with the Cpus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCpus
 
-`func (o *SampleView) SetCpus(v int32)`
+`func (o *SampleView) SetCpus(v int64)`
 
 SetCpus sets Cpus field to given value.
 
@@ -142,20 +142,20 @@ HasGpuModel returns a boolean if a field has been set.
 
 ### GetGpuUtil
 
-`func (o *SampleView) GetGpuUtil() float32`
+`func (o *SampleView) GetGpuUtil() float64`
 
 GetGpuUtil returns the GpuUtil field if non-nil, zero value otherwise.
 
 ### GetGpuUtilOk
 
-`func (o *SampleView) GetGpuUtilOk() (*float32, bool)`
+`func (o *SampleView) GetGpuUtilOk() (*float64, bool)`
 
 GetGpuUtilOk returns a tuple with the GpuUtil field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGpuUtil
 
-`func (o *SampleView) SetGpuUtil(v float32)`
+`func (o *SampleView) SetGpuUtil(v float64)`
 
 SetGpuUtil sets GpuUtil field to given value.
 
@@ -167,20 +167,20 @@ HasGpuUtil returns a boolean if a field has been set.
 
 ### GetGpus
 
-`func (o *SampleView) GetGpus() int32`
+`func (o *SampleView) GetGpus() int64`
 
 GetGpus returns the Gpus field if non-nil, zero value otherwise.
 
 ### GetGpusOk
 
-`func (o *SampleView) GetGpusOk() (*int32, bool)`
+`func (o *SampleView) GetGpusOk() (*int64, bool)`
 
 GetGpusOk returns a tuple with the Gpus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGpus
 
-`func (o *SampleView) SetGpus(v int32)`
+`func (o *SampleView) SetGpus(v int64)`
 
 SetGpus sets Gpus field to given value.
 
@@ -242,20 +242,20 @@ HasKind returns a boolean if a field has been set.
 
 ### GetLoad1
 
-`func (o *SampleView) GetLoad1() float32`
+`func (o *SampleView) GetLoad1() float64`
 
 GetLoad1 returns the Load1 field if non-nil, zero value otherwise.
 
 ### GetLoad1Ok
 
-`func (o *SampleView) GetLoad1Ok() (*float32, bool)`
+`func (o *SampleView) GetLoad1Ok() (*float64, bool)`
 
 GetLoad1Ok returns a tuple with the Load1 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLoad1
 
-`func (o *SampleView) SetLoad1(v float32)`
+`func (o *SampleView) SetLoad1(v float64)`
 
 SetLoad1 sets Load1 field to given value.
 
@@ -267,20 +267,20 @@ HasLoad1 returns a boolean if a field has been set.
 
 ### GetLoad5
 
-`func (o *SampleView) GetLoad5() float32`
+`func (o *SampleView) GetLoad5() float64`
 
 GetLoad5 returns the Load5 field if non-nil, zero value otherwise.
 
 ### GetLoad5Ok
 
-`func (o *SampleView) GetLoad5Ok() (*float32, bool)`
+`func (o *SampleView) GetLoad5Ok() (*float64, bool)`
 
 GetLoad5Ok returns a tuple with the Load5 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLoad5
 
-`func (o *SampleView) SetLoad5(v float32)`
+`func (o *SampleView) SetLoad5(v float64)`
 
 SetLoad5 sets Load5 field to given value.
 
@@ -292,20 +292,20 @@ HasLoad5 returns a boolean if a field has been set.
 
 ### GetLoad15
 
-`func (o *SampleView) GetLoad15() float32`
+`func (o *SampleView) GetLoad15() float64`
 
 GetLoad15 returns the Load15 field if non-nil, zero value otherwise.
 
 ### GetLoad15Ok
 
-`func (o *SampleView) GetLoad15Ok() (*float32, bool)`
+`func (o *SampleView) GetLoad15Ok() (*float64, bool)`
 
 GetLoad15Ok returns a tuple with the Load15 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLoad15
 
-`func (o *SampleView) SetLoad15(v float32)`
+`func (o *SampleView) SetLoad15(v float64)`
 
 SetLoad15 sets Load15 field to given value.
 
@@ -317,20 +317,20 @@ HasLoad15 returns a boolean if a field has been set.
 
 ### GetMemFree
 
-`func (o *SampleView) GetMemFree() int32`
+`func (o *SampleView) GetMemFree() int64`
 
 GetMemFree returns the MemFree field if non-nil, zero value otherwise.
 
 ### GetMemFreeOk
 
-`func (o *SampleView) GetMemFreeOk() (*int32, bool)`
+`func (o *SampleView) GetMemFreeOk() (*int64, bool)`
 
 GetMemFreeOk returns a tuple with the MemFree field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMemFree
 
-`func (o *SampleView) SetMemFree(v int32)`
+`func (o *SampleView) SetMemFree(v int64)`
 
 SetMemFree sets MemFree field to given value.
 
@@ -342,20 +342,20 @@ HasMemFree returns a boolean if a field has been set.
 
 ### GetMemUsed
 
-`func (o *SampleView) GetMemUsed() int32`
+`func (o *SampleView) GetMemUsed() int64`
 
 GetMemUsed returns the MemUsed field if non-nil, zero value otherwise.
 
 ### GetMemUsedOk
 
-`func (o *SampleView) GetMemUsedOk() (*int32, bool)`
+`func (o *SampleView) GetMemUsedOk() (*int64, bool)`
 
 GetMemUsedOk returns a tuple with the MemUsed field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMemUsed
 
-`func (o *SampleView) SetMemUsed(v int32)`
+`func (o *SampleView) SetMemUsed(v int64)`
 
 SetMemUsed sets MemUsed field to given value.
 
@@ -367,20 +367,20 @@ HasMemUsed returns a boolean if a field has been set.
 
 ### GetMemory
 
-`func (o *SampleView) GetMemory() int32`
+`func (o *SampleView) GetMemory() int64`
 
 GetMemory returns the Memory field if non-nil, zero value otherwise.
 
 ### GetMemoryOk
 
-`func (o *SampleView) GetMemoryOk() (*int32, bool)`
+`func (o *SampleView) GetMemoryOk() (*int64, bool)`
 
 GetMemoryOk returns a tuple with the Memory field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMemory
 
-`func (o *SampleView) SetMemory(v int32)`
+`func (o *SampleView) SetMemory(v int64)`
 
 SetMemory sets Memory field to given value.
 

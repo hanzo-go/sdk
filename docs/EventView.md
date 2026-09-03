@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** | ID is the event&#39;s own handle, minted as \&quot;evt_\&quot; + 32 hex characters. It identifies the turn; Seq is what ORDERS it. | [optional] 
 **Kind** | Pointer to **string** | Kind is what the turn IS, from a closed six: message (a model turn), tool-call, spawn (a subagent started), log, status, control (a steering command the running surface consumes). Anything else is refused at the write. | [optional] 
 **Payload** | Pointer to **interface{}** |  | [optional] 
-**Seq** | Pointer to **int32** | Seq is the turn&#39;s position in this session&#39;s log: monotonic from 1, assigned by the store inside the insert, and unique PER SESSION rather than globally. It is the cursor a reader resumes from after a reconnect — ask for everything after your last-seen seq. | [optional] 
+**Seq** | Pointer to **int64** | Seq is the turn&#39;s position in this session&#39;s log: monotonic from 1, assigned by the store inside the insert, and unique PER SESSION rather than globally. It is the cursor a reader resumes from after a reconnect — ask for everything after your last-seen seq. | [optional] 
 **SessionId** | Pointer to **string** | SessionID is the session this turn belongs to. Carried on every event so a stream frame stands alone — a subscriber watching a whole tree gets turns from several sessions down one connection. | [optional] 
 
 ## Methods
@@ -168,20 +168,20 @@ HasPayload returns a boolean if a field has been set.
 UnsetPayload ensures that no value is present for Payload, not even an explicit nil
 ### GetSeq
 
-`func (o *EventView) GetSeq() int32`
+`func (o *EventView) GetSeq() int64`
 
 GetSeq returns the Seq field if non-nil, zero value otherwise.
 
 ### GetSeqOk
 
-`func (o *EventView) GetSeqOk() (*int32, bool)`
+`func (o *EventView) GetSeqOk() (*int64, bool)`
 
 GetSeqOk returns a tuple with the Seq field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSeq
 
-`func (o *EventView) SetSeq(v int32)`
+`func (o *EventView) SetSeq(v int64)`
 
 SetSeq sets Seq field to given value.
 

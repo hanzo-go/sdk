@@ -24,17 +24,17 @@ type Promo struct {
 	// Code is the promo id, e.g. \"first1000\".
 	Code *string `json:"code,omitempty"`
 	// CreatedAt is unix seconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Description is the human-readable offer.
 	Description *string `json:"description,omitempty"`
 	// MaxRedemptions is the hard fleet-wide cap; the redemption past it is declined.
-	MaxRedemptions *int32 `json:"maxRedemptions,omitempty"`
+	MaxRedemptions *int64 `json:"maxRedemptions,omitempty"`
 	// PercentOff is the discount applied to ONE month's list price.
-	PercentOff *int32 `json:"percentOff,omitempty"`
+	PercentOff *int64 `json:"percentOff,omitempty"`
 	// Plans is the csv of eligible plan ids (\"pro,max,team\").
 	Plans *string `json:"plans,omitempty"`
 	// TeamSeatCap is how many Team seats bill at the promo rate; seats beyond it bill at list.
-	TeamSeatCap *int32 `json:"teamSeatCap,omitempty"`
+	TeamSeatCap *int64 `json:"teamSeatCap,omitempty"`
 }
 
 // NewPromo instantiates a new Promo object
@@ -119,9 +119,9 @@ func (o *Promo) SetCode(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *Promo) GetCreatedAt() int32 {
+func (o *Promo) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -129,7 +129,7 @@ func (o *Promo) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Promo) GetCreatedAtOk() (*int32, bool) {
+func (o *Promo) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -145,8 +145,8 @@ func (o *Promo) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *Promo) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *Promo) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -183,9 +183,9 @@ func (o *Promo) SetDescription(v string) {
 }
 
 // GetMaxRedemptions returns the MaxRedemptions field value if set, zero value otherwise.
-func (o *Promo) GetMaxRedemptions() int32 {
+func (o *Promo) GetMaxRedemptions() int64 {
 	if o == nil || IsNil(o.MaxRedemptions) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxRedemptions
@@ -193,7 +193,7 @@ func (o *Promo) GetMaxRedemptions() int32 {
 
 // GetMaxRedemptionsOk returns a tuple with the MaxRedemptions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Promo) GetMaxRedemptionsOk() (*int32, bool) {
+func (o *Promo) GetMaxRedemptionsOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxRedemptions) {
 		return nil, false
 	}
@@ -209,15 +209,15 @@ func (o *Promo) HasMaxRedemptions() bool {
 	return false
 }
 
-// SetMaxRedemptions gets a reference to the given int32 and assigns it to the MaxRedemptions field.
-func (o *Promo) SetMaxRedemptions(v int32) {
+// SetMaxRedemptions gets a reference to the given int64 and assigns it to the MaxRedemptions field.
+func (o *Promo) SetMaxRedemptions(v int64) {
 	o.MaxRedemptions = &v
 }
 
 // GetPercentOff returns the PercentOff field value if set, zero value otherwise.
-func (o *Promo) GetPercentOff() int32 {
+func (o *Promo) GetPercentOff() int64 {
 	if o == nil || IsNil(o.PercentOff) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PercentOff
@@ -225,7 +225,7 @@ func (o *Promo) GetPercentOff() int32 {
 
 // GetPercentOffOk returns a tuple with the PercentOff field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Promo) GetPercentOffOk() (*int32, bool) {
+func (o *Promo) GetPercentOffOk() (*int64, bool) {
 	if o == nil || IsNil(o.PercentOff) {
 		return nil, false
 	}
@@ -241,8 +241,8 @@ func (o *Promo) HasPercentOff() bool {
 	return false
 }
 
-// SetPercentOff gets a reference to the given int32 and assigns it to the PercentOff field.
-func (o *Promo) SetPercentOff(v int32) {
+// SetPercentOff gets a reference to the given int64 and assigns it to the PercentOff field.
+func (o *Promo) SetPercentOff(v int64) {
 	o.PercentOff = &v
 }
 
@@ -279,9 +279,9 @@ func (o *Promo) SetPlans(v string) {
 }
 
 // GetTeamSeatCap returns the TeamSeatCap field value if set, zero value otherwise.
-func (o *Promo) GetTeamSeatCap() int32 {
+func (o *Promo) GetTeamSeatCap() int64 {
 	if o == nil || IsNil(o.TeamSeatCap) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TeamSeatCap
@@ -289,7 +289,7 @@ func (o *Promo) GetTeamSeatCap() int32 {
 
 // GetTeamSeatCapOk returns a tuple with the TeamSeatCap field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Promo) GetTeamSeatCapOk() (*int32, bool) {
+func (o *Promo) GetTeamSeatCapOk() (*int64, bool) {
 	if o == nil || IsNil(o.TeamSeatCap) {
 		return nil, false
 	}
@@ -305,8 +305,8 @@ func (o *Promo) HasTeamSeatCap() bool {
 	return false
 }
 
-// SetTeamSeatCap gets a reference to the given int32 and assigns it to the TeamSeatCap field.
-func (o *Promo) SetTeamSeatCap(v int32) {
+// SetTeamSeatCap gets a reference to the given int64 and assigns it to the TeamSeatCap field.
+func (o *Promo) SetTeamSeatCap(v int64) {
 	o.TeamSeatCap = &v
 }
 

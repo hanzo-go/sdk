@@ -20,15 +20,15 @@ var _ MappedNullable = &CaptableTotals{}
 // CaptableTotals struct for CaptableTotals
 type CaptableTotals struct {
 	// FullyDilutedShares is outstandingShares plus grantedOptions.
-	FullyDilutedShares *int32 `json:"fullyDilutedShares,omitempty"`
+	FullyDilutedShares *int64 `json:"fullyDilutedShares,omitempty"`
 	// GrantedOptions is the shares under non-terminal option grants — grants that are EXERCISED, EXPIRED or CANCELLED are excluded, so nothing double-counts.
-	GrantedOptions *int32 `json:"grantedOptions,omitempty"`
+	GrantedOptions *int64 `json:"grantedOptions,omitempty"`
 	// OutstandingShares is the sum of every issued share certificate.
-	OutstandingShares *int32 `json:"outstandingShares,omitempty"`
+	OutstandingShares *int64 `json:"outstandingShares,omitempty"`
 	// ShareClasses is how many share classes the company has authorized.
-	ShareClasses *int32 `json:"shareClasses,omitempty"`
+	ShareClasses *int64 `json:"shareClasses,omitempty"`
 	// Stakeholders is how many stakeholders the company has.
-	Stakeholders *int32 `json:"stakeholders,omitempty"`
+	Stakeholders *int64 `json:"stakeholders,omitempty"`
 }
 
 // NewCaptableTotals instantiates a new CaptableTotals object
@@ -49,9 +49,9 @@ func NewCaptableTotalsWithDefaults() *CaptableTotals {
 }
 
 // GetFullyDilutedShares returns the FullyDilutedShares field value if set, zero value otherwise.
-func (o *CaptableTotals) GetFullyDilutedShares() int32 {
+func (o *CaptableTotals) GetFullyDilutedShares() int64 {
 	if o == nil || IsNil(o.FullyDilutedShares) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.FullyDilutedShares
@@ -59,7 +59,7 @@ func (o *CaptableTotals) GetFullyDilutedShares() int32 {
 
 // GetFullyDilutedSharesOk returns a tuple with the FullyDilutedShares field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableTotals) GetFullyDilutedSharesOk() (*int32, bool) {
+func (o *CaptableTotals) GetFullyDilutedSharesOk() (*int64, bool) {
 	if o == nil || IsNil(o.FullyDilutedShares) {
 		return nil, false
 	}
@@ -75,15 +75,15 @@ func (o *CaptableTotals) HasFullyDilutedShares() bool {
 	return false
 }
 
-// SetFullyDilutedShares gets a reference to the given int32 and assigns it to the FullyDilutedShares field.
-func (o *CaptableTotals) SetFullyDilutedShares(v int32) {
+// SetFullyDilutedShares gets a reference to the given int64 and assigns it to the FullyDilutedShares field.
+func (o *CaptableTotals) SetFullyDilutedShares(v int64) {
 	o.FullyDilutedShares = &v
 }
 
 // GetGrantedOptions returns the GrantedOptions field value if set, zero value otherwise.
-func (o *CaptableTotals) GetGrantedOptions() int32 {
+func (o *CaptableTotals) GetGrantedOptions() int64 {
 	if o == nil || IsNil(o.GrantedOptions) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.GrantedOptions
@@ -91,7 +91,7 @@ func (o *CaptableTotals) GetGrantedOptions() int32 {
 
 // GetGrantedOptionsOk returns a tuple with the GrantedOptions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableTotals) GetGrantedOptionsOk() (*int32, bool) {
+func (o *CaptableTotals) GetGrantedOptionsOk() (*int64, bool) {
 	if o == nil || IsNil(o.GrantedOptions) {
 		return nil, false
 	}
@@ -107,15 +107,15 @@ func (o *CaptableTotals) HasGrantedOptions() bool {
 	return false
 }
 
-// SetGrantedOptions gets a reference to the given int32 and assigns it to the GrantedOptions field.
-func (o *CaptableTotals) SetGrantedOptions(v int32) {
+// SetGrantedOptions gets a reference to the given int64 and assigns it to the GrantedOptions field.
+func (o *CaptableTotals) SetGrantedOptions(v int64) {
 	o.GrantedOptions = &v
 }
 
 // GetOutstandingShares returns the OutstandingShares field value if set, zero value otherwise.
-func (o *CaptableTotals) GetOutstandingShares() int32 {
+func (o *CaptableTotals) GetOutstandingShares() int64 {
 	if o == nil || IsNil(o.OutstandingShares) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.OutstandingShares
@@ -123,7 +123,7 @@ func (o *CaptableTotals) GetOutstandingShares() int32 {
 
 // GetOutstandingSharesOk returns a tuple with the OutstandingShares field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableTotals) GetOutstandingSharesOk() (*int32, bool) {
+func (o *CaptableTotals) GetOutstandingSharesOk() (*int64, bool) {
 	if o == nil || IsNil(o.OutstandingShares) {
 		return nil, false
 	}
@@ -139,15 +139,15 @@ func (o *CaptableTotals) HasOutstandingShares() bool {
 	return false
 }
 
-// SetOutstandingShares gets a reference to the given int32 and assigns it to the OutstandingShares field.
-func (o *CaptableTotals) SetOutstandingShares(v int32) {
+// SetOutstandingShares gets a reference to the given int64 and assigns it to the OutstandingShares field.
+func (o *CaptableTotals) SetOutstandingShares(v int64) {
 	o.OutstandingShares = &v
 }
 
 // GetShareClasses returns the ShareClasses field value if set, zero value otherwise.
-func (o *CaptableTotals) GetShareClasses() int32 {
+func (o *CaptableTotals) GetShareClasses() int64 {
 	if o == nil || IsNil(o.ShareClasses) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ShareClasses
@@ -155,7 +155,7 @@ func (o *CaptableTotals) GetShareClasses() int32 {
 
 // GetShareClassesOk returns a tuple with the ShareClasses field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableTotals) GetShareClassesOk() (*int32, bool) {
+func (o *CaptableTotals) GetShareClassesOk() (*int64, bool) {
 	if o == nil || IsNil(o.ShareClasses) {
 		return nil, false
 	}
@@ -171,15 +171,15 @@ func (o *CaptableTotals) HasShareClasses() bool {
 	return false
 }
 
-// SetShareClasses gets a reference to the given int32 and assigns it to the ShareClasses field.
-func (o *CaptableTotals) SetShareClasses(v int32) {
+// SetShareClasses gets a reference to the given int64 and assigns it to the ShareClasses field.
+func (o *CaptableTotals) SetShareClasses(v int64) {
 	o.ShareClasses = &v
 }
 
 // GetStakeholders returns the Stakeholders field value if set, zero value otherwise.
-func (o *CaptableTotals) GetStakeholders() int32 {
+func (o *CaptableTotals) GetStakeholders() int64 {
 	if o == nil || IsNil(o.Stakeholders) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Stakeholders
@@ -187,7 +187,7 @@ func (o *CaptableTotals) GetStakeholders() int32 {
 
 // GetStakeholdersOk returns a tuple with the Stakeholders field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaptableTotals) GetStakeholdersOk() (*int32, bool) {
+func (o *CaptableTotals) GetStakeholdersOk() (*int64, bool) {
 	if o == nil || IsNil(o.Stakeholders) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *CaptableTotals) HasStakeholders() bool {
 	return false
 }
 
-// SetStakeholders gets a reference to the given int32 and assigns it to the Stakeholders field.
-func (o *CaptableTotals) SetStakeholders(v int32) {
+// SetStakeholders gets a reference to the given int64 and assigns it to the Stakeholders field.
+func (o *CaptableTotals) SetStakeholders(v int64) {
 	o.Stakeholders = &v
 }
 

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Device** | Pointer to **string** | Device is the device fingerprint, if any. It is the axis that surfaces several nominally unrelated subjects acting as one. | [optional] 
 **Id** | Pointer to **string** | ID is the caller&#39;s own stable identifier for the event. It selects the below-the-line review sample by hash, so a counter would make the sample steerable — use the id the event already has. | [optional] 
 **Kind** | Pointer to **string** | Kind is whose behaviour this is: person, session or account. It namespaces the subject, so a person and an account that share an identifier stay two subjects. | [optional] 
-**Nano** | Pointer to **int32** | Nano is the value moved, in nano-USD. Omit it for an event that moves no money: the value features then read BLIND rather than being told the amount was zero, and the difference is reported on the model state. | [optional] 
+**Nano** | Pointer to **int64** | Nano is the value moved, in nano-USD. Omit it for an event that moves no money: the value features then read BLIND rather than being told the amount was zero, and the difference is reported on the model state. | [optional] 
 **Peer** | Pointer to **string** | Peer is the counterparty, if any. It is an aggregation axis of its own — \&quot;unfamiliar\&quot; is a fact about a relationship and not about either party. | [optional] 
 **Subject** | Pointer to **string** | Subject is the identifier on that kind. | [optional] 
 
@@ -133,20 +133,20 @@ HasKind returns a boolean if a field has been set.
 
 ### GetNano
 
-`func (o *RiskEvent) GetNano() int32`
+`func (o *RiskEvent) GetNano() int64`
 
 GetNano returns the Nano field if non-nil, zero value otherwise.
 
 ### GetNanoOk
 
-`func (o *RiskEvent) GetNanoOk() (*int32, bool)`
+`func (o *RiskEvent) GetNanoOk() (*int64, bool)`
 
 GetNanoOk returns a tuple with the Nano field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNano
 
-`func (o *RiskEvent) SetNano(v int32)`
+`func (o *RiskEvent) SetNano(v int64)`
 
 SetNano sets Nano field to given value.
 

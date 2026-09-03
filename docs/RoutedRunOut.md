@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Prompt** | Pointer to **string** | Prompt is the task, in full, as the person wrote it. There is no second field for context. | [optional] 
 **Repo** | Pointer to **string** | Repo is the repository to work in and CloneURL is how to fetch it. | [optional] 
 **SessionId** | Pointer to **string** | SessionID is the live session opened at dispatch; the machine streams its turns into it. | [optional] 
-**TimeoutSeconds** | Pointer to **int32** | TimeoutSeconds bounds the run on the machine; 0 means the machine&#39;s own default. | [optional] 
+**TimeoutSeconds** | Pointer to **int64** | TimeoutSeconds bounds the run on the machine; 0 means the machine&#39;s own default. | [optional] 
 
 ## Methods
 
@@ -209,20 +209,20 @@ HasSessionId returns a boolean if a field has been set.
 
 ### GetTimeoutSeconds
 
-`func (o *RoutedRunOut) GetTimeoutSeconds() int32`
+`func (o *RoutedRunOut) GetTimeoutSeconds() int64`
 
 GetTimeoutSeconds returns the TimeoutSeconds field if non-nil, zero value otherwise.
 
 ### GetTimeoutSecondsOk
 
-`func (o *RoutedRunOut) GetTimeoutSecondsOk() (*int32, bool)`
+`func (o *RoutedRunOut) GetTimeoutSecondsOk() (*int64, bool)`
 
 GetTimeoutSecondsOk returns a tuple with the TimeoutSeconds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeoutSeconds
 
-`func (o *RoutedRunOut) SetTimeoutSeconds(v int32)`
+`func (o *RoutedRunOut) SetTimeoutSeconds(v int64)`
 
 SetTimeoutSeconds sets TimeoutSeconds field to given value.
 

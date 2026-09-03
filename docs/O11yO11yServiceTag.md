@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BoolValues** | Pointer to **[]bool** | BoolValues are the boolean operands, when the attribute is a bool. | [optional] 
 **Key** | Pointer to **string** | Key is the span attribute to test. | [optional] 
-**NumberValues** | Pointer to **[]float32** | NumberValues are the numeric operands, when the attribute is a number. | [optional] 
+**NumberValues** | Pointer to **[]float64** | NumberValues are the numeric operands, when the attribute is a number. | [optional] 
 **Operator** | Pointer to **string** | Operator is how to test it, e.g. in, not_in. | [optional] 
 **StringValues** | Pointer to **[]string** | StringValues are the string operands, when the attribute is a string. | [optional] 
 **TagType** | Pointer to **string** | TagType says which plane the attribute lives on, e.g. tag or resource. | [optional] 
@@ -82,20 +82,20 @@ HasKey returns a boolean if a field has been set.
 
 ### GetNumberValues
 
-`func (o *O11yO11yServiceTag) GetNumberValues() []float32`
+`func (o *O11yO11yServiceTag) GetNumberValues() []float64`
 
 GetNumberValues returns the NumberValues field if non-nil, zero value otherwise.
 
 ### GetNumberValuesOk
 
-`func (o *O11yO11yServiceTag) GetNumberValuesOk() (*[]float32, bool)`
+`func (o *O11yO11yServiceTag) GetNumberValuesOk() (*[]float64, bool)`
 
 GetNumberValuesOk returns a tuple with the NumberValues field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumberValues
 
-`func (o *O11yO11yServiceTag) SetNumberValues(v []float32)`
+`func (o *O11yO11yServiceTag) SetNumberValues(v []float64)`
 
 SetNumberValues sets NumberValues field to given value.
 

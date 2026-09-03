@@ -30,13 +30,13 @@ type IngressStatus struct {
 	// HTTPSAddr is the address the SNI TLS terminator listens on.
 	HttpsAddr *string `json:"httpsAddr,omitempty"`
 	// LiveHosts is how many hosts the compiled table routes.
-	LiveHosts *int32 `json:"liveHosts,omitempty"`
+	LiveHosts *int64 `json:"liveHosts,omitempty"`
 	// Proxy names the reverse-proxy implementation behind every route.
 	Proxy *string `json:"proxy,omitempty"`
 	// Role is \"edge\" when CLOUD_INGRESS_EDGE_ENABLED is set, else \"app\".
 	Role *string `json:"role,omitempty"`
 	// TLSHosts is how many hosts the ACME HostPolicy will issue a certificate for. NOT a subset of LiveHosts: an extraHost owns no route, and a TLS route naming a missing service is skipped while its host still wants a cert.
-	TlsHosts *int32 `json:"tlsHosts,omitempty"`
+	TlsHosts *int64 `json:"tlsHosts,omitempty"`
 }
 
 // NewIngressStatus instantiates a new IngressStatus object
@@ -217,9 +217,9 @@ func (o *IngressStatus) SetHttpsAddr(v string) {
 }
 
 // GetLiveHosts returns the LiveHosts field value if set, zero value otherwise.
-func (o *IngressStatus) GetLiveHosts() int32 {
+func (o *IngressStatus) GetLiveHosts() int64 {
 	if o == nil || IsNil(o.LiveHosts) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.LiveHosts
@@ -227,7 +227,7 @@ func (o *IngressStatus) GetLiveHosts() int32 {
 
 // GetLiveHostsOk returns a tuple with the LiveHosts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IngressStatus) GetLiveHostsOk() (*int32, bool) {
+func (o *IngressStatus) GetLiveHostsOk() (*int64, bool) {
 	if o == nil || IsNil(o.LiveHosts) {
 		return nil, false
 	}
@@ -243,8 +243,8 @@ func (o *IngressStatus) HasLiveHosts() bool {
 	return false
 }
 
-// SetLiveHosts gets a reference to the given int32 and assigns it to the LiveHosts field.
-func (o *IngressStatus) SetLiveHosts(v int32) {
+// SetLiveHosts gets a reference to the given int64 and assigns it to the LiveHosts field.
+func (o *IngressStatus) SetLiveHosts(v int64) {
 	o.LiveHosts = &v
 }
 
@@ -313,9 +313,9 @@ func (o *IngressStatus) SetRole(v string) {
 }
 
 // GetTlsHosts returns the TlsHosts field value if set, zero value otherwise.
-func (o *IngressStatus) GetTlsHosts() int32 {
+func (o *IngressStatus) GetTlsHosts() int64 {
 	if o == nil || IsNil(o.TlsHosts) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TlsHosts
@@ -323,7 +323,7 @@ func (o *IngressStatus) GetTlsHosts() int32 {
 
 // GetTlsHostsOk returns a tuple with the TlsHosts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IngressStatus) GetTlsHostsOk() (*int32, bool) {
+func (o *IngressStatus) GetTlsHostsOk() (*int64, bool) {
 	if o == nil || IsNil(o.TlsHosts) {
 		return nil, false
 	}
@@ -339,8 +339,8 @@ func (o *IngressStatus) HasTlsHosts() bool {
 	return false
 }
 
-// SetTlsHosts gets a reference to the given int32 and assigns it to the TlsHosts field.
-func (o *IngressStatus) SetTlsHosts(v int32) {
+// SetTlsHosts gets a reference to the given int64 and assigns it to the TlsHosts field.
+func (o *IngressStatus) SetTlsHosts(v int64) {
 	o.TlsHosts = &v
 }
 

@@ -20,9 +20,9 @@ var _ MappedNullable = &BlueprintRow{}
 // BlueprintRow struct for BlueprintRow
 type BlueprintRow struct {
 	// CentsPerMonth is the estimated compute cost of running the whole stack for one month, in USD cents, from the rate card GET /v1/blueprint/health echoes.
-	EstCentsPerMonth *int32 `json:"estCentsPerMonth,omitempty"`
+	EstCentsPerMonth *int64 `json:"estCentsPerMonth,omitempty"`
 	// Services is how many compose services the stack runs.
-	Services *int32 `json:"services,omitempty"`
+	Services *int64 `json:"services,omitempty"`
 	// TemplateID is the blueprint slug — the id GET /v1/blueprint/sbom takes as ?template= and the path under templates.hanzo.ai/blueprints/<id>/.
 	TemplateId *string `json:"templateId,omitempty"`
 }
@@ -45,9 +45,9 @@ func NewBlueprintRowWithDefaults() *BlueprintRow {
 }
 
 // GetEstCentsPerMonth returns the EstCentsPerMonth field value if set, zero value otherwise.
-func (o *BlueprintRow) GetEstCentsPerMonth() int32 {
+func (o *BlueprintRow) GetEstCentsPerMonth() int64 {
 	if o == nil || IsNil(o.EstCentsPerMonth) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.EstCentsPerMonth
@@ -55,7 +55,7 @@ func (o *BlueprintRow) GetEstCentsPerMonth() int32 {
 
 // GetEstCentsPerMonthOk returns a tuple with the EstCentsPerMonth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BlueprintRow) GetEstCentsPerMonthOk() (*int32, bool) {
+func (o *BlueprintRow) GetEstCentsPerMonthOk() (*int64, bool) {
 	if o == nil || IsNil(o.EstCentsPerMonth) {
 		return nil, false
 	}
@@ -71,15 +71,15 @@ func (o *BlueprintRow) HasEstCentsPerMonth() bool {
 	return false
 }
 
-// SetEstCentsPerMonth gets a reference to the given int32 and assigns it to the EstCentsPerMonth field.
-func (o *BlueprintRow) SetEstCentsPerMonth(v int32) {
+// SetEstCentsPerMonth gets a reference to the given int64 and assigns it to the EstCentsPerMonth field.
+func (o *BlueprintRow) SetEstCentsPerMonth(v int64) {
 	o.EstCentsPerMonth = &v
 }
 
 // GetServices returns the Services field value if set, zero value otherwise.
-func (o *BlueprintRow) GetServices() int32 {
+func (o *BlueprintRow) GetServices() int64 {
 	if o == nil || IsNil(o.Services) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Services
@@ -87,7 +87,7 @@ func (o *BlueprintRow) GetServices() int32 {
 
 // GetServicesOk returns a tuple with the Services field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BlueprintRow) GetServicesOk() (*int32, bool) {
+func (o *BlueprintRow) GetServicesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Services) {
 		return nil, false
 	}
@@ -103,8 +103,8 @@ func (o *BlueprintRow) HasServices() bool {
 	return false
 }
 
-// SetServices gets a reference to the given int32 and assigns it to the Services field.
-func (o *BlueprintRow) SetServices(v int32) {
+// SetServices gets a reference to the given int64 and assigns it to the Services field.
+func (o *BlueprintRow) SetServices(v int64) {
 	o.Services = &v
 }
 

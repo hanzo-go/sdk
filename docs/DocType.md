@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Autoname** | Pointer to **string** |  | [optional] 
-**CreatedAt** | Pointer to **int32** |  | [optional] 
+**CreatedAt** | Pointer to **int64** |  | [optional] 
 **Fields** | Pointer to [**[]DocField**](DocField.md) |  | [optional] 
 **IsSingle** | Pointer to **bool** |  | [optional] 
 **IsSubmittable** | Pointer to **bool** |  | [optional] 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** |  | [optional] 
 **Permissions** | Pointer to [**[]DocPerm**](DocPerm.md) |  | [optional] 
 **TitleField** | Pointer to **string** |  | [optional] 
-**UpdatedAt** | Pointer to **int32** |  | [optional] 
+**UpdatedAt** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -61,20 +61,20 @@ HasAutoname returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *DocType) GetCreatedAt() int32`
+`func (o *DocType) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *DocType) GetCreatedAtOk() (*int32, bool)`
+`func (o *DocType) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *DocType) SetCreatedAt(v int32)`
+`func (o *DocType) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -261,20 +261,20 @@ HasTitleField returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *DocType) GetUpdatedAt() int32`
+`func (o *DocType) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *DocType) GetUpdatedAtOk() (*int32, bool)`
+`func (o *DocType) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *DocType) SetUpdatedAt(v int32)`
+`func (o *DocType) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

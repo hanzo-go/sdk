@@ -174,7 +174,7 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 | Limit bounds the page (default 200, maximum 1000). (optional)
+	limit := int64(789) // int64 | Limit bounds the page (default 200, maximum 1000). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -199,7 +199,7 @@ Other parameters are passed through a pointer to a apiGetAutoFlowsRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit bounds the page (default 200, maximum 1000). | 
+ **limit** | **int64** | Limit bounds the page (default 200, maximum 1000). | 
 
 ### Return type
 
@@ -311,7 +311,7 @@ import (
 
 func main() {
 	id := "flow_1" // string | ID is the flow whose versions to list, from the path.
-	limit := int32(56) // int32 | Limit bounds the page (default 200, maximum 1000). (optional)
+	limit := int64(789) // int64 | Limit bounds the page (default 200, maximum 1000). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -341,7 +341,7 @@ Other parameters are passed through a pointer to a apiGetAutoFlowsByIdVersionsRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **limit** | **int32** | Limit bounds the page (default 200, maximum 1000). | 
+ **limit** | **int64** | Limit bounds the page (default 200, maximum 1000). | 
 
 ### Return type
 
@@ -383,7 +383,7 @@ import (
 
 func main() {
 	flowId := "flowId_example" // string | FlowID narrows the history to one flow. Omit it for the whole org's runs. (optional)
-	limit := int32(56) // int32 | Limit bounds the page (default 200, maximum 1000). (optional)
+	limit := int64(789) // int64 | Limit bounds the page (default 200, maximum 1000). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -409,7 +409,7 @@ Other parameters are passed through a pointer to a apiGetAutoRunsRequest struct 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **flowId** | **string** | FlowID narrows the history to one flow. Omit it for the whole org&#39;s runs. | 
- **limit** | **int32** | Limit bounds the page (default 200, maximum 1000). | 
+ **limit** | **int64** | Limit bounds the page (default 200, maximum 1000). | 
 
 ### Return type
 

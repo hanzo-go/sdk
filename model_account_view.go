@@ -22,7 +22,7 @@ type AccountView struct {
 	// Address is the ledger account address (\"org:acme:wallet\", \"fund:reserve\", …).
 	Address *string `json:"address,omitempty"`
 	// BalanceCents is that account's signed balance in minor units.
-	BalanceCents *int32 `json:"balanceCents,omitempty"`
+	BalanceCents *int64 `json:"balanceCents,omitempty"`
 }
 
 // NewAccountView instantiates a new AccountView object
@@ -75,9 +75,9 @@ func (o *AccountView) SetAddress(v string) {
 }
 
 // GetBalanceCents returns the BalanceCents field value if set, zero value otherwise.
-func (o *AccountView) GetBalanceCents() int32 {
+func (o *AccountView) GetBalanceCents() int64 {
 	if o == nil || IsNil(o.BalanceCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.BalanceCents
@@ -85,7 +85,7 @@ func (o *AccountView) GetBalanceCents() int32 {
 
 // GetBalanceCentsOk returns a tuple with the BalanceCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccountView) GetBalanceCentsOk() (*int32, bool) {
+func (o *AccountView) GetBalanceCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.BalanceCents) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *AccountView) HasBalanceCents() bool {
 	return false
 }
 
-// SetBalanceCents gets a reference to the given int32 and assigns it to the BalanceCents field.
-func (o *AccountView) SetBalanceCents(v int32) {
+// SetBalanceCents gets a reference to the given int64 and assigns it to the BalanceCents field.
+func (o *AccountView) SetBalanceCents(v int64) {
 	o.BalanceCents = &v
 }
 

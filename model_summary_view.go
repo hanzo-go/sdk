@@ -20,9 +20,9 @@ var _ MappedNullable = &SummaryView{}
 // SummaryView struct for SummaryView
 type SummaryView struct {
 	// DocTypes is how many DocTypes the org has defined.
-	Doctypes *int32 `json:"doctypes,omitempty"`
+	Doctypes *int64 `json:"doctypes,omitempty"`
 	// Documents is how many documents exist across them.
-	Documents *int32 `json:"documents,omitempty"`
+	Documents *int64 `json:"documents,omitempty"`
 }
 
 // NewSummaryView instantiates a new SummaryView object
@@ -43,9 +43,9 @@ func NewSummaryViewWithDefaults() *SummaryView {
 }
 
 // GetDoctypes returns the Doctypes field value if set, zero value otherwise.
-func (o *SummaryView) GetDoctypes() int32 {
+func (o *SummaryView) GetDoctypes() int64 {
 	if o == nil || IsNil(o.Doctypes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Doctypes
@@ -53,7 +53,7 @@ func (o *SummaryView) GetDoctypes() int32 {
 
 // GetDoctypesOk returns a tuple with the Doctypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SummaryView) GetDoctypesOk() (*int32, bool) {
+func (o *SummaryView) GetDoctypesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Doctypes) {
 		return nil, false
 	}
@@ -69,15 +69,15 @@ func (o *SummaryView) HasDoctypes() bool {
 	return false
 }
 
-// SetDoctypes gets a reference to the given int32 and assigns it to the Doctypes field.
-func (o *SummaryView) SetDoctypes(v int32) {
+// SetDoctypes gets a reference to the given int64 and assigns it to the Doctypes field.
+func (o *SummaryView) SetDoctypes(v int64) {
 	o.Doctypes = &v
 }
 
 // GetDocuments returns the Documents field value if set, zero value otherwise.
-func (o *SummaryView) GetDocuments() int32 {
+func (o *SummaryView) GetDocuments() int64 {
 	if o == nil || IsNil(o.Documents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Documents
@@ -85,7 +85,7 @@ func (o *SummaryView) GetDocuments() int32 {
 
 // GetDocumentsOk returns a tuple with the Documents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SummaryView) GetDocumentsOk() (*int32, bool) {
+func (o *SummaryView) GetDocumentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Documents) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *SummaryView) HasDocuments() bool {
 	return false
 }
 
-// SetDocuments gets a reference to the given int32 and assigns it to the Documents field.
-func (o *SummaryView) SetDocuments(v int32) {
+// SetDocuments gets a reference to the given int64 and assigns it to the Documents field.
+func (o *SummaryView) SetDocuments(v int64) {
 	o.Documents = &v
 }
 

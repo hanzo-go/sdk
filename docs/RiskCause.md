@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Baseline** | Pointer to **float32** | Baseline is the number it was measured against — always this organisation&#39;s own history, never a fixed limit and never another organisation&#39;s. | [optional] 
+**Baseline** | Pointer to **float64** | Baseline is the number it was measured against — always this organisation&#39;s own history, never a fixed limit and never another organisation&#39;s. | [optional] 
 **Citation** | Pointer to **string** | Citation is where those words come from, so the claim is checkable rather than asserted — which is what a chargeback network or a regulator asks for. | [optional] 
 **Feature** | Pointer to **string** | Feature is the dimension that contributed. | [optional] 
 **Indicator** | Pointer to **string** | Indicator is the supervisor&#39;s own words for the thing being looked for. | [optional] 
-**Observed** | Pointer to **float32** | Observed is the raw number the coordinate was computed from. | [optional] 
+**Observed** | Pointer to **float64** | Observed is the raw number the coordinate was computed from. | [optional] 
 **Severity** | Pointer to **string** | Severity is how much weight this dimension carries. | [optional] 
-**Share** | Pointer to **float32** | Share is this feature&#39;s part of the score, in [0,1]. Zero across every cause means no single feature accounts for the alert and the combination does; the causes are then ordered by how far each sits from unremarkable. | [optional] 
+**Share** | Pointer to **float64** | Share is this feature&#39;s part of the score, in [0,1]. Zero across every cause means no single feature accounts for the alert and the combination does; the causes are then ordered by how far each sits from unremarkable. | [optional] 
 **Typology** | Pointer to **string** | Typology is the laundering or abuse pattern this dimension detects. | [optional] 
 **Unit** | Pointer to **string** | Unit is how to read Observed, which is what turns a coordinate into a sentence. | [optional] 
-**Without** | Pointer to **float32** | Without is the score the same event would have received with this coordinate at its neutral value — the counterfactual itself. | [optional] 
+**Without** | Pointer to **float64** | Without is the score the same event would have received with this coordinate at its neutral value — the counterfactual itself. | [optional] 
 
 ## Methods
 
@@ -36,20 +36,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetBaseline
 
-`func (o *RiskCause) GetBaseline() float32`
+`func (o *RiskCause) GetBaseline() float64`
 
 GetBaseline returns the Baseline field if non-nil, zero value otherwise.
 
 ### GetBaselineOk
 
-`func (o *RiskCause) GetBaselineOk() (*float32, bool)`
+`func (o *RiskCause) GetBaselineOk() (*float64, bool)`
 
 GetBaselineOk returns a tuple with the Baseline field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBaseline
 
-`func (o *RiskCause) SetBaseline(v float32)`
+`func (o *RiskCause) SetBaseline(v float64)`
 
 SetBaseline sets Baseline field to given value.
 
@@ -136,20 +136,20 @@ HasIndicator returns a boolean if a field has been set.
 
 ### GetObserved
 
-`func (o *RiskCause) GetObserved() float32`
+`func (o *RiskCause) GetObserved() float64`
 
 GetObserved returns the Observed field if non-nil, zero value otherwise.
 
 ### GetObservedOk
 
-`func (o *RiskCause) GetObservedOk() (*float32, bool)`
+`func (o *RiskCause) GetObservedOk() (*float64, bool)`
 
 GetObservedOk returns a tuple with the Observed field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetObserved
 
-`func (o *RiskCause) SetObserved(v float32)`
+`func (o *RiskCause) SetObserved(v float64)`
 
 SetObserved sets Observed field to given value.
 
@@ -186,20 +186,20 @@ HasSeverity returns a boolean if a field has been set.
 
 ### GetShare
 
-`func (o *RiskCause) GetShare() float32`
+`func (o *RiskCause) GetShare() float64`
 
 GetShare returns the Share field if non-nil, zero value otherwise.
 
 ### GetShareOk
 
-`func (o *RiskCause) GetShareOk() (*float32, bool)`
+`func (o *RiskCause) GetShareOk() (*float64, bool)`
 
 GetShareOk returns a tuple with the Share field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetShare
 
-`func (o *RiskCause) SetShare(v float32)`
+`func (o *RiskCause) SetShare(v float64)`
 
 SetShare sets Share field to given value.
 
@@ -261,20 +261,20 @@ HasUnit returns a boolean if a field has been set.
 
 ### GetWithout
 
-`func (o *RiskCause) GetWithout() float32`
+`func (o *RiskCause) GetWithout() float64`
 
 GetWithout returns the Without field if non-nil, zero value otherwise.
 
 ### GetWithoutOk
 
-`func (o *RiskCause) GetWithoutOk() (*float32, bool)`
+`func (o *RiskCause) GetWithoutOk() (*float64, bool)`
 
 GetWithoutOk returns a tuple with the Without field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWithout
 
-`func (o *RiskCause) SetWithout(v float32)`
+`func (o *RiskCause) SetWithout(v float64)`
 
 SetWithout sets Without field to given value.
 

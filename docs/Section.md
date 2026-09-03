@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Detail** | Pointer to **string** | Detail is what this phase of the journey is for, in prose. | [optional] 
 **Enabled** | Pointer to **bool** | Enabled is the admin lever. Absent reads as ON, so only an explicit false turns a phase off — and it takes every step filed under it out of the journey, not just the heading. | [optional] 
 **Id** | Pointer to **string** | ID is the slug a step&#39;s &#x60;section&#x60; names to file itself under this phase. | [optional] 
-**Order** | Pointer to **int32** | Order places the phase in the journey, ascending. Ties fall back to authoring order, and an omitted order sorts as 0 — ahead of everything. | [optional] 
+**Order** | Pointer to **int64** | Order places the phase in the journey, ascending. Ties fall back to authoring order, and an omitted order sorts as 0 — ahead of everything. | [optional] 
 **Title** | Pointer to **string** | Title is the phase heading a person reads above its steps. | [optional] 
 
 ## Methods
@@ -106,20 +106,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetOrder
 
-`func (o *Section) GetOrder() int32`
+`func (o *Section) GetOrder() int64`
 
 GetOrder returns the Order field if non-nil, zero value otherwise.
 
 ### GetOrderOk
 
-`func (o *Section) GetOrderOk() (*int32, bool)`
+`func (o *Section) GetOrderOk() (*int64, bool)`
 
 GetOrderOk returns a tuple with the Order field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrder
 
-`func (o *Section) SetOrder(v int32)`
+`func (o *Section) SetOrder(v int64)`
 
 SetOrder sets Order field to given value.
 

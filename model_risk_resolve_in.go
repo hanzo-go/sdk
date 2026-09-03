@@ -20,7 +20,7 @@ var _ MappedNullable = &RiskResolveIn{}
 // RiskResolveIn struct for RiskResolveIn
 type RiskResolveIn struct {
 	// Horizon is how many days an event must age before it may be resolved at all, and it is the whole of the no-leakage rule. 120 for the payment lane (past the Visa and Mastercard dispute windows), 14 for signup abuse. Unstated takes 120.
-	Horizon *int32 `json:"horizon,omitempty"`
+	Horizon *int64 `json:"horizon,omitempty"`
 	// Now moves the observation instant BACKWARDS, RFC 3339. It exists so a BACKTEST can resolve labels as the plane stood at a past moment; without it, every backtest would score a model against knowledge that arrived after the decision it is being scored on. An instant after the server clock is refused: a backtest resolves the past, and a future one would declare unmatured events matured and hand a training set negatives for rows whose chargeback has not had time to arrive.
 	Now *string `json:"now,omitempty"`
 	// Subjects are the exact events being judged. Each carries its own event time, because the as-of that keeps the future out is derived from that instant plus the horizon — one as-of over a whole batch would give a January row six extra months of hindsight.  One entry per DISTINCT (kind, subject, at): naming an event twice answers once, because an event resolved twice would list its own winner as a contrary claim and would hand a materialiser duplicate training rows.
@@ -45,9 +45,9 @@ func NewRiskResolveInWithDefaults() *RiskResolveIn {
 }
 
 // GetHorizon returns the Horizon field value if set, zero value otherwise.
-func (o *RiskResolveIn) GetHorizon() int32 {
+func (o *RiskResolveIn) GetHorizon() int64 {
 	if o == nil || IsNil(o.Horizon) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Horizon
@@ -55,7 +55,7 @@ func (o *RiskResolveIn) GetHorizon() int32 {
 
 // GetHorizonOk returns a tuple with the Horizon field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskResolveIn) GetHorizonOk() (*int32, bool) {
+func (o *RiskResolveIn) GetHorizonOk() (*int64, bool) {
 	if o == nil || IsNil(o.Horizon) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *RiskResolveIn) HasHorizon() bool {
 	return false
 }
 
-// SetHorizon gets a reference to the given int32 and assigns it to the Horizon field.
-func (o *RiskResolveIn) SetHorizon(v int32) {
+// SetHorizon gets a reference to the given int64 and assigns it to the Horizon field.
+func (o *RiskResolveIn) SetHorizon(v int64) {
 	o.Horizon = &v
 }
 

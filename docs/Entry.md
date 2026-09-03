@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **Origin** | Pointer to **string** | Origin is WHAT THIS IS TO YOU: template | community | third-party | product (origin.go owns the four nouns and derives them). Not omitempty, for the same reason Forkable is not: every row has an answer, and a missing one is exactly the flattening this field exists to end. | [optional] 
 **Repo** | Pointer to **string** | source | [optional] 
 **Scope** | Pointer to **string** | Scope is provenance, not storage: \&quot;public\&quot; for a row from the published corpus, \&quot;org\&quot; for one only this caller can see. A UI that cannot tell them apart cannot warn before sharing a link. | [optional] 
-**Stars** | Pointer to **int32** | Stars is GitHub&#39;s stargazer count for the source repository, read at the last sync and never accumulated here. It is not a ranking — the page sorts on Updated — but it is the tiebreak when two orgs claim one ID. Absent for a site with no repository behind it, and for a repository nobody has starred. | [optional] 
+**Stars** | Pointer to **int64** | Stars is GitHub&#39;s stargazer count for the source repository, read at the last sync and never accumulated here. It is not a ranking — the page sorts on Updated — but it is the tiebreak when two orgs claim one ID. Absent for a site with no repository behind it, and for a repository nobody has starred. | [optional] 
 **Template** | Pointer to **string** | lineage, if forked from one | [optional] 
 **Title** | Pointer to **string** | Title is what to SHOW. A site&#39;s human name wins where it has one; a repo row falls back to the repository name, so on a repo this usually just repeats Name. Absent only for a site whose project was never named — render Name. | [optional] 
 **Updated** | Pointer to **string** | Updated is when the thing last MOVED, as RFC 3339 in UTC: a repository&#39;s last push, or a site&#39;s last deploy. The page is ordered on it, most recent first, by comparing these strings — so the format is load-bearing and not cosmetic. Absent means the source reported no timestamp, and such a row sorts last. | [optional] 
@@ -370,20 +370,20 @@ HasScope returns a boolean if a field has been set.
 
 ### GetStars
 
-`func (o *Entry) GetStars() int32`
+`func (o *Entry) GetStars() int64`
 
 GetStars returns the Stars field if non-nil, zero value otherwise.
 
 ### GetStarsOk
 
-`func (o *Entry) GetStarsOk() (*int32, bool)`
+`func (o *Entry) GetStarsOk() (*int64, bool)`
 
 GetStarsOk returns a tuple with the Stars field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStars
 
-`func (o *Entry) SetStars(v int32)`
+`func (o *Entry) SetStars(v int64)`
 
 SetStars sets Stars field to given value.
 

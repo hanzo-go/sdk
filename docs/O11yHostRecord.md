@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ActiveHostCount** | Pointer to **int32** |  | [optional] 
-**Cpu** | Pointer to **float32** |  | [optional] 
-**DiskUsage** | Pointer to **float32** |  | [optional] 
+**ActiveHostCount** | Pointer to **int64** |  | [optional] 
+**Cpu** | Pointer to **float64** |  | [optional] 
+**DiskUsage** | Pointer to **float64** |  | [optional] 
 **HostName** | Pointer to **string** |  | [optional] 
-**InactiveHostCount** | Pointer to **int32** |  | [optional] 
-**Load15** | Pointer to **float32** |  | [optional] 
-**Memory** | Pointer to **float32** |  | [optional] 
+**InactiveHostCount** | Pointer to **int64** |  | [optional] 
+**Load15** | Pointer to **float64** |  | [optional] 
+**Memory** | Pointer to **float64** |  | [optional] 
 **Meta** | Pointer to **map[string]string** |  | [optional] 
 **Status** | Pointer to **interface{}** |  | [optional] 
-**Wait** | Pointer to **float32** |  | [optional] 
+**Wait** | Pointer to **float64** |  | [optional] 
 
 ## Methods
 
@@ -36,20 +36,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetActiveHostCount
 
-`func (o *O11yHostRecord) GetActiveHostCount() int32`
+`func (o *O11yHostRecord) GetActiveHostCount() int64`
 
 GetActiveHostCount returns the ActiveHostCount field if non-nil, zero value otherwise.
 
 ### GetActiveHostCountOk
 
-`func (o *O11yHostRecord) GetActiveHostCountOk() (*int32, bool)`
+`func (o *O11yHostRecord) GetActiveHostCountOk() (*int64, bool)`
 
 GetActiveHostCountOk returns a tuple with the ActiveHostCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetActiveHostCount
 
-`func (o *O11yHostRecord) SetActiveHostCount(v int32)`
+`func (o *O11yHostRecord) SetActiveHostCount(v int64)`
 
 SetActiveHostCount sets ActiveHostCount field to given value.
 
@@ -61,20 +61,20 @@ HasActiveHostCount returns a boolean if a field has been set.
 
 ### GetCpu
 
-`func (o *O11yHostRecord) GetCpu() float32`
+`func (o *O11yHostRecord) GetCpu() float64`
 
 GetCpu returns the Cpu field if non-nil, zero value otherwise.
 
 ### GetCpuOk
 
-`func (o *O11yHostRecord) GetCpuOk() (*float32, bool)`
+`func (o *O11yHostRecord) GetCpuOk() (*float64, bool)`
 
 GetCpuOk returns a tuple with the Cpu field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCpu
 
-`func (o *O11yHostRecord) SetCpu(v float32)`
+`func (o *O11yHostRecord) SetCpu(v float64)`
 
 SetCpu sets Cpu field to given value.
 
@@ -86,20 +86,20 @@ HasCpu returns a boolean if a field has been set.
 
 ### GetDiskUsage
 
-`func (o *O11yHostRecord) GetDiskUsage() float32`
+`func (o *O11yHostRecord) GetDiskUsage() float64`
 
 GetDiskUsage returns the DiskUsage field if non-nil, zero value otherwise.
 
 ### GetDiskUsageOk
 
-`func (o *O11yHostRecord) GetDiskUsageOk() (*float32, bool)`
+`func (o *O11yHostRecord) GetDiskUsageOk() (*float64, bool)`
 
 GetDiskUsageOk returns a tuple with the DiskUsage field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDiskUsage
 
-`func (o *O11yHostRecord) SetDiskUsage(v float32)`
+`func (o *O11yHostRecord) SetDiskUsage(v float64)`
 
 SetDiskUsage sets DiskUsage field to given value.
 
@@ -136,20 +136,20 @@ HasHostName returns a boolean if a field has been set.
 
 ### GetInactiveHostCount
 
-`func (o *O11yHostRecord) GetInactiveHostCount() int32`
+`func (o *O11yHostRecord) GetInactiveHostCount() int64`
 
 GetInactiveHostCount returns the InactiveHostCount field if non-nil, zero value otherwise.
 
 ### GetInactiveHostCountOk
 
-`func (o *O11yHostRecord) GetInactiveHostCountOk() (*int32, bool)`
+`func (o *O11yHostRecord) GetInactiveHostCountOk() (*int64, bool)`
 
 GetInactiveHostCountOk returns a tuple with the InactiveHostCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInactiveHostCount
 
-`func (o *O11yHostRecord) SetInactiveHostCount(v int32)`
+`func (o *O11yHostRecord) SetInactiveHostCount(v int64)`
 
 SetInactiveHostCount sets InactiveHostCount field to given value.
 
@@ -161,20 +161,20 @@ HasInactiveHostCount returns a boolean if a field has been set.
 
 ### GetLoad15
 
-`func (o *O11yHostRecord) GetLoad15() float32`
+`func (o *O11yHostRecord) GetLoad15() float64`
 
 GetLoad15 returns the Load15 field if non-nil, zero value otherwise.
 
 ### GetLoad15Ok
 
-`func (o *O11yHostRecord) GetLoad15Ok() (*float32, bool)`
+`func (o *O11yHostRecord) GetLoad15Ok() (*float64, bool)`
 
 GetLoad15Ok returns a tuple with the Load15 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLoad15
 
-`func (o *O11yHostRecord) SetLoad15(v float32)`
+`func (o *O11yHostRecord) SetLoad15(v float64)`
 
 SetLoad15 sets Load15 field to given value.
 
@@ -186,20 +186,20 @@ HasLoad15 returns a boolean if a field has been set.
 
 ### GetMemory
 
-`func (o *O11yHostRecord) GetMemory() float32`
+`func (o *O11yHostRecord) GetMemory() float64`
 
 GetMemory returns the Memory field if non-nil, zero value otherwise.
 
 ### GetMemoryOk
 
-`func (o *O11yHostRecord) GetMemoryOk() (*float32, bool)`
+`func (o *O11yHostRecord) GetMemoryOk() (*float64, bool)`
 
 GetMemoryOk returns a tuple with the Memory field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMemory
 
-`func (o *O11yHostRecord) SetMemory(v float32)`
+`func (o *O11yHostRecord) SetMemory(v float64)`
 
 SetMemory sets Memory field to given value.
 
@@ -271,20 +271,20 @@ HasStatus returns a boolean if a field has been set.
 UnsetStatus ensures that no value is present for Status, not even an explicit nil
 ### GetWait
 
-`func (o *O11yHostRecord) GetWait() float32`
+`func (o *O11yHostRecord) GetWait() float64`
 
 GetWait returns the Wait field if non-nil, zero value otherwise.
 
 ### GetWaitOk
 
-`func (o *O11yHostRecord) GetWaitOk() (*float32, bool)`
+`func (o *O11yHostRecord) GetWaitOk() (*float64, bool)`
 
 GetWaitOk returns a tuple with the Wait field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWait
 
-`func (o *O11yHostRecord) SetWait(v float32)`
+`func (o *O11yHostRecord) SetWait(v float64)`
 
 SetWait sets Wait field to given value.
 

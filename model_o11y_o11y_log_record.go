@@ -22,9 +22,9 @@ type O11yO11yLogRecord struct {
 	// AttributesBool are the record's boolean attributes.
 	AttributesBool map[string]bool `json:"attributes_bool,omitempty"`
 	// AttributesFloat are the record's float attributes.
-	AttributesFloat map[string]float32 `json:"attributes_float,omitempty"`
+	AttributesFloat map[string]float64 `json:"attributes_float,omitempty"`
 	// AttributesInt are the record's integer attributes.
-	AttributesInt map[string]int32 `json:"attributes_int,omitempty"`
+	AttributesInt map[string]int64 `json:"attributes_int,omitempty"`
 	// AttributesString are the record's string attributes.
 	AttributesString map[string]string `json:"attributes_string,omitempty"`
 	// Body is the record's body.
@@ -97,9 +97,9 @@ func (o *O11yO11yLogRecord) SetAttributesBool(v map[string]bool) {
 }
 
 // GetAttributesFloat returns the AttributesFloat field value if set, zero value otherwise.
-func (o *O11yO11yLogRecord) GetAttributesFloat() map[string]float32 {
+func (o *O11yO11yLogRecord) GetAttributesFloat() map[string]float64 {
 	if o == nil || IsNil(o.AttributesFloat) {
-		var ret map[string]float32
+		var ret map[string]float64
 		return ret
 	}
 	return o.AttributesFloat
@@ -107,9 +107,9 @@ func (o *O11yO11yLogRecord) GetAttributesFloat() map[string]float32 {
 
 // GetAttributesFloatOk returns a tuple with the AttributesFloat field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLogRecord) GetAttributesFloatOk() (map[string]float32, bool) {
+func (o *O11yO11yLogRecord) GetAttributesFloatOk() (map[string]float64, bool) {
 	if o == nil || IsNil(o.AttributesFloat) {
-		return map[string]float32{}, false
+		return map[string]float64{}, false
 	}
 	return o.AttributesFloat, true
 }
@@ -123,15 +123,15 @@ func (o *O11yO11yLogRecord) HasAttributesFloat() bool {
 	return false
 }
 
-// SetAttributesFloat gets a reference to the given map[string]float32 and assigns it to the AttributesFloat field.
-func (o *O11yO11yLogRecord) SetAttributesFloat(v map[string]float32) {
+// SetAttributesFloat gets a reference to the given map[string]float64 and assigns it to the AttributesFloat field.
+func (o *O11yO11yLogRecord) SetAttributesFloat(v map[string]float64) {
 	o.AttributesFloat = v
 }
 
 // GetAttributesInt returns the AttributesInt field value if set, zero value otherwise.
-func (o *O11yO11yLogRecord) GetAttributesInt() map[string]int32 {
+func (o *O11yO11yLogRecord) GetAttributesInt() map[string]int64 {
 	if o == nil || IsNil(o.AttributesInt) {
-		var ret map[string]int32
+		var ret map[string]int64
 		return ret
 	}
 	return o.AttributesInt
@@ -139,9 +139,9 @@ func (o *O11yO11yLogRecord) GetAttributesInt() map[string]int32 {
 
 // GetAttributesIntOk returns a tuple with the AttributesInt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLogRecord) GetAttributesIntOk() (map[string]int32, bool) {
+func (o *O11yO11yLogRecord) GetAttributesIntOk() (map[string]int64, bool) {
 	if o == nil || IsNil(o.AttributesInt) {
-		return map[string]int32{}, false
+		return map[string]int64{}, false
 	}
 	return o.AttributesInt, true
 }
@@ -155,8 +155,8 @@ func (o *O11yO11yLogRecord) HasAttributesInt() bool {
 	return false
 }
 
-// SetAttributesInt gets a reference to the given map[string]int32 and assigns it to the AttributesInt field.
-func (o *O11yO11yLogRecord) SetAttributesInt(v map[string]int32) {
+// SetAttributesInt gets a reference to the given map[string]int64 and assigns it to the AttributesInt field.
+func (o *O11yO11yLogRecord) SetAttributesInt(v map[string]int64) {
 	o.AttributesInt = v
 }
 

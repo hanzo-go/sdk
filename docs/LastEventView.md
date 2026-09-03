@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **At** | Pointer to **string** | At is when the turn was recorded, RFC 3339 in UTC to the second. | [optional] 
 **Kind** | Pointer to **string** | Kind is what the turn was, from the log&#39;s closed six: message, tool-call, spawn, log, status, control. | [optional] 
 **Preview** | Pointer to **string** | Preview is the first 240 bytes of the event&#39;s payload, cut without regard for the JSON inside it — it is a string to SHOW, never a value to parse. Read the detail or the stream for the whole payload. | [optional] 
-**Seq** | Pointer to **int32** | Seq is that event&#39;s position in the session&#39;s log — monotonic from 1, per session. A reader holding it can ask the detail or stream reads for everything after it, so this doubles as the list&#39;s resume cursor. | [optional] 
+**Seq** | Pointer to **int64** | Seq is that event&#39;s position in the session&#39;s log — monotonic from 1, per session. A reader holding it can ask the detail or stream reads for everything after it, so this doubles as the list&#39;s resume cursor. | [optional] 
 
 ## Methods
 
@@ -131,20 +131,20 @@ HasPreview returns a boolean if a field has been set.
 
 ### GetSeq
 
-`func (o *LastEventView) GetSeq() int32`
+`func (o *LastEventView) GetSeq() int64`
 
 GetSeq returns the Seq field if non-nil, zero value otherwise.
 
 ### GetSeqOk
 
-`func (o *LastEventView) GetSeqOk() (*int32, bool)`
+`func (o *LastEventView) GetSeqOk() (*int64, bool)`
 
 GetSeqOk returns a tuple with the Seq field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSeq
 
-`func (o *LastEventView) SetSeq(v int32)`
+`func (o *LastEventView) SetSeq(v int64)`
 
 SetSeq sets Seq field to given value.
 

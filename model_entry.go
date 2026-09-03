@@ -46,7 +46,7 @@ type Entry struct {
 	// Scope is provenance, not storage: \"public\" for a row from the published corpus, \"org\" for one only this caller can see. A UI that cannot tell them apart cannot warn before sharing a link.
 	Scope *string `json:"scope,omitempty"`
 	// Stars is GitHub's stargazer count for the source repository, read at the last sync and never accumulated here. It is not a ranking — the page sorts on Updated — but it is the tiebreak when two orgs claim one ID. Absent for a site with no repository behind it, and for a repository nobody has starred.
-	Stars *int32 `json:"stars,omitempty"`
+	Stars *int64 `json:"stars,omitempty"`
 	// lineage, if forked from one
 	Template *string `json:"template,omitempty"`
 	// Title is what to SHOW. A site's human name wins where it has one; a repo row falls back to the repository name, so on a repo this usually just repeats Name. Absent only for a site whose project was never named — render Name.
@@ -493,9 +493,9 @@ func (o *Entry) SetScope(v string) {
 }
 
 // GetStars returns the Stars field value if set, zero value otherwise.
-func (o *Entry) GetStars() int32 {
+func (o *Entry) GetStars() int64 {
 	if o == nil || IsNil(o.Stars) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Stars
@@ -503,7 +503,7 @@ func (o *Entry) GetStars() int32 {
 
 // GetStarsOk returns a tuple with the Stars field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Entry) GetStarsOk() (*int32, bool) {
+func (o *Entry) GetStarsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Stars) {
 		return nil, false
 	}
@@ -519,8 +519,8 @@ func (o *Entry) HasStars() bool {
 	return false
 }
 
-// SetStars gets a reference to the given int32 and assigns it to the Stars field.
-func (o *Entry) SetStars(v int32) {
+// SetStars gets a reference to the given int64 and assigns it to the Stars field.
+func (o *Entry) SetStars(v int64) {
 	o.Stars = &v
 }
 

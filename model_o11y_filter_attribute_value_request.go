@@ -22,15 +22,15 @@ type O11yFilterAttributeValueRequest struct {
 	AggregateAttribute         *string          `json:"aggregateAttribute,omitempty"`
 	AggregateOperator          *string          `json:"aggregateOperator,omitempty"`
 	DataSource                 *string          `json:"dataSource,omitempty"`
-	EndTimeMillis              *int32           `json:"endTimeMillis,omitempty"`
+	EndTimeMillis              *int64           `json:"endTimeMillis,omitempty"`
 	ExistingFilterItems        []O11yFilterItem `json:"existingFilterItems,omitempty"`
 	FilterAttributeKey         *string          `json:"filterAttributeKey,omitempty"`
 	FilterAttributeKeyDataType *string          `json:"filterAttributeKeyDataType,omitempty"`
 	IncludeRelated             *bool            `json:"includeRelated,omitempty"`
-	Limit                      *int32           `json:"limit,omitempty"`
+	Limit                      *int64           `json:"limit,omitempty"`
 	MetricNames                []string         `json:"metricNames,omitempty"`
 	SearchText                 *string          `json:"searchText,omitempty"`
-	StartTimeMillis            *int32           `json:"startTimeMillis,omitempty"`
+	StartTimeMillis            *int64           `json:"startTimeMillis,omitempty"`
 	TagType                    *string          `json:"tagType,omitempty"`
 }
 
@@ -148,9 +148,9 @@ func (o *O11yFilterAttributeValueRequest) SetDataSource(v string) {
 }
 
 // GetEndTimeMillis returns the EndTimeMillis field value if set, zero value otherwise.
-func (o *O11yFilterAttributeValueRequest) GetEndTimeMillis() int32 {
+func (o *O11yFilterAttributeValueRequest) GetEndTimeMillis() int64 {
 	if o == nil || IsNil(o.EndTimeMillis) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.EndTimeMillis
@@ -158,7 +158,7 @@ func (o *O11yFilterAttributeValueRequest) GetEndTimeMillis() int32 {
 
 // GetEndTimeMillisOk returns a tuple with the EndTimeMillis field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yFilterAttributeValueRequest) GetEndTimeMillisOk() (*int32, bool) {
+func (o *O11yFilterAttributeValueRequest) GetEndTimeMillisOk() (*int64, bool) {
 	if o == nil || IsNil(o.EndTimeMillis) {
 		return nil, false
 	}
@@ -174,8 +174,8 @@ func (o *O11yFilterAttributeValueRequest) HasEndTimeMillis() bool {
 	return false
 }
 
-// SetEndTimeMillis gets a reference to the given int32 and assigns it to the EndTimeMillis field.
-func (o *O11yFilterAttributeValueRequest) SetEndTimeMillis(v int32) {
+// SetEndTimeMillis gets a reference to the given int64 and assigns it to the EndTimeMillis field.
+func (o *O11yFilterAttributeValueRequest) SetEndTimeMillis(v int64) {
 	o.EndTimeMillis = &v
 }
 
@@ -308,9 +308,9 @@ func (o *O11yFilterAttributeValueRequest) SetIncludeRelated(v bool) {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *O11yFilterAttributeValueRequest) GetLimit() int32 {
+func (o *O11yFilterAttributeValueRequest) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -318,7 +318,7 @@ func (o *O11yFilterAttributeValueRequest) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yFilterAttributeValueRequest) GetLimitOk() (*int32, bool) {
+func (o *O11yFilterAttributeValueRequest) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -334,8 +334,8 @@ func (o *O11yFilterAttributeValueRequest) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *O11yFilterAttributeValueRequest) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *O11yFilterAttributeValueRequest) SetLimit(v int64) {
 	o.Limit = &v
 }
 
@@ -404,9 +404,9 @@ func (o *O11yFilterAttributeValueRequest) SetSearchText(v string) {
 }
 
 // GetStartTimeMillis returns the StartTimeMillis field value if set, zero value otherwise.
-func (o *O11yFilterAttributeValueRequest) GetStartTimeMillis() int32 {
+func (o *O11yFilterAttributeValueRequest) GetStartTimeMillis() int64 {
 	if o == nil || IsNil(o.StartTimeMillis) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.StartTimeMillis
@@ -414,7 +414,7 @@ func (o *O11yFilterAttributeValueRequest) GetStartTimeMillis() int32 {
 
 // GetStartTimeMillisOk returns a tuple with the StartTimeMillis field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yFilterAttributeValueRequest) GetStartTimeMillisOk() (*int32, bool) {
+func (o *O11yFilterAttributeValueRequest) GetStartTimeMillisOk() (*int64, bool) {
 	if o == nil || IsNil(o.StartTimeMillis) {
 		return nil, false
 	}
@@ -430,8 +430,8 @@ func (o *O11yFilterAttributeValueRequest) HasStartTimeMillis() bool {
 	return false
 }
 
-// SetStartTimeMillis gets a reference to the given int32 and assigns it to the StartTimeMillis field.
-func (o *O11yFilterAttributeValueRequest) SetStartTimeMillis(v int32) {
+// SetStartTimeMillis gets a reference to the given int64 and assigns it to the StartTimeMillis field.
+func (o *O11yFilterAttributeValueRequest) SetStartTimeMillis(v int64) {
 	o.StartTimeMillis = &v
 }
 

@@ -9,9 +9,9 @@ Name | Type | Description | Notes
 **Kind** | Pointer to **string** | Kind is the subject kind it was computed over. | [optional] 
 **N** | Pointer to **int32** | N is how many subject-days went into it. | [optional] 
 **Orgs** | Pointer to **int32** | Orgs is how many organisations contributed, each weighted exactly one vote whatever its size. It is published so a reader can judge the band rather than trust it. | [optional] 
-**Q10** | Pointer to **float32** | Q10 is the quiet end of the network&#39;s day: a tenth of contributing organisations sit at or below it. | [optional] 
-**Q50** | Pointer to **float32** | Q50 is the network&#39;s median day. | [optional] 
-**Q90** | Pointer to **float32** | Q90 is the busy end: a tenth of contributing organisations sit at or above it. It is the highest level published. | [optional] 
+**Q10** | Pointer to **float64** | Q10 is the quiet end of the network&#39;s day: a tenth of contributing organisations sit at or below it. | [optional] 
+**Q50** | Pointer to **float64** | Q50 is the network&#39;s median day. | [optional] 
+**Q90** | Pointer to **float64** | Q90 is the busy end: a tenth of contributing organisations sit at or above it. It is the highest level published. | [optional] 
 
 ## Methods
 
@@ -159,20 +159,20 @@ HasOrgs returns a boolean if a field has been set.
 
 ### GetQ10
 
-`func (o *RiskBand) GetQ10() float32`
+`func (o *RiskBand) GetQ10() float64`
 
 GetQ10 returns the Q10 field if non-nil, zero value otherwise.
 
 ### GetQ10Ok
 
-`func (o *RiskBand) GetQ10Ok() (*float32, bool)`
+`func (o *RiskBand) GetQ10Ok() (*float64, bool)`
 
 GetQ10Ok returns a tuple with the Q10 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQ10
 
-`func (o *RiskBand) SetQ10(v float32)`
+`func (o *RiskBand) SetQ10(v float64)`
 
 SetQ10 sets Q10 field to given value.
 
@@ -184,20 +184,20 @@ HasQ10 returns a boolean if a field has been set.
 
 ### GetQ50
 
-`func (o *RiskBand) GetQ50() float32`
+`func (o *RiskBand) GetQ50() float64`
 
 GetQ50 returns the Q50 field if non-nil, zero value otherwise.
 
 ### GetQ50Ok
 
-`func (o *RiskBand) GetQ50Ok() (*float32, bool)`
+`func (o *RiskBand) GetQ50Ok() (*float64, bool)`
 
 GetQ50Ok returns a tuple with the Q50 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQ50
 
-`func (o *RiskBand) SetQ50(v float32)`
+`func (o *RiskBand) SetQ50(v float64)`
 
 SetQ50 sets Q50 field to given value.
 
@@ -209,20 +209,20 @@ HasQ50 returns a boolean if a field has been set.
 
 ### GetQ90
 
-`func (o *RiskBand) GetQ90() float32`
+`func (o *RiskBand) GetQ90() float64`
 
 GetQ90 returns the Q90 field if non-nil, zero value otherwise.
 
 ### GetQ90Ok
 
-`func (o *RiskBand) GetQ90Ok() (*float32, bool)`
+`func (o *RiskBand) GetQ90Ok() (*float64, bool)`
 
 GetQ90Ok returns a tuple with the Q90 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQ90
 
-`func (o *RiskBand) SetQ90(v float32)`
+`func (o *RiskBand) SetQ90(v float64)`
 
 SetQ90 sets Q90 field to given value.
 

@@ -19,13 +19,13 @@ var _ MappedNullable = &O11yPostableVolumes{}
 
 // O11yPostableVolumes struct for O11yPostableVolumes
 type O11yPostableVolumes struct {
-	End     *int32                          `json:"end,omitempty"`
+	End     *int64                          `json:"end,omitempty"`
 	Filter  *O11yFilter                     `json:"filter,omitempty"`
 	GroupBy []O11yGroupByKey                `json:"groupBy,omitempty"`
-	Limit   *int32                          `json:"limit,omitempty"`
-	Offset  *int32                          `json:"offset,omitempty"`
+	Limit   *int64                          `json:"limit,omitempty"`
+	Offset  *int64                          `json:"offset,omitempty"`
 	OrderBy *O11yQuerybuildertypesv5OrderBy `json:"orderBy,omitempty"`
-	Start   *int32                          `json:"start,omitempty"`
+	Start   *int64                          `json:"start,omitempty"`
 }
 
 // NewO11yPostableVolumes instantiates a new O11yPostableVolumes object
@@ -46,9 +46,9 @@ func NewO11yPostableVolumesWithDefaults() *O11yPostableVolumes {
 }
 
 // GetEnd returns the End field value if set, zero value otherwise.
-func (o *O11yPostableVolumes) GetEnd() int32 {
+func (o *O11yPostableVolumes) GetEnd() int64 {
 	if o == nil || IsNil(o.End) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.End
@@ -56,7 +56,7 @@ func (o *O11yPostableVolumes) GetEnd() int32 {
 
 // GetEndOk returns a tuple with the End field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPostableVolumes) GetEndOk() (*int32, bool) {
+func (o *O11yPostableVolumes) GetEndOk() (*int64, bool) {
 	if o == nil || IsNil(o.End) {
 		return nil, false
 	}
@@ -72,8 +72,8 @@ func (o *O11yPostableVolumes) HasEnd() bool {
 	return false
 }
 
-// SetEnd gets a reference to the given int32 and assigns it to the End field.
-func (o *O11yPostableVolumes) SetEnd(v int32) {
+// SetEnd gets a reference to the given int64 and assigns it to the End field.
+func (o *O11yPostableVolumes) SetEnd(v int64) {
 	o.End = &v
 }
 
@@ -142,9 +142,9 @@ func (o *O11yPostableVolumes) SetGroupBy(v []O11yGroupByKey) {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *O11yPostableVolumes) GetLimit() int32 {
+func (o *O11yPostableVolumes) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -152,7 +152,7 @@ func (o *O11yPostableVolumes) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPostableVolumes) GetLimitOk() (*int32, bool) {
+func (o *O11yPostableVolumes) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -168,15 +168,15 @@ func (o *O11yPostableVolumes) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *O11yPostableVolumes) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *O11yPostableVolumes) SetLimit(v int64) {
 	o.Limit = &v
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
-func (o *O11yPostableVolumes) GetOffset() int32 {
+func (o *O11yPostableVolumes) GetOffset() int64 {
 	if o == nil || IsNil(o.Offset) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Offset
@@ -184,7 +184,7 @@ func (o *O11yPostableVolumes) GetOffset() int32 {
 
 // GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPostableVolumes) GetOffsetOk() (*int32, bool) {
+func (o *O11yPostableVolumes) GetOffsetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Offset) {
 		return nil, false
 	}
@@ -200,8 +200,8 @@ func (o *O11yPostableVolumes) HasOffset() bool {
 	return false
 }
 
-// SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *O11yPostableVolumes) SetOffset(v int32) {
+// SetOffset gets a reference to the given int64 and assigns it to the Offset field.
+func (o *O11yPostableVolumes) SetOffset(v int64) {
 	o.Offset = &v
 }
 
@@ -238,9 +238,9 @@ func (o *O11yPostableVolumes) SetOrderBy(v O11yQuerybuildertypesv5OrderBy) {
 }
 
 // GetStart returns the Start field value if set, zero value otherwise.
-func (o *O11yPostableVolumes) GetStart() int32 {
+func (o *O11yPostableVolumes) GetStart() int64 {
 	if o == nil || IsNil(o.Start) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Start
@@ -248,7 +248,7 @@ func (o *O11yPostableVolumes) GetStart() int32 {
 
 // GetStartOk returns a tuple with the Start field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPostableVolumes) GetStartOk() (*int32, bool) {
+func (o *O11yPostableVolumes) GetStartOk() (*int64, bool) {
 	if o == nil || IsNil(o.Start) {
 		return nil, false
 	}
@@ -264,8 +264,8 @@ func (o *O11yPostableVolumes) HasStart() bool {
 	return false
 }
 
-// SetStart gets a reference to the given int32 and assigns it to the Start field.
-func (o *O11yPostableVolumes) SetStart(v int32) {
+// SetStart gets a reference to the given int64 and assigns it to the Start field.
+func (o *O11yPostableVolumes) SetStart(v int64) {
 	o.Start = &v
 }
 

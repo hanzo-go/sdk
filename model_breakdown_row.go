@@ -22,11 +22,11 @@ type BreakdownRow struct {
 	// Key is the bucket: a requested path, a referrer domain (\"(direct)\" for none or a same-origin one), or a utm_source (\"(none)\" when absent).
 	Key *string `json:"key,omitempty"`
 	// Pageviews is how many $pageview events fell in this bucket.
-	Pageviews *int32 `json:"pageviews,omitempty"`
+	Pageviews *int64 `json:"pageviews,omitempty"`
 	// Pct is this bucket's share of ALL in-window pageviews, 0..100, one decimal — not of the returned rows, so a top-N shows the long tail honestly.
-	Pct *float32 `json:"pct,omitempty"`
+	Pct *float64 `json:"pct,omitempty"`
 	// Visitors is how many distinct people they came from.
-	Visitors *int32 `json:"visitors,omitempty"`
+	Visitors *int64 `json:"visitors,omitempty"`
 }
 
 // NewBreakdownRow instantiates a new BreakdownRow object
@@ -79,9 +79,9 @@ func (o *BreakdownRow) SetKey(v string) {
 }
 
 // GetPageviews returns the Pageviews field value if set, zero value otherwise.
-func (o *BreakdownRow) GetPageviews() int32 {
+func (o *BreakdownRow) GetPageviews() int64 {
 	if o == nil || IsNil(o.Pageviews) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Pageviews
@@ -89,7 +89,7 @@ func (o *BreakdownRow) GetPageviews() int32 {
 
 // GetPageviewsOk returns a tuple with the Pageviews field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BreakdownRow) GetPageviewsOk() (*int32, bool) {
+func (o *BreakdownRow) GetPageviewsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Pageviews) {
 		return nil, false
 	}
@@ -105,15 +105,15 @@ func (o *BreakdownRow) HasPageviews() bool {
 	return false
 }
 
-// SetPageviews gets a reference to the given int32 and assigns it to the Pageviews field.
-func (o *BreakdownRow) SetPageviews(v int32) {
+// SetPageviews gets a reference to the given int64 and assigns it to the Pageviews field.
+func (o *BreakdownRow) SetPageviews(v int64) {
 	o.Pageviews = &v
 }
 
 // GetPct returns the Pct field value if set, zero value otherwise.
-func (o *BreakdownRow) GetPct() float32 {
+func (o *BreakdownRow) GetPct() float64 {
 	if o == nil || IsNil(o.Pct) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Pct
@@ -121,7 +121,7 @@ func (o *BreakdownRow) GetPct() float32 {
 
 // GetPctOk returns a tuple with the Pct field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BreakdownRow) GetPctOk() (*float32, bool) {
+func (o *BreakdownRow) GetPctOk() (*float64, bool) {
 	if o == nil || IsNil(o.Pct) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *BreakdownRow) HasPct() bool {
 	return false
 }
 
-// SetPct gets a reference to the given float32 and assigns it to the Pct field.
-func (o *BreakdownRow) SetPct(v float32) {
+// SetPct gets a reference to the given float64 and assigns it to the Pct field.
+func (o *BreakdownRow) SetPct(v float64) {
 	o.Pct = &v
 }
 
 // GetVisitors returns the Visitors field value if set, zero value otherwise.
-func (o *BreakdownRow) GetVisitors() int32 {
+func (o *BreakdownRow) GetVisitors() int64 {
 	if o == nil || IsNil(o.Visitors) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Visitors
@@ -153,7 +153,7 @@ func (o *BreakdownRow) GetVisitors() int32 {
 
 // GetVisitorsOk returns a tuple with the Visitors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BreakdownRow) GetVisitorsOk() (*int32, bool) {
+func (o *BreakdownRow) GetVisitorsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Visitors) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *BreakdownRow) HasVisitors() bool {
 	return false
 }
 
-// SetVisitors gets a reference to the given int32 and assigns it to the Visitors field.
-func (o *BreakdownRow) SetVisitors(v int32) {
+// SetVisitors gets a reference to the given int64 and assigns it to the Visitors field.
+func (o *BreakdownRow) SetVisitors(v int64) {
 	o.Visitors = &v
 }
 

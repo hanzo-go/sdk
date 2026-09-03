@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ContentType** | Pointer to **string** | ContentType is the mime type recorded at upload, null when none was sent. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the document was uploaded, in unix milliseconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the document was uploaded, in unix milliseconds. | [optional] 
 **FileKey** | Pointer to **string** | FileKey is the opaque object-storage key the bytes are stored under. It is scoped to the tenant&#39;s own key prefix and is not a URL. | [optional] 
-**FileSize** | Pointer to **int32** | FileSize is the stored byte count, null when it was not recorded. | [optional] 
+**FileSize** | Pointer to **int64** | FileSize is the stored byte count, null when it was not recorded. | [optional] 
 **Id** | Pointer to **string** | ID is the document id. | [optional] 
 **Name** | Pointer to **string** | Name is the document&#39;s display name. | [optional] 
-**NumPages** | Pointer to **int32** | NumPages is the page count, null when it was not supplied at upload. | [optional] 
+**NumPages** | Pointer to **int64** | NumPages is the page count, null when it was not supplied at upload. | [optional] 
 **Type** | Pointer to **string** | Type is the document&#39;s kind, null when it was not recorded. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is when the document row last changed, in unix milliseconds. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is when the document row last changed, in unix milliseconds. | [optional] 
 
 ## Methods
 
@@ -60,20 +60,20 @@ HasContentType returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *DataroomDocument) GetCreatedAt() int32`
+`func (o *DataroomDocument) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *DataroomDocument) GetCreatedAtOk() (*int32, bool)`
+`func (o *DataroomDocument) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *DataroomDocument) SetCreatedAt(v int32)`
+`func (o *DataroomDocument) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -110,20 +110,20 @@ HasFileKey returns a boolean if a field has been set.
 
 ### GetFileSize
 
-`func (o *DataroomDocument) GetFileSize() int32`
+`func (o *DataroomDocument) GetFileSize() int64`
 
 GetFileSize returns the FileSize field if non-nil, zero value otherwise.
 
 ### GetFileSizeOk
 
-`func (o *DataroomDocument) GetFileSizeOk() (*int32, bool)`
+`func (o *DataroomDocument) GetFileSizeOk() (*int64, bool)`
 
 GetFileSizeOk returns a tuple with the FileSize field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFileSize
 
-`func (o *DataroomDocument) SetFileSize(v int32)`
+`func (o *DataroomDocument) SetFileSize(v int64)`
 
 SetFileSize sets FileSize field to given value.
 
@@ -185,20 +185,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetNumPages
 
-`func (o *DataroomDocument) GetNumPages() int32`
+`func (o *DataroomDocument) GetNumPages() int64`
 
 GetNumPages returns the NumPages field if non-nil, zero value otherwise.
 
 ### GetNumPagesOk
 
-`func (o *DataroomDocument) GetNumPagesOk() (*int32, bool)`
+`func (o *DataroomDocument) GetNumPagesOk() (*int64, bool)`
 
 GetNumPagesOk returns a tuple with the NumPages field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumPages
 
-`func (o *DataroomDocument) SetNumPages(v int32)`
+`func (o *DataroomDocument) SetNumPages(v int64)`
 
 SetNumPages sets NumPages field to given value.
 
@@ -235,20 +235,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *DataroomDocument) GetUpdatedAt() int32`
+`func (o *DataroomDocument) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *DataroomDocument) GetUpdatedAtOk() (*int32, bool)`
+`func (o *DataroomDocument) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *DataroomDocument) SetUpdatedAt(v int32)`
+`func (o *DataroomDocument) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

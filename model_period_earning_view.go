@@ -20,9 +20,9 @@ var _ MappedNullable = &PeriodEarningView{}
 // PeriodEarningView struct for PeriodEarningView
 type PeriodEarningView struct {
 	// CommissionCents is what the caller earned that period, in cents: the sum over each referred org and upline level of margin × that level's rate. Always ≤ marginCents, by construction.
-	CommissionCents *int32 `json:"commissionCents,omitempty"`
+	CommissionCents *int64 `json:"commissionCents,omitempty"`
 	// MarginCents is the margin Hanzo earned in that period on the spend of every org the caller referred, in cents — the base commission is a rate OF. It is the aggregate base, never any one customer's bill.
-	MarginCents *int32 `json:"marginCents,omitempty"`
+	MarginCents *int64 `json:"marginCents,omitempty"`
 	// Period is the accrual bucket: the UTC year-month, \"YYYY-MM\". Commission is latched at most once per referred org per period, so one row is one month.
 	Period *string `json:"period,omitempty"`
 }
@@ -45,9 +45,9 @@ func NewPeriodEarningViewWithDefaults() *PeriodEarningView {
 }
 
 // GetCommissionCents returns the CommissionCents field value if set, zero value otherwise.
-func (o *PeriodEarningView) GetCommissionCents() int32 {
+func (o *PeriodEarningView) GetCommissionCents() int64 {
 	if o == nil || IsNil(o.CommissionCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CommissionCents
@@ -55,7 +55,7 @@ func (o *PeriodEarningView) GetCommissionCents() int32 {
 
 // GetCommissionCentsOk returns a tuple with the CommissionCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PeriodEarningView) GetCommissionCentsOk() (*int32, bool) {
+func (o *PeriodEarningView) GetCommissionCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CommissionCents) {
 		return nil, false
 	}
@@ -71,15 +71,15 @@ func (o *PeriodEarningView) HasCommissionCents() bool {
 	return false
 }
 
-// SetCommissionCents gets a reference to the given int32 and assigns it to the CommissionCents field.
-func (o *PeriodEarningView) SetCommissionCents(v int32) {
+// SetCommissionCents gets a reference to the given int64 and assigns it to the CommissionCents field.
+func (o *PeriodEarningView) SetCommissionCents(v int64) {
 	o.CommissionCents = &v
 }
 
 // GetMarginCents returns the MarginCents field value if set, zero value otherwise.
-func (o *PeriodEarningView) GetMarginCents() int32 {
+func (o *PeriodEarningView) GetMarginCents() int64 {
 	if o == nil || IsNil(o.MarginCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MarginCents
@@ -87,7 +87,7 @@ func (o *PeriodEarningView) GetMarginCents() int32 {
 
 // GetMarginCentsOk returns a tuple with the MarginCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PeriodEarningView) GetMarginCentsOk() (*int32, bool) {
+func (o *PeriodEarningView) GetMarginCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.MarginCents) {
 		return nil, false
 	}
@@ -103,8 +103,8 @@ func (o *PeriodEarningView) HasMarginCents() bool {
 	return false
 }
 
-// SetMarginCents gets a reference to the given int32 and assigns it to the MarginCents field.
-func (o *PeriodEarningView) SetMarginCents(v int32) {
+// SetMarginCents gets a reference to the given int64 and assigns it to the MarginCents field.
+func (o *PeriodEarningView) SetMarginCents(v int64) {
 	o.MarginCents = &v
 }
 

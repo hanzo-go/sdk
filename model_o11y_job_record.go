@@ -19,19 +19,19 @@ var _ MappedNullable = &O11yJobRecord{}
 
 // O11yJobRecord struct for O11yJobRecord
 type O11yJobRecord struct {
-	ActivePods            *int32                `json:"activePods,omitempty"`
-	DesiredSuccessfulPods *int32                `json:"desiredSuccessfulPods,omitempty"`
-	FailedPods            *int32                `json:"failedPods,omitempty"`
-	JobCPU                *float32              `json:"jobCPU,omitempty"`
-	JobCPULimit           *float32              `json:"jobCPULimit,omitempty"`
-	JobCPURequest         *float32              `json:"jobCPURequest,omitempty"`
-	JobMemory             *float32              `json:"jobMemory,omitempty"`
-	JobMemoryLimit        *float32              `json:"jobMemoryLimit,omitempty"`
-	JobMemoryRequest      *float32              `json:"jobMemoryRequest,omitempty"`
+	ActivePods            *int64                `json:"activePods,omitempty"`
+	DesiredSuccessfulPods *int64                `json:"desiredSuccessfulPods,omitempty"`
+	FailedPods            *int64                `json:"failedPods,omitempty"`
+	JobCPU                *float64              `json:"jobCPU,omitempty"`
+	JobCPULimit           *float64              `json:"jobCPULimit,omitempty"`
+	JobCPURequest         *float64              `json:"jobCPURequest,omitempty"`
+	JobMemory             *float64              `json:"jobMemory,omitempty"`
+	JobMemoryLimit        *float64              `json:"jobMemoryLimit,omitempty"`
+	JobMemoryRequest      *float64              `json:"jobMemoryRequest,omitempty"`
 	JobName               *string               `json:"jobName,omitempty"`
 	Meta                  map[string]string     `json:"meta,omitempty"`
 	PodCountsByPhase      *O11yPodCountsByPhase `json:"podCountsByPhase,omitempty"`
-	SuccessfulPods        *int32                `json:"successfulPods,omitempty"`
+	SuccessfulPods        *int64                `json:"successfulPods,omitempty"`
 }
 
 // NewO11yJobRecord instantiates a new O11yJobRecord object
@@ -52,9 +52,9 @@ func NewO11yJobRecordWithDefaults() *O11yJobRecord {
 }
 
 // GetActivePods returns the ActivePods field value if set, zero value otherwise.
-func (o *O11yJobRecord) GetActivePods() int32 {
+func (o *O11yJobRecord) GetActivePods() int64 {
 	if o == nil || IsNil(o.ActivePods) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ActivePods
@@ -62,7 +62,7 @@ func (o *O11yJobRecord) GetActivePods() int32 {
 
 // GetActivePodsOk returns a tuple with the ActivePods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yJobRecord) GetActivePodsOk() (*int32, bool) {
+func (o *O11yJobRecord) GetActivePodsOk() (*int64, bool) {
 	if o == nil || IsNil(o.ActivePods) {
 		return nil, false
 	}
@@ -78,15 +78,15 @@ func (o *O11yJobRecord) HasActivePods() bool {
 	return false
 }
 
-// SetActivePods gets a reference to the given int32 and assigns it to the ActivePods field.
-func (o *O11yJobRecord) SetActivePods(v int32) {
+// SetActivePods gets a reference to the given int64 and assigns it to the ActivePods field.
+func (o *O11yJobRecord) SetActivePods(v int64) {
 	o.ActivePods = &v
 }
 
 // GetDesiredSuccessfulPods returns the DesiredSuccessfulPods field value if set, zero value otherwise.
-func (o *O11yJobRecord) GetDesiredSuccessfulPods() int32 {
+func (o *O11yJobRecord) GetDesiredSuccessfulPods() int64 {
 	if o == nil || IsNil(o.DesiredSuccessfulPods) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DesiredSuccessfulPods
@@ -94,7 +94,7 @@ func (o *O11yJobRecord) GetDesiredSuccessfulPods() int32 {
 
 // GetDesiredSuccessfulPodsOk returns a tuple with the DesiredSuccessfulPods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yJobRecord) GetDesiredSuccessfulPodsOk() (*int32, bool) {
+func (o *O11yJobRecord) GetDesiredSuccessfulPodsOk() (*int64, bool) {
 	if o == nil || IsNil(o.DesiredSuccessfulPods) {
 		return nil, false
 	}
@@ -110,15 +110,15 @@ func (o *O11yJobRecord) HasDesiredSuccessfulPods() bool {
 	return false
 }
 
-// SetDesiredSuccessfulPods gets a reference to the given int32 and assigns it to the DesiredSuccessfulPods field.
-func (o *O11yJobRecord) SetDesiredSuccessfulPods(v int32) {
+// SetDesiredSuccessfulPods gets a reference to the given int64 and assigns it to the DesiredSuccessfulPods field.
+func (o *O11yJobRecord) SetDesiredSuccessfulPods(v int64) {
 	o.DesiredSuccessfulPods = &v
 }
 
 // GetFailedPods returns the FailedPods field value if set, zero value otherwise.
-func (o *O11yJobRecord) GetFailedPods() int32 {
+func (o *O11yJobRecord) GetFailedPods() int64 {
 	if o == nil || IsNil(o.FailedPods) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.FailedPods
@@ -126,7 +126,7 @@ func (o *O11yJobRecord) GetFailedPods() int32 {
 
 // GetFailedPodsOk returns a tuple with the FailedPods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yJobRecord) GetFailedPodsOk() (*int32, bool) {
+func (o *O11yJobRecord) GetFailedPodsOk() (*int64, bool) {
 	if o == nil || IsNil(o.FailedPods) {
 		return nil, false
 	}
@@ -142,15 +142,15 @@ func (o *O11yJobRecord) HasFailedPods() bool {
 	return false
 }
 
-// SetFailedPods gets a reference to the given int32 and assigns it to the FailedPods field.
-func (o *O11yJobRecord) SetFailedPods(v int32) {
+// SetFailedPods gets a reference to the given int64 and assigns it to the FailedPods field.
+func (o *O11yJobRecord) SetFailedPods(v int64) {
 	o.FailedPods = &v
 }
 
 // GetJobCPU returns the JobCPU field value if set, zero value otherwise.
-func (o *O11yJobRecord) GetJobCPU() float32 {
+func (o *O11yJobRecord) GetJobCPU() float64 {
 	if o == nil || IsNil(o.JobCPU) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.JobCPU
@@ -158,7 +158,7 @@ func (o *O11yJobRecord) GetJobCPU() float32 {
 
 // GetJobCPUOk returns a tuple with the JobCPU field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yJobRecord) GetJobCPUOk() (*float32, bool) {
+func (o *O11yJobRecord) GetJobCPUOk() (*float64, bool) {
 	if o == nil || IsNil(o.JobCPU) {
 		return nil, false
 	}
@@ -174,15 +174,15 @@ func (o *O11yJobRecord) HasJobCPU() bool {
 	return false
 }
 
-// SetJobCPU gets a reference to the given float32 and assigns it to the JobCPU field.
-func (o *O11yJobRecord) SetJobCPU(v float32) {
+// SetJobCPU gets a reference to the given float64 and assigns it to the JobCPU field.
+func (o *O11yJobRecord) SetJobCPU(v float64) {
 	o.JobCPU = &v
 }
 
 // GetJobCPULimit returns the JobCPULimit field value if set, zero value otherwise.
-func (o *O11yJobRecord) GetJobCPULimit() float32 {
+func (o *O11yJobRecord) GetJobCPULimit() float64 {
 	if o == nil || IsNil(o.JobCPULimit) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.JobCPULimit
@@ -190,7 +190,7 @@ func (o *O11yJobRecord) GetJobCPULimit() float32 {
 
 // GetJobCPULimitOk returns a tuple with the JobCPULimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yJobRecord) GetJobCPULimitOk() (*float32, bool) {
+func (o *O11yJobRecord) GetJobCPULimitOk() (*float64, bool) {
 	if o == nil || IsNil(o.JobCPULimit) {
 		return nil, false
 	}
@@ -206,15 +206,15 @@ func (o *O11yJobRecord) HasJobCPULimit() bool {
 	return false
 }
 
-// SetJobCPULimit gets a reference to the given float32 and assigns it to the JobCPULimit field.
-func (o *O11yJobRecord) SetJobCPULimit(v float32) {
+// SetJobCPULimit gets a reference to the given float64 and assigns it to the JobCPULimit field.
+func (o *O11yJobRecord) SetJobCPULimit(v float64) {
 	o.JobCPULimit = &v
 }
 
 // GetJobCPURequest returns the JobCPURequest field value if set, zero value otherwise.
-func (o *O11yJobRecord) GetJobCPURequest() float32 {
+func (o *O11yJobRecord) GetJobCPURequest() float64 {
 	if o == nil || IsNil(o.JobCPURequest) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.JobCPURequest
@@ -222,7 +222,7 @@ func (o *O11yJobRecord) GetJobCPURequest() float32 {
 
 // GetJobCPURequestOk returns a tuple with the JobCPURequest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yJobRecord) GetJobCPURequestOk() (*float32, bool) {
+func (o *O11yJobRecord) GetJobCPURequestOk() (*float64, bool) {
 	if o == nil || IsNil(o.JobCPURequest) {
 		return nil, false
 	}
@@ -238,15 +238,15 @@ func (o *O11yJobRecord) HasJobCPURequest() bool {
 	return false
 }
 
-// SetJobCPURequest gets a reference to the given float32 and assigns it to the JobCPURequest field.
-func (o *O11yJobRecord) SetJobCPURequest(v float32) {
+// SetJobCPURequest gets a reference to the given float64 and assigns it to the JobCPURequest field.
+func (o *O11yJobRecord) SetJobCPURequest(v float64) {
 	o.JobCPURequest = &v
 }
 
 // GetJobMemory returns the JobMemory field value if set, zero value otherwise.
-func (o *O11yJobRecord) GetJobMemory() float32 {
+func (o *O11yJobRecord) GetJobMemory() float64 {
 	if o == nil || IsNil(o.JobMemory) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.JobMemory
@@ -254,7 +254,7 @@ func (o *O11yJobRecord) GetJobMemory() float32 {
 
 // GetJobMemoryOk returns a tuple with the JobMemory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yJobRecord) GetJobMemoryOk() (*float32, bool) {
+func (o *O11yJobRecord) GetJobMemoryOk() (*float64, bool) {
 	if o == nil || IsNil(o.JobMemory) {
 		return nil, false
 	}
@@ -270,15 +270,15 @@ func (o *O11yJobRecord) HasJobMemory() bool {
 	return false
 }
 
-// SetJobMemory gets a reference to the given float32 and assigns it to the JobMemory field.
-func (o *O11yJobRecord) SetJobMemory(v float32) {
+// SetJobMemory gets a reference to the given float64 and assigns it to the JobMemory field.
+func (o *O11yJobRecord) SetJobMemory(v float64) {
 	o.JobMemory = &v
 }
 
 // GetJobMemoryLimit returns the JobMemoryLimit field value if set, zero value otherwise.
-func (o *O11yJobRecord) GetJobMemoryLimit() float32 {
+func (o *O11yJobRecord) GetJobMemoryLimit() float64 {
 	if o == nil || IsNil(o.JobMemoryLimit) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.JobMemoryLimit
@@ -286,7 +286,7 @@ func (o *O11yJobRecord) GetJobMemoryLimit() float32 {
 
 // GetJobMemoryLimitOk returns a tuple with the JobMemoryLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yJobRecord) GetJobMemoryLimitOk() (*float32, bool) {
+func (o *O11yJobRecord) GetJobMemoryLimitOk() (*float64, bool) {
 	if o == nil || IsNil(o.JobMemoryLimit) {
 		return nil, false
 	}
@@ -302,15 +302,15 @@ func (o *O11yJobRecord) HasJobMemoryLimit() bool {
 	return false
 }
 
-// SetJobMemoryLimit gets a reference to the given float32 and assigns it to the JobMemoryLimit field.
-func (o *O11yJobRecord) SetJobMemoryLimit(v float32) {
+// SetJobMemoryLimit gets a reference to the given float64 and assigns it to the JobMemoryLimit field.
+func (o *O11yJobRecord) SetJobMemoryLimit(v float64) {
 	o.JobMemoryLimit = &v
 }
 
 // GetJobMemoryRequest returns the JobMemoryRequest field value if set, zero value otherwise.
-func (o *O11yJobRecord) GetJobMemoryRequest() float32 {
+func (o *O11yJobRecord) GetJobMemoryRequest() float64 {
 	if o == nil || IsNil(o.JobMemoryRequest) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.JobMemoryRequest
@@ -318,7 +318,7 @@ func (o *O11yJobRecord) GetJobMemoryRequest() float32 {
 
 // GetJobMemoryRequestOk returns a tuple with the JobMemoryRequest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yJobRecord) GetJobMemoryRequestOk() (*float32, bool) {
+func (o *O11yJobRecord) GetJobMemoryRequestOk() (*float64, bool) {
 	if o == nil || IsNil(o.JobMemoryRequest) {
 		return nil, false
 	}
@@ -334,8 +334,8 @@ func (o *O11yJobRecord) HasJobMemoryRequest() bool {
 	return false
 }
 
-// SetJobMemoryRequest gets a reference to the given float32 and assigns it to the JobMemoryRequest field.
-func (o *O11yJobRecord) SetJobMemoryRequest(v float32) {
+// SetJobMemoryRequest gets a reference to the given float64 and assigns it to the JobMemoryRequest field.
+func (o *O11yJobRecord) SetJobMemoryRequest(v float64) {
 	o.JobMemoryRequest = &v
 }
 
@@ -436,9 +436,9 @@ func (o *O11yJobRecord) SetPodCountsByPhase(v O11yPodCountsByPhase) {
 }
 
 // GetSuccessfulPods returns the SuccessfulPods field value if set, zero value otherwise.
-func (o *O11yJobRecord) GetSuccessfulPods() int32 {
+func (o *O11yJobRecord) GetSuccessfulPods() int64 {
 	if o == nil || IsNil(o.SuccessfulPods) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SuccessfulPods
@@ -446,7 +446,7 @@ func (o *O11yJobRecord) GetSuccessfulPods() int32 {
 
 // GetSuccessfulPodsOk returns a tuple with the SuccessfulPods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yJobRecord) GetSuccessfulPodsOk() (*int32, bool) {
+func (o *O11yJobRecord) GetSuccessfulPodsOk() (*int64, bool) {
 	if o == nil || IsNil(o.SuccessfulPods) {
 		return nil, false
 	}
@@ -462,8 +462,8 @@ func (o *O11yJobRecord) HasSuccessfulPods() bool {
 	return false
 }
 
-// SetSuccessfulPods gets a reference to the given int32 and assigns it to the SuccessfulPods field.
-func (o *O11yJobRecord) SetSuccessfulPods(v int32) {
+// SetSuccessfulPods gets a reference to the given int64 and assigns it to the SuccessfulPods field.
+func (o *O11yJobRecord) SetSuccessfulPods(v int64) {
 	o.SuccessfulPods = &v
 }
 

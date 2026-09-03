@@ -20,11 +20,11 @@ var _ MappedNullable = &Citation{}
 // Citation struct for Citation
 type Citation struct {
 	// EndLine is its last line, inclusive.
-	EndLine *int32 `json:"endLine,omitempty"`
+	EndLine *int64 `json:"endLine,omitempty"`
 	// File is the path inside the repo, relative to its root.
 	File *string `json:"file,omitempty"`
 	// Line is the first line of the cited region, 1-based.
-	Line *int32 `json:"line,omitempty"`
+	Line *int64 `json:"line,omitempty"`
 	// Repo is the repository the cited code lives in (\"owner/name\"), absent when the ask was already scoped to one.
 	Repo *string `json:"repo,omitempty"`
 	// Symbol is the declaration the region belongs to, when it belongs to one.
@@ -49,9 +49,9 @@ func NewCitationWithDefaults() *Citation {
 }
 
 // GetEndLine returns the EndLine field value if set, zero value otherwise.
-func (o *Citation) GetEndLine() int32 {
+func (o *Citation) GetEndLine() int64 {
 	if o == nil || IsNil(o.EndLine) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.EndLine
@@ -59,7 +59,7 @@ func (o *Citation) GetEndLine() int32 {
 
 // GetEndLineOk returns a tuple with the EndLine field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Citation) GetEndLineOk() (*int32, bool) {
+func (o *Citation) GetEndLineOk() (*int64, bool) {
 	if o == nil || IsNil(o.EndLine) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *Citation) HasEndLine() bool {
 	return false
 }
 
-// SetEndLine gets a reference to the given int32 and assigns it to the EndLine field.
-func (o *Citation) SetEndLine(v int32) {
+// SetEndLine gets a reference to the given int64 and assigns it to the EndLine field.
+func (o *Citation) SetEndLine(v int64) {
 	o.EndLine = &v
 }
 
@@ -113,9 +113,9 @@ func (o *Citation) SetFile(v string) {
 }
 
 // GetLine returns the Line field value if set, zero value otherwise.
-func (o *Citation) GetLine() int32 {
+func (o *Citation) GetLine() int64 {
 	if o == nil || IsNil(o.Line) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Line
@@ -123,7 +123,7 @@ func (o *Citation) GetLine() int32 {
 
 // GetLineOk returns a tuple with the Line field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Citation) GetLineOk() (*int32, bool) {
+func (o *Citation) GetLineOk() (*int64, bool) {
 	if o == nil || IsNil(o.Line) {
 		return nil, false
 	}
@@ -139,8 +139,8 @@ func (o *Citation) HasLine() bool {
 	return false
 }
 
-// SetLine gets a reference to the given int32 and assigns it to the Line field.
-func (o *Citation) SetLine(v int32) {
+// SetLine gets a reference to the given int64 and assigns it to the Line field.
+func (o *Citation) SetLine(v int64) {
 	o.Line = &v
 }
 

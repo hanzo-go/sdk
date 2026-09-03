@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Competitors** | Pointer to [**[]SeoDomain**](SeoDomain.md) | Competitors is one row per domain, strongest first. | [optional] 
 **Cost** | Pointer to **string** | Cost is what this call cost, in USD, as an exact decimal string. | [optional] 
-**Total** | Pointer to **int32** | Total is how many domains the upstream holds for these phrases. | [optional] 
+**Total** | Pointer to **int64** | Total is how many domains the upstream holds for these phrases. | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasCost returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *SeoCompetitorOut) GetTotal() int32`
+`func (o *SeoCompetitorOut) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *SeoCompetitorOut) GetTotalOk() (*int32, bool)`
+`func (o *SeoCompetitorOut) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *SeoCompetitorOut) SetTotal(v int32)`
+`func (o *SeoCompetitorOut) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

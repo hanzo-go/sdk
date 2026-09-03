@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AmountCents** | Pointer to **int32** | AmountCents is what it costs each period. | [optional] 
+**AmountCents** | Pointer to **int64** | AmountCents is what it costs each period. | [optional] 
 **AsOf** | Pointer to **string** | AsOf is when that amount was last checked against its source, RFC 3339 date. | [optional] 
 **Code** | Pointer to **string** | Code names the obligation so a caller can branch without reading prose. | [optional] 
 **Every** | Pointer to **string** | Every is how often it falls due — \&quot;yearly\&quot; for every obligation known here. | [optional] 
@@ -35,20 +35,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAmountCents
 
-`func (o *Obligation) GetAmountCents() int32`
+`func (o *Obligation) GetAmountCents() int64`
 
 GetAmountCents returns the AmountCents field if non-nil, zero value otherwise.
 
 ### GetAmountCentsOk
 
-`func (o *Obligation) GetAmountCentsOk() (*int32, bool)`
+`func (o *Obligation) GetAmountCentsOk() (*int64, bool)`
 
 GetAmountCentsOk returns a tuple with the AmountCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmountCents
 
-`func (o *Obligation) SetAmountCents(v int32)`
+`func (o *Obligation) SetAmountCents(v int64)`
 
 SetAmountCents sets AmountCents field to given value.
 

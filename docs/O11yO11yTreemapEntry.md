@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **MetricName** | Pointer to **string** | MetricName is the metric&#39;s name. | [optional] 
-**Percentage** | Pointer to **float32** | Percentage is the metric&#39;s share, in percent. | [optional] 
+**Percentage** | Pointer to **float64** | Percentage is the metric&#39;s share, in percent. | [optional] 
 **TotalValue** | Pointer to **int32** | TotalValue is the metric&#39;s absolute count. | [optional] 
 
 ## Methods
@@ -54,20 +54,20 @@ HasMetricName returns a boolean if a field has been set.
 
 ### GetPercentage
 
-`func (o *O11yO11yTreemapEntry) GetPercentage() float32`
+`func (o *O11yO11yTreemapEntry) GetPercentage() float64`
 
 GetPercentage returns the Percentage field if non-nil, zero value otherwise.
 
 ### GetPercentageOk
 
-`func (o *O11yO11yTreemapEntry) GetPercentageOk() (*float32, bool)`
+`func (o *O11yO11yTreemapEntry) GetPercentageOk() (*float64, bool)`
 
 GetPercentageOk returns a tuple with the Percentage field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPercentage
 
-`func (o *O11yO11yTreemapEntry) SetPercentage(v float32)`
+`func (o *O11yO11yTreemapEntry) SetPercentage(v float64)`
 
 SetPercentage sets Percentage field to given value.
 

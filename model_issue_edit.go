@@ -26,7 +26,7 @@ type IssueEdit struct {
 	// Key is the board — the repository name, from the path.
 	Key *string `json:"key,omitempty"`
 	// Num is the issue number on that repository, from the path.
-	Num *int32 `json:"num,omitempty"`
+	Num *int64 `json:"num,omitempty"`
 	// Priority re-prioritises it.
 	Priority *string `json:"priority,omitempty"`
 	// Status moves the card to another column.
@@ -149,9 +149,9 @@ func (o *IssueEdit) SetKey(v string) {
 }
 
 // GetNum returns the Num field value if set, zero value otherwise.
-func (o *IssueEdit) GetNum() int32 {
+func (o *IssueEdit) GetNum() int64 {
 	if o == nil || IsNil(o.Num) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Num
@@ -159,7 +159,7 @@ func (o *IssueEdit) GetNum() int32 {
 
 // GetNumOk returns a tuple with the Num field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IssueEdit) GetNumOk() (*int32, bool) {
+func (o *IssueEdit) GetNumOk() (*int64, bool) {
 	if o == nil || IsNil(o.Num) {
 		return nil, false
 	}
@@ -175,8 +175,8 @@ func (o *IssueEdit) HasNum() bool {
 	return false
 }
 
-// SetNum gets a reference to the given int32 and assigns it to the Num field.
-func (o *IssueEdit) SetNum(v int32) {
+// SetNum gets a reference to the given int64 and assigns it to the Num field.
+func (o *IssueEdit) SetNum(v int64) {
 	o.Num = &v
 }
 

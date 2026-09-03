@@ -22,7 +22,7 @@ type Skill struct {
 	// Content is the SKILL.md body, markdown.
 	Content *string `json:"content,omitempty"`
 	// CreatedAt is when the skill was last written, Unix seconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Description is the one-line summary discovery shows for the skill.
 	Description *string `json:"description,omitempty"`
 	// ID is the skill's id within the org. It is DERIVED from Name, so writing the same name again revises that skill rather than adding another.
@@ -31,6 +31,8 @@ type Skill struct {
 	Name *string `json:"name,omitempty"`
 	// Org is the org that authored the skill — the validated caller's, never a value the body supplied.
 	Org *string `json:"org,omitempty"`
+	// Source is the repository the skill was read from, \"<project>/<name>\" or \"<name>\"; empty for a skill written through the API. A push replaces every skill of its source at once, so a skill leaves when its file does.
+	Source *string `json:"source,omitempty"`
 }
 
 // NewSkill instantiates a new Skill object
@@ -83,9 +85,9 @@ func (o *Skill) SetContent(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *Skill) GetCreatedAt() int32 {
+func (o *Skill) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -93,7 +95,7 @@ func (o *Skill) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Skill) GetCreatedAtOk() (*int32, bool) {
+func (o *Skill) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -109,8 +111,8 @@ func (o *Skill) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *Skill) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *Skill) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -242,6 +244,38 @@ func (o *Skill) SetOrg(v string) {
 	o.Org = &v
 }
 
+// GetSource returns the Source field value if set, zero value otherwise.
+func (o *Skill) GetSource() string {
+	if o == nil || IsNil(o.Source) {
+		var ret string
+		return ret
+	}
+	return *o.Source
+}
+
+// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Skill) GetSourceOk() (*string, bool) {
+	if o == nil || IsNil(o.Source) {
+		return nil, false
+	}
+	return o.Source, true
+}
+
+// HasSource returns a boolean if a field has been set.
+func (o *Skill) HasSource() bool {
+	if o != nil && !IsNil(o.Source) {
+		return true
+	}
+
+	return false
+}
+
+// SetSource gets a reference to the given string and assigns it to the Source field.
+func (o *Skill) SetSource(v string) {
+	o.Source = &v
+}
+
 func (o Skill) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -269,6 +303,9 @@ func (o Skill) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Org) {
 		toSerialize["org"] = o.Org
+	}
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
 	}
 	return toSerialize, nil
 }

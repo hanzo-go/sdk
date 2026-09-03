@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Active** | Pointer to **bool** |  | [optional] 
-**Cpu** | Pointer to **float32** |  | [optional] 
+**Cpu** | Pointer to **float64** |  | [optional] 
 **HostName** | Pointer to **string** |  | [optional] 
-**Load15** | Pointer to **float32** |  | [optional] 
-**Memory** | Pointer to **float32** |  | [optional] 
+**Load15** | Pointer to **float64** |  | [optional] 
+**Memory** | Pointer to **float64** |  | [optional] 
 **Meta** | Pointer to **map[string]string** |  | [optional] 
 **Os** | Pointer to **string** |  | [optional] 
-**Wait** | Pointer to **float32** |  | [optional] 
+**Wait** | Pointer to **float64** |  | [optional] 
 
 ## Methods
 
@@ -59,20 +59,20 @@ HasActive returns a boolean if a field has been set.
 
 ### GetCpu
 
-`func (o *O11yHostListRecord) GetCpu() float32`
+`func (o *O11yHostListRecord) GetCpu() float64`
 
 GetCpu returns the Cpu field if non-nil, zero value otherwise.
 
 ### GetCpuOk
 
-`func (o *O11yHostListRecord) GetCpuOk() (*float32, bool)`
+`func (o *O11yHostListRecord) GetCpuOk() (*float64, bool)`
 
 GetCpuOk returns a tuple with the Cpu field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCpu
 
-`func (o *O11yHostListRecord) SetCpu(v float32)`
+`func (o *O11yHostListRecord) SetCpu(v float64)`
 
 SetCpu sets Cpu field to given value.
 
@@ -109,20 +109,20 @@ HasHostName returns a boolean if a field has been set.
 
 ### GetLoad15
 
-`func (o *O11yHostListRecord) GetLoad15() float32`
+`func (o *O11yHostListRecord) GetLoad15() float64`
 
 GetLoad15 returns the Load15 field if non-nil, zero value otherwise.
 
 ### GetLoad15Ok
 
-`func (o *O11yHostListRecord) GetLoad15Ok() (*float32, bool)`
+`func (o *O11yHostListRecord) GetLoad15Ok() (*float64, bool)`
 
 GetLoad15Ok returns a tuple with the Load15 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLoad15
 
-`func (o *O11yHostListRecord) SetLoad15(v float32)`
+`func (o *O11yHostListRecord) SetLoad15(v float64)`
 
 SetLoad15 sets Load15 field to given value.
 
@@ -134,20 +134,20 @@ HasLoad15 returns a boolean if a field has been set.
 
 ### GetMemory
 
-`func (o *O11yHostListRecord) GetMemory() float32`
+`func (o *O11yHostListRecord) GetMemory() float64`
 
 GetMemory returns the Memory field if non-nil, zero value otherwise.
 
 ### GetMemoryOk
 
-`func (o *O11yHostListRecord) GetMemoryOk() (*float32, bool)`
+`func (o *O11yHostListRecord) GetMemoryOk() (*float64, bool)`
 
 GetMemoryOk returns a tuple with the Memory field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMemory
 
-`func (o *O11yHostListRecord) SetMemory(v float32)`
+`func (o *O11yHostListRecord) SetMemory(v float64)`
 
 SetMemory sets Memory field to given value.
 
@@ -209,20 +209,20 @@ HasOs returns a boolean if a field has been set.
 
 ### GetWait
 
-`func (o *O11yHostListRecord) GetWait() float32`
+`func (o *O11yHostListRecord) GetWait() float64`
 
 GetWait returns the Wait field if non-nil, zero value otherwise.
 
 ### GetWaitOk
 
-`func (o *O11yHostListRecord) GetWaitOk() (*float32, bool)`
+`func (o *O11yHostListRecord) GetWaitOk() (*float64, bool)`
 
 GetWaitOk returns a tuple with the Wait field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWait
 
-`func (o *O11yHostListRecord) SetWait(v float32)`
+`func (o *O11yHostListRecord) SetWait(v float64)`
 
 SetWait sets Wait field to given value.
 

@@ -20,11 +20,11 @@ var _ MappedNullable = &Campaign{}
 // Campaign struct for Campaign
 type Campaign struct {
 	// Budget is what the campaign is allowed to cost, in USD cents. A negative value is clamped to 0; nothing enforces the ceiling here.
-	Budget *int32 `json:"budget,omitempty"`
+	Budget *int64 `json:"budget,omitempty"`
 	// Channel is the delivery surface: email, sms, social, meta, google or tiktok. Empty means email.
 	Channel *string `json:"channel,omitempty"`
 	// CreatedAt is unix seconds when the campaign was registered. Server-assigned and never rewritten — an update leaves it as it was.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// ID is the server-assigned campaign id (\"camp_\" + 128 random bits).
 	Id *string `json:"id,omitempty"`
 	// Name is the campaign's label. Required, trimmed, capped at 1024 bytes.
@@ -32,13 +32,13 @@ type Campaign struct {
 	// Objective is the free-text goal (\"signups\"), capped at 1024 bytes.
 	Objective *string `json:"objective,omitempty"`
 	// ScheduledAt is the unix send time; 0 means unscheduled. Setting it on a campaign with no explicit status makes that status \"scheduled\".
-	ScheduledAt *int32 `json:"scheduledAt,omitempty"`
+	ScheduledAt *int64 `json:"scheduledAt,omitempty"`
 	// Spend is what the campaign has cost so far, in USD cents, clamped to >= 0. The CALLER owns it: no send, ad buy or invoice moves it, so it changes only when create or update carries a new value. It is summed across the org's campaigns into GET /v1/marketing/summary.
-	Spend *int32 `json:"spend,omitempty"`
+	Spend *int64 `json:"spend,omitempty"`
 	// Status is the lifecycle: draft, scheduled, active, paused or completed. Empty means draft.
 	Status *string `json:"status,omitempty"`
 	// UpdatedAt is unix seconds of the last write. Server-assigned on create and on every update or schedule change, and the campaign list is ordered by it, newest first.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewCampaign instantiates a new Campaign object
@@ -59,9 +59,9 @@ func NewCampaignWithDefaults() *Campaign {
 }
 
 // GetBudget returns the Budget field value if set, zero value otherwise.
-func (o *Campaign) GetBudget() int32 {
+func (o *Campaign) GetBudget() int64 {
 	if o == nil || IsNil(o.Budget) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Budget
@@ -69,7 +69,7 @@ func (o *Campaign) GetBudget() int32 {
 
 // GetBudgetOk returns a tuple with the Budget field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Campaign) GetBudgetOk() (*int32, bool) {
+func (o *Campaign) GetBudgetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Budget) {
 		return nil, false
 	}
@@ -85,8 +85,8 @@ func (o *Campaign) HasBudget() bool {
 	return false
 }
 
-// SetBudget gets a reference to the given int32 and assigns it to the Budget field.
-func (o *Campaign) SetBudget(v int32) {
+// SetBudget gets a reference to the given int64 and assigns it to the Budget field.
+func (o *Campaign) SetBudget(v int64) {
 	o.Budget = &v
 }
 
@@ -123,9 +123,9 @@ func (o *Campaign) SetChannel(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *Campaign) GetCreatedAt() int32 {
+func (o *Campaign) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -133,7 +133,7 @@ func (o *Campaign) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Campaign) GetCreatedAtOk() (*int32, bool) {
+func (o *Campaign) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -149,8 +149,8 @@ func (o *Campaign) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *Campaign) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *Campaign) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -251,9 +251,9 @@ func (o *Campaign) SetObjective(v string) {
 }
 
 // GetScheduledAt returns the ScheduledAt field value if set, zero value otherwise.
-func (o *Campaign) GetScheduledAt() int32 {
+func (o *Campaign) GetScheduledAt() int64 {
 	if o == nil || IsNil(o.ScheduledAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ScheduledAt
@@ -261,7 +261,7 @@ func (o *Campaign) GetScheduledAt() int32 {
 
 // GetScheduledAtOk returns a tuple with the ScheduledAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Campaign) GetScheduledAtOk() (*int32, bool) {
+func (o *Campaign) GetScheduledAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.ScheduledAt) {
 		return nil, false
 	}
@@ -277,15 +277,15 @@ func (o *Campaign) HasScheduledAt() bool {
 	return false
 }
 
-// SetScheduledAt gets a reference to the given int32 and assigns it to the ScheduledAt field.
-func (o *Campaign) SetScheduledAt(v int32) {
+// SetScheduledAt gets a reference to the given int64 and assigns it to the ScheduledAt field.
+func (o *Campaign) SetScheduledAt(v int64) {
 	o.ScheduledAt = &v
 }
 
 // GetSpend returns the Spend field value if set, zero value otherwise.
-func (o *Campaign) GetSpend() int32 {
+func (o *Campaign) GetSpend() int64 {
 	if o == nil || IsNil(o.Spend) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Spend
@@ -293,7 +293,7 @@ func (o *Campaign) GetSpend() int32 {
 
 // GetSpendOk returns a tuple with the Spend field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Campaign) GetSpendOk() (*int32, bool) {
+func (o *Campaign) GetSpendOk() (*int64, bool) {
 	if o == nil || IsNil(o.Spend) {
 		return nil, false
 	}
@@ -309,8 +309,8 @@ func (o *Campaign) HasSpend() bool {
 	return false
 }
 
-// SetSpend gets a reference to the given int32 and assigns it to the Spend field.
-func (o *Campaign) SetSpend(v int32) {
+// SetSpend gets a reference to the given int64 and assigns it to the Spend field.
+func (o *Campaign) SetSpend(v int64) {
 	o.Spend = &v
 }
 
@@ -347,9 +347,9 @@ func (o *Campaign) SetStatus(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *Campaign) GetUpdatedAt() int32 {
+func (o *Campaign) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -357,7 +357,7 @@ func (o *Campaign) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Campaign) GetUpdatedAtOk() (*int32, bool) {
+func (o *Campaign) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -373,8 +373,8 @@ func (o *Campaign) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *Campaign) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *Campaign) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

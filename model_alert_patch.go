@@ -22,11 +22,11 @@ type AlertPatch struct {
 	Enforce      *bool   `json:"enforce,omitempty"`
 	Id           *string `json:"id,omitempty"`
 	Project      *string `json:"project,omitempty"`
-	RateLimitRpm *int32  `json:"rateLimitRpm,omitempty"`
+	RateLimitRpm *int64  `json:"rateLimitRpm,omitempty"`
 	Service      *string `json:"service,omitempty"`
-	SoftPct      *int32  `json:"softPct,omitempty"`
+	SoftPct      *int64  `json:"softPct,omitempty"`
 	Subject      *string `json:"subject,omitempty"`
-	Threshold    *int32  `json:"threshold,omitempty"`
+	Threshold    *int64  `json:"threshold,omitempty"`
 	Title        *string `json:"title,omitempty"`
 }
 
@@ -144,9 +144,9 @@ func (o *AlertPatch) SetProject(v string) {
 }
 
 // GetRateLimitRpm returns the RateLimitRpm field value if set, zero value otherwise.
-func (o *AlertPatch) GetRateLimitRpm() int32 {
+func (o *AlertPatch) GetRateLimitRpm() int64 {
 	if o == nil || IsNil(o.RateLimitRpm) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RateLimitRpm
@@ -154,7 +154,7 @@ func (o *AlertPatch) GetRateLimitRpm() int32 {
 
 // GetRateLimitRpmOk returns a tuple with the RateLimitRpm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AlertPatch) GetRateLimitRpmOk() (*int32, bool) {
+func (o *AlertPatch) GetRateLimitRpmOk() (*int64, bool) {
 	if o == nil || IsNil(o.RateLimitRpm) {
 		return nil, false
 	}
@@ -170,8 +170,8 @@ func (o *AlertPatch) HasRateLimitRpm() bool {
 	return false
 }
 
-// SetRateLimitRpm gets a reference to the given int32 and assigns it to the RateLimitRpm field.
-func (o *AlertPatch) SetRateLimitRpm(v int32) {
+// SetRateLimitRpm gets a reference to the given int64 and assigns it to the RateLimitRpm field.
+func (o *AlertPatch) SetRateLimitRpm(v int64) {
 	o.RateLimitRpm = &v
 }
 
@@ -208,9 +208,9 @@ func (o *AlertPatch) SetService(v string) {
 }
 
 // GetSoftPct returns the SoftPct field value if set, zero value otherwise.
-func (o *AlertPatch) GetSoftPct() int32 {
+func (o *AlertPatch) GetSoftPct() int64 {
 	if o == nil || IsNil(o.SoftPct) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SoftPct
@@ -218,7 +218,7 @@ func (o *AlertPatch) GetSoftPct() int32 {
 
 // GetSoftPctOk returns a tuple with the SoftPct field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AlertPatch) GetSoftPctOk() (*int32, bool) {
+func (o *AlertPatch) GetSoftPctOk() (*int64, bool) {
 	if o == nil || IsNil(o.SoftPct) {
 		return nil, false
 	}
@@ -234,8 +234,8 @@ func (o *AlertPatch) HasSoftPct() bool {
 	return false
 }
 
-// SetSoftPct gets a reference to the given int32 and assigns it to the SoftPct field.
-func (o *AlertPatch) SetSoftPct(v int32) {
+// SetSoftPct gets a reference to the given int64 and assigns it to the SoftPct field.
+func (o *AlertPatch) SetSoftPct(v int64) {
 	o.SoftPct = &v
 }
 
@@ -272,9 +272,9 @@ func (o *AlertPatch) SetSubject(v string) {
 }
 
 // GetThreshold returns the Threshold field value if set, zero value otherwise.
-func (o *AlertPatch) GetThreshold() int32 {
+func (o *AlertPatch) GetThreshold() int64 {
 	if o == nil || IsNil(o.Threshold) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Threshold
@@ -282,7 +282,7 @@ func (o *AlertPatch) GetThreshold() int32 {
 
 // GetThresholdOk returns a tuple with the Threshold field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AlertPatch) GetThresholdOk() (*int32, bool) {
+func (o *AlertPatch) GetThresholdOk() (*int64, bool) {
 	if o == nil || IsNil(o.Threshold) {
 		return nil, false
 	}
@@ -298,8 +298,8 @@ func (o *AlertPatch) HasThreshold() bool {
 	return false
 }
 
-// SetThreshold gets a reference to the given int32 and assigns it to the Threshold field.
-func (o *AlertPatch) SetThreshold(v int32) {
+// SetThreshold gets a reference to the given int64 and assigns it to the Threshold field.
+func (o *AlertPatch) SetThreshold(v int64) {
 	o.Threshold = &v
 }
 

@@ -22,35 +22,35 @@ type UsageWindowView struct {
 	// Account is the linked provider account the window belongs to.
 	Account *string `json:"account,omitempty"`
 	// CachedInputTokens is the prompt tokens served from the provider's cache; omitted when unknown.
-	CachedInputTokens *int32 `json:"cachedInputTokens,omitempty"`
+	CachedInputTokens *int64 `json:"cachedInputTokens,omitempty"`
 	// Confidence says how much the counters beside it mean — a meter that reported only a percentage leaves them at zero, and this is how a reader tells that from a true zero.
 	Confidence *string `json:"confidence,omitempty"`
 	// CostCents is what the window cost on the PROVIDER's own plan, in US cents. It is not a Hanzo charge.
-	CostCents *int32 `json:"costCents,omitempty"`
+	CostCents *int64 `json:"costCents,omitempty"`
 	// CostLimitCents is the plan's spend ceiling for the window, in US cents.
-	CostLimitCents *int32 `json:"costLimitCents,omitempty"`
+	CostLimitCents *int64 `json:"costLimitCents,omitempty"`
 	// Currency is the provider's currency when it is not US cents.
 	Currency *string `json:"currency,omitempty"`
 	// InputTokens is prompt tokens consumed in the window; omitted when unknown.
-	InputTokens *int32 `json:"inputTokens,omitempty"`
+	InputTokens *int64 `json:"inputTokens,omitempty"`
 	// Lane is the meter lane this instance belongs to, e.g. a provider's own rolling-window meter.
 	Lane *string `json:"lane,omitempty"`
 	// Machine is the host whose meter reported the window.
 	Machine *string `json:"machine,omitempty"`
 	// OutputTokens is completion tokens produced in the window; omitted when unknown.
-	OutputTokens *int32 `json:"outputTokens,omitempty"`
+	OutputTokens *int64 `json:"outputTokens,omitempty"`
 	// Plan is the subscription plan the account is on, as the provider names it.
 	Plan *string `json:"plan,omitempty"`
 	// Requests is how many requests were made in the window; omitted when the meter did not report it.
-	Requests *int32 `json:"requests,omitempty"`
+	Requests *int64 `json:"requests,omitempty"`
 	// ResetsAt is when this window rolls over, RFC3339 UTC; omitted when unknown.
 	ResetsAt *string `json:"resetsAt,omitempty"`
 	// Synthetic marks an instance the meter inferred rather than read.
 	Synthetic *bool `json:"synthetic,omitempty"`
 	// TotalTokens is the window's total tokens; omitted when unknown.
-	TotalTokens *int32 `json:"totalTokens,omitempty"`
+	TotalTokens *int64 `json:"totalTokens,omitempty"`
 	// UsedPct is how much of the window's allowance is consumed, 0–100.
-	UsedPct *float32 `json:"usedPct,omitempty"`
+	UsedPct *float64 `json:"usedPct,omitempty"`
 	// Window is the window class: 6h, day, week or month.
 	Window *string `json:"window,omitempty"`
 	// WindowMinutes is the window's real length in minutes when the meter reported one; omitted when it did not.
@@ -109,9 +109,9 @@ func (o *UsageWindowView) SetAccount(v string) {
 }
 
 // GetCachedInputTokens returns the CachedInputTokens field value if set, zero value otherwise.
-func (o *UsageWindowView) GetCachedInputTokens() int32 {
+func (o *UsageWindowView) GetCachedInputTokens() int64 {
 	if o == nil || IsNil(o.CachedInputTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CachedInputTokens
@@ -119,7 +119,7 @@ func (o *UsageWindowView) GetCachedInputTokens() int32 {
 
 // GetCachedInputTokensOk returns a tuple with the CachedInputTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsageWindowView) GetCachedInputTokensOk() (*int32, bool) {
+func (o *UsageWindowView) GetCachedInputTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.CachedInputTokens) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *UsageWindowView) HasCachedInputTokens() bool {
 	return false
 }
 
-// SetCachedInputTokens gets a reference to the given int32 and assigns it to the CachedInputTokens field.
-func (o *UsageWindowView) SetCachedInputTokens(v int32) {
+// SetCachedInputTokens gets a reference to the given int64 and assigns it to the CachedInputTokens field.
+func (o *UsageWindowView) SetCachedInputTokens(v int64) {
 	o.CachedInputTokens = &v
 }
 
@@ -173,9 +173,9 @@ func (o *UsageWindowView) SetConfidence(v string) {
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *UsageWindowView) GetCostCents() int32 {
+func (o *UsageWindowView) GetCostCents() int64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostCents
@@ -183,7 +183,7 @@ func (o *UsageWindowView) GetCostCents() int32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsageWindowView) GetCostCentsOk() (*int32, bool) {
+func (o *UsageWindowView) GetCostCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -199,15 +199,15 @@ func (o *UsageWindowView) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *UsageWindowView) SetCostCents(v int32) {
+// SetCostCents gets a reference to the given int64 and assigns it to the CostCents field.
+func (o *UsageWindowView) SetCostCents(v int64) {
 	o.CostCents = &v
 }
 
 // GetCostLimitCents returns the CostLimitCents field value if set, zero value otherwise.
-func (o *UsageWindowView) GetCostLimitCents() int32 {
+func (o *UsageWindowView) GetCostLimitCents() int64 {
 	if o == nil || IsNil(o.CostLimitCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostLimitCents
@@ -215,7 +215,7 @@ func (o *UsageWindowView) GetCostLimitCents() int32 {
 
 // GetCostLimitCentsOk returns a tuple with the CostLimitCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsageWindowView) GetCostLimitCentsOk() (*int32, bool) {
+func (o *UsageWindowView) GetCostLimitCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostLimitCents) {
 		return nil, false
 	}
@@ -231,8 +231,8 @@ func (o *UsageWindowView) HasCostLimitCents() bool {
 	return false
 }
 
-// SetCostLimitCents gets a reference to the given int32 and assigns it to the CostLimitCents field.
-func (o *UsageWindowView) SetCostLimitCents(v int32) {
+// SetCostLimitCents gets a reference to the given int64 and assigns it to the CostLimitCents field.
+func (o *UsageWindowView) SetCostLimitCents(v int64) {
 	o.CostLimitCents = &v
 }
 
@@ -269,9 +269,9 @@ func (o *UsageWindowView) SetCurrency(v string) {
 }
 
 // GetInputTokens returns the InputTokens field value if set, zero value otherwise.
-func (o *UsageWindowView) GetInputTokens() int32 {
+func (o *UsageWindowView) GetInputTokens() int64 {
 	if o == nil || IsNil(o.InputTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.InputTokens
@@ -279,7 +279,7 @@ func (o *UsageWindowView) GetInputTokens() int32 {
 
 // GetInputTokensOk returns a tuple with the InputTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsageWindowView) GetInputTokensOk() (*int32, bool) {
+func (o *UsageWindowView) GetInputTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.InputTokens) {
 		return nil, false
 	}
@@ -295,8 +295,8 @@ func (o *UsageWindowView) HasInputTokens() bool {
 	return false
 }
 
-// SetInputTokens gets a reference to the given int32 and assigns it to the InputTokens field.
-func (o *UsageWindowView) SetInputTokens(v int32) {
+// SetInputTokens gets a reference to the given int64 and assigns it to the InputTokens field.
+func (o *UsageWindowView) SetInputTokens(v int64) {
 	o.InputTokens = &v
 }
 
@@ -365,9 +365,9 @@ func (o *UsageWindowView) SetMachine(v string) {
 }
 
 // GetOutputTokens returns the OutputTokens field value if set, zero value otherwise.
-func (o *UsageWindowView) GetOutputTokens() int32 {
+func (o *UsageWindowView) GetOutputTokens() int64 {
 	if o == nil || IsNil(o.OutputTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.OutputTokens
@@ -375,7 +375,7 @@ func (o *UsageWindowView) GetOutputTokens() int32 {
 
 // GetOutputTokensOk returns a tuple with the OutputTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsageWindowView) GetOutputTokensOk() (*int32, bool) {
+func (o *UsageWindowView) GetOutputTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.OutputTokens) {
 		return nil, false
 	}
@@ -391,8 +391,8 @@ func (o *UsageWindowView) HasOutputTokens() bool {
 	return false
 }
 
-// SetOutputTokens gets a reference to the given int32 and assigns it to the OutputTokens field.
-func (o *UsageWindowView) SetOutputTokens(v int32) {
+// SetOutputTokens gets a reference to the given int64 and assigns it to the OutputTokens field.
+func (o *UsageWindowView) SetOutputTokens(v int64) {
 	o.OutputTokens = &v
 }
 
@@ -429,9 +429,9 @@ func (o *UsageWindowView) SetPlan(v string) {
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *UsageWindowView) GetRequests() int32 {
+func (o *UsageWindowView) GetRequests() int64 {
 	if o == nil || IsNil(o.Requests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Requests
@@ -439,7 +439,7 @@ func (o *UsageWindowView) GetRequests() int32 {
 
 // GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsageWindowView) GetRequestsOk() (*int32, bool) {
+func (o *UsageWindowView) GetRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Requests) {
 		return nil, false
 	}
@@ -455,8 +455,8 @@ func (o *UsageWindowView) HasRequests() bool {
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *UsageWindowView) SetRequests(v int32) {
+// SetRequests gets a reference to the given int64 and assigns it to the Requests field.
+func (o *UsageWindowView) SetRequests(v int64) {
 	o.Requests = &v
 }
 
@@ -525,9 +525,9 @@ func (o *UsageWindowView) SetSynthetic(v bool) {
 }
 
 // GetTotalTokens returns the TotalTokens field value if set, zero value otherwise.
-func (o *UsageWindowView) GetTotalTokens() int32 {
+func (o *UsageWindowView) GetTotalTokens() int64 {
 	if o == nil || IsNil(o.TotalTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalTokens
@@ -535,7 +535,7 @@ func (o *UsageWindowView) GetTotalTokens() int32 {
 
 // GetTotalTokensOk returns a tuple with the TotalTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsageWindowView) GetTotalTokensOk() (*int32, bool) {
+func (o *UsageWindowView) GetTotalTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalTokens) {
 		return nil, false
 	}
@@ -551,15 +551,15 @@ func (o *UsageWindowView) HasTotalTokens() bool {
 	return false
 }
 
-// SetTotalTokens gets a reference to the given int32 and assigns it to the TotalTokens field.
-func (o *UsageWindowView) SetTotalTokens(v int32) {
+// SetTotalTokens gets a reference to the given int64 and assigns it to the TotalTokens field.
+func (o *UsageWindowView) SetTotalTokens(v int64) {
 	o.TotalTokens = &v
 }
 
 // GetUsedPct returns the UsedPct field value if set, zero value otherwise.
-func (o *UsageWindowView) GetUsedPct() float32 {
+func (o *UsageWindowView) GetUsedPct() float64 {
 	if o == nil || IsNil(o.UsedPct) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.UsedPct
@@ -567,7 +567,7 @@ func (o *UsageWindowView) GetUsedPct() float32 {
 
 // GetUsedPctOk returns a tuple with the UsedPct field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsageWindowView) GetUsedPctOk() (*float32, bool) {
+func (o *UsageWindowView) GetUsedPctOk() (*float64, bool) {
 	if o == nil || IsNil(o.UsedPct) {
 		return nil, false
 	}
@@ -583,8 +583,8 @@ func (o *UsageWindowView) HasUsedPct() bool {
 	return false
 }
 
-// SetUsedPct gets a reference to the given float32 and assigns it to the UsedPct field.
-func (o *UsageWindowView) SetUsedPct(v float32) {
+// SetUsedPct gets a reference to the given float64 and assigns it to the UsedPct field.
+func (o *UsageWindowView) SetUsedPct(v float64) {
 	o.UsedPct = &v
 }
 

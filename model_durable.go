@@ -33,9 +33,9 @@ type Durable struct {
 	// Filter delivers only messages on this org-relative subject (wildcards supported).
 	FilterSubject *string `json:"filter_subject,omitempty"`
 	// MaxAckPending caps unacknowledged messages in flight (default 1000).
-	MaxAckPending *int32 `json:"max_ack_pending,omitempty"`
+	MaxAckPending *int64 `json:"max_ack_pending,omitempty"`
 	// MaxDeliver caps delivery attempts per message; -1 (default) is unlimited.
-	MaxDeliver *int32 `json:"max_deliver,omitempty"`
+	MaxDeliver *int64 `json:"max_deliver,omitempty"`
 	// StartSeq is the starting sequence for deliver_policy by_start_sequence.
 	OptStartSeq *int32 `json:"opt_start_seq,omitempty"`
 	// StartTime is the starting instant for deliver_policy by_start_time.
@@ -254,9 +254,9 @@ func (o *Durable) SetFilterSubject(v string) {
 }
 
 // GetMaxAckPending returns the MaxAckPending field value if set, zero value otherwise.
-func (o *Durable) GetMaxAckPending() int32 {
+func (o *Durable) GetMaxAckPending() int64 {
 	if o == nil || IsNil(o.MaxAckPending) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxAckPending
@@ -264,7 +264,7 @@ func (o *Durable) GetMaxAckPending() int32 {
 
 // GetMaxAckPendingOk returns a tuple with the MaxAckPending field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Durable) GetMaxAckPendingOk() (*int32, bool) {
+func (o *Durable) GetMaxAckPendingOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxAckPending) {
 		return nil, false
 	}
@@ -280,15 +280,15 @@ func (o *Durable) HasMaxAckPending() bool {
 	return false
 }
 
-// SetMaxAckPending gets a reference to the given int32 and assigns it to the MaxAckPending field.
-func (o *Durable) SetMaxAckPending(v int32) {
+// SetMaxAckPending gets a reference to the given int64 and assigns it to the MaxAckPending field.
+func (o *Durable) SetMaxAckPending(v int64) {
 	o.MaxAckPending = &v
 }
 
 // GetMaxDeliver returns the MaxDeliver field value if set, zero value otherwise.
-func (o *Durable) GetMaxDeliver() int32 {
+func (o *Durable) GetMaxDeliver() int64 {
 	if o == nil || IsNil(o.MaxDeliver) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxDeliver
@@ -296,7 +296,7 @@ func (o *Durable) GetMaxDeliver() int32 {
 
 // GetMaxDeliverOk returns a tuple with the MaxDeliver field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Durable) GetMaxDeliverOk() (*int32, bool) {
+func (o *Durable) GetMaxDeliverOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxDeliver) {
 		return nil, false
 	}
@@ -312,8 +312,8 @@ func (o *Durable) HasMaxDeliver() bool {
 	return false
 }
 
-// SetMaxDeliver gets a reference to the given int32 and assigns it to the MaxDeliver field.
-func (o *Durable) SetMaxDeliver(v int32) {
+// SetMaxDeliver gets a reference to the given int64 and assigns it to the MaxDeliver field.
+func (o *Durable) SetMaxDeliver(v int64) {
 	o.MaxDeliver = &v
 }
 

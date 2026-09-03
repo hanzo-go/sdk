@@ -10,8 +10,8 @@ Name | Type | Description | Notes
 **LineItems** | Pointer to [**[]LineItem**](LineItem.md) | LineItems are the individual lines read off the document, where it had any. They need not sum to totalCents: a document may carry lines the scanner could not read, and the total is taken from the total. | [optional] 
 **Merchant** | Pointer to **string** | Merchant is the supplier as printed on the document. | [optional] 
 **Note** | Pointer to **string** | Note is anything else worth carrying from the document that has no field of its own. | [optional] 
-**TaxCents** | Pointer to **int32** | TaxCents is how much of that total is tax, in cents. It is part of totalCents, not additional to it. | [optional] 
-**TotalCents** | Pointer to **int32** | TotalCents is the document total in whole cents, tax INCLUDED. | [optional] 
+**TaxCents** | Pointer to **int64** | TaxCents is how much of that total is tax, in cents. It is part of totalCents, not additional to it. | [optional] 
+**TotalCents** | Pointer to **int64** | TotalCents is the document total in whole cents, tax INCLUDED. | [optional] 
 
 ## Methods
 
@@ -184,20 +184,20 @@ HasNote returns a boolean if a field has been set.
 
 ### GetTaxCents
 
-`func (o *Extracted) GetTaxCents() int32`
+`func (o *Extracted) GetTaxCents() int64`
 
 GetTaxCents returns the TaxCents field if non-nil, zero value otherwise.
 
 ### GetTaxCentsOk
 
-`func (o *Extracted) GetTaxCentsOk() (*int32, bool)`
+`func (o *Extracted) GetTaxCentsOk() (*int64, bool)`
 
 GetTaxCentsOk returns a tuple with the TaxCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTaxCents
 
-`func (o *Extracted) SetTaxCents(v int32)`
+`func (o *Extracted) SetTaxCents(v int64)`
 
 SetTaxCents sets TaxCents field to given value.
 
@@ -209,20 +209,20 @@ HasTaxCents returns a boolean if a field has been set.
 
 ### GetTotalCents
 
-`func (o *Extracted) GetTotalCents() int32`
+`func (o *Extracted) GetTotalCents() int64`
 
 GetTotalCents returns the TotalCents field if non-nil, zero value otherwise.
 
 ### GetTotalCentsOk
 
-`func (o *Extracted) GetTotalCentsOk() (*int32, bool)`
+`func (o *Extracted) GetTotalCentsOk() (*int64, bool)`
 
 GetTotalCentsOk returns a tuple with the TotalCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalCents
 
-`func (o *Extracted) SetTotalCents(v int32)`
+`func (o *Extracted) SetTotalCents(v int64)`
 
 SetTotalCents sets TotalCents field to given value.
 

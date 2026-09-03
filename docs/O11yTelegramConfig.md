@@ -6,12 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **NotifierConfig** | Pointer to [**O11yNotifierConfig**](O11yNotifierConfig.md) |  | [optional] 
 **ApiUrl** | Pointer to **interface{}** |  | [optional] 
-**Chat** | Pointer to **int32** |  | [optional] 
+**Chat** | Pointer to **int64** |  | [optional] 
 **ChatFile** | Pointer to **string** |  | [optional] 
 **DisableNotifications** | Pointer to **bool** |  | [optional] 
 **HttpConfig** | Pointer to [**O11yHTTPClientConfig**](O11yHTTPClientConfig.md) |  | [optional] 
 **Message** | Pointer to **string** |  | [optional] 
-**MessageThreadId** | Pointer to **int32** |  | [optional] 
+**MessageThreadId** | Pointer to **int64** |  | [optional] 
 **ParseMode** | Pointer to **string** |  | [optional] 
 **Token** | Pointer to **interface{}** |  | [optional] 
 **TokenFile** | Pointer to **string** |  | [optional] 
@@ -97,20 +97,20 @@ HasApiUrl returns a boolean if a field has been set.
 UnsetApiUrl ensures that no value is present for ApiUrl, not even an explicit nil
 ### GetChat
 
-`func (o *O11yTelegramConfig) GetChat() int32`
+`func (o *O11yTelegramConfig) GetChat() int64`
 
 GetChat returns the Chat field if non-nil, zero value otherwise.
 
 ### GetChatOk
 
-`func (o *O11yTelegramConfig) GetChatOk() (*int32, bool)`
+`func (o *O11yTelegramConfig) GetChatOk() (*int64, bool)`
 
 GetChatOk returns a tuple with the Chat field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetChat
 
-`func (o *O11yTelegramConfig) SetChat(v int32)`
+`func (o *O11yTelegramConfig) SetChat(v int64)`
 
 SetChat sets Chat field to given value.
 
@@ -222,20 +222,20 @@ HasMessage returns a boolean if a field has been set.
 
 ### GetMessageThreadId
 
-`func (o *O11yTelegramConfig) GetMessageThreadId() int32`
+`func (o *O11yTelegramConfig) GetMessageThreadId() int64`
 
 GetMessageThreadId returns the MessageThreadId field if non-nil, zero value otherwise.
 
 ### GetMessageThreadIdOk
 
-`func (o *O11yTelegramConfig) GetMessageThreadIdOk() (*int32, bool)`
+`func (o *O11yTelegramConfig) GetMessageThreadIdOk() (*int64, bool)`
 
 GetMessageThreadIdOk returns a tuple with the MessageThreadId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMessageThreadId
 
-`func (o *O11yTelegramConfig) SetMessageThreadId(v int32)`
+`func (o *O11yTelegramConfig) SetMessageThreadId(v int64)`
 
 SetMessageThreadId sets MessageThreadId field to given value.
 

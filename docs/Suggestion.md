@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Rationale** | Pointer to **string** | Rationale is why this step is being suggested NOW, written for the person reading it. It explains the ranking, not the step. | [optional] 
 **StepId** | Pointer to **string** | StepID is the checklist step being recommended — the id every step route takes, so a caller can act on the suggestion directly. | [optional] 
 **Title** | Pointer to **string** | Title is the step&#39;s own one-line quest. | [optional] 
-**Unlocks** | Pointer to **int32** | Unlocks is how many downstream steps completing this one immediately makes available (its leverage) — the primary ranking key. | [optional] 
+**Unlocks** | Pointer to **int64** | Unlocks is how many downstream steps completing this one immediately makes available (its leverage) — the primary ranking key. | [optional] 
 
 ## Methods
 
@@ -157,20 +157,20 @@ HasTitle returns a boolean if a field has been set.
 
 ### GetUnlocks
 
-`func (o *Suggestion) GetUnlocks() int32`
+`func (o *Suggestion) GetUnlocks() int64`
 
 GetUnlocks returns the Unlocks field if non-nil, zero value otherwise.
 
 ### GetUnlocksOk
 
-`func (o *Suggestion) GetUnlocksOk() (*int32, bool)`
+`func (o *Suggestion) GetUnlocksOk() (*int64, bool)`
 
 GetUnlocksOk returns a tuple with the Unlocks field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUnlocks
 
-`func (o *Suggestion) SetUnlocks(v int32)`
+`func (o *Suggestion) SetUnlocks(v int64)`
 
 SetUnlocks sets Unlocks field to given value.
 

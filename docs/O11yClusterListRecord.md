@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ClusterUID** | Pointer to **string** |  | [optional] 
-**CpuAllocatable** | Pointer to **float32** |  | [optional] 
-**CpuUsage** | Pointer to **float32** |  | [optional] 
-**MemoryAllocatable** | Pointer to **float32** |  | [optional] 
-**MemoryUsage** | Pointer to **float32** |  | [optional] 
+**CpuAllocatable** | Pointer to **float64** |  | [optional] 
+**CpuUsage** | Pointer to **float64** |  | [optional] 
+**MemoryAllocatable** | Pointer to **float64** |  | [optional] 
+**MemoryUsage** | Pointer to **float64** |  | [optional] 
 **Meta** | Pointer to **map[string]string** |  | [optional] 
 
 ## Methods
@@ -57,20 +57,20 @@ HasClusterUID returns a boolean if a field has been set.
 
 ### GetCpuAllocatable
 
-`func (o *O11yClusterListRecord) GetCpuAllocatable() float32`
+`func (o *O11yClusterListRecord) GetCpuAllocatable() float64`
 
 GetCpuAllocatable returns the CpuAllocatable field if non-nil, zero value otherwise.
 
 ### GetCpuAllocatableOk
 
-`func (o *O11yClusterListRecord) GetCpuAllocatableOk() (*float32, bool)`
+`func (o *O11yClusterListRecord) GetCpuAllocatableOk() (*float64, bool)`
 
 GetCpuAllocatableOk returns a tuple with the CpuAllocatable field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCpuAllocatable
 
-`func (o *O11yClusterListRecord) SetCpuAllocatable(v float32)`
+`func (o *O11yClusterListRecord) SetCpuAllocatable(v float64)`
 
 SetCpuAllocatable sets CpuAllocatable field to given value.
 
@@ -82,20 +82,20 @@ HasCpuAllocatable returns a boolean if a field has been set.
 
 ### GetCpuUsage
 
-`func (o *O11yClusterListRecord) GetCpuUsage() float32`
+`func (o *O11yClusterListRecord) GetCpuUsage() float64`
 
 GetCpuUsage returns the CpuUsage field if non-nil, zero value otherwise.
 
 ### GetCpuUsageOk
 
-`func (o *O11yClusterListRecord) GetCpuUsageOk() (*float32, bool)`
+`func (o *O11yClusterListRecord) GetCpuUsageOk() (*float64, bool)`
 
 GetCpuUsageOk returns a tuple with the CpuUsage field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCpuUsage
 
-`func (o *O11yClusterListRecord) SetCpuUsage(v float32)`
+`func (o *O11yClusterListRecord) SetCpuUsage(v float64)`
 
 SetCpuUsage sets CpuUsage field to given value.
 
@@ -107,20 +107,20 @@ HasCpuUsage returns a boolean if a field has been set.
 
 ### GetMemoryAllocatable
 
-`func (o *O11yClusterListRecord) GetMemoryAllocatable() float32`
+`func (o *O11yClusterListRecord) GetMemoryAllocatable() float64`
 
 GetMemoryAllocatable returns the MemoryAllocatable field if non-nil, zero value otherwise.
 
 ### GetMemoryAllocatableOk
 
-`func (o *O11yClusterListRecord) GetMemoryAllocatableOk() (*float32, bool)`
+`func (o *O11yClusterListRecord) GetMemoryAllocatableOk() (*float64, bool)`
 
 GetMemoryAllocatableOk returns a tuple with the MemoryAllocatable field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMemoryAllocatable
 
-`func (o *O11yClusterListRecord) SetMemoryAllocatable(v float32)`
+`func (o *O11yClusterListRecord) SetMemoryAllocatable(v float64)`
 
 SetMemoryAllocatable sets MemoryAllocatable field to given value.
 
@@ -132,20 +132,20 @@ HasMemoryAllocatable returns a boolean if a field has been set.
 
 ### GetMemoryUsage
 
-`func (o *O11yClusterListRecord) GetMemoryUsage() float32`
+`func (o *O11yClusterListRecord) GetMemoryUsage() float64`
 
 GetMemoryUsage returns the MemoryUsage field if non-nil, zero value otherwise.
 
 ### GetMemoryUsageOk
 
-`func (o *O11yClusterListRecord) GetMemoryUsageOk() (*float32, bool)`
+`func (o *O11yClusterListRecord) GetMemoryUsageOk() (*float64, bool)`
 
 GetMemoryUsageOk returns a tuple with the MemoryUsage field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMemoryUsage
 
-`func (o *O11yClusterListRecord) SetMemoryUsage(v float32)`
+`func (o *O11yClusterListRecord) SetMemoryUsage(v float64)`
 
 SetMemoryUsage sets MemoryUsage field to given value.
 

@@ -18,10 +18,10 @@ import (
 
 // PostEventRequest - struct for PostEventRequest
 type PostEventRequest struct {
-	CaptureBatch *CaptureBatch
-	Event        *Event
-	InsightsBody *InsightsBody
-	ArrayOfEvent *[]Event
+	CaptureBatch        *CaptureBatch
+	CaptureEvent        *CaptureEvent
+	InsightsBody        *InsightsBody
+	ArrayOfCaptureEvent *[]CaptureEvent
 }
 
 // CaptureBatchAsPostEventRequest is a convenience function that returns CaptureBatch wrapped in PostEventRequest
@@ -31,10 +31,10 @@ func CaptureBatchAsPostEventRequest(v *CaptureBatch) PostEventRequest {
 	}
 }
 
-// EventAsPostEventRequest is a convenience function that returns Event wrapped in PostEventRequest
-func EventAsPostEventRequest(v *Event) PostEventRequest {
+// CaptureEventAsPostEventRequest is a convenience function that returns CaptureEvent wrapped in PostEventRequest
+func CaptureEventAsPostEventRequest(v *CaptureEvent) PostEventRequest {
 	return PostEventRequest{
-		Event: v,
+		CaptureEvent: v,
 	}
 }
 
@@ -45,10 +45,10 @@ func InsightsBodyAsPostEventRequest(v *InsightsBody) PostEventRequest {
 	}
 }
 
-// []EventAsPostEventRequest is a convenience function that returns []Event wrapped in PostEventRequest
-func ArrayOfEventAsPostEventRequest(v *[]Event) PostEventRequest {
+// []CaptureEventAsPostEventRequest is a convenience function that returns []CaptureEvent wrapped in PostEventRequest
+func ArrayOfCaptureEventAsPostEventRequest(v *[]CaptureEvent) PostEventRequest {
 	return PostEventRequest{
-		ArrayOfEvent: v,
+		ArrayOfCaptureEvent: v,
 	}
 }
 
@@ -73,21 +73,21 @@ func (dst *PostEventRequest) UnmarshalJSON(data []byte) error {
 		dst.CaptureBatch = nil
 	}
 
-	// try to unmarshal data into Event
-	err = newStrictDecoder(data).Decode(&dst.Event)
+	// try to unmarshal data into CaptureEvent
+	err = newStrictDecoder(data).Decode(&dst.CaptureEvent)
 	if err == nil {
-		jsonEvent, _ := json.Marshal(dst.Event)
-		if string(jsonEvent) == "{}" { // empty struct
-			dst.Event = nil
+		jsonCaptureEvent, _ := json.Marshal(dst.CaptureEvent)
+		if string(jsonCaptureEvent) == "{}" { // empty struct
+			dst.CaptureEvent = nil
 		} else {
-			if err = validator.Validate(dst.Event); err != nil {
-				dst.Event = nil
+			if err = validator.Validate(dst.CaptureEvent); err != nil {
+				dst.CaptureEvent = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.Event = nil
+		dst.CaptureEvent = nil
 	}
 
 	// try to unmarshal data into InsightsBody
@@ -107,29 +107,29 @@ func (dst *PostEventRequest) UnmarshalJSON(data []byte) error {
 		dst.InsightsBody = nil
 	}
 
-	// try to unmarshal data into ArrayOfEvent
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfEvent)
+	// try to unmarshal data into ArrayOfCaptureEvent
+	err = newStrictDecoder(data).Decode(&dst.ArrayOfCaptureEvent)
 	if err == nil {
-		jsonArrayOfEvent, _ := json.Marshal(dst.ArrayOfEvent)
-		if string(jsonArrayOfEvent) == "{}" { // empty struct
-			dst.ArrayOfEvent = nil
+		jsonArrayOfCaptureEvent, _ := json.Marshal(dst.ArrayOfCaptureEvent)
+		if string(jsonArrayOfCaptureEvent) == "{}" { // empty struct
+			dst.ArrayOfCaptureEvent = nil
 		} else {
-			if err = validator.Validate(dst.ArrayOfEvent); err != nil {
-				dst.ArrayOfEvent = nil
+			if err = validator.Validate(dst.ArrayOfCaptureEvent); err != nil {
+				dst.ArrayOfCaptureEvent = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.ArrayOfEvent = nil
+		dst.ArrayOfCaptureEvent = nil
 	}
 
 	if match > 1 { // more than 1 match
 		// reset to nil
 		dst.CaptureBatch = nil
-		dst.Event = nil
+		dst.CaptureEvent = nil
 		dst.InsightsBody = nil
-		dst.ArrayOfEvent = nil
+		dst.ArrayOfCaptureEvent = nil
 
 		return fmt.Errorf("data matches more than one schema in oneOf(PostEventRequest)")
 	} else if match == 1 {
@@ -145,16 +145,16 @@ func (src PostEventRequest) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.CaptureBatch)
 	}
 
-	if src.Event != nil {
-		return json.Marshal(&src.Event)
+	if src.CaptureEvent != nil {
+		return json.Marshal(&src.CaptureEvent)
 	}
 
 	if src.InsightsBody != nil {
 		return json.Marshal(&src.InsightsBody)
 	}
 
-	if src.ArrayOfEvent != nil {
-		return json.Marshal(&src.ArrayOfEvent)
+	if src.ArrayOfCaptureEvent != nil {
+		return json.Marshal(&src.ArrayOfCaptureEvent)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -169,16 +169,16 @@ func (obj *PostEventRequest) GetActualInstance() interface{} {
 		return obj.CaptureBatch
 	}
 
-	if obj.Event != nil {
-		return obj.Event
+	if obj.CaptureEvent != nil {
+		return obj.CaptureEvent
 	}
 
 	if obj.InsightsBody != nil {
 		return obj.InsightsBody
 	}
 
-	if obj.ArrayOfEvent != nil {
-		return obj.ArrayOfEvent
+	if obj.ArrayOfCaptureEvent != nil {
+		return obj.ArrayOfCaptureEvent
 	}
 
 	// all schemas are nil
@@ -191,16 +191,16 @@ func (obj PostEventRequest) GetActualInstanceValue() interface{} {
 		return *obj.CaptureBatch
 	}
 
-	if obj.Event != nil {
-		return *obj.Event
+	if obj.CaptureEvent != nil {
+		return *obj.CaptureEvent
 	}
 
 	if obj.InsightsBody != nil {
 		return *obj.InsightsBody
 	}
 
-	if obj.ArrayOfEvent != nil {
-		return *obj.ArrayOfEvent
+	if obj.ArrayOfCaptureEvent != nil {
+		return *obj.ArrayOfCaptureEvent
 	}
 
 	// all schemas are nil

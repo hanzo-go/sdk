@@ -20,7 +20,7 @@ var _ MappedNullable = &GithubSearchReq{}
 // GithubSearchReq struct for GithubSearchReq
 type GithubSearchReq struct {
 	// Limit caps the answer; 0 takes the default and anything above the ceiling is clamped rather than refused.
-	Limit *int32 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 	// Q is GitHub's own search syntax, passed through: \"tetris language:go\", \"org:hanzoai stars:>10\". Passing it through rather than inventing a vocabulary means one thing to learn, and it is theirs.
 	Q *string `json:"q,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewGithubSearchReqWithDefaults() *GithubSearchReq {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *GithubSearchReq) GetLimit() int32 {
+func (o *GithubSearchReq) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -53,7 +53,7 @@ func (o *GithubSearchReq) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GithubSearchReq) GetLimitOk() (*int32, bool) {
+func (o *GithubSearchReq) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *GithubSearchReq) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *GithubSearchReq) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *GithubSearchReq) SetLimit(v int64) {
 	o.Limit = &v
 }
 

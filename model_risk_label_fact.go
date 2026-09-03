@@ -22,7 +22,7 @@ type RiskLabelFact struct {
 	// At is when the judged event happened, RFC 3339.
 	At *string `json:"at,omitempty"`
 	// Confidence in [0,1]. A processor chargeback is 1; an analyst's hunch is not. It breaks a tie WITHIN a precedence rank and can never lift a weak source above a strong one — otherwise every caller would send 1.  A litigation hold is NOT a field here. It is a fact about the record and not about the world, so it is not part of what was asserted, it is not in the content digest, and it has its own op — which is also the only way one can be released. Carried here it was silently a no-op on any record that already existed: the digest was the same, the insert was ignored, and the caller was told `duplicate` while the hold it asked for was never placed.
-	Confidence *float32 `json:"confidence,omitempty"`
+	Confidence *float64 `json:"confidence,omitempty"`
 	// Disposition is productive, unproductive, or empty for an explicit unjudged — the AML engine's own vocabulary, verbatim.
 	Disposition *string `json:"disposition,omitempty"`
 	// Evidence points at the record this conclusion came from: a dispute id, a case id, a decision id. Required, because a label with no evidence cannot be defended when the adverse action it fed is challenged.
@@ -87,9 +87,9 @@ func (o *RiskLabelFact) SetAt(v string) {
 }
 
 // GetConfidence returns the Confidence field value if set, zero value otherwise.
-func (o *RiskLabelFact) GetConfidence() float32 {
+func (o *RiskLabelFact) GetConfidence() float64 {
 	if o == nil || IsNil(o.Confidence) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Confidence
@@ -97,7 +97,7 @@ func (o *RiskLabelFact) GetConfidence() float32 {
 
 // GetConfidenceOk returns a tuple with the Confidence field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLabelFact) GetConfidenceOk() (*float32, bool) {
+func (o *RiskLabelFact) GetConfidenceOk() (*float64, bool) {
 	if o == nil || IsNil(o.Confidence) {
 		return nil, false
 	}
@@ -113,8 +113,8 @@ func (o *RiskLabelFact) HasConfidence() bool {
 	return false
 }
 
-// SetConfidence gets a reference to the given float32 and assigns it to the Confidence field.
-func (o *RiskLabelFact) SetConfidence(v float32) {
+// SetConfidence gets a reference to the given float64 and assigns it to the Confidence field.
+func (o *RiskLabelFact) SetConfidence(v float64) {
 	o.Confidence = &v
 }
 

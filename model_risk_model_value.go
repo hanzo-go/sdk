@@ -24,9 +24,9 @@ type RiskModelValue struct {
 	// At is when it was published, RFC 3339, on the server clock. You do not supply it: a record whose date the audited party chose is not a record.
 	At *string `json:"at,omitempty"`
 	// Learned is how many events are behind the masses.
-	Learned *int32 `json:"learned,omitempty"`
+	Learned *int64 `json:"learned,omitempty"`
 	// Sequence is this value's place in YOUR organisation's own history, from 1 and contiguous until retention disposes of the oldest.
-	Sequence *int32 `json:"sequence,omitempty"`
+	Sequence *int64 `json:"sequence,omitempty"`
 	// Shape NAMES the model space the masses are only meaningful against, as `<family>:<digest>` — the KIND of model, and that family's own digest over the feature inventory in order and the detector's geometry parameters. Compare it with the `shape` on your model state (GET /v1/risk/state): equal means adopting this value restores masses into the space already running, and different means adopting it REPLANTS the model into the space this value describes. That is what makes a searched shape installable.  A DIFFERENT FAMILY IS NOT ADOPTABLE AT ALL, and that is the one difference the family term makes here: a different geometry in the same family is a replant, and a different family is a refusal naming both — its masses do not describe your model in any space.
 	Shape *string `json:"shape,omitempty"`
 	// Warmed is how far your own event surface had been folded in when this value was published, RFC 3339. It is part of the address because two models with identical masses reached by different routes disagree about what is left to fold, and one of them will re-teach history the other will not.
@@ -115,9 +115,9 @@ func (o *RiskModelValue) SetAt(v string) {
 }
 
 // GetLearned returns the Learned field value if set, zero value otherwise.
-func (o *RiskModelValue) GetLearned() int32 {
+func (o *RiskModelValue) GetLearned() int64 {
 	if o == nil || IsNil(o.Learned) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Learned
@@ -125,7 +125,7 @@ func (o *RiskModelValue) GetLearned() int32 {
 
 // GetLearnedOk returns a tuple with the Learned field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskModelValue) GetLearnedOk() (*int32, bool) {
+func (o *RiskModelValue) GetLearnedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Learned) {
 		return nil, false
 	}
@@ -141,15 +141,15 @@ func (o *RiskModelValue) HasLearned() bool {
 	return false
 }
 
-// SetLearned gets a reference to the given int32 and assigns it to the Learned field.
-func (o *RiskModelValue) SetLearned(v int32) {
+// SetLearned gets a reference to the given int64 and assigns it to the Learned field.
+func (o *RiskModelValue) SetLearned(v int64) {
 	o.Learned = &v
 }
 
 // GetSequence returns the Sequence field value if set, zero value otherwise.
-func (o *RiskModelValue) GetSequence() int32 {
+func (o *RiskModelValue) GetSequence() int64 {
 	if o == nil || IsNil(o.Sequence) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Sequence
@@ -157,7 +157,7 @@ func (o *RiskModelValue) GetSequence() int32 {
 
 // GetSequenceOk returns a tuple with the Sequence field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskModelValue) GetSequenceOk() (*int32, bool) {
+func (o *RiskModelValue) GetSequenceOk() (*int64, bool) {
 	if o == nil || IsNil(o.Sequence) {
 		return nil, false
 	}
@@ -173,8 +173,8 @@ func (o *RiskModelValue) HasSequence() bool {
 	return false
 }
 
-// SetSequence gets a reference to the given int32 and assigns it to the Sequence field.
-func (o *RiskModelValue) SetSequence(v int32) {
+// SetSequence gets a reference to the given int64 and assigns it to the Sequence field.
+func (o *RiskModelValue) SetSequence(v int64) {
 	o.Sequence = &v
 }
 

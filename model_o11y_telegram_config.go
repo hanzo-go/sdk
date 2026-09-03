@@ -21,12 +21,12 @@ var _ MappedNullable = &O11yTelegramConfig{}
 type O11yTelegramConfig struct {
 	NotifierConfig       *O11yNotifierConfig   `json:"NotifierConfig,omitempty"`
 	ApiUrl               interface{}           `json:"api_url,omitempty"`
-	Chat                 *int32                `json:"chat,omitempty"`
+	Chat                 *int64                `json:"chat,omitempty"`
 	ChatFile             *string               `json:"chat_file,omitempty"`
 	DisableNotifications *bool                 `json:"disable_notifications,omitempty"`
 	HttpConfig           *O11yHTTPClientConfig `json:"http_config,omitempty"`
 	Message              *string               `json:"message,omitempty"`
-	MessageThreadId      *int32                `json:"message_thread_id,omitempty"`
+	MessageThreadId      *int64                `json:"message_thread_id,omitempty"`
 	ParseMode            *string               `json:"parse_mode,omitempty"`
 	Token                interface{}           `json:"token,omitempty"`
 	TokenFile            *string               `json:"token_file,omitempty"`
@@ -115,9 +115,9 @@ func (o *O11yTelegramConfig) SetApiUrl(v interface{}) {
 }
 
 // GetChat returns the Chat field value if set, zero value otherwise.
-func (o *O11yTelegramConfig) GetChat() int32 {
+func (o *O11yTelegramConfig) GetChat() int64 {
 	if o == nil || IsNil(o.Chat) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Chat
@@ -125,7 +125,7 @@ func (o *O11yTelegramConfig) GetChat() int32 {
 
 // GetChatOk returns a tuple with the Chat field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yTelegramConfig) GetChatOk() (*int32, bool) {
+func (o *O11yTelegramConfig) GetChatOk() (*int64, bool) {
 	if o == nil || IsNil(o.Chat) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *O11yTelegramConfig) HasChat() bool {
 	return false
 }
 
-// SetChat gets a reference to the given int32 and assigns it to the Chat field.
-func (o *O11yTelegramConfig) SetChat(v int32) {
+// SetChat gets a reference to the given int64 and assigns it to the Chat field.
+func (o *O11yTelegramConfig) SetChat(v int64) {
 	o.Chat = &v
 }
 
@@ -275,9 +275,9 @@ func (o *O11yTelegramConfig) SetMessage(v string) {
 }
 
 // GetMessageThreadId returns the MessageThreadId field value if set, zero value otherwise.
-func (o *O11yTelegramConfig) GetMessageThreadId() int32 {
+func (o *O11yTelegramConfig) GetMessageThreadId() int64 {
 	if o == nil || IsNil(o.MessageThreadId) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MessageThreadId
@@ -285,7 +285,7 @@ func (o *O11yTelegramConfig) GetMessageThreadId() int32 {
 
 // GetMessageThreadIdOk returns a tuple with the MessageThreadId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yTelegramConfig) GetMessageThreadIdOk() (*int32, bool) {
+func (o *O11yTelegramConfig) GetMessageThreadIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.MessageThreadId) {
 		return nil, false
 	}
@@ -301,8 +301,8 @@ func (o *O11yTelegramConfig) HasMessageThreadId() bool {
 	return false
 }
 
-// SetMessageThreadId gets a reference to the given int32 and assigns it to the MessageThreadId field.
-func (o *O11yTelegramConfig) SetMessageThreadId(v int32) {
+// SetMessageThreadId gets a reference to the given int64 and assigns it to the MessageThreadId field.
+func (o *O11yTelegramConfig) SetMessageThreadId(v int64) {
 	o.MessageThreadId = &v
 }
 

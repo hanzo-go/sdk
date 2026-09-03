@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Projected** | Pointer to **int32** | Projected is how many roster entries the reconcile touched. | [optional] 
+**Projected** | Pointer to **int64** | Projected is how many roster entries the reconcile touched. | [optional] 
 **Synced** | Pointer to **bool** | Synced is true when the reconcile ran. | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetProjected
 
-`func (o *BotSync) GetProjected() int32`
+`func (o *BotSync) GetProjected() int64`
 
 GetProjected returns the Projected field if non-nil, zero value otherwise.
 
 ### GetProjectedOk
 
-`func (o *BotSync) GetProjectedOk() (*int32, bool)`
+`func (o *BotSync) GetProjectedOk() (*int64, bool)`
 
 GetProjectedOk returns a tuple with the Projected field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProjected
 
-`func (o *BotSync) SetProjected(v int32)`
+`func (o *BotSync) SetProjected(v int64)`
 
 SetProjected sets Projected field to given value.
 

@@ -104,7 +104,7 @@ import (
 
 func main() {
 	status := "active" // string | Status filters to one lifecycle state (draft, active, paused, completed). Empty returns every campaign the org has. (optional)
-	limit := int32(50) // int32 | Limit caps how many campaigns come back: default 200, maximum 1000. A value that is not a positive integer reads as the default. (optional)
+	limit := int64(50) // int64 | Limit caps how many campaigns come back: default 200, maximum 1000. A value that is not a positive integer reads as the default. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -130,7 +130,7 @@ Other parameters are passed through a pointer to a apiGetAdCampaignsRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **status** | **string** | Status filters to one lifecycle state (draft, active, paused, completed). Empty returns every campaign the org has. | 
- **limit** | **int32** | Limit caps how many campaigns come back: default 200, maximum 1000. A value that is not a positive integer reads as the default. | 
+ **limit** | **int64** | Limit caps how many campaigns come back: default 200, maximum 1000. A value that is not a positive integer reads as the default. | 
 
 ### Return type
 

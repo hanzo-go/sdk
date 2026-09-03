@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Count** | Pointer to **int32** | Count is how many this page holds. It is not a total: a total over an unbounded append-only log is a full scan of a single-writer file. | [optional] 
+**Count** | Pointer to **int64** | Count is how many this page holds. It is not a total: a total over an unbounded append-only log is a full scan of a single-writer file. | [optional] 
 **Labels** | Pointer to [**[]RiskLabelRecord**](RiskLabelRecord.md) | Labels is the page, newest event first. | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCount
 
-`func (o *RiskLabelsOut) GetCount() int32`
+`func (o *RiskLabelsOut) GetCount() int64`
 
 GetCount returns the Count field if non-nil, zero value otherwise.
 
 ### GetCountOk
 
-`func (o *RiskLabelsOut) GetCountOk() (*int32, bool)`
+`func (o *RiskLabelsOut) GetCountOk() (*int64, bool)`
 
 GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCount
 
-`func (o *RiskLabelsOut) SetCount(v int32)`
+`func (o *RiskLabelsOut) SetCount(v int64)`
 
 SetCount sets Count field to given value.
 

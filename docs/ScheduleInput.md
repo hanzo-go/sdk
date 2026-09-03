@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | ID is the campaign id from the path. | [optional] 
-**ScheduledAt** | Pointer to **int32** | ScheduledAt is the unix send time. 0 clears the schedule. | [optional] 
+**ScheduledAt** | Pointer to **int64** | ScheduledAt is the unix send time. 0 clears the schedule. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetScheduledAt
 
-`func (o *ScheduleInput) GetScheduledAt() int32`
+`func (o *ScheduleInput) GetScheduledAt() int64`
 
 GetScheduledAt returns the ScheduledAt field if non-nil, zero value otherwise.
 
 ### GetScheduledAtOk
 
-`func (o *ScheduleInput) GetScheduledAtOk() (*int32, bool)`
+`func (o *ScheduleInput) GetScheduledAtOk() (*int64, bool)`
 
 GetScheduledAtOk returns a tuple with the ScheduledAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScheduledAt
 
-`func (o *ScheduleInput) SetScheduledAt(v int32)`
+`func (o *ScheduleInput) SetScheduledAt(v int64)`
 
 SetScheduledAt sets ScheduledAt field to given value.
 

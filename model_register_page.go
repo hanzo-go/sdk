@@ -20,13 +20,13 @@ var _ MappedNullable = &RegisterPage{}
 // RegisterPage struct for RegisterPage
 type RegisterPage struct {
 	// Count is how many rows this page holds.
-	Count *int32 `json:"count,omitempty"`
+	Count *int64 `json:"count,omitempty"`
 	// Formations are the rows, newest activity first.
 	Formations []Registration `json:"formations,omitempty"`
 	// Limit is the page size that was applied.
-	Limit *int32 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 	// Offset is the offset that was applied.
-	Offset *int32 `json:"offset,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
 }
 
 // NewRegisterPage instantiates a new RegisterPage object
@@ -47,9 +47,9 @@ func NewRegisterPageWithDefaults() *RegisterPage {
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *RegisterPage) GetCount() int32 {
+func (o *RegisterPage) GetCount() int64 {
 	if o == nil || IsNil(o.Count) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Count
@@ -57,7 +57,7 @@ func (o *RegisterPage) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RegisterPage) GetCountOk() (*int32, bool) {
+func (o *RegisterPage) GetCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -73,8 +73,8 @@ func (o *RegisterPage) HasCount() bool {
 	return false
 }
 
-// SetCount gets a reference to the given int32 and assigns it to the Count field.
-func (o *RegisterPage) SetCount(v int32) {
+// SetCount gets a reference to the given int64 and assigns it to the Count field.
+func (o *RegisterPage) SetCount(v int64) {
 	o.Count = &v
 }
 
@@ -111,9 +111,9 @@ func (o *RegisterPage) SetFormations(v []Registration) {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *RegisterPage) GetLimit() int32 {
+func (o *RegisterPage) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -121,7 +121,7 @@ func (o *RegisterPage) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RegisterPage) GetLimitOk() (*int32, bool) {
+func (o *RegisterPage) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *RegisterPage) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *RegisterPage) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *RegisterPage) SetLimit(v int64) {
 	o.Limit = &v
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
-func (o *RegisterPage) GetOffset() int32 {
+func (o *RegisterPage) GetOffset() int64 {
 	if o == nil || IsNil(o.Offset) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Offset
@@ -153,7 +153,7 @@ func (o *RegisterPage) GetOffset() int32 {
 
 // GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RegisterPage) GetOffsetOk() (*int32, bool) {
+func (o *RegisterPage) GetOffsetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Offset) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *RegisterPage) HasOffset() bool {
 	return false
 }
 
-// SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *RegisterPage) SetOffset(v int32) {
+// SetOffset gets a reference to the given int64 and assigns it to the Offset field.
+func (o *RegisterPage) SetOffset(v int64) {
 	o.Offset = &v
 }
 

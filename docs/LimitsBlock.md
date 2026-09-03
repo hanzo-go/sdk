@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ApiRateLimit** | Pointer to **int32** | APIRateLimit is requests per minute allowed against the REST /v1/world surface. -1 means unlimited. | [optional] 
-**MaxAlerts** | Pointer to **int32** | MaxAlerts is how many saved OSINT alert rules the plan allows. -1 means unlimited. | [optional] 
-**McpRateLimit** | Pointer to **int32** | MCPRateLimit is requests per minute allowed against the MCP surface. -1 means unlimited. | [optional] 
+**ApiRateLimit** | Pointer to **int64** | APIRateLimit is requests per minute allowed against the REST /v1/world surface. -1 means unlimited. | [optional] 
+**MaxAlerts** | Pointer to **int64** | MaxAlerts is how many saved OSINT alert rules the plan allows. -1 means unlimited. | [optional] 
+**McpRateLimit** | Pointer to **int64** | MCPRateLimit is requests per minute allowed against the MCP surface. -1 means unlimited. | [optional] 
 **ModelApi** | Pointer to **bool** | ModelAPI is whether the plan reaches the World model endpoint and the SSE stream. The free floor is false, and that is what a catalog outage resolves to. | [optional] 
 
 ## Methods
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetApiRateLimit
 
-`func (o *LimitsBlock) GetApiRateLimit() int32`
+`func (o *LimitsBlock) GetApiRateLimit() int64`
 
 GetApiRateLimit returns the ApiRateLimit field if non-nil, zero value otherwise.
 
 ### GetApiRateLimitOk
 
-`func (o *LimitsBlock) GetApiRateLimitOk() (*int32, bool)`
+`func (o *LimitsBlock) GetApiRateLimitOk() (*int64, bool)`
 
 GetApiRateLimitOk returns a tuple with the ApiRateLimit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetApiRateLimit
 
-`func (o *LimitsBlock) SetApiRateLimit(v int32)`
+`func (o *LimitsBlock) SetApiRateLimit(v int64)`
 
 SetApiRateLimit sets ApiRateLimit field to given value.
 
@@ -55,20 +55,20 @@ HasApiRateLimit returns a boolean if a field has been set.
 
 ### GetMaxAlerts
 
-`func (o *LimitsBlock) GetMaxAlerts() int32`
+`func (o *LimitsBlock) GetMaxAlerts() int64`
 
 GetMaxAlerts returns the MaxAlerts field if non-nil, zero value otherwise.
 
 ### GetMaxAlertsOk
 
-`func (o *LimitsBlock) GetMaxAlertsOk() (*int32, bool)`
+`func (o *LimitsBlock) GetMaxAlertsOk() (*int64, bool)`
 
 GetMaxAlertsOk returns a tuple with the MaxAlerts field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxAlerts
 
-`func (o *LimitsBlock) SetMaxAlerts(v int32)`
+`func (o *LimitsBlock) SetMaxAlerts(v int64)`
 
 SetMaxAlerts sets MaxAlerts field to given value.
 
@@ -80,20 +80,20 @@ HasMaxAlerts returns a boolean if a field has been set.
 
 ### GetMcpRateLimit
 
-`func (o *LimitsBlock) GetMcpRateLimit() int32`
+`func (o *LimitsBlock) GetMcpRateLimit() int64`
 
 GetMcpRateLimit returns the McpRateLimit field if non-nil, zero value otherwise.
 
 ### GetMcpRateLimitOk
 
-`func (o *LimitsBlock) GetMcpRateLimitOk() (*int32, bool)`
+`func (o *LimitsBlock) GetMcpRateLimitOk() (*int64, bool)`
 
 GetMcpRateLimitOk returns a tuple with the McpRateLimit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMcpRateLimit
 
-`func (o *LimitsBlock) SetMcpRateLimit(v int32)`
+`func (o *LimitsBlock) SetMcpRateLimit(v int64)`
 
 SetMcpRateLimit sets McpRateLimit field to given value.
 

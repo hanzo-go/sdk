@@ -20,7 +20,7 @@ var _ MappedNullable = &RiskCause{}
 // RiskCause struct for RiskCause
 type RiskCause struct {
 	// Baseline is the number it was measured against — always this organisation's own history, never a fixed limit and never another organisation's.
-	Baseline *float32 `json:"baseline,omitempty"`
+	Baseline *float64 `json:"baseline,omitempty"`
 	// Citation is where those words come from, so the claim is checkable rather than asserted — which is what a chargeback network or a regulator asks for.
 	Citation *string `json:"citation,omitempty"`
 	// Feature is the dimension that contributed.
@@ -28,17 +28,17 @@ type RiskCause struct {
 	// Indicator is the supervisor's own words for the thing being looked for.
 	Indicator *string `json:"indicator,omitempty"`
 	// Observed is the raw number the coordinate was computed from.
-	Observed *float32 `json:"observed,omitempty"`
+	Observed *float64 `json:"observed,omitempty"`
 	// Severity is how much weight this dimension carries.
 	Severity *string `json:"severity,omitempty"`
 	// Share is this feature's part of the score, in [0,1]. Zero across every cause means no single feature accounts for the alert and the combination does; the causes are then ordered by how far each sits from unremarkable.
-	Share *float32 `json:"share,omitempty"`
+	Share *float64 `json:"share,omitempty"`
 	// Typology is the laundering or abuse pattern this dimension detects.
 	Typology *string `json:"typology,omitempty"`
 	// Unit is how to read Observed, which is what turns a coordinate into a sentence.
 	Unit *string `json:"unit,omitempty"`
 	// Without is the score the same event would have received with this coordinate at its neutral value — the counterfactual itself.
-	Without *float32 `json:"without,omitempty"`
+	Without *float64 `json:"without,omitempty"`
 }
 
 // NewRiskCause instantiates a new RiskCause object
@@ -59,9 +59,9 @@ func NewRiskCauseWithDefaults() *RiskCause {
 }
 
 // GetBaseline returns the Baseline field value if set, zero value otherwise.
-func (o *RiskCause) GetBaseline() float32 {
+func (o *RiskCause) GetBaseline() float64 {
 	if o == nil || IsNil(o.Baseline) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Baseline
@@ -69,7 +69,7 @@ func (o *RiskCause) GetBaseline() float32 {
 
 // GetBaselineOk returns a tuple with the Baseline field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskCause) GetBaselineOk() (*float32, bool) {
+func (o *RiskCause) GetBaselineOk() (*float64, bool) {
 	if o == nil || IsNil(o.Baseline) {
 		return nil, false
 	}
@@ -85,8 +85,8 @@ func (o *RiskCause) HasBaseline() bool {
 	return false
 }
 
-// SetBaseline gets a reference to the given float32 and assigns it to the Baseline field.
-func (o *RiskCause) SetBaseline(v float32) {
+// SetBaseline gets a reference to the given float64 and assigns it to the Baseline field.
+func (o *RiskCause) SetBaseline(v float64) {
 	o.Baseline = &v
 }
 
@@ -187,9 +187,9 @@ func (o *RiskCause) SetIndicator(v string) {
 }
 
 // GetObserved returns the Observed field value if set, zero value otherwise.
-func (o *RiskCause) GetObserved() float32 {
+func (o *RiskCause) GetObserved() float64 {
 	if o == nil || IsNil(o.Observed) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Observed
@@ -197,7 +197,7 @@ func (o *RiskCause) GetObserved() float32 {
 
 // GetObservedOk returns a tuple with the Observed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskCause) GetObservedOk() (*float32, bool) {
+func (o *RiskCause) GetObservedOk() (*float64, bool) {
 	if o == nil || IsNil(o.Observed) {
 		return nil, false
 	}
@@ -213,8 +213,8 @@ func (o *RiskCause) HasObserved() bool {
 	return false
 }
 
-// SetObserved gets a reference to the given float32 and assigns it to the Observed field.
-func (o *RiskCause) SetObserved(v float32) {
+// SetObserved gets a reference to the given float64 and assigns it to the Observed field.
+func (o *RiskCause) SetObserved(v float64) {
 	o.Observed = &v
 }
 
@@ -251,9 +251,9 @@ func (o *RiskCause) SetSeverity(v string) {
 }
 
 // GetShare returns the Share field value if set, zero value otherwise.
-func (o *RiskCause) GetShare() float32 {
+func (o *RiskCause) GetShare() float64 {
 	if o == nil || IsNil(o.Share) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Share
@@ -261,7 +261,7 @@ func (o *RiskCause) GetShare() float32 {
 
 // GetShareOk returns a tuple with the Share field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskCause) GetShareOk() (*float32, bool) {
+func (o *RiskCause) GetShareOk() (*float64, bool) {
 	if o == nil || IsNil(o.Share) {
 		return nil, false
 	}
@@ -277,8 +277,8 @@ func (o *RiskCause) HasShare() bool {
 	return false
 }
 
-// SetShare gets a reference to the given float32 and assigns it to the Share field.
-func (o *RiskCause) SetShare(v float32) {
+// SetShare gets a reference to the given float64 and assigns it to the Share field.
+func (o *RiskCause) SetShare(v float64) {
 	o.Share = &v
 }
 
@@ -347,9 +347,9 @@ func (o *RiskCause) SetUnit(v string) {
 }
 
 // GetWithout returns the Without field value if set, zero value otherwise.
-func (o *RiskCause) GetWithout() float32 {
+func (o *RiskCause) GetWithout() float64 {
 	if o == nil || IsNil(o.Without) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Without
@@ -357,7 +357,7 @@ func (o *RiskCause) GetWithout() float32 {
 
 // GetWithoutOk returns a tuple with the Without field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskCause) GetWithoutOk() (*float32, bool) {
+func (o *RiskCause) GetWithoutOk() (*float64, bool) {
 	if o == nil || IsNil(o.Without) {
 		return nil, false
 	}
@@ -373,8 +373,8 @@ func (o *RiskCause) HasWithout() bool {
 	return false
 }
 
-// SetWithout gets a reference to the given float32 and assigns it to the Without field.
-func (o *RiskCause) SetWithout(v float32) {
+// SetWithout gets a reference to the given float64 and assigns it to the Without field.
+func (o *RiskCause) SetWithout(v float64) {
 	o.Without = &v
 }
 

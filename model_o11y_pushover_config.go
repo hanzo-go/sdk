@@ -21,18 +21,18 @@ var _ MappedNullable = &O11yPushoverConfig{}
 type O11yPushoverConfig struct {
 	NotifierConfig *O11yNotifierConfig   `json:"NotifierConfig,omitempty"`
 	Device         *string               `json:"device,omitempty"`
-	Expire         *int32                `json:"expire,omitempty"`
+	Expire         *int64                `json:"expire,omitempty"`
 	Html           *bool                 `json:"html,omitempty"`
 	HttpConfig     *O11yHTTPClientConfig `json:"http_config,omitempty"`
 	Message        *string               `json:"message,omitempty"`
 	Monospace      *bool                 `json:"monospace,omitempty"`
 	Priority       *string               `json:"priority,omitempty"`
-	Retry          *int32                `json:"retry,omitempty"`
+	Retry          *int64                `json:"retry,omitempty"`
 	Sound          *string               `json:"sound,omitempty"`
 	Title          *string               `json:"title,omitempty"`
 	Token          interface{}           `json:"token,omitempty"`
 	TokenFile      *string               `json:"token_file,omitempty"`
-	Ttl            *int32                `json:"ttl,omitempty"`
+	Ttl            *int64                `json:"ttl,omitempty"`
 	Url            *string               `json:"url,omitempty"`
 	UrlTitle       *string               `json:"url_title,omitempty"`
 	UserKey        interface{}           `json:"user_key,omitempty"`
@@ -121,9 +121,9 @@ func (o *O11yPushoverConfig) SetDevice(v string) {
 }
 
 // GetExpire returns the Expire field value if set, zero value otherwise.
-func (o *O11yPushoverConfig) GetExpire() int32 {
+func (o *O11yPushoverConfig) GetExpire() int64 {
 	if o == nil || IsNil(o.Expire) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Expire
@@ -131,7 +131,7 @@ func (o *O11yPushoverConfig) GetExpire() int32 {
 
 // GetExpireOk returns a tuple with the Expire field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPushoverConfig) GetExpireOk() (*int32, bool) {
+func (o *O11yPushoverConfig) GetExpireOk() (*int64, bool) {
 	if o == nil || IsNil(o.Expire) {
 		return nil, false
 	}
@@ -147,8 +147,8 @@ func (o *O11yPushoverConfig) HasExpire() bool {
 	return false
 }
 
-// SetExpire gets a reference to the given int32 and assigns it to the Expire field.
-func (o *O11yPushoverConfig) SetExpire(v int32) {
+// SetExpire gets a reference to the given int64 and assigns it to the Expire field.
+func (o *O11yPushoverConfig) SetExpire(v int64) {
 	o.Expire = &v
 }
 
@@ -313,9 +313,9 @@ func (o *O11yPushoverConfig) SetPriority(v string) {
 }
 
 // GetRetry returns the Retry field value if set, zero value otherwise.
-func (o *O11yPushoverConfig) GetRetry() int32 {
+func (o *O11yPushoverConfig) GetRetry() int64 {
 	if o == nil || IsNil(o.Retry) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Retry
@@ -323,7 +323,7 @@ func (o *O11yPushoverConfig) GetRetry() int32 {
 
 // GetRetryOk returns a tuple with the Retry field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPushoverConfig) GetRetryOk() (*int32, bool) {
+func (o *O11yPushoverConfig) GetRetryOk() (*int64, bool) {
 	if o == nil || IsNil(o.Retry) {
 		return nil, false
 	}
@@ -339,8 +339,8 @@ func (o *O11yPushoverConfig) HasRetry() bool {
 	return false
 }
 
-// SetRetry gets a reference to the given int32 and assigns it to the Retry field.
-func (o *O11yPushoverConfig) SetRetry(v int32) {
+// SetRetry gets a reference to the given int64 and assigns it to the Retry field.
+func (o *O11yPushoverConfig) SetRetry(v int64) {
 	o.Retry = &v
 }
 
@@ -474,9 +474,9 @@ func (o *O11yPushoverConfig) SetTokenFile(v string) {
 }
 
 // GetTtl returns the Ttl field value if set, zero value otherwise.
-func (o *O11yPushoverConfig) GetTtl() int32 {
+func (o *O11yPushoverConfig) GetTtl() int64 {
 	if o == nil || IsNil(o.Ttl) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Ttl
@@ -484,7 +484,7 @@ func (o *O11yPushoverConfig) GetTtl() int32 {
 
 // GetTtlOk returns a tuple with the Ttl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPushoverConfig) GetTtlOk() (*int32, bool) {
+func (o *O11yPushoverConfig) GetTtlOk() (*int64, bool) {
 	if o == nil || IsNil(o.Ttl) {
 		return nil, false
 	}
@@ -500,8 +500,8 @@ func (o *O11yPushoverConfig) HasTtl() bool {
 	return false
 }
 
-// SetTtl gets a reference to the given int32 and assigns it to the Ttl field.
-func (o *O11yPushoverConfig) SetTtl(v int32) {
+// SetTtl gets a reference to the given int64 and assigns it to the Ttl field.
+func (o *O11yPushoverConfig) SetTtl(v int64) {
 	o.Ttl = &v
 }
 

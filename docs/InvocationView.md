@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DurationMs** | Pointer to **int32** | how long it took | [optional] 
+**DurationMs** | Pointer to **int64** | how long it took | [optional] 
 **Id** | Pointer to **string** | the invocation&#39;s handle | [optional] 
 **Method** | Pointer to **string** | the HTTP method that triggered it | [optional] 
 **Status** | Pointer to **string** | how the run ended: ok, error or timeout | [optional] 
-**StatusCode** | Pointer to **int32** | Code is the status the function&#39;s OWN code answered with, which is not the status of the reply — a program can answer 500 through a healthy sandbox. | [optional] 
+**StatusCode** | Pointer to **int64** | Code is the status the function&#39;s OWN code answered with, which is not the status of the reply — a program can answer 500 through a healthy sandbox. | [optional] 
 **Time** | Pointer to **string** | when it ran, RFC3339 | [optional] 
 
 ## Methods
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetDurationMs
 
-`func (o *InvocationView) GetDurationMs() int32`
+`func (o *InvocationView) GetDurationMs() int64`
 
 GetDurationMs returns the DurationMs field if non-nil, zero value otherwise.
 
 ### GetDurationMsOk
 
-`func (o *InvocationView) GetDurationMsOk() (*int32, bool)`
+`func (o *InvocationView) GetDurationMsOk() (*int64, bool)`
 
 GetDurationMsOk returns a tuple with the DurationMs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDurationMs
 
-`func (o *InvocationView) SetDurationMs(v int32)`
+`func (o *InvocationView) SetDurationMs(v int64)`
 
 SetDurationMs sets DurationMs field to given value.
 
@@ -132,20 +132,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetStatusCode
 
-`func (o *InvocationView) GetStatusCode() int32`
+`func (o *InvocationView) GetStatusCode() int64`
 
 GetStatusCode returns the StatusCode field if non-nil, zero value otherwise.
 
 ### GetStatusCodeOk
 
-`func (o *InvocationView) GetStatusCodeOk() (*int32, bool)`
+`func (o *InvocationView) GetStatusCodeOk() (*int64, bool)`
 
 GetStatusCodeOk returns a tuple with the StatusCode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatusCode
 
-`func (o *InvocationView) SetStatusCode(v int32)`
+`func (o *InvocationView) SetStatusCode(v int64)`
 
 SetStatusCode sets StatusCode field to given value.
 

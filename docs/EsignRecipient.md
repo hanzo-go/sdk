@@ -11,8 +11,8 @@ Name | Type | Description | Notes
 **RejectionReason** | Pointer to **string** | RejectionReason is why they declined, null unless they did. | [optional] 
 **Role** | Pointer to **string** | Role is SIGNER, CC, VIEWER, APPROVER or ASSISTANT. A document waits only for its SIGNERs and APPROVERs before it can seal. | [optional] 
 **SendStatus** | Pointer to **string** | SendStatus is NOT_SENT until the document goes out, then SENT. A CC recipient is SENT from the moment they are added. | [optional] 
-**SignedAt** | Pointer to **int32** | SignedAt is when they finished or declined, in unix milliseconds; null while neither has happened. | [optional] 
-**SigningOrder** | Pointer to **float32** | SigningOrder is their position in a SEQUENTIAL document, null when they were added without one. A PARALLEL document ignores it. | [optional] 
+**SignedAt** | Pointer to **int64** | SignedAt is when they finished or declined, in unix milliseconds; null while neither has happened. | [optional] 
+**SigningOrder** | Pointer to **float64** | SigningOrder is their position in a SEQUENTIAL document, null when they were added without one. A PARALLEL document ignores it. | [optional] 
 **SigningStatus** | Pointer to **string** | SigningStatus is NOT_SIGNED, SIGNED or REJECTED. A CC recipient is SIGNED from the moment they are added, because they are never asked. | [optional] 
 
 ## Methods
@@ -211,20 +211,20 @@ HasSendStatus returns a boolean if a field has been set.
 
 ### GetSignedAt
 
-`func (o *EsignRecipient) GetSignedAt() int32`
+`func (o *EsignRecipient) GetSignedAt() int64`
 
 GetSignedAt returns the SignedAt field if non-nil, zero value otherwise.
 
 ### GetSignedAtOk
 
-`func (o *EsignRecipient) GetSignedAtOk() (*int32, bool)`
+`func (o *EsignRecipient) GetSignedAtOk() (*int64, bool)`
 
 GetSignedAtOk returns a tuple with the SignedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSignedAt
 
-`func (o *EsignRecipient) SetSignedAt(v int32)`
+`func (o *EsignRecipient) SetSignedAt(v int64)`
 
 SetSignedAt sets SignedAt field to given value.
 
@@ -236,20 +236,20 @@ HasSignedAt returns a boolean if a field has been set.
 
 ### GetSigningOrder
 
-`func (o *EsignRecipient) GetSigningOrder() float32`
+`func (o *EsignRecipient) GetSigningOrder() float64`
 
 GetSigningOrder returns the SigningOrder field if non-nil, zero value otherwise.
 
 ### GetSigningOrderOk
 
-`func (o *EsignRecipient) GetSigningOrderOk() (*float32, bool)`
+`func (o *EsignRecipient) GetSigningOrderOk() (*float64, bool)`
 
 GetSigningOrderOk returns a tuple with the SigningOrder field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSigningOrder
 
-`func (o *EsignRecipient) SetSigningOrder(v float32)`
+`func (o *EsignRecipient) SetSigningOrder(v float64)`
 
 SetSigningOrder sets SigningOrder field to given value.
 

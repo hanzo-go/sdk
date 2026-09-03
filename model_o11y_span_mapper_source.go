@@ -22,7 +22,7 @@ type O11ySpanMapperSource struct {
 	Context   interface{} `json:"context,omitempty"`
 	Key       *string     `json:"key,omitempty"`
 	Operation interface{} `json:"operation,omitempty"`
-	Priority  *int32      `json:"priority,omitempty"`
+	Priority  *int64      `json:"priority,omitempty"`
 }
 
 // NewO11ySpanMapperSource instantiates a new O11ySpanMapperSource object
@@ -141,9 +141,9 @@ func (o *O11ySpanMapperSource) SetOperation(v interface{}) {
 }
 
 // GetPriority returns the Priority field value if set, zero value otherwise.
-func (o *O11ySpanMapperSource) GetPriority() int32 {
+func (o *O11ySpanMapperSource) GetPriority() int64 {
 	if o == nil || IsNil(o.Priority) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Priority
@@ -151,7 +151,7 @@ func (o *O11ySpanMapperSource) GetPriority() int32 {
 
 // GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11ySpanMapperSource) GetPriorityOk() (*int32, bool) {
+func (o *O11ySpanMapperSource) GetPriorityOk() (*int64, bool) {
 	if o == nil || IsNil(o.Priority) {
 		return nil, false
 	}
@@ -167,8 +167,8 @@ func (o *O11ySpanMapperSource) HasPriority() bool {
 	return false
 }
 
-// SetPriority gets a reference to the given int32 and assigns it to the Priority field.
-func (o *O11ySpanMapperSource) SetPriority(v int32) {
+// SetPriority gets a reference to the given int64 and assigns it to the Priority field.
+func (o *O11ySpanMapperSource) SetPriority(v int64) {
 	o.Priority = &v
 }
 

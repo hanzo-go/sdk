@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Dir** | Pointer to **string** | Dir is the working directory to run in. Empty runs in the class&#39;s own workdir — /mnt/data for exec, /work for dev. | [optional] 
 **Id** | Pointer to **string** | ID is the sandbox to run in, from the path. | [optional] 
 **Stdin** | Pointer to **string** | Stdin is fed to the command on its standard input. | [optional] 
-**TimeoutSec** | Pointer to **int32** | TimeoutSec bounds the run in seconds. Zero takes the default. | [optional] 
+**TimeoutSec** | Pointer to **int64** | TimeoutSec bounds the run in seconds. Zero takes the default. | [optional] 
 
 ## Methods
 
@@ -157,20 +157,20 @@ HasStdin returns a boolean if a field has been set.
 
 ### GetTimeoutSec
 
-`func (o *ExecRequest) GetTimeoutSec() int32`
+`func (o *ExecRequest) GetTimeoutSec() int64`
 
 GetTimeoutSec returns the TimeoutSec field if non-nil, zero value otherwise.
 
 ### GetTimeoutSecOk
 
-`func (o *ExecRequest) GetTimeoutSecOk() (*int32, bool)`
+`func (o *ExecRequest) GetTimeoutSecOk() (*int64, bool)`
 
 GetTimeoutSecOk returns a tuple with the TimeoutSec field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeoutSec
 
-`func (o *ExecRequest) SetTimeoutSec(v int32)`
+`func (o *ExecRequest) SetTimeoutSec(v int64)`
 
 SetTimeoutSec sets TimeoutSec field to given value.
 

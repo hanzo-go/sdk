@@ -38,7 +38,7 @@ type BuildSummary struct {
 	// Title is the human line for the card. Sent even when empty, like every field here, because that is what this route has always sent.
 	Title *string `json:"title,omitempty"`
 	// Turns is HOW MANY turns the transcript holds — a COUNT, unlike the `turn` on each turn of the full story, which is that turn's position. The full read returns at most 1000 of them; this number is not capped.
-	Turns *int32 `json:"turns,omitempty"`
+	Turns *int64 `json:"turns,omitempty"`
 }
 
 // NewBuildSummary instantiates a new BuildSummary object
@@ -347,9 +347,9 @@ func (o *BuildSummary) SetTitle(v string) {
 }
 
 // GetTurns returns the Turns field value if set, zero value otherwise.
-func (o *BuildSummary) GetTurns() int32 {
+func (o *BuildSummary) GetTurns() int64 {
 	if o == nil || IsNil(o.Turns) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Turns
@@ -357,7 +357,7 @@ func (o *BuildSummary) GetTurns() int32 {
 
 // GetTurnsOk returns a tuple with the Turns field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BuildSummary) GetTurnsOk() (*int32, bool) {
+func (o *BuildSummary) GetTurnsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Turns) {
 		return nil, false
 	}
@@ -373,8 +373,8 @@ func (o *BuildSummary) HasTurns() bool {
 	return false
 }
 
-// SetTurns gets a reference to the given int32 and assigns it to the Turns field.
-func (o *BuildSummary) SetTurns(v int32) {
+// SetTurns gets a reference to the given int64 and assigns it to the Turns field.
+func (o *BuildSummary) SetTurns(v int64) {
 	o.Turns = &v
 }
 

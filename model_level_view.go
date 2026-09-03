@@ -20,11 +20,11 @@ var _ MappedNullable = &LevelView{}
 // LevelView struct for LevelView
 type LevelView struct {
 	// DownlineCount is how many orgs sit exactly this many hops below the caller. It is 0 in the schedule quoted to a caller that has not applied, which has no downline to count.
-	DownlineCount *int32 `json:"downlineCount,omitempty"`
+	DownlineCount *int64 `json:"downlineCount,omitempty"`
 	// Level is the upline distance from the org whose spend is being shared: 1 is the direct referrer, 2 and 3 the referrers above it. Nothing accrues past 3.
-	Level *int32 `json:"level,omitempty"`
+	Level *int64 `json:"level,omitempty"`
 	// RateBps is the commission paid at this level, in basis points OF Hanzo's margin (2000 = 20% of margin, never of the customer's bill). Level 1 is the affiliate's own negotiated rate; 2 and 3 are platform switches read live, so this is the schedule actually in force, not one compiled in.
-	RateBps *int32 `json:"rateBps,omitempty"`
+	RateBps *int64 `json:"rateBps,omitempty"`
 }
 
 // NewLevelView instantiates a new LevelView object
@@ -45,9 +45,9 @@ func NewLevelViewWithDefaults() *LevelView {
 }
 
 // GetDownlineCount returns the DownlineCount field value if set, zero value otherwise.
-func (o *LevelView) GetDownlineCount() int32 {
+func (o *LevelView) GetDownlineCount() int64 {
 	if o == nil || IsNil(o.DownlineCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DownlineCount
@@ -55,7 +55,7 @@ func (o *LevelView) GetDownlineCount() int32 {
 
 // GetDownlineCountOk returns a tuple with the DownlineCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LevelView) GetDownlineCountOk() (*int32, bool) {
+func (o *LevelView) GetDownlineCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.DownlineCount) {
 		return nil, false
 	}
@@ -71,15 +71,15 @@ func (o *LevelView) HasDownlineCount() bool {
 	return false
 }
 
-// SetDownlineCount gets a reference to the given int32 and assigns it to the DownlineCount field.
-func (o *LevelView) SetDownlineCount(v int32) {
+// SetDownlineCount gets a reference to the given int64 and assigns it to the DownlineCount field.
+func (o *LevelView) SetDownlineCount(v int64) {
 	o.DownlineCount = &v
 }
 
 // GetLevel returns the Level field value if set, zero value otherwise.
-func (o *LevelView) GetLevel() int32 {
+func (o *LevelView) GetLevel() int64 {
 	if o == nil || IsNil(o.Level) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Level
@@ -87,7 +87,7 @@ func (o *LevelView) GetLevel() int32 {
 
 // GetLevelOk returns a tuple with the Level field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LevelView) GetLevelOk() (*int32, bool) {
+func (o *LevelView) GetLevelOk() (*int64, bool) {
 	if o == nil || IsNil(o.Level) {
 		return nil, false
 	}
@@ -103,15 +103,15 @@ func (o *LevelView) HasLevel() bool {
 	return false
 }
 
-// SetLevel gets a reference to the given int32 and assigns it to the Level field.
-func (o *LevelView) SetLevel(v int32) {
+// SetLevel gets a reference to the given int64 and assigns it to the Level field.
+func (o *LevelView) SetLevel(v int64) {
 	o.Level = &v
 }
 
 // GetRateBps returns the RateBps field value if set, zero value otherwise.
-func (o *LevelView) GetRateBps() int32 {
+func (o *LevelView) GetRateBps() int64 {
 	if o == nil || IsNil(o.RateBps) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RateBps
@@ -119,7 +119,7 @@ func (o *LevelView) GetRateBps() int32 {
 
 // GetRateBpsOk returns a tuple with the RateBps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LevelView) GetRateBpsOk() (*int32, bool) {
+func (o *LevelView) GetRateBpsOk() (*int64, bool) {
 	if o == nil || IsNil(o.RateBps) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *LevelView) HasRateBps() bool {
 	return false
 }
 
-// SetRateBps gets a reference to the given int32 and assigns it to the RateBps field.
-func (o *LevelView) SetRateBps(v int32) {
+// SetRateBps gets a reference to the given int64 and assigns it to the RateBps field.
+func (o *LevelView) SetRateBps(v int64) {
 	o.RateBps = &v
 }
 

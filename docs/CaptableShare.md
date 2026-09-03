@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CapitalContribution** | Pointer to **float32** | CapitalContribution is the cash paid for the certificate, if recorded. | [optional] 
+**CapitalContribution** | Pointer to **float64** | CapitalContribution is the cash paid for the certificate, if recorded. | [optional] 
 **CertificateId** | Pointer to **string** | CertificateID is the certificate number, unique within the company. | [optional] 
 **CompanyLegends** | Pointer to **[]string** | CompanyLegends are the restrictive legends printed on the certificate. | [optional] 
 **Id** | Pointer to **string** | ID is the share id. | [optional] 
 **IssueDate** | Pointer to **string** | IssueDate is the ISO date the certificate was issued. | [optional] 
-**PricePerShare** | Pointer to **float32** | PricePerShare is the price paid per share, if recorded. | [optional] 
-**Quantity** | Pointer to **int32** | Quantity is how many shares the certificate covers. | [optional] 
+**PricePerShare** | Pointer to **float64** | PricePerShare is the price paid per share, if recorded. | [optional] 
+**Quantity** | Pointer to **int64** | Quantity is how many shares the certificate covers. | [optional] 
 **ShareClassId** | Pointer to **string** | ShareClassID is the class the shares belong to. | [optional] 
 **ShareClassName** | Pointer to **string** | ShareClassName is that class&#39;s name. | [optional] 
 **ShareClassType** | Pointer to **string** | ShareClassType is that class&#39;s type, COMMON or PREFERRED. | [optional] 
@@ -39,20 +39,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCapitalContribution
 
-`func (o *CaptableShare) GetCapitalContribution() float32`
+`func (o *CaptableShare) GetCapitalContribution() float64`
 
 GetCapitalContribution returns the CapitalContribution field if non-nil, zero value otherwise.
 
 ### GetCapitalContributionOk
 
-`func (o *CaptableShare) GetCapitalContributionOk() (*float32, bool)`
+`func (o *CaptableShare) GetCapitalContributionOk() (*float64, bool)`
 
 GetCapitalContributionOk returns a tuple with the CapitalContribution field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCapitalContribution
 
-`func (o *CaptableShare) SetCapitalContribution(v float32)`
+`func (o *CaptableShare) SetCapitalContribution(v float64)`
 
 SetCapitalContribution sets CapitalContribution field to given value.
 
@@ -164,20 +164,20 @@ HasIssueDate returns a boolean if a field has been set.
 
 ### GetPricePerShare
 
-`func (o *CaptableShare) GetPricePerShare() float32`
+`func (o *CaptableShare) GetPricePerShare() float64`
 
 GetPricePerShare returns the PricePerShare field if non-nil, zero value otherwise.
 
 ### GetPricePerShareOk
 
-`func (o *CaptableShare) GetPricePerShareOk() (*float32, bool)`
+`func (o *CaptableShare) GetPricePerShareOk() (*float64, bool)`
 
 GetPricePerShareOk returns a tuple with the PricePerShare field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPricePerShare
 
-`func (o *CaptableShare) SetPricePerShare(v float32)`
+`func (o *CaptableShare) SetPricePerShare(v float64)`
 
 SetPricePerShare sets PricePerShare field to given value.
 
@@ -189,20 +189,20 @@ HasPricePerShare returns a boolean if a field has been set.
 
 ### GetQuantity
 
-`func (o *CaptableShare) GetQuantity() int32`
+`func (o *CaptableShare) GetQuantity() int64`
 
 GetQuantity returns the Quantity field if non-nil, zero value otherwise.
 
 ### GetQuantityOk
 
-`func (o *CaptableShare) GetQuantityOk() (*int32, bool)`
+`func (o *CaptableShare) GetQuantityOk() (*int64, bool)`
 
 GetQuantityOk returns a tuple with the Quantity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQuantity
 
-`func (o *CaptableShare) SetQuantity(v int32)`
+`func (o *CaptableShare) SetQuantity(v int64)`
 
 SetQuantity sets Quantity field to given value.
 

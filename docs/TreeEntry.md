@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Lang** | Pointer to **string** | Lang is the language the indexer parsed the file as (\&quot;go\&quot;, \&quot;python\&quot;, …), or empty when it recognised none — in which case Symbols is 0 because nothing was extracted, not because the file declares nothing. | [optional] 
 **Path** | Pointer to **string** | Path is the file, relative to the repo root. The list is ordered by it, so a reader can see module layout without sorting. | [optional] 
-**Symbols** | Pointer to **int32** | Symbols is how many top-level declarations the file defines. A file with none is still listed: the file set is the authority here and the counts decorate it. | [optional] 
+**Symbols** | Pointer to **int64** | Symbols is how many top-level declarations the file defines. A file with none is still listed: the file set is the authority here and the counts decorate it. | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasPath returns a boolean if a field has been set.
 
 ### GetSymbols
 
-`func (o *TreeEntry) GetSymbols() int32`
+`func (o *TreeEntry) GetSymbols() int64`
 
 GetSymbols returns the Symbols field if non-nil, zero value otherwise.
 
 ### GetSymbolsOk
 
-`func (o *TreeEntry) GetSymbolsOk() (*int32, bool)`
+`func (o *TreeEntry) GetSymbolsOk() (*int64, bool)`
 
 GetSymbolsOk returns a tuple with the Symbols field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSymbols
 
-`func (o *TreeEntry) SetSymbols(v int32)`
+`func (o *TreeEntry) SetSymbols(v int64)`
 
 SetSymbols sets Symbols field to given value.
 

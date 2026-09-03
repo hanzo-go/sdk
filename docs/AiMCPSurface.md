@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Apps** | Pointer to [**[]AiMCPApp**](AiMCPApp.md) | Apps is one row per subsystem this deployment composes, in manifest order. | [optional] 
 **Names** | Pointer to **[]string** | Names are this process&#39;s own tool names, present only when the query asked for them. | [optional] 
-**Tools** | Pointer to **int32** | Tools is how many tools THIS PROCESS&#39;s MCP server carries: its own typed-op registry, projected. It is the only number a subsystem can state honestly — what the FLEET&#39;s server carries is a question only the host can ask, and it asks it by asking every subsystem (POST /v1/mcp, tools/list). | [optional] 
+**Tools** | Pointer to **int64** | Tools is how many tools THIS PROCESS&#39;s MCP server carries: its own typed-op registry, projected. It is the only number a subsystem can state honestly — what the FLEET&#39;s server carries is a question only the host can ask, and it asks it by asking every subsystem (POST /v1/mcp, tools/list). | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasNames returns a boolean if a field has been set.
 
 ### GetTools
 
-`func (o *AiMCPSurface) GetTools() int32`
+`func (o *AiMCPSurface) GetTools() int64`
 
 GetTools returns the Tools field if non-nil, zero value otherwise.
 
 ### GetToolsOk
 
-`func (o *AiMCPSurface) GetToolsOk() (*int32, bool)`
+`func (o *AiMCPSurface) GetToolsOk() (*int64, bool)`
 
 GetToolsOk returns a tuple with the Tools field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTools
 
-`func (o *AiMCPSurface) SetTools(v int32)`
+`func (o *AiMCPSurface) SetTools(v int64)`
 
 SetTools sets Tools field to given value.
 

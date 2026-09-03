@@ -28,7 +28,7 @@ type LastEventView struct {
 	// Preview is the first 240 bytes of the event's payload, cut without regard for the JSON inside it — it is a string to SHOW, never a value to parse. Read the detail or the stream for the whole payload.
 	Preview *string `json:"preview,omitempty"`
 	// Seq is that event's position in the session's log — monotonic from 1, per session. A reader holding it can ask the detail or stream reads for everything after it, so this doubles as the list's resume cursor.
-	Seq *int32 `json:"seq,omitempty"`
+	Seq *int64 `json:"seq,omitempty"`
 }
 
 // NewLastEventView instantiates a new LastEventView object
@@ -177,9 +177,9 @@ func (o *LastEventView) SetPreview(v string) {
 }
 
 // GetSeq returns the Seq field value if set, zero value otherwise.
-func (o *LastEventView) GetSeq() int32 {
+func (o *LastEventView) GetSeq() int64 {
 	if o == nil || IsNil(o.Seq) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Seq
@@ -187,7 +187,7 @@ func (o *LastEventView) GetSeq() int32 {
 
 // GetSeqOk returns a tuple with the Seq field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LastEventView) GetSeqOk() (*int32, bool) {
+func (o *LastEventView) GetSeqOk() (*int64, bool) {
 	if o == nil || IsNil(o.Seq) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *LastEventView) HasSeq() bool {
 	return false
 }
 
-// SetSeq gets a reference to the given int32 and assigns it to the Seq field.
-func (o *LastEventView) SetSeq(v int32) {
+// SetSeq gets a reference to the given int64 and assigns it to the Seq field.
+func (o *LastEventView) SetSeq(v int64) {
 	o.Seq = &v
 }
 

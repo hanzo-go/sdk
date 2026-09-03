@@ -26,7 +26,7 @@ type SocialPostWrite struct {
 	// Media is the post's attached media as URLs, at most 10. Omitting it CLEARS any stored media: this is a replacement, not a merge.
 	Media []string `json:"media,omitempty"`
 	// ScheduleAt is when to publish, as a unix timestamp in SECONDS. 0 means unscheduled. Moving it into the past here does NOT publish the post — that is the scheduler's to notice, or the publish operation's.
-	ScheduleAt *int32 `json:"scheduleAt,omitempty"`
+	ScheduleAt *int64 `json:"scheduleAt,omitempty"`
 	// Status is the post's lifecycle state: draft, scheduled, published or failed. Omitting it RESETS the post to draft.
 	Status *string `json:"status,omitempty"`
 }
@@ -145,9 +145,9 @@ func (o *SocialPostWrite) SetMedia(v []string) {
 }
 
 // GetScheduleAt returns the ScheduleAt field value if set, zero value otherwise.
-func (o *SocialPostWrite) GetScheduleAt() int32 {
+func (o *SocialPostWrite) GetScheduleAt() int64 {
 	if o == nil || IsNil(o.ScheduleAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ScheduleAt
@@ -155,7 +155,7 @@ func (o *SocialPostWrite) GetScheduleAt() int32 {
 
 // GetScheduleAtOk returns a tuple with the ScheduleAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SocialPostWrite) GetScheduleAtOk() (*int32, bool) {
+func (o *SocialPostWrite) GetScheduleAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.ScheduleAt) {
 		return nil, false
 	}
@@ -171,8 +171,8 @@ func (o *SocialPostWrite) HasScheduleAt() bool {
 	return false
 }
 
-// SetScheduleAt gets a reference to the given int32 and assigns it to the ScheduleAt field.
-func (o *SocialPostWrite) SetScheduleAt(v int32) {
+// SetScheduleAt gets a reference to the given int64 and assigns it to the ScheduleAt field.
+func (o *SocialPostWrite) SetScheduleAt(v int64) {
 	o.ScheduleAt = &v
 }
 

@@ -20,8 +20,8 @@ var _ MappedNullable = &O11yNamespaceListRecord{}
 // O11yNamespaceListRecord struct for O11yNamespaceListRecord
 type O11yNamespaceListRecord struct {
 	CountByPhase  *O11yPodCountByPhase `json:"countByPhase,omitempty"`
-	CpuUsage      *float32             `json:"cpuUsage,omitempty"`
-	MemoryUsage   *float32             `json:"memoryUsage,omitempty"`
+	CpuUsage      *float64             `json:"cpuUsage,omitempty"`
+	MemoryUsage   *float64             `json:"memoryUsage,omitempty"`
 	Meta          map[string]string    `json:"meta,omitempty"`
 	NamespaceName *string              `json:"namespaceName,omitempty"`
 }
@@ -76,9 +76,9 @@ func (o *O11yNamespaceListRecord) SetCountByPhase(v O11yPodCountByPhase) {
 }
 
 // GetCpuUsage returns the CpuUsage field value if set, zero value otherwise.
-func (o *O11yNamespaceListRecord) GetCpuUsage() float32 {
+func (o *O11yNamespaceListRecord) GetCpuUsage() float64 {
 	if o == nil || IsNil(o.CpuUsage) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.CpuUsage
@@ -86,7 +86,7 @@ func (o *O11yNamespaceListRecord) GetCpuUsage() float32 {
 
 // GetCpuUsageOk returns a tuple with the CpuUsage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yNamespaceListRecord) GetCpuUsageOk() (*float32, bool) {
+func (o *O11yNamespaceListRecord) GetCpuUsageOk() (*float64, bool) {
 	if o == nil || IsNil(o.CpuUsage) {
 		return nil, false
 	}
@@ -102,15 +102,15 @@ func (o *O11yNamespaceListRecord) HasCpuUsage() bool {
 	return false
 }
 
-// SetCpuUsage gets a reference to the given float32 and assigns it to the CpuUsage field.
-func (o *O11yNamespaceListRecord) SetCpuUsage(v float32) {
+// SetCpuUsage gets a reference to the given float64 and assigns it to the CpuUsage field.
+func (o *O11yNamespaceListRecord) SetCpuUsage(v float64) {
 	o.CpuUsage = &v
 }
 
 // GetMemoryUsage returns the MemoryUsage field value if set, zero value otherwise.
-func (o *O11yNamespaceListRecord) GetMemoryUsage() float32 {
+func (o *O11yNamespaceListRecord) GetMemoryUsage() float64 {
 	if o == nil || IsNil(o.MemoryUsage) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.MemoryUsage
@@ -118,7 +118,7 @@ func (o *O11yNamespaceListRecord) GetMemoryUsage() float32 {
 
 // GetMemoryUsageOk returns a tuple with the MemoryUsage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yNamespaceListRecord) GetMemoryUsageOk() (*float32, bool) {
+func (o *O11yNamespaceListRecord) GetMemoryUsageOk() (*float64, bool) {
 	if o == nil || IsNil(o.MemoryUsage) {
 		return nil, false
 	}
@@ -134,8 +134,8 @@ func (o *O11yNamespaceListRecord) HasMemoryUsage() bool {
 	return false
 }
 
-// SetMemoryUsage gets a reference to the given float32 and assigns it to the MemoryUsage field.
-func (o *O11yNamespaceListRecord) SetMemoryUsage(v float32) {
+// SetMemoryUsage gets a reference to the given float64 and assigns it to the MemoryUsage field.
+func (o *O11yNamespaceListRecord) SetMemoryUsage(v float64) {
 	o.MemoryUsage = &v
 }
 

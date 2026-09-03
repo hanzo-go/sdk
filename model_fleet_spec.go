@@ -22,13 +22,13 @@ type FleetSpec struct {
 	// Arch is the CPU architecture, amd64 or arm64, and it is what decides whether a binary built for the fleet will run here. Only the sources that report one carry it (a linked run-target, a BYO worker).
 	Arch *string `json:"arch,omitempty"`
 	// CPUs is logical cores on the unit.
-	Cpus *int32 `json:"cpus,omitempty"`
+	Cpus *int64 `json:"cpus,omitempty"`
 	// GPUModel names the FIRST accelerator (\"NVIDIA GB10\") as the representative of the set; GPUs carries how many. Empty for a cluster, whose cards are counted rather than modelled, and for a unit with none.
 	GpuModel *string `json:"gpuModel,omitempty"`
 	// GPUs is how many accelerators the unit has. For a cluster it is the vendor totals summed across every node, so it counts cards, not machines.
-	Gpus *int32 `json:"gpus,omitempty"`
+	Gpus *int64 `json:"gpus,omitempty"`
 	// Memory is total system RAM in BYTES — not GB, and not what is free right now (fleetMetrics carries that). Absent when the source reports no RAM figure.
-	Memory *int32 `json:"memory,omitempty"`
+	Memory *int64 `json:"memory,omitempty"`
 	// OS is the operating system the unit runs: linux, darwin or windows. Empty when the source does not report one — a cluster row does not.
 	Os *string `json:"os,omitempty"`
 }
@@ -83,9 +83,9 @@ func (o *FleetSpec) SetArch(v string) {
 }
 
 // GetCpus returns the Cpus field value if set, zero value otherwise.
-func (o *FleetSpec) GetCpus() int32 {
+func (o *FleetSpec) GetCpus() int64 {
 	if o == nil || IsNil(o.Cpus) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Cpus
@@ -93,7 +93,7 @@ func (o *FleetSpec) GetCpus() int32 {
 
 // GetCpusOk returns a tuple with the Cpus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FleetSpec) GetCpusOk() (*int32, bool) {
+func (o *FleetSpec) GetCpusOk() (*int64, bool) {
 	if o == nil || IsNil(o.Cpus) {
 		return nil, false
 	}
@@ -109,8 +109,8 @@ func (o *FleetSpec) HasCpus() bool {
 	return false
 }
 
-// SetCpus gets a reference to the given int32 and assigns it to the Cpus field.
-func (o *FleetSpec) SetCpus(v int32) {
+// SetCpus gets a reference to the given int64 and assigns it to the Cpus field.
+func (o *FleetSpec) SetCpus(v int64) {
 	o.Cpus = &v
 }
 
@@ -147,9 +147,9 @@ func (o *FleetSpec) SetGpuModel(v string) {
 }
 
 // GetGpus returns the Gpus field value if set, zero value otherwise.
-func (o *FleetSpec) GetGpus() int32 {
+func (o *FleetSpec) GetGpus() int64 {
 	if o == nil || IsNil(o.Gpus) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Gpus
@@ -157,7 +157,7 @@ func (o *FleetSpec) GetGpus() int32 {
 
 // GetGpusOk returns a tuple with the Gpus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FleetSpec) GetGpusOk() (*int32, bool) {
+func (o *FleetSpec) GetGpusOk() (*int64, bool) {
 	if o == nil || IsNil(o.Gpus) {
 		return nil, false
 	}
@@ -173,15 +173,15 @@ func (o *FleetSpec) HasGpus() bool {
 	return false
 }
 
-// SetGpus gets a reference to the given int32 and assigns it to the Gpus field.
-func (o *FleetSpec) SetGpus(v int32) {
+// SetGpus gets a reference to the given int64 and assigns it to the Gpus field.
+func (o *FleetSpec) SetGpus(v int64) {
 	o.Gpus = &v
 }
 
 // GetMemory returns the Memory field value if set, zero value otherwise.
-func (o *FleetSpec) GetMemory() int32 {
+func (o *FleetSpec) GetMemory() int64 {
 	if o == nil || IsNil(o.Memory) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Memory
@@ -189,7 +189,7 @@ func (o *FleetSpec) GetMemory() int32 {
 
 // GetMemoryOk returns a tuple with the Memory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FleetSpec) GetMemoryOk() (*int32, bool) {
+func (o *FleetSpec) GetMemoryOk() (*int64, bool) {
 	if o == nil || IsNil(o.Memory) {
 		return nil, false
 	}
@@ -205,8 +205,8 @@ func (o *FleetSpec) HasMemory() bool {
 	return false
 }
 
-// SetMemory gets a reference to the given int32 and assigns it to the Memory field.
-func (o *FleetSpec) SetMemory(v int32) {
+// SetMemory gets a reference to the given int64 and assigns it to the Memory field.
+func (o *FleetSpec) SetMemory(v int64) {
 	o.Memory = &v
 }
 

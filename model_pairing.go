@@ -22,23 +22,23 @@ type Pairing struct {
 	// A is the first model id.
 	A *string `json:"a,omitempty"`
 	// ACorrect is how many of those common items A got right.
-	ACorrect *int32 `json:"a_correct,omitempty"`
+	ACorrect *int64 `json:"a_correct,omitempty"`
 	// B is the second model id.
 	B *string `json:"b,omitempty"`
 	// BCorrect is how many of those common items B got right.
-	BCorrect *int32 `json:"b_correct,omitempty"`
+	BCorrect *int64 `json:"b_correct,omitempty"`
 	// Benchmark is the catalog id the two arms were compared on.
 	Benchmark *string `json:"benchmark,omitempty"`
 	// McnemarP is the two-sided exact binomial p on the discordant pairs. It is 1 when nothing is discordant, which is \"no evidence of a difference\", not an error.
-	McnemarP *float32 `json:"mcnemar_p,omitempty"`
+	McnemarP *float64 `json:"mcnemar_p,omitempty"`
 	// NCommon is how many items BOTH arms completed. It is the denominator, and the reason this comparison is valid where a raw accuracy difference is not.
-	NCommon *int32 `json:"n_common,omitempty"`
+	NCommon *int64 `json:"n_common,omitempty"`
 	// NetAMinusB is the two rescue counts subtracted — A's advantage in items.
-	NetAMinusB *int32 `json:"net_a_minus_b,omitempty"`
+	NetAMinusB *int64 `json:"net_a_minus_b,omitempty"`
 	// RescueAOverB is how many items A got right and B got wrong.
-	RescueAOverB *int32 `json:"rescue_a_over_b,omitempty"`
+	RescueAOverB *int64 `json:"rescue_a_over_b,omitempty"`
 	// RescueBOverA is how many items B got right and A got wrong.
-	RescueBOverA *int32 `json:"rescue_b_over_a,omitempty"`
+	RescueBOverA *int64 `json:"rescue_b_over_a,omitempty"`
 }
 
 // NewPairing instantiates a new Pairing object
@@ -91,9 +91,9 @@ func (o *Pairing) SetA(v string) {
 }
 
 // GetACorrect returns the ACorrect field value if set, zero value otherwise.
-func (o *Pairing) GetACorrect() int32 {
+func (o *Pairing) GetACorrect() int64 {
 	if o == nil || IsNil(o.ACorrect) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ACorrect
@@ -101,7 +101,7 @@ func (o *Pairing) GetACorrect() int32 {
 
 // GetACorrectOk returns a tuple with the ACorrect field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Pairing) GetACorrectOk() (*int32, bool) {
+func (o *Pairing) GetACorrectOk() (*int64, bool) {
 	if o == nil || IsNil(o.ACorrect) {
 		return nil, false
 	}
@@ -117,8 +117,8 @@ func (o *Pairing) HasACorrect() bool {
 	return false
 }
 
-// SetACorrect gets a reference to the given int32 and assigns it to the ACorrect field.
-func (o *Pairing) SetACorrect(v int32) {
+// SetACorrect gets a reference to the given int64 and assigns it to the ACorrect field.
+func (o *Pairing) SetACorrect(v int64) {
 	o.ACorrect = &v
 }
 
@@ -155,9 +155,9 @@ func (o *Pairing) SetB(v string) {
 }
 
 // GetBCorrect returns the BCorrect field value if set, zero value otherwise.
-func (o *Pairing) GetBCorrect() int32 {
+func (o *Pairing) GetBCorrect() int64 {
 	if o == nil || IsNil(o.BCorrect) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.BCorrect
@@ -165,7 +165,7 @@ func (o *Pairing) GetBCorrect() int32 {
 
 // GetBCorrectOk returns a tuple with the BCorrect field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Pairing) GetBCorrectOk() (*int32, bool) {
+func (o *Pairing) GetBCorrectOk() (*int64, bool) {
 	if o == nil || IsNil(o.BCorrect) {
 		return nil, false
 	}
@@ -181,8 +181,8 @@ func (o *Pairing) HasBCorrect() bool {
 	return false
 }
 
-// SetBCorrect gets a reference to the given int32 and assigns it to the BCorrect field.
-func (o *Pairing) SetBCorrect(v int32) {
+// SetBCorrect gets a reference to the given int64 and assigns it to the BCorrect field.
+func (o *Pairing) SetBCorrect(v int64) {
 	o.BCorrect = &v
 }
 
@@ -219,9 +219,9 @@ func (o *Pairing) SetBenchmark(v string) {
 }
 
 // GetMcnemarP returns the McnemarP field value if set, zero value otherwise.
-func (o *Pairing) GetMcnemarP() float32 {
+func (o *Pairing) GetMcnemarP() float64 {
 	if o == nil || IsNil(o.McnemarP) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.McnemarP
@@ -229,7 +229,7 @@ func (o *Pairing) GetMcnemarP() float32 {
 
 // GetMcnemarPOk returns a tuple with the McnemarP field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Pairing) GetMcnemarPOk() (*float32, bool) {
+func (o *Pairing) GetMcnemarPOk() (*float64, bool) {
 	if o == nil || IsNil(o.McnemarP) {
 		return nil, false
 	}
@@ -245,15 +245,15 @@ func (o *Pairing) HasMcnemarP() bool {
 	return false
 }
 
-// SetMcnemarP gets a reference to the given float32 and assigns it to the McnemarP field.
-func (o *Pairing) SetMcnemarP(v float32) {
+// SetMcnemarP gets a reference to the given float64 and assigns it to the McnemarP field.
+func (o *Pairing) SetMcnemarP(v float64) {
 	o.McnemarP = &v
 }
 
 // GetNCommon returns the NCommon field value if set, zero value otherwise.
-func (o *Pairing) GetNCommon() int32 {
+func (o *Pairing) GetNCommon() int64 {
 	if o == nil || IsNil(o.NCommon) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NCommon
@@ -261,7 +261,7 @@ func (o *Pairing) GetNCommon() int32 {
 
 // GetNCommonOk returns a tuple with the NCommon field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Pairing) GetNCommonOk() (*int32, bool) {
+func (o *Pairing) GetNCommonOk() (*int64, bool) {
 	if o == nil || IsNil(o.NCommon) {
 		return nil, false
 	}
@@ -277,15 +277,15 @@ func (o *Pairing) HasNCommon() bool {
 	return false
 }
 
-// SetNCommon gets a reference to the given int32 and assigns it to the NCommon field.
-func (o *Pairing) SetNCommon(v int32) {
+// SetNCommon gets a reference to the given int64 and assigns it to the NCommon field.
+func (o *Pairing) SetNCommon(v int64) {
 	o.NCommon = &v
 }
 
 // GetNetAMinusB returns the NetAMinusB field value if set, zero value otherwise.
-func (o *Pairing) GetNetAMinusB() int32 {
+func (o *Pairing) GetNetAMinusB() int64 {
 	if o == nil || IsNil(o.NetAMinusB) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NetAMinusB
@@ -293,7 +293,7 @@ func (o *Pairing) GetNetAMinusB() int32 {
 
 // GetNetAMinusBOk returns a tuple with the NetAMinusB field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Pairing) GetNetAMinusBOk() (*int32, bool) {
+func (o *Pairing) GetNetAMinusBOk() (*int64, bool) {
 	if o == nil || IsNil(o.NetAMinusB) {
 		return nil, false
 	}
@@ -309,15 +309,15 @@ func (o *Pairing) HasNetAMinusB() bool {
 	return false
 }
 
-// SetNetAMinusB gets a reference to the given int32 and assigns it to the NetAMinusB field.
-func (o *Pairing) SetNetAMinusB(v int32) {
+// SetNetAMinusB gets a reference to the given int64 and assigns it to the NetAMinusB field.
+func (o *Pairing) SetNetAMinusB(v int64) {
 	o.NetAMinusB = &v
 }
 
 // GetRescueAOverB returns the RescueAOverB field value if set, zero value otherwise.
-func (o *Pairing) GetRescueAOverB() int32 {
+func (o *Pairing) GetRescueAOverB() int64 {
 	if o == nil || IsNil(o.RescueAOverB) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RescueAOverB
@@ -325,7 +325,7 @@ func (o *Pairing) GetRescueAOverB() int32 {
 
 // GetRescueAOverBOk returns a tuple with the RescueAOverB field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Pairing) GetRescueAOverBOk() (*int32, bool) {
+func (o *Pairing) GetRescueAOverBOk() (*int64, bool) {
 	if o == nil || IsNil(o.RescueAOverB) {
 		return nil, false
 	}
@@ -341,15 +341,15 @@ func (o *Pairing) HasRescueAOverB() bool {
 	return false
 }
 
-// SetRescueAOverB gets a reference to the given int32 and assigns it to the RescueAOverB field.
-func (o *Pairing) SetRescueAOverB(v int32) {
+// SetRescueAOverB gets a reference to the given int64 and assigns it to the RescueAOverB field.
+func (o *Pairing) SetRescueAOverB(v int64) {
 	o.RescueAOverB = &v
 }
 
 // GetRescueBOverA returns the RescueBOverA field value if set, zero value otherwise.
-func (o *Pairing) GetRescueBOverA() int32 {
+func (o *Pairing) GetRescueBOverA() int64 {
 	if o == nil || IsNil(o.RescueBOverA) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RescueBOverA
@@ -357,7 +357,7 @@ func (o *Pairing) GetRescueBOverA() int32 {
 
 // GetRescueBOverAOk returns a tuple with the RescueBOverA field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Pairing) GetRescueBOverAOk() (*int32, bool) {
+func (o *Pairing) GetRescueBOverAOk() (*int64, bool) {
 	if o == nil || IsNil(o.RescueBOverA) {
 		return nil, false
 	}
@@ -373,8 +373,8 @@ func (o *Pairing) HasRescueBOverA() bool {
 	return false
 }
 
-// SetRescueBOverA gets a reference to the given int32 and assigns it to the RescueBOverA field.
-func (o *Pairing) SetRescueBOverA(v int32) {
+// SetRescueBOverA gets a reference to the given int64 and assigns it to the RescueBOverA field.
+func (o *Pairing) SetRescueBOverA(v int64) {
 	o.RescueBOverA = &v
 }
 

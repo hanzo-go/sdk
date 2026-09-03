@@ -34,7 +34,7 @@ type MemoryEntry struct {
 	// Tier is the engine tier the entry belongs to, quality or bulk. Part of the identity: the two tiers keep separate renderings of the same source.
 	Tier *string `json:"tier,omitempty"`
 	// UpdatedAt is the unix second the entry last changed.
-	UpdatedAt *int32 `json:"updated_at,omitempty"`
+	UpdatedAt *int64 `json:"updated_at,omitempty"`
 }
 
 // NewMemoryEntry instantiates a new MemoryEntry object
@@ -279,9 +279,9 @@ func (o *MemoryEntry) SetTier(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *MemoryEntry) GetUpdatedAt() int32 {
+func (o *MemoryEntry) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -289,7 +289,7 @@ func (o *MemoryEntry) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MemoryEntry) GetUpdatedAtOk() (*int32, bool) {
+func (o *MemoryEntry) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -305,8 +305,8 @@ func (o *MemoryEntry) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *MemoryEntry) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *MemoryEntry) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

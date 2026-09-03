@@ -20,7 +20,7 @@ var _ MappedNullable = &BotSync{}
 // BotSync struct for BotSync
 type BotSync struct {
 	// Projected is how many roster entries the reconcile touched.
-	Projected *int32 `json:"projected,omitempty"`
+	Projected *int64 `json:"projected,omitempty"`
 	// Synced is true when the reconcile ran.
 	Synced *bool `json:"synced,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewBotSyncWithDefaults() *BotSync {
 }
 
 // GetProjected returns the Projected field value if set, zero value otherwise.
-func (o *BotSync) GetProjected() int32 {
+func (o *BotSync) GetProjected() int64 {
 	if o == nil || IsNil(o.Projected) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Projected
@@ -53,7 +53,7 @@ func (o *BotSync) GetProjected() int32 {
 
 // GetProjectedOk returns a tuple with the Projected field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BotSync) GetProjectedOk() (*int32, bool) {
+func (o *BotSync) GetProjectedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Projected) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *BotSync) HasProjected() bool {
 	return false
 }
 
-// SetProjected gets a reference to the given int32 and assigns it to the Projected field.
-func (o *BotSync) SetProjected(v int32) {
+// SetProjected gets a reference to the given int64 and assigns it to the Projected field.
+func (o *BotSync) SetProjected(v int64) {
 	o.Projected = &v
 }
 

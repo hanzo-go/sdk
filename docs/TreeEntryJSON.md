@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Mode** | Pointer to **string** | Mode is the octal git file mode (\&quot;100644\&quot;, \&quot;040000\&quot;, \&quot;120000\&quot;). | [optional] 
 **Name** | Pointer to **string** | Name is the entry&#39;s own name, no directory part. | [optional] 
 **Path** | Pointer to **string** | Path is the entry&#39;s full repo-relative path. | [optional] 
-**Size** | Pointer to **int32** | Size is the file&#39;s byte length; 0 for a directory. | [optional] 
+**Size** | Pointer to **int64** | Size is the file&#39;s byte length; 0 for a directory. | [optional] 
 **Type** | Pointer to **string** | Type is \&quot;tree\&quot; for a directory, \&quot;blob\&quot; for a file. | [optional] 
 
 ## Methods
@@ -106,20 +106,20 @@ HasPath returns a boolean if a field has been set.
 
 ### GetSize
 
-`func (o *TreeEntryJSON) GetSize() int32`
+`func (o *TreeEntryJSON) GetSize() int64`
 
 GetSize returns the Size field if non-nil, zero value otherwise.
 
 ### GetSizeOk
 
-`func (o *TreeEntryJSON) GetSizeOk() (*int32, bool)`
+`func (o *TreeEntryJSON) GetSizeOk() (*int64, bool)`
 
 GetSizeOk returns a tuple with the Size field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSize
 
-`func (o *TreeEntryJSON) SetSize(v int32)`
+`func (o *TreeEntryJSON) SetSize(v int64)`
 
 SetSize sets Size field to given value.
 

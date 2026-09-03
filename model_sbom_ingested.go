@@ -20,7 +20,7 @@ var _ MappedNullable = &SbomIngested{}
 // SbomIngested struct for SbomIngested
 type SbomIngested struct {
 	// ComponentCount is how many components the CycloneDX document yielded and this call persisted.
-	ComponentCount *int32 `json:"componentCount,omitempty"`
+	ComponentCount *int64 `json:"componentCount,omitempty"`
 	// ImageDigest is the content-addressed digest the components were keyed under.
 	ImageDigest *string `json:"imageDigest,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewSbomIngestedWithDefaults() *SbomIngested {
 }
 
 // GetComponentCount returns the ComponentCount field value if set, zero value otherwise.
-func (o *SbomIngested) GetComponentCount() int32 {
+func (o *SbomIngested) GetComponentCount() int64 {
 	if o == nil || IsNil(o.ComponentCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ComponentCount
@@ -53,7 +53,7 @@ func (o *SbomIngested) GetComponentCount() int32 {
 
 // GetComponentCountOk returns a tuple with the ComponentCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SbomIngested) GetComponentCountOk() (*int32, bool) {
+func (o *SbomIngested) GetComponentCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.ComponentCount) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *SbomIngested) HasComponentCount() bool {
 	return false
 }
 
-// SetComponentCount gets a reference to the given int32 and assigns it to the ComponentCount field.
-func (o *SbomIngested) SetComponentCount(v int32) {
+// SetComponentCount gets a reference to the given int64 and assigns it to the ComponentCount field.
+func (o *SbomIngested) SetComponentCount(v int64) {
 	o.ComponentCount = &v
 }
 

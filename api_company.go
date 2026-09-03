@@ -128,8 +128,8 @@ type CompanyAPIGetCompanyRegisterRequest struct {
 	ApiService *CompanyAPIService
 	stage      *string
 	structure  *string
-	limit      *int32
-	offset     *int32
+	limit      *int64
+	offset     *int64
 }
 
 // Stage keeps only formations at that stage. Empty means any.
@@ -145,13 +145,13 @@ func (r CompanyAPIGetCompanyRegisterRequest) Structure(structure string) Company
 }
 
 // Limit bounds the page; 0 or less means the default of 200.
-func (r CompanyAPIGetCompanyRegisterRequest) Limit(limit int32) CompanyAPIGetCompanyRegisterRequest {
+func (r CompanyAPIGetCompanyRegisterRequest) Limit(limit int64) CompanyAPIGetCompanyRegisterRequest {
 	r.limit = &limit
 	return r
 }
 
 // Offset skips that many rows.
-func (r CompanyAPIGetCompanyRegisterRequest) Offset(offset int32) CompanyAPIGetCompanyRegisterRequest {
+func (r CompanyAPIGetCompanyRegisterRequest) Offset(offset int64) CompanyAPIGetCompanyRegisterRequest {
 	r.offset = &offset
 	return r
 }
@@ -374,11 +374,11 @@ func (a *CompanyAPIService) GetCompanyRegisterSummaryExecute(r CompanyAPIGetComp
 type CompanyAPIGetCompanyReviewRequest struct {
 	ctx        context.Context
 	ApiService *CompanyAPIService
-	limit      *int32
+	limit      *int64
 }
 
 // Limit bounds how many formations are scanned; 0 or less means the default of 200.
-func (r CompanyAPIGetCompanyReviewRequest) Limit(limit int32) CompanyAPIGetCompanyReviewRequest {
+func (r CompanyAPIGetCompanyReviewRequest) Limit(limit int64) CompanyAPIGetCompanyReviewRequest {
 	r.limit = &limit
 	return r
 }

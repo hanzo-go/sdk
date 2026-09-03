@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the scan ran, in Unix milliseconds. | [optional] 
-**Critical** | Pointer to **int32** | Critical is how many findings carry the highest severity. | [optional] 
-**Files** | Pointer to **int32** | Files is how many files the scan read. | [optional] 
-**Findings** | Pointer to **int32** | Findings is how many secrets fired across them. | [optional] 
-**High** | Pointer to **int32** | High is how many findings rank high. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the scan ran, in Unix milliseconds. | [optional] 
+**Critical** | Pointer to **int64** | Critical is how many findings carry the highest severity. | [optional] 
+**Files** | Pointer to **int64** | Files is how many files the scan read. | [optional] 
+**Findings** | Pointer to **int64** | Findings is how many secrets fired across them. | [optional] 
+**High** | Pointer to **int64** | High is how many findings rank high. | [optional] 
 **Id** | Pointer to **string** | ID addresses this scan and every finding on it. | [optional] 
-**Low** | Pointer to **int32** | Low is how many findings rank low. | [optional] 
-**Medium** | Pointer to **int32** | Medium is how many findings rank medium. | [optional] 
+**Low** | Pointer to **int64** | Low is how many findings rank low. | [optional] 
+**Medium** | Pointer to **int64** | Medium is how many findings rank medium. | [optional] 
 **Project** | Pointer to **string** | Project is the sub-scope the scan was filed under. | [optional] 
 
 ## Methods
@@ -35,20 +35,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreatedAt
 
-`func (o *ScanView) GetCreatedAt() int32`
+`func (o *ScanView) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *ScanView) GetCreatedAtOk() (*int32, bool)`
+`func (o *ScanView) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *ScanView) SetCreatedAt(v int32)`
+`func (o *ScanView) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -60,20 +60,20 @@ HasCreatedAt returns a boolean if a field has been set.
 
 ### GetCritical
 
-`func (o *ScanView) GetCritical() int32`
+`func (o *ScanView) GetCritical() int64`
 
 GetCritical returns the Critical field if non-nil, zero value otherwise.
 
 ### GetCriticalOk
 
-`func (o *ScanView) GetCriticalOk() (*int32, bool)`
+`func (o *ScanView) GetCriticalOk() (*int64, bool)`
 
 GetCriticalOk returns a tuple with the Critical field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCritical
 
-`func (o *ScanView) SetCritical(v int32)`
+`func (o *ScanView) SetCritical(v int64)`
 
 SetCritical sets Critical field to given value.
 
@@ -85,20 +85,20 @@ HasCritical returns a boolean if a field has been set.
 
 ### GetFiles
 
-`func (o *ScanView) GetFiles() int32`
+`func (o *ScanView) GetFiles() int64`
 
 GetFiles returns the Files field if non-nil, zero value otherwise.
 
 ### GetFilesOk
 
-`func (o *ScanView) GetFilesOk() (*int32, bool)`
+`func (o *ScanView) GetFilesOk() (*int64, bool)`
 
 GetFilesOk returns a tuple with the Files field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFiles
 
-`func (o *ScanView) SetFiles(v int32)`
+`func (o *ScanView) SetFiles(v int64)`
 
 SetFiles sets Files field to given value.
 
@@ -110,20 +110,20 @@ HasFiles returns a boolean if a field has been set.
 
 ### GetFindings
 
-`func (o *ScanView) GetFindings() int32`
+`func (o *ScanView) GetFindings() int64`
 
 GetFindings returns the Findings field if non-nil, zero value otherwise.
 
 ### GetFindingsOk
 
-`func (o *ScanView) GetFindingsOk() (*int32, bool)`
+`func (o *ScanView) GetFindingsOk() (*int64, bool)`
 
 GetFindingsOk returns a tuple with the Findings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFindings
 
-`func (o *ScanView) SetFindings(v int32)`
+`func (o *ScanView) SetFindings(v int64)`
 
 SetFindings sets Findings field to given value.
 
@@ -135,20 +135,20 @@ HasFindings returns a boolean if a field has been set.
 
 ### GetHigh
 
-`func (o *ScanView) GetHigh() int32`
+`func (o *ScanView) GetHigh() int64`
 
 GetHigh returns the High field if non-nil, zero value otherwise.
 
 ### GetHighOk
 
-`func (o *ScanView) GetHighOk() (*int32, bool)`
+`func (o *ScanView) GetHighOk() (*int64, bool)`
 
 GetHighOk returns a tuple with the High field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHigh
 
-`func (o *ScanView) SetHigh(v int32)`
+`func (o *ScanView) SetHigh(v int64)`
 
 SetHigh sets High field to given value.
 
@@ -185,20 +185,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetLow
 
-`func (o *ScanView) GetLow() int32`
+`func (o *ScanView) GetLow() int64`
 
 GetLow returns the Low field if non-nil, zero value otherwise.
 
 ### GetLowOk
 
-`func (o *ScanView) GetLowOk() (*int32, bool)`
+`func (o *ScanView) GetLowOk() (*int64, bool)`
 
 GetLowOk returns a tuple with the Low field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLow
 
-`func (o *ScanView) SetLow(v int32)`
+`func (o *ScanView) SetLow(v int64)`
 
 SetLow sets Low field to given value.
 
@@ -210,20 +210,20 @@ HasLow returns a boolean if a field has been set.
 
 ### GetMedium
 
-`func (o *ScanView) GetMedium() int32`
+`func (o *ScanView) GetMedium() int64`
 
 GetMedium returns the Medium field if non-nil, zero value otherwise.
 
 ### GetMediumOk
 
-`func (o *ScanView) GetMediumOk() (*int32, bool)`
+`func (o *ScanView) GetMediumOk() (*int64, bool)`
 
 GetMediumOk returns a tuple with the Medium field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMedium
 
-`func (o *ScanView) SetMedium(v int32)`
+`func (o *ScanView) SetMedium(v int64)`
 
 SetMedium sets Medium field to given value.
 

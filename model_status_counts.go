@@ -20,11 +20,11 @@ var _ MappedNullable = &StatusCounts{}
 // StatusCounts struct for StatusCounts
 type StatusCounts struct {
 	// Qualified is how many referees have made metered spend.
-	Qualified *int32 `json:"qualified,omitempty"`
+	Qualified *int64 `json:"qualified,omitempty"`
 	// Signup is how many referees have signed up but not yet spent.
-	Signup *int32 `json:"signup,omitempty"`
+	Signup *int64 `json:"signup,omitempty"`
 	// Total is every referral this org has made.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 }
 
 // NewStatusCounts instantiates a new StatusCounts object
@@ -45,9 +45,9 @@ func NewStatusCountsWithDefaults() *StatusCounts {
 }
 
 // GetQualified returns the Qualified field value if set, zero value otherwise.
-func (o *StatusCounts) GetQualified() int32 {
+func (o *StatusCounts) GetQualified() int64 {
 	if o == nil || IsNil(o.Qualified) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Qualified
@@ -55,7 +55,7 @@ func (o *StatusCounts) GetQualified() int32 {
 
 // GetQualifiedOk returns a tuple with the Qualified field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StatusCounts) GetQualifiedOk() (*int32, bool) {
+func (o *StatusCounts) GetQualifiedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Qualified) {
 		return nil, false
 	}
@@ -71,15 +71,15 @@ func (o *StatusCounts) HasQualified() bool {
 	return false
 }
 
-// SetQualified gets a reference to the given int32 and assigns it to the Qualified field.
-func (o *StatusCounts) SetQualified(v int32) {
+// SetQualified gets a reference to the given int64 and assigns it to the Qualified field.
+func (o *StatusCounts) SetQualified(v int64) {
 	o.Qualified = &v
 }
 
 // GetSignup returns the Signup field value if set, zero value otherwise.
-func (o *StatusCounts) GetSignup() int32 {
+func (o *StatusCounts) GetSignup() int64 {
 	if o == nil || IsNil(o.Signup) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Signup
@@ -87,7 +87,7 @@ func (o *StatusCounts) GetSignup() int32 {
 
 // GetSignupOk returns a tuple with the Signup field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StatusCounts) GetSignupOk() (*int32, bool) {
+func (o *StatusCounts) GetSignupOk() (*int64, bool) {
 	if o == nil || IsNil(o.Signup) {
 		return nil, false
 	}
@@ -103,15 +103,15 @@ func (o *StatusCounts) HasSignup() bool {
 	return false
 }
 
-// SetSignup gets a reference to the given int32 and assigns it to the Signup field.
-func (o *StatusCounts) SetSignup(v int32) {
+// SetSignup gets a reference to the given int64 and assigns it to the Signup field.
+func (o *StatusCounts) SetSignup(v int64) {
 	o.Signup = &v
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *StatusCounts) GetTotal() int32 {
+func (o *StatusCounts) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -119,7 +119,7 @@ func (o *StatusCounts) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StatusCounts) GetTotalOk() (*int32, bool) {
+func (o *StatusCounts) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *StatusCounts) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *StatusCounts) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *StatusCounts) SetTotal(v int64) {
 	o.Total = &v
 }
 

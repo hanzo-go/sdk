@@ -26,7 +26,7 @@ type RiskLabelVocabulary struct {
 	// Precedence is the sources in the order that resolves a conflict, strongest first. It is DERIVED from the same declaration the resolver reads, so the published order is the enforced order and cannot drift from it.
 	Precedence []string `json:"precedence,omitempty"`
 	// Retention is the platform floor in days: no tenant may dispose of a label younger than this, because a label can be the input to an adverse action.
-	Retention *int32 `json:"retention,omitempty"`
+	Retention *int64 `json:"retention,omitempty"`
 	// Rule states the tie-breaks below rank, in order, so a caller reading a contested resolution can reproduce it.
 	Rule []string `json:"rule,omitempty"`
 }
@@ -145,9 +145,9 @@ func (o *RiskLabelVocabulary) SetPrecedence(v []string) {
 }
 
 // GetRetention returns the Retention field value if set, zero value otherwise.
-func (o *RiskLabelVocabulary) GetRetention() int32 {
+func (o *RiskLabelVocabulary) GetRetention() int64 {
 	if o == nil || IsNil(o.Retention) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Retention
@@ -155,7 +155,7 @@ func (o *RiskLabelVocabulary) GetRetention() int32 {
 
 // GetRetentionOk returns a tuple with the Retention field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskLabelVocabulary) GetRetentionOk() (*int32, bool) {
+func (o *RiskLabelVocabulary) GetRetentionOk() (*int64, bool) {
 	if o == nil || IsNil(o.Retention) {
 		return nil, false
 	}
@@ -171,8 +171,8 @@ func (o *RiskLabelVocabulary) HasRetention() bool {
 	return false
 }
 
-// SetRetention gets a reference to the given int32 and assigns it to the Retention field.
-func (o *RiskLabelVocabulary) SetRetention(v int32) {
+// SetRetention gets a reference to the given int64 and assigns it to the Retention field.
+func (o *RiskLabelVocabulary) SetRetention(v int64) {
 	o.Retention = &v
 }
 

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Backlinks** | Pointer to **int32** | Backlinks is how many links point at it. | [optional] 
-**Broken** | Pointer to **int32** | Broken is how many of those links point at something that no longer answers. | [optional] 
+**Backlinks** | Pointer to **int64** | Backlinks is how many links point at it. | [optional] 
+**Broken** | Pointer to **int64** | Broken is how many of those links point at something that no longer answers. | [optional] 
 **Cost** | Pointer to **string** | Cost is what this call cost, in USD, as an exact decimal string. | [optional] 
-**Domains** | Pointer to **int32** | Domains is how many distinct sites those links come from — the number that matters, since a thousand links from one site is one site. | [optional] 
+**Domains** | Pointer to **int64** | Domains is how many distinct sites those links come from — the number that matters, since a thousand links from one site is one site. | [optional] 
 **FirstSeen** | Pointer to **string** | FirstSeen is when the upstream first saw a link to this target, RFC 3339. | [optional] 
-**Pages** | Pointer to **int32** | Pages is how many distinct pages link in. | [optional] 
-**Rank** | Pointer to **int32** | Rank is the upstream&#39;s authority score for the target, 0 to 1000. | [optional] 
-**Spam** | Pointer to **int32** | Spam is the share of the profile judged spam, 0 to 100. | [optional] 
+**Pages** | Pointer to **int64** | Pages is how many distinct pages link in. | [optional] 
+**Rank** | Pointer to **int64** | Rank is the upstream&#39;s authority score for the target, 0 to 1000. | [optional] 
+**Spam** | Pointer to **int64** | Spam is the share of the profile judged spam, 0 to 100. | [optional] 
 **Target** | Pointer to **string** | Target is the target as the upstream resolved it. | [optional] 
 
 ## Methods
@@ -35,20 +35,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetBacklinks
 
-`func (o *SeoBacklinkOut) GetBacklinks() int32`
+`func (o *SeoBacklinkOut) GetBacklinks() int64`
 
 GetBacklinks returns the Backlinks field if non-nil, zero value otherwise.
 
 ### GetBacklinksOk
 
-`func (o *SeoBacklinkOut) GetBacklinksOk() (*int32, bool)`
+`func (o *SeoBacklinkOut) GetBacklinksOk() (*int64, bool)`
 
 GetBacklinksOk returns a tuple with the Backlinks field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBacklinks
 
-`func (o *SeoBacklinkOut) SetBacklinks(v int32)`
+`func (o *SeoBacklinkOut) SetBacklinks(v int64)`
 
 SetBacklinks sets Backlinks field to given value.
 
@@ -60,20 +60,20 @@ HasBacklinks returns a boolean if a field has been set.
 
 ### GetBroken
 
-`func (o *SeoBacklinkOut) GetBroken() int32`
+`func (o *SeoBacklinkOut) GetBroken() int64`
 
 GetBroken returns the Broken field if non-nil, zero value otherwise.
 
 ### GetBrokenOk
 
-`func (o *SeoBacklinkOut) GetBrokenOk() (*int32, bool)`
+`func (o *SeoBacklinkOut) GetBrokenOk() (*int64, bool)`
 
 GetBrokenOk returns a tuple with the Broken field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBroken
 
-`func (o *SeoBacklinkOut) SetBroken(v int32)`
+`func (o *SeoBacklinkOut) SetBroken(v int64)`
 
 SetBroken sets Broken field to given value.
 
@@ -110,20 +110,20 @@ HasCost returns a boolean if a field has been set.
 
 ### GetDomains
 
-`func (o *SeoBacklinkOut) GetDomains() int32`
+`func (o *SeoBacklinkOut) GetDomains() int64`
 
 GetDomains returns the Domains field if non-nil, zero value otherwise.
 
 ### GetDomainsOk
 
-`func (o *SeoBacklinkOut) GetDomainsOk() (*int32, bool)`
+`func (o *SeoBacklinkOut) GetDomainsOk() (*int64, bool)`
 
 GetDomainsOk returns a tuple with the Domains field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDomains
 
-`func (o *SeoBacklinkOut) SetDomains(v int32)`
+`func (o *SeoBacklinkOut) SetDomains(v int64)`
 
 SetDomains sets Domains field to given value.
 
@@ -160,20 +160,20 @@ HasFirstSeen returns a boolean if a field has been set.
 
 ### GetPages
 
-`func (o *SeoBacklinkOut) GetPages() int32`
+`func (o *SeoBacklinkOut) GetPages() int64`
 
 GetPages returns the Pages field if non-nil, zero value otherwise.
 
 ### GetPagesOk
 
-`func (o *SeoBacklinkOut) GetPagesOk() (*int32, bool)`
+`func (o *SeoBacklinkOut) GetPagesOk() (*int64, bool)`
 
 GetPagesOk returns a tuple with the Pages field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPages
 
-`func (o *SeoBacklinkOut) SetPages(v int32)`
+`func (o *SeoBacklinkOut) SetPages(v int64)`
 
 SetPages sets Pages field to given value.
 
@@ -185,20 +185,20 @@ HasPages returns a boolean if a field has been set.
 
 ### GetRank
 
-`func (o *SeoBacklinkOut) GetRank() int32`
+`func (o *SeoBacklinkOut) GetRank() int64`
 
 GetRank returns the Rank field if non-nil, zero value otherwise.
 
 ### GetRankOk
 
-`func (o *SeoBacklinkOut) GetRankOk() (*int32, bool)`
+`func (o *SeoBacklinkOut) GetRankOk() (*int64, bool)`
 
 GetRankOk returns a tuple with the Rank field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRank
 
-`func (o *SeoBacklinkOut) SetRank(v int32)`
+`func (o *SeoBacklinkOut) SetRank(v int64)`
 
 SetRank sets Rank field to given value.
 
@@ -210,20 +210,20 @@ HasRank returns a boolean if a field has been set.
 
 ### GetSpam
 
-`func (o *SeoBacklinkOut) GetSpam() int32`
+`func (o *SeoBacklinkOut) GetSpam() int64`
 
 GetSpam returns the Spam field if non-nil, zero value otherwise.
 
 ### GetSpamOk
 
-`func (o *SeoBacklinkOut) GetSpamOk() (*int32, bool)`
+`func (o *SeoBacklinkOut) GetSpamOk() (*int64, bool)`
 
 GetSpamOk returns a tuple with the Spam field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSpam
 
-`func (o *SeoBacklinkOut) SetSpam(v int32)`
+`func (o *SeoBacklinkOut) SetSpam(v int64)`
 
 SetSpam sets Spam field to given value.
 

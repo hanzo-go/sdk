@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** | ID identifies the route within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. | [optional] 
 **Middlewares** | Pointer to **[]string** | Middlewares are the ids of the edge transforms to apply, in this order, before the request reaches the service. At most 16. | [optional] 
 **PathPrefix** | Pointer to **string** | PathPrefix narrows the match to requests under this path; it must start with \&quot;/\&quot;. Empty matches every path on the host. | [optional] 
-**Priority** | Pointer to **int32** | Priority orders routes that share a host: higher wins, and equal priorities fall back to the longer PathPrefix. | [optional] 
+**Priority** | Pointer to **int64** | Priority orders routes that share a host: higher wins, and equal priorities fall back to the longer PathPrefix. | [optional] 
 **Service** | Pointer to **string** | Service is the id of the backend pool this route dispatches to. A route naming a service that does not exist is skipped at compile, not served. | [optional] 
 **Tls** | Pointer to **bool** | TLS asks the edge to terminate TLS for Host with an ACME-managed certificate. | [optional] 
 
@@ -133,20 +133,20 @@ HasPathPrefix returns a boolean if a field has been set.
 
 ### GetPriority
 
-`func (o *Route) GetPriority() int32`
+`func (o *Route) GetPriority() int64`
 
 GetPriority returns the Priority field if non-nil, zero value otherwise.
 
 ### GetPriorityOk
 
-`func (o *Route) GetPriorityOk() (*int32, bool)`
+`func (o *Route) GetPriorityOk() (*int64, bool)`
 
 GetPriorityOk returns a tuple with the Priority field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPriority
 
-`func (o *Route) SetPriority(v int32)`
+`func (o *Route) SetPriority(v int64)`
 
 SetPriority sets Priority field to given value.
 

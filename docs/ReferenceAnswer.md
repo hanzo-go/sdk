@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Key** | Pointer to **string** | Key is the key as asked. | [optional] 
 **Matched** | Pointer to **string** | Matched is the member that covered the key, which for a domain or a network is the enclosing entry rather than the key itself. | [optional] 
 **Refusal** | Pointer to **string** | Refusal is why the set could not be consulted, when it could not: never loaded, held elsewhere, or a source we hold no licence for. Non-empty means Hit must not be read as an answer. | [optional] 
-**Score** | Pointer to **float32** | Score is the published risk weight where the source expresses one. | [optional] 
+**Score** | Pointer to **float64** | Score is the published risk weight where the source expresses one. | [optional] 
 **Set** | Pointer to **string** | Set is the set consulted. | [optional] 
 **Stale** | Pointer to **bool** | Stale is whether the set is past its freshness bound. A stale set still answers — yesterday&#39;s list beats none — and this is how a decision knows it leaned on one. | [optional] 
 **Value** | Pointer to **map[string]string** | Value is what the publisher says about the member — class, operator, scheme, region. | [optional] 
@@ -214,20 +214,20 @@ HasRefusal returns a boolean if a field has been set.
 
 ### GetScore
 
-`func (o *ReferenceAnswer) GetScore() float32`
+`func (o *ReferenceAnswer) GetScore() float64`
 
 GetScore returns the Score field if non-nil, zero value otherwise.
 
 ### GetScoreOk
 
-`func (o *ReferenceAnswer) GetScoreOk() (*float32, bool)`
+`func (o *ReferenceAnswer) GetScoreOk() (*float64, bool)`
 
 GetScoreOk returns a tuple with the Score field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScore
 
-`func (o *ReferenceAnswer) SetScore(v float32)`
+`func (o *ReferenceAnswer) SetScore(v float64)`
 
 SetScore sets Score field to given value.
 

@@ -27,7 +27,7 @@ type LicensingRelease struct {
 	CosignCert *string `json:"cosign_cert,omitempty"`
 	// CosignSignature is the base64 cosign signature over the artifact digest.
 	CosignSignature *string `json:"cosign_signature,omitempty"`
-	CreatedAt       *int32  `json:"created_at,omitempty"`
+	CreatedAt       *int64  `json:"created_at,omitempty"`
 	// ID is the release identifier, e.g. \"engine-rocm-0.4.2-linux-amd64\". The accelerator belongs here — one product is built several ways — and never in Product below.
 	Id *string `json:"id,omitempty"`
 	// MinFeatures, when set, are features the license must include to download.
@@ -190,9 +190,9 @@ func (o *LicensingRelease) SetCosignSignature(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *LicensingRelease) GetCreatedAt() int32 {
+func (o *LicensingRelease) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -200,7 +200,7 @@ func (o *LicensingRelease) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LicensingRelease) GetCreatedAtOk() (*int32, bool) {
+func (o *LicensingRelease) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -216,8 +216,8 @@ func (o *LicensingRelease) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *LicensingRelease) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *LicensingRelease) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 

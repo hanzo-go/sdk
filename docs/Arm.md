@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Control** | Pointer to **bool** | true on the baseline arm every other arm is compared to | [optional] 
 **Key** | Pointer to **string** | the arm&#39;s slug, unique within the experiment | [optional] 
 **Payload** | Pointer to **interface{}** |  | [optional] 
-**Weight** | Pointer to **float32** | its share of the rollout; the arms sum to 100 | [optional] 
+**Weight** | Pointer to **float64** | its share of the rollout; the arms sum to 100 | [optional] 
 
 ## Methods
 
@@ -115,20 +115,20 @@ HasPayload returns a boolean if a field has been set.
 UnsetPayload ensures that no value is present for Payload, not even an explicit nil
 ### GetWeight
 
-`func (o *Arm) GetWeight() float32`
+`func (o *Arm) GetWeight() float64`
 
 GetWeight returns the Weight field if non-nil, zero value otherwise.
 
 ### GetWeightOk
 
-`func (o *Arm) GetWeightOk() (*float32, bool)`
+`func (o *Arm) GetWeightOk() (*float64, bool)`
 
 GetWeightOk returns a tuple with the Weight field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWeight
 
-`func (o *Arm) SetWeight(v float32)`
+`func (o *Arm) SetWeight(v float64)`
 
 SetWeight sets Weight field to given value.
 

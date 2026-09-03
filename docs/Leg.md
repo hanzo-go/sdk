@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Account** | Pointer to **string** | Account is the chart-of-accounts number this side posts to, e.g. \&quot;5300\&quot;. | [optional] 
-**Credit** | Pointer to **int32** | Credit is the leg&#39;s credit in exact cents. Set this or Debit, not both. | [optional] 
-**Debit** | Pointer to **int32** | Debit is the leg&#39;s debit in exact cents. Set this or Credit, not both. | [optional] 
+**Credit** | Pointer to **int64** | Credit is the leg&#39;s credit in exact cents. Set this or Debit, not both. | [optional] 
+**Debit** | Pointer to **int64** | Debit is the leg&#39;s debit in exact cents. Set this or Credit, not both. | [optional] 
 
 ## Methods
 
@@ -54,20 +54,20 @@ HasAccount returns a boolean if a field has been set.
 
 ### GetCredit
 
-`func (o *Leg) GetCredit() int32`
+`func (o *Leg) GetCredit() int64`
 
 GetCredit returns the Credit field if non-nil, zero value otherwise.
 
 ### GetCreditOk
 
-`func (o *Leg) GetCreditOk() (*int32, bool)`
+`func (o *Leg) GetCreditOk() (*int64, bool)`
 
 GetCreditOk returns a tuple with the Credit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCredit
 
-`func (o *Leg) SetCredit(v int32)`
+`func (o *Leg) SetCredit(v int64)`
 
 SetCredit sets Credit field to given value.
 
@@ -79,20 +79,20 @@ HasCredit returns a boolean if a field has been set.
 
 ### GetDebit
 
-`func (o *Leg) GetDebit() int32`
+`func (o *Leg) GetDebit() int64`
 
 GetDebit returns the Debit field if non-nil, zero value otherwise.
 
 ### GetDebitOk
 
-`func (o *Leg) GetDebitOk() (*int32, bool)`
+`func (o *Leg) GetDebitOk() (*int64, bool)`
 
 GetDebitOk returns a tuple with the Debit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDebit
 
-`func (o *Leg) SetDebit(v int32)`
+`func (o *Leg) SetDebit(v int64)`
 
 SetDebit sets Debit field to given value.
 

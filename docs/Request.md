@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Doctypes** | Pointer to **[]string** | DocTypes restricts the semantic leg to a subset of indexed knowledge types. | [optional] 
 **Index** | Pointer to **string** | Index names the lexical index to query. Defaults to \&quot;kb\&quot;. | [optional] 
-**Limit** | Pointer to **int32** | Limit bounds the FUSED result set (default 10, max 50). | [optional] 
+**Limit** | Pointer to **int64** | Limit bounds the FUSED result set (default 10, max 50). | [optional] 
 **Mode** | Pointer to **string** | Mode selects the legs: auto (default) | text | semantic | hybrid. | [optional] 
-**Offset** | Pointer to **int32** | Offset pages the fused result set. | [optional] 
+**Offset** | Pointer to **int64** | Offset pages the fused result set. | [optional] 
 **Project** | Pointer to **string** | Project narrows to one project scope within the org. | [optional] 
 **Query** | Pointer to **string** | Query is the natural-language or keyword query. Required. | [optional] 
 
@@ -83,20 +83,20 @@ HasIndex returns a boolean if a field has been set.
 
 ### GetLimit
 
-`func (o *Request) GetLimit() int32`
+`func (o *Request) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *Request) GetLimitOk() (*int32, bool)`
+`func (o *Request) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *Request) SetLimit(v int32)`
+`func (o *Request) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 
@@ -133,20 +133,20 @@ HasMode returns a boolean if a field has been set.
 
 ### GetOffset
 
-`func (o *Request) GetOffset() int32`
+`func (o *Request) GetOffset() int64`
 
 GetOffset returns the Offset field if non-nil, zero value otherwise.
 
 ### GetOffsetOk
 
-`func (o *Request) GetOffsetOk() (*int32, bool)`
+`func (o *Request) GetOffsetOk() (*int64, bool)`
 
 GetOffsetOk returns a tuple with the Offset field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOffset
 
-`func (o *Request) SetOffset(v int32)`
+`func (o *Request) SetOffset(v int64)`
 
 SetOffset sets Offset field to given value.
 

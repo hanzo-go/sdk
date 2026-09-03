@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Commands** | Pointer to [**[]ControlCommandView**](ControlCommandView.md) | Commands is the session&#39;s control commands newer than the cursor, oldest first. | [optional] 
-**Cursor** | Pointer to **int32** | Cursor is the seq to send as &#x60;after&#x60; on the next poll — the highest seq in this page, or the cursor sent in when the page is empty. | [optional] 
+**Cursor** | Pointer to **int64** | Cursor is the seq to send as &#x60;after&#x60; on the next poll — the highest seq in this page, or the cursor sent in when the page is empty. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasCommands returns a boolean if a field has been set.
 
 ### GetCursor
 
-`func (o *ControlDrain) GetCursor() int32`
+`func (o *ControlDrain) GetCursor() int64`
 
 GetCursor returns the Cursor field if non-nil, zero value otherwise.
 
 ### GetCursorOk
 
-`func (o *ControlDrain) GetCursorOk() (*int32, bool)`
+`func (o *ControlDrain) GetCursorOk() (*int64, bool)`
 
 GetCursorOk returns a tuple with the Cursor field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCursor
 
-`func (o *ControlDrain) SetCursor(v int32)`
+`func (o *ControlDrain) SetCursor(v int64)`
 
 SetCursor sets Cursor field to given value.
 

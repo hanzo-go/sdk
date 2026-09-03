@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Allow** | Pointer to **bool** |  | [optional] 
-**CapCents** | Pointer to **int32** |  | [optional] 
+**CapCents** | Pointer to **int64** |  | [optional] 
 **Reason** | Pointer to **string** |  | [optional] 
-**SpentCents** | Pointer to **int32** |  | [optional] 
-**WarnPct** | Pointer to **int32** |  | [optional] 
+**SpentCents** | Pointer to **int64** |  | [optional] 
+**WarnPct** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -56,20 +56,20 @@ HasAllow returns a boolean if a field has been set.
 
 ### GetCapCents
 
-`func (o *CapVerdict) GetCapCents() int32`
+`func (o *CapVerdict) GetCapCents() int64`
 
 GetCapCents returns the CapCents field if non-nil, zero value otherwise.
 
 ### GetCapCentsOk
 
-`func (o *CapVerdict) GetCapCentsOk() (*int32, bool)`
+`func (o *CapVerdict) GetCapCentsOk() (*int64, bool)`
 
 GetCapCentsOk returns a tuple with the CapCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCapCents
 
-`func (o *CapVerdict) SetCapCents(v int32)`
+`func (o *CapVerdict) SetCapCents(v int64)`
 
 SetCapCents sets CapCents field to given value.
 
@@ -106,20 +106,20 @@ HasReason returns a boolean if a field has been set.
 
 ### GetSpentCents
 
-`func (o *CapVerdict) GetSpentCents() int32`
+`func (o *CapVerdict) GetSpentCents() int64`
 
 GetSpentCents returns the SpentCents field if non-nil, zero value otherwise.
 
 ### GetSpentCentsOk
 
-`func (o *CapVerdict) GetSpentCentsOk() (*int32, bool)`
+`func (o *CapVerdict) GetSpentCentsOk() (*int64, bool)`
 
 GetSpentCentsOk returns a tuple with the SpentCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSpentCents
 
-`func (o *CapVerdict) SetSpentCents(v int32)`
+`func (o *CapVerdict) SetSpentCents(v int64)`
 
 SetSpentCents sets SpentCents field to given value.
 
@@ -131,20 +131,20 @@ HasSpentCents returns a boolean if a field has been set.
 
 ### GetWarnPct
 
-`func (o *CapVerdict) GetWarnPct() int32`
+`func (o *CapVerdict) GetWarnPct() int64`
 
 GetWarnPct returns the WarnPct field if non-nil, zero value otherwise.
 
 ### GetWarnPctOk
 
-`func (o *CapVerdict) GetWarnPctOk() (*int32, bool)`
+`func (o *CapVerdict) GetWarnPctOk() (*int64, bool)`
 
 GetWarnPctOk returns a tuple with the WarnPct field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWarnPct
 
-`func (o *CapVerdict) SetWarnPct(v int32)`
+`func (o *CapVerdict) SetWarnPct(v int64)`
 
 SetWarnPct sets WarnPct field to given value.
 

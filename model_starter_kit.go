@@ -34,13 +34,13 @@ type StarterKit struct {
 	// the still image the browse card renders
 	Preview *string `json:"preview,omitempty"`
 	// Rating is public-gallery curation, on the same terms as Tier: catalog-only, never accepted from a request, absent on a customer's own kit.
-	Rating *float32 `json:"rating,omitempty"`
+	Rating *float64 `json:"rating,omitempty"`
 	// the kit's identity — lowercase alphanumeric with dashes, max 40
 	Slug *string `json:"slug,omitempty"`
 	// the repository the kit is forked from
 	Source *string `json:"source,omitempty"`
 	// Tier is public-gallery curation, carried verbatim from the embedded catalog. No request can set it — neither write body has the field and neither builds a kit carrying one — so it is absent on every customer-published kit.
-	Tier *int32 `json:"tier,omitempty"`
+	Tier *int64 `json:"tier,omitempty"`
 	// display name
 	Title *string `json:"title,omitempty"`
 	// what the kit is for, in a phrase
@@ -291,9 +291,9 @@ func (o *StarterKit) SetPreview(v string) {
 }
 
 // GetRating returns the Rating field value if set, zero value otherwise.
-func (o *StarterKit) GetRating() float32 {
+func (o *StarterKit) GetRating() float64 {
 	if o == nil || IsNil(o.Rating) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Rating
@@ -301,7 +301,7 @@ func (o *StarterKit) GetRating() float32 {
 
 // GetRatingOk returns a tuple with the Rating field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StarterKit) GetRatingOk() (*float32, bool) {
+func (o *StarterKit) GetRatingOk() (*float64, bool) {
 	if o == nil || IsNil(o.Rating) {
 		return nil, false
 	}
@@ -317,8 +317,8 @@ func (o *StarterKit) HasRating() bool {
 	return false
 }
 
-// SetRating gets a reference to the given float32 and assigns it to the Rating field.
-func (o *StarterKit) SetRating(v float32) {
+// SetRating gets a reference to the given float64 and assigns it to the Rating field.
+func (o *StarterKit) SetRating(v float64) {
 	o.Rating = &v
 }
 
@@ -387,9 +387,9 @@ func (o *StarterKit) SetSource(v string) {
 }
 
 // GetTier returns the Tier field value if set, zero value otherwise.
-func (o *StarterKit) GetTier() int32 {
+func (o *StarterKit) GetTier() int64 {
 	if o == nil || IsNil(o.Tier) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Tier
@@ -397,7 +397,7 @@ func (o *StarterKit) GetTier() int32 {
 
 // GetTierOk returns a tuple with the Tier field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StarterKit) GetTierOk() (*int32, bool) {
+func (o *StarterKit) GetTierOk() (*int64, bool) {
 	if o == nil || IsNil(o.Tier) {
 		return nil, false
 	}
@@ -413,8 +413,8 @@ func (o *StarterKit) HasTier() bool {
 	return false
 }
 
-// SetTier gets a reference to the given int32 and assigns it to the Tier field.
-func (o *StarterKit) SetTier(v int32) {
+// SetTier gets a reference to the given int64 and assigns it to the Tier field.
+func (o *StarterKit) SetTier(v int64) {
 	o.Tier = &v
 }
 

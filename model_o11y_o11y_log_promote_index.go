@@ -22,7 +22,7 @@ type O11yO11yLogPromoteIndex struct {
 	// FieldDataType is the path's data type, e.g. string, number, bool.
 	FieldDataType *string `json:"fieldDataType,omitempty"`
 	// Granularity is the index granularity in rows.
-	Granularity *int32 `json:"granularity,omitempty"`
+	Granularity *int64 `json:"granularity,omitempty"`
 	// Type is the index type, e.g. minmax, set(N), bloom_filter(P).
 	Type *string `json:"type,omitempty"`
 }
@@ -77,9 +77,9 @@ func (o *O11yO11yLogPromoteIndex) SetFieldDataType(v string) {
 }
 
 // GetGranularity returns the Granularity field value if set, zero value otherwise.
-func (o *O11yO11yLogPromoteIndex) GetGranularity() int32 {
+func (o *O11yO11yLogPromoteIndex) GetGranularity() int64 {
 	if o == nil || IsNil(o.Granularity) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Granularity
@@ -87,7 +87,7 @@ func (o *O11yO11yLogPromoteIndex) GetGranularity() int32 {
 
 // GetGranularityOk returns a tuple with the Granularity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLogPromoteIndex) GetGranularityOk() (*int32, bool) {
+func (o *O11yO11yLogPromoteIndex) GetGranularityOk() (*int64, bool) {
 	if o == nil || IsNil(o.Granularity) {
 		return nil, false
 	}
@@ -103,8 +103,8 @@ func (o *O11yO11yLogPromoteIndex) HasGranularity() bool {
 	return false
 }
 
-// SetGranularity gets a reference to the given int32 and assigns it to the Granularity field.
-func (o *O11yO11yLogPromoteIndex) SetGranularity(v int32) {
+// SetGranularity gets a reference to the given int64 and assigns it to the Granularity field.
+func (o *O11yO11yLogPromoteIndex) SetGranularity(v int64) {
 	o.Granularity = &v
 }
 

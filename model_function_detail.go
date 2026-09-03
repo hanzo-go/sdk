@@ -19,14 +19,14 @@ var _ MappedNullable = &FunctionDetail{}
 
 // FunctionDetail struct for FunctionDetail
 type FunctionDetail struct {
-	AvgDurationMs  *float32 `json:"avgDurationMs,omitempty"`
+	AvgDurationMs  *float64 `json:"avgDurationMs,omitempty"`
 	CreatedAt      *string  `json:"createdAt,omitempty"`
 	Endpoint       *string  `json:"endpoint,omitempty"`
-	EnvCount       *int32   `json:"envCount,omitempty"`
+	EnvCount       *int64   `json:"envCount,omitempty"`
 	Environment    *string  `json:"environment,omitempty"`
-	Errors7d       *int32   `json:"errors7d,omitempty"`
+	Errors7d       *int64   `json:"errors7d,omitempty"`
 	Image          *string  `json:"image,omitempty"`
-	Invocations7d  *int32   `json:"invocations7d,omitempty"`
+	Invocations7d  *int64   `json:"invocations7d,omitempty"`
 	LastDeployedAt *string  `json:"lastDeployedAt,omitempty"`
 	MemoryLimit    *string  `json:"memoryLimit,omitempty"`
 	Name           *string  `json:"name,omitempty"`
@@ -36,9 +36,9 @@ type FunctionDetail struct {
 	// Secrets are the NAMES it mounts. Values are never read or returned.
 	Secrets     []string `json:"secrets,omitempty"`
 	Status      *string  `json:"status,omitempty"`
-	SuccessRate *float32 `json:"successRate,omitempty"`
+	SuccessRate *float64 `json:"successRate,omitempty"`
 	Target      *string  `json:"target,omitempty"`
-	TimeoutSec  *int32   `json:"timeoutSec,omitempty"`
+	TimeoutSec  *int64   `json:"timeoutSec,omitempty"`
 	// Triggers is how this function is reached.
 	Triggers []TriggerView `json:"triggers,omitempty"`
 }
@@ -61,9 +61,9 @@ func NewFunctionDetailWithDefaults() *FunctionDetail {
 }
 
 // GetAvgDurationMs returns the AvgDurationMs field value if set, zero value otherwise.
-func (o *FunctionDetail) GetAvgDurationMs() float32 {
+func (o *FunctionDetail) GetAvgDurationMs() float64 {
 	if o == nil || IsNil(o.AvgDurationMs) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.AvgDurationMs
@@ -71,7 +71,7 @@ func (o *FunctionDetail) GetAvgDurationMs() float32 {
 
 // GetAvgDurationMsOk returns a tuple with the AvgDurationMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FunctionDetail) GetAvgDurationMsOk() (*float32, bool) {
+func (o *FunctionDetail) GetAvgDurationMsOk() (*float64, bool) {
 	if o == nil || IsNil(o.AvgDurationMs) {
 		return nil, false
 	}
@@ -87,8 +87,8 @@ func (o *FunctionDetail) HasAvgDurationMs() bool {
 	return false
 }
 
-// SetAvgDurationMs gets a reference to the given float32 and assigns it to the AvgDurationMs field.
-func (o *FunctionDetail) SetAvgDurationMs(v float32) {
+// SetAvgDurationMs gets a reference to the given float64 and assigns it to the AvgDurationMs field.
+func (o *FunctionDetail) SetAvgDurationMs(v float64) {
 	o.AvgDurationMs = &v
 }
 
@@ -157,9 +157,9 @@ func (o *FunctionDetail) SetEndpoint(v string) {
 }
 
 // GetEnvCount returns the EnvCount field value if set, zero value otherwise.
-func (o *FunctionDetail) GetEnvCount() int32 {
+func (o *FunctionDetail) GetEnvCount() int64 {
 	if o == nil || IsNil(o.EnvCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.EnvCount
@@ -167,7 +167,7 @@ func (o *FunctionDetail) GetEnvCount() int32 {
 
 // GetEnvCountOk returns a tuple with the EnvCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FunctionDetail) GetEnvCountOk() (*int32, bool) {
+func (o *FunctionDetail) GetEnvCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.EnvCount) {
 		return nil, false
 	}
@@ -183,8 +183,8 @@ func (o *FunctionDetail) HasEnvCount() bool {
 	return false
 }
 
-// SetEnvCount gets a reference to the given int32 and assigns it to the EnvCount field.
-func (o *FunctionDetail) SetEnvCount(v int32) {
+// SetEnvCount gets a reference to the given int64 and assigns it to the EnvCount field.
+func (o *FunctionDetail) SetEnvCount(v int64) {
 	o.EnvCount = &v
 }
 
@@ -221,9 +221,9 @@ func (o *FunctionDetail) SetEnvironment(v string) {
 }
 
 // GetErrors7d returns the Errors7d field value if set, zero value otherwise.
-func (o *FunctionDetail) GetErrors7d() int32 {
+func (o *FunctionDetail) GetErrors7d() int64 {
 	if o == nil || IsNil(o.Errors7d) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Errors7d
@@ -231,7 +231,7 @@ func (o *FunctionDetail) GetErrors7d() int32 {
 
 // GetErrors7dOk returns a tuple with the Errors7d field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FunctionDetail) GetErrors7dOk() (*int32, bool) {
+func (o *FunctionDetail) GetErrors7dOk() (*int64, bool) {
 	if o == nil || IsNil(o.Errors7d) {
 		return nil, false
 	}
@@ -247,8 +247,8 @@ func (o *FunctionDetail) HasErrors7d() bool {
 	return false
 }
 
-// SetErrors7d gets a reference to the given int32 and assigns it to the Errors7d field.
-func (o *FunctionDetail) SetErrors7d(v int32) {
+// SetErrors7d gets a reference to the given int64 and assigns it to the Errors7d field.
+func (o *FunctionDetail) SetErrors7d(v int64) {
 	o.Errors7d = &v
 }
 
@@ -285,9 +285,9 @@ func (o *FunctionDetail) SetImage(v string) {
 }
 
 // GetInvocations7d returns the Invocations7d field value if set, zero value otherwise.
-func (o *FunctionDetail) GetInvocations7d() int32 {
+func (o *FunctionDetail) GetInvocations7d() int64 {
 	if o == nil || IsNil(o.Invocations7d) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Invocations7d
@@ -295,7 +295,7 @@ func (o *FunctionDetail) GetInvocations7d() int32 {
 
 // GetInvocations7dOk returns a tuple with the Invocations7d field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FunctionDetail) GetInvocations7dOk() (*int32, bool) {
+func (o *FunctionDetail) GetInvocations7dOk() (*int64, bool) {
 	if o == nil || IsNil(o.Invocations7d) {
 		return nil, false
 	}
@@ -311,8 +311,8 @@ func (o *FunctionDetail) HasInvocations7d() bool {
 	return false
 }
 
-// SetInvocations7d gets a reference to the given int32 and assigns it to the Invocations7d field.
-func (o *FunctionDetail) SetInvocations7d(v int32) {
+// SetInvocations7d gets a reference to the given int64 and assigns it to the Invocations7d field.
+func (o *FunctionDetail) SetInvocations7d(v int64) {
 	o.Invocations7d = &v
 }
 
@@ -541,9 +541,9 @@ func (o *FunctionDetail) SetStatus(v string) {
 }
 
 // GetSuccessRate returns the SuccessRate field value if set, zero value otherwise.
-func (o *FunctionDetail) GetSuccessRate() float32 {
+func (o *FunctionDetail) GetSuccessRate() float64 {
 	if o == nil || IsNil(o.SuccessRate) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.SuccessRate
@@ -551,7 +551,7 @@ func (o *FunctionDetail) GetSuccessRate() float32 {
 
 // GetSuccessRateOk returns a tuple with the SuccessRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FunctionDetail) GetSuccessRateOk() (*float32, bool) {
+func (o *FunctionDetail) GetSuccessRateOk() (*float64, bool) {
 	if o == nil || IsNil(o.SuccessRate) {
 		return nil, false
 	}
@@ -567,8 +567,8 @@ func (o *FunctionDetail) HasSuccessRate() bool {
 	return false
 }
 
-// SetSuccessRate gets a reference to the given float32 and assigns it to the SuccessRate field.
-func (o *FunctionDetail) SetSuccessRate(v float32) {
+// SetSuccessRate gets a reference to the given float64 and assigns it to the SuccessRate field.
+func (o *FunctionDetail) SetSuccessRate(v float64) {
 	o.SuccessRate = &v
 }
 
@@ -605,9 +605,9 @@ func (o *FunctionDetail) SetTarget(v string) {
 }
 
 // GetTimeoutSec returns the TimeoutSec field value if set, zero value otherwise.
-func (o *FunctionDetail) GetTimeoutSec() int32 {
+func (o *FunctionDetail) GetTimeoutSec() int64 {
 	if o == nil || IsNil(o.TimeoutSec) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TimeoutSec
@@ -615,7 +615,7 @@ func (o *FunctionDetail) GetTimeoutSec() int32 {
 
 // GetTimeoutSecOk returns a tuple with the TimeoutSec field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FunctionDetail) GetTimeoutSecOk() (*int32, bool) {
+func (o *FunctionDetail) GetTimeoutSecOk() (*int64, bool) {
 	if o == nil || IsNil(o.TimeoutSec) {
 		return nil, false
 	}
@@ -631,8 +631,8 @@ func (o *FunctionDetail) HasTimeoutSec() bool {
 	return false
 }
 
-// SetTimeoutSec gets a reference to the given int32 and assigns it to the TimeoutSec field.
-func (o *FunctionDetail) SetTimeoutSec(v int32) {
+// SetTimeoutSec gets a reference to the given int64 and assigns it to the TimeoutSec field.
+func (o *FunctionDetail) SetTimeoutSec(v int64) {
 	o.TimeoutSec = &v
 }
 

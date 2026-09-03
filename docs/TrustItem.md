@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | Name is the item&#39;s title. | [optional] 
 **Signed** | Pointer to **string** | Signed is \&quot;self\&quot; when the org states it itself and \&quot;auditor\&quot; when an independent auditor put their name to it. It is the reason an item is available now or on request, so a reader can see the rule rather than infer it. | [optional] 
 **Summary** | Pointer to **string** | Summary is a line about the item. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is when the item last changed, in unix milliseconds. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is when the item last changed, in unix milliseconds. | [optional] 
 
 ## Methods
 
@@ -235,20 +235,20 @@ HasSummary returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *TrustItem) GetUpdatedAt() int32`
+`func (o *TrustItem) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *TrustItem) GetUpdatedAtOk() (*int32, bool)`
+`func (o *TrustItem) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *TrustItem) SetUpdatedAt(v int32)`
+`func (o *TrustItem) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 

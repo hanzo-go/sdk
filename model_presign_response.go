@@ -20,7 +20,7 @@ var _ MappedNullable = &PresignResponse{}
 // PresignResponse struct for PresignResponse
 type PresignResponse struct {
 	// seconds until the URL expires
-	ExpiresIn *int32 `json:"expiresIn,omitempty"`
+	ExpiresIn *int64 `json:"expiresIn,omitempty"`
 	// Key is the object key the URL was signed for, relative to the bucket root and path-cleaned — so it is what the store will actually read or write, which is not always the string the caller sent. The signature covers this one bucket and this one key: a URL minted here reaches nothing else.
 	Key *string `json:"key,omitempty"`
 	// \"PUT\" (upload) or \"GET\" (download)
@@ -47,9 +47,9 @@ func NewPresignResponseWithDefaults() *PresignResponse {
 }
 
 // GetExpiresIn returns the ExpiresIn field value if set, zero value otherwise.
-func (o *PresignResponse) GetExpiresIn() int32 {
+func (o *PresignResponse) GetExpiresIn() int64 {
 	if o == nil || IsNil(o.ExpiresIn) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ExpiresIn
@@ -57,7 +57,7 @@ func (o *PresignResponse) GetExpiresIn() int32 {
 
 // GetExpiresInOk returns a tuple with the ExpiresIn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PresignResponse) GetExpiresInOk() (*int32, bool) {
+func (o *PresignResponse) GetExpiresInOk() (*int64, bool) {
 	if o == nil || IsNil(o.ExpiresIn) {
 		return nil, false
 	}
@@ -73,8 +73,8 @@ func (o *PresignResponse) HasExpiresIn() bool {
 	return false
 }
 
-// SetExpiresIn gets a reference to the given int32 and assigns it to the ExpiresIn field.
-func (o *PresignResponse) SetExpiresIn(v int32) {
+// SetExpiresIn gets a reference to the given int64 and assigns it to the ExpiresIn field.
+func (o *PresignResponse) SetExpiresIn(v int64) {
 	o.ExpiresIn = &v
 }
 

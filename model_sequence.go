@@ -20,7 +20,7 @@ var _ MappedNullable = &Sequence{}
 // Sequence struct for Sequence
 type Sequence struct {
 	// CreatedAt is unix seconds when the sequence was registered, server-assigned and never rewritten.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// ID is the server-assigned sequence id (\"seq_\" + 128 random bits).
 	Id *string `json:"id,omitempty"`
 	// Name is the sequence's label. Required, trimmed, capped at 1024 bytes.
@@ -28,7 +28,7 @@ type Sequence struct {
 	// Status is the lifecycle: draft, active or archived. Empty means draft, and ONLY an active sequence accepts enrollments.
 	Status *string `json:"status,omitempty"`
 	// UpdatedAt is unix seconds of the last status flip, server-assigned, and the key the sequence list is ordered by (newest first). Adding a step or enrolling a contact does NOT touch it — only draft/active/archived does — so it tracks activation rather than activity.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewSequence instantiates a new Sequence object
@@ -49,9 +49,9 @@ func NewSequenceWithDefaults() *Sequence {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *Sequence) GetCreatedAt() int32 {
+func (o *Sequence) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -59,7 +59,7 @@ func (o *Sequence) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Sequence) GetCreatedAtOk() (*int32, bool) {
+func (o *Sequence) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *Sequence) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *Sequence) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *Sequence) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -177,9 +177,9 @@ func (o *Sequence) SetStatus(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *Sequence) GetUpdatedAt() int32 {
+func (o *Sequence) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -187,7 +187,7 @@ func (o *Sequence) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Sequence) GetUpdatedAtOk() (*int32, bool) {
+func (o *Sequence) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *Sequence) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *Sequence) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *Sequence) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

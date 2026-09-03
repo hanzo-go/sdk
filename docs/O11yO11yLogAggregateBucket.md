@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **GroupBy** | Pointer to **map[string]interface{}** | GroupBy carries the group&#39;s key values when the aggregate grouped. | [optional] 
-**Timestamp** | Pointer to **int32** | Timestamp is the start of the bucket. | [optional] 
+**Timestamp** | Pointer to **int64** | Timestamp is the start of the bucket. | [optional] 
 **Value** | Pointer to **interface{}** |  | [optional] 
 
 ## Methods
@@ -54,20 +54,20 @@ HasGroupBy returns a boolean if a field has been set.
 
 ### GetTimestamp
 
-`func (o *O11yO11yLogAggregateBucket) GetTimestamp() int32`
+`func (o *O11yO11yLogAggregateBucket) GetTimestamp() int64`
 
 GetTimestamp returns the Timestamp field if non-nil, zero value otherwise.
 
 ### GetTimestampOk
 
-`func (o *O11yO11yLogAggregateBucket) GetTimestampOk() (*int32, bool)`
+`func (o *O11yO11yLogAggregateBucket) GetTimestampOk() (*int64, bool)`
 
 GetTimestampOk returns a tuple with the Timestamp field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimestamp
 
-`func (o *O11yO11yLogAggregateBucket) SetTimestamp(v int32)`
+`func (o *O11yO11yLogAggregateBucket) SetTimestamp(v int64)`
 
 SetTimestamp sets Timestamp field to given value.
 

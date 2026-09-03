@@ -20,7 +20,7 @@ var _ MappedNullable = &ProjectsDomain{}
 // ProjectsDomain struct for ProjectsDomain
 type ProjectsDomain struct {
 	// CreatedAt is when the host was claimed, as Unix seconds — not when it went live.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Detail is what is holding the claim up, in words a person can act on.
 	Detail *string `json:"detail,omitempty"`
 	// Host is the custom hostname claimed for this site.
@@ -53,9 +53,9 @@ func NewProjectsDomainWithDefaults() *ProjectsDomain {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *ProjectsDomain) GetCreatedAt() int32 {
+func (o *ProjectsDomain) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -63,7 +63,7 @@ func (o *ProjectsDomain) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsDomain) GetCreatedAtOk() (*int32, bool) {
+func (o *ProjectsDomain) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -79,8 +79,8 @@ func (o *ProjectsDomain) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *ProjectsDomain) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *ProjectsDomain) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 

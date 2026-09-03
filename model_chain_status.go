@@ -19,9 +19,9 @@ var _ MappedNullable = &ChainStatus{}
 
 // ChainStatus struct for ChainStatus
 type ChainStatus struct {
-	ChainId *int32 `json:"chainId,omitempty"`
+	ChainId *int64 `json:"chainId,omitempty"`
 	// Height is the latest block, omitted when the chain did not answer rather than reported as zero — a zero height is a real value on a fresh chain.
-	Height *int32  `json:"height,omitempty"`
+	Height *int64  `json:"height,omitempty"`
 	Id     *string `json:"id,omitempty"`
 	// Live is whether the upstream answered eth_blockNumber.
 	Live *bool   `json:"live,omitempty"`
@@ -46,9 +46,9 @@ func NewChainStatusWithDefaults() *ChainStatus {
 }
 
 // GetChainId returns the ChainId field value if set, zero value otherwise.
-func (o *ChainStatus) GetChainId() int32 {
+func (o *ChainStatus) GetChainId() int64 {
 	if o == nil || IsNil(o.ChainId) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ChainId
@@ -56,7 +56,7 @@ func (o *ChainStatus) GetChainId() int32 {
 
 // GetChainIdOk returns a tuple with the ChainId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ChainStatus) GetChainIdOk() (*int32, bool) {
+func (o *ChainStatus) GetChainIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.ChainId) {
 		return nil, false
 	}
@@ -72,15 +72,15 @@ func (o *ChainStatus) HasChainId() bool {
 	return false
 }
 
-// SetChainId gets a reference to the given int32 and assigns it to the ChainId field.
-func (o *ChainStatus) SetChainId(v int32) {
+// SetChainId gets a reference to the given int64 and assigns it to the ChainId field.
+func (o *ChainStatus) SetChainId(v int64) {
 	o.ChainId = &v
 }
 
 // GetHeight returns the Height field value if set, zero value otherwise.
-func (o *ChainStatus) GetHeight() int32 {
+func (o *ChainStatus) GetHeight() int64 {
 	if o == nil || IsNil(o.Height) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Height
@@ -88,7 +88,7 @@ func (o *ChainStatus) GetHeight() int32 {
 
 // GetHeightOk returns a tuple with the Height field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ChainStatus) GetHeightOk() (*int32, bool) {
+func (o *ChainStatus) GetHeightOk() (*int64, bool) {
 	if o == nil || IsNil(o.Height) {
 		return nil, false
 	}
@@ -104,8 +104,8 @@ func (o *ChainStatus) HasHeight() bool {
 	return false
 }
 
-// SetHeight gets a reference to the given int32 and assigns it to the Height field.
-func (o *ChainStatus) SetHeight(v int32) {
+// SetHeight gets a reference to the given int64 and assigns it to the Height field.
+func (o *ChainStatus) SetHeight(v int64) {
 	o.Height = &v
 }
 

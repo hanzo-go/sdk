@@ -7,9 +7,9 @@ Name | Type | Description | Notes
 **Meta** | Pointer to **map[string]string** |  | [optional] 
 **ProcessCMD** | Pointer to **string** |  | [optional] 
 **ProcessCMDLine** | Pointer to **string** |  | [optional] 
-**ProcessCPU** | Pointer to **float32** |  | [optional] 
+**ProcessCPU** | Pointer to **float64** |  | [optional] 
 **ProcessID** | Pointer to **string** |  | [optional] 
-**ProcessMemory** | Pointer to **float32** |  | [optional] 
+**ProcessMemory** | Pointer to **float64** |  | [optional] 
 **ProcessName** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -108,20 +108,20 @@ HasProcessCMDLine returns a boolean if a field has been set.
 
 ### GetProcessCPU
 
-`func (o *O11yProcessListRecord) GetProcessCPU() float32`
+`func (o *O11yProcessListRecord) GetProcessCPU() float64`
 
 GetProcessCPU returns the ProcessCPU field if non-nil, zero value otherwise.
 
 ### GetProcessCPUOk
 
-`func (o *O11yProcessListRecord) GetProcessCPUOk() (*float32, bool)`
+`func (o *O11yProcessListRecord) GetProcessCPUOk() (*float64, bool)`
 
 GetProcessCPUOk returns a tuple with the ProcessCPU field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProcessCPU
 
-`func (o *O11yProcessListRecord) SetProcessCPU(v float32)`
+`func (o *O11yProcessListRecord) SetProcessCPU(v float64)`
 
 SetProcessCPU sets ProcessCPU field to given value.
 
@@ -158,20 +158,20 @@ HasProcessID returns a boolean if a field has been set.
 
 ### GetProcessMemory
 
-`func (o *O11yProcessListRecord) GetProcessMemory() float32`
+`func (o *O11yProcessListRecord) GetProcessMemory() float64`
 
 GetProcessMemory returns the ProcessMemory field if non-nil, zero value otherwise.
 
 ### GetProcessMemoryOk
 
-`func (o *O11yProcessListRecord) GetProcessMemoryOk() (*float32, bool)`
+`func (o *O11yProcessListRecord) GetProcessMemoryOk() (*float64, bool)`
 
 GetProcessMemoryOk returns a tuple with the ProcessMemory field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProcessMemory
 
-`func (o *O11yProcessListRecord) SetProcessMemory(v float32)`
+`func (o *O11yProcessListRecord) SetProcessMemory(v float64)`
 
 SetProcessMemory sets ProcessMemory field to given value.
 

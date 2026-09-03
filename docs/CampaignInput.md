@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Account** | Pointer to **string** | Account is the provider ad-account this campaign runs on (Meta act_&lt;id&gt;). Optional. | [optional] 
-**Budget** | Pointer to **int32** | Budget is the campaign budget in MINOR units (cents). Negative values clamp to 0. | [optional] 
+**Budget** | Pointer to **int64** | Budget is the campaign budget in MINOR units (cents). Negative values clamp to 0. | [optional] 
 **Name** | Pointer to **string** | Name is the campaign&#39;s display label. Required; trimmed and bounded to 1024 bytes. | [optional] 
 **Objective** | Pointer to **string** | Objective is the campaign goal as the provider names it. Optional, bounded to 1024 bytes. | [optional] 
 **Platform** | Pointer to **string** | Platform is the ad network: meta, google, tiktok or x. Empty defaults to meta. | [optional] 
-**Spend** | Pointer to **int32** | Spend is the amount spent so far in MINOR units (cents). Negative values clamp to 0. | [optional] 
+**Spend** | Pointer to **int64** | Spend is the amount spent so far in MINOR units (cents). Negative values clamp to 0. | [optional] 
 **Status** | Pointer to **string** | Status is the lifecycle state: draft, active, paused or completed. Empty defaults to draft. | [optional] 
 
 ## Methods
@@ -58,20 +58,20 @@ HasAccount returns a boolean if a field has been set.
 
 ### GetBudget
 
-`func (o *CampaignInput) GetBudget() int32`
+`func (o *CampaignInput) GetBudget() int64`
 
 GetBudget returns the Budget field if non-nil, zero value otherwise.
 
 ### GetBudgetOk
 
-`func (o *CampaignInput) GetBudgetOk() (*int32, bool)`
+`func (o *CampaignInput) GetBudgetOk() (*int64, bool)`
 
 GetBudgetOk returns a tuple with the Budget field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBudget
 
-`func (o *CampaignInput) SetBudget(v int32)`
+`func (o *CampaignInput) SetBudget(v int64)`
 
 SetBudget sets Budget field to given value.
 
@@ -158,20 +158,20 @@ HasPlatform returns a boolean if a field has been set.
 
 ### GetSpend
 
-`func (o *CampaignInput) GetSpend() int32`
+`func (o *CampaignInput) GetSpend() int64`
 
 GetSpend returns the Spend field if non-nil, zero value otherwise.
 
 ### GetSpendOk
 
-`func (o *CampaignInput) GetSpendOk() (*int32, bool)`
+`func (o *CampaignInput) GetSpendOk() (*int64, bool)`
 
 GetSpendOk returns a tuple with the Spend field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSpend
 
-`func (o *CampaignInput) SetSpend(v int32)`
+`func (o *CampaignInput) SetSpend(v int64)`
 
 SetSpend sets Spend field to given value.
 

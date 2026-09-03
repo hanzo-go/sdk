@@ -20,7 +20,7 @@ var _ MappedNullable = &Charge{}
 // Charge struct for Charge
 type Charge struct {
 	// AmountCents is what this line costs.
-	AmountCents *int32 `json:"amountCents,omitempty"`
+	AmountCents *int64 `json:"amountCents,omitempty"`
 	// AsOf is when a pass-through amount was last checked against its source.
 	AsOf *string `json:"asOf,omitempty"`
 	// Code names the line so a caller can branch on it without reading prose.
@@ -55,9 +55,9 @@ func NewChargeWithDefaults() *Charge {
 }
 
 // GetAmountCents returns the AmountCents field value if set, zero value otherwise.
-func (o *Charge) GetAmountCents() int32 {
+func (o *Charge) GetAmountCents() int64 {
 	if o == nil || IsNil(o.AmountCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AmountCents
@@ -65,7 +65,7 @@ func (o *Charge) GetAmountCents() int32 {
 
 // GetAmountCentsOk returns a tuple with the AmountCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Charge) GetAmountCentsOk() (*int32, bool) {
+func (o *Charge) GetAmountCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.AmountCents) {
 		return nil, false
 	}
@@ -81,8 +81,8 @@ func (o *Charge) HasAmountCents() bool {
 	return false
 }
 
-// SetAmountCents gets a reference to the given int32 and assigns it to the AmountCents field.
-func (o *Charge) SetAmountCents(v int32) {
+// SetAmountCents gets a reference to the given int64 and assigns it to the AmountCents field.
+func (o *Charge) SetAmountCents(v int64) {
 	o.AmountCents = &v
 }
 

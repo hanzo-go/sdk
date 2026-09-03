@@ -26,7 +26,7 @@ type ChannelMetric struct {
 	// Platform is the provider the spend was read from: meta, google, x, instagram, or the email provider.
 	Platform *string `json:"platform,omitempty"`
 	// SpendCents is what the provider itself reports this channel spent, in CENTS. 0 when the channel never launched, when no executor is wired for it, or when the read failed — SpendError tells the last case apart from a genuine zero.
-	SpendCents *int32 `json:"spendCents,omitempty"`
+	SpendCents *int64 `json:"spendCents,omitempty"`
 	// SpendError is why this channel's spend could not be read (connector not connected, provider error), as one secret-free line. Present only on failure; the campaign total then simply omits this channel rather than failing.
 	SpendError *string `json:"spendError,omitempty"`
 	// Status is the channel's launch state on the campaign — pending, live, paused, failed or unavailable. Only a live channel is asked for its spend at all.
@@ -147,9 +147,9 @@ func (o *ChannelMetric) SetPlatform(v string) {
 }
 
 // GetSpendCents returns the SpendCents field value if set, zero value otherwise.
-func (o *ChannelMetric) GetSpendCents() int32 {
+func (o *ChannelMetric) GetSpendCents() int64 {
 	if o == nil || IsNil(o.SpendCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SpendCents
@@ -157,7 +157,7 @@ func (o *ChannelMetric) GetSpendCents() int32 {
 
 // GetSpendCentsOk returns a tuple with the SpendCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ChannelMetric) GetSpendCentsOk() (*int32, bool) {
+func (o *ChannelMetric) GetSpendCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.SpendCents) {
 		return nil, false
 	}
@@ -173,8 +173,8 @@ func (o *ChannelMetric) HasSpendCents() bool {
 	return false
 }
 
-// SetSpendCents gets a reference to the given int32 and assigns it to the SpendCents field.
-func (o *ChannelMetric) SetSpendCents(v int32) {
+// SetSpendCents gets a reference to the given int64 and assigns it to the SpendCents field.
+func (o *ChannelMetric) SetSpendCents(v int64) {
 	o.SpendCents = &v
 }
 

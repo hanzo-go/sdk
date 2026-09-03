@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Buckets** | Pointer to [**[]BucketItem**](BucketItem.md) | Buckets are the caller org&#39;s buckets, friendly names, oldest first as the store returns them. | [optional] 
-**Total** | Pointer to **int32** | Total is how many buckets this org has. It equals len(buckets): the listing is not paged, because an org&#39;s bucket count is small by construction. | [optional] 
+**Total** | Pointer to **int64** | Total is how many buckets this org has. It equals len(buckets): the listing is not paged, because an org&#39;s bucket count is small by construction. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasBuckets returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *BucketList) GetTotal() int32`
+`func (o *BucketList) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *BucketList) GetTotalOk() (*int32, bool)`
+`func (o *BucketList) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *BucketList) SetTotal(v int32)`
+`func (o *BucketList) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

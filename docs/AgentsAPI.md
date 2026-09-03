@@ -327,7 +327,7 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 | Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
+	limit := int64(789) // int64 | Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -352,7 +352,7 @@ Other parameters are passed through a pointer to a apiGetAgentsBuildsRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit caps the page. Absent, zero or over 500 reads as 100. | 
+ **limit** | **int64** | Limit caps the page. Absent, zero or over 500 reads as 100. | 
 
 ### Return type
 
@@ -537,7 +537,7 @@ import (
 
 func main() {
 	ref := "helper" // string | Ref is the agent's public id or its org-unique name, from the path.
-	limit := int32(20) // int32 | Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. (optional)
+	limit := int64(20) // int64 | Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -567,7 +567,7 @@ Other parameters are passed through a pointer to a apiGetAgentsByRefRunsRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **limit** | **int32** | Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. | 
+ **limit** | **int64** | Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. | 
 
 ### Return type
 
@@ -860,7 +860,7 @@ import (
 )
 
 func main() {
-	limit := int32(20) // int32 | Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. (optional)
+	limit := int64(20) // int64 | Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. (optional)
 	status := "error" // string | Status keeps only runs with this outcome (\"ok\" or \"error\"). Empty keeps both. It is the filter an operator reaches for first — \"show me what broke\" — and answering it here rather than by paging the whole history client-side is the difference between a usable feed and a download. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -886,7 +886,7 @@ Other parameters are passed through a pointer to a apiGetAgentsRunsRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. | 
+ **limit** | **int64** | Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. | 
  **status** | **string** | Status keeps only runs with this outcome (\&quot;ok\&quot; or \&quot;error\&quot;). Empty keeps both. It is the filter an operator reaches for first — \&quot;show me what broke\&quot; — and answering it here rather than by paging the whole history client-side is the difference between a usable feed and a download. | 
 
 ### Return type
@@ -933,7 +933,7 @@ func main() {
 	status := "running" // string | Status filters to running, paused, done or error. (optional)
 	project := "project_example" // string | Project filters to the sessions tagged with one product slug. (optional)
 	room := "room_example" // string | Room filters to the sessions started in one collaborative room — the query a space view runs to show what has been run in it. (optional)
-	limit := int32(20) // int32 | Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
+	limit := int64(20) // int64 | Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -963,7 +963,7 @@ Name | Type | Description  | Notes
  **status** | **string** | Status filters to running, paused, done or error. | 
  **project** | **string** | Project filters to the sessions tagged with one product slug. | 
  **room** | **string** | Room filters to the sessions started in one collaborative room — the query a space view runs to show what has been run in it. | 
- **limit** | **int32** | Limit caps the page. Absent, zero or over 500 reads as 100. | 
+ **limit** | **int64** | Limit caps the page. Absent, zero or over 500 reads as 100. | 
 
 ### Return type
 
@@ -1075,7 +1075,7 @@ import (
 
 func main() {
 	id := "sess_1" // string | ID is the session whose commands are being drained, from the path.
-	after := int32(12) // int32 | After is the last seq this poller applied; only commands newer than it come back. Absent or negative reads as 0, which drains from the beginning. (optional)
+	after := int64(12) // int64 | After is the last seq this poller applied; only commands newer than it come back. Absent or negative reads as 0, which drains from the beginning. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1105,7 +1105,7 @@ Other parameters are passed through a pointer to a apiGetAgentsSessionsByIdContr
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **after** | **int32** | After is the last seq this poller applied; only commands newer than it come back. Absent or negative reads as 0, which drains from the beginning. | 
+ **after** | **int64** | After is the last seq this poller applied; only commands newer than it come back. Absent or negative reads as 0, which drains from the beginning. | 
 
 ### Return type
 
@@ -1928,8 +1928,6 @@ Other parameters are passed through a pointer to a apiPostAgentsChatConversation
 > CodingStarted PostAgentsCoding(ctx).CodingStartIn(codingStartIn).Execute()
 
 Start one autonomous coding run against a repo in the caller's org
-
-
 
 ### Example
 

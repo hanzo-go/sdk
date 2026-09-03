@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Qualified** | Pointer to **int32** | Qualified is how many referees have made metered spend. | [optional] 
-**Signup** | Pointer to **int32** | Signup is how many referees have signed up but not yet spent. | [optional] 
-**Total** | Pointer to **int32** | Total is every referral this org has made. | [optional] 
+**Qualified** | Pointer to **int64** | Qualified is how many referees have made metered spend. | [optional] 
+**Signup** | Pointer to **int64** | Signup is how many referees have signed up but not yet spent. | [optional] 
+**Total** | Pointer to **int64** | Total is every referral this org has made. | [optional] 
 
 ## Methods
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetQualified
 
-`func (o *StatusCounts) GetQualified() int32`
+`func (o *StatusCounts) GetQualified() int64`
 
 GetQualified returns the Qualified field if non-nil, zero value otherwise.
 
 ### GetQualifiedOk
 
-`func (o *StatusCounts) GetQualifiedOk() (*int32, bool)`
+`func (o *StatusCounts) GetQualifiedOk() (*int64, bool)`
 
 GetQualifiedOk returns a tuple with the Qualified field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQualified
 
-`func (o *StatusCounts) SetQualified(v int32)`
+`func (o *StatusCounts) SetQualified(v int64)`
 
 SetQualified sets Qualified field to given value.
 
@@ -54,20 +54,20 @@ HasQualified returns a boolean if a field has been set.
 
 ### GetSignup
 
-`func (o *StatusCounts) GetSignup() int32`
+`func (o *StatusCounts) GetSignup() int64`
 
 GetSignup returns the Signup field if non-nil, zero value otherwise.
 
 ### GetSignupOk
 
-`func (o *StatusCounts) GetSignupOk() (*int32, bool)`
+`func (o *StatusCounts) GetSignupOk() (*int64, bool)`
 
 GetSignupOk returns a tuple with the Signup field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSignup
 
-`func (o *StatusCounts) SetSignup(v int32)`
+`func (o *StatusCounts) SetSignup(v int64)`
 
 SetSignup sets Signup field to given value.
 
@@ -79,20 +79,20 @@ HasSignup returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *StatusCounts) GetTotal() int32`
+`func (o *StatusCounts) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *StatusCounts) GetTotalOk() (*int32, bool)`
+`func (o *StatusCounts) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *StatusCounts) SetTotal(v int32)`
+`func (o *StatusCounts) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

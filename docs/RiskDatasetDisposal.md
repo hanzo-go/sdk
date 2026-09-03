@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Dataset** | Pointer to **string** | Dataset is the dataset that was disposed of. The NAME survives: declaring it again continues the version count rather than starting over at 1. | [optional] 
-**Rows** | Pointer to **int32** | Rows is how many rows they held between them, as the REGISTER recorded them when each was materialised — not a count of what the drop deleted, which is gone by the time this answers. | [optional] 
-**Versions** | Pointer to **int32** | Versions is how many versions went. | [optional] 
+**Rows** | Pointer to **int64** | Rows is how many rows they held between them, as the REGISTER recorded them when each was materialised — not a count of what the drop deleted, which is gone by the time this answers. | [optional] 
+**Versions** | Pointer to **int64** | Versions is how many versions went. | [optional] 
 
 ## Methods
 
@@ -54,20 +54,20 @@ HasDataset returns a boolean if a field has been set.
 
 ### GetRows
 
-`func (o *RiskDatasetDisposal) GetRows() int32`
+`func (o *RiskDatasetDisposal) GetRows() int64`
 
 GetRows returns the Rows field if non-nil, zero value otherwise.
 
 ### GetRowsOk
 
-`func (o *RiskDatasetDisposal) GetRowsOk() (*int32, bool)`
+`func (o *RiskDatasetDisposal) GetRowsOk() (*int64, bool)`
 
 GetRowsOk returns a tuple with the Rows field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRows
 
-`func (o *RiskDatasetDisposal) SetRows(v int32)`
+`func (o *RiskDatasetDisposal) SetRows(v int64)`
 
 SetRows sets Rows field to given value.
 
@@ -79,20 +79,20 @@ HasRows returns a boolean if a field has been set.
 
 ### GetVersions
 
-`func (o *RiskDatasetDisposal) GetVersions() int32`
+`func (o *RiskDatasetDisposal) GetVersions() int64`
 
 GetVersions returns the Versions field if non-nil, zero value otherwise.
 
 ### GetVersionsOk
 
-`func (o *RiskDatasetDisposal) GetVersionsOk() (*int32, bool)`
+`func (o *RiskDatasetDisposal) GetVersionsOk() (*int64, bool)`
 
 GetVersionsOk returns a tuple with the Versions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersions
 
-`func (o *RiskDatasetDisposal) SetVersions(v int32)`
+`func (o *RiskDatasetDisposal) SetVersions(v int64)`
 
 SetVersions sets Versions field to given value.
 

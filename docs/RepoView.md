@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **Org** | Pointer to **string** | Org owns the repo — the gateway-minted X-Org-Id, and the isolation key. | [optional] 
 **Project** | Pointer to **string** | Project is the optional sub-scope the repo lives in; absent for the org&#39;s default scope. | [optional] 
 **Public** | Pointer to **bool** | Public grants ANONYMOUS read (fetch) only; push and the whole control plane stay org-authed. | [optional] 
-**SizeBytes** | Pointer to **int32** | SizeBytes is the repo&#39;s measured on-disk size, re-measured on create, after each push, and after a gc. This is the number billing meters. | [optional] 
+**SizeBytes** | Pointer to **int64** | SizeBytes is the repo&#39;s measured on-disk size, re-measured on create, after each push, and after a gc. This is the number billing meters. | [optional] 
 **SshUrl** | Pointer to **string** | SSHURL is the scp-style SSH remote (git@host:org/repo.git). | [optional] 
 **UpdatedAt** | Pointer to **string** | UpdatedAt is RFC 3339 UTC, empty until the first write. | [optional] 
 
@@ -315,20 +315,20 @@ HasPublic returns a boolean if a field has been set.
 
 ### GetSizeBytes
 
-`func (o *RepoView) GetSizeBytes() int32`
+`func (o *RepoView) GetSizeBytes() int64`
 
 GetSizeBytes returns the SizeBytes field if non-nil, zero value otherwise.
 
 ### GetSizeBytesOk
 
-`func (o *RepoView) GetSizeBytesOk() (*int32, bool)`
+`func (o *RepoView) GetSizeBytesOk() (*int64, bool)`
 
 GetSizeBytesOk returns a tuple with the SizeBytes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSizeBytes
 
-`func (o *RepoView) SetSizeBytes(v int32)`
+`func (o *RepoView) SetSizeBytes(v int64)`
 
 SetSizeBytes sets SizeBytes field to given value.
 

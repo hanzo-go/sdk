@@ -20,8 +20,8 @@ var _ MappedNullable = &O11yNamespaceRecord{}
 // O11yNamespaceRecord struct for O11yNamespaceRecord
 type O11yNamespaceRecord struct {
 	Meta             map[string]string     `json:"meta,omitempty"`
-	NamespaceCPU     *float32              `json:"namespaceCPU,omitempty"`
-	NamespaceMemory  *float32              `json:"namespaceMemory,omitempty"`
+	NamespaceCPU     *float64              `json:"namespaceCPU,omitempty"`
+	NamespaceMemory  *float64              `json:"namespaceMemory,omitempty"`
 	NamespaceName    *string               `json:"namespaceName,omitempty"`
 	PodCountsByPhase *O11yPodCountsByPhase `json:"podCountsByPhase,omitempty"`
 }
@@ -76,9 +76,9 @@ func (o *O11yNamespaceRecord) SetMeta(v map[string]string) {
 }
 
 // GetNamespaceCPU returns the NamespaceCPU field value if set, zero value otherwise.
-func (o *O11yNamespaceRecord) GetNamespaceCPU() float32 {
+func (o *O11yNamespaceRecord) GetNamespaceCPU() float64 {
 	if o == nil || IsNil(o.NamespaceCPU) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.NamespaceCPU
@@ -86,7 +86,7 @@ func (o *O11yNamespaceRecord) GetNamespaceCPU() float32 {
 
 // GetNamespaceCPUOk returns a tuple with the NamespaceCPU field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yNamespaceRecord) GetNamespaceCPUOk() (*float32, bool) {
+func (o *O11yNamespaceRecord) GetNamespaceCPUOk() (*float64, bool) {
 	if o == nil || IsNil(o.NamespaceCPU) {
 		return nil, false
 	}
@@ -102,15 +102,15 @@ func (o *O11yNamespaceRecord) HasNamespaceCPU() bool {
 	return false
 }
 
-// SetNamespaceCPU gets a reference to the given float32 and assigns it to the NamespaceCPU field.
-func (o *O11yNamespaceRecord) SetNamespaceCPU(v float32) {
+// SetNamespaceCPU gets a reference to the given float64 and assigns it to the NamespaceCPU field.
+func (o *O11yNamespaceRecord) SetNamespaceCPU(v float64) {
 	o.NamespaceCPU = &v
 }
 
 // GetNamespaceMemory returns the NamespaceMemory field value if set, zero value otherwise.
-func (o *O11yNamespaceRecord) GetNamespaceMemory() float32 {
+func (o *O11yNamespaceRecord) GetNamespaceMemory() float64 {
 	if o == nil || IsNil(o.NamespaceMemory) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.NamespaceMemory
@@ -118,7 +118,7 @@ func (o *O11yNamespaceRecord) GetNamespaceMemory() float32 {
 
 // GetNamespaceMemoryOk returns a tuple with the NamespaceMemory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yNamespaceRecord) GetNamespaceMemoryOk() (*float32, bool) {
+func (o *O11yNamespaceRecord) GetNamespaceMemoryOk() (*float64, bool) {
 	if o == nil || IsNil(o.NamespaceMemory) {
 		return nil, false
 	}
@@ -134,8 +134,8 @@ func (o *O11yNamespaceRecord) HasNamespaceMemory() bool {
 	return false
 }
 
-// SetNamespaceMemory gets a reference to the given float32 and assigns it to the NamespaceMemory field.
-func (o *O11yNamespaceRecord) SetNamespaceMemory(v float32) {
+// SetNamespaceMemory gets a reference to the given float64 and assigns it to the NamespaceMemory field.
+func (o *O11yNamespaceRecord) SetNamespaceMemory(v float64) {
 	o.NamespaceMemory = &v
 }
 

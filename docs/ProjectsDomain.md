@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the host was claimed, as Unix seconds — not when it went live. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the host was claimed, as Unix seconds — not when it went live. | [optional] 
 **Detail** | Pointer to **string** | Detail is what is holding the claim up, in words a person can act on. | [optional] 
 **Host** | Pointer to **string** | Host is the custom hostname claimed for this site. | [optional] 
 **Records** | Pointer to [**[]Record**](Record.md) | Records are EXACTLY the DNS records to publish to prove ownership and route the host. Present only while pending, because a live host has already proved it; absent is therefore \&quot;nothing left to do\&quot;, not \&quot;we cannot say what to do\&quot;. | [optional] 
@@ -33,20 +33,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreatedAt
 
-`func (o *ProjectsDomain) GetCreatedAt() int32`
+`func (o *ProjectsDomain) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *ProjectsDomain) GetCreatedAtOk() (*int32, bool)`
+`func (o *ProjectsDomain) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *ProjectsDomain) SetCreatedAt(v int32)`
+`func (o *ProjectsDomain) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 

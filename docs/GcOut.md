@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Maintained** | Pointer to **bool** | Maintained is always true; the call fails rather than reporting false. | [optional] 
 **Repo** | Pointer to **string** | Repo is the repo that was repacked. | [optional] 
-**SizeBytes** | Pointer to **int32** | SizeBytes is the size measured AFTER the repack — usually smaller, since repacking drops the packs it supersedes. | [optional] 
+**SizeBytes** | Pointer to **int64** | SizeBytes is the size measured AFTER the repack — usually smaller, since repacking drops the packs it supersedes. | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasRepo returns a boolean if a field has been set.
 
 ### GetSizeBytes
 
-`func (o *GcOut) GetSizeBytes() int32`
+`func (o *GcOut) GetSizeBytes() int64`
 
 GetSizeBytes returns the SizeBytes field if non-nil, zero value otherwise.
 
 ### GetSizeBytesOk
 
-`func (o *GcOut) GetSizeBytesOk() (*int32, bool)`
+`func (o *GcOut) GetSizeBytesOk() (*int64, bool)`
 
 GetSizeBytesOk returns a tuple with the SizeBytes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSizeBytes
 
-`func (o *GcOut) SetSizeBytes(v int32)`
+`func (o *GcOut) SetSizeBytes(v int64)`
 
 SetSizeBytes sets SizeBytes field to given value.
 

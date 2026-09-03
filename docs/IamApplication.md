@@ -12,8 +12,8 @@ Name | Type | Description | Notes
 **ClientCert** | Pointer to **string** |  | [optional] 
 **ClientId** | Pointer to **string** | ClientId is the OAuth2/OIDC client identifier and the GLOBAL key every confidential-client resolver authenticates against (store.GetApplicationByClientId, the mint gates, Basic auth). It MUST be globally unique across ALL owners — a collision would let one app shadow another at that key. This store persists each entity as a JSON document in a shared table, so there is no per-field column to carry a DB UNIQUE index; uniqueness is enforced at the write in applications.Create/Update (ensureClientIdUnique), exactly as the (owner,name) natural key is, and store.GetApplicationByClientId resolves admin-preferring as defense-in-depth. | [optional] 
 **ClientSecret** | Pointer to **string** |  | [optional] 
-**CodeResendTimeout** | Pointer to **int32** |  | [optional] 
-**CookieExpireInHours** | Pointer to **int32** |  | [optional] 
+**CodeResendTimeout** | Pointer to **int64** |  | [optional] 
+**CookieExpireInHours** | Pointer to **int64** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **CreatedTime** | Pointer to **string** |  | [optional] 
 **CustomScopes** | Pointer to [**[]IamScopeDescription**](IamScopeDescription.md) |  | [optional] 
@@ -37,9 +37,9 @@ Name | Type | Description | Notes
 **EnableSigninSession** | Pointer to **bool** |  | [optional] 
 **EnableWebAuthn** | Pointer to **bool** |  | [optional] 
 **Environment** | Pointer to **string** |  | [optional] 
-**ExpireInHours** | Pointer to **float32** |  | [optional] 
-**FailedSigninFrozenTime** | Pointer to **int32** |  | [optional] 
-**FailedSigninLimit** | Pointer to **int32** |  | [optional] 
+**ExpireInHours** | Pointer to **float64** |  | [optional] 
+**FailedSigninFrozenTime** | Pointer to **int64** |  | [optional] 
+**FailedSigninLimit** | Pointer to **int64** |  | [optional] 
 **Favicon** | Pointer to **string** |  | [optional] 
 **FooterHtml** | Pointer to **string** |  | [optional] 
 **ForcedRedirectOrigin** | Pointer to **string** |  | [optional] 
@@ -48,7 +48,7 @@ Name | Type | Description | Notes
 **FormBackgroundUrlMobile** | Pointer to **string** |  | [optional] 
 **FormCss** | Pointer to **string** |  | [optional] 
 **FormCssMobile** | Pointer to **string** |  | [optional] 
-**FormOffset** | Pointer to **int32** |  | [optional] 
+**FormOffset** | Pointer to **int64** |  | [optional] 
 **FormSideHtml** | Pointer to **string** |  | [optional] 
 **GrantTypes** | Pointer to **[]string** |  | [optional] 
 **HeaderHtml** | Pointer to **string** |  | [optional] 
@@ -59,7 +59,7 @@ Name | Type | Description | Notes
 **IsShared** | Pointer to **bool** |  | [optional] 
 **Logo** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**Order** | Pointer to **int32** |  | [optional] 
+**Order** | Pointer to **int64** |  | [optional] 
 **OrgChoiceMode** | Pointer to **string** |  | [optional] 
 **Organization** | Pointer to **string** |  | [optional] 
 **OrganizationObj** | Pointer to [**IamOrganization**](IamOrganization.md) |  | [optional] 
@@ -68,7 +68,7 @@ Name | Type | Description | Notes
 **Project** | Pointer to **string** |  | [optional] 
 **Providers** | Pointer to [**[]IamProviderItem**](IamProviderItem.md) |  | [optional] 
 **RedirectUris** | Pointer to **[]string** |  | [optional] 
-**RefreshExpireInHours** | Pointer to **float32** |  | [optional] 
+**RefreshExpireInHours** | Pointer to **float64** |  | [optional] 
 **SamlAttributes** | Pointer to [**[]IamSamlItem**](IamSamlItem.md) |  | [optional] 
 **SamlHashAlgorithm** | Pointer to **string** |  | [optional] 
 **SamlReplyUrl** | Pointer to **string** |  | [optional] 
@@ -316,20 +316,20 @@ HasClientSecret returns a boolean if a field has been set.
 
 ### GetCodeResendTimeout
 
-`func (o *IamApplication) GetCodeResendTimeout() int32`
+`func (o *IamApplication) GetCodeResendTimeout() int64`
 
 GetCodeResendTimeout returns the CodeResendTimeout field if non-nil, zero value otherwise.
 
 ### GetCodeResendTimeoutOk
 
-`func (o *IamApplication) GetCodeResendTimeoutOk() (*int32, bool)`
+`func (o *IamApplication) GetCodeResendTimeoutOk() (*int64, bool)`
 
 GetCodeResendTimeoutOk returns a tuple with the CodeResendTimeout field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCodeResendTimeout
 
-`func (o *IamApplication) SetCodeResendTimeout(v int32)`
+`func (o *IamApplication) SetCodeResendTimeout(v int64)`
 
 SetCodeResendTimeout sets CodeResendTimeout field to given value.
 
@@ -341,20 +341,20 @@ HasCodeResendTimeout returns a boolean if a field has been set.
 
 ### GetCookieExpireInHours
 
-`func (o *IamApplication) GetCookieExpireInHours() int32`
+`func (o *IamApplication) GetCookieExpireInHours() int64`
 
 GetCookieExpireInHours returns the CookieExpireInHours field if non-nil, zero value otherwise.
 
 ### GetCookieExpireInHoursOk
 
-`func (o *IamApplication) GetCookieExpireInHoursOk() (*int32, bool)`
+`func (o *IamApplication) GetCookieExpireInHoursOk() (*int64, bool)`
 
 GetCookieExpireInHoursOk returns a tuple with the CookieExpireInHours field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCookieExpireInHours
 
-`func (o *IamApplication) SetCookieExpireInHours(v int32)`
+`func (o *IamApplication) SetCookieExpireInHours(v int64)`
 
 SetCookieExpireInHours sets CookieExpireInHours field to given value.
 
@@ -941,20 +941,20 @@ HasEnvironment returns a boolean if a field has been set.
 
 ### GetExpireInHours
 
-`func (o *IamApplication) GetExpireInHours() float32`
+`func (o *IamApplication) GetExpireInHours() float64`
 
 GetExpireInHours returns the ExpireInHours field if non-nil, zero value otherwise.
 
 ### GetExpireInHoursOk
 
-`func (o *IamApplication) GetExpireInHoursOk() (*float32, bool)`
+`func (o *IamApplication) GetExpireInHoursOk() (*float64, bool)`
 
 GetExpireInHoursOk returns a tuple with the ExpireInHours field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpireInHours
 
-`func (o *IamApplication) SetExpireInHours(v float32)`
+`func (o *IamApplication) SetExpireInHours(v float64)`
 
 SetExpireInHours sets ExpireInHours field to given value.
 
@@ -966,20 +966,20 @@ HasExpireInHours returns a boolean if a field has been set.
 
 ### GetFailedSigninFrozenTime
 
-`func (o *IamApplication) GetFailedSigninFrozenTime() int32`
+`func (o *IamApplication) GetFailedSigninFrozenTime() int64`
 
 GetFailedSigninFrozenTime returns the FailedSigninFrozenTime field if non-nil, zero value otherwise.
 
 ### GetFailedSigninFrozenTimeOk
 
-`func (o *IamApplication) GetFailedSigninFrozenTimeOk() (*int32, bool)`
+`func (o *IamApplication) GetFailedSigninFrozenTimeOk() (*int64, bool)`
 
 GetFailedSigninFrozenTimeOk returns a tuple with the FailedSigninFrozenTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFailedSigninFrozenTime
 
-`func (o *IamApplication) SetFailedSigninFrozenTime(v int32)`
+`func (o *IamApplication) SetFailedSigninFrozenTime(v int64)`
 
 SetFailedSigninFrozenTime sets FailedSigninFrozenTime field to given value.
 
@@ -991,20 +991,20 @@ HasFailedSigninFrozenTime returns a boolean if a field has been set.
 
 ### GetFailedSigninLimit
 
-`func (o *IamApplication) GetFailedSigninLimit() int32`
+`func (o *IamApplication) GetFailedSigninLimit() int64`
 
 GetFailedSigninLimit returns the FailedSigninLimit field if non-nil, zero value otherwise.
 
 ### GetFailedSigninLimitOk
 
-`func (o *IamApplication) GetFailedSigninLimitOk() (*int32, bool)`
+`func (o *IamApplication) GetFailedSigninLimitOk() (*int64, bool)`
 
 GetFailedSigninLimitOk returns a tuple with the FailedSigninLimit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFailedSigninLimit
 
-`func (o *IamApplication) SetFailedSigninLimit(v int32)`
+`func (o *IamApplication) SetFailedSigninLimit(v int64)`
 
 SetFailedSigninLimit sets FailedSigninLimit field to given value.
 
@@ -1216,20 +1216,20 @@ HasFormCssMobile returns a boolean if a field has been set.
 
 ### GetFormOffset
 
-`func (o *IamApplication) GetFormOffset() int32`
+`func (o *IamApplication) GetFormOffset() int64`
 
 GetFormOffset returns the FormOffset field if non-nil, zero value otherwise.
 
 ### GetFormOffsetOk
 
-`func (o *IamApplication) GetFormOffsetOk() (*int32, bool)`
+`func (o *IamApplication) GetFormOffsetOk() (*int64, bool)`
 
 GetFormOffsetOk returns a tuple with the FormOffset field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFormOffset
 
-`func (o *IamApplication) SetFormOffset(v int32)`
+`func (o *IamApplication) SetFormOffset(v int64)`
 
 SetFormOffset sets FormOffset field to given value.
 
@@ -1491,20 +1491,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetOrder
 
-`func (o *IamApplication) GetOrder() int32`
+`func (o *IamApplication) GetOrder() int64`
 
 GetOrder returns the Order field if non-nil, zero value otherwise.
 
 ### GetOrderOk
 
-`func (o *IamApplication) GetOrderOk() (*int32, bool)`
+`func (o *IamApplication) GetOrderOk() (*int64, bool)`
 
 GetOrderOk returns a tuple with the Order field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrder
 
-`func (o *IamApplication) SetOrder(v int32)`
+`func (o *IamApplication) SetOrder(v int64)`
 
 SetOrder sets Order field to given value.
 
@@ -1716,20 +1716,20 @@ HasRedirectUris returns a boolean if a field has been set.
 
 ### GetRefreshExpireInHours
 
-`func (o *IamApplication) GetRefreshExpireInHours() float32`
+`func (o *IamApplication) GetRefreshExpireInHours() float64`
 
 GetRefreshExpireInHours returns the RefreshExpireInHours field if non-nil, zero value otherwise.
 
 ### GetRefreshExpireInHoursOk
 
-`func (o *IamApplication) GetRefreshExpireInHoursOk() (*float32, bool)`
+`func (o *IamApplication) GetRefreshExpireInHoursOk() (*float64, bool)`
 
 GetRefreshExpireInHoursOk returns a tuple with the RefreshExpireInHours field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRefreshExpireInHours
 
-`func (o *IamApplication) SetRefreshExpireInHours(v float32)`
+`func (o *IamApplication) SetRefreshExpireInHours(v float64)`
 
 SetRefreshExpireInHours sets RefreshExpireInHours field to given value.
 

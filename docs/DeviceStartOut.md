@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ExpiresAt** | Pointer to **string** | ExpiresAt is when the flow dies, RFC 3339 UTC. | [optional] 
 **Flow** | Pointer to **string** | Flow is the id to poll with. | [optional] 
-**Interval** | Pointer to **int32** | Interval is the seconds to wait between polls. | [optional] 
+**Interval** | Pointer to **int64** | Interval is the seconds to wait between polls. | [optional] 
 **UserCode** | Pointer to **string** | UserCode is the short code the user types at VerifyURL. | [optional] 
 **VerifyUrl** | Pointer to **string** | VerifyURL is the page the user opens to enter UserCode. | [optional] 
 
@@ -81,20 +81,20 @@ HasFlow returns a boolean if a field has been set.
 
 ### GetInterval
 
-`func (o *DeviceStartOut) GetInterval() int32`
+`func (o *DeviceStartOut) GetInterval() int64`
 
 GetInterval returns the Interval field if non-nil, zero value otherwise.
 
 ### GetIntervalOk
 
-`func (o *DeviceStartOut) GetIntervalOk() (*int32, bool)`
+`func (o *DeviceStartOut) GetIntervalOk() (*int64, bool)`
 
 GetIntervalOk returns a tuple with the Interval field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInterval
 
-`func (o *DeviceStartOut) SetInterval(v int32)`
+`func (o *DeviceStartOut) SetInterval(v int64)`
 
 SetInterval sets Interval field to given value.
 

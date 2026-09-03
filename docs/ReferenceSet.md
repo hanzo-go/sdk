@@ -6,11 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Age** | Pointer to **string** | Age is how long ago that was. | [optional] 
 **AsOf** | Pointer to **string** | AsOf is when the OLDEST contributing publisher was current, RFC 3339. The oldest and not the newest: a set is exactly as fresh as its weakest source. | [optional] 
-**Keys** | Pointer to **int32** | Keys is how many members the baseline carries. | [optional] 
+**Keys** | Pointer to **int64** | Keys is how many members the baseline carries. | [optional] 
 **Kind** | Pointer to **string** | Kind is how the baseline comes to exist: fetch (downloaded from a publisher), local (computed here), attest (held by the component that screens against it, freshness reported), or gap (declared and NOT held, because the source needs a licence we do not have). | [optional] 
 **Match** | Pointer to **string** | Match is how a key is tested: exact, domain, net, digits, pattern or range. | [optional] 
 **MaxAge** | Pointer to **string** | MaxAge is how old this set may be before it is stale. | [optional] 
-**Overrides** | Pointer to **int32** | Overrides is how many entries YOUR org has laid over this baseline. | [optional] 
+**Overrides** | Pointer to **int64** | Overrides is how many entries YOUR org has laid over this baseline. | [optional] 
 **Refusal** | Pointer to **string** | Refusal names why the set cannot be relied on, when it cannot: never loaded, held elsewhere, or a licence we do not hold. Non-empty means a lookup against this set will not answer, rather than answering clean. | [optional] 
 **Set** | Pointer to **string** | Set is the name this set is addressed by. | [optional] 
 **Sources** | Pointer to [**[]ReferenceSource**](ReferenceSource.md) | Sources is each contributing publisher, its licence and its own freshness. | [optional] 
@@ -89,20 +89,20 @@ HasAsOf returns a boolean if a field has been set.
 
 ### GetKeys
 
-`func (o *ReferenceSet) GetKeys() int32`
+`func (o *ReferenceSet) GetKeys() int64`
 
 GetKeys returns the Keys field if non-nil, zero value otherwise.
 
 ### GetKeysOk
 
-`func (o *ReferenceSet) GetKeysOk() (*int32, bool)`
+`func (o *ReferenceSet) GetKeysOk() (*int64, bool)`
 
 GetKeysOk returns a tuple with the Keys field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetKeys
 
-`func (o *ReferenceSet) SetKeys(v int32)`
+`func (o *ReferenceSet) SetKeys(v int64)`
 
 SetKeys sets Keys field to given value.
 
@@ -189,20 +189,20 @@ HasMaxAge returns a boolean if a field has been set.
 
 ### GetOverrides
 
-`func (o *ReferenceSet) GetOverrides() int32`
+`func (o *ReferenceSet) GetOverrides() int64`
 
 GetOverrides returns the Overrides field if non-nil, zero value otherwise.
 
 ### GetOverridesOk
 
-`func (o *ReferenceSet) GetOverridesOk() (*int32, bool)`
+`func (o *ReferenceSet) GetOverridesOk() (*int64, bool)`
 
 GetOverridesOk returns a tuple with the Overrides field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOverrides
 
-`func (o *ReferenceSet) SetOverrides(v int32)`
+`func (o *ReferenceSet) SetOverrides(v int64)`
 
 SetOverrides sets Overrides field to given value.
 

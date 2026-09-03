@@ -20,13 +20,13 @@ var _ MappedNullable = &GraphAssertOut{}
 // GraphAssertOut struct for GraphAssertOut
 type GraphAssertOut struct {
 	// Duplicate is how many members this plane already held. A redelivery collides on its content address and is counted here, not refused: it is the success a retrying caller depends on.
-	Duplicate *int32 `json:"duplicate,omitempty"`
+	Duplicate *int64 `json:"duplicate,omitempty"`
 	// Reasons names why each refused member was refused, in the order sent.
 	Reasons []string `json:"reasons,omitempty"`
 	// Recorded is how many members became new rows.
-	Recorded *int32 `json:"recorded,omitempty"`
+	Recorded *int64 `json:"recorded,omitempty"`
 	// Refused is how many members were turned away on arrival, before the store was touched — a missing entity, a timestamp that is not RFC 3339, a confidence outside [0,1]. The rest of the batch was still recorded.
-	Refused *int32 `json:"refused,omitempty"`
+	Refused *int64 `json:"refused,omitempty"`
 }
 
 // NewGraphAssertOut instantiates a new GraphAssertOut object
@@ -47,9 +47,9 @@ func NewGraphAssertOutWithDefaults() *GraphAssertOut {
 }
 
 // GetDuplicate returns the Duplicate field value if set, zero value otherwise.
-func (o *GraphAssertOut) GetDuplicate() int32 {
+func (o *GraphAssertOut) GetDuplicate() int64 {
 	if o == nil || IsNil(o.Duplicate) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Duplicate
@@ -57,7 +57,7 @@ func (o *GraphAssertOut) GetDuplicate() int32 {
 
 // GetDuplicateOk returns a tuple with the Duplicate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphAssertOut) GetDuplicateOk() (*int32, bool) {
+func (o *GraphAssertOut) GetDuplicateOk() (*int64, bool) {
 	if o == nil || IsNil(o.Duplicate) {
 		return nil, false
 	}
@@ -73,8 +73,8 @@ func (o *GraphAssertOut) HasDuplicate() bool {
 	return false
 }
 
-// SetDuplicate gets a reference to the given int32 and assigns it to the Duplicate field.
-func (o *GraphAssertOut) SetDuplicate(v int32) {
+// SetDuplicate gets a reference to the given int64 and assigns it to the Duplicate field.
+func (o *GraphAssertOut) SetDuplicate(v int64) {
 	o.Duplicate = &v
 }
 
@@ -111,9 +111,9 @@ func (o *GraphAssertOut) SetReasons(v []string) {
 }
 
 // GetRecorded returns the Recorded field value if set, zero value otherwise.
-func (o *GraphAssertOut) GetRecorded() int32 {
+func (o *GraphAssertOut) GetRecorded() int64 {
 	if o == nil || IsNil(o.Recorded) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Recorded
@@ -121,7 +121,7 @@ func (o *GraphAssertOut) GetRecorded() int32 {
 
 // GetRecordedOk returns a tuple with the Recorded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphAssertOut) GetRecordedOk() (*int32, bool) {
+func (o *GraphAssertOut) GetRecordedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Recorded) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *GraphAssertOut) HasRecorded() bool {
 	return false
 }
 
-// SetRecorded gets a reference to the given int32 and assigns it to the Recorded field.
-func (o *GraphAssertOut) SetRecorded(v int32) {
+// SetRecorded gets a reference to the given int64 and assigns it to the Recorded field.
+func (o *GraphAssertOut) SetRecorded(v int64) {
 	o.Recorded = &v
 }
 
 // GetRefused returns the Refused field value if set, zero value otherwise.
-func (o *GraphAssertOut) GetRefused() int32 {
+func (o *GraphAssertOut) GetRefused() int64 {
 	if o == nil || IsNil(o.Refused) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Refused
@@ -153,7 +153,7 @@ func (o *GraphAssertOut) GetRefused() int32 {
 
 // GetRefusedOk returns a tuple with the Refused field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GraphAssertOut) GetRefusedOk() (*int32, bool) {
+func (o *GraphAssertOut) GetRefusedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Refused) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *GraphAssertOut) HasRefused() bool {
 	return false
 }
 
-// SetRefused gets a reference to the given int32 and assigns it to the Refused field.
-func (o *GraphAssertOut) SetRefused(v int32) {
+// SetRefused gets a reference to the given int64 and assigns it to the Refused field.
+func (o *GraphAssertOut) SetRefused(v int64) {
 	o.Refused = &v
 }
 

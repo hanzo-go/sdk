@@ -20,13 +20,13 @@ var _ MappedNullable = &O11yUsageBucket{}
 // O11yUsageBucket struct for O11yUsageBucket
 type O11yUsageBucket struct {
 	// Calls is how many LLM calls landed in the bucket.
-	Calls *int32 `json:"calls,omitempty"`
+	Calls *int64 `json:"calls,omitempty"`
 	// CostCents is what they cost, in cents.
-	CostCents *int32 `json:"costCents,omitempty"`
+	CostCents *int64 `json:"costCents,omitempty"`
 	// T is the bucket start, RFC3339 in UTC.
 	T *string `json:"t,omitempty"`
 	// Tokens is how many tokens they consumed.
-	Tokens *int32 `json:"tokens,omitempty"`
+	Tokens *int64 `json:"tokens,omitempty"`
 }
 
 // NewO11yUsageBucket instantiates a new O11yUsageBucket object
@@ -47,9 +47,9 @@ func NewO11yUsageBucketWithDefaults() *O11yUsageBucket {
 }
 
 // GetCalls returns the Calls field value if set, zero value otherwise.
-func (o *O11yUsageBucket) GetCalls() int32 {
+func (o *O11yUsageBucket) GetCalls() int64 {
 	if o == nil || IsNil(o.Calls) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Calls
@@ -57,7 +57,7 @@ func (o *O11yUsageBucket) GetCalls() int32 {
 
 // GetCallsOk returns a tuple with the Calls field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yUsageBucket) GetCallsOk() (*int32, bool) {
+func (o *O11yUsageBucket) GetCallsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Calls) {
 		return nil, false
 	}
@@ -73,15 +73,15 @@ func (o *O11yUsageBucket) HasCalls() bool {
 	return false
 }
 
-// SetCalls gets a reference to the given int32 and assigns it to the Calls field.
-func (o *O11yUsageBucket) SetCalls(v int32) {
+// SetCalls gets a reference to the given int64 and assigns it to the Calls field.
+func (o *O11yUsageBucket) SetCalls(v int64) {
 	o.Calls = &v
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *O11yUsageBucket) GetCostCents() int32 {
+func (o *O11yUsageBucket) GetCostCents() int64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostCents
@@ -89,7 +89,7 @@ func (o *O11yUsageBucket) GetCostCents() int32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yUsageBucket) GetCostCentsOk() (*int32, bool) {
+func (o *O11yUsageBucket) GetCostCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *O11yUsageBucket) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *O11yUsageBucket) SetCostCents(v int32) {
+// SetCostCents gets a reference to the given int64 and assigns it to the CostCents field.
+func (o *O11yUsageBucket) SetCostCents(v int64) {
 	o.CostCents = &v
 }
 
@@ -143,9 +143,9 @@ func (o *O11yUsageBucket) SetT(v string) {
 }
 
 // GetTokens returns the Tokens field value if set, zero value otherwise.
-func (o *O11yUsageBucket) GetTokens() int32 {
+func (o *O11yUsageBucket) GetTokens() int64 {
 	if o == nil || IsNil(o.Tokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Tokens
@@ -153,7 +153,7 @@ func (o *O11yUsageBucket) GetTokens() int32 {
 
 // GetTokensOk returns a tuple with the Tokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yUsageBucket) GetTokensOk() (*int32, bool) {
+func (o *O11yUsageBucket) GetTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.Tokens) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *O11yUsageBucket) HasTokens() bool {
 	return false
 }
 
-// SetTokens gets a reference to the given int32 and assigns it to the Tokens field.
-func (o *O11yUsageBucket) SetTokens(v int32) {
+// SetTokens gets a reference to the given int64 and assigns it to the Tokens field.
+func (o *O11yUsageBucket) SetTokens(v int64) {
 	o.Tokens = &v
 }
 

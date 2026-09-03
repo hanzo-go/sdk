@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Data** | Pointer to [**[]Wire**](Wire.md) | Data is one page of the org&#39;s events, newest first. Empty, never null. | [optional] 
 **Msg** | Pointer to **string** | Msg is the envelope&#39;s message slot, empty on success. | [optional] 
 **Status** | Pointer to **string** | Status is the envelope&#39;s status slot, \&quot;ok\&quot; on success. | [optional] 
-**Total** | Pointer to **int32** | Total is how many events match the filter, across all pages — what a pager needs to size itself. | [optional] 
+**Total** | Pointer to **int64** | Total is how many events match the filter, across all pages — what a pager needs to size itself. | [optional] 
 
 ## Methods
 
@@ -105,20 +105,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *TrailPage) GetTotal() int32`
+`func (o *TrailPage) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *TrailPage) GetTotalOk() (*int32, bool)`
+`func (o *TrailPage) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *TrailPage) SetTotal(v int32)`
+`func (o *TrailPage) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

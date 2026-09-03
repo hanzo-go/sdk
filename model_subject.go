@@ -20,7 +20,7 @@ var _ MappedNullable = &Subject{}
 // Subject struct for Subject
 type Subject struct {
 	// CreatedAt is when the subject was first recorded, Unix SECONDS.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Email is the party's address, when the org supplied one. It is PII: sealed at rest, returned only to the owning org, and never copied into a check record.
 	Email *string `json:"email,omitempty"`
 	// ID is the opaque handle every other record uses to point at this party. It is the only reference that leaves this type, which is what keeps the PII in one place: a check, an accreditation and an audit row all carry the id and none of them carry the name.
@@ -34,7 +34,7 @@ type Subject struct {
 	// Ref is the org's OWN identifier for this party, carried so a caller can match a subject back to their system without keeping a second mapping. Opaque here: nothing in this plane parses or enforces it.
 	Ref *string `json:"ref,omitempty"`
 	// UpdatedAt is when the subject's own fields last changed, Unix seconds. A check moving to a new status does not touch it — that history lives on the check.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewSubject instantiates a new Subject object
@@ -55,9 +55,9 @@ func NewSubjectWithDefaults() *Subject {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *Subject) GetCreatedAt() int32 {
+func (o *Subject) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -65,7 +65,7 @@ func (o *Subject) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Subject) GetCreatedAtOk() (*int32, bool) {
+func (o *Subject) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -81,8 +81,8 @@ func (o *Subject) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *Subject) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *Subject) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -279,9 +279,9 @@ func (o *Subject) SetRef(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *Subject) GetUpdatedAt() int32 {
+func (o *Subject) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -289,7 +289,7 @@ func (o *Subject) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Subject) GetUpdatedAtOk() (*int32, bool) {
+func (o *Subject) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -305,8 +305,8 @@ func (o *Subject) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *Subject) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *Subject) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

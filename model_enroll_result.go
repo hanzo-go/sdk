@@ -20,13 +20,13 @@ var _ MappedNullable = &EnrollResult{}
 // EnrollResult struct for EnrollResult
 type EnrollResult struct {
 	// AlreadyEnrolled is how many this sequence had already taken and were left alone.
-	AlreadyEnrolled *int32 `json:"alreadyEnrolled,omitempty"`
+	AlreadyEnrolled *int64 `json:"alreadyEnrolled,omitempty"`
 	// Enrolled is how many started a walk on this call.
-	Enrolled *int32 `json:"enrolled,omitempty"`
+	Enrolled *int64 `json:"enrolled,omitempty"`
 	// EnrollmentID names the walk, and is present ONLY for a single-address enroll — a fan-out has many, and reporting one of them would be a lie.
 	EnrollmentId *string `json:"enrollmentId,omitempty"`
 	// Resolved is how many addresses the request named — 1 for an address, the audience's deliverable count for an audience.
-	Resolved *int32 `json:"resolved,omitempty"`
+	Resolved *int64 `json:"resolved,omitempty"`
 }
 
 // NewEnrollResult instantiates a new EnrollResult object
@@ -47,9 +47,9 @@ func NewEnrollResultWithDefaults() *EnrollResult {
 }
 
 // GetAlreadyEnrolled returns the AlreadyEnrolled field value if set, zero value otherwise.
-func (o *EnrollResult) GetAlreadyEnrolled() int32 {
+func (o *EnrollResult) GetAlreadyEnrolled() int64 {
 	if o == nil || IsNil(o.AlreadyEnrolled) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AlreadyEnrolled
@@ -57,7 +57,7 @@ func (o *EnrollResult) GetAlreadyEnrolled() int32 {
 
 // GetAlreadyEnrolledOk returns a tuple with the AlreadyEnrolled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnrollResult) GetAlreadyEnrolledOk() (*int32, bool) {
+func (o *EnrollResult) GetAlreadyEnrolledOk() (*int64, bool) {
 	if o == nil || IsNil(o.AlreadyEnrolled) {
 		return nil, false
 	}
@@ -73,15 +73,15 @@ func (o *EnrollResult) HasAlreadyEnrolled() bool {
 	return false
 }
 
-// SetAlreadyEnrolled gets a reference to the given int32 and assigns it to the AlreadyEnrolled field.
-func (o *EnrollResult) SetAlreadyEnrolled(v int32) {
+// SetAlreadyEnrolled gets a reference to the given int64 and assigns it to the AlreadyEnrolled field.
+func (o *EnrollResult) SetAlreadyEnrolled(v int64) {
 	o.AlreadyEnrolled = &v
 }
 
 // GetEnrolled returns the Enrolled field value if set, zero value otherwise.
-func (o *EnrollResult) GetEnrolled() int32 {
+func (o *EnrollResult) GetEnrolled() int64 {
 	if o == nil || IsNil(o.Enrolled) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Enrolled
@@ -89,7 +89,7 @@ func (o *EnrollResult) GetEnrolled() int32 {
 
 // GetEnrolledOk returns a tuple with the Enrolled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnrollResult) GetEnrolledOk() (*int32, bool) {
+func (o *EnrollResult) GetEnrolledOk() (*int64, bool) {
 	if o == nil || IsNil(o.Enrolled) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *EnrollResult) HasEnrolled() bool {
 	return false
 }
 
-// SetEnrolled gets a reference to the given int32 and assigns it to the Enrolled field.
-func (o *EnrollResult) SetEnrolled(v int32) {
+// SetEnrolled gets a reference to the given int64 and assigns it to the Enrolled field.
+func (o *EnrollResult) SetEnrolled(v int64) {
 	o.Enrolled = &v
 }
 
@@ -143,9 +143,9 @@ func (o *EnrollResult) SetEnrollmentId(v string) {
 }
 
 // GetResolved returns the Resolved field value if set, zero value otherwise.
-func (o *EnrollResult) GetResolved() int32 {
+func (o *EnrollResult) GetResolved() int64 {
 	if o == nil || IsNil(o.Resolved) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Resolved
@@ -153,7 +153,7 @@ func (o *EnrollResult) GetResolved() int32 {
 
 // GetResolvedOk returns a tuple with the Resolved field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnrollResult) GetResolvedOk() (*int32, bool) {
+func (o *EnrollResult) GetResolvedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Resolved) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *EnrollResult) HasResolved() bool {
 	return false
 }
 
-// SetResolved gets a reference to the given int32 and assigns it to the Resolved field.
-func (o *EnrollResult) SetResolved(v int32) {
+// SetResolved gets a reference to the given int64 and assigns it to the Resolved field.
+func (o *EnrollResult) SetResolved(v int64) {
 	o.Resolved = &v
 }
 

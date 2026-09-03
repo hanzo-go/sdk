@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Cents** | Pointer to **int32** | Cents is the consumption recorded in that bucket, in US cents. | [optional] 
+**Cents** | Pointer to **int64** | Cents is the consumption recorded in that bucket, in US cents. | [optional] 
 **T** | Pointer to **string** | T is the bucket&#39;s start instant, RFC3339 UTC. Buckets are gap-filled, so a window with no spend still has its points. | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCents
 
-`func (o *SpendPoint) GetCents() int32`
+`func (o *SpendPoint) GetCents() int64`
 
 GetCents returns the Cents field if non-nil, zero value otherwise.
 
 ### GetCentsOk
 
-`func (o *SpendPoint) GetCentsOk() (*int32, bool)`
+`func (o *SpendPoint) GetCentsOk() (*int64, bool)`
 
 GetCentsOk returns a tuple with the Cents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCents
 
-`func (o *SpendPoint) SetCents(v int32)`
+`func (o *SpendPoint) SetCents(v int64)`
 
 SetCents sets Cents field to given value.
 

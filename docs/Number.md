@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Currency** | Pointer to **string** | Currency is the ISO 4217 code Monthly is denominated in. Without it the number beside it means nothing, so the two are always read together. | [optional] 
 **E164** | Pointer to **string** | E164 is the number in E.164: a leading + and digits only, no spaces or dashes. That is what a carrier accepts and what a search result must be bought by. | [optional] 
 **Id** | Pointer to **string** | ID is the carrier&#39;s handle for the number, and the id every route here addresses it by. It is not the number itself — see E164. | [optional] 
-**Monthly** | Pointer to **int32** | Monthly is the recurring rental in the MINOR unit of Currency (cents for USD), exactly as the carrier quoted it. It is a price, not a charge: nothing is billed by this field. | [optional] 
+**Monthly** | Pointer to **int64** | Monthly is the recurring rental in the MINOR unit of Currency (cents for USD), exactly as the carrier quoted it. It is a price, not a charge: nothing is billed by this field. | [optional] 
 **Org** | Pointer to **string** | Org is the tenant holding the number. A search result carries none — nobody holds it yet — which is how an available number is told from a held one. | [optional] 
 **Type** | Pointer to **string** | Type is what kind of number it is: \&quot;local\&quot;, \&quot;national\&quot;, \&quot;tollfree\&quot; or \&quot;mobile\&quot;. It decides both price and what a carrier will let it originate. | [optional] 
 
@@ -159,20 +159,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetMonthly
 
-`func (o *Number) GetMonthly() int32`
+`func (o *Number) GetMonthly() int64`
 
 GetMonthly returns the Monthly field if non-nil, zero value otherwise.
 
 ### GetMonthlyOk
 
-`func (o *Number) GetMonthlyOk() (*int32, bool)`
+`func (o *Number) GetMonthlyOk() (*int64, bool)`
 
 GetMonthlyOk returns a tuple with the Monthly field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMonthly
 
-`func (o *Number) SetMonthly(v int32)`
+`func (o *Number) SetMonthly(v int64)`
 
 SetMonthly sets Monthly field to given value.
 

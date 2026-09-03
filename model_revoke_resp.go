@@ -22,9 +22,9 @@ type RevokeResp struct {
 	// Links is each revoked row with its new status — retained, not deleted, so usage history and the audit trail survive the log-out.
 	Links []LinkView `json:"links,omitempty"`
 	// Revoked is how many links this call revoked.
-	Revoked *int32 `json:"revoked,omitempty"`
+	Revoked *int64 `json:"revoked,omitempty"`
 	// SessionsStopped is how many of the caller's own agent sessions stopped. A stop that fails does not fail the revoke, so this may honestly report fewer.
-	SessionsStopped *int32 `json:"sessionsStopped,omitempty"`
+	SessionsStopped *int64 `json:"sessionsStopped,omitempty"`
 }
 
 // NewRevokeResp instantiates a new RevokeResp object
@@ -77,9 +77,9 @@ func (o *RevokeResp) SetLinks(v []LinkView) {
 }
 
 // GetRevoked returns the Revoked field value if set, zero value otherwise.
-func (o *RevokeResp) GetRevoked() int32 {
+func (o *RevokeResp) GetRevoked() int64 {
 	if o == nil || IsNil(o.Revoked) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Revoked
@@ -87,7 +87,7 @@ func (o *RevokeResp) GetRevoked() int32 {
 
 // GetRevokedOk returns a tuple with the Revoked field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RevokeResp) GetRevokedOk() (*int32, bool) {
+func (o *RevokeResp) GetRevokedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Revoked) {
 		return nil, false
 	}
@@ -103,15 +103,15 @@ func (o *RevokeResp) HasRevoked() bool {
 	return false
 }
 
-// SetRevoked gets a reference to the given int32 and assigns it to the Revoked field.
-func (o *RevokeResp) SetRevoked(v int32) {
+// SetRevoked gets a reference to the given int64 and assigns it to the Revoked field.
+func (o *RevokeResp) SetRevoked(v int64) {
 	o.Revoked = &v
 }
 
 // GetSessionsStopped returns the SessionsStopped field value if set, zero value otherwise.
-func (o *RevokeResp) GetSessionsStopped() int32 {
+func (o *RevokeResp) GetSessionsStopped() int64 {
 	if o == nil || IsNil(o.SessionsStopped) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SessionsStopped
@@ -119,7 +119,7 @@ func (o *RevokeResp) GetSessionsStopped() int32 {
 
 // GetSessionsStoppedOk returns a tuple with the SessionsStopped field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RevokeResp) GetSessionsStoppedOk() (*int32, bool) {
+func (o *RevokeResp) GetSessionsStoppedOk() (*int64, bool) {
 	if o == nil || IsNil(o.SessionsStopped) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *RevokeResp) HasSessionsStopped() bool {
 	return false
 }
 
-// SetSessionsStopped gets a reference to the given int32 and assigns it to the SessionsStopped field.
-func (o *RevokeResp) SetSessionsStopped(v int32) {
+// SetSessionsStopped gets a reference to the given int64 and assigns it to the SessionsStopped field.
+func (o *RevokeResp) SetSessionsStopped(v int64) {
 	o.SessionsStopped = &v
 }
 

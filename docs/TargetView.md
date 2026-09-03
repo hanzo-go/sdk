@@ -12,8 +12,8 @@ Name | Type | Description | Notes
 **Label** | Pointer to **string** | Label is the name a person gave the machine (\&quot;workshop\&quot;), up to 128 characters. Required at register, free text, and the only field here meant for reading rather than matching. | [optional] 
 **Metrics** | Pointer to [**Metrics**](Metrics.md) | Metrics is what the machine was DOING at its last heartbeat — loadavg, memory, accelerator utilization. Absent when it has never beaten. It is a SNAPSHOT: the series over time lives in the fleet samples, not here. | [optional] 
 **MetricsAt** | Pointer to **string** | MetricsAt is when that heartbeat was recorded, RFC 3339 in UTC, and the SERVER stamps it — a client cannot backdate or forge the staleness clock. Absent means never beaten, which is exactly the case where Status is taken at its word. | [optional] 
-**Running** | Pointer to **int32** | Running is how many of those are in &#x60;running&#x60; right now — the number a dispatcher weighs against Capacity. paused sessions are in Sessions and not here. | [optional] 
-**Sessions** | Pointer to **int32** | Sessions is how many of the org&#39;s sessions are mapped to this machine, by target id OR by matching Host. All of them, whatever their status. | [optional] 
+**Running** | Pointer to **int64** | Running is how many of those are in &#x60;running&#x60; right now — the number a dispatcher weighs against Capacity. paused sessions are in Sessions and not here. | [optional] 
+**Sessions** | Pointer to **int64** | Sessions is how many of the org&#39;s sessions are mapped to this machine, by target id OR by matching Host. All of them, whatever their status. | [optional] 
 **Spec** | Pointer to [**Spec**](Spec.md) | Spec is what the machine IS — os, arch, cores, RAM, accelerators — the static half, changed only when something reports it again. Absent when nothing has ever been reported, and a scheduler reads absence as \&quot;cannot satisfy a floor\&quot; rather than as \&quot;no limits\&quot;. | [optional] 
 **Status** | Pointer to **string** | Status is the EFFECTIVE liveness — online | offline | draining — not the stored one. offline and draining are operator INTENT and are reported as they stand; &#x60;online&#x60; is checked against the heartbeat, and a machine that has beaten before but not in the last 90 seconds reports offline whatever its row says. A target that has NEVER beaten keeps its stored status, because a hand-registered destination has no fact to check. | [optional] 
 **UpdatedAt** | Pointer to **string** | UpdatedAt is the last write to the row, same format — which for a beating machine is its last heartbeat, since a heartbeat IS a write. | [optional] 
@@ -239,20 +239,20 @@ HasMetricsAt returns a boolean if a field has been set.
 
 ### GetRunning
 
-`func (o *TargetView) GetRunning() int32`
+`func (o *TargetView) GetRunning() int64`
 
 GetRunning returns the Running field if non-nil, zero value otherwise.
 
 ### GetRunningOk
 
-`func (o *TargetView) GetRunningOk() (*int32, bool)`
+`func (o *TargetView) GetRunningOk() (*int64, bool)`
 
 GetRunningOk returns a tuple with the Running field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRunning
 
-`func (o *TargetView) SetRunning(v int32)`
+`func (o *TargetView) SetRunning(v int64)`
 
 SetRunning sets Running field to given value.
 
@@ -264,20 +264,20 @@ HasRunning returns a boolean if a field has been set.
 
 ### GetSessions
 
-`func (o *TargetView) GetSessions() int32`
+`func (o *TargetView) GetSessions() int64`
 
 GetSessions returns the Sessions field if non-nil, zero value otherwise.
 
 ### GetSessionsOk
 
-`func (o *TargetView) GetSessionsOk() (*int32, bool)`
+`func (o *TargetView) GetSessionsOk() (*int64, bool)`
 
 GetSessionsOk returns a tuple with the Sessions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSessions
 
-`func (o *TargetView) SetSessions(v int32)`
+`func (o *TargetView) SetSessions(v int64)`
 
 SetSessions sets Sessions field to given value.
 

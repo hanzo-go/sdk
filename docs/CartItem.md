@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** | ID is the line&#39;s identity — the variant id when the line is a variant, otherwise the product id. It is what a subsequent set call addresses. | [optional] 
 **Kind** | Pointer to **string** | Kind is \&quot;variant\&quot; when this line is a specific sellable variant and \&quot;product\&quot; when it is the product itself. | [optional] 
 **Name** | Pointer to **string** | Name is the item&#39;s display name, cached onto the line when it was added so a cart renders without a second read. | [optional] 
-**PriceCents** | Pointer to **int32** | PriceCents is the unit price in whole cents, cached at the moment the line was added. The line&#39;s contribution to the cart is this times Quantity. | [optional] 
-**Quantity** | Pointer to **int32** | Quantity is how many units of this item the cart holds. | [optional] 
+**PriceCents** | Pointer to **int64** | PriceCents is the unit price in whole cents, cached at the moment the line was added. The line&#39;s contribution to the cart is this times Quantity. | [optional] 
+**Quantity** | Pointer to **int64** | Quantity is how many units of this item the cart holds. | [optional] 
 **Sku** | Pointer to **string** | SKU is the line&#39;s stock-keeping unit — the variant&#39;s when it has one, otherwise the product&#39;s. Empty when neither carries one. | [optional] 
 
 ## Methods
@@ -133,20 +133,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetPriceCents
 
-`func (o *CartItem) GetPriceCents() int32`
+`func (o *CartItem) GetPriceCents() int64`
 
 GetPriceCents returns the PriceCents field if non-nil, zero value otherwise.
 
 ### GetPriceCentsOk
 
-`func (o *CartItem) GetPriceCentsOk() (*int32, bool)`
+`func (o *CartItem) GetPriceCentsOk() (*int64, bool)`
 
 GetPriceCentsOk returns a tuple with the PriceCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPriceCents
 
-`func (o *CartItem) SetPriceCents(v int32)`
+`func (o *CartItem) SetPriceCents(v int64)`
 
 SetPriceCents sets PriceCents field to given value.
 
@@ -158,20 +158,20 @@ HasPriceCents returns a boolean if a field has been set.
 
 ### GetQuantity
 
-`func (o *CartItem) GetQuantity() int32`
+`func (o *CartItem) GetQuantity() int64`
 
 GetQuantity returns the Quantity field if non-nil, zero value otherwise.
 
 ### GetQuantityOk
 
-`func (o *CartItem) GetQuantityOk() (*int32, bool)`
+`func (o *CartItem) GetQuantityOk() (*int64, bool)`
 
 GetQuantityOk returns a tuple with the Quantity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQuantity
 
-`func (o *CartItem) SetQuantity(v int32)`
+`func (o *CartItem) SetQuantity(v int64)`
 
 SetQuantity sets Quantity field to given value.
 

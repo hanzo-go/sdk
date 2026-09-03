@@ -32,7 +32,7 @@ type AgentDetail struct {
 	Name         *string `json:"name,omitempty"`
 	// RecentRuns is the agent's 20 most recent executions, newest first. It is a window on the history, not the history: the count beside it is `runs`.
 	RecentRuns       []AgentRunView `json:"recentRuns,omitempty"`
-	Runs             *int32         `json:"runs,omitempty"`
+	Runs             *int64         `json:"runs,omitempty"`
 	Schedule         *string        `json:"schedule,omitempty"`
 	ServiceAccountId *string        `json:"serviceAccountId,omitempty"`
 	Status           *string        `json:"status,omitempty"`
@@ -410,9 +410,9 @@ func (o *AgentDetail) SetRecentRuns(v []AgentRunView) {
 }
 
 // GetRuns returns the Runs field value if set, zero value otherwise.
-func (o *AgentDetail) GetRuns() int32 {
+func (o *AgentDetail) GetRuns() int64 {
 	if o == nil || IsNil(o.Runs) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Runs
@@ -420,7 +420,7 @@ func (o *AgentDetail) GetRuns() int32 {
 
 // GetRunsOk returns a tuple with the Runs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentDetail) GetRunsOk() (*int32, bool) {
+func (o *AgentDetail) GetRunsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Runs) {
 		return nil, false
 	}
@@ -436,8 +436,8 @@ func (o *AgentDetail) HasRuns() bool {
 	return false
 }
 
-// SetRuns gets a reference to the given int32 and assigns it to the Runs field.
-func (o *AgentDetail) SetRuns(v int32) {
+// SetRuns gets a reference to the given int64 and assigns it to the Runs field.
+func (o *AgentDetail) SetRuns(v int64) {
 	o.Runs = &v
 }
 

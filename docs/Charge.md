@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AmountCents** | Pointer to **int32** | AmountCents is what this line costs. | [optional] 
+**AmountCents** | Pointer to **int64** | AmountCents is what this line costs. | [optional] 
 **AsOf** | Pointer to **string** | AsOf is when a pass-through amount was last checked against its source. | [optional] 
 **Code** | Pointer to **string** | Code names the line so a caller can branch on it without reading prose. | [optional] 
 **Label** | Pointer to **string** | Label is what the payer sees on the invoice. | [optional] 
@@ -34,20 +34,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAmountCents
 
-`func (o *Charge) GetAmountCents() int32`
+`func (o *Charge) GetAmountCents() int64`
 
 GetAmountCents returns the AmountCents field if non-nil, zero value otherwise.
 
 ### GetAmountCentsOk
 
-`func (o *Charge) GetAmountCentsOk() (*int32, bool)`
+`func (o *Charge) GetAmountCentsOk() (*int64, bool)`
 
 GetAmountCentsOk returns a tuple with the AmountCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmountCents
 
-`func (o *Charge) SetAmountCents(v int32)`
+`func (o *Charge) SetAmountCents(v int64)`
 
 SetAmountCents sets AmountCents field to given value.
 

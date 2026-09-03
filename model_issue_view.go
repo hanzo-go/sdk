@@ -22,11 +22,11 @@ type IssueView struct {
 	// Assignee is who holds the work — an IAM username, or the login of the FIRST assignee when a forge issue has several. Absent when nobody holds it, which is exactly the state a claim needs.
 	Assignee *string `json:"assignee,omitempty"`
 	// CreatedAt is when the item was opened, in unix seconds. 0 when the source gave no parseable timestamp.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Description is the body, markdown as its author wrote it. Absent when empty.
 	Description *string `json:"description,omitempty"`
 	// DueAt is when the work is due, in unix seconds; absent means no due date. A forge row takes it from its MILESTONE's due date, since a forge issue has no deadline of its own. Never before StartAt, and never past 2200-01-01.
-	DueAt *int32 `json:"dueAt,omitempty"`
+	DueAt *int64 `json:"dueAt,omitempty"`
 	// ExtRef anchors the item to something outside the todo — a mirrored issue (\"github:owner/repo#123\"), a pushed PR branch, or a record on another plane. It is the idempotency key the mirror upsert matches on. Absent when the item has no external origin.
 	ExtRef *string `json:"extRef,omitempty"`
 	// ID is the work item's opaque handle, and it is NOT how you address it — ProjectKey plus Number is. Its shape says which source answered: a forge issue's is the forge's own numeric id in decimal, an index row's a minted \"issue_\" id.
@@ -38,7 +38,7 @@ type IssueView struct {
 	// Labels are the item's remaining tags, with the status and priority labels lifted OUT — a column that stayed here would render twice, once as the card's column and once as a chip on the card. Always present; empty is [].
 	Labels []string `json:"labels,omitempty"`
 	// Number is the item's number ON ITS BOARD, from 1 and monotonic there — the forge's own issue number for a forge row, allocated inside the create transaction for an index row so it cannot race. Unique per board, never across the org.
-	Number *int32 `json:"number,omitempty"`
+	Number *int64 `json:"number,omitempty"`
 	// Priority is urgent, high, medium, low or none. Also a label on a forge row. Never empty: \"none\" when nothing names one, so callers compare a value rather than test for absence.
 	Priority *string `json:"priority,omitempty"`
 	// ProjectKey is the board this item is on: the repository name for a forge issue, the index board's key otherwise. With Number it is the item's address in every other route.
@@ -48,13 +48,13 @@ type IssueView struct {
 	// Source is which surface OPENED it: team, git, crm, helpdesk, cms or agent. Also set once. It is the ORIGIN, not the subject — source=helpdesk is an engineering issue opened from a support escalation, not a support ticket.
 	Source *string `json:"source,omitempty"`
 	// StartAt is when the work starts, in unix seconds; absent means unscheduled. A forge row takes it from when the issue was opened, but only once the issue has a due date — an interval needs both ends.
-	StartAt *int32 `json:"startAt,omitempty"`
+	StartAt *int64 `json:"startAt,omitempty"`
 	// Status is the board column: backlog, todo, in_progress, done or canceled, and nothing else. On a forge row it is read off a LABEL, so relabelling in the forge web UI moves the card here and vice versa — and a CLOSED forge issue reads done whatever its labels say. Never empty: \"backlog\" when nothing names a column.
 	Status *string `json:"status,omitempty"`
 	// Title is the item's one-line summary.
 	Title *string `json:"title,omitempty"`
 	// UpdatedAt is when it last changed, in unix seconds.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewIssueView instantiates a new IssueView object
@@ -107,9 +107,9 @@ func (o *IssueView) SetAssignee(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *IssueView) GetCreatedAt() int32 {
+func (o *IssueView) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -117,7 +117,7 @@ func (o *IssueView) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IssueView) GetCreatedAtOk() (*int32, bool) {
+func (o *IssueView) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -133,8 +133,8 @@ func (o *IssueView) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *IssueView) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *IssueView) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -171,9 +171,9 @@ func (o *IssueView) SetDescription(v string) {
 }
 
 // GetDueAt returns the DueAt field value if set, zero value otherwise.
-func (o *IssueView) GetDueAt() int32 {
+func (o *IssueView) GetDueAt() int64 {
 	if o == nil || IsNil(o.DueAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DueAt
@@ -181,7 +181,7 @@ func (o *IssueView) GetDueAt() int32 {
 
 // GetDueAtOk returns a tuple with the DueAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IssueView) GetDueAtOk() (*int32, bool) {
+func (o *IssueView) GetDueAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.DueAt) {
 		return nil, false
 	}
@@ -197,8 +197,8 @@ func (o *IssueView) HasDueAt() bool {
 	return false
 }
 
-// SetDueAt gets a reference to the given int32 and assigns it to the DueAt field.
-func (o *IssueView) SetDueAt(v int32) {
+// SetDueAt gets a reference to the given int64 and assigns it to the DueAt field.
+func (o *IssueView) SetDueAt(v int64) {
 	o.DueAt = &v
 }
 
@@ -363,9 +363,9 @@ func (o *IssueView) SetLabels(v []string) {
 }
 
 // GetNumber returns the Number field value if set, zero value otherwise.
-func (o *IssueView) GetNumber() int32 {
+func (o *IssueView) GetNumber() int64 {
 	if o == nil || IsNil(o.Number) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Number
@@ -373,7 +373,7 @@ func (o *IssueView) GetNumber() int32 {
 
 // GetNumberOk returns a tuple with the Number field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IssueView) GetNumberOk() (*int32, bool) {
+func (o *IssueView) GetNumberOk() (*int64, bool) {
 	if o == nil || IsNil(o.Number) {
 		return nil, false
 	}
@@ -389,8 +389,8 @@ func (o *IssueView) HasNumber() bool {
 	return false
 }
 
-// SetNumber gets a reference to the given int32 and assigns it to the Number field.
-func (o *IssueView) SetNumber(v int32) {
+// SetNumber gets a reference to the given int64 and assigns it to the Number field.
+func (o *IssueView) SetNumber(v int64) {
 	o.Number = &v
 }
 
@@ -523,9 +523,9 @@ func (o *IssueView) SetSource(v string) {
 }
 
 // GetStartAt returns the StartAt field value if set, zero value otherwise.
-func (o *IssueView) GetStartAt() int32 {
+func (o *IssueView) GetStartAt() int64 {
 	if o == nil || IsNil(o.StartAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.StartAt
@@ -533,7 +533,7 @@ func (o *IssueView) GetStartAt() int32 {
 
 // GetStartAtOk returns a tuple with the StartAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IssueView) GetStartAtOk() (*int32, bool) {
+func (o *IssueView) GetStartAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.StartAt) {
 		return nil, false
 	}
@@ -549,8 +549,8 @@ func (o *IssueView) HasStartAt() bool {
 	return false
 }
 
-// SetStartAt gets a reference to the given int32 and assigns it to the StartAt field.
-func (o *IssueView) SetStartAt(v int32) {
+// SetStartAt gets a reference to the given int64 and assigns it to the StartAt field.
+func (o *IssueView) SetStartAt(v int64) {
 	o.StartAt = &v
 }
 
@@ -619,9 +619,9 @@ func (o *IssueView) SetTitle(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *IssueView) GetUpdatedAt() int32 {
+func (o *IssueView) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -629,7 +629,7 @@ func (o *IssueView) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IssueView) GetUpdatedAtOk() (*int32, bool) {
+func (o *IssueView) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -645,8 +645,8 @@ func (o *IssueView) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *IssueView) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *IssueView) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

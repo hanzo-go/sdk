@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AlertCount** | Pointer to **int32** | AlertCount is how many series would alert for the tested rule. | [optional] 
+**AlertCount** | Pointer to **int64** | AlertCount is how many series would alert for the tested rule. | [optional] 
 **Message** | Pointer to **string** | Message is a human-readable status, e.g. \&quot;notification sent\&quot;. | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAlertCount
 
-`func (o *O11yO11yTestNotificationResult) GetAlertCount() int32`
+`func (o *O11yO11yTestNotificationResult) GetAlertCount() int64`
 
 GetAlertCount returns the AlertCount field if non-nil, zero value otherwise.
 
 ### GetAlertCountOk
 
-`func (o *O11yO11yTestNotificationResult) GetAlertCountOk() (*int32, bool)`
+`func (o *O11yO11yTestNotificationResult) GetAlertCountOk() (*int64, bool)`
 
 GetAlertCountOk returns a tuple with the AlertCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAlertCount
 
-`func (o *O11yO11yTestNotificationResult) SetAlertCount(v int32)`
+`func (o *O11yO11yTestNotificationResult) SetAlertCount(v int64)`
 
 SetAlertCount sets AlertCount field to given value.
 

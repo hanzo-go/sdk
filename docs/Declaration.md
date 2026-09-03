@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Org** | Pointer to **string** | Org is the owner. It is ALSO the values directory and the destination namespace, because those are one value under one name — see the header. | [optional] 
 **Path** | Pointer to **string** | Path is the file, relative to the repository root. | [optional] 
 **Project** | Pointer to **string** | Project is the AppProject the sync is admitted under, derived from the directory exactly as the ApplicationSet derives it. It differs from Org for a reserved directory, which syncs under the platform fence. | [optional] 
-**Replicas** | Pointer to **int32** |  | [optional] 
+**Replicas** | Pointer to **int64** |  | [optional] 
 **Repository** | Pointer to **string** | image.repository | [optional] 
 **Tag** | Pointer to **string** | image.tag | [optional] 
 
@@ -263,20 +263,20 @@ HasProject returns a boolean if a field has been set.
 
 ### GetReplicas
 
-`func (o *Declaration) GetReplicas() int32`
+`func (o *Declaration) GetReplicas() int64`
 
 GetReplicas returns the Replicas field if non-nil, zero value otherwise.
 
 ### GetReplicasOk
 
-`func (o *Declaration) GetReplicasOk() (*int32, bool)`
+`func (o *Declaration) GetReplicasOk() (*int64, bool)`
 
 GetReplicasOk returns a tuple with the Replicas field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReplicas
 
-`func (o *Declaration) SetReplicas(v int32)`
+`func (o *Declaration) SetReplicas(v int64)`
 
 SetReplicas sets Replicas field to given value.
 

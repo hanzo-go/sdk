@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Address** | Pointer to **string** | Address is the ledger account address (\&quot;org:acme:wallet\&quot;, \&quot;fund:reserve\&quot;, …). | [optional] 
-**BalanceCents** | Pointer to **int32** | BalanceCents is that account&#39;s signed balance in minor units. | [optional] 
+**BalanceCents** | Pointer to **int64** | BalanceCents is that account&#39;s signed balance in minor units. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasAddress returns a boolean if a field has been set.
 
 ### GetBalanceCents
 
-`func (o *AccountView) GetBalanceCents() int32`
+`func (o *AccountView) GetBalanceCents() int64`
 
 GetBalanceCents returns the BalanceCents field if non-nil, zero value otherwise.
 
 ### GetBalanceCentsOk
 
-`func (o *AccountView) GetBalanceCentsOk() (*int32, bool)`
+`func (o *AccountView) GetBalanceCentsOk() (*int64, bool)`
 
 GetBalanceCentsOk returns a tuple with the BalanceCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBalanceCents
 
-`func (o *AccountView) SetBalanceCents(v int32)`
+`func (o *AccountView) SetBalanceCents(v int64)`
 
 SetBalanceCents sets BalanceCents field to given value.
 

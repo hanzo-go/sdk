@@ -22,7 +22,7 @@ type Tariff struct {
 	// Currency is the ISO code every amount on this quote is denominated in.
 	Currency *string `json:"currency,omitempty"`
 	// DueNowCents is what is charged to begin: every non-recurring line.
-	DueNowCents *int32 `json:"dueNowCents,omitempty"`
+	DueNowCents *int64 `json:"dueNowCents,omitempty"`
 	// Jurisdiction is the state of formation the filing fee belongs to.
 	Jurisdiction *string `json:"jurisdiction,omitempty"`
 	// Lines are the charges, in the order a reader should see them.
@@ -30,7 +30,7 @@ type Tariff struct {
 	// Recurring is how often RecurringCents repeats — \"yearly\" for an agent of record. Empty when nothing on this quote recurs.
 	Recurring *string `json:"recurring,omitempty"`
 	// RecurringCents is what repeats, and Recurring says how often.
-	RecurringCents *int32 `json:"recurringCents,omitempty"`
+	RecurringCents *int64 `json:"recurringCents,omitempty"`
 	// Structure is the entity this prices: c-corp, llc or dao-llc.
 	Structure *string `json:"structure,omitempty"`
 }
@@ -85,9 +85,9 @@ func (o *Tariff) SetCurrency(v string) {
 }
 
 // GetDueNowCents returns the DueNowCents field value if set, zero value otherwise.
-func (o *Tariff) GetDueNowCents() int32 {
+func (o *Tariff) GetDueNowCents() int64 {
 	if o == nil || IsNil(o.DueNowCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DueNowCents
@@ -95,7 +95,7 @@ func (o *Tariff) GetDueNowCents() int32 {
 
 // GetDueNowCentsOk returns a tuple with the DueNowCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Tariff) GetDueNowCentsOk() (*int32, bool) {
+func (o *Tariff) GetDueNowCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.DueNowCents) {
 		return nil, false
 	}
@@ -111,8 +111,8 @@ func (o *Tariff) HasDueNowCents() bool {
 	return false
 }
 
-// SetDueNowCents gets a reference to the given int32 and assigns it to the DueNowCents field.
-func (o *Tariff) SetDueNowCents(v int32) {
+// SetDueNowCents gets a reference to the given int64 and assigns it to the DueNowCents field.
+func (o *Tariff) SetDueNowCents(v int64) {
 	o.DueNowCents = &v
 }
 
@@ -213,9 +213,9 @@ func (o *Tariff) SetRecurring(v string) {
 }
 
 // GetRecurringCents returns the RecurringCents field value if set, zero value otherwise.
-func (o *Tariff) GetRecurringCents() int32 {
+func (o *Tariff) GetRecurringCents() int64 {
 	if o == nil || IsNil(o.RecurringCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RecurringCents
@@ -223,7 +223,7 @@ func (o *Tariff) GetRecurringCents() int32 {
 
 // GetRecurringCentsOk returns a tuple with the RecurringCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Tariff) GetRecurringCentsOk() (*int32, bool) {
+func (o *Tariff) GetRecurringCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.RecurringCents) {
 		return nil, false
 	}
@@ -239,8 +239,8 @@ func (o *Tariff) HasRecurringCents() bool {
 	return false
 }
 
-// SetRecurringCents gets a reference to the given int32 and assigns it to the RecurringCents field.
-func (o *Tariff) SetRecurringCents(v int32) {
+// SetRecurringCents gets a reference to the given int64 and assigns it to the RecurringCents field.
+func (o *Tariff) SetRecurringCents(v int64) {
 	o.RecurringCents = &v
 }
 

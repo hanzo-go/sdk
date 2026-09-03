@@ -7830,18 +7830,18 @@ func (a *O11yAPIService) GetHostsExecute(r O11yAPIGetHostsRequest) (*O11yO11yGet
 type O11yAPIGetIngestionKeysRequest struct {
 	ctx        context.Context
 	ApiService *O11yAPIService
-	page       *int32
-	perPage    *int32
+	page       *int64
+	perPage    *int64
 }
 
 // Page is the 1-based page number.
-func (r O11yAPIGetIngestionKeysRequest) Page(page int32) O11yAPIGetIngestionKeysRequest {
+func (r O11yAPIGetIngestionKeysRequest) Page(page int64) O11yAPIGetIngestionKeysRequest {
 	r.page = &page
 	return r
 }
 
 // PerPage is the page size.
-func (r O11yAPIGetIngestionKeysRequest) PerPage(perPage int32) O11yAPIGetIngestionKeysRequest {
+func (r O11yAPIGetIngestionKeysRequest) PerPage(perPage int64) O11yAPIGetIngestionKeysRequest {
 	r.perPage = &perPage
 	return r
 }
@@ -8058,11 +8058,11 @@ type O11yAPIGetIntegrationConnectionStatusRequest struct {
 	ctx             context.Context
 	ApiService      *O11yAPIService
 	integrationId   string
-	lookbackSeconds *int32
+	lookbackSeconds *int64
 }
 
 // LookbackSeconds is how far back to look for received telemetry, in seconds.
-func (r O11yAPIGetIntegrationConnectionStatusRequest) LookbackSeconds(lookbackSeconds int32) O11yAPIGetIntegrationConnectionStatusRequest {
+func (r O11yAPIGetIntegrationConnectionStatusRequest) LookbackSeconds(lookbackSeconds int64) O11yAPIGetIntegrationConnectionStatusRequest {
 	r.lookbackSeconds = &lookbackSeconds
 	return r
 }
@@ -8498,8 +8498,8 @@ type O11yAPIGetMetricAttributesRequest struct {
 	ctx        context.Context
 	ApiService *O11yAPIService
 	metricName *string
-	start      *int32
-	end        *int32
+	start      *int64
+	end        *int64
 }
 
 // MetricName is the metric&#39;s name; it may contain slashes. Required.
@@ -8509,13 +8509,13 @@ func (r O11yAPIGetMetricAttributesRequest) MetricName(metricName string) O11yAPI
 }
 
 // Start is the start of the window as a Unix timestamp in milliseconds.
-func (r O11yAPIGetMetricAttributesRequest) Start(start int32) O11yAPIGetMetricAttributesRequest {
+func (r O11yAPIGetMetricAttributesRequest) Start(start int64) O11yAPIGetMetricAttributesRequest {
 	r.start = &start
 	return r
 }
 
 // End is the end of the window as a Unix timestamp in milliseconds.
-func (r O11yAPIGetMetricAttributesRequest) End(end int32) O11yAPIGetMetricAttributesRequest {
+func (r O11yAPIGetMetricAttributesRequest) End(end int64) O11yAPIGetMetricAttributesRequest {
 	r.end = &end
 	return r
 }
@@ -10094,7 +10094,7 @@ type O11yAPIGetO11yAutocompleteAggregateAttributesRequest struct {
 	dataSource        *string
 	aggregateOperator *string
 	searchText        *string
-	limit             *int32
+	limit             *int64
 }
 
 // DataSource is the telemetry the attributes come from — traces, logs, metrics or meter. The runtime requires it.
@@ -10116,7 +10116,7 @@ func (r O11yAPIGetO11yAutocompleteAggregateAttributesRequest) SearchText(searchT
 }
 
 // Limit caps how many attributes come back. Absent means 50.
-func (r O11yAPIGetO11yAutocompleteAggregateAttributesRequest) Limit(limit int32) O11yAPIGetO11yAutocompleteAggregateAttributesRequest {
+func (r O11yAPIGetO11yAutocompleteAggregateAttributesRequest) Limit(limit int64) O11yAPIGetO11yAutocompleteAggregateAttributesRequest {
 	r.limit = &limit
 	return r
 }
@@ -10240,7 +10240,7 @@ type O11yAPIGetO11yAutocompleteAttributeKeysRequest struct {
 	aggregateAttribute *string
 	searchText         *string
 	tagType            *string
-	limit              *int32
+	limit              *int64
 }
 
 // DataSource is the telemetry the keys come from — traces, logs, metrics or meter. The runtime requires it.
@@ -10274,7 +10274,7 @@ func (r O11yAPIGetO11yAutocompleteAttributeKeysRequest) TagType(tagType string) 
 }
 
 // Limit caps how many keys come back. Absent means 50.
-func (r O11yAPIGetO11yAutocompleteAttributeKeysRequest) Limit(limit int32) O11yAPIGetO11yAutocompleteAttributeKeysRequest {
+func (r O11yAPIGetO11yAutocompleteAttributeKeysRequest) Limit(limit int64) O11yAPIGetO11yAutocompleteAttributeKeysRequest {
 	r.limit = &limit
 	return r
 }
@@ -10405,7 +10405,7 @@ type O11yAPIGetO11yAutocompleteAttributeValuesRequest struct {
 	filterAttributeKeyDataType *string
 	searchText                 *string
 	tagType                    *string
-	limit                      *int32
+	limit                      *int64
 }
 
 // DataSource is the telemetry the values come from — traces, logs or metrics. The runtime requires it.
@@ -10451,7 +10451,7 @@ func (r O11yAPIGetO11yAutocompleteAttributeValuesRequest) TagType(tagType string
 }
 
 // Limit caps how many values come back. Absent means 50.
-func (r O11yAPIGetO11yAutocompleteAttributeValuesRequest) Limit(limit int32) O11yAPIGetO11yAutocompleteAttributeValuesRequest {
+func (r O11yAPIGetO11yAutocompleteAttributeValuesRequest) Limit(limit int64) O11yAPIGetO11yAutocompleteAttributeValuesRequest {
 	r.limit = &limit
 	return r
 }
@@ -10581,18 +10581,18 @@ func (a *O11yAPIService) GetO11yAutocompleteAttributeValuesExecute(r O11yAPIGetO
 type O11yAPIGetO11yAvailabilityRequest struct {
 	ctx        context.Context
 	ApiService *O11yAPIService
-	range_     *int32
-	stepSec    *int32
+	range_     *int64
+	stepSec    *int64
 }
 
 // Range is the trend window in seconds. Default 3600, capped at 604800 (7d).
-func (r O11yAPIGetO11yAvailabilityRequest) Range_(range_ int32) O11yAPIGetO11yAvailabilityRequest {
+func (r O11yAPIGetO11yAvailabilityRequest) Range_(range_ int64) O11yAPIGetO11yAvailabilityRequest {
 	r.range_ = &range_
 	return r
 }
 
 // StepSec is the bucket width in seconds, clamped to [30, 3600]. Absent picks ~60 buckets across the range.
-func (r O11yAPIGetO11yAvailabilityRequest) StepSec(stepSec int32) O11yAPIGetO11yAvailabilityRequest {
+func (r O11yAPIGetO11yAvailabilityRequest) StepSec(stepSec int64) O11yAPIGetO11yAvailabilityRequest {
 	r.stepSec = &stepSec
 	return r
 }
@@ -10713,7 +10713,7 @@ type O11yAPIGetO11yClustersAttributeKeysRequest struct {
 	aggregateAttribute *string
 	searchText         *string
 	tagType            *string
-	limit              *int32
+	limit              *int64
 }
 
 // DataSource is the telemetry the keys come from — metrics for the infra faces. The runtime requires it.
@@ -10747,7 +10747,7 @@ func (r O11yAPIGetO11yClustersAttributeKeysRequest) TagType(tagType string) O11y
 }
 
 // Limit caps how many keys come back. Absent means 50.
-func (r O11yAPIGetO11yClustersAttributeKeysRequest) Limit(limit int32) O11yAPIGetO11yClustersAttributeKeysRequest {
+func (r O11yAPIGetO11yClustersAttributeKeysRequest) Limit(limit int64) O11yAPIGetO11yClustersAttributeKeysRequest {
 	r.limit = &limit
 	return r
 }
@@ -10876,7 +10876,7 @@ type O11yAPIGetO11yClustersAttributeValuesRequest struct {
 	filterAttributeKeyDataType *string
 	searchText                 *string
 	tagType                    *string
-	limit                      *int32
+	limit                      *int64
 }
 
 // DataSource is the telemetry the values come from — metrics for the infra faces. The runtime requires it.
@@ -10922,7 +10922,7 @@ func (r O11yAPIGetO11yClustersAttributeValuesRequest) TagType(tagType string) O1
 }
 
 // Limit caps how many values come back. Absent means 50.
-func (r O11yAPIGetO11yClustersAttributeValuesRequest) Limit(limit int32) O11yAPIGetO11yClustersAttributeValuesRequest {
+func (r O11yAPIGetO11yClustersAttributeValuesRequest) Limit(limit int64) O11yAPIGetO11yClustersAttributeValuesRequest {
 	r.limit = &limit
 	return r
 }
@@ -11237,7 +11237,7 @@ type O11yAPIGetO11yDaemonsetsAttributeKeysRequest struct {
 	aggregateAttribute *string
 	searchText         *string
 	tagType            *string
-	limit              *int32
+	limit              *int64
 }
 
 // DataSource is the telemetry the keys come from — metrics for the infra faces. The runtime requires it.
@@ -11271,7 +11271,7 @@ func (r O11yAPIGetO11yDaemonsetsAttributeKeysRequest) TagType(tagType string) O1
 }
 
 // Limit caps how many keys come back. Absent means 50.
-func (r O11yAPIGetO11yDaemonsetsAttributeKeysRequest) Limit(limit int32) O11yAPIGetO11yDaemonsetsAttributeKeysRequest {
+func (r O11yAPIGetO11yDaemonsetsAttributeKeysRequest) Limit(limit int64) O11yAPIGetO11yDaemonsetsAttributeKeysRequest {
 	r.limit = &limit
 	return r
 }
@@ -11400,7 +11400,7 @@ type O11yAPIGetO11yDaemonsetsAttributeValuesRequest struct {
 	filterAttributeKeyDataType *string
 	searchText                 *string
 	tagType                    *string
-	limit                      *int32
+	limit                      *int64
 }
 
 // DataSource is the telemetry the values come from — metrics for the infra faces. The runtime requires it.
@@ -11446,7 +11446,7 @@ func (r O11yAPIGetO11yDaemonsetsAttributeValuesRequest) TagType(tagType string) 
 }
 
 // Limit caps how many values come back. Absent means 50.
-func (r O11yAPIGetO11yDaemonsetsAttributeValuesRequest) Limit(limit int32) O11yAPIGetO11yDaemonsetsAttributeValuesRequest {
+func (r O11yAPIGetO11yDaemonsetsAttributeValuesRequest) Limit(limit int64) O11yAPIGetO11yDaemonsetsAttributeValuesRequest {
 	r.limit = &limit
 	return r
 }
@@ -11579,7 +11579,7 @@ type O11yAPIGetO11yDeploymentsAttributeKeysRequest struct {
 	aggregateAttribute *string
 	searchText         *string
 	tagType            *string
-	limit              *int32
+	limit              *int64
 }
 
 // DataSource is the telemetry the keys come from — metrics for the infra faces. The runtime requires it.
@@ -11613,7 +11613,7 @@ func (r O11yAPIGetO11yDeploymentsAttributeKeysRequest) TagType(tagType string) O
 }
 
 // Limit caps how many keys come back. Absent means 50.
-func (r O11yAPIGetO11yDeploymentsAttributeKeysRequest) Limit(limit int32) O11yAPIGetO11yDeploymentsAttributeKeysRequest {
+func (r O11yAPIGetO11yDeploymentsAttributeKeysRequest) Limit(limit int64) O11yAPIGetO11yDeploymentsAttributeKeysRequest {
 	r.limit = &limit
 	return r
 }
@@ -11742,7 +11742,7 @@ type O11yAPIGetO11yDeploymentsAttributeValuesRequest struct {
 	filterAttributeKeyDataType *string
 	searchText                 *string
 	tagType                    *string
-	limit                      *int32
+	limit                      *int64
 }
 
 // DataSource is the telemetry the values come from — metrics for the infra faces. The runtime requires it.
@@ -11788,7 +11788,7 @@ func (r O11yAPIGetO11yDeploymentsAttributeValuesRequest) TagType(tagType string)
 }
 
 // Limit caps how many values come back. Absent means 50.
-func (r O11yAPIGetO11yDeploymentsAttributeValuesRequest) Limit(limit int32) O11yAPIGetO11yDeploymentsAttributeValuesRequest {
+func (r O11yAPIGetO11yDeploymentsAttributeValuesRequest) Limit(limit int64) O11yAPIGetO11yDeploymentsAttributeValuesRequest {
 	r.limit = &limit
 	return r
 }
@@ -12295,8 +12295,8 @@ type O11yAPIGetO11yErrortrackingIssuesRequest struct {
 	serviceName *string
 	query       *string
 	sort        *string
-	offset      *int32
-	limit       *int32
+	offset      *int64
+	limit       *int64
 }
 
 // Status narrows to one lifecycle state: unresolved, resolved or ignored.
@@ -12336,13 +12336,13 @@ func (r O11yAPIGetO11yErrortrackingIssuesRequest) Sort(sort string) O11yAPIGetO1
 }
 
 // Offset is how many issues to skip. Zero starts at the first.
-func (r O11yAPIGetO11yErrortrackingIssuesRequest) Offset(offset int32) O11yAPIGetO11yErrortrackingIssuesRequest {
+func (r O11yAPIGetO11yErrortrackingIssuesRequest) Offset(offset int64) O11yAPIGetO11yErrortrackingIssuesRequest {
 	r.offset = &offset
 	return r
 }
 
 // Limit caps how many issues come back. Zero means the default.
-func (r O11yAPIGetO11yErrortrackingIssuesRequest) Limit(limit int32) O11yAPIGetO11yErrortrackingIssuesRequest {
+func (r O11yAPIGetO11yErrortrackingIssuesRequest) Limit(limit int64) O11yAPIGetO11yErrortrackingIssuesRequest {
 	r.limit = &limit
 	return r
 }
@@ -12922,9 +12922,9 @@ type O11yAPIGetO11yFieldsKeysRequest struct {
 	ApiService      *O11yAPIService
 	signal          *string
 	source          *string
-	limit           *int32
-	startUnixMilli  *int32
-	endUnixMilli    *int32
+	limit           *int64
+	startUnixMilli  *int64
+	endUnixMilli    *int64
 	fieldContext    *string
 	fieldDataType   *string
 	metricName      *string
@@ -12945,19 +12945,19 @@ func (r O11yAPIGetO11yFieldsKeysRequest) Source(source string) O11yAPIGetO11yFie
 }
 
 // Limit caps how many keys come back.
-func (r O11yAPIGetO11yFieldsKeysRequest) Limit(limit int32) O11yAPIGetO11yFieldsKeysRequest {
+func (r O11yAPIGetO11yFieldsKeysRequest) Limit(limit int64) O11yAPIGetO11yFieldsKeysRequest {
 	r.limit = &limit
 	return r
 }
 
 // StartUnixMilli is the window start as a unix millisecond epoch. Zero reads as unset.
-func (r O11yAPIGetO11yFieldsKeysRequest) StartUnixMilli(startUnixMilli int32) O11yAPIGetO11yFieldsKeysRequest {
+func (r O11yAPIGetO11yFieldsKeysRequest) StartUnixMilli(startUnixMilli int64) O11yAPIGetO11yFieldsKeysRequest {
 	r.startUnixMilli = &startUnixMilli
 	return r
 }
 
 // EndUnixMilli is the window end as a unix millisecond epoch. Zero reads as unset.
-func (r O11yAPIGetO11yFieldsKeysRequest) EndUnixMilli(endUnixMilli int32) O11yAPIGetO11yFieldsKeysRequest {
+func (r O11yAPIGetO11yFieldsKeysRequest) EndUnixMilli(endUnixMilli int64) O11yAPIGetO11yFieldsKeysRequest {
 	r.endUnixMilli = &endUnixMilli
 	return r
 }
@@ -13125,9 +13125,9 @@ type O11yAPIGetO11yFieldsValuesRequest struct {
 	ApiService      *O11yAPIService
 	signal          *string
 	source          *string
-	limit           *int32
-	startUnixMilli  *int32
-	endUnixMilli    *int32
+	limit           *int64
+	startUnixMilli  *int64
+	endUnixMilli    *int64
 	fieldContext    *string
 	fieldDataType   *string
 	metricName      *string
@@ -13150,19 +13150,19 @@ func (r O11yAPIGetO11yFieldsValuesRequest) Source(source string) O11yAPIGetO11yF
 }
 
 // Limit caps how many values come back.
-func (r O11yAPIGetO11yFieldsValuesRequest) Limit(limit int32) O11yAPIGetO11yFieldsValuesRequest {
+func (r O11yAPIGetO11yFieldsValuesRequest) Limit(limit int64) O11yAPIGetO11yFieldsValuesRequest {
 	r.limit = &limit
 	return r
 }
 
 // StartUnixMilli is the window start as a unix millisecond epoch. Zero reads as unset.
-func (r O11yAPIGetO11yFieldsValuesRequest) StartUnixMilli(startUnixMilli int32) O11yAPIGetO11yFieldsValuesRequest {
+func (r O11yAPIGetO11yFieldsValuesRequest) StartUnixMilli(startUnixMilli int64) O11yAPIGetO11yFieldsValuesRequest {
 	r.startUnixMilli = &startUnixMilli
 	return r
 }
 
 // EndUnixMilli is the window end as a unix millisecond epoch. Zero reads as unset.
-func (r O11yAPIGetO11yFieldsValuesRequest) EndUnixMilli(endUnixMilli int32) O11yAPIGetO11yFieldsValuesRequest {
+func (r O11yAPIGetO11yFieldsValuesRequest) EndUnixMilli(endUnixMilli int64) O11yAPIGetO11yFieldsValuesRequest {
 	r.endUnixMilli = &endUnixMilli
 	return r
 }
@@ -13349,8 +13349,8 @@ type O11yAPIGetO11yFilterSuggestionsRequest struct {
 	dataSource      *string
 	searchText      *string
 	existingFilter  *string
-	attributesLimit *int32
-	examplesLimit   *int32
+	attributesLimit *int64
+	examplesLimit   *int64
 }
 
 // DataSource is the signal suggestions are drawn from; only logs is supported today. Required.
@@ -13372,13 +13372,13 @@ func (r O11yAPIGetO11yFilterSuggestionsRequest) ExistingFilter(existingFilter st
 }
 
 // AttributesLimit caps how many attribute keys come back.
-func (r O11yAPIGetO11yFilterSuggestionsRequest) AttributesLimit(attributesLimit int32) O11yAPIGetO11yFilterSuggestionsRequest {
+func (r O11yAPIGetO11yFilterSuggestionsRequest) AttributesLimit(attributesLimit int64) O11yAPIGetO11yFilterSuggestionsRequest {
 	r.attributesLimit = &attributesLimit
 	return r
 }
 
 // ExamplesLimit caps how many example queries come back.
-func (r O11yAPIGetO11yFilterSuggestionsRequest) ExamplesLimit(examplesLimit int32) O11yAPIGetO11yFilterSuggestionsRequest {
+func (r O11yAPIGetO11yFilterSuggestionsRequest) ExamplesLimit(examplesLimit int64) O11yAPIGetO11yFilterSuggestionsRequest {
 	r.examplesLimit = &examplesLimit
 	return r
 }
@@ -13813,7 +13813,7 @@ type O11yAPIGetO11yHostsAttributeKeysRequest struct {
 	aggregateAttribute *string
 	searchText         *string
 	tagType            *string
-	limit              *int32
+	limit              *int64
 }
 
 // DataSource is the telemetry the keys come from — metrics for the infra faces. The runtime requires it.
@@ -13847,7 +13847,7 @@ func (r O11yAPIGetO11yHostsAttributeKeysRequest) TagType(tagType string) O11yAPI
 }
 
 // Limit caps how many keys come back. Absent means 50.
-func (r O11yAPIGetO11yHostsAttributeKeysRequest) Limit(limit int32) O11yAPIGetO11yHostsAttributeKeysRequest {
+func (r O11yAPIGetO11yHostsAttributeKeysRequest) Limit(limit int64) O11yAPIGetO11yHostsAttributeKeysRequest {
 	r.limit = &limit
 	return r
 }
@@ -13977,7 +13977,7 @@ type O11yAPIGetO11yHostsAttributeValuesRequest struct {
 	filterAttributeKeyDataType *string
 	searchText                 *string
 	tagType                    *string
-	limit                      *int32
+	limit                      *int64
 }
 
 // DataSource is the telemetry the values come from — metrics for the infra faces. The runtime requires it.
@@ -14023,7 +14023,7 @@ func (r O11yAPIGetO11yHostsAttributeValuesRequest) TagType(tagType string) O11yA
 }
 
 // Limit caps how many values come back. Absent means 50.
-func (r O11yAPIGetO11yHostsAttributeValuesRequest) Limit(limit int32) O11yAPIGetO11yHostsAttributeValuesRequest {
+func (r O11yAPIGetO11yHostsAttributeValuesRequest) Limit(limit int64) O11yAPIGetO11yHostsAttributeValuesRequest {
 	r.limit = &limit
 	return r
 }
@@ -14375,7 +14375,7 @@ type O11yAPIGetO11yJobsAttributeKeysRequest struct {
 	aggregateAttribute *string
 	searchText         *string
 	tagType            *string
-	limit              *int32
+	limit              *int64
 }
 
 // DataSource is the telemetry the keys come from — metrics for the infra faces. The runtime requires it.
@@ -14409,7 +14409,7 @@ func (r O11yAPIGetO11yJobsAttributeKeysRequest) TagType(tagType string) O11yAPIG
 }
 
 // Limit caps how many keys come back. Absent means 50.
-func (r O11yAPIGetO11yJobsAttributeKeysRequest) Limit(limit int32) O11yAPIGetO11yJobsAttributeKeysRequest {
+func (r O11yAPIGetO11yJobsAttributeKeysRequest) Limit(limit int64) O11yAPIGetO11yJobsAttributeKeysRequest {
 	r.limit = &limit
 	return r
 }
@@ -14538,7 +14538,7 @@ type O11yAPIGetO11yJobsAttributeValuesRequest struct {
 	filterAttributeKeyDataType *string
 	searchText                 *string
 	tagType                    *string
-	limit                      *int32
+	limit                      *int64
 }
 
 // DataSource is the telemetry the values come from — metrics for the infra faces. The runtime requires it.
@@ -14584,7 +14584,7 @@ func (r O11yAPIGetO11yJobsAttributeValuesRequest) TagType(tagType string) O11yAP
 }
 
 // Limit caps how many values come back. Absent means 50.
-func (r O11yAPIGetO11yJobsAttributeValuesRequest) Limit(limit int32) O11yAPIGetO11yJobsAttributeValuesRequest {
+func (r O11yAPIGetO11yJobsAttributeValuesRequest) Limit(limit int64) O11yAPIGetO11yJobsAttributeValuesRequest {
 	r.limit = &limit
 	return r
 }
@@ -15098,25 +15098,25 @@ func (a *O11yAPIService) GetO11yLoginExecute(r O11yAPIGetO11yLoginRequest) (*htt
 type O11yAPIGetO11yLogsRequest struct {
 	ctx            context.Context
 	ApiService     *O11yAPIService
-	limit          *int32
-	timestampStart *int32
-	timestampEnd   *int32
+	limit          *int64
+	timestampStart *int64
+	timestampEnd   *int64
 }
 
 // Limit caps how many records come back. Zero means the default of 100.
-func (r O11yAPIGetO11yLogsRequest) Limit(limit int32) O11yAPIGetO11yLogsRequest {
+func (r O11yAPIGetO11yLogsRequest) Limit(limit int64) O11yAPIGetO11yLogsRequest {
 	r.limit = &limit
 	return r
 }
 
 // TimestampStart is the start of the window as a nanosecond epoch. Zero means fifteen minutes before the end.
-func (r O11yAPIGetO11yLogsRequest) TimestampStart(timestampStart int32) O11yAPIGetO11yLogsRequest {
+func (r O11yAPIGetO11yLogsRequest) TimestampStart(timestampStart int64) O11yAPIGetO11yLogsRequest {
 	r.timestampStart = &timestampStart
 	return r
 }
 
 // TimestampEnd is the end of the window as a nanosecond epoch. Zero means now.
-func (r O11yAPIGetO11yLogsRequest) TimestampEnd(timestampEnd int32) O11yAPIGetO11yLogsRequest {
+func (r O11yAPIGetO11yLogsRequest) TimestampEnd(timestampEnd int64) O11yAPIGetO11yLogsRequest {
 	r.timestampEnd = &timestampEnd
 	return r
 }
@@ -15876,7 +15876,7 @@ type O11yAPIGetO11yNamespacesAttributeKeysRequest struct {
 	aggregateAttribute *string
 	searchText         *string
 	tagType            *string
-	limit              *int32
+	limit              *int64
 }
 
 // DataSource is the telemetry the keys come from — metrics for the infra faces. The runtime requires it.
@@ -15910,7 +15910,7 @@ func (r O11yAPIGetO11yNamespacesAttributeKeysRequest) TagType(tagType string) O1
 }
 
 // Limit caps how many keys come back. Absent means 50.
-func (r O11yAPIGetO11yNamespacesAttributeKeysRequest) Limit(limit int32) O11yAPIGetO11yNamespacesAttributeKeysRequest {
+func (r O11yAPIGetO11yNamespacesAttributeKeysRequest) Limit(limit int64) O11yAPIGetO11yNamespacesAttributeKeysRequest {
 	r.limit = &limit
 	return r
 }
@@ -16039,7 +16039,7 @@ type O11yAPIGetO11yNamespacesAttributeValuesRequest struct {
 	filterAttributeKeyDataType *string
 	searchText                 *string
 	tagType                    *string
-	limit                      *int32
+	limit                      *int64
 }
 
 // DataSource is the telemetry the values come from — metrics for the infra faces. The runtime requires it.
@@ -16085,7 +16085,7 @@ func (r O11yAPIGetO11yNamespacesAttributeValuesRequest) TagType(tagType string) 
 }
 
 // Limit caps how many values come back. Absent means 50.
-func (r O11yAPIGetO11yNamespacesAttributeValuesRequest) Limit(limit int32) O11yAPIGetO11yNamespacesAttributeValuesRequest {
+func (r O11yAPIGetO11yNamespacesAttributeValuesRequest) Limit(limit int64) O11yAPIGetO11yNamespacesAttributeValuesRequest {
 	r.limit = &limit
 	return r
 }
@@ -16354,7 +16354,7 @@ type O11yAPIGetO11yNodesAttributeKeysRequest struct {
 	aggregateAttribute *string
 	searchText         *string
 	tagType            *string
-	limit              *int32
+	limit              *int64
 }
 
 // DataSource is the telemetry the keys come from — metrics for the infra faces. The runtime requires it.
@@ -16388,7 +16388,7 @@ func (r O11yAPIGetO11yNodesAttributeKeysRequest) TagType(tagType string) O11yAPI
 }
 
 // Limit caps how many keys come back. Absent means 50.
-func (r O11yAPIGetO11yNodesAttributeKeysRequest) Limit(limit int32) O11yAPIGetO11yNodesAttributeKeysRequest {
+func (r O11yAPIGetO11yNodesAttributeKeysRequest) Limit(limit int64) O11yAPIGetO11yNodesAttributeKeysRequest {
 	r.limit = &limit
 	return r
 }
@@ -16517,7 +16517,7 @@ type O11yAPIGetO11yNodesAttributeValuesRequest struct {
 	filterAttributeKeyDataType *string
 	searchText                 *string
 	tagType                    *string
-	limit                      *int32
+	limit                      *int64
 }
 
 // DataSource is the telemetry the values come from — metrics for the infra faces. The runtime requires it.
@@ -16563,7 +16563,7 @@ func (r O11yAPIGetO11yNodesAttributeValuesRequest) TagType(tagType string) O11yA
 }
 
 // Limit caps how many values come back. Absent means 50.
-func (r O11yAPIGetO11yNodesAttributeValuesRequest) Limit(limit int32) O11yAPIGetO11yNodesAttributeValuesRequest {
+func (r O11yAPIGetO11yNodesAttributeValuesRequest) Limit(limit int64) O11yAPIGetO11yNodesAttributeValuesRequest {
 	r.limit = &limit
 	return r
 }
@@ -16696,7 +16696,7 @@ type O11yAPIGetO11yPodsAttributeKeysRequest struct {
 	aggregateAttribute *string
 	searchText         *string
 	tagType            *string
-	limit              *int32
+	limit              *int64
 }
 
 // DataSource is the telemetry the keys come from — metrics for the infra faces. The runtime requires it.
@@ -16730,7 +16730,7 @@ func (r O11yAPIGetO11yPodsAttributeKeysRequest) TagType(tagType string) O11yAPIG
 }
 
 // Limit caps how many keys come back. Absent means 50.
-func (r O11yAPIGetO11yPodsAttributeKeysRequest) Limit(limit int32) O11yAPIGetO11yPodsAttributeKeysRequest {
+func (r O11yAPIGetO11yPodsAttributeKeysRequest) Limit(limit int64) O11yAPIGetO11yPodsAttributeKeysRequest {
 	r.limit = &limit
 	return r
 }
@@ -16859,7 +16859,7 @@ type O11yAPIGetO11yPodsAttributeValuesRequest struct {
 	filterAttributeKeyDataType *string
 	searchText                 *string
 	tagType                    *string
-	limit                      *int32
+	limit                      *int64
 }
 
 // DataSource is the telemetry the values come from — metrics for the infra faces. The runtime requires it.
@@ -16905,7 +16905,7 @@ func (r O11yAPIGetO11yPodsAttributeValuesRequest) TagType(tagType string) O11yAP
 }
 
 // Limit caps how many values come back. Absent means 50.
-func (r O11yAPIGetO11yPodsAttributeValuesRequest) Limit(limit int32) O11yAPIGetO11yPodsAttributeValuesRequest {
+func (r O11yAPIGetO11yPodsAttributeValuesRequest) Limit(limit int64) O11yAPIGetO11yPodsAttributeValuesRequest {
 	r.limit = &limit
 	return r
 }
@@ -17038,7 +17038,7 @@ type O11yAPIGetO11yProcessesAttributeKeysRequest struct {
 	aggregateAttribute *string
 	searchText         *string
 	tagType            *string
-	limit              *int32
+	limit              *int64
 }
 
 // DataSource is the telemetry the keys come from — metrics for the infra faces. The runtime requires it.
@@ -17072,7 +17072,7 @@ func (r O11yAPIGetO11yProcessesAttributeKeysRequest) TagType(tagType string) O11
 }
 
 // Limit caps how many keys come back. Absent means 50.
-func (r O11yAPIGetO11yProcessesAttributeKeysRequest) Limit(limit int32) O11yAPIGetO11yProcessesAttributeKeysRequest {
+func (r O11yAPIGetO11yProcessesAttributeKeysRequest) Limit(limit int64) O11yAPIGetO11yProcessesAttributeKeysRequest {
 	r.limit = &limit
 	return r
 }
@@ -17201,7 +17201,7 @@ type O11yAPIGetO11yProcessesAttributeValuesRequest struct {
 	filterAttributeKeyDataType *string
 	searchText                 *string
 	tagType                    *string
-	limit                      *int32
+	limit                      *int64
 }
 
 // DataSource is the telemetry the values come from — metrics for the infra faces. The runtime requires it.
@@ -17247,7 +17247,7 @@ func (r O11yAPIGetO11yProcessesAttributeValuesRequest) TagType(tagType string) O
 }
 
 // Limit caps how many values come back. Absent means 50.
-func (r O11yAPIGetO11yProcessesAttributeValuesRequest) Limit(limit int32) O11yAPIGetO11yProcessesAttributeValuesRequest {
+func (r O11yAPIGetO11yProcessesAttributeValuesRequest) Limit(limit int64) O11yAPIGetO11yProcessesAttributeValuesRequest {
 	r.limit = &limit
 	return r
 }
@@ -17376,8 +17376,8 @@ type O11yAPIGetO11yProductMetricsRequest struct {
 	ctx        context.Context
 	ApiService *O11yAPIService
 	product    *string
-	range_     *int32
-	stepSec    *int32
+	range_     *int64
+	stepSec    *int64
 }
 
 // Product is the console product slug to read, e.g. \&quot;kms\&quot;. Required.
@@ -17387,13 +17387,13 @@ func (r O11yAPIGetO11yProductMetricsRequest) Product(product string) O11yAPIGetO
 }
 
 // Range is the window in seconds. Default 3600, capped at 604800 (7d).
-func (r O11yAPIGetO11yProductMetricsRequest) Range_(range_ int32) O11yAPIGetO11yProductMetricsRequest {
+func (r O11yAPIGetO11yProductMetricsRequest) Range_(range_ int64) O11yAPIGetO11yProductMetricsRequest {
 	r.range_ = &range_
 	return r
 }
 
 // StepSec is the bucket width in seconds, clamped to [30, 3600]. Absent picks ~60 buckets across the range.
-func (r O11yAPIGetO11yProductMetricsRequest) StepSec(stepSec int32) O11yAPIGetO11yProductMetricsRequest {
+func (r O11yAPIGetO11yProductMetricsRequest) StepSec(stepSec int64) O11yAPIGetO11yProductMetricsRequest {
 	r.stepSec = &stepSec
 	return r
 }
@@ -17516,7 +17516,7 @@ type O11yAPIGetO11yPvcsAttributeKeysRequest struct {
 	aggregateAttribute *string
 	searchText         *string
 	tagType            *string
-	limit              *int32
+	limit              *int64
 }
 
 // DataSource is the telemetry the keys come from — metrics for the infra faces. The runtime requires it.
@@ -17550,7 +17550,7 @@ func (r O11yAPIGetO11yPvcsAttributeKeysRequest) TagType(tagType string) O11yAPIG
 }
 
 // Limit caps how many keys come back. Absent means 50.
-func (r O11yAPIGetO11yPvcsAttributeKeysRequest) Limit(limit int32) O11yAPIGetO11yPvcsAttributeKeysRequest {
+func (r O11yAPIGetO11yPvcsAttributeKeysRequest) Limit(limit int64) O11yAPIGetO11yPvcsAttributeKeysRequest {
 	r.limit = &limit
 	return r
 }
@@ -17679,7 +17679,7 @@ type O11yAPIGetO11yPvcsAttributeValuesRequest struct {
 	filterAttributeKeyDataType *string
 	searchText                 *string
 	tagType                    *string
-	limit                      *int32
+	limit                      *int64
 }
 
 // DataSource is the telemetry the values come from — metrics for the infra faces. The runtime requires it.
@@ -17725,7 +17725,7 @@ func (r O11yAPIGetO11yPvcsAttributeValuesRequest) TagType(tagType string) O11yAP
 }
 
 // Limit caps how many values come back. Absent means 50.
-func (r O11yAPIGetO11yPvcsAttributeValuesRequest) Limit(limit int32) O11yAPIGetO11yPvcsAttributeValuesRequest {
+func (r O11yAPIGetO11yPvcsAttributeValuesRequest) Limit(limit int64) O11yAPIGetO11yPvcsAttributeValuesRequest {
 	r.limit = &limit
 	return r
 }
@@ -18353,18 +18353,18 @@ func (a *O11yAPIService) GetO11yReadyzExecute(r O11yAPIGetO11yReadyzRequest) (*h
 type O11yAPIGetO11yReviewsRequest struct {
 	ctx        context.Context
 	ApiService *O11yAPIService
-	page       *int32
-	limit      *int32
+	page       *int64
+	limit      *int64
 }
 
 // Page is the 1-based page to read. Default 1.
-func (r O11yAPIGetO11yReviewsRequest) Page(page int32) O11yAPIGetO11yReviewsRequest {
+func (r O11yAPIGetO11yReviewsRequest) Page(page int64) O11yAPIGetO11yReviewsRequest {
 	r.page = &page
 	return r
 }
 
 // Limit is how many rows to return. Default 20, capped at 100.
-func (r O11yAPIGetO11yReviewsRequest) Limit(limit int32) O11yAPIGetO11yReviewsRequest {
+func (r O11yAPIGetO11yReviewsRequest) Limit(limit int64) O11yAPIGetO11yReviewsRequest {
 	r.limit = &limit
 	return r
 }
@@ -18583,8 +18583,8 @@ type O11yAPIGetO11yReviewsByIdItemsRequest struct {
 	ApiService *O11yAPIService
 	id         string
 	status     *string
-	page       *int32
-	limit      *int32
+	page       *int64
+	limit      *int64
 }
 
 // Status filters to PENDING or COMPLETED items. Absent returns both.
@@ -18594,13 +18594,13 @@ func (r O11yAPIGetO11yReviewsByIdItemsRequest) Status(status string) O11yAPIGetO
 }
 
 // Page is the 1-based page to read. Default 1.
-func (r O11yAPIGetO11yReviewsByIdItemsRequest) Page(page int32) O11yAPIGetO11yReviewsByIdItemsRequest {
+func (r O11yAPIGetO11yReviewsByIdItemsRequest) Page(page int64) O11yAPIGetO11yReviewsByIdItemsRequest {
 	r.page = &page
 	return r
 }
 
 // Limit is how many rows to return. Default 20, capped at 100.
-func (r O11yAPIGetO11yReviewsByIdItemsRequest) Limit(limit int32) O11yAPIGetO11yReviewsByIdItemsRequest {
+func (r O11yAPIGetO11yReviewsByIdItemsRequest) Limit(limit int64) O11yAPIGetO11yReviewsByIdItemsRequest {
 	r.limit = &limit
 	return r
 }
@@ -18840,8 +18840,8 @@ type O11yAPIGetO11ySentinelIssuesRequest struct {
 	serviceName *string
 	query       *string
 	sort        *string
-	offset      *int32
-	limit       *int32
+	offset      *int64
+	limit       *int64
 	project     *string
 	period      *string
 }
@@ -18883,13 +18883,13 @@ func (r O11yAPIGetO11ySentinelIssuesRequest) Sort(sort string) O11yAPIGetO11ySen
 }
 
 // Offset is how many issues to skip. Zero starts at the first.
-func (r O11yAPIGetO11ySentinelIssuesRequest) Offset(offset int32) O11yAPIGetO11ySentinelIssuesRequest {
+func (r O11yAPIGetO11ySentinelIssuesRequest) Offset(offset int64) O11yAPIGetO11ySentinelIssuesRequest {
 	r.offset = &offset
 	return r
 }
 
 // Limit caps how many issues come back. Zero means the default.
-func (r O11yAPIGetO11ySentinelIssuesRequest) Limit(limit int32) O11yAPIGetO11ySentinelIssuesRequest {
+func (r O11yAPIGetO11ySentinelIssuesRequest) Limit(limit int64) O11yAPIGetO11ySentinelIssuesRequest {
 	r.limit = &limit
 	return r
 }
@@ -19147,7 +19147,7 @@ type O11yAPIGetO11ySentinelIssuesByIdEventsRequest struct {
 	ApiService *O11yAPIService
 	id         string
 	project    *string
-	limit      *int32
+	limit      *int64
 }
 
 // Project is the project whose occurrences to read, by its id. Required.
@@ -19157,7 +19157,7 @@ func (r O11yAPIGetO11ySentinelIssuesByIdEventsRequest) Project(project string) O
 }
 
 // Limit caps how many occurrences come back. Zero means the default.
-func (r O11yAPIGetO11ySentinelIssuesByIdEventsRequest) Limit(limit int32) O11yAPIGetO11ySentinelIssuesByIdEventsRequest {
+func (r O11yAPIGetO11ySentinelIssuesByIdEventsRequest) Limit(limit int64) O11yAPIGetO11ySentinelIssuesByIdEventsRequest {
 	r.limit = &limit
 	return r
 }
@@ -19277,7 +19277,7 @@ type O11yAPIGetO11ySentinelLogsRequest struct {
 	project    *string
 	query      *string
 	period     *string
-	limit      *int32
+	limit      *int64
 }
 
 // Project is the project to read, as its id. Required.
@@ -19299,7 +19299,7 @@ func (r O11yAPIGetO11ySentinelLogsRequest) Period(period string) O11yAPIGetO11yS
 }
 
 // Limit caps how many events come back.
-func (r O11yAPIGetO11ySentinelLogsRequest) Limit(limit int32) O11yAPIGetO11ySentinelLogsRequest {
+func (r O11yAPIGetO11ySentinelLogsRequest) Limit(limit int64) O11yAPIGetO11ySentinelLogsRequest {
 	r.limit = &limit
 	return r
 }
@@ -19759,7 +19759,7 @@ type O11yAPIGetO11ySentinelTracesRequest struct {
 	ApiService *O11yAPIService
 	project    *string
 	period     *string
-	limit      *int32
+	limit      *int64
 }
 
 // Project is the project to read, as its id. Required.
@@ -19775,7 +19775,7 @@ func (r O11yAPIGetO11ySentinelTracesRequest) Period(period string) O11yAPIGetO11
 }
 
 // Limit caps how many traces come back.
-func (r O11yAPIGetO11ySentinelTracesRequest) Limit(limit int32) O11yAPIGetO11ySentinelTracesRequest {
+func (r O11yAPIGetO11ySentinelTracesRequest) Limit(limit int64) O11yAPIGetO11ySentinelTracesRequest {
 	r.limit = &limit
 	return r
 }
@@ -20419,7 +20419,7 @@ type O11yAPIGetO11yStatefulsetsAttributeKeysRequest struct {
 	aggregateAttribute *string
 	searchText         *string
 	tagType            *string
-	limit              *int32
+	limit              *int64
 }
 
 // DataSource is the telemetry the keys come from — metrics for the infra faces. The runtime requires it.
@@ -20453,7 +20453,7 @@ func (r O11yAPIGetO11yStatefulsetsAttributeKeysRequest) TagType(tagType string) 
 }
 
 // Limit caps how many keys come back. Absent means 50.
-func (r O11yAPIGetO11yStatefulsetsAttributeKeysRequest) Limit(limit int32) O11yAPIGetO11yStatefulsetsAttributeKeysRequest {
+func (r O11yAPIGetO11yStatefulsetsAttributeKeysRequest) Limit(limit int64) O11yAPIGetO11yStatefulsetsAttributeKeysRequest {
 	r.limit = &limit
 	return r
 }
@@ -20582,7 +20582,7 @@ type O11yAPIGetO11yStatefulsetsAttributeValuesRequest struct {
 	filterAttributeKeyDataType *string
 	searchText                 *string
 	tagType                    *string
-	limit                      *int32
+	limit                      *int64
 }
 
 // DataSource is the telemetry the values come from — metrics for the infra faces. The runtime requires it.
@@ -20628,7 +20628,7 @@ func (r O11yAPIGetO11yStatefulsetsAttributeValuesRequest) TagType(tagType string
 }
 
 // Limit caps how many values come back. Absent means 50.
-func (r O11yAPIGetO11yStatefulsetsAttributeValuesRequest) Limit(limit int32) O11yAPIGetO11yStatefulsetsAttributeValuesRequest {
+func (r O11yAPIGetO11yStatefulsetsAttributeValuesRequest) Limit(limit int64) O11yAPIGetO11yStatefulsetsAttributeValuesRequest {
 	r.limit = &limit
 	return r
 }
@@ -21084,25 +21084,25 @@ func (a *O11yAPIService) GetO11ySummaryExecute(r O11yAPIGetO11ySummaryRequest) (
 type O11yAPIGetO11yTracesRequest struct {
 	ctx           context.Context
 	ApiService    *O11yAPIService
-	range_        *int32
-	limit         *int32
-	minDurationMs *int32
+	range_        *int64
+	limit         *int64
+	minDurationMs *int64
 }
 
 // Range is the window in seconds, counted back from now over each trace&#39;s last activity. Default 3600, capped at 604800 (7d).
-func (r O11yAPIGetO11yTracesRequest) Range_(range_ int32) O11yAPIGetO11yTracesRequest {
+func (r O11yAPIGetO11yTracesRequest) Range_(range_ int64) O11yAPIGetO11yTracesRequest {
 	r.range_ = &range_
 	return r
 }
 
 // Limit is how many traces to return. Default 50, capped at 500.
-func (r O11yAPIGetO11yTracesRequest) Limit(limit int32) O11yAPIGetO11yTracesRequest {
+func (r O11yAPIGetO11yTracesRequest) Limit(limit int64) O11yAPIGetO11yTracesRequest {
 	r.limit = &limit
 	return r
 }
 
 // MinDurationMs keeps only traces that lasted at least this many milliseconds. Zero or absent keeps every trace in the window.
-func (r O11yAPIGetO11yTracesRequest) MinDurationMs(minDurationMs int32) O11yAPIGetO11yTracesRequest {
+func (r O11yAPIGetO11yTracesRequest) MinDurationMs(minDurationMs int64) O11yAPIGetO11yTracesRequest {
 	r.minDurationMs = &minDurationMs
 	return r
 }
@@ -21224,7 +21224,7 @@ type O11yAPIGetO11yUsageRequest struct {
 	ApiService *O11yAPIService
 	start      *string
 	end        *string
-	step       *int32
+	step       *int64
 	service    *string
 }
 
@@ -21241,7 +21241,7 @@ func (r O11yAPIGetO11yUsageRequest) End(end string) O11yAPIGetO11yUsageRequest {
 }
 
 // Step is the bucket width in seconds. The runtime requires it.
-func (r O11yAPIGetO11yUsageRequest) Step(step int32) O11yAPIGetO11yUsageRequest {
+func (r O11yAPIGetO11yUsageRequest) Step(step int64) O11yAPIGetO11yUsageRequest {
 	r.step = &step
 	return r
 }
@@ -22769,20 +22769,20 @@ type O11yAPIGetRuleHistoryFilterKeysRequest struct {
 	ctx            context.Context
 	ApiService     *O11yAPIService
 	id             string
-	startUnixMilli *int32
-	endUnixMilli   *int32
+	startUnixMilli *int64
+	endUnixMilli   *int64
 	searchText     *string
-	limit          *int32
+	limit          *int64
 }
 
 // StartUnixMilli is the window start, unix milliseconds.
-func (r O11yAPIGetRuleHistoryFilterKeysRequest) StartUnixMilli(startUnixMilli int32) O11yAPIGetRuleHistoryFilterKeysRequest {
+func (r O11yAPIGetRuleHistoryFilterKeysRequest) StartUnixMilli(startUnixMilli int64) O11yAPIGetRuleHistoryFilterKeysRequest {
 	r.startUnixMilli = &startUnixMilli
 	return r
 }
 
 // EndUnixMilli is the window end, unix milliseconds.
-func (r O11yAPIGetRuleHistoryFilterKeysRequest) EndUnixMilli(endUnixMilli int32) O11yAPIGetRuleHistoryFilterKeysRequest {
+func (r O11yAPIGetRuleHistoryFilterKeysRequest) EndUnixMilli(endUnixMilli int64) O11yAPIGetRuleHistoryFilterKeysRequest {
 	r.endUnixMilli = &endUnixMilli
 	return r
 }
@@ -22794,7 +22794,7 @@ func (r O11yAPIGetRuleHistoryFilterKeysRequest) SearchText(searchText string) O1
 }
 
 // Limit caps how many keys come back. Absent means 50, capped at 200.
-func (r O11yAPIGetRuleHistoryFilterKeysRequest) Limit(limit int32) O11yAPIGetRuleHistoryFilterKeysRequest {
+func (r O11yAPIGetRuleHistoryFilterKeysRequest) Limit(limit int64) O11yAPIGetRuleHistoryFilterKeysRequest {
 	r.limit = &limit
 	return r
 }
@@ -22915,10 +22915,10 @@ type O11yAPIGetRuleHistoryFilterValuesRequest struct {
 	ApiService     *O11yAPIService
 	id             string
 	name           *string
-	startUnixMilli *int32
-	endUnixMilli   *int32
+	startUnixMilli *int64
+	endUnixMilli   *int64
 	searchText     *string
-	limit          *int32
+	limit          *int64
 	existingQuery  *string
 }
 
@@ -22928,12 +22928,12 @@ func (r O11yAPIGetRuleHistoryFilterValuesRequest) Name(name string) O11yAPIGetRu
 	return r
 }
 
-func (r O11yAPIGetRuleHistoryFilterValuesRequest) StartUnixMilli(startUnixMilli int32) O11yAPIGetRuleHistoryFilterValuesRequest {
+func (r O11yAPIGetRuleHistoryFilterValuesRequest) StartUnixMilli(startUnixMilli int64) O11yAPIGetRuleHistoryFilterValuesRequest {
 	r.startUnixMilli = &startUnixMilli
 	return r
 }
 
-func (r O11yAPIGetRuleHistoryFilterValuesRequest) EndUnixMilli(endUnixMilli int32) O11yAPIGetRuleHistoryFilterValuesRequest {
+func (r O11yAPIGetRuleHistoryFilterValuesRequest) EndUnixMilli(endUnixMilli int64) O11yAPIGetRuleHistoryFilterValuesRequest {
 	r.endUnixMilli = &endUnixMilli
 	return r
 }
@@ -22943,7 +22943,7 @@ func (r O11yAPIGetRuleHistoryFilterValuesRequest) SearchText(searchText string) 
 	return r
 }
 
-func (r O11yAPIGetRuleHistoryFilterValuesRequest) Limit(limit int32) O11yAPIGetRuleHistoryFilterValuesRequest {
+func (r O11yAPIGetRuleHistoryFilterValuesRequest) Limit(limit int64) O11yAPIGetRuleHistoryFilterValuesRequest {
 	r.limit = &limit
 	return r
 }
@@ -23076,18 +23076,18 @@ type O11yAPIGetRuleHistoryOverallStatusRequest struct {
 	ctx        context.Context
 	ApiService *O11yAPIService
 	id         string
-	start      *int32
-	end        *int32
+	start      *int64
+	end        *int64
 }
 
 // Start is the window start, unix milliseconds. Required by the runtime.
-func (r O11yAPIGetRuleHistoryOverallStatusRequest) Start(start int32) O11yAPIGetRuleHistoryOverallStatusRequest {
+func (r O11yAPIGetRuleHistoryOverallStatusRequest) Start(start int64) O11yAPIGetRuleHistoryOverallStatusRequest {
 	r.start = &start
 	return r
 }
 
 // End is the window end, unix milliseconds. Required by the runtime.
-func (r O11yAPIGetRuleHistoryOverallStatusRequest) End(end int32) O11yAPIGetRuleHistoryOverallStatusRequest {
+func (r O11yAPIGetRuleHistoryOverallStatusRequest) End(end int64) O11yAPIGetRuleHistoryOverallStatusRequest {
 	r.end = &end
 	return r
 }
@@ -23201,18 +23201,18 @@ type O11yAPIGetRuleHistoryStatsRequest struct {
 	ctx        context.Context
 	ApiService *O11yAPIService
 	id         string
-	start      *int32
-	end        *int32
+	start      *int64
+	end        *int64
 }
 
 // Start is the window start, unix milliseconds. Required by the runtime.
-func (r O11yAPIGetRuleHistoryStatsRequest) Start(start int32) O11yAPIGetRuleHistoryStatsRequest {
+func (r O11yAPIGetRuleHistoryStatsRequest) Start(start int64) O11yAPIGetRuleHistoryStatsRequest {
 	r.start = &start
 	return r
 }
 
 // End is the window end, unix milliseconds. Required by the runtime.
-func (r O11yAPIGetRuleHistoryStatsRequest) End(end int32) O11yAPIGetRuleHistoryStatsRequest {
+func (r O11yAPIGetRuleHistoryStatsRequest) End(end int64) O11yAPIGetRuleHistoryStatsRequest {
 	r.end = &end
 	return r
 }
@@ -23326,23 +23326,23 @@ type O11yAPIGetRuleHistoryTimelineRequest struct {
 	ctx              context.Context
 	ApiService       *O11yAPIService
 	id               string
-	start            *int32
-	end              *int32
+	start            *int64
+	end              *int64
 	state            *string
 	filterExpression *string
-	limit            *int32
+	limit            *int64
 	order            *string
 	cursor           *string
 }
 
 // Start is the window start, unix milliseconds. Required by the runtime.
-func (r O11yAPIGetRuleHistoryTimelineRequest) Start(start int32) O11yAPIGetRuleHistoryTimelineRequest {
+func (r O11yAPIGetRuleHistoryTimelineRequest) Start(start int64) O11yAPIGetRuleHistoryTimelineRequest {
 	r.start = &start
 	return r
 }
 
 // End is the window end, unix milliseconds. Required by the runtime.
-func (r O11yAPIGetRuleHistoryTimelineRequest) End(end int32) O11yAPIGetRuleHistoryTimelineRequest {
+func (r O11yAPIGetRuleHistoryTimelineRequest) End(end int64) O11yAPIGetRuleHistoryTimelineRequest {
 	r.end = &end
 	return r
 }
@@ -23360,7 +23360,7 @@ func (r O11yAPIGetRuleHistoryTimelineRequest) FilterExpression(filterExpression 
 }
 
 // Limit caps how many entries come back. Absent means 50.
-func (r O11yAPIGetRuleHistoryTimelineRequest) Limit(limit int32) O11yAPIGetRuleHistoryTimelineRequest {
+func (r O11yAPIGetRuleHistoryTimelineRequest) Limit(limit int64) O11yAPIGetRuleHistoryTimelineRequest {
 	r.limit = &limit
 	return r
 }
@@ -23501,18 +23501,18 @@ type O11yAPIGetRuleHistoryTopContributorsRequest struct {
 	ctx        context.Context
 	ApiService *O11yAPIService
 	id         string
-	start      *int32
-	end        *int32
+	start      *int64
+	end        *int64
 }
 
 // Start is the window start, unix milliseconds. Required by the runtime.
-func (r O11yAPIGetRuleHistoryTopContributorsRequest) Start(start int32) O11yAPIGetRuleHistoryTopContributorsRequest {
+func (r O11yAPIGetRuleHistoryTopContributorsRequest) Start(start int64) O11yAPIGetRuleHistoryTopContributorsRequest {
 	r.start = &start
 	return r
 }
 
 // End is the window end, unix milliseconds. Required by the runtime.
-func (r O11yAPIGetRuleHistoryTopContributorsRequest) End(end int32) O11yAPIGetRuleHistoryTopContributorsRequest {
+func (r O11yAPIGetRuleHistoryTopContributorsRequest) End(end int64) O11yAPIGetRuleHistoryTopContributorsRequest {
 	r.end = &end
 	return r
 }
@@ -26720,8 +26720,8 @@ type O11yAPIListDashboardsForUserV2Request struct {
 	query      *string
 	sort       *string
 	order      *string
-	limit      *int32
-	offset     *int32
+	limit      *int64
+	offset     *int64
 }
 
 // Query is the filter DSL over dashboard columns and tags, e.g. &#x60;name:cpu source:user&#x60;. Empty lists everything.
@@ -26743,13 +26743,13 @@ func (r O11yAPIListDashboardsForUserV2Request) Order(order string) O11yAPIListDa
 }
 
 // Limit caps how many dashboards come back. Zero means the default of 20; the runtime caps it at 200.
-func (r O11yAPIListDashboardsForUserV2Request) Limit(limit int32) O11yAPIListDashboardsForUserV2Request {
+func (r O11yAPIListDashboardsForUserV2Request) Limit(limit int64) O11yAPIListDashboardsForUserV2Request {
 	r.limit = &limit
 	return r
 }
 
 // Offset is how many dashboards to skip for pagination.
-func (r O11yAPIListDashboardsForUserV2Request) Offset(offset int32) O11yAPIListDashboardsForUserV2Request {
+func (r O11yAPIListDashboardsForUserV2Request) Offset(offset int64) O11yAPIListDashboardsForUserV2Request {
 	r.offset = &offset
 	return r
 }
@@ -26875,8 +26875,8 @@ type O11yAPIListDashboardsV2Request struct {
 	query      *string
 	sort       *string
 	order      *string
-	limit      *int32
-	offset     *int32
+	limit      *int64
+	offset     *int64
 }
 
 // Query is the filter DSL over dashboard columns and tags, e.g. &#x60;name:cpu source:user&#x60;. Empty lists everything.
@@ -26898,13 +26898,13 @@ func (r O11yAPIListDashboardsV2Request) Order(order string) O11yAPIListDashboard
 }
 
 // Limit caps how many dashboards come back. Zero means the default of 20; the runtime caps it at 200.
-func (r O11yAPIListDashboardsV2Request) Limit(limit int32) O11yAPIListDashboardsV2Request {
+func (r O11yAPIListDashboardsV2Request) Limit(limit int64) O11yAPIListDashboardsV2Request {
 	r.limit = &limit
 	return r
 }
 
 // Offset is how many dashboards to skip for pagination.
-func (r O11yAPIListDashboardsV2Request) Offset(offset int32) O11yAPIListDashboardsV2Request {
+func (r O11yAPIListDashboardsV2Request) Offset(offset int64) O11yAPIListDashboardsV2Request {
 	r.offset = &offset
 	return r
 }
@@ -27264,8 +27264,8 @@ type O11yAPIListLLMAnnotationsRequest struct {
 	traceId    *string
 	queue      *string
 	status     *string
-	offset     *int32
-	limit      *int32
+	offset     *int64
+	limit      *int64
 }
 
 // TraceID narrows to annotations on one trace.
@@ -27287,13 +27287,13 @@ func (r O11yAPIListLLMAnnotationsRequest) Status(status string) O11yAPIListLLMAn
 }
 
 // Offset is how many rows to skip, for paging.
-func (r O11yAPIListLLMAnnotationsRequest) Offset(offset int32) O11yAPIListLLMAnnotationsRequest {
+func (r O11yAPIListLLMAnnotationsRequest) Offset(offset int64) O11yAPIListLLMAnnotationsRequest {
 	r.offset = &offset
 	return r
 }
 
 // Limit caps how many rows come back.
-func (r O11yAPIListLLMAnnotationsRequest) Limit(limit int32) O11yAPIListLLMAnnotationsRequest {
+func (r O11yAPIListLLMAnnotationsRequest) Limit(limit int64) O11yAPIListLLMAnnotationsRequest {
 	r.limit = &limit
 	return r
 }
@@ -27414,25 +27414,25 @@ func (a *O11yAPIService) ListLLMAnnotationsExecute(r O11yAPIListLLMAnnotationsRe
 type O11yAPIListLLMObservationsRequest struct {
 	ctx        context.Context
 	ApiService *O11yAPIService
-	start      *int32
-	end        *int32
+	start      *int64
+	end        *int64
 	traceId    *string
 	sessionId  *string
 	userId     *string
 	name       *string
 	model      *string
-	offset     *int32
-	limit      *int32
+	offset     *int64
+	limit      *int64
 }
 
 // Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end.
-func (r O11yAPIListLLMObservationsRequest) Start(start int32) O11yAPIListLLMObservationsRequest {
+func (r O11yAPIListLLMObservationsRequest) Start(start int64) O11yAPIListLLMObservationsRequest {
 	r.start = &start
 	return r
 }
 
 // End is the end of the window as a unix-millisecond epoch. Zero means now.
-func (r O11yAPIListLLMObservationsRequest) End(end int32) O11yAPIListLLMObservationsRequest {
+func (r O11yAPIListLLMObservationsRequest) End(end int64) O11yAPIListLLMObservationsRequest {
 	r.end = &end
 	return r
 }
@@ -27468,13 +27468,13 @@ func (r O11yAPIListLLMObservationsRequest) Model(model string) O11yAPIListLLMObs
 }
 
 // Offset is how many rows to skip, for paging.
-func (r O11yAPIListLLMObservationsRequest) Offset(offset int32) O11yAPIListLLMObservationsRequest {
+func (r O11yAPIListLLMObservationsRequest) Offset(offset int64) O11yAPIListLLMObservationsRequest {
 	r.offset = &offset
 	return r
 }
 
 // Limit caps how many rows come back.
-func (r O11yAPIListLLMObservationsRequest) Limit(limit int32) O11yAPIListLLMObservationsRequest {
+func (r O11yAPIListLLMObservationsRequest) Limit(limit int64) O11yAPIListLLMObservationsRequest {
 	r.limit = &limit
 	return r
 }
@@ -27611,8 +27611,8 @@ type O11yAPIListLLMPricingRulesRequest struct {
 	ApiService *O11yAPIService
 	q          *string
 	isOverride *string
-	offset     *int32
-	limit      *int32
+	offset     *int64
+	limit      *int64
 }
 
 // Search matches rules by model or provider.
@@ -27628,13 +27628,13 @@ func (r O11yAPIListLLMPricingRulesRequest) IsOverride(isOverride string) O11yAPI
 }
 
 // Offset is how many rows to skip, for paging.
-func (r O11yAPIListLLMPricingRulesRequest) Offset(offset int32) O11yAPIListLLMPricingRulesRequest {
+func (r O11yAPIListLLMPricingRulesRequest) Offset(offset int64) O11yAPIListLLMPricingRulesRequest {
 	r.offset = &offset
 	return r
 }
 
 // Limit caps how many rows come back.
-func (r O11yAPIListLLMPricingRulesRequest) Limit(limit int32) O11yAPIListLLMPricingRulesRequest {
+func (r O11yAPIListLLMPricingRulesRequest) Limit(limit int64) O11yAPIListLLMPricingRulesRequest {
 	r.limit = &limit
 	return r
 }
@@ -27756,8 +27756,8 @@ type O11yAPIListLLMScoresRequest struct {
 	observationId *string
 	name          *string
 	source        *string
-	offset        *int32
-	limit         *int32
+	offset        *int64
+	limit         *int64
 }
 
 // TraceID narrows to scores on one trace.
@@ -27785,13 +27785,13 @@ func (r O11yAPIListLLMScoresRequest) Source(source string) O11yAPIListLLMScoresR
 }
 
 // Offset is how many rows to skip, for paging.
-func (r O11yAPIListLLMScoresRequest) Offset(offset int32) O11yAPIListLLMScoresRequest {
+func (r O11yAPIListLLMScoresRequest) Offset(offset int64) O11yAPIListLLMScoresRequest {
 	r.offset = &offset
 	return r
 }
 
 // Limit caps how many rows come back.
-func (r O11yAPIListLLMScoresRequest) Limit(limit int32) O11yAPIListLLMScoresRequest {
+func (r O11yAPIListLLMScoresRequest) Limit(limit int64) O11yAPIListLLMScoresRequest {
 	r.limit = &limit
 	return r
 }
@@ -27915,25 +27915,25 @@ func (a *O11yAPIService) ListLLMScoresExecute(r O11yAPIListLLMScoresRequest) (*O
 type O11yAPIListLLMSessionsRequest struct {
 	ctx        context.Context
 	ApiService *O11yAPIService
-	start      *int32
-	end        *int32
+	start      *int64
+	end        *int64
 	traceId    *string
 	sessionId  *string
 	userId     *string
 	name       *string
 	model      *string
-	offset     *int32
-	limit      *int32
+	offset     *int64
+	limit      *int64
 }
 
 // Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end.
-func (r O11yAPIListLLMSessionsRequest) Start(start int32) O11yAPIListLLMSessionsRequest {
+func (r O11yAPIListLLMSessionsRequest) Start(start int64) O11yAPIListLLMSessionsRequest {
 	r.start = &start
 	return r
 }
 
 // End is the end of the window as a unix-millisecond epoch. Zero means now.
-func (r O11yAPIListLLMSessionsRequest) End(end int32) O11yAPIListLLMSessionsRequest {
+func (r O11yAPIListLLMSessionsRequest) End(end int64) O11yAPIListLLMSessionsRequest {
 	r.end = &end
 	return r
 }
@@ -27969,13 +27969,13 @@ func (r O11yAPIListLLMSessionsRequest) Model(model string) O11yAPIListLLMSession
 }
 
 // Offset is how many rows to skip, for paging.
-func (r O11yAPIListLLMSessionsRequest) Offset(offset int32) O11yAPIListLLMSessionsRequest {
+func (r O11yAPIListLLMSessionsRequest) Offset(offset int64) O11yAPIListLLMSessionsRequest {
 	r.offset = &offset
 	return r
 }
 
 // Limit caps how many rows come back.
-func (r O11yAPIListLLMSessionsRequest) Limit(limit int32) O11yAPIListLLMSessionsRequest {
+func (r O11yAPIListLLMSessionsRequest) Limit(limit int64) O11yAPIListLLMSessionsRequest {
 	r.limit = &limit
 	return r
 }
@@ -28108,25 +28108,25 @@ func (a *O11yAPIService) ListLLMSessionsExecute(r O11yAPIListLLMSessionsRequest)
 type O11yAPIListLLMTracesRequest struct {
 	ctx        context.Context
 	ApiService *O11yAPIService
-	start      *int32
-	end        *int32
+	start      *int64
+	end        *int64
 	traceId    *string
 	sessionId  *string
 	userId     *string
 	name       *string
 	model      *string
-	offset     *int32
-	limit      *int32
+	offset     *int64
+	limit      *int64
 }
 
 // Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end.
-func (r O11yAPIListLLMTracesRequest) Start(start int32) O11yAPIListLLMTracesRequest {
+func (r O11yAPIListLLMTracesRequest) Start(start int64) O11yAPIListLLMTracesRequest {
 	r.start = &start
 	return r
 }
 
 // End is the end of the window as a unix-millisecond epoch. Zero means now.
-func (r O11yAPIListLLMTracesRequest) End(end int32) O11yAPIListLLMTracesRequest {
+func (r O11yAPIListLLMTracesRequest) End(end int64) O11yAPIListLLMTracesRequest {
 	r.end = &end
 	return r
 }
@@ -28162,13 +28162,13 @@ func (r O11yAPIListLLMTracesRequest) Model(model string) O11yAPIListLLMTracesReq
 }
 
 // Offset is how many rows to skip, for paging.
-func (r O11yAPIListLLMTracesRequest) Offset(offset int32) O11yAPIListLLMTracesRequest {
+func (r O11yAPIListLLMTracesRequest) Offset(offset int64) O11yAPIListLLMTracesRequest {
 	r.offset = &offset
 	return r
 }
 
 // Limit caps how many rows come back.
-func (r O11yAPIListLLMTracesRequest) Limit(limit int32) O11yAPIListLLMTracesRequest {
+func (r O11yAPIListLLMTracesRequest) Limit(limit int64) O11yAPIListLLMTracesRequest {
 	r.limit = &limit
 	return r
 }
@@ -28301,25 +28301,25 @@ func (a *O11yAPIService) ListLLMTracesExecute(r O11yAPIListLLMTracesRequest) (*O
 type O11yAPIListLLMUsersRequest struct {
 	ctx        context.Context
 	ApiService *O11yAPIService
-	start      *int32
-	end        *int32
+	start      *int64
+	end        *int64
 	traceId    *string
 	sessionId  *string
 	userId     *string
 	name       *string
 	model      *string
-	offset     *int32
-	limit      *int32
+	offset     *int64
+	limit      *int64
 }
 
 // Start is the start of the window as a unix-millisecond epoch. Zero means 24h before the end.
-func (r O11yAPIListLLMUsersRequest) Start(start int32) O11yAPIListLLMUsersRequest {
+func (r O11yAPIListLLMUsersRequest) Start(start int64) O11yAPIListLLMUsersRequest {
 	r.start = &start
 	return r
 }
 
 // End is the end of the window as a unix-millisecond epoch. Zero means now.
-func (r O11yAPIListLLMUsersRequest) End(end int32) O11yAPIListLLMUsersRequest {
+func (r O11yAPIListLLMUsersRequest) End(end int64) O11yAPIListLLMUsersRequest {
 	r.end = &end
 	return r
 }
@@ -28355,13 +28355,13 @@ func (r O11yAPIListLLMUsersRequest) Model(model string) O11yAPIListLLMUsersReque
 }
 
 // Offset is how many rows to skip, for paging.
-func (r O11yAPIListLLMUsersRequest) Offset(offset int32) O11yAPIListLLMUsersRequest {
+func (r O11yAPIListLLMUsersRequest) Offset(offset int64) O11yAPIListLLMUsersRequest {
 	r.offset = &offset
 	return r
 }
 
 // Limit caps how many rows come back.
-func (r O11yAPIListLLMUsersRequest) Limit(limit int32) O11yAPIListLLMUsersRequest {
+func (r O11yAPIListLLMUsersRequest) Limit(limit int64) O11yAPIListLLMUsersRequest {
 	r.limit = &limit
 	return r
 }
@@ -28498,8 +28498,8 @@ type O11yAPIListMetricReductionRulesRequest struct {
 	order      *string
 	search     *string
 	metricName *string
-	offset     *int32
-	limit      *int32
+	offset     *int64
+	limit      *int64
 }
 
 // OrderBy sorts the page: metric, ingested_volume, reduced_volume or last_updated. Unset means ingested_volume.
@@ -28527,13 +28527,13 @@ func (r O11yAPIListMetricReductionRulesRequest) MetricName(metricName string) O1
 }
 
 // Offset is how many rules to skip, for paging.
-func (r O11yAPIListMetricReductionRulesRequest) Offset(offset int32) O11yAPIListMetricReductionRulesRequest {
+func (r O11yAPIListMetricReductionRulesRequest) Offset(offset int64) O11yAPIListMetricReductionRulesRequest {
 	r.offset = &offset
 	return r
 }
 
 // Limit caps how many rules come back, at most 1000. Unset means 10.
-func (r O11yAPIListMetricReductionRulesRequest) Limit(limit int32) O11yAPIListMetricReductionRulesRequest {
+func (r O11yAPIListMetricReductionRulesRequest) Limit(limit int64) O11yAPIListMetricReductionRulesRequest {
 	r.limit = &limit
 	return r
 }
@@ -28655,27 +28655,27 @@ func (a *O11yAPIService) ListMetricReductionRulesExecute(r O11yAPIListMetricRedu
 type O11yAPIListMetricsRequest struct {
 	ctx        context.Context
 	ApiService *O11yAPIService
-	start      *int32
-	end        *int32
-	limit      *int32
+	start      *int64
+	end        *int64
+	limit      *int64
 	searchText *string
 	source     *string
 }
 
 // Start is the start of the window as a Unix timestamp in milliseconds.
-func (r O11yAPIListMetricsRequest) Start(start int32) O11yAPIListMetricsRequest {
+func (r O11yAPIListMetricsRequest) Start(start int64) O11yAPIListMetricsRequest {
 	r.start = &start
 	return r
 }
 
 // End is the end of the window as a Unix timestamp in milliseconds.
-func (r O11yAPIListMetricsRequest) End(end int32) O11yAPIListMetricsRequest {
+func (r O11yAPIListMetricsRequest) End(end int64) O11yAPIListMetricsRequest {
 	r.end = &end
 	return r
 }
 
 // Limit caps how many metrics come back; unset means 100, at most 5000.
-func (r O11yAPIListMetricsRequest) Limit(limit int32) O11yAPIListMetricsRequest {
+func (r O11yAPIListMetricsRequest) Limit(limit int64) O11yAPIListMetricsRequest {
 	r.limit = &limit
 	return r
 }
@@ -39802,8 +39802,8 @@ type O11yAPISearchIngestionKeysRequest struct {
 	ctx        context.Context
 	ApiService *O11yAPIService
 	name       *string
-	page       *int32
-	perPage    *int32
+	page       *int64
+	perPage    *int64
 }
 
 // Name is the substring to match ingestion-key names against.
@@ -39813,13 +39813,13 @@ func (r O11yAPISearchIngestionKeysRequest) Name(name string) O11yAPISearchIngest
 }
 
 // Page is the 1-based page number.
-func (r O11yAPISearchIngestionKeysRequest) Page(page int32) O11yAPISearchIngestionKeysRequest {
+func (r O11yAPISearchIngestionKeysRequest) Page(page int64) O11yAPISearchIngestionKeysRequest {
 	r.page = &page
 	return r
 }
 
 // PerPage is the page size.
-func (r O11yAPISearchIngestionKeysRequest) PerPage(perPage int32) O11yAPISearchIngestionKeysRequest {
+func (r O11yAPISearchIngestionKeysRequest) PerPage(perPage int64) O11yAPISearchIngestionKeysRequest {
 	r.perPage = &perPage
 	return r
 }
@@ -39934,9 +39934,9 @@ type O11yAPISearchTracesRequest struct {
 	ApiService      *O11yAPIService
 	traceId         string
 	spanId          *string
-	levelUp         *int32
-	levelDown       *int32
-	spanRenderLimit *int32
+	levelUp         *int64
+	levelDown       *int64
+	spanRenderLimit *int64
 }
 
 func (r O11yAPISearchTracesRequest) SpanId(spanId string) O11yAPISearchTracesRequest {
@@ -39944,17 +39944,17 @@ func (r O11yAPISearchTracesRequest) SpanId(spanId string) O11yAPISearchTracesReq
 	return r
 }
 
-func (r O11yAPISearchTracesRequest) LevelUp(levelUp int32) O11yAPISearchTracesRequest {
+func (r O11yAPISearchTracesRequest) LevelUp(levelUp int64) O11yAPISearchTracesRequest {
 	r.levelUp = &levelUp
 	return r
 }
 
-func (r O11yAPISearchTracesRequest) LevelDown(levelDown int32) O11yAPISearchTracesRequest {
+func (r O11yAPISearchTracesRequest) LevelDown(levelDown int64) O11yAPISearchTracesRequest {
 	r.levelDown = &levelDown
 	return r
 }
 
-func (r O11yAPISearchTracesRequest) SpanRenderLimit(spanRenderLimit int32) O11yAPISearchTracesRequest {
+func (r O11yAPISearchTracesRequest) SpanRenderLimit(spanRenderLimit int64) O11yAPISearchTracesRequest {
 	r.spanRenderLimit = &spanRenderLimit
 	return r
 }

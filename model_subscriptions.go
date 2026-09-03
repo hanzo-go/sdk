@@ -20,7 +20,7 @@ var _ MappedNullable = &Subscriptions{}
 // Subscriptions struct for Subscriptions
 type Subscriptions struct {
 	// Count is the row count beside the rows, which is the shape this address has always answered with.
-	Count         *int32         `json:"count,omitempty"`
+	Count         *int64         `json:"count,omitempty"`
 	Subscriptions []Subscription `json:"subscriptions,omitempty"`
 }
 
@@ -42,9 +42,9 @@ func NewSubscriptionsWithDefaults() *Subscriptions {
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *Subscriptions) GetCount() int32 {
+func (o *Subscriptions) GetCount() int64 {
 	if o == nil || IsNil(o.Count) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Count
@@ -52,7 +52,7 @@ func (o *Subscriptions) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Subscriptions) GetCountOk() (*int32, bool) {
+func (o *Subscriptions) GetCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -68,8 +68,8 @@ func (o *Subscriptions) HasCount() bool {
 	return false
 }
 
-// SetCount gets a reference to the given int32 and assigns it to the Count field.
-func (o *Subscriptions) SetCount(v int32) {
+// SetCount gets a reference to the given int64 and assigns it to the Count field.
+func (o *Subscriptions) SetCount(v int64) {
 	o.Count = &v
 }
 

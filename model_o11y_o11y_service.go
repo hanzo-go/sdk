@@ -20,15 +20,15 @@ var _ MappedNullable = &O11yO11yService{}
 // O11yO11yService struct for O11yO11yService
 type O11yO11yService struct {
 	// AvgDuration is their average latency, nanoseconds.
-	AvgDuration *float32 `json:"avgDuration,omitempty"`
+	AvgDuration *float64 `json:"avgDuration,omitempty"`
 	// CallRate is calls per second over the window.
-	CallRate *float32 `json:"callRate,omitempty"`
+	CallRate *float64 `json:"callRate,omitempty"`
 	// DataWarning carries the entry-point operations the numbers were computed over.
 	DataWarning *O11yO11yServiceWarning `json:"dataWarning,omitempty"`
 	// ErrorRate is the percentage of calls that errored.
-	ErrorRate *float32 `json:"errorRate,omitempty"`
+	ErrorRate *float64 `json:"errorRate,omitempty"`
 	// FourXXRate is the percentage of calls that answered 4xx.
-	FourXXRate *float32 `json:"fourXXRate,omitempty"`
+	FourXXRate *float64 `json:"fourXXRate,omitempty"`
 	// Num4XX is how many of the calls answered 4xx.
 	Num4XX *int32 `json:"num4XX,omitempty"`
 	// NumCalls is how many entry-point spans landed in the window.
@@ -36,7 +36,7 @@ type O11yO11yService struct {
 	// NumErrors is how many of the calls errored.
 	NumErrors *int32 `json:"numErrors,omitempty"`
 	// Percentile99 is the p99 latency of its entry-point spans, nanoseconds.
-	P99 *float32 `json:"p99,omitempty"`
+	P99 *float64 `json:"p99,omitempty"`
 	// ServiceName is the service.
 	ServiceName *string `json:"serviceName,omitempty"`
 }
@@ -59,9 +59,9 @@ func NewO11yO11yServiceWithDefaults() *O11yO11yService {
 }
 
 // GetAvgDuration returns the AvgDuration field value if set, zero value otherwise.
-func (o *O11yO11yService) GetAvgDuration() float32 {
+func (o *O11yO11yService) GetAvgDuration() float64 {
 	if o == nil || IsNil(o.AvgDuration) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.AvgDuration
@@ -69,7 +69,7 @@ func (o *O11yO11yService) GetAvgDuration() float32 {
 
 // GetAvgDurationOk returns a tuple with the AvgDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yService) GetAvgDurationOk() (*float32, bool) {
+func (o *O11yO11yService) GetAvgDurationOk() (*float64, bool) {
 	if o == nil || IsNil(o.AvgDuration) {
 		return nil, false
 	}
@@ -85,15 +85,15 @@ func (o *O11yO11yService) HasAvgDuration() bool {
 	return false
 }
 
-// SetAvgDuration gets a reference to the given float32 and assigns it to the AvgDuration field.
-func (o *O11yO11yService) SetAvgDuration(v float32) {
+// SetAvgDuration gets a reference to the given float64 and assigns it to the AvgDuration field.
+func (o *O11yO11yService) SetAvgDuration(v float64) {
 	o.AvgDuration = &v
 }
 
 // GetCallRate returns the CallRate field value if set, zero value otherwise.
-func (o *O11yO11yService) GetCallRate() float32 {
+func (o *O11yO11yService) GetCallRate() float64 {
 	if o == nil || IsNil(o.CallRate) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.CallRate
@@ -101,7 +101,7 @@ func (o *O11yO11yService) GetCallRate() float32 {
 
 // GetCallRateOk returns a tuple with the CallRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yService) GetCallRateOk() (*float32, bool) {
+func (o *O11yO11yService) GetCallRateOk() (*float64, bool) {
 	if o == nil || IsNil(o.CallRate) {
 		return nil, false
 	}
@@ -117,8 +117,8 @@ func (o *O11yO11yService) HasCallRate() bool {
 	return false
 }
 
-// SetCallRate gets a reference to the given float32 and assigns it to the CallRate field.
-func (o *O11yO11yService) SetCallRate(v float32) {
+// SetCallRate gets a reference to the given float64 and assigns it to the CallRate field.
+func (o *O11yO11yService) SetCallRate(v float64) {
 	o.CallRate = &v
 }
 
@@ -155,9 +155,9 @@ func (o *O11yO11yService) SetDataWarning(v O11yO11yServiceWarning) {
 }
 
 // GetErrorRate returns the ErrorRate field value if set, zero value otherwise.
-func (o *O11yO11yService) GetErrorRate() float32 {
+func (o *O11yO11yService) GetErrorRate() float64 {
 	if o == nil || IsNil(o.ErrorRate) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.ErrorRate
@@ -165,7 +165,7 @@ func (o *O11yO11yService) GetErrorRate() float32 {
 
 // GetErrorRateOk returns a tuple with the ErrorRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yService) GetErrorRateOk() (*float32, bool) {
+func (o *O11yO11yService) GetErrorRateOk() (*float64, bool) {
 	if o == nil || IsNil(o.ErrorRate) {
 		return nil, false
 	}
@@ -181,15 +181,15 @@ func (o *O11yO11yService) HasErrorRate() bool {
 	return false
 }
 
-// SetErrorRate gets a reference to the given float32 and assigns it to the ErrorRate field.
-func (o *O11yO11yService) SetErrorRate(v float32) {
+// SetErrorRate gets a reference to the given float64 and assigns it to the ErrorRate field.
+func (o *O11yO11yService) SetErrorRate(v float64) {
 	o.ErrorRate = &v
 }
 
 // GetFourXXRate returns the FourXXRate field value if set, zero value otherwise.
-func (o *O11yO11yService) GetFourXXRate() float32 {
+func (o *O11yO11yService) GetFourXXRate() float64 {
 	if o == nil || IsNil(o.FourXXRate) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.FourXXRate
@@ -197,7 +197,7 @@ func (o *O11yO11yService) GetFourXXRate() float32 {
 
 // GetFourXXRateOk returns a tuple with the FourXXRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yService) GetFourXXRateOk() (*float32, bool) {
+func (o *O11yO11yService) GetFourXXRateOk() (*float64, bool) {
 	if o == nil || IsNil(o.FourXXRate) {
 		return nil, false
 	}
@@ -213,8 +213,8 @@ func (o *O11yO11yService) HasFourXXRate() bool {
 	return false
 }
 
-// SetFourXXRate gets a reference to the given float32 and assigns it to the FourXXRate field.
-func (o *O11yO11yService) SetFourXXRate(v float32) {
+// SetFourXXRate gets a reference to the given float64 and assigns it to the FourXXRate field.
+func (o *O11yO11yService) SetFourXXRate(v float64) {
 	o.FourXXRate = &v
 }
 
@@ -315,9 +315,9 @@ func (o *O11yO11yService) SetNumErrors(v int32) {
 }
 
 // GetP99 returns the P99 field value if set, zero value otherwise.
-func (o *O11yO11yService) GetP99() float32 {
+func (o *O11yO11yService) GetP99() float64 {
 	if o == nil || IsNil(o.P99) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.P99
@@ -325,7 +325,7 @@ func (o *O11yO11yService) GetP99() float32 {
 
 // GetP99Ok returns a tuple with the P99 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yService) GetP99Ok() (*float32, bool) {
+func (o *O11yO11yService) GetP99Ok() (*float64, bool) {
 	if o == nil || IsNil(o.P99) {
 		return nil, false
 	}
@@ -341,8 +341,8 @@ func (o *O11yO11yService) HasP99() bool {
 	return false
 }
 
-// SetP99 gets a reference to the given float32 and assigns it to the P99 field.
-func (o *O11yO11yService) SetP99(v float32) {
+// SetP99 gets a reference to the given float64 and assigns it to the P99 field.
+func (o *O11yO11yService) SetP99(v float64) {
 	o.P99 = &v
 }
 

@@ -26,7 +26,7 @@ type TranslateAPIGetTranslateMemoryRequest struct {
 	ApiService *TranslateAPIService
 	target     *string
 	state      *string
-	limit      *int32
+	limit      *int64
 }
 
 // Target narrows to one target language tag (BCP-47, e.g. \&quot;es\&quot; or \&quot;pt-BR\&quot;).
@@ -42,7 +42,7 @@ func (r TranslateAPIGetTranslateMemoryRequest) State(state string) TranslateAPIG
 }
 
 // Limit caps the rows returned. Non-positive or unparseable means the server default (200); the ceiling is 1000.
-func (r TranslateAPIGetTranslateMemoryRequest) Limit(limit int32) TranslateAPIGetTranslateMemoryRequest {
+func (r TranslateAPIGetTranslateMemoryRequest) Limit(limit int64) TranslateAPIGetTranslateMemoryRequest {
 	r.limit = &limit
 	return r
 }

@@ -7,11 +7,11 @@ Name | Type | Description | Notes
 **Account** | Pointer to **string** | Account is which subscription or API account under that provider served it. Together with Provider it is what a login revoke matches on to stop the sessions a withdrawn account was paying for. | [optional] 
 **Actor** | Pointer to **string** | Actor is WHO this session belongs to, as \&quot;org/sub\&quot; — the same identity a run is billed under. A register that names none takes the calling principal. It is what scopes a login revoke, so a session with the wrong actor is a session the right person cannot stop. | [optional] 
 **Agent** | Pointer to **string** | Agent is the label the surface running this session calls itself by (\&quot;hanzo-dev\&quot;), up to 128 characters. Required at register. It is free text, not a reference: it need not name a defined agent, and nothing resolves it. | [optional] 
-**Children** | Pointer to **int32** | Children is the DIRECT fan-out — how many sessions name this one as parent — and not the size of the subtree. Read the tree for that. | [optional] 
+**Children** | Pointer to **int64** | Children is the DIRECT fan-out — how many sessions name this one as parent — and not the size of the subtree. Read the tree for that. | [optional] 
 **CreatedAt** | Pointer to **string** | CreatedAt is when the row was written, same format. Every path that opens a session stamps it and StartedAt from one clock reading, so the two are equal on every session this surface has ever produced. | [optional] 
 **Cwd** | Pointer to **string** | Cwd is the directory the session is working in NOW, not the one it started in: a linked shell moves around, and a card showing where &#x60;hanzo link&#x60; was run answers \&quot;which work is this\&quot; with something that was true once. | [optional] 
 **EndedAt** | Pointer to **string** | EndedAt is when it reached done or error, same format. Empty while it is still running or paused, which is how absence reads here: not over yet. | [optional] 
-**Events** | Pointer to **int32** | Events is how many turns the session&#39;s log holds, counted at read time. It is the whole log, however few of them RecentEvents carries. | [optional] 
+**Events** | Pointer to **int64** | Events is how many turns the session&#39;s log holds, counted at read time. It is the whole log, however few of them RecentEvents carries. | [optional] 
 **Host** | Pointer to **string** | Execution context (mission-control): the machine/repo/cwd a card shows and the run-target a session is dispatched to. Omitted when a surface didn&#39;t report it. | [optional] 
 **Id** | Pointer to **string** | ID is the session&#39;s handle, minted here as \&quot;sess_\&quot; + 32 hex characters. Every later read, patch, event append and control command is addressed with it, and a caller cannot choose it. | [optional] 
 **LastEvent** | Pointer to [**LastEventView**](LastEventView.md) | LastEvent is the compact latest-activity line for the list projection (nil in register/patch/tree responses; set by list + detail). It lets a swipe card show a live one-line preview without fetching full detail. | [optional] 
@@ -129,20 +129,20 @@ HasAgent returns a boolean if a field has been set.
 
 ### GetChildren
 
-`func (o *SessionView) GetChildren() int32`
+`func (o *SessionView) GetChildren() int64`
 
 GetChildren returns the Children field if non-nil, zero value otherwise.
 
 ### GetChildrenOk
 
-`func (o *SessionView) GetChildrenOk() (*int32, bool)`
+`func (o *SessionView) GetChildrenOk() (*int64, bool)`
 
 GetChildrenOk returns a tuple with the Children field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetChildren
 
-`func (o *SessionView) SetChildren(v int32)`
+`func (o *SessionView) SetChildren(v int64)`
 
 SetChildren sets Children field to given value.
 
@@ -229,20 +229,20 @@ HasEndedAt returns a boolean if a field has been set.
 
 ### GetEvents
 
-`func (o *SessionView) GetEvents() int32`
+`func (o *SessionView) GetEvents() int64`
 
 GetEvents returns the Events field if non-nil, zero value otherwise.
 
 ### GetEventsOk
 
-`func (o *SessionView) GetEventsOk() (*int32, bool)`
+`func (o *SessionView) GetEventsOk() (*int64, bool)`
 
 GetEventsOk returns a tuple with the Events field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEvents
 
-`func (o *SessionView) SetEvents(v int32)`
+`func (o *SessionView) SetEvents(v int64)`
 
 SetEvents sets Events field to given value.
 

@@ -44,7 +44,7 @@ type MCPListing struct {
 	// Site is the project's homepage, when the entry names one.
 	Site *string `json:"site,omitempty"`
 	// Synced is when this row was last confirmed against upstream, Unix seconds.
-	Synced *int32 `json:"synced,omitempty"`
+	Synced *int64 `json:"synced,omitempty"`
 	// Title is the human-readable display name, when the entry carries one.
 	Title *string `json:"title,omitempty"`
 	// Transports are the distinct transports this server can be reached over, sorted: some of \"stdio\", \"streamable-http\", \"sse\". A listing with \"streamable-http\" is one an org can enable here and now; a listing that is only \"stdio\" needs a process to run it.
@@ -457,9 +457,9 @@ func (o *MCPListing) SetSite(v string) {
 }
 
 // GetSynced returns the Synced field value if set, zero value otherwise.
-func (o *MCPListing) GetSynced() int32 {
+func (o *MCPListing) GetSynced() int64 {
 	if o == nil || IsNil(o.Synced) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Synced
@@ -467,7 +467,7 @@ func (o *MCPListing) GetSynced() int32 {
 
 // GetSyncedOk returns a tuple with the Synced field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MCPListing) GetSyncedOk() (*int32, bool) {
+func (o *MCPListing) GetSyncedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Synced) {
 		return nil, false
 	}
@@ -483,8 +483,8 @@ func (o *MCPListing) HasSynced() bool {
 	return false
 }
 
-// SetSynced gets a reference to the given int32 and assigns it to the Synced field.
-func (o *MCPListing) SetSynced(v int32) {
+// SetSynced gets a reference to the given int64 and assigns it to the Synced field.
+func (o *MCPListing) SetSynced(v int64) {
 	o.Synced = &v
 }
 

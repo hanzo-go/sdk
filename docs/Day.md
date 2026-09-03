@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Close** | Pointer to **string** |  | [optional] 
-**Count** | Pointer to **int32** | Count is transactions in the day, where the table keeps one. | [optional] 
-**Date** | Pointer to **int32** | Date is the day&#39;s start, unix seconds. | [optional] 
+**Count** | Pointer to **int64** | Count is transactions in the day, where the table keeps one. | [optional] 
+**Date** | Pointer to **int64** | Date is the day&#39;s start, unix seconds. | [optional] 
 **High** | Pointer to **string** |  | [optional] 
 **Locked** | Pointer to **string** |  | [optional] 
 **Low** | Pointer to **string** |  | [optional] 
@@ -60,20 +60,20 @@ HasClose returns a boolean if a field has been set.
 
 ### GetCount
 
-`func (o *Day) GetCount() int32`
+`func (o *Day) GetCount() int64`
 
 GetCount returns the Count field if non-nil, zero value otherwise.
 
 ### GetCountOk
 
-`func (o *Day) GetCountOk() (*int32, bool)`
+`func (o *Day) GetCountOk() (*int64, bool)`
 
 GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCount
 
-`func (o *Day) SetCount(v int32)`
+`func (o *Day) SetCount(v int64)`
 
 SetCount sets Count field to given value.
 
@@ -85,20 +85,20 @@ HasCount returns a boolean if a field has been set.
 
 ### GetDate
 
-`func (o *Day) GetDate() int32`
+`func (o *Day) GetDate() int64`
 
 GetDate returns the Date field if non-nil, zero value otherwise.
 
 ### GetDateOk
 
-`func (o *Day) GetDateOk() (*int32, bool)`
+`func (o *Day) GetDateOk() (*int64, bool)`
 
 GetDateOk returns a tuple with the Date field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDate
 
-`func (o *Day) SetDate(v int32)`
+`func (o *Day) SetDate(v int64)`
 
 SetDate sets Date field to given value.
 

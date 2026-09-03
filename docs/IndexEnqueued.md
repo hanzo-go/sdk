@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **EnqueuedAt** | Pointer to **string** | EnqueuedAt is when the task was recorded, RFC 3339 — which is also when it completed. | [optional] 
 **IndexUid** | Pointer to **string** | IndexUID names the index the write landed in. | [optional] 
 **Status** | Pointer to **string** | Status is always &#x60;enqueued&#x60;, for dialect compatibility. The work is already done. | [optional] 
-**TaskUid** | Pointer to **int32** | TaskUID identifies the task for a client that polls it. Polling resolves immediately. | [optional] 
+**TaskUid** | Pointer to **int64** | TaskUID identifies the task for a client that polls it. Polling resolves immediately. | [optional] 
 **Type** | Pointer to **string** | Type is the dialect&#39;s name for the kind of write: indexCreation, indexDeletion, settingsUpdate, documentAdditionOrUpdate, documentDeletion. | [optional] 
 
 ## Methods
@@ -106,20 +106,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetTaskUid
 
-`func (o *IndexEnqueued) GetTaskUid() int32`
+`func (o *IndexEnqueued) GetTaskUid() int64`
 
 GetTaskUid returns the TaskUid field if non-nil, zero value otherwise.
 
 ### GetTaskUidOk
 
-`func (o *IndexEnqueued) GetTaskUidOk() (*int32, bool)`
+`func (o *IndexEnqueued) GetTaskUidOk() (*int64, bool)`
 
 GetTaskUidOk returns a tuple with the TaskUid field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTaskUid
 
-`func (o *IndexEnqueued) SetTaskUid(v int32)`
+`func (o *IndexEnqueued) SetTaskUid(v int64)`
 
 SetTaskUid sets TaskUid field to given value.
 

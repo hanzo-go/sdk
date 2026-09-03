@@ -28,7 +28,7 @@ type RiskEvent struct {
 	// Kind is whose behaviour this is: person, session or account. It namespaces the subject, so a person and an account that share an identifier stay two subjects.
 	Kind *string `json:"kind,omitempty"`
 	// Nano is the value moved, in nano-USD. Omit it for an event that moves no money: the value features then read BLIND rather than being told the amount was zero, and the difference is reported on the model state.
-	Nano *int32 `json:"nano,omitempty"`
+	Nano *int64 `json:"nano,omitempty"`
 	// Peer is the counterparty, if any. It is an aggregation axis of its own — \"unfamiliar\" is a fact about a relationship and not about either party.
 	Peer *string `json:"peer,omitempty"`
 	// Subject is the identifier on that kind.
@@ -181,9 +181,9 @@ func (o *RiskEvent) SetKind(v string) {
 }
 
 // GetNano returns the Nano field value if set, zero value otherwise.
-func (o *RiskEvent) GetNano() int32 {
+func (o *RiskEvent) GetNano() int64 {
 	if o == nil || IsNil(o.Nano) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Nano
@@ -191,7 +191,7 @@ func (o *RiskEvent) GetNano() int32 {
 
 // GetNanoOk returns a tuple with the Nano field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskEvent) GetNanoOk() (*int32, bool) {
+func (o *RiskEvent) GetNanoOk() (*int64, bool) {
 	if o == nil || IsNil(o.Nano) {
 		return nil, false
 	}
@@ -207,8 +207,8 @@ func (o *RiskEvent) HasNano() bool {
 	return false
 }
 
-// SetNano gets a reference to the given int32 and assigns it to the Nano field.
-func (o *RiskEvent) SetNano(v int32) {
+// SetNano gets a reference to the given int64 and assigns it to the Nano field.
+func (o *RiskEvent) SetNano(v int64) {
 	o.Nano = &v
 }
 

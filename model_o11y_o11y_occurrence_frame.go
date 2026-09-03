@@ -22,7 +22,7 @@ type O11yO11yOccurrenceFrame struct {
 	// AbsPath is the file's absolute path.
 	AbsPath *string `json:"absPath,omitempty"`
 	// Colno is the column number.
-	Colno *int32 `json:"colno,omitempty"`
+	Colno *int64 `json:"colno,omitempty"`
 	// Filename is the file it is in.
 	Filename *string `json:"filename,omitempty"`
 	// Function is the function the frame is in.
@@ -30,7 +30,7 @@ type O11yO11yOccurrenceFrame struct {
 	// InApp marks a frame in the reporting application's own code.
 	InApp *bool `json:"inApp,omitempty"`
 	// Lineno is the line number.
-	Lineno *int32 `json:"lineno,omitempty"`
+	Lineno *int64 `json:"lineno,omitempty"`
 	// Module is the module the function is in.
 	Module *string `json:"module,omitempty"`
 }
@@ -85,9 +85,9 @@ func (o *O11yO11yOccurrenceFrame) SetAbsPath(v string) {
 }
 
 // GetColno returns the Colno field value if set, zero value otherwise.
-func (o *O11yO11yOccurrenceFrame) GetColno() int32 {
+func (o *O11yO11yOccurrenceFrame) GetColno() int64 {
 	if o == nil || IsNil(o.Colno) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Colno
@@ -95,7 +95,7 @@ func (o *O11yO11yOccurrenceFrame) GetColno() int32 {
 
 // GetColnoOk returns a tuple with the Colno field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yOccurrenceFrame) GetColnoOk() (*int32, bool) {
+func (o *O11yO11yOccurrenceFrame) GetColnoOk() (*int64, bool) {
 	if o == nil || IsNil(o.Colno) {
 		return nil, false
 	}
@@ -111,8 +111,8 @@ func (o *O11yO11yOccurrenceFrame) HasColno() bool {
 	return false
 }
 
-// SetColno gets a reference to the given int32 and assigns it to the Colno field.
-func (o *O11yO11yOccurrenceFrame) SetColno(v int32) {
+// SetColno gets a reference to the given int64 and assigns it to the Colno field.
+func (o *O11yO11yOccurrenceFrame) SetColno(v int64) {
 	o.Colno = &v
 }
 
@@ -213,9 +213,9 @@ func (o *O11yO11yOccurrenceFrame) SetInApp(v bool) {
 }
 
 // GetLineno returns the Lineno field value if set, zero value otherwise.
-func (o *O11yO11yOccurrenceFrame) GetLineno() int32 {
+func (o *O11yO11yOccurrenceFrame) GetLineno() int64 {
 	if o == nil || IsNil(o.Lineno) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Lineno
@@ -223,7 +223,7 @@ func (o *O11yO11yOccurrenceFrame) GetLineno() int32 {
 
 // GetLinenoOk returns a tuple with the Lineno field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yOccurrenceFrame) GetLinenoOk() (*int32, bool) {
+func (o *O11yO11yOccurrenceFrame) GetLinenoOk() (*int64, bool) {
 	if o == nil || IsNil(o.Lineno) {
 		return nil, false
 	}
@@ -239,8 +239,8 @@ func (o *O11yO11yOccurrenceFrame) HasLineno() bool {
 	return false
 }
 
-// SetLineno gets a reference to the given int32 and assigns it to the Lineno field.
-func (o *O11yO11yOccurrenceFrame) SetLineno(v int32) {
+// SetLineno gets a reference to the given int64 and assigns it to the Lineno field.
+func (o *O11yO11yOccurrenceFrame) SetLineno(v int64) {
 	o.Lineno = &v
 }
 

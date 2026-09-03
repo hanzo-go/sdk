@@ -20,13 +20,13 @@ var _ MappedNullable = &RiskAggregates{}
 // RiskAggregates struct for RiskAggregates
 type RiskAggregates struct {
 	// Bound is the most they can hold. It is a per-organisation bound: at it, this organisation degrades and no other one notices.
-	Bound *int32 `json:"bound,omitempty"`
+	Bound *int64 `json:"bound,omitempty"`
 	// Forgotten is how many of its own subjects have been dropped to stay inside that bound. Each one reads as inactive until it is active again.
-	Forgotten *int32 `json:"forgotten,omitempty"`
+	Forgotten *int64 `json:"forgotten,omitempty"`
 	// Saturated is whether the bound is binding right now. The two counts are its evidence; this is the state to act on.
 	Saturated *bool `json:"saturated,omitempty"`
 	// Subjects is how many of this organisation's subjects the aggregates hold.
-	Subjects *int32 `json:"subjects,omitempty"`
+	Subjects *int64 `json:"subjects,omitempty"`
 }
 
 // NewRiskAggregates instantiates a new RiskAggregates object
@@ -47,9 +47,9 @@ func NewRiskAggregatesWithDefaults() *RiskAggregates {
 }
 
 // GetBound returns the Bound field value if set, zero value otherwise.
-func (o *RiskAggregates) GetBound() int32 {
+func (o *RiskAggregates) GetBound() int64 {
 	if o == nil || IsNil(o.Bound) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Bound
@@ -57,7 +57,7 @@ func (o *RiskAggregates) GetBound() int32 {
 
 // GetBoundOk returns a tuple with the Bound field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskAggregates) GetBoundOk() (*int32, bool) {
+func (o *RiskAggregates) GetBoundOk() (*int64, bool) {
 	if o == nil || IsNil(o.Bound) {
 		return nil, false
 	}
@@ -73,15 +73,15 @@ func (o *RiskAggregates) HasBound() bool {
 	return false
 }
 
-// SetBound gets a reference to the given int32 and assigns it to the Bound field.
-func (o *RiskAggregates) SetBound(v int32) {
+// SetBound gets a reference to the given int64 and assigns it to the Bound field.
+func (o *RiskAggregates) SetBound(v int64) {
 	o.Bound = &v
 }
 
 // GetForgotten returns the Forgotten field value if set, zero value otherwise.
-func (o *RiskAggregates) GetForgotten() int32 {
+func (o *RiskAggregates) GetForgotten() int64 {
 	if o == nil || IsNil(o.Forgotten) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Forgotten
@@ -89,7 +89,7 @@ func (o *RiskAggregates) GetForgotten() int32 {
 
 // GetForgottenOk returns a tuple with the Forgotten field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskAggregates) GetForgottenOk() (*int32, bool) {
+func (o *RiskAggregates) GetForgottenOk() (*int64, bool) {
 	if o == nil || IsNil(o.Forgotten) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *RiskAggregates) HasForgotten() bool {
 	return false
 }
 
-// SetForgotten gets a reference to the given int32 and assigns it to the Forgotten field.
-func (o *RiskAggregates) SetForgotten(v int32) {
+// SetForgotten gets a reference to the given int64 and assigns it to the Forgotten field.
+func (o *RiskAggregates) SetForgotten(v int64) {
 	o.Forgotten = &v
 }
 
@@ -143,9 +143,9 @@ func (o *RiskAggregates) SetSaturated(v bool) {
 }
 
 // GetSubjects returns the Subjects field value if set, zero value otherwise.
-func (o *RiskAggregates) GetSubjects() int32 {
+func (o *RiskAggregates) GetSubjects() int64 {
 	if o == nil || IsNil(o.Subjects) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Subjects
@@ -153,7 +153,7 @@ func (o *RiskAggregates) GetSubjects() int32 {
 
 // GetSubjectsOk returns a tuple with the Subjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskAggregates) GetSubjectsOk() (*int32, bool) {
+func (o *RiskAggregates) GetSubjectsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Subjects) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *RiskAggregates) HasSubjects() bool {
 	return false
 }
 
-// SetSubjects gets a reference to the given int32 and assigns it to the Subjects field.
-func (o *RiskAggregates) SetSubjects(v int32) {
+// SetSubjects gets a reference to the given int64 and assigns it to the Subjects field.
+func (o *RiskAggregates) SetSubjects(v int64) {
 	o.Subjects = &v
 }
 

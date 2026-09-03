@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **StartedAt** | Pointer to **string** | StartedAt is when the write began. | [optional] 
 **Status** | Pointer to **string** | Status is always &#x60;succeeded&#x60;. | [optional] 
 **Type** | Pointer to **string** | Type names the kind of write, for a client that inspects it. | [optional] 
-**Uid** | Pointer to **int32** | UID echoes the task id that was asked about. | [optional] 
+**Uid** | Pointer to **int64** | UID echoes the task id that was asked about. | [optional] 
 
 ## Methods
 
@@ -157,20 +157,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetUid
 
-`func (o *IndexTask) GetUid() int32`
+`func (o *IndexTask) GetUid() int64`
 
 GetUid returns the Uid field if non-nil, zero value otherwise.
 
 ### GetUidOk
 
-`func (o *IndexTask) GetUidOk() (*int32, bool)`
+`func (o *IndexTask) GetUidOk() (*int64, bool)`
 
 GetUidOk returns a tuple with the Uid field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUid
 
-`func (o *IndexTask) SetUid(v int32)`
+`func (o *IndexTask) SetUid(v int64)`
 
 SetUid sets Uid field to given value.
 

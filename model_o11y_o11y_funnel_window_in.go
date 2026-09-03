@@ -19,8 +19,8 @@ var _ MappedNullable = &O11yO11yFunnelWindowIn{}
 
 // O11yO11yFunnelWindowIn struct for O11yO11yFunnelWindowIn
 type O11yO11yFunnelWindowIn struct {
-	EndTime   *int32 `json:"end_time,omitempty"`
-	StartTime *int32 `json:"start_time,omitempty"`
+	EndTime   *int64 `json:"end_time,omitempty"`
+	StartTime *int64 `json:"start_time,omitempty"`
 }
 
 // NewO11yO11yFunnelWindowIn instantiates a new O11yO11yFunnelWindowIn object
@@ -41,9 +41,9 @@ func NewO11yO11yFunnelWindowInWithDefaults() *O11yO11yFunnelWindowIn {
 }
 
 // GetEndTime returns the EndTime field value if set, zero value otherwise.
-func (o *O11yO11yFunnelWindowIn) GetEndTime() int32 {
+func (o *O11yO11yFunnelWindowIn) GetEndTime() int64 {
 	if o == nil || IsNil(o.EndTime) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.EndTime
@@ -51,7 +51,7 @@ func (o *O11yO11yFunnelWindowIn) GetEndTime() int32 {
 
 // GetEndTimeOk returns a tuple with the EndTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yFunnelWindowIn) GetEndTimeOk() (*int32, bool) {
+func (o *O11yO11yFunnelWindowIn) GetEndTimeOk() (*int64, bool) {
 	if o == nil || IsNil(o.EndTime) {
 		return nil, false
 	}
@@ -67,15 +67,15 @@ func (o *O11yO11yFunnelWindowIn) HasEndTime() bool {
 	return false
 }
 
-// SetEndTime gets a reference to the given int32 and assigns it to the EndTime field.
-func (o *O11yO11yFunnelWindowIn) SetEndTime(v int32) {
+// SetEndTime gets a reference to the given int64 and assigns it to the EndTime field.
+func (o *O11yO11yFunnelWindowIn) SetEndTime(v int64) {
 	o.EndTime = &v
 }
 
 // GetStartTime returns the StartTime field value if set, zero value otherwise.
-func (o *O11yO11yFunnelWindowIn) GetStartTime() int32 {
+func (o *O11yO11yFunnelWindowIn) GetStartTime() int64 {
 	if o == nil || IsNil(o.StartTime) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.StartTime
@@ -83,7 +83,7 @@ func (o *O11yO11yFunnelWindowIn) GetStartTime() int32 {
 
 // GetStartTimeOk returns a tuple with the StartTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yFunnelWindowIn) GetStartTimeOk() (*int32, bool) {
+func (o *O11yO11yFunnelWindowIn) GetStartTimeOk() (*int64, bool) {
 	if o == nil || IsNil(o.StartTime) {
 		return nil, false
 	}
@@ -99,8 +99,8 @@ func (o *O11yO11yFunnelWindowIn) HasStartTime() bool {
 	return false
 }
 
-// SetStartTime gets a reference to the given int32 and assigns it to the StartTime field.
-func (o *O11yO11yFunnelWindowIn) SetStartTime(v int32) {
+// SetStartTime gets a reference to the given int64 and assigns it to the StartTime field.
+func (o *O11yO11yFunnelWindowIn) SetStartTime(v int64) {
 	o.StartTime = &v
 }
 

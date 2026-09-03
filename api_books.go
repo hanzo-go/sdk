@@ -137,7 +137,7 @@ type BooksAPIGetBooksBankTransactionsRequest struct {
 	ctx        context.Context
 	ApiService *BooksAPIService
 	sandbox    *string
-	limit      *int32
+	limit      *int64
 }
 
 // Sandbox reads the org&#39;s SANDBOX ledger when it is exactly \&quot;true\&quot;.
@@ -147,7 +147,7 @@ func (r BooksAPIGetBooksBankTransactionsRequest) Sandbox(sandbox string) BooksAP
 }
 
 // Limit caps how many rows come back; 500 when absent or not positive.
-func (r BooksAPIGetBooksBankTransactionsRequest) Limit(limit int32) BooksAPIGetBooksBankTransactionsRequest {
+func (r BooksAPIGetBooksBankTransactionsRequest) Limit(limit int64) BooksAPIGetBooksBankTransactionsRequest {
 	r.limit = &limit
 	return r
 }
@@ -374,7 +374,7 @@ type BooksAPIGetBooksExportRequest struct {
 	from       *string
 	to         *string
 	format     *string
-	limit      *int32
+	limit      *int64
 }
 
 // Sandbox reads the org&#39;s SANDBOX ledger when it is exactly \&quot;true\&quot;.
@@ -402,7 +402,7 @@ func (r BooksAPIGetBooksExportRequest) Format(format string) BooksAPIGetBooksExp
 }
 
 // Limit caps the GL detail rows included as the audit trail; 5000 when absent or not positive.
-func (r BooksAPIGetBooksExportRequest) Limit(limit int32) BooksAPIGetBooksExportRequest {
+func (r BooksAPIGetBooksExportRequest) Limit(limit int64) BooksAPIGetBooksExportRequest {
 	r.limit = &limit
 	return r
 }
@@ -524,7 +524,7 @@ type BooksAPIGetBooksGlRequest struct {
 	ctx        context.Context
 	ApiService *BooksAPIService
 	sandbox    *string
-	limit      *int32
+	limit      *int64
 }
 
 // Sandbox reads the org&#39;s SANDBOX ledger when it is exactly \&quot;true\&quot;.
@@ -534,7 +534,7 @@ func (r BooksAPIGetBooksGlRequest) Sandbox(sandbox string) BooksAPIGetBooksGlReq
 }
 
 // Limit caps how many rows come back; 500 when absent or not positive.
-func (r BooksAPIGetBooksGlRequest) Limit(limit int32) BooksAPIGetBooksGlRequest {
+func (r BooksAPIGetBooksGlRequest) Limit(limit int64) BooksAPIGetBooksGlRequest {
 	r.limit = &limit
 	return r
 }
@@ -1374,7 +1374,7 @@ type BooksAPIGetBooksTransactionsRequest struct {
 	to         *string
 	category   *string
 	vendor     *string
-	limit      *int32
+	limit      *int64
 }
 
 // Sandbox reads the org&#39;s SANDBOX ledger when it is exactly \&quot;true\&quot;.
@@ -1408,7 +1408,7 @@ func (r BooksAPIGetBooksTransactionsRequest) Vendor(vendor string) BooksAPIGetBo
 }
 
 // Limit caps how many rows come back; 200 when absent or not positive.
-func (r BooksAPIGetBooksTransactionsRequest) Limit(limit int32) BooksAPIGetBooksTransactionsRequest {
+func (r BooksAPIGetBooksTransactionsRequest) Limit(limit int64) BooksAPIGetBooksTransactionsRequest {
 	r.limit = &limit
 	return r
 }

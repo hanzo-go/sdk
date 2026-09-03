@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Body** | Pointer to **string** | Body is the message text. Required. | [optional] 
-**DelaySeconds** | Pointer to **int32** | DelaySeconds is how long after the previous step this one sends (after enrollment, for the first step). Must be &gt;&#x3D; 0. | [optional] 
+**DelaySeconds** | Pointer to **int64** | DelaySeconds is how long after the previous step this one sends (after enrollment, for the first step). Must be &gt;&#x3D; 0. | [optional] 
 **Id** | Pointer to **string** | SequenceID is the sequence id from the path (the route&#39;s :id). | [optional] 
 **Subject** | Pointer to **string** | Subject is the email subject line, capped at 1024 bytes. | [optional] 
 
@@ -55,20 +55,20 @@ HasBody returns a boolean if a field has been set.
 
 ### GetDelaySeconds
 
-`func (o *StepInput) GetDelaySeconds() int32`
+`func (o *StepInput) GetDelaySeconds() int64`
 
 GetDelaySeconds returns the DelaySeconds field if non-nil, zero value otherwise.
 
 ### GetDelaySecondsOk
 
-`func (o *StepInput) GetDelaySecondsOk() (*int32, bool)`
+`func (o *StepInput) GetDelaySecondsOk() (*int64, bool)`
 
 GetDelaySecondsOk returns a tuple with the DelaySeconds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDelaySeconds
 
-`func (o *StepInput) SetDelaySeconds(v int32)`
+`func (o *StepInput) SetDelaySeconds(v int64)`
 
 SetDelaySeconds sets DelaySeconds field to given value.
 

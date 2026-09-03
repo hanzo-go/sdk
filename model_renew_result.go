@@ -20,7 +20,7 @@ var _ MappedNullable = &RenewResult{}
 // RenewResult struct for RenewResult
 type RenewResult struct {
 	// what this renewal cost, in cents
-	PaidCents *int32 `json:"paidCents,omitempty"`
+	PaidCents *int64 `json:"paidCents,omitempty"`
 	// the ownership row with its new expiry
 	Record *Holding `json:"record,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewRenewResultWithDefaults() *RenewResult {
 }
 
 // GetPaidCents returns the PaidCents field value if set, zero value otherwise.
-func (o *RenewResult) GetPaidCents() int32 {
+func (o *RenewResult) GetPaidCents() int64 {
 	if o == nil || IsNil(o.PaidCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PaidCents
@@ -53,7 +53,7 @@ func (o *RenewResult) GetPaidCents() int32 {
 
 // GetPaidCentsOk returns a tuple with the PaidCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RenewResult) GetPaidCentsOk() (*int32, bool) {
+func (o *RenewResult) GetPaidCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.PaidCents) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *RenewResult) HasPaidCents() bool {
 	return false
 }
 
-// SetPaidCents gets a reference to the given int32 and assigns it to the PaidCents field.
-func (o *RenewResult) SetPaidCents(v int32) {
+// SetPaidCents gets a reference to the given int64 and assigns it to the PaidCents field.
+func (o *RenewResult) SetPaidCents(v int64) {
 	o.PaidCents = &v
 }
 

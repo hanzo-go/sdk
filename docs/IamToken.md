@@ -10,12 +10,12 @@ Name | Type | Description | Notes
 **Code** | Pointer to **string** |  | [optional] 
 **CodeChallenge** | Pointer to **string** |  | [optional] 
 **CodeChallengeMethod** | Pointer to **string** |  | [optional] 
-**CodeExpireIn** | Pointer to **int32** |  | [optional] 
+**CodeExpireIn** | Pointer to **int64** |  | [optional] 
 **CodeIsUsed** | Pointer to **bool** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **CreatedTime** | Pointer to **string** |  | [optional] 
 **Deleted** | Pointer to **bool** |  | [optional] 
-**ExpiresIn** | Pointer to **int32** |  | [optional] 
+**ExpiresIn** | Pointer to **int64** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Nonce** | Pointer to **string** | Nonce is the OIDC authorize nonce, stored on the code and echoed into the id_token minted at the exchange (OIDC Core §3.1.3.6) so a relying party binds the id_token to its own request and detects replay. | [optional] 
@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 **PublicGrant** | Pointer to **bool** | PublicGrant records that this grant was established WITHOUT client authentication — a PKCE code exchange from a client that presented no secret. Whether a client is confidential is a property of the GRANT, not only of the registration: &#x60;hanzo-cli&#x60; and every @hanzo/iam SPA keep a registered secret for a BACKEND path while the surface that actually signs in is a public PKCE client that cannot hold one. authorizationCodeGrant already makes exactly that bounded relaxation; this is the same fact, recorded so refreshTokenGrant can honour it instead of demanding a secret the client never had (which 401s invalid_client and kills the session at the access token&#39;s expiry). Carried across rotation, so the second refresh behaves like the first. | [optional] 
 **RedirectUri** | Pointer to **string** | RedirectUri binds the authorization code to the exact redirect URI of the authorize request (RFC 6749 §4.1.3): the token endpoint refuses a code redeemed with a different redirect_uri, closing code-injection across a client&#39;s registered URIs. | [optional] 
 **RefreshConsumed** | Pointer to **bool** |  | [optional] 
-**RefreshExpireIn** | Pointer to **int32** |  | [optional] 
+**RefreshExpireIn** | Pointer to **int64** |  | [optional] 
 **RefreshFamily** | Pointer to **string** | Refresh-token rotation state (v2). Each refresh belongs to a family (the grant); rotation mints a new row in the same family and marks the prior one consumed. Presenting a consumed refresh is reuse — the whole family is revoked (RFC 9700 §4.14.2). RefreshExpireIn is the refresh token&#39;s own absolute expiry (unix), independent of the access token&#39;s shorter life. | [optional] 
 **RefreshToken** | Pointer to **string** |  | [optional] 
 **RefreshTokenHash** | Pointer to **string** |  | [optional] 
@@ -206,20 +206,20 @@ HasCodeChallengeMethod returns a boolean if a field has been set.
 
 ### GetCodeExpireIn
 
-`func (o *IamToken) GetCodeExpireIn() int32`
+`func (o *IamToken) GetCodeExpireIn() int64`
 
 GetCodeExpireIn returns the CodeExpireIn field if non-nil, zero value otherwise.
 
 ### GetCodeExpireInOk
 
-`func (o *IamToken) GetCodeExpireInOk() (*int32, bool)`
+`func (o *IamToken) GetCodeExpireInOk() (*int64, bool)`
 
 GetCodeExpireInOk returns a tuple with the CodeExpireIn field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCodeExpireIn
 
-`func (o *IamToken) SetCodeExpireIn(v int32)`
+`func (o *IamToken) SetCodeExpireIn(v int64)`
 
 SetCodeExpireIn sets CodeExpireIn field to given value.
 
@@ -331,20 +331,20 @@ HasDeleted returns a boolean if a field has been set.
 
 ### GetExpiresIn
 
-`func (o *IamToken) GetExpiresIn() int32`
+`func (o *IamToken) GetExpiresIn() int64`
 
 GetExpiresIn returns the ExpiresIn field if non-nil, zero value otherwise.
 
 ### GetExpiresInOk
 
-`func (o *IamToken) GetExpiresInOk() (*int32, bool)`
+`func (o *IamToken) GetExpiresInOk() (*int64, bool)`
 
 GetExpiresInOk returns a tuple with the ExpiresIn field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpiresIn
 
-`func (o *IamToken) SetExpiresIn(v int32)`
+`func (o *IamToken) SetExpiresIn(v int64)`
 
 SetExpiresIn sets ExpiresIn field to given value.
 
@@ -556,20 +556,20 @@ HasRefreshConsumed returns a boolean if a field has been set.
 
 ### GetRefreshExpireIn
 
-`func (o *IamToken) GetRefreshExpireIn() int32`
+`func (o *IamToken) GetRefreshExpireIn() int64`
 
 GetRefreshExpireIn returns the RefreshExpireIn field if non-nil, zero value otherwise.
 
 ### GetRefreshExpireInOk
 
-`func (o *IamToken) GetRefreshExpireInOk() (*int32, bool)`
+`func (o *IamToken) GetRefreshExpireInOk() (*int64, bool)`
 
 GetRefreshExpireInOk returns a tuple with the RefreshExpireIn field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRefreshExpireIn
 
-`func (o *IamToken) SetRefreshExpireIn(v int32)`
+`func (o *IamToken) SetRefreshExpireIn(v int64)`
 
 SetRefreshExpireIn sets RefreshExpireIn field to given value.
 

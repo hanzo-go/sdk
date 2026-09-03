@@ -22,25 +22,25 @@ type LLMOverview struct {
 	// Available is true whenever the ledger answered — including with no usage in the window, which is honest zeros rather than a missing lens.
 	Available *bool `json:"available,omitempty"`
 	// CompletionTokens is the output half of Tokens.
-	CompletionTokens *int32 `json:"completionTokens,omitempty"`
+	CompletionTokens *int64 `json:"completionTokens,omitempty"`
 	// ErrorRate is Errors/Requests, 0..1, rounded to three places. Zero when there were no requests.
-	ErrorRate *float32 `json:"errorRate,omitempty"`
+	ErrorRate *float64 `json:"errorRate,omitempty"`
 	// Errors is how many of Requests failed.
-	Errors *int32 `json:"errors,omitempty"`
+	Errors *int64 `json:"errors,omitempty"`
 	// Models is how many distinct models the org called.
-	Models *int32 `json:"models,omitempty"`
+	Models *int64 `json:"models,omitempty"`
 	// PromptTokens is the input half of Tokens.
-	PromptTokens *int32 `json:"promptTokens,omitempty"`
+	PromptTokens *int64 `json:"promptTokens,omitempty"`
 	// Providers is how many distinct providers served them.
-	Providers *int32 `json:"providers,omitempty"`
+	Providers *int64 `json:"providers,omitempty"`
 	// Requests is how many LLM calls the org made in the window.
-	Requests *int32 `json:"requests,omitempty"`
+	Requests *int64 `json:"requests,omitempty"`
 	// Source is the warehouse table the lens read.
 	Source *string `json:"source,omitempty"`
 	// SpendCents is what those calls cost, in cents.
-	SpendCents *int32 `json:"spendCents,omitempty"`
+	SpendCents *int64 `json:"spendCents,omitempty"`
 	// Tokens is prompt plus completion tokens over those calls.
-	Tokens *int32 `json:"tokens,omitempty"`
+	Tokens *int64 `json:"tokens,omitempty"`
 }
 
 // NewLLMOverview instantiates a new LLMOverview object
@@ -93,9 +93,9 @@ func (o *LLMOverview) SetAvailable(v bool) {
 }
 
 // GetCompletionTokens returns the CompletionTokens field value if set, zero value otherwise.
-func (o *LLMOverview) GetCompletionTokens() int32 {
+func (o *LLMOverview) GetCompletionTokens() int64 {
 	if o == nil || IsNil(o.CompletionTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CompletionTokens
@@ -103,7 +103,7 @@ func (o *LLMOverview) GetCompletionTokens() int32 {
 
 // GetCompletionTokensOk returns a tuple with the CompletionTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LLMOverview) GetCompletionTokensOk() (*int32, bool) {
+func (o *LLMOverview) GetCompletionTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.CompletionTokens) {
 		return nil, false
 	}
@@ -119,15 +119,15 @@ func (o *LLMOverview) HasCompletionTokens() bool {
 	return false
 }
 
-// SetCompletionTokens gets a reference to the given int32 and assigns it to the CompletionTokens field.
-func (o *LLMOverview) SetCompletionTokens(v int32) {
+// SetCompletionTokens gets a reference to the given int64 and assigns it to the CompletionTokens field.
+func (o *LLMOverview) SetCompletionTokens(v int64) {
 	o.CompletionTokens = &v
 }
 
 // GetErrorRate returns the ErrorRate field value if set, zero value otherwise.
-func (o *LLMOverview) GetErrorRate() float32 {
+func (o *LLMOverview) GetErrorRate() float64 {
 	if o == nil || IsNil(o.ErrorRate) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.ErrorRate
@@ -135,7 +135,7 @@ func (o *LLMOverview) GetErrorRate() float32 {
 
 // GetErrorRateOk returns a tuple with the ErrorRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LLMOverview) GetErrorRateOk() (*float32, bool) {
+func (o *LLMOverview) GetErrorRateOk() (*float64, bool) {
 	if o == nil || IsNil(o.ErrorRate) {
 		return nil, false
 	}
@@ -151,15 +151,15 @@ func (o *LLMOverview) HasErrorRate() bool {
 	return false
 }
 
-// SetErrorRate gets a reference to the given float32 and assigns it to the ErrorRate field.
-func (o *LLMOverview) SetErrorRate(v float32) {
+// SetErrorRate gets a reference to the given float64 and assigns it to the ErrorRate field.
+func (o *LLMOverview) SetErrorRate(v float64) {
 	o.ErrorRate = &v
 }
 
 // GetErrors returns the Errors field value if set, zero value otherwise.
-func (o *LLMOverview) GetErrors() int32 {
+func (o *LLMOverview) GetErrors() int64 {
 	if o == nil || IsNil(o.Errors) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Errors
@@ -167,7 +167,7 @@ func (o *LLMOverview) GetErrors() int32 {
 
 // GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LLMOverview) GetErrorsOk() (*int32, bool) {
+func (o *LLMOverview) GetErrorsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Errors) {
 		return nil, false
 	}
@@ -183,15 +183,15 @@ func (o *LLMOverview) HasErrors() bool {
 	return false
 }
 
-// SetErrors gets a reference to the given int32 and assigns it to the Errors field.
-func (o *LLMOverview) SetErrors(v int32) {
+// SetErrors gets a reference to the given int64 and assigns it to the Errors field.
+func (o *LLMOverview) SetErrors(v int64) {
 	o.Errors = &v
 }
 
 // GetModels returns the Models field value if set, zero value otherwise.
-func (o *LLMOverview) GetModels() int32 {
+func (o *LLMOverview) GetModels() int64 {
 	if o == nil || IsNil(o.Models) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Models
@@ -199,7 +199,7 @@ func (o *LLMOverview) GetModels() int32 {
 
 // GetModelsOk returns a tuple with the Models field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LLMOverview) GetModelsOk() (*int32, bool) {
+func (o *LLMOverview) GetModelsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Models) {
 		return nil, false
 	}
@@ -215,15 +215,15 @@ func (o *LLMOverview) HasModels() bool {
 	return false
 }
 
-// SetModels gets a reference to the given int32 and assigns it to the Models field.
-func (o *LLMOverview) SetModels(v int32) {
+// SetModels gets a reference to the given int64 and assigns it to the Models field.
+func (o *LLMOverview) SetModels(v int64) {
 	o.Models = &v
 }
 
 // GetPromptTokens returns the PromptTokens field value if set, zero value otherwise.
-func (o *LLMOverview) GetPromptTokens() int32 {
+func (o *LLMOverview) GetPromptTokens() int64 {
 	if o == nil || IsNil(o.PromptTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PromptTokens
@@ -231,7 +231,7 @@ func (o *LLMOverview) GetPromptTokens() int32 {
 
 // GetPromptTokensOk returns a tuple with the PromptTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LLMOverview) GetPromptTokensOk() (*int32, bool) {
+func (o *LLMOverview) GetPromptTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.PromptTokens) {
 		return nil, false
 	}
@@ -247,15 +247,15 @@ func (o *LLMOverview) HasPromptTokens() bool {
 	return false
 }
 
-// SetPromptTokens gets a reference to the given int32 and assigns it to the PromptTokens field.
-func (o *LLMOverview) SetPromptTokens(v int32) {
+// SetPromptTokens gets a reference to the given int64 and assigns it to the PromptTokens field.
+func (o *LLMOverview) SetPromptTokens(v int64) {
 	o.PromptTokens = &v
 }
 
 // GetProviders returns the Providers field value if set, zero value otherwise.
-func (o *LLMOverview) GetProviders() int32 {
+func (o *LLMOverview) GetProviders() int64 {
 	if o == nil || IsNil(o.Providers) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Providers
@@ -263,7 +263,7 @@ func (o *LLMOverview) GetProviders() int32 {
 
 // GetProvidersOk returns a tuple with the Providers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LLMOverview) GetProvidersOk() (*int32, bool) {
+func (o *LLMOverview) GetProvidersOk() (*int64, bool) {
 	if o == nil || IsNil(o.Providers) {
 		return nil, false
 	}
@@ -279,15 +279,15 @@ func (o *LLMOverview) HasProviders() bool {
 	return false
 }
 
-// SetProviders gets a reference to the given int32 and assigns it to the Providers field.
-func (o *LLMOverview) SetProviders(v int32) {
+// SetProviders gets a reference to the given int64 and assigns it to the Providers field.
+func (o *LLMOverview) SetProviders(v int64) {
 	o.Providers = &v
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *LLMOverview) GetRequests() int32 {
+func (o *LLMOverview) GetRequests() int64 {
 	if o == nil || IsNil(o.Requests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Requests
@@ -295,7 +295,7 @@ func (o *LLMOverview) GetRequests() int32 {
 
 // GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LLMOverview) GetRequestsOk() (*int32, bool) {
+func (o *LLMOverview) GetRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Requests) {
 		return nil, false
 	}
@@ -311,8 +311,8 @@ func (o *LLMOverview) HasRequests() bool {
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *LLMOverview) SetRequests(v int32) {
+// SetRequests gets a reference to the given int64 and assigns it to the Requests field.
+func (o *LLMOverview) SetRequests(v int64) {
 	o.Requests = &v
 }
 
@@ -349,9 +349,9 @@ func (o *LLMOverview) SetSource(v string) {
 }
 
 // GetSpendCents returns the SpendCents field value if set, zero value otherwise.
-func (o *LLMOverview) GetSpendCents() int32 {
+func (o *LLMOverview) GetSpendCents() int64 {
 	if o == nil || IsNil(o.SpendCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SpendCents
@@ -359,7 +359,7 @@ func (o *LLMOverview) GetSpendCents() int32 {
 
 // GetSpendCentsOk returns a tuple with the SpendCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LLMOverview) GetSpendCentsOk() (*int32, bool) {
+func (o *LLMOverview) GetSpendCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.SpendCents) {
 		return nil, false
 	}
@@ -375,15 +375,15 @@ func (o *LLMOverview) HasSpendCents() bool {
 	return false
 }
 
-// SetSpendCents gets a reference to the given int32 and assigns it to the SpendCents field.
-func (o *LLMOverview) SetSpendCents(v int32) {
+// SetSpendCents gets a reference to the given int64 and assigns it to the SpendCents field.
+func (o *LLMOverview) SetSpendCents(v int64) {
 	o.SpendCents = &v
 }
 
 // GetTokens returns the Tokens field value if set, zero value otherwise.
-func (o *LLMOverview) GetTokens() int32 {
+func (o *LLMOverview) GetTokens() int64 {
 	if o == nil || IsNil(o.Tokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Tokens
@@ -391,7 +391,7 @@ func (o *LLMOverview) GetTokens() int32 {
 
 // GetTokensOk returns a tuple with the Tokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LLMOverview) GetTokensOk() (*int32, bool) {
+func (o *LLMOverview) GetTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.Tokens) {
 		return nil, false
 	}
@@ -407,8 +407,8 @@ func (o *LLMOverview) HasTokens() bool {
 	return false
 }
 
-// SetTokens gets a reference to the given int32 and assigns it to the Tokens field.
-func (o *LLMOverview) SetTokens(v int32) {
+// SetTokens gets a reference to the given int64 and assigns it to the Tokens field.
+func (o *LLMOverview) SetTokens(v int64) {
 	o.Tokens = &v
 }
 

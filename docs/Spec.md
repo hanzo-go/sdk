@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Arch** | Pointer to **string** | amd64 | arm64 | ... | [optional] 
-**Cpus** | Pointer to **int32** | logical cores | [optional] 
+**Cpus** | Pointer to **int64** | logical cores | [optional] 
 **Gpus** | Pointer to [**[]GPU**](GPU.md) | GPUs is every accelerator the machine advertises, one entry each, capped at 32 on write. Empty means the probe found none — and that is the answer a Need is checked against, so a machine with no entry here clears no accelerator floor. The list is not vendor-filtered: what satisfies a job is counts and VRAM, never a brand (see Need). | [optional] 
-**Memory** | Pointer to **int32** | total RAM, bytes | [optional] 
+**Memory** | Pointer to **int64** | total RAM, bytes | [optional] 
 **Os** | Pointer to **string** | linux | darwin | windows | [optional] 
 
 ## Methods
@@ -56,20 +56,20 @@ HasArch returns a boolean if a field has been set.
 
 ### GetCpus
 
-`func (o *Spec) GetCpus() int32`
+`func (o *Spec) GetCpus() int64`
 
 GetCpus returns the Cpus field if non-nil, zero value otherwise.
 
 ### GetCpusOk
 
-`func (o *Spec) GetCpusOk() (*int32, bool)`
+`func (o *Spec) GetCpusOk() (*int64, bool)`
 
 GetCpusOk returns a tuple with the Cpus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCpus
 
-`func (o *Spec) SetCpus(v int32)`
+`func (o *Spec) SetCpus(v int64)`
 
 SetCpus sets Cpus field to given value.
 
@@ -106,20 +106,20 @@ HasGpus returns a boolean if a field has been set.
 
 ### GetMemory
 
-`func (o *Spec) GetMemory() int32`
+`func (o *Spec) GetMemory() int64`
 
 GetMemory returns the Memory field if non-nil, zero value otherwise.
 
 ### GetMemoryOk
 
-`func (o *Spec) GetMemoryOk() (*int32, bool)`
+`func (o *Spec) GetMemoryOk() (*int64, bool)`
 
 GetMemoryOk returns a tuple with the Memory field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMemory
 
-`func (o *Spec) SetMemory(v int32)`
+`func (o *Spec) SetMemory(v int64)`
 
 SetMemory sets Memory field to given value.
 

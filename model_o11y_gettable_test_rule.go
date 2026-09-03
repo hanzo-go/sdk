@@ -19,7 +19,7 @@ var _ MappedNullable = &O11yGettableTestRule{}
 
 // O11yGettableTestRule struct for O11yGettableTestRule
 type O11yGettableTestRule struct {
-	AlertCount *int32  `json:"alertCount,omitempty"`
+	AlertCount *int64  `json:"alertCount,omitempty"`
 	Message    *string `json:"message,omitempty"`
 }
 
@@ -41,9 +41,9 @@ func NewO11yGettableTestRuleWithDefaults() *O11yGettableTestRule {
 }
 
 // GetAlertCount returns the AlertCount field value if set, zero value otherwise.
-func (o *O11yGettableTestRule) GetAlertCount() int32 {
+func (o *O11yGettableTestRule) GetAlertCount() int64 {
 	if o == nil || IsNil(o.AlertCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AlertCount
@@ -51,7 +51,7 @@ func (o *O11yGettableTestRule) GetAlertCount() int32 {
 
 // GetAlertCountOk returns a tuple with the AlertCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yGettableTestRule) GetAlertCountOk() (*int32, bool) {
+func (o *O11yGettableTestRule) GetAlertCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.AlertCount) {
 		return nil, false
 	}
@@ -67,8 +67,8 @@ func (o *O11yGettableTestRule) HasAlertCount() bool {
 	return false
 }
 
-// SetAlertCount gets a reference to the given int32 and assigns it to the AlertCount field.
-func (o *O11yGettableTestRule) SetAlertCount(v int32) {
+// SetAlertCount gets a reference to the given int64 and assigns it to the AlertCount field.
+func (o *O11yGettableTestRule) SetAlertCount(v int64) {
 	o.AlertCount = &v
 }
 

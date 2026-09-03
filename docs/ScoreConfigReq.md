@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Categories** | Pointer to **[]string** | Categories is the closed set of labels a CATEGORICAL score may carry. A CATEGORICAL rubric with none is refused. | [optional] 
 **DataType** | Pointer to **string** | DataType is NUMERIC (the default), CATEGORICAL or BOOLEAN. | [optional] 
-**MaxValue** | Pointer to **float32** | MaxValue is the inclusive ceiling a NUMERIC score must stay under, finite. | [optional] 
-**MinValue** | Pointer to **float32** | MinValue is the inclusive floor a NUMERIC score must clear. It must be finite and must not exceed MaxValue. | [optional] 
+**MaxValue** | Pointer to **float64** | MaxValue is the inclusive ceiling a NUMERIC score must stay under, finite. | [optional] 
+**MinValue** | Pointer to **float64** | MinValue is the inclusive floor a NUMERIC score must clear. It must be finite and must not exceed MaxValue. | [optional] 
 **Name** | **string** | Name is the score name this rubric governs, matching ^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$. The name is the key, so re-posting one replaces its rules. | 
 
 ## Methods
@@ -81,20 +81,20 @@ HasDataType returns a boolean if a field has been set.
 
 ### GetMaxValue
 
-`func (o *ScoreConfigReq) GetMaxValue() float32`
+`func (o *ScoreConfigReq) GetMaxValue() float64`
 
 GetMaxValue returns the MaxValue field if non-nil, zero value otherwise.
 
 ### GetMaxValueOk
 
-`func (o *ScoreConfigReq) GetMaxValueOk() (*float32, bool)`
+`func (o *ScoreConfigReq) GetMaxValueOk() (*float64, bool)`
 
 GetMaxValueOk returns a tuple with the MaxValue field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxValue
 
-`func (o *ScoreConfigReq) SetMaxValue(v float32)`
+`func (o *ScoreConfigReq) SetMaxValue(v float64)`
 
 SetMaxValue sets MaxValue field to given value.
 
@@ -106,20 +106,20 @@ HasMaxValue returns a boolean if a field has been set.
 
 ### GetMinValue
 
-`func (o *ScoreConfigReq) GetMinValue() float32`
+`func (o *ScoreConfigReq) GetMinValue() float64`
 
 GetMinValue returns the MinValue field if non-nil, zero value otherwise.
 
 ### GetMinValueOk
 
-`func (o *ScoreConfigReq) GetMinValueOk() (*float32, bool)`
+`func (o *ScoreConfigReq) GetMinValueOk() (*float64, bool)`
 
 GetMinValueOk returns a tuple with the MinValue field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMinValue
 
-`func (o *ScoreConfigReq) SetMinValue(v float32)`
+`func (o *ScoreConfigReq) SetMinValue(v float64)`
 
 SetMinValue sets MinValue field to given value.
 

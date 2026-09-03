@@ -22,23 +22,23 @@ type DocumentSummary struct {
 	// Category is the template's category: formation, equity, ops or sales.
 	Category *string `json:"category,omitempty"`
 	// CreatedAt is when the document was generated, in unix seconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// EsignProvider names the e-signature provider handling it, absent until a signature has been requested.
 	EsignProvider *string `json:"esignProvider,omitempty"`
 	// ID is the document's server-minted handle, \"doc_\"-prefixed.
 	Id *string `json:"id,omitempty"`
 	// SignedAt is when the provider reported completion, in unix seconds. Absent until then.
-	SignedAt *int32 `json:"signedAt,omitempty"`
+	SignedAt *int64 `json:"signedAt,omitempty"`
 	// Status is the lifecycle state: draft, out_for_signature, signed or voided. There is deliberately no \"legally valid\" state — that is counsel's determination, not the platform's.
 	Status *string `json:"status,omitempty"`
 	// TemplateID is the template it was rendered from.
 	TemplateId *string `json:"templateId,omitempty"`
 	// TemplateVersion is WHICH version of that template rendered it, so the document is reproducible and auditable.
-	TemplateVersion *int32 `json:"templateVersion,omitempty"`
+	TemplateVersion *int64 `json:"templateVersion,omitempty"`
 	// Title is the document's title, inherited from the template.
 	Title *string `json:"title,omitempty"`
 	// UpdatedAt is when it last changed, in unix seconds.
-	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 }
 
 // NewDocumentSummary instantiates a new DocumentSummary object
@@ -91,9 +91,9 @@ func (o *DocumentSummary) SetCategory(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *DocumentSummary) GetCreatedAt() int32 {
+func (o *DocumentSummary) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -101,7 +101,7 @@ func (o *DocumentSummary) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DocumentSummary) GetCreatedAtOk() (*int32, bool) {
+func (o *DocumentSummary) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -117,8 +117,8 @@ func (o *DocumentSummary) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *DocumentSummary) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *DocumentSummary) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
@@ -187,9 +187,9 @@ func (o *DocumentSummary) SetId(v string) {
 }
 
 // GetSignedAt returns the SignedAt field value if set, zero value otherwise.
-func (o *DocumentSummary) GetSignedAt() int32 {
+func (o *DocumentSummary) GetSignedAt() int64 {
 	if o == nil || IsNil(o.SignedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SignedAt
@@ -197,7 +197,7 @@ func (o *DocumentSummary) GetSignedAt() int32 {
 
 // GetSignedAtOk returns a tuple with the SignedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DocumentSummary) GetSignedAtOk() (*int32, bool) {
+func (o *DocumentSummary) GetSignedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.SignedAt) {
 		return nil, false
 	}
@@ -213,8 +213,8 @@ func (o *DocumentSummary) HasSignedAt() bool {
 	return false
 }
 
-// SetSignedAt gets a reference to the given int32 and assigns it to the SignedAt field.
-func (o *DocumentSummary) SetSignedAt(v int32) {
+// SetSignedAt gets a reference to the given int64 and assigns it to the SignedAt field.
+func (o *DocumentSummary) SetSignedAt(v int64) {
 	o.SignedAt = &v
 }
 
@@ -283,9 +283,9 @@ func (o *DocumentSummary) SetTemplateId(v string) {
 }
 
 // GetTemplateVersion returns the TemplateVersion field value if set, zero value otherwise.
-func (o *DocumentSummary) GetTemplateVersion() int32 {
+func (o *DocumentSummary) GetTemplateVersion() int64 {
 	if o == nil || IsNil(o.TemplateVersion) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TemplateVersion
@@ -293,7 +293,7 @@ func (o *DocumentSummary) GetTemplateVersion() int32 {
 
 // GetTemplateVersionOk returns a tuple with the TemplateVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DocumentSummary) GetTemplateVersionOk() (*int32, bool) {
+func (o *DocumentSummary) GetTemplateVersionOk() (*int64, bool) {
 	if o == nil || IsNil(o.TemplateVersion) {
 		return nil, false
 	}
@@ -309,8 +309,8 @@ func (o *DocumentSummary) HasTemplateVersion() bool {
 	return false
 }
 
-// SetTemplateVersion gets a reference to the given int32 and assigns it to the TemplateVersion field.
-func (o *DocumentSummary) SetTemplateVersion(v int32) {
+// SetTemplateVersion gets a reference to the given int64 and assigns it to the TemplateVersion field.
+func (o *DocumentSummary) SetTemplateVersion(v int64) {
 	o.TemplateVersion = &v
 }
 
@@ -347,9 +347,9 @@ func (o *DocumentSummary) SetTitle(v string) {
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *DocumentSummary) GetUpdatedAt() int32 {
+func (o *DocumentSummary) GetUpdatedAt() int64 {
 	if o == nil || IsNil(o.UpdatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedAt
@@ -357,7 +357,7 @@ func (o *DocumentSummary) GetUpdatedAt() int32 {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DocumentSummary) GetUpdatedAtOk() (*int32, bool) {
+func (o *DocumentSummary) GetUpdatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -373,8 +373,8 @@ func (o *DocumentSummary) HasUpdatedAt() bool {
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given int32 and assigns it to the UpdatedAt field.
-func (o *DocumentSummary) SetUpdatedAt(v int32) {
+// SetUpdatedAt gets a reference to the given int64 and assigns it to the UpdatedAt field.
+func (o *DocumentSummary) SetUpdatedAt(v int64) {
 	o.UpdatedAt = &v
 }
 

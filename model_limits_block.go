@@ -20,11 +20,11 @@ var _ MappedNullable = &LimitsBlock{}
 // LimitsBlock struct for LimitsBlock
 type LimitsBlock struct {
 	// APIRateLimit is requests per minute allowed against the REST /v1/world surface. -1 means unlimited.
-	ApiRateLimit *int32 `json:"apiRateLimit,omitempty"`
+	ApiRateLimit *int64 `json:"apiRateLimit,omitempty"`
 	// MaxAlerts is how many saved OSINT alert rules the plan allows. -1 means unlimited.
-	MaxAlerts *int32 `json:"maxAlerts,omitempty"`
+	MaxAlerts *int64 `json:"maxAlerts,omitempty"`
 	// MCPRateLimit is requests per minute allowed against the MCP surface. -1 means unlimited.
-	McpRateLimit *int32 `json:"mcpRateLimit,omitempty"`
+	McpRateLimit *int64 `json:"mcpRateLimit,omitempty"`
 	// ModelAPI is whether the plan reaches the World model endpoint and the SSE stream. The free floor is false, and that is what a catalog outage resolves to.
 	ModelApi *bool `json:"modelApi,omitempty"`
 }
@@ -47,9 +47,9 @@ func NewLimitsBlockWithDefaults() *LimitsBlock {
 }
 
 // GetApiRateLimit returns the ApiRateLimit field value if set, zero value otherwise.
-func (o *LimitsBlock) GetApiRateLimit() int32 {
+func (o *LimitsBlock) GetApiRateLimit() int64 {
 	if o == nil || IsNil(o.ApiRateLimit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ApiRateLimit
@@ -57,7 +57,7 @@ func (o *LimitsBlock) GetApiRateLimit() int32 {
 
 // GetApiRateLimitOk returns a tuple with the ApiRateLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LimitsBlock) GetApiRateLimitOk() (*int32, bool) {
+func (o *LimitsBlock) GetApiRateLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.ApiRateLimit) {
 		return nil, false
 	}
@@ -73,15 +73,15 @@ func (o *LimitsBlock) HasApiRateLimit() bool {
 	return false
 }
 
-// SetApiRateLimit gets a reference to the given int32 and assigns it to the ApiRateLimit field.
-func (o *LimitsBlock) SetApiRateLimit(v int32) {
+// SetApiRateLimit gets a reference to the given int64 and assigns it to the ApiRateLimit field.
+func (o *LimitsBlock) SetApiRateLimit(v int64) {
 	o.ApiRateLimit = &v
 }
 
 // GetMaxAlerts returns the MaxAlerts field value if set, zero value otherwise.
-func (o *LimitsBlock) GetMaxAlerts() int32 {
+func (o *LimitsBlock) GetMaxAlerts() int64 {
 	if o == nil || IsNil(o.MaxAlerts) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxAlerts
@@ -89,7 +89,7 @@ func (o *LimitsBlock) GetMaxAlerts() int32 {
 
 // GetMaxAlertsOk returns a tuple with the MaxAlerts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LimitsBlock) GetMaxAlertsOk() (*int32, bool) {
+func (o *LimitsBlock) GetMaxAlertsOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxAlerts) {
 		return nil, false
 	}
@@ -105,15 +105,15 @@ func (o *LimitsBlock) HasMaxAlerts() bool {
 	return false
 }
 
-// SetMaxAlerts gets a reference to the given int32 and assigns it to the MaxAlerts field.
-func (o *LimitsBlock) SetMaxAlerts(v int32) {
+// SetMaxAlerts gets a reference to the given int64 and assigns it to the MaxAlerts field.
+func (o *LimitsBlock) SetMaxAlerts(v int64) {
 	o.MaxAlerts = &v
 }
 
 // GetMcpRateLimit returns the McpRateLimit field value if set, zero value otherwise.
-func (o *LimitsBlock) GetMcpRateLimit() int32 {
+func (o *LimitsBlock) GetMcpRateLimit() int64 {
 	if o == nil || IsNil(o.McpRateLimit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.McpRateLimit
@@ -121,7 +121,7 @@ func (o *LimitsBlock) GetMcpRateLimit() int32 {
 
 // GetMcpRateLimitOk returns a tuple with the McpRateLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LimitsBlock) GetMcpRateLimitOk() (*int32, bool) {
+func (o *LimitsBlock) GetMcpRateLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.McpRateLimit) {
 		return nil, false
 	}
@@ -137,8 +137,8 @@ func (o *LimitsBlock) HasMcpRateLimit() bool {
 	return false
 }
 
-// SetMcpRateLimit gets a reference to the given int32 and assigns it to the McpRateLimit field.
-func (o *LimitsBlock) SetMcpRateLimit(v int32) {
+// SetMcpRateLimit gets a reference to the given int64 and assigns it to the McpRateLimit field.
+func (o *LimitsBlock) SetMcpRateLimit(v int64) {
 	o.McpRateLimit = &v
 }
 

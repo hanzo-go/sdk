@@ -20,17 +20,17 @@ var _ MappedNullable = &AccountsTotal{}
 // AccountsTotal struct for AccountsTotal
 type AccountsTotal struct {
 	// Accounts is how many linked accounts the total folds.
-	Accounts *int32 `json:"accounts,omitempty"`
+	Accounts *int64 `json:"accounts,omitempty"`
 	// CompletionTokens is the total completion-token count.
-	CompletionTokens *int32 `json:"completionTokens,omitempty"`
+	CompletionTokens *int64 `json:"completionTokens,omitempty"`
 	// CostCents is the total cost in cents.
-	CostCents *int32 `json:"costCents,omitempty"`
+	CostCents *int64 `json:"costCents,omitempty"`
 	// PromptTokens is the total prompt-token count.
-	PromptTokens *int32 `json:"promptTokens,omitempty"`
+	PromptTokens *int64 `json:"promptTokens,omitempty"`
 	// Requests is the total request count the gateway routed.
-	Requests *int32 `json:"requests,omitempty"`
+	Requests *int64 `json:"requests,omitempty"`
 	// TotalTokens is the total token count.
-	TotalTokens *int32 `json:"totalTokens,omitempty"`
+	TotalTokens *int64 `json:"totalTokens,omitempty"`
 }
 
 // NewAccountsTotal instantiates a new AccountsTotal object
@@ -51,9 +51,9 @@ func NewAccountsTotalWithDefaults() *AccountsTotal {
 }
 
 // GetAccounts returns the Accounts field value if set, zero value otherwise.
-func (o *AccountsTotal) GetAccounts() int32 {
+func (o *AccountsTotal) GetAccounts() int64 {
 	if o == nil || IsNil(o.Accounts) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Accounts
@@ -61,7 +61,7 @@ func (o *AccountsTotal) GetAccounts() int32 {
 
 // GetAccountsOk returns a tuple with the Accounts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccountsTotal) GetAccountsOk() (*int32, bool) {
+func (o *AccountsTotal) GetAccountsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Accounts) {
 		return nil, false
 	}
@@ -77,15 +77,15 @@ func (o *AccountsTotal) HasAccounts() bool {
 	return false
 }
 
-// SetAccounts gets a reference to the given int32 and assigns it to the Accounts field.
-func (o *AccountsTotal) SetAccounts(v int32) {
+// SetAccounts gets a reference to the given int64 and assigns it to the Accounts field.
+func (o *AccountsTotal) SetAccounts(v int64) {
 	o.Accounts = &v
 }
 
 // GetCompletionTokens returns the CompletionTokens field value if set, zero value otherwise.
-func (o *AccountsTotal) GetCompletionTokens() int32 {
+func (o *AccountsTotal) GetCompletionTokens() int64 {
 	if o == nil || IsNil(o.CompletionTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CompletionTokens
@@ -93,7 +93,7 @@ func (o *AccountsTotal) GetCompletionTokens() int32 {
 
 // GetCompletionTokensOk returns a tuple with the CompletionTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccountsTotal) GetCompletionTokensOk() (*int32, bool) {
+func (o *AccountsTotal) GetCompletionTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.CompletionTokens) {
 		return nil, false
 	}
@@ -109,15 +109,15 @@ func (o *AccountsTotal) HasCompletionTokens() bool {
 	return false
 }
 
-// SetCompletionTokens gets a reference to the given int32 and assigns it to the CompletionTokens field.
-func (o *AccountsTotal) SetCompletionTokens(v int32) {
+// SetCompletionTokens gets a reference to the given int64 and assigns it to the CompletionTokens field.
+func (o *AccountsTotal) SetCompletionTokens(v int64) {
 	o.CompletionTokens = &v
 }
 
 // GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *AccountsTotal) GetCostCents() int32 {
+func (o *AccountsTotal) GetCostCents() int64 {
 	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CostCents
@@ -125,7 +125,7 @@ func (o *AccountsTotal) GetCostCents() int32 {
 
 // GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccountsTotal) GetCostCentsOk() (*int32, bool) {
+func (o *AccountsTotal) GetCostCentsOk() (*int64, bool) {
 	if o == nil || IsNil(o.CostCents) {
 		return nil, false
 	}
@@ -141,15 +141,15 @@ func (o *AccountsTotal) HasCostCents() bool {
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *AccountsTotal) SetCostCents(v int32) {
+// SetCostCents gets a reference to the given int64 and assigns it to the CostCents field.
+func (o *AccountsTotal) SetCostCents(v int64) {
 	o.CostCents = &v
 }
 
 // GetPromptTokens returns the PromptTokens field value if set, zero value otherwise.
-func (o *AccountsTotal) GetPromptTokens() int32 {
+func (o *AccountsTotal) GetPromptTokens() int64 {
 	if o == nil || IsNil(o.PromptTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.PromptTokens
@@ -157,7 +157,7 @@ func (o *AccountsTotal) GetPromptTokens() int32 {
 
 // GetPromptTokensOk returns a tuple with the PromptTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccountsTotal) GetPromptTokensOk() (*int32, bool) {
+func (o *AccountsTotal) GetPromptTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.PromptTokens) {
 		return nil, false
 	}
@@ -173,15 +173,15 @@ func (o *AccountsTotal) HasPromptTokens() bool {
 	return false
 }
 
-// SetPromptTokens gets a reference to the given int32 and assigns it to the PromptTokens field.
-func (o *AccountsTotal) SetPromptTokens(v int32) {
+// SetPromptTokens gets a reference to the given int64 and assigns it to the PromptTokens field.
+func (o *AccountsTotal) SetPromptTokens(v int64) {
 	o.PromptTokens = &v
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *AccountsTotal) GetRequests() int32 {
+func (o *AccountsTotal) GetRequests() int64 {
 	if o == nil || IsNil(o.Requests) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Requests
@@ -189,7 +189,7 @@ func (o *AccountsTotal) GetRequests() int32 {
 
 // GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccountsTotal) GetRequestsOk() (*int32, bool) {
+func (o *AccountsTotal) GetRequestsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Requests) {
 		return nil, false
 	}
@@ -205,15 +205,15 @@ func (o *AccountsTotal) HasRequests() bool {
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *AccountsTotal) SetRequests(v int32) {
+// SetRequests gets a reference to the given int64 and assigns it to the Requests field.
+func (o *AccountsTotal) SetRequests(v int64) {
 	o.Requests = &v
 }
 
 // GetTotalTokens returns the TotalTokens field value if set, zero value otherwise.
-func (o *AccountsTotal) GetTotalTokens() int32 {
+func (o *AccountsTotal) GetTotalTokens() int64 {
 	if o == nil || IsNil(o.TotalTokens) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalTokens
@@ -221,7 +221,7 @@ func (o *AccountsTotal) GetTotalTokens() int32 {
 
 // GetTotalTokensOk returns a tuple with the TotalTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccountsTotal) GetTotalTokensOk() (*int32, bool) {
+func (o *AccountsTotal) GetTotalTokensOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalTokens) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *AccountsTotal) HasTotalTokens() bool {
 	return false
 }
 
-// SetTotalTokens gets a reference to the given int32 and assigns it to the TotalTokens field.
-func (o *AccountsTotal) SetTotalTokens(v int32) {
+// SetTotalTokens gets a reference to the given int64 and assigns it to the TotalTokens field.
+func (o *AccountsTotal) SetTotalTokens(v int64) {
 	o.TotalTokens = &v
 }
 

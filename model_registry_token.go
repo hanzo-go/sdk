@@ -20,7 +20,7 @@ var _ MappedNullable = &RegistryToken{}
 // RegistryToken struct for RegistryToken
 type RegistryToken struct {
 	// Expires is the token's lifetime in seconds.
-	Expires *int32 `json:"expires,omitempty"`
+	Expires *int64 `json:"expires,omitempty"`
 	// Ref is the one repository reference the token can pull.
 	Ref *string `json:"ref,omitempty"`
 	// Token is the bearer to present on the OCI wire (`Authorization: Bearer …` against the host's /v2/ routes).
@@ -45,9 +45,9 @@ func NewRegistryTokenWithDefaults() *RegistryToken {
 }
 
 // GetExpires returns the Expires field value if set, zero value otherwise.
-func (o *RegistryToken) GetExpires() int32 {
+func (o *RegistryToken) GetExpires() int64 {
 	if o == nil || IsNil(o.Expires) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Expires
@@ -55,7 +55,7 @@ func (o *RegistryToken) GetExpires() int32 {
 
 // GetExpiresOk returns a tuple with the Expires field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RegistryToken) GetExpiresOk() (*int32, bool) {
+func (o *RegistryToken) GetExpiresOk() (*int64, bool) {
 	if o == nil || IsNil(o.Expires) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *RegistryToken) HasExpires() bool {
 	return false
 }
 
-// SetExpires gets a reference to the given int32 and assigns it to the Expires field.
-func (o *RegistryToken) SetExpires(v int32) {
+// SetExpires gets a reference to the given int64 and assigns it to the Expires field.
+func (o *RegistryToken) SetExpires(v int64) {
 	o.Expires = &v
 }
 

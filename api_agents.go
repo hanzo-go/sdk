@@ -427,11 +427,11 @@ func (a *AgentsAPIService) GetAgentsActivityExecute(r AgentsAPIGetAgentsActivity
 type AgentsAPIGetAgentsBuildsRequest struct {
 	ctx        context.Context
 	ApiService *AgentsAPIService
-	limit      *int32
+	limit      *int64
 }
 
 // Limit caps the page. Absent, zero or over 500 reads as 100.
-func (r AgentsAPIGetAgentsBuildsRequest) Limit(limit int32) AgentsAPIGetAgentsBuildsRequest {
+func (r AgentsAPIGetAgentsBuildsRequest) Limit(limit int64) AgentsAPIGetAgentsBuildsRequest {
 	r.limit = &limit
 	return r
 }
@@ -763,11 +763,11 @@ type AgentsAPIGetAgentsByRefRunsRequest struct {
 	ctx        context.Context
 	ApiService *AgentsAPIService
 	ref        string
-	limit      *int32
+	limit      *int64
 }
 
 // Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50.
-func (r AgentsAPIGetAgentsByRefRunsRequest) Limit(limit int32) AgentsAPIGetAgentsByRefRunsRequest {
+func (r AgentsAPIGetAgentsByRefRunsRequest) Limit(limit int64) AgentsAPIGetAgentsByRefRunsRequest {
 	r.limit = &limit
 	return r
 }
@@ -1267,12 +1267,12 @@ func (a *AgentsAPIService) GetAgentsMetricsExecute(r AgentsAPIGetAgentsMetricsRe
 type AgentsAPIGetAgentsRunsRequest struct {
 	ctx        context.Context
 	ApiService *AgentsAPIService
-	limit      *int32
+	limit      *int64
 	status     *string
 }
 
 // Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50.
-func (r AgentsAPIGetAgentsRunsRequest) Limit(limit int32) AgentsAPIGetAgentsRunsRequest {
+func (r AgentsAPIGetAgentsRunsRequest) Limit(limit int64) AgentsAPIGetAgentsRunsRequest {
 	r.limit = &limit
 	return r
 }
@@ -1404,7 +1404,7 @@ type AgentsAPIGetAgentsSessionsRequest struct {
 	status     *string
 	project    *string
 	room       *string
-	limit      *int32
+	limit      *int64
 }
 
 // Root scopes the page to one subagent tree (its root session id).
@@ -1438,7 +1438,7 @@ func (r AgentsAPIGetAgentsSessionsRequest) Room(room string) AgentsAPIGetAgentsS
 }
 
 // Limit caps the page. Absent, zero or over 500 reads as 100.
-func (r AgentsAPIGetAgentsSessionsRequest) Limit(limit int32) AgentsAPIGetAgentsSessionsRequest {
+func (r AgentsAPIGetAgentsSessionsRequest) Limit(limit int64) AgentsAPIGetAgentsSessionsRequest {
 	r.limit = &limit
 	return r
 }
@@ -1668,11 +1668,11 @@ type AgentsAPIGetAgentsSessionsByIdControlRequest struct {
 	ctx        context.Context
 	ApiService *AgentsAPIService
 	id         string
-	after      *int32
+	after      *int64
 }
 
 // After is the last seq this poller applied; only commands newer than it come back. Absent or negative reads as 0, which drains from the beginning.
-func (r AgentsAPIGetAgentsSessionsByIdControlRequest) After(after int32) AgentsAPIGetAgentsSessionsByIdControlRequest {
+func (r AgentsAPIGetAgentsSessionsByIdControlRequest) After(after int64) AgentsAPIGetAgentsSessionsByIdControlRequest {
 	r.after = &after
 	return r
 }
@@ -3079,27 +3079,6 @@ func (r AgentsAPIPostAgentsCodingRequest) Execute() (*CodingStarted, *http.Respo
 
 /*
 PostAgentsCoding Start one autonomous coding run against a repo in the caller's org
-
-Runs a coding task on a repository: clones it into a sandbox, lets a model read
-and edit the code, run the tests, and push the work to a branch. Say the thing
-you want done — "fix the failing auth test in hanzoai/cloud" — and the run
-infers the repo, the branch and the plan. No prefix, no ceremony.
-
-It answers 202 with the run's handle the moment the run is ADMITTED — not when
-it finishes. A coding run takes minutes; holding a request open for one would
-tie a connection to a model loop and give the caller nothing it cannot get
-better from the session stream.
-
-The handle is a session id, and that is deliberate: the session is already the
-run's durable record and its live stream (/v1/agents/sessions/{id}/stream), so
-this op does not grow a progress endpoint, a status endpoint or a cancel
-endpoint of its own. One way to watch a run, whoever started it.
-
-It is also how work CONTINUES. Pass an earlier run's session as `after` and
-this one starts from where that one stopped, so "now add tests for it" builds
-on the branch already pushed instead of a fresh clone. The follow-up still gets
-its own branch and its own session — one run, one branch, always reviewable on
-its own.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AgentsAPIPostAgentsCodingRequest

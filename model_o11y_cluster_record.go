@@ -19,10 +19,10 @@ var _ MappedNullable = &O11yClusterRecord{}
 
 // O11yClusterRecord struct for O11yClusterRecord
 type O11yClusterRecord struct {
-	ClusterCPU               *float32 `json:"clusterCPU,omitempty"`
-	ClusterCPUAllocatable    *float32 `json:"clusterCPUAllocatable,omitempty"`
-	ClusterMemory            *float32 `json:"clusterMemory,omitempty"`
-	ClusterMemoryAllocatable *float32 `json:"clusterMemoryAllocatable,omitempty"`
+	ClusterCPU               *float64 `json:"clusterCPU,omitempty"`
+	ClusterCPUAllocatable    *float64 `json:"clusterCPUAllocatable,omitempty"`
+	ClusterMemory            *float64 `json:"clusterMemory,omitempty"`
+	ClusterMemoryAllocatable *float64 `json:"clusterMemoryAllocatable,omitempty"`
 	// TODO(nikhilmantri0902): once the underlying attr key is migrated to k8s.cluster.uid (see ClusterNameAttrKey), surface ClusterUID alongside (or replace) ClusterName.
 	ClusterName           *string                    `json:"clusterName,omitempty"`
 	Meta                  map[string]string          `json:"meta,omitempty"`
@@ -48,9 +48,9 @@ func NewO11yClusterRecordWithDefaults() *O11yClusterRecord {
 }
 
 // GetClusterCPU returns the ClusterCPU field value if set, zero value otherwise.
-func (o *O11yClusterRecord) GetClusterCPU() float32 {
+func (o *O11yClusterRecord) GetClusterCPU() float64 {
 	if o == nil || IsNil(o.ClusterCPU) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.ClusterCPU
@@ -58,7 +58,7 @@ func (o *O11yClusterRecord) GetClusterCPU() float32 {
 
 // GetClusterCPUOk returns a tuple with the ClusterCPU field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yClusterRecord) GetClusterCPUOk() (*float32, bool) {
+func (o *O11yClusterRecord) GetClusterCPUOk() (*float64, bool) {
 	if o == nil || IsNil(o.ClusterCPU) {
 		return nil, false
 	}
@@ -74,15 +74,15 @@ func (o *O11yClusterRecord) HasClusterCPU() bool {
 	return false
 }
 
-// SetClusterCPU gets a reference to the given float32 and assigns it to the ClusterCPU field.
-func (o *O11yClusterRecord) SetClusterCPU(v float32) {
+// SetClusterCPU gets a reference to the given float64 and assigns it to the ClusterCPU field.
+func (o *O11yClusterRecord) SetClusterCPU(v float64) {
 	o.ClusterCPU = &v
 }
 
 // GetClusterCPUAllocatable returns the ClusterCPUAllocatable field value if set, zero value otherwise.
-func (o *O11yClusterRecord) GetClusterCPUAllocatable() float32 {
+func (o *O11yClusterRecord) GetClusterCPUAllocatable() float64 {
 	if o == nil || IsNil(o.ClusterCPUAllocatable) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.ClusterCPUAllocatable
@@ -90,7 +90,7 @@ func (o *O11yClusterRecord) GetClusterCPUAllocatable() float32 {
 
 // GetClusterCPUAllocatableOk returns a tuple with the ClusterCPUAllocatable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yClusterRecord) GetClusterCPUAllocatableOk() (*float32, bool) {
+func (o *O11yClusterRecord) GetClusterCPUAllocatableOk() (*float64, bool) {
 	if o == nil || IsNil(o.ClusterCPUAllocatable) {
 		return nil, false
 	}
@@ -106,15 +106,15 @@ func (o *O11yClusterRecord) HasClusterCPUAllocatable() bool {
 	return false
 }
 
-// SetClusterCPUAllocatable gets a reference to the given float32 and assigns it to the ClusterCPUAllocatable field.
-func (o *O11yClusterRecord) SetClusterCPUAllocatable(v float32) {
+// SetClusterCPUAllocatable gets a reference to the given float64 and assigns it to the ClusterCPUAllocatable field.
+func (o *O11yClusterRecord) SetClusterCPUAllocatable(v float64) {
 	o.ClusterCPUAllocatable = &v
 }
 
 // GetClusterMemory returns the ClusterMemory field value if set, zero value otherwise.
-func (o *O11yClusterRecord) GetClusterMemory() float32 {
+func (o *O11yClusterRecord) GetClusterMemory() float64 {
 	if o == nil || IsNil(o.ClusterMemory) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.ClusterMemory
@@ -122,7 +122,7 @@ func (o *O11yClusterRecord) GetClusterMemory() float32 {
 
 // GetClusterMemoryOk returns a tuple with the ClusterMemory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yClusterRecord) GetClusterMemoryOk() (*float32, bool) {
+func (o *O11yClusterRecord) GetClusterMemoryOk() (*float64, bool) {
 	if o == nil || IsNil(o.ClusterMemory) {
 		return nil, false
 	}
@@ -138,15 +138,15 @@ func (o *O11yClusterRecord) HasClusterMemory() bool {
 	return false
 }
 
-// SetClusterMemory gets a reference to the given float32 and assigns it to the ClusterMemory field.
-func (o *O11yClusterRecord) SetClusterMemory(v float32) {
+// SetClusterMemory gets a reference to the given float64 and assigns it to the ClusterMemory field.
+func (o *O11yClusterRecord) SetClusterMemory(v float64) {
 	o.ClusterMemory = &v
 }
 
 // GetClusterMemoryAllocatable returns the ClusterMemoryAllocatable field value if set, zero value otherwise.
-func (o *O11yClusterRecord) GetClusterMemoryAllocatable() float32 {
+func (o *O11yClusterRecord) GetClusterMemoryAllocatable() float64 {
 	if o == nil || IsNil(o.ClusterMemoryAllocatable) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.ClusterMemoryAllocatable
@@ -154,7 +154,7 @@ func (o *O11yClusterRecord) GetClusterMemoryAllocatable() float32 {
 
 // GetClusterMemoryAllocatableOk returns a tuple with the ClusterMemoryAllocatable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yClusterRecord) GetClusterMemoryAllocatableOk() (*float32, bool) {
+func (o *O11yClusterRecord) GetClusterMemoryAllocatableOk() (*float64, bool) {
 	if o == nil || IsNil(o.ClusterMemoryAllocatable) {
 		return nil, false
 	}
@@ -170,8 +170,8 @@ func (o *O11yClusterRecord) HasClusterMemoryAllocatable() bool {
 	return false
 }
 
-// SetClusterMemoryAllocatable gets a reference to the given float32 and assigns it to the ClusterMemoryAllocatable field.
-func (o *O11yClusterRecord) SetClusterMemoryAllocatable(v float32) {
+// SetClusterMemoryAllocatable gets a reference to the given float64 and assigns it to the ClusterMemoryAllocatable field.
+func (o *O11yClusterRecord) SetClusterMemoryAllocatable(v float64) {
 	o.ClusterMemoryAllocatable = &v
 }
 

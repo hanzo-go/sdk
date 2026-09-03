@@ -30,7 +30,7 @@ type ExecRequest struct {
 	// Stdin is fed to the command on its standard input.
 	Stdin *string `json:"stdin,omitempty"`
 	// TimeoutSec bounds the run in seconds. Zero takes the default.
-	TimeoutSec *int32 `json:"timeoutSec,omitempty"`
+	TimeoutSec *int64 `json:"timeoutSec,omitempty"`
 }
 
 // NewExecRequest instantiates a new ExecRequest object
@@ -211,9 +211,9 @@ func (o *ExecRequest) SetStdin(v string) {
 }
 
 // GetTimeoutSec returns the TimeoutSec field value if set, zero value otherwise.
-func (o *ExecRequest) GetTimeoutSec() int32 {
+func (o *ExecRequest) GetTimeoutSec() int64 {
 	if o == nil || IsNil(o.TimeoutSec) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TimeoutSec
@@ -221,7 +221,7 @@ func (o *ExecRequest) GetTimeoutSec() int32 {
 
 // GetTimeoutSecOk returns a tuple with the TimeoutSec field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExecRequest) GetTimeoutSecOk() (*int32, bool) {
+func (o *ExecRequest) GetTimeoutSecOk() (*int64, bool) {
 	if o == nil || IsNil(o.TimeoutSec) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *ExecRequest) HasTimeoutSec() bool {
 	return false
 }
 
-// SetTimeoutSec gets a reference to the given int32 and assigns it to the TimeoutSec field.
-func (o *ExecRequest) SetTimeoutSec(v int32) {
+// SetTimeoutSec gets a reference to the given int64 and assigns it to the TimeoutSec field.
+func (o *ExecRequest) SetTimeoutSec(v int64) {
 	o.TimeoutSec = &v
 }
 

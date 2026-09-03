@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **Currency** | Pointer to **string** | the currency both prices are in | [optional] 
 **Domain** | Pointer to **string** | the name this quote prices | [optional] 
 **Premium** | Pointer to **bool** | whether the registry prices it above the standard rate | [optional] 
-**PriceCents** | Pointer to **int32** | sell (first-term registration) | [optional] 
-**RenewalPriceCents** | Pointer to **int32** | sell (renewal) | [optional] 
+**PriceCents** | Pointer to **int64** | sell (first-term registration) | [optional] 
+**RenewalPriceCents** | Pointer to **int64** | sell (renewal) | [optional] 
 **Tld** | Pointer to **string** | the top-level domain the name sits under | [optional] 
 
 ## Methods
@@ -133,20 +133,20 @@ HasPremium returns a boolean if a field has been set.
 
 ### GetPriceCents
 
-`func (o *Offer) GetPriceCents() int32`
+`func (o *Offer) GetPriceCents() int64`
 
 GetPriceCents returns the PriceCents field if non-nil, zero value otherwise.
 
 ### GetPriceCentsOk
 
-`func (o *Offer) GetPriceCentsOk() (*int32, bool)`
+`func (o *Offer) GetPriceCentsOk() (*int64, bool)`
 
 GetPriceCentsOk returns a tuple with the PriceCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPriceCents
 
-`func (o *Offer) SetPriceCents(v int32)`
+`func (o *Offer) SetPriceCents(v int64)`
 
 SetPriceCents sets PriceCents field to given value.
 
@@ -158,20 +158,20 @@ HasPriceCents returns a boolean if a field has been set.
 
 ### GetRenewalPriceCents
 
-`func (o *Offer) GetRenewalPriceCents() int32`
+`func (o *Offer) GetRenewalPriceCents() int64`
 
 GetRenewalPriceCents returns the RenewalPriceCents field if non-nil, zero value otherwise.
 
 ### GetRenewalPriceCentsOk
 
-`func (o *Offer) GetRenewalPriceCentsOk() (*int32, bool)`
+`func (o *Offer) GetRenewalPriceCentsOk() (*int64, bool)`
 
 GetRenewalPriceCentsOk returns a tuple with the RenewalPriceCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRenewalPriceCents
 
-`func (o *Offer) SetRenewalPriceCents(v int32)`
+`func (o *Offer) SetRenewalPriceCents(v int64)`
 
 SetRenewalPriceCents sets RenewalPriceCents field to given value.
 

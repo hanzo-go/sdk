@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccruedCents** | Pointer to **int32** | AccruedCents is lifetime commission accrued, in cents. | [optional] 
+**AccruedCents** | Pointer to **int64** | AccruedCents is lifetime commission accrued, in cents. | [optional] 
 **ByPeriod** | Pointer to [**[]PeriodEarningView**](PeriodEarningView.md) | ByPeriod is the per-period ledger: the margin earned against and the commission taken from it. | [optional] 
 **ByReferredOrg** | Pointer to [**[]OrgEarningView**](OrgEarningView.md) | ByReferredOrg is each referral&#39;s aggregate contribution — the affiliate&#39;s OWN share, never the referred org&#39;s spend. | [optional] 
 **IsAffiliate** | Pointer to **bool** | IsAffiliate says whether the caller org has an affiliate record. On false it is the ONLY field present — there is no ledger to report, and the zeros you might expect are absent rather than reported as earnings of nothing. | [optional] 
-**MarginBps** | Pointer to **int32** | MarginBps is the platform gross-margin fraction commission is a rate OF. | [optional] 
-**PaidCents** | Pointer to **int32** | PaidCents is lifetime commission already paid out, in cents. | [optional] 
-**PendingCents** | Pointer to **int32** | PendingCents is accrued minus paid — what the platform still owes. | [optional] 
+**MarginBps** | Pointer to **int64** | MarginBps is the platform gross-margin fraction commission is a rate OF. | [optional] 
+**PaidCents** | Pointer to **int64** | PaidCents is lifetime commission already paid out, in cents. | [optional] 
+**PendingCents** | Pointer to **int64** | PendingCents is accrued minus paid — what the platform still owes. | [optional] 
 
 ## Methods
 
@@ -33,20 +33,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAccruedCents
 
-`func (o *AffiliateEarnings) GetAccruedCents() int32`
+`func (o *AffiliateEarnings) GetAccruedCents() int64`
 
 GetAccruedCents returns the AccruedCents field if non-nil, zero value otherwise.
 
 ### GetAccruedCentsOk
 
-`func (o *AffiliateEarnings) GetAccruedCentsOk() (*int32, bool)`
+`func (o *AffiliateEarnings) GetAccruedCentsOk() (*int64, bool)`
 
 GetAccruedCentsOk returns a tuple with the AccruedCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccruedCents
 
-`func (o *AffiliateEarnings) SetAccruedCents(v int32)`
+`func (o *AffiliateEarnings) SetAccruedCents(v int64)`
 
 SetAccruedCents sets AccruedCents field to given value.
 
@@ -133,20 +133,20 @@ HasIsAffiliate returns a boolean if a field has been set.
 
 ### GetMarginBps
 
-`func (o *AffiliateEarnings) GetMarginBps() int32`
+`func (o *AffiliateEarnings) GetMarginBps() int64`
 
 GetMarginBps returns the MarginBps field if non-nil, zero value otherwise.
 
 ### GetMarginBpsOk
 
-`func (o *AffiliateEarnings) GetMarginBpsOk() (*int32, bool)`
+`func (o *AffiliateEarnings) GetMarginBpsOk() (*int64, bool)`
 
 GetMarginBpsOk returns a tuple with the MarginBps field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMarginBps
 
-`func (o *AffiliateEarnings) SetMarginBps(v int32)`
+`func (o *AffiliateEarnings) SetMarginBps(v int64)`
 
 SetMarginBps sets MarginBps field to given value.
 
@@ -158,20 +158,20 @@ HasMarginBps returns a boolean if a field has been set.
 
 ### GetPaidCents
 
-`func (o *AffiliateEarnings) GetPaidCents() int32`
+`func (o *AffiliateEarnings) GetPaidCents() int64`
 
 GetPaidCents returns the PaidCents field if non-nil, zero value otherwise.
 
 ### GetPaidCentsOk
 
-`func (o *AffiliateEarnings) GetPaidCentsOk() (*int32, bool)`
+`func (o *AffiliateEarnings) GetPaidCentsOk() (*int64, bool)`
 
 GetPaidCentsOk returns a tuple with the PaidCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPaidCents
 
-`func (o *AffiliateEarnings) SetPaidCents(v int32)`
+`func (o *AffiliateEarnings) SetPaidCents(v int64)`
 
 SetPaidCents sets PaidCents field to given value.
 
@@ -183,20 +183,20 @@ HasPaidCents returns a boolean if a field has been set.
 
 ### GetPendingCents
 
-`func (o *AffiliateEarnings) GetPendingCents() int32`
+`func (o *AffiliateEarnings) GetPendingCents() int64`
 
 GetPendingCents returns the PendingCents field if non-nil, zero value otherwise.
 
 ### GetPendingCentsOk
 
-`func (o *AffiliateEarnings) GetPendingCentsOk() (*int32, bool)`
+`func (o *AffiliateEarnings) GetPendingCentsOk() (*int64, bool)`
 
 GetPendingCentsOk returns a tuple with the PendingCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPendingCents
 
-`func (o *AffiliateEarnings) SetPendingCents(v int32)`
+`func (o *AffiliateEarnings) SetPendingCents(v int64)`
 
 SetPendingCents sets PendingCents field to given value.
 

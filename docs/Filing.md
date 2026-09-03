@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**At** | Pointer to **int32** | At is the unix second the filing record was written. | [optional] 
+**At** | Pointer to **int64** | At is the unix second the filing record was written. | [optional] 
 **Note** | Pointer to **string** | Note explains a filing Hanzo did not perform itself: what remains to be done and by whom. | [optional] 
 **Provider** | Pointer to **string** | Provider is the filing partner that performed the filing, or \&quot;manual\&quot; when no partner is wired. | [optional] 
 **Ref** | Pointer to **string** | Ref is the partner&#39;s or the state&#39;s filing reference. Empty when nothing was actually filed — no filing id is ever fabricated. | [optional] 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAt
 
-`func (o *Filing) GetAt() int32`
+`func (o *Filing) GetAt() int64`
 
 GetAt returns the At field if non-nil, zero value otherwise.
 
 ### GetAtOk
 
-`func (o *Filing) GetAtOk() (*int32, bool)`
+`func (o *Filing) GetAtOk() (*int64, bool)`
 
 GetAtOk returns a tuple with the At field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAt
 
-`func (o *Filing) SetAt(v int32)`
+`func (o *Filing) SetAt(v int64)`
 
 SetAt sets At field to given value.
 

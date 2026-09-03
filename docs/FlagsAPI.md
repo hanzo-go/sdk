@@ -106,7 +106,7 @@ import (
 )
 
 func main() {
-	limit := int32(56) // int32 | Limit caps the rows returned. 1–500; anything else takes the default 100. (optional)
+	limit := int64(789) // int64 | Limit caps the rows returned. 1–500; anything else takes the default 100. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -131,7 +131,7 @@ Other parameters are passed through a pointer to a apiGetFlagsActivityRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int32** | Limit caps the rows returned. 1–500; anything else takes the default 100. | 
+ **limit** | **int64** | Limit caps the rows returned. 1–500; anything else takes the default 100. | 
 
 ### Return type
 

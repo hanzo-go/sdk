@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Source** | Pointer to **string** | Source is where the score came from, e.g. API, EVAL. Defaults to API. | [optional] 
 **StringValue** | Pointer to **string** | StringValue is the categorical score, when the score is categorical. | [optional] 
 **TraceId** | Pointer to **string** | TraceID is the trace the score attaches to. Required. | [optional] 
-**Value** | Pointer to **float32** | Value is the numeric score. | [optional] 
+**Value** | Pointer to **float64** | Value is the numeric score. | [optional] 
 
 ## Methods
 
@@ -209,20 +209,20 @@ HasTraceId returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *O11yO11yLLMIngestScore) GetValue() float32`
+`func (o *O11yO11yLLMIngestScore) GetValue() float64`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *O11yO11yLLMIngestScore) GetValueOk() (*float32, bool)`
+`func (o *O11yO11yLLMIngestScore) GetValueOk() (*float64, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *O11yO11yLLMIngestScore) SetValue(v float32)`
+`func (o *O11yO11yLLMIngestScore) SetValue(v float64)`
 
 SetValue sets Value field to given value.
 

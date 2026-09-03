@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Hits** | Pointer to [**[]Hit**](Hit.md) | Hits is the fused, ranked result set. | [optional] 
 **Mode** | Pointer to **string** | Mode is the mode actually used after &#x60;auto&#x60; resolution. | [optional] 
 **Status** | Pointer to **string** | Status is the query&#39;s overall honesty signal:   ok          every consulted leg answered.   partial     at least one leg failed; Hits holds the survivors&#39; results.   unavailable every consulted leg failed; Hits is empty AND that is stated. | [optional] 
-**TookMs** | Pointer to **int32** | TookMS is the whole query&#39;s wall time in milliseconds — every leg it consulted, plus fusion and paging. Each leg&#39;s own share is in Backends[].TookMS; the legs run in sequence, so this is at least their sum. | [optional] 
+**TookMs** | Pointer to **int64** | TookMS is the whole query&#39;s wall time in milliseconds — every leg it consulted, plus fusion and paging. Each leg&#39;s own share is in Backends[].TookMS; the legs run in sequence, so this is at least their sum. | [optional] 
 
 ## Methods
 
@@ -131,20 +131,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetTookMs
 
-`func (o *Fusion) GetTookMs() int32`
+`func (o *Fusion) GetTookMs() int64`
 
 GetTookMs returns the TookMs field if non-nil, zero value otherwise.
 
 ### GetTookMsOk
 
-`func (o *Fusion) GetTookMsOk() (*int32, bool)`
+`func (o *Fusion) GetTookMsOk() (*int64, bool)`
 
 GetTookMsOk returns a tuple with the TookMs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTookMs
 
-`func (o *Fusion) SetTookMs(v int32)`
+`func (o *Fusion) SetTookMs(v int64)`
 
 SetTookMs sets TookMs field to given value.
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Doctypes** | Pointer to **int32** | DocTypes is how many DocTypes the org has defined. | [optional] 
-**Documents** | Pointer to **int32** | Documents is how many documents exist across them. | [optional] 
+**Doctypes** | Pointer to **int64** | DocTypes is how many DocTypes the org has defined. | [optional] 
+**Documents** | Pointer to **int64** | Documents is how many documents exist across them. | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetDoctypes
 
-`func (o *SummaryView) GetDoctypes() int32`
+`func (o *SummaryView) GetDoctypes() int64`
 
 GetDoctypes returns the Doctypes field if non-nil, zero value otherwise.
 
 ### GetDoctypesOk
 
-`func (o *SummaryView) GetDoctypesOk() (*int32, bool)`
+`func (o *SummaryView) GetDoctypesOk() (*int64, bool)`
 
 GetDoctypesOk returns a tuple with the Doctypes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDoctypes
 
-`func (o *SummaryView) SetDoctypes(v int32)`
+`func (o *SummaryView) SetDoctypes(v int64)`
 
 SetDoctypes sets Doctypes field to given value.
 
@@ -53,20 +53,20 @@ HasDoctypes returns a boolean if a field has been set.
 
 ### GetDocuments
 
-`func (o *SummaryView) GetDocuments() int32`
+`func (o *SummaryView) GetDocuments() int64`
 
 GetDocuments returns the Documents field if non-nil, zero value otherwise.
 
 ### GetDocumentsOk
 
-`func (o *SummaryView) GetDocumentsOk() (*int32, bool)`
+`func (o *SummaryView) GetDocumentsOk() (*int64, bool)`
 
 GetDocumentsOk returns a tuple with the Documents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDocuments
 
-`func (o *SummaryView) SetDocuments(v int32)`
+`func (o *SummaryView) SetDocuments(v int64)`
 
 SetDocuments sets Documents field to given value.
 

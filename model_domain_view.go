@@ -20,7 +20,7 @@ var _ MappedNullable = &DomainView{}
 // DomainView struct for DomainView
 type DomainView struct {
 	// CreatedAt is the unix second the custom claim was made.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Detail says why a claim is still pending, in the resolver's own words.
 	Detail *string `json:"detail,omitempty"`
 	// Host is the hostname itself.
@@ -57,9 +57,9 @@ func NewDomainViewWithDefaults() *DomainView {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *DomainView) GetCreatedAt() int32 {
+func (o *DomainView) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -67,7 +67,7 @@ func (o *DomainView) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DomainView) GetCreatedAtOk() (*int32, bool) {
+func (o *DomainView) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -83,8 +83,8 @@ func (o *DomainView) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *DomainView) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *DomainView) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 

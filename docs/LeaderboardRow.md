@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccruedCents** | Pointer to **int32** | AccruedCents is that affiliate&#39;s lifetime commission accrued, in cents, and what the board is ordered by. An aggregate: no per-customer figure is exposed. | [optional] 
+**AccruedCents** | Pointer to **int64** | AccruedCents is that affiliate&#39;s lifetime commission accrued, in cents, and what the board is ordered by. An aggregate: no per-customer figure is exposed. | [optional] 
 **Handle** | Pointer to **string** | Handle is the affiliate&#39;s self-chosen display name — the only identity the board ever carries. The org behind it is never disclosed. | [optional] 
 **IsYou** | Pointer to **bool** | IsYou marks the caller&#39;s own row, so a client can highlight it without matching on a handle. Absent on every other row. | [optional] 
-**Rank** | Pointer to **int32** | Rank is the position in the GLOBAL approved set ordered by lifetime accrued commission, 1-based. Affiliates that set no handle still occupy their rank and are simply not listed, so the visible ranks have gaps and the board is not a complete roster. On the caller&#39;s own row the rank is computed over the whole set, so it is exact well outside the top page. | [optional] 
-**ReferredCount** | Pointer to **int32** | ReferredCount is how many orgs that affiliate directly referred — a count only, never which orgs. | [optional] 
+**Rank** | Pointer to **int64** | Rank is the position in the GLOBAL approved set ordered by lifetime accrued commission, 1-based. Affiliates that set no handle still occupy their rank and are simply not listed, so the visible ranks have gaps and the board is not a complete roster. On the caller&#39;s own row the rank is computed over the whole set, so it is exact well outside the top page. | [optional] 
+**ReferredCount** | Pointer to **int64** | ReferredCount is how many orgs that affiliate directly referred — a count only, never which orgs. | [optional] 
 
 ## Methods
 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAccruedCents
 
-`func (o *LeaderboardRow) GetAccruedCents() int32`
+`func (o *LeaderboardRow) GetAccruedCents() int64`
 
 GetAccruedCents returns the AccruedCents field if non-nil, zero value otherwise.
 
 ### GetAccruedCentsOk
 
-`func (o *LeaderboardRow) GetAccruedCentsOk() (*int32, bool)`
+`func (o *LeaderboardRow) GetAccruedCentsOk() (*int64, bool)`
 
 GetAccruedCentsOk returns a tuple with the AccruedCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccruedCents
 
-`func (o *LeaderboardRow) SetAccruedCents(v int32)`
+`func (o *LeaderboardRow) SetAccruedCents(v int64)`
 
 SetAccruedCents sets AccruedCents field to given value.
 
@@ -106,20 +106,20 @@ HasIsYou returns a boolean if a field has been set.
 
 ### GetRank
 
-`func (o *LeaderboardRow) GetRank() int32`
+`func (o *LeaderboardRow) GetRank() int64`
 
 GetRank returns the Rank field if non-nil, zero value otherwise.
 
 ### GetRankOk
 
-`func (o *LeaderboardRow) GetRankOk() (*int32, bool)`
+`func (o *LeaderboardRow) GetRankOk() (*int64, bool)`
 
 GetRankOk returns a tuple with the Rank field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRank
 
-`func (o *LeaderboardRow) SetRank(v int32)`
+`func (o *LeaderboardRow) SetRank(v int64)`
 
 SetRank sets Rank field to given value.
 
@@ -131,20 +131,20 @@ HasRank returns a boolean if a field has been set.
 
 ### GetReferredCount
 
-`func (o *LeaderboardRow) GetReferredCount() int32`
+`func (o *LeaderboardRow) GetReferredCount() int64`
 
 GetReferredCount returns the ReferredCount field if non-nil, zero value otherwise.
 
 ### GetReferredCountOk
 
-`func (o *LeaderboardRow) GetReferredCountOk() (*int32, bool)`
+`func (o *LeaderboardRow) GetReferredCountOk() (*int64, bool)`
 
 GetReferredCountOk returns a tuple with the ReferredCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReferredCount
 
-`func (o *LeaderboardRow) SetReferredCount(v int32)`
+`func (o *LeaderboardRow) SetReferredCount(v int64)`
 
 SetReferredCount sets ReferredCount field to given value.
 

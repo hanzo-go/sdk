@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Resources** | Pointer to **[]map[string]interface{}** |  | [optional] 
-**ItemsPerPage** | Pointer to **int32** |  | [optional] 
+**ItemsPerPage** | Pointer to **int64** |  | [optional] 
 **Schemas** | Pointer to **[]string** |  | [optional] 
-**StartIndex** | Pointer to **int32** |  | [optional] 
-**TotalResults** | Pointer to **int32** |  | [optional] 
+**StartIndex** | Pointer to **int64** |  | [optional] 
+**TotalResults** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -56,20 +56,20 @@ HasResources returns a boolean if a field has been set.
 
 ### GetItemsPerPage
 
-`func (o *IamListResponse) GetItemsPerPage() int32`
+`func (o *IamListResponse) GetItemsPerPage() int64`
 
 GetItemsPerPage returns the ItemsPerPage field if non-nil, zero value otherwise.
 
 ### GetItemsPerPageOk
 
-`func (o *IamListResponse) GetItemsPerPageOk() (*int32, bool)`
+`func (o *IamListResponse) GetItemsPerPageOk() (*int64, bool)`
 
 GetItemsPerPageOk returns a tuple with the ItemsPerPage field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItemsPerPage
 
-`func (o *IamListResponse) SetItemsPerPage(v int32)`
+`func (o *IamListResponse) SetItemsPerPage(v int64)`
 
 SetItemsPerPage sets ItemsPerPage field to given value.
 
@@ -106,20 +106,20 @@ HasSchemas returns a boolean if a field has been set.
 
 ### GetStartIndex
 
-`func (o *IamListResponse) GetStartIndex() int32`
+`func (o *IamListResponse) GetStartIndex() int64`
 
 GetStartIndex returns the StartIndex field if non-nil, zero value otherwise.
 
 ### GetStartIndexOk
 
-`func (o *IamListResponse) GetStartIndexOk() (*int32, bool)`
+`func (o *IamListResponse) GetStartIndexOk() (*int64, bool)`
 
 GetStartIndexOk returns a tuple with the StartIndex field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartIndex
 
-`func (o *IamListResponse) SetStartIndex(v int32)`
+`func (o *IamListResponse) SetStartIndex(v int64)`
 
 SetStartIndex sets StartIndex field to given value.
 
@@ -131,20 +131,20 @@ HasStartIndex returns a boolean if a field has been set.
 
 ### GetTotalResults
 
-`func (o *IamListResponse) GetTotalResults() int32`
+`func (o *IamListResponse) GetTotalResults() int64`
 
 GetTotalResults returns the TotalResults field if non-nil, zero value otherwise.
 
 ### GetTotalResultsOk
 
-`func (o *IamListResponse) GetTotalResultsOk() (*int32, bool)`
+`func (o *IamListResponse) GetTotalResultsOk() (*int64, bool)`
 
 GetTotalResultsOk returns a tuple with the TotalResults field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalResults
 
-`func (o *IamListResponse) SetTotalResults(v int32)`
+`func (o *IamListResponse) SetTotalResults(v int64)`
 
 SetTotalResults sets TotalResults field to given value.
 

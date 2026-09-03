@@ -5,19 +5,19 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Aggregates** | Pointer to [**RiskAggregates**](RiskAggregates.md) | Aggregates reports the pressure on this organisation&#39;s own sliding aggregates, and whether they have started forgetting subjects to stay inside their bound. | [optional] 
-**Blind** | Pointer to **map[string]int32** | Blind counts, per feature, how often it took its neutral value for want of data. A feature blind on most traffic is not contributing whatever the inventory claims for it. | [optional] 
-**Cut** | Pointer to **float32** | Cut is the threshold in force, derived from Stated as a quantile of the scores actually observed. | [optional] 
+**Blind** | Pointer to **map[string]int64** | Blind counts, per feature, how often it took its neutral value for want of data. A feature blind on most traffic is not contributing whatever the inventory claims for it. | [optional] 
+**Cut** | Pointer to **float64** | Cut is the threshold in force, derived from Stated as a quantile of the scores actually observed. | [optional] 
 **Descends** | Pointer to **string** | Descends is the published value the working model grew out of: the newest one whose mass count it has reached or passed. Empty when nothing has been published yet.  It is DERIVED from the count and never stored, so an instant rollback is right for free — adopting an older value moves the count backward and this answers with that older value, where a stored pointer would be a second fact to keep in step. Read with Learned it is also the DRIFT: this model is Descends plus however many events the two counts differ by. | [optional] 
-**Disposed** | Pointer to **int32** | Disposed is how many published values retention has taken. It is DERIVED from the lowest surviving sequence, so it cannot drift from what it describes, and it is reported because a retention that binds is a fact an operator must be able to read rather than a silence. | [optional] 
-**Learned** | Pointer to **int32** | Learned is how many events the model has learned from. | [optional] 
+**Disposed** | Pointer to **int64** | Disposed is how many published values retention has taken. It is DERIVED from the lowest surviving sequence, so it cannot drift from what it describes, and it is reported because a retention that binds is a fact an operator must be able to read rather than a silence. | [optional] 
+**Learned** | Pointer to **int64** | Learned is how many events the model has learned from. | [optional] 
 **Live** | Pointer to **bool** | Live is false while the model is in shadow — scoring, learning and recording what it WOULD have alerted on, and changing no outcome. Shadow is the default for a new tenant. | [optional] 
-**Policy** | Pointer to **int32** | Policy is the version of the decision regime this model is deciding under, from your organisation&#39;s own policy history (GET /v1/risk/policy). Every score cites it, so it is the join between a past decision and the appetite that produced its threshold. Zero means no regime has ever been stated and the default posture — shadow — is in force. | [optional] 
-**Realised** | Pointer to **float32** | Realised is the share that actually was. Reading it beside Stated is what makes the appetite a measured commitment rather than an intention. | [optional] 
-**Refused** | Pointer to **map[string]int32** | Refused counts events the model would not score, by reason. None of them was examined; a refusal is counted, never silent. | [optional] 
-**Sample** | Pointer to **float32** | Sample is the share of below-the-line events retained for review, which is how the miss rate is measured rather than assumed. | [optional] 
+**Policy** | Pointer to **int64** | Policy is the version of the decision regime this model is deciding under, from your organisation&#39;s own policy history (GET /v1/risk/policy). Every score cites it, so it is the join between a past decision and the appetite that produced its threshold. Zero means no regime has ever been stated and the default posture — shadow — is in force. | [optional] 
+**Realised** | Pointer to **float64** | Realised is the share that actually was. Reading it beside Stated is what makes the appetite a measured commitment rather than an intention. | [optional] 
+**Refused** | Pointer to **map[string]int64** | Refused counts events the model would not score, by reason. None of them was examined; a refusal is counted, never silent. | [optional] 
+**Sample** | Pointer to **float64** | Sample is the share of below-the-line events retained for review, which is how the miss rate is measured rather than assumed. | [optional] 
 **Saturated** | Pointer to **bool** | Saturated means no threshold can honour the stated appetite because too much of the stream scores in the top bucket, so the model is alerting on nothing — the one state that must never be mistaken for quiet. | [optional] 
 **Shape** | Pointer to **string** | Shape is the model&#39;s identity, as &#x60;&lt;family&gt;:&lt;digest&gt;&#x60;: the KIND of model, and that family&#39;s own digest over the inventory in order and the detector&#39;s geometry parameters. It is what an auditor pins an alert to, because learned state is only meaningful against the space that produced it — and the family leads it because two families&#39; masses are not fitted differently, they are different kinds of number. | [optional] 
-**Stated** | Pointer to **float32** | Stated is the share of the stream this organisation said may be examined. | [optional] 
+**Stated** | Pointer to **float64** | Stated is the share of the stream this organisation said may be examined. | [optional] 
 **Surface** | Pointer to [**RiskSurface**](RiskSurface.md) | Surface reports what of the tenant&#39;s OWN event surface has been folded in. | [optional] 
 **Tenant** | Pointer to **string** | Tenant is the qualified key the model is held under — the brand whose issuer vouched for the caller and the organisation it acts for. It is echoed so a reader can see the answer is its own and not a parameter it passed. | [optional] 
 **Values** | Pointer to [**[]RiskModelValue**](RiskModelValue.md) | Values is your organisation&#39;s own published model values, newest first — every state it deliberately named, each addressed by its own content and immutable. This is what PUT /v1/risk/state/model names, so it is reported HERE rather than behind an address of its own: they are part of what a review of one model reads, and a list of names is a few hundred bytes.  Compare each one&#39;s &#x60;shape&#x60; with the &#x60;shape&#x60; above: equal means adopting it restores masses into the space this model already runs, and different means adopting it REPLANTS the model into the space that value describes — which is how the shape a search found becomes the shape you are running.  The working model is NOT in it. Publication is a boundary somebody marked; the state between two boundaries is in-process counters, and calling those a value would be a claim about reproducibility that nothing could honour. | [optional] 
@@ -69,20 +69,20 @@ HasAggregates returns a boolean if a field has been set.
 
 ### GetBlind
 
-`func (o *RiskModelState) GetBlind() map[string]int32`
+`func (o *RiskModelState) GetBlind() map[string]int64`
 
 GetBlind returns the Blind field if non-nil, zero value otherwise.
 
 ### GetBlindOk
 
-`func (o *RiskModelState) GetBlindOk() (*map[string]int32, bool)`
+`func (o *RiskModelState) GetBlindOk() (*map[string]int64, bool)`
 
 GetBlindOk returns a tuple with the Blind field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBlind
 
-`func (o *RiskModelState) SetBlind(v map[string]int32)`
+`func (o *RiskModelState) SetBlind(v map[string]int64)`
 
 SetBlind sets Blind field to given value.
 
@@ -94,20 +94,20 @@ HasBlind returns a boolean if a field has been set.
 
 ### GetCut
 
-`func (o *RiskModelState) GetCut() float32`
+`func (o *RiskModelState) GetCut() float64`
 
 GetCut returns the Cut field if non-nil, zero value otherwise.
 
 ### GetCutOk
 
-`func (o *RiskModelState) GetCutOk() (*float32, bool)`
+`func (o *RiskModelState) GetCutOk() (*float64, bool)`
 
 GetCutOk returns a tuple with the Cut field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCut
 
-`func (o *RiskModelState) SetCut(v float32)`
+`func (o *RiskModelState) SetCut(v float64)`
 
 SetCut sets Cut field to given value.
 
@@ -144,20 +144,20 @@ HasDescends returns a boolean if a field has been set.
 
 ### GetDisposed
 
-`func (o *RiskModelState) GetDisposed() int32`
+`func (o *RiskModelState) GetDisposed() int64`
 
 GetDisposed returns the Disposed field if non-nil, zero value otherwise.
 
 ### GetDisposedOk
 
-`func (o *RiskModelState) GetDisposedOk() (*int32, bool)`
+`func (o *RiskModelState) GetDisposedOk() (*int64, bool)`
 
 GetDisposedOk returns a tuple with the Disposed field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDisposed
 
-`func (o *RiskModelState) SetDisposed(v int32)`
+`func (o *RiskModelState) SetDisposed(v int64)`
 
 SetDisposed sets Disposed field to given value.
 
@@ -169,20 +169,20 @@ HasDisposed returns a boolean if a field has been set.
 
 ### GetLearned
 
-`func (o *RiskModelState) GetLearned() int32`
+`func (o *RiskModelState) GetLearned() int64`
 
 GetLearned returns the Learned field if non-nil, zero value otherwise.
 
 ### GetLearnedOk
 
-`func (o *RiskModelState) GetLearnedOk() (*int32, bool)`
+`func (o *RiskModelState) GetLearnedOk() (*int64, bool)`
 
 GetLearnedOk returns a tuple with the Learned field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLearned
 
-`func (o *RiskModelState) SetLearned(v int32)`
+`func (o *RiskModelState) SetLearned(v int64)`
 
 SetLearned sets Learned field to given value.
 
@@ -219,20 +219,20 @@ HasLive returns a boolean if a field has been set.
 
 ### GetPolicy
 
-`func (o *RiskModelState) GetPolicy() int32`
+`func (o *RiskModelState) GetPolicy() int64`
 
 GetPolicy returns the Policy field if non-nil, zero value otherwise.
 
 ### GetPolicyOk
 
-`func (o *RiskModelState) GetPolicyOk() (*int32, bool)`
+`func (o *RiskModelState) GetPolicyOk() (*int64, bool)`
 
 GetPolicyOk returns a tuple with the Policy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPolicy
 
-`func (o *RiskModelState) SetPolicy(v int32)`
+`func (o *RiskModelState) SetPolicy(v int64)`
 
 SetPolicy sets Policy field to given value.
 
@@ -244,20 +244,20 @@ HasPolicy returns a boolean if a field has been set.
 
 ### GetRealised
 
-`func (o *RiskModelState) GetRealised() float32`
+`func (o *RiskModelState) GetRealised() float64`
 
 GetRealised returns the Realised field if non-nil, zero value otherwise.
 
 ### GetRealisedOk
 
-`func (o *RiskModelState) GetRealisedOk() (*float32, bool)`
+`func (o *RiskModelState) GetRealisedOk() (*float64, bool)`
 
 GetRealisedOk returns a tuple with the Realised field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRealised
 
-`func (o *RiskModelState) SetRealised(v float32)`
+`func (o *RiskModelState) SetRealised(v float64)`
 
 SetRealised sets Realised field to given value.
 
@@ -269,20 +269,20 @@ HasRealised returns a boolean if a field has been set.
 
 ### GetRefused
 
-`func (o *RiskModelState) GetRefused() map[string]int32`
+`func (o *RiskModelState) GetRefused() map[string]int64`
 
 GetRefused returns the Refused field if non-nil, zero value otherwise.
 
 ### GetRefusedOk
 
-`func (o *RiskModelState) GetRefusedOk() (*map[string]int32, bool)`
+`func (o *RiskModelState) GetRefusedOk() (*map[string]int64, bool)`
 
 GetRefusedOk returns a tuple with the Refused field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRefused
 
-`func (o *RiskModelState) SetRefused(v map[string]int32)`
+`func (o *RiskModelState) SetRefused(v map[string]int64)`
 
 SetRefused sets Refused field to given value.
 
@@ -294,20 +294,20 @@ HasRefused returns a boolean if a field has been set.
 
 ### GetSample
 
-`func (o *RiskModelState) GetSample() float32`
+`func (o *RiskModelState) GetSample() float64`
 
 GetSample returns the Sample field if non-nil, zero value otherwise.
 
 ### GetSampleOk
 
-`func (o *RiskModelState) GetSampleOk() (*float32, bool)`
+`func (o *RiskModelState) GetSampleOk() (*float64, bool)`
 
 GetSampleOk returns a tuple with the Sample field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSample
 
-`func (o *RiskModelState) SetSample(v float32)`
+`func (o *RiskModelState) SetSample(v float64)`
 
 SetSample sets Sample field to given value.
 
@@ -369,20 +369,20 @@ HasShape returns a boolean if a field has been set.
 
 ### GetStated
 
-`func (o *RiskModelState) GetStated() float32`
+`func (o *RiskModelState) GetStated() float64`
 
 GetStated returns the Stated field if non-nil, zero value otherwise.
 
 ### GetStatedOk
 
-`func (o *RiskModelState) GetStatedOk() (*float32, bool)`
+`func (o *RiskModelState) GetStatedOk() (*float64, bool)`
 
 GetStatedOk returns a tuple with the Stated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStated
 
-`func (o *RiskModelState) SetStated(v float32)`
+`func (o *RiskModelState) SetStated(v float64)`
 
 SetStated sets Stated field to given value.
 

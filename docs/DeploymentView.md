@@ -7,15 +7,15 @@ Name | Type | Description | Notes
 **ApplicationId** | Pointer to **string** | ApplicationID is the app this deployed — the app&#39;s &#x60;id&#x60;, not its slug. | [optional] 
 **BuildId** | Pointer to **string** | BuildID is the build record behind a git deploy, whose logs and status live at /v1/platform/builds. Empty for an image deploy. | [optional] 
 **Commit** | Pointer to **string** | Commit is the git ref this built — the commit a deploy or a push named, else the app&#39;s branch. Empty for an image deploy, which builds nothing. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the attempt was recorded, unix seconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the attempt was recorded, unix seconds. | [optional] 
 **Id** | Pointer to **string** | ID is the deployment&#39;s id (&#x60;dep_…&#x60;), minted when the attempt is recorded. The app&#39;s currentDeploymentId points at one of these. | [optional] 
 **Image** | Pointer to **string** | Image is the full &#x60;repo:tag&#x60; this deployment put in the CR. For a git deploy it is the ref the in-cluster build pushes to, known before the build runs. | [optional] 
 **Message** | Pointer to **string** | Message is why this attempt is not live: the failure, or the note that a newer deployment went live before this build finished. Empty while it is fine. | [optional] 
 **Org** | Pointer to **string** | Org is the tenant the deployment belongs to, from the validated identity. | [optional] 
 **Source** | Pointer to **string** | Source is which lane produced it: &#x60;git&#x60; (built from the repo) or &#x60;image&#x60; (an already-built ref deployed as-is, including promote and rollback). | [optional] 
 **Status** | Pointer to **string** | Status is where the attempt got to: &#x60;building&#x60; while its image is being built, &#x60;deploying&#x60; once its CR reached the cluster — which is the terminal success state, the app&#39;s own status is what turns &#x60;live&#x60; — &#x60;error&#x60; with the reason in Message, or &#x60;superseded&#x60; when a newer version went live first. | [optional] 
-**UpdatedAt** | Pointer to **int32** | UpdatedAt is its last transition, unix seconds — so for a terminal deployment it is when it reached that state. | [optional] 
-**Version** | Pointer to **int32** | Version counts this app&#39;s deployments, from 1 and monotonically. It is what ORDERS them: a deploy only goes live if no higher version already is, so a build that finishes late is superseded instead of overwriting a newer one. | [optional] 
+**UpdatedAt** | Pointer to **int64** | UpdatedAt is its last transition, unix seconds — so for a terminal deployment it is when it reached that state. | [optional] 
+**Version** | Pointer to **int64** | Version counts this app&#39;s deployments, from 1 and monotonically. It is what ORDERS them: a deploy only goes live if no higher version already is, so a build that finishes late is superseded instead of overwriting a newer one. | [optional] 
 
 ## Methods
 
@@ -113,20 +113,20 @@ HasCommit returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *DeploymentView) GetCreatedAt() int32`
+`func (o *DeploymentView) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *DeploymentView) GetCreatedAtOk() (*int32, bool)`
+`func (o *DeploymentView) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *DeploymentView) SetCreatedAt(v int32)`
+`func (o *DeploymentView) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -288,20 +288,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *DeploymentView) GetUpdatedAt() int32`
+`func (o *DeploymentView) GetUpdatedAt() int64`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *DeploymentView) GetUpdatedAtOk() (*int32, bool)`
+`func (o *DeploymentView) GetUpdatedAtOk() (*int64, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *DeploymentView) SetUpdatedAt(v int32)`
+`func (o *DeploymentView) SetUpdatedAt(v int64)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
@@ -313,20 +313,20 @@ HasUpdatedAt returns a boolean if a field has been set.
 
 ### GetVersion
 
-`func (o *DeploymentView) GetVersion() int32`
+`func (o *DeploymentView) GetVersion() int64`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *DeploymentView) GetVersionOk() (*int32, bool)`
+`func (o *DeploymentView) GetVersionOk() (*int64, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *DeploymentView) SetVersion(v int32)`
+`func (o *DeploymentView) SetVersion(v int64)`
 
 SetVersion sets Version field to given value.
 

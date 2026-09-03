@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Attempts** | Pointer to **int32** | Attempts is how many times to try each item; the harness&#39;s default applies when it is omitted. | [optional] 
+**Attempts** | Pointer to **int64** | Attempts is how many times to try each item; the harness&#39;s default applies when it is omitted. | [optional] 
 **Benchmarks** | **[]string** | Benchmarks are the catalog ids to run. At least one is required, and every id must be in the catalog. | 
 **Endpoint** | Pointer to **string** | Endpoint is your own chat-completions URL, for benchmarking a model this arena does not host. Either this or model is required. | [optional] 
 **Model** | Pointer to **string** | Model is the catalog model id to run. Either this or endpoint is required. | [optional] 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAttempts
 
-`func (o *Suite) GetAttempts() int32`
+`func (o *Suite) GetAttempts() int64`
 
 GetAttempts returns the Attempts field if non-nil, zero value otherwise.
 
 ### GetAttemptsOk
 
-`func (o *Suite) GetAttemptsOk() (*int32, bool)`
+`func (o *Suite) GetAttemptsOk() (*int64, bool)`
 
 GetAttemptsOk returns a tuple with the Attempts field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAttempts
 
-`func (o *Suite) SetAttempts(v int32)`
+`func (o *Suite) SetAttempts(v int64)`
 
 SetAttempts sets Attempts field to given value.
 

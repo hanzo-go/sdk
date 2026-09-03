@@ -19,10 +19,10 @@ var _ MappedNullable = &O11yO11yFunnelStepWindowIn{}
 
 // O11yO11yFunnelStepWindowIn struct for O11yO11yFunnelStepWindowIn
 type O11yO11yFunnelStepWindowIn struct {
-	EndTime   *int32 `json:"end_time,omitempty"`
-	StartTime *int32 `json:"start_time,omitempty"`
-	StepEnd   *int32 `json:"step_end,omitempty"`
-	StepStart *int32 `json:"step_start,omitempty"`
+	EndTime   *int64 `json:"end_time,omitempty"`
+	StartTime *int64 `json:"start_time,omitempty"`
+	StepEnd   *int64 `json:"step_end,omitempty"`
+	StepStart *int64 `json:"step_start,omitempty"`
 }
 
 // NewO11yO11yFunnelStepWindowIn instantiates a new O11yO11yFunnelStepWindowIn object
@@ -43,9 +43,9 @@ func NewO11yO11yFunnelStepWindowInWithDefaults() *O11yO11yFunnelStepWindowIn {
 }
 
 // GetEndTime returns the EndTime field value if set, zero value otherwise.
-func (o *O11yO11yFunnelStepWindowIn) GetEndTime() int32 {
+func (o *O11yO11yFunnelStepWindowIn) GetEndTime() int64 {
 	if o == nil || IsNil(o.EndTime) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.EndTime
@@ -53,7 +53,7 @@ func (o *O11yO11yFunnelStepWindowIn) GetEndTime() int32 {
 
 // GetEndTimeOk returns a tuple with the EndTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yFunnelStepWindowIn) GetEndTimeOk() (*int32, bool) {
+func (o *O11yO11yFunnelStepWindowIn) GetEndTimeOk() (*int64, bool) {
 	if o == nil || IsNil(o.EndTime) {
 		return nil, false
 	}
@@ -69,15 +69,15 @@ func (o *O11yO11yFunnelStepWindowIn) HasEndTime() bool {
 	return false
 }
 
-// SetEndTime gets a reference to the given int32 and assigns it to the EndTime field.
-func (o *O11yO11yFunnelStepWindowIn) SetEndTime(v int32) {
+// SetEndTime gets a reference to the given int64 and assigns it to the EndTime field.
+func (o *O11yO11yFunnelStepWindowIn) SetEndTime(v int64) {
 	o.EndTime = &v
 }
 
 // GetStartTime returns the StartTime field value if set, zero value otherwise.
-func (o *O11yO11yFunnelStepWindowIn) GetStartTime() int32 {
+func (o *O11yO11yFunnelStepWindowIn) GetStartTime() int64 {
 	if o == nil || IsNil(o.StartTime) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.StartTime
@@ -85,7 +85,7 @@ func (o *O11yO11yFunnelStepWindowIn) GetStartTime() int32 {
 
 // GetStartTimeOk returns a tuple with the StartTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yFunnelStepWindowIn) GetStartTimeOk() (*int32, bool) {
+func (o *O11yO11yFunnelStepWindowIn) GetStartTimeOk() (*int64, bool) {
 	if o == nil || IsNil(o.StartTime) {
 		return nil, false
 	}
@@ -101,15 +101,15 @@ func (o *O11yO11yFunnelStepWindowIn) HasStartTime() bool {
 	return false
 }
 
-// SetStartTime gets a reference to the given int32 and assigns it to the StartTime field.
-func (o *O11yO11yFunnelStepWindowIn) SetStartTime(v int32) {
+// SetStartTime gets a reference to the given int64 and assigns it to the StartTime field.
+func (o *O11yO11yFunnelStepWindowIn) SetStartTime(v int64) {
 	o.StartTime = &v
 }
 
 // GetStepEnd returns the StepEnd field value if set, zero value otherwise.
-func (o *O11yO11yFunnelStepWindowIn) GetStepEnd() int32 {
+func (o *O11yO11yFunnelStepWindowIn) GetStepEnd() int64 {
 	if o == nil || IsNil(o.StepEnd) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.StepEnd
@@ -117,7 +117,7 @@ func (o *O11yO11yFunnelStepWindowIn) GetStepEnd() int32 {
 
 // GetStepEndOk returns a tuple with the StepEnd field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yFunnelStepWindowIn) GetStepEndOk() (*int32, bool) {
+func (o *O11yO11yFunnelStepWindowIn) GetStepEndOk() (*int64, bool) {
 	if o == nil || IsNil(o.StepEnd) {
 		return nil, false
 	}
@@ -133,15 +133,15 @@ func (o *O11yO11yFunnelStepWindowIn) HasStepEnd() bool {
 	return false
 }
 
-// SetStepEnd gets a reference to the given int32 and assigns it to the StepEnd field.
-func (o *O11yO11yFunnelStepWindowIn) SetStepEnd(v int32) {
+// SetStepEnd gets a reference to the given int64 and assigns it to the StepEnd field.
+func (o *O11yO11yFunnelStepWindowIn) SetStepEnd(v int64) {
 	o.StepEnd = &v
 }
 
 // GetStepStart returns the StepStart field value if set, zero value otherwise.
-func (o *O11yO11yFunnelStepWindowIn) GetStepStart() int32 {
+func (o *O11yO11yFunnelStepWindowIn) GetStepStart() int64 {
 	if o == nil || IsNil(o.StepStart) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.StepStart
@@ -149,7 +149,7 @@ func (o *O11yO11yFunnelStepWindowIn) GetStepStart() int32 {
 
 // GetStepStartOk returns a tuple with the StepStart field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yFunnelStepWindowIn) GetStepStartOk() (*int32, bool) {
+func (o *O11yO11yFunnelStepWindowIn) GetStepStartOk() (*int64, bool) {
 	if o == nil || IsNil(o.StepStart) {
 		return nil, false
 	}
@@ -165,8 +165,8 @@ func (o *O11yO11yFunnelStepWindowIn) HasStepStart() bool {
 	return false
 }
 
-// SetStepStart gets a reference to the given int32 and assigns it to the StepStart field.
-func (o *O11yO11yFunnelStepWindowIn) SetStepStart(v int32) {
+// SetStepStart gets a reference to the given int64 and assigns it to the StepStart field.
+func (o *O11yO11yFunnelStepWindowIn) SetStepStart(v int64) {
 	o.StepStart = &v
 }
 

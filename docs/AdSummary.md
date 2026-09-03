@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Active** | Pointer to **int32** | Active is how many of those campaigns are in the active state. | [optional] 
-**Budget** | Pointer to **int32** | Budget is the summed budget of every campaign in the org, in cents. | [optional] 
-**Campaigns** | Pointer to **int32** | Campaigns is how many campaigns the org has, in every state. | [optional] 
-**Spend** | Pointer to **int32** | Spend is the summed spend of every campaign in the org, in cents. | [optional] 
+**Active** | Pointer to **int64** | Active is how many of those campaigns are in the active state. | [optional] 
+**Budget** | Pointer to **int64** | Budget is the summed budget of every campaign in the org, in cents. | [optional] 
+**Campaigns** | Pointer to **int64** | Campaigns is how many campaigns the org has, in every state. | [optional] 
+**Spend** | Pointer to **int64** | Spend is the summed spend of every campaign in the org, in cents. | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetActive
 
-`func (o *AdSummary) GetActive() int32`
+`func (o *AdSummary) GetActive() int64`
 
 GetActive returns the Active field if non-nil, zero value otherwise.
 
 ### GetActiveOk
 
-`func (o *AdSummary) GetActiveOk() (*int32, bool)`
+`func (o *AdSummary) GetActiveOk() (*int64, bool)`
 
 GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetActive
 
-`func (o *AdSummary) SetActive(v int32)`
+`func (o *AdSummary) SetActive(v int64)`
 
 SetActive sets Active field to given value.
 
@@ -55,20 +55,20 @@ HasActive returns a boolean if a field has been set.
 
 ### GetBudget
 
-`func (o *AdSummary) GetBudget() int32`
+`func (o *AdSummary) GetBudget() int64`
 
 GetBudget returns the Budget field if non-nil, zero value otherwise.
 
 ### GetBudgetOk
 
-`func (o *AdSummary) GetBudgetOk() (*int32, bool)`
+`func (o *AdSummary) GetBudgetOk() (*int64, bool)`
 
 GetBudgetOk returns a tuple with the Budget field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBudget
 
-`func (o *AdSummary) SetBudget(v int32)`
+`func (o *AdSummary) SetBudget(v int64)`
 
 SetBudget sets Budget field to given value.
 
@@ -80,20 +80,20 @@ HasBudget returns a boolean if a field has been set.
 
 ### GetCampaigns
 
-`func (o *AdSummary) GetCampaigns() int32`
+`func (o *AdSummary) GetCampaigns() int64`
 
 GetCampaigns returns the Campaigns field if non-nil, zero value otherwise.
 
 ### GetCampaignsOk
 
-`func (o *AdSummary) GetCampaignsOk() (*int32, bool)`
+`func (o *AdSummary) GetCampaignsOk() (*int64, bool)`
 
 GetCampaignsOk returns a tuple with the Campaigns field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCampaigns
 
-`func (o *AdSummary) SetCampaigns(v int32)`
+`func (o *AdSummary) SetCampaigns(v int64)`
 
 SetCampaigns sets Campaigns field to given value.
 
@@ -105,20 +105,20 @@ HasCampaigns returns a boolean if a field has been set.
 
 ### GetSpend
 
-`func (o *AdSummary) GetSpend() int32`
+`func (o *AdSummary) GetSpend() int64`
 
 GetSpend returns the Spend field if non-nil, zero value otherwise.
 
 ### GetSpendOk
 
-`func (o *AdSummary) GetSpendOk() (*int32, bool)`
+`func (o *AdSummary) GetSpendOk() (*int64, bool)`
 
 GetSpendOk returns a tuple with the Spend field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSpend
 
-`func (o *AdSummary) SetSpend(v int32)`
+`func (o *AdSummary) SetSpend(v int64)`
 
 SetSpend sets Spend field to given value.
 

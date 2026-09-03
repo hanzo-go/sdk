@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Model** | Pointer to **string** | Model is the system these runs measured. | [optional] 
 **Points** | Pointer to [**[]RunPoint**](RunPoint.md) | Points is every run, oldest first. | [optional] 
-**Trend** | Pointer to **float32** | Trend is the change from the first run to the last, absent when there has only been one. It answers the question a list of points makes you compute. | [optional] 
+**Trend** | Pointer to **float64** | Trend is the change from the first run to the last, absent when there has only been one. It answers the question a list of points makes you compute. | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasPoints returns a boolean if a field has been set.
 
 ### GetTrend
 
-`func (o *ModelHistory) GetTrend() float32`
+`func (o *ModelHistory) GetTrend() float64`
 
 GetTrend returns the Trend field if non-nil, zero value otherwise.
 
 ### GetTrendOk
 
-`func (o *ModelHistory) GetTrendOk() (*float32, bool)`
+`func (o *ModelHistory) GetTrendOk() (*float64, bool)`
 
 GetTrendOk returns a tuple with the Trend field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTrend
 
-`func (o *ModelHistory) SetTrend(v float32)`
+`func (o *ModelHistory) SetTrend(v float64)`
 
 SetTrend sets Trend field to given value.
 

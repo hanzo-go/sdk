@@ -42,7 +42,7 @@ type RepoView struct {
 	// Public grants ANONYMOUS read (fetch) only; push and the whole control plane stay org-authed.
 	Public *bool `json:"public,omitempty"`
 	// SizeBytes is the repo's measured on-disk size, re-measured on create, after each push, and after a gc. This is the number billing meters.
-	SizeBytes *int32 `json:"sizeBytes,omitempty"`
+	SizeBytes *int64 `json:"sizeBytes,omitempty"`
 	// SSHURL is the scp-style SSH remote (git@host:org/repo.git).
 	SshUrl *string `json:"sshUrl,omitempty"`
 	// UpdatedAt is RFC 3339 UTC, empty until the first write.
@@ -419,9 +419,9 @@ func (o *RepoView) SetPublic(v bool) {
 }
 
 // GetSizeBytes returns the SizeBytes field value if set, zero value otherwise.
-func (o *RepoView) GetSizeBytes() int32 {
+func (o *RepoView) GetSizeBytes() int64 {
 	if o == nil || IsNil(o.SizeBytes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SizeBytes
@@ -429,7 +429,7 @@ func (o *RepoView) GetSizeBytes() int32 {
 
 // GetSizeBytesOk returns a tuple with the SizeBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RepoView) GetSizeBytesOk() (*int32, bool) {
+func (o *RepoView) GetSizeBytesOk() (*int64, bool) {
 	if o == nil || IsNil(o.SizeBytes) {
 		return nil, false
 	}
@@ -445,8 +445,8 @@ func (o *RepoView) HasSizeBytes() bool {
 	return false
 }
 
-// SetSizeBytes gets a reference to the given int32 and assigns it to the SizeBytes field.
-func (o *RepoView) SetSizeBytes(v int32) {
+// SetSizeBytes gets a reference to the given int64 and assigns it to the SizeBytes field.
+func (o *RepoView) SetSizeBytes(v int64) {
 	o.SizeBytes = &v
 }
 

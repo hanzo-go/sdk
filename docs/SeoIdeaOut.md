@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Cost** | Pointer to **string** | Cost is what this call cost, in USD, as an exact decimal string. | [optional] 
 **Keywords** | Pointer to [**[]SeoMetric**](SeoMetric.md) | Keywords is the phrases found, each measured. | [optional] 
-**Total** | Pointer to **int32** | Total is how many the upstream holds, which is usually more than Limit returned — it is what raising the limit would reach. | [optional] 
+**Total** | Pointer to **int64** | Total is how many the upstream holds, which is usually more than Limit returned — it is what raising the limit would reach. | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasKeywords returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *SeoIdeaOut) GetTotal() int32`
+`func (o *SeoIdeaOut) GetTotal() int64`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *SeoIdeaOut) GetTotalOk() (*int32, bool)`
+`func (o *SeoIdeaOut) GetTotalOk() (*int64, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *SeoIdeaOut) SetTotal(v int32)`
+`func (o *SeoIdeaOut) SetTotal(v int64)`
 
 SetTotal sets Total field to given value.
 

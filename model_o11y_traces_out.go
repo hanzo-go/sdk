@@ -20,11 +20,11 @@ var _ MappedNullable = &O11yTracesOut{}
 // O11yTracesOut struct for O11yTracesOut
 type O11yTracesOut struct {
 	// Count is how many traces this page carries.
-	Count *int32 `json:"count,omitempty"`
+	Count *int64 `json:"count,omitempty"`
 	// Limit is the page cap actually applied, after clamping.
-	Limit *int32 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 	// SinceSec is the window actually read, in seconds, after clamping.
-	SinceSec *int32 `json:"sinceSec,omitempty"`
+	SinceSec *int64 `json:"sinceSec,omitempty"`
 	// Traces are the caller org's traces, most recently active first.
 	Traces []O11yTraceRow `json:"traces,omitempty"`
 }
@@ -47,9 +47,9 @@ func NewO11yTracesOutWithDefaults() *O11yTracesOut {
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *O11yTracesOut) GetCount() int32 {
+func (o *O11yTracesOut) GetCount() int64 {
 	if o == nil || IsNil(o.Count) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Count
@@ -57,7 +57,7 @@ func (o *O11yTracesOut) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yTracesOut) GetCountOk() (*int32, bool) {
+func (o *O11yTracesOut) GetCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -73,15 +73,15 @@ func (o *O11yTracesOut) HasCount() bool {
 	return false
 }
 
-// SetCount gets a reference to the given int32 and assigns it to the Count field.
-func (o *O11yTracesOut) SetCount(v int32) {
+// SetCount gets a reference to the given int64 and assigns it to the Count field.
+func (o *O11yTracesOut) SetCount(v int64) {
 	o.Count = &v
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *O11yTracesOut) GetLimit() int32 {
+func (o *O11yTracesOut) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -89,7 +89,7 @@ func (o *O11yTracesOut) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yTracesOut) GetLimitOk() (*int32, bool) {
+func (o *O11yTracesOut) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -105,15 +105,15 @@ func (o *O11yTracesOut) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *O11yTracesOut) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *O11yTracesOut) SetLimit(v int64) {
 	o.Limit = &v
 }
 
 // GetSinceSec returns the SinceSec field value if set, zero value otherwise.
-func (o *O11yTracesOut) GetSinceSec() int32 {
+func (o *O11yTracesOut) GetSinceSec() int64 {
 	if o == nil || IsNil(o.SinceSec) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SinceSec
@@ -121,7 +121,7 @@ func (o *O11yTracesOut) GetSinceSec() int32 {
 
 // GetSinceSecOk returns a tuple with the SinceSec field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yTracesOut) GetSinceSecOk() (*int32, bool) {
+func (o *O11yTracesOut) GetSinceSecOk() (*int64, bool) {
 	if o == nil || IsNil(o.SinceSec) {
 		return nil, false
 	}
@@ -137,8 +137,8 @@ func (o *O11yTracesOut) HasSinceSec() bool {
 	return false
 }
 
-// SetSinceSec gets a reference to the given int32 and assigns it to the SinceSec field.
-func (o *O11yTracesOut) SetSinceSec(v int32) {
+// SetSinceSec gets a reference to the given int64 and assigns it to the SinceSec field.
+func (o *O11yTracesOut) SetSinceSec(v int64) {
 	o.SinceSec = &v
 }
 

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AvgScore** | Pointer to **float32** | AvgScore is the mean over the scored examples. | [optional] 
+**AvgScore** | Pointer to **float64** | AvgScore is the mean over the scored examples. | [optional] 
 **CreatedAt** | Pointer to **string** | CreatedAt is when the run first landed. | [optional] 
 **Dataset** | Pointer to **string** | Dataset is the set that was scored. | [optional] 
-**Items** | Pointer to **int32** | Items is how many examples were attempted. | [optional] 
+**Items** | Pointer to **int64** | Items is how many examples were attempted. | [optional] 
 **JudgeModel** | Pointer to **string** | JudgeModel is the model that graded. | [optional] 
 **Model** | Pointer to **string** | Model is the model under test. | [optional] 
 **RunName** | Pointer to **string** | RunName is the run&#39;s label. | [optional] 
-**Scored** | Pointer to **int32** | Scored is how many produced a real score. | [optional] 
+**Scored** | Pointer to **int64** | Scored is how many produced a real score. | [optional] 
 **UpdatedAt** | Pointer to **string** | UpdatedAt is when the record last changed. | [optional] 
 
 ## Methods
@@ -35,20 +35,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAvgScore
 
-`func (o *RunRecord) GetAvgScore() float32`
+`func (o *RunRecord) GetAvgScore() float64`
 
 GetAvgScore returns the AvgScore field if non-nil, zero value otherwise.
 
 ### GetAvgScoreOk
 
-`func (o *RunRecord) GetAvgScoreOk() (*float32, bool)`
+`func (o *RunRecord) GetAvgScoreOk() (*float64, bool)`
 
 GetAvgScoreOk returns a tuple with the AvgScore field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAvgScore
 
-`func (o *RunRecord) SetAvgScore(v float32)`
+`func (o *RunRecord) SetAvgScore(v float64)`
 
 SetAvgScore sets AvgScore field to given value.
 
@@ -110,20 +110,20 @@ HasDataset returns a boolean if a field has been set.
 
 ### GetItems
 
-`func (o *RunRecord) GetItems() int32`
+`func (o *RunRecord) GetItems() int64`
 
 GetItems returns the Items field if non-nil, zero value otherwise.
 
 ### GetItemsOk
 
-`func (o *RunRecord) GetItemsOk() (*int32, bool)`
+`func (o *RunRecord) GetItemsOk() (*int64, bool)`
 
 GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItems
 
-`func (o *RunRecord) SetItems(v int32)`
+`func (o *RunRecord) SetItems(v int64)`
 
 SetItems sets Items field to given value.
 
@@ -210,20 +210,20 @@ HasRunName returns a boolean if a field has been set.
 
 ### GetScored
 
-`func (o *RunRecord) GetScored() int32`
+`func (o *RunRecord) GetScored() int64`
 
 GetScored returns the Scored field if non-nil, zero value otherwise.
 
 ### GetScoredOk
 
-`func (o *RunRecord) GetScoredOk() (*int32, bool)`
+`func (o *RunRecord) GetScoredOk() (*int64, bool)`
 
 GetScoredOk returns a tuple with the Scored field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScored
 
-`func (o *RunRecord) SetScored(v int32)`
+`func (o *RunRecord) SetScored(v int64)`
 
 SetScored sets Scored field to given value.
 

@@ -22,7 +22,7 @@ type TeamMessage struct {
 	// Author is the team account uuid that wrote it. It is an ACCOUNT and not a display name: what to call somebody is the roster's answer, and copying it onto every message is how the two come to disagree. An agent's messages carry the account derived from its id, so the same field answers for both.
 	Author *string `json:"author,omitempty"`
 	// CreatedOn is unix MILLIseconds, which is what the platform stamps.
-	CreatedOn *int32 `json:"createdOn,omitempty"`
+	CreatedOn *int64 `json:"createdOn,omitempty"`
 	// ID is the message document's own id.
 	Id *string `json:"id,omitempty"`
 	// Room is the room it was said in — the same id the room listing answers with, so a caller holding a message can name its room without a second read.
@@ -81,9 +81,9 @@ func (o *TeamMessage) SetAuthor(v string) {
 }
 
 // GetCreatedOn returns the CreatedOn field value if set, zero value otherwise.
-func (o *TeamMessage) GetCreatedOn() int32 {
+func (o *TeamMessage) GetCreatedOn() int64 {
 	if o == nil || IsNil(o.CreatedOn) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedOn
@@ -91,7 +91,7 @@ func (o *TeamMessage) GetCreatedOn() int32 {
 
 // GetCreatedOnOk returns a tuple with the CreatedOn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TeamMessage) GetCreatedOnOk() (*int32, bool) {
+func (o *TeamMessage) GetCreatedOnOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedOn) {
 		return nil, false
 	}
@@ -107,8 +107,8 @@ func (o *TeamMessage) HasCreatedOn() bool {
 	return false
 }
 
-// SetCreatedOn gets a reference to the given int32 and assigns it to the CreatedOn field.
-func (o *TeamMessage) SetCreatedOn(v int32) {
+// SetCreatedOn gets a reference to the given int64 and assigns it to the CreatedOn field.
+func (o *TeamMessage) SetCreatedOn(v int64) {
 	o.CreatedOn = &v
 }
 

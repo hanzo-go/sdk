@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Account** | Pointer to **string** | Account is the lowercased external id of the org&#39;s connected account on that transport: the Discord guild id, the Slack team id, the Teams AAD tenant id, or the bound Telegram chat id. Informational only — the gate keys on (org, channel), never on the account. | [optional] 
 **Channel** | Pointer to **string** | Channel is the transport this message arrived on — discord, slack, teams or telegram — and the &#x60;:channel&#x60; segment to reply through. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is Unix SECONDS, stamped by the ingest goroutine when the message was accepted — not the transport&#39;s own send time. Rows are dropped 30 days after it. | [optional] 
-**Id** | Pointer to **int32** | ID is the store&#39;s row id, assigned on insert — SERVER-SET, and the cursor: pass a page&#39;s last id back as &#x60;since&#x60;. It rises with arrival order but is not contiguous, because one sequence is shared by every org in the store and a caller reads only its own rows. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is Unix SECONDS, stamped by the ingest goroutine when the message was accepted — not the transport&#39;s own send time. Rows are dropped 30 days after it. | [optional] 
+**Id** | Pointer to **int64** | ID is the store&#39;s row id, assigned on insert — SERVER-SET, and the cursor: pass a page&#39;s last id back as &#x60;since&#x60;. It rises with arrival order but is not contiguous, because one sequence is shared by every org in the store and a caller reads only its own rows. | [optional] 
 **ReplyTo** | Pointer to **string** | ReplyTo is the transport&#39;s reply target for this message: Slack&#39;s thread_ts, or the Telegram message id it arrived as. Send it back as the body&#39;s &#x60;replyTo&#x60; to answer in the SAME thread. Empty means the transport reported none — a top-level Slack message, and every Discord and Teams message, since neither carries one — and a reply then lands at the top level of the room. | [optional] 
 **RoomId** | Pointer to **string** | RoomID is the conversation on the ORIGINATING transport, and the value to send back as &#x60;room.id&#x60;: a Discord channel snowflake, a Slack conversation id (D… IM, C… public channel, G… private or mpim), a Teams conversation id (19:…@thread.… for a channel or group chat, a:… for a personal chat), or a Telegram chat id in decimal (negative for a group, positive for a DM). It is stable for the life of the room, so every message from one conversation carries the same value. | [optional] 
 **RoomKind** | Pointer to **string** | RoomKind is how ingest classified the room: \&quot;dm\&quot;, \&quot;group\&quot; or \&quot;thread\&quot;. It decides which policy gated the message — dmPolicy for \&quot;dm\&quot;, groupPolicy for BOTH \&quot;group\&quot; and \&quot;thread\&quot;. Only Slack ever reports \&quot;thread\&quot;; Telegram&#39;s reply-to id becomes ReplyTo instead, and Discord&#39;s ingress is guild-scoped so its rooms are always \&quot;group\&quot;. | [optional] 
@@ -86,20 +86,20 @@ HasChannel returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *InboxView) GetCreatedAt() int32`
+`func (o *InboxView) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *InboxView) GetCreatedAtOk() (*int32, bool)`
+`func (o *InboxView) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *InboxView) SetCreatedAt(v int32)`
+`func (o *InboxView) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -111,20 +111,20 @@ HasCreatedAt returns a boolean if a field has been set.
 
 ### GetId
 
-`func (o *InboxView) GetId() int32`
+`func (o *InboxView) GetId() int64`
 
 GetId returns the Id field if non-nil, zero value otherwise.
 
 ### GetIdOk
 
-`func (o *InboxView) GetIdOk() (*int32, bool)`
+`func (o *InboxView) GetIdOk() (*int64, bool)`
 
 GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetId
 
-`func (o *InboxView) SetId(v int32)`
+`func (o *InboxView) SetId(v int64)`
 
 SetId sets Id field to given value.
 

@@ -22,7 +22,7 @@ type PricingModelList struct {
 	// Models are the catalog entries visible to the caller, each an opaque object exactly as the pricing source emits it, with any admin override merged on top. An admin additionally sees hidden entries, each annotated under \"_overlay\".
 	Models []map[string]map[string]interface{} `json:"models,omitempty"`
 	// Total is how many models this answer carries — recounted over the visible set, not the catalog's own total.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 	// Updated is when the catalog was last refreshed, as the pricing source recorded it.
 	Updated map[string]interface{} `json:"updated,omitempty"`
 }
@@ -77,9 +77,9 @@ func (o *PricingModelList) SetModels(v []map[string]map[string]interface{}) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *PricingModelList) GetTotal() int32 {
+func (o *PricingModelList) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -87,7 +87,7 @@ func (o *PricingModelList) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PricingModelList) GetTotalOk() (*int32, bool) {
+func (o *PricingModelList) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -103,8 +103,8 @@ func (o *PricingModelList) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *PricingModelList) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *PricingModelList) SetTotal(v int64) {
 	o.Total = &v
 }
 

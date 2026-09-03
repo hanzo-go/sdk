@@ -24,7 +24,7 @@ type TrustCoverage struct {
 	// Frameworks is the per-framework counts.
 	Frameworks []CoverRow `json:"frameworks,omitempty"`
 	// Generated is when this was computed, unix milliseconds.
-	Generated *int32 `json:"generated,omitempty"`
+	Generated *int64 `json:"generated,omitempty"`
 	// Version is the embedded inventory's version.
 	Version *string `json:"version,omitempty"`
 }
@@ -111,9 +111,9 @@ func (o *TrustCoverage) SetFrameworks(v []CoverRow) {
 }
 
 // GetGenerated returns the Generated field value if set, zero value otherwise.
-func (o *TrustCoverage) GetGenerated() int32 {
+func (o *TrustCoverage) GetGenerated() int64 {
 	if o == nil || IsNil(o.Generated) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Generated
@@ -121,7 +121,7 @@ func (o *TrustCoverage) GetGenerated() int32 {
 
 // GetGeneratedOk returns a tuple with the Generated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrustCoverage) GetGeneratedOk() (*int32, bool) {
+func (o *TrustCoverage) GetGeneratedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Generated) {
 		return nil, false
 	}
@@ -137,8 +137,8 @@ func (o *TrustCoverage) HasGenerated() bool {
 	return false
 }
 
-// SetGenerated gets a reference to the given int32 and assigns it to the Generated field.
-func (o *TrustCoverage) SetGenerated(v int32) {
+// SetGenerated gets a reference to the given int64 and assigns it to the Generated field.
+func (o *TrustCoverage) SetGenerated(v int64) {
 	o.Generated = &v
 }
 

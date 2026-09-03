@@ -22,7 +22,7 @@ type O11ySignalConnectionStatus struct {
 	// resource identifier
 	LastReceivedFrom *string `json:"last_received_from,omitempty"`
 	// epoch milliseconds
-	LastReceivedTsMs *int32 `json:"last_received_ts_ms,omitempty"`
+	LastReceivedTsMs *int64 `json:"last_received_ts_ms,omitempty"`
 }
 
 // NewO11ySignalConnectionStatus instantiates a new O11ySignalConnectionStatus object
@@ -75,9 +75,9 @@ func (o *O11ySignalConnectionStatus) SetLastReceivedFrom(v string) {
 }
 
 // GetLastReceivedTsMs returns the LastReceivedTsMs field value if set, zero value otherwise.
-func (o *O11ySignalConnectionStatus) GetLastReceivedTsMs() int32 {
+func (o *O11ySignalConnectionStatus) GetLastReceivedTsMs() int64 {
 	if o == nil || IsNil(o.LastReceivedTsMs) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.LastReceivedTsMs
@@ -85,7 +85,7 @@ func (o *O11ySignalConnectionStatus) GetLastReceivedTsMs() int32 {
 
 // GetLastReceivedTsMsOk returns a tuple with the LastReceivedTsMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11ySignalConnectionStatus) GetLastReceivedTsMsOk() (*int32, bool) {
+func (o *O11ySignalConnectionStatus) GetLastReceivedTsMsOk() (*int64, bool) {
 	if o == nil || IsNil(o.LastReceivedTsMs) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *O11ySignalConnectionStatus) HasLastReceivedTsMs() bool {
 	return false
 }
 
-// SetLastReceivedTsMs gets a reference to the given int32 and assigns it to the LastReceivedTsMs field.
-func (o *O11ySignalConnectionStatus) SetLastReceivedTsMs(v int32) {
+// SetLastReceivedTsMs gets a reference to the given int64 and assigns it to the LastReceivedTsMs field.
+func (o *O11ySignalConnectionStatus) SetLastReceivedTsMs(v int64) {
 	o.LastReceivedTsMs = &v
 }
 

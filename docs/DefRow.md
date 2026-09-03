@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Key** | Pointer to **string** | Key is the flag&#39;s primary key in the caller&#39;s (org, project) store, and the name evaluation looks it up by. On a write it is taken from the URL, never from the body: the stored document&#39;s own \&quot;key\&quot; is forced to match. | [optional] 
 **UpdatedAt** | Pointer to **string** | UpdatedAt is when the definition was last written, RFC 3339 UTC. | [optional] 
 **UpdatedBy** | Pointer to **string** | UpdatedBy is the email of the principal who last wrote it. Empty when the write came from an in-process composer (an experiment registering its own assignment flag) rather than from a signed-in person. | [optional] 
-**Version** | Pointer to **int32** | Version is 1 when the key was created and rises by one on every overwrite. It counts writes, not content changes: re-storing an identical document bumps it. | [optional] 
+**Version** | Pointer to **int64** | Version is 1 when the key was created and rises by one on every overwrite. It counts writes, not content changes: re-storing an identical document bumps it. | [optional] 
 
 ## Methods
 
@@ -141,20 +141,20 @@ HasUpdatedBy returns a boolean if a field has been set.
 
 ### GetVersion
 
-`func (o *DefRow) GetVersion() int32`
+`func (o *DefRow) GetVersion() int64`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *DefRow) GetVersionOk() (*int32, bool)`
+`func (o *DefRow) GetVersionOk() (*int64, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *DefRow) SetVersion(v int32)`
+`func (o *DefRow) SetVersion(v int64)`
 
 SetVersion sets Version field to given value.
 

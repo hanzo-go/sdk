@@ -30,7 +30,7 @@ type O11yO11ySpanPercentileIn struct {
 	// ServiceName is the service the span belongs to. Required.
 	ServiceName string `json:"serviceName"`
 	// SpanDuration is the span's duration in nanoseconds.
-	SpanDuration *int32 `json:"spanDuration,omitempty"`
+	SpanDuration *int64 `json:"spanDuration,omitempty"`
 	// Start is the window start, as epoch nanoseconds.
 	Start *int32 `json:"start,omitempty"`
 }
@@ -169,9 +169,9 @@ func (o *O11yO11ySpanPercentileIn) SetServiceName(v string) {
 }
 
 // GetSpanDuration returns the SpanDuration field value if set, zero value otherwise.
-func (o *O11yO11ySpanPercentileIn) GetSpanDuration() int32 {
+func (o *O11yO11ySpanPercentileIn) GetSpanDuration() int64 {
 	if o == nil || IsNil(o.SpanDuration) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.SpanDuration
@@ -179,7 +179,7 @@ func (o *O11yO11ySpanPercentileIn) GetSpanDuration() int32 {
 
 // GetSpanDurationOk returns a tuple with the SpanDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11ySpanPercentileIn) GetSpanDurationOk() (*int32, bool) {
+func (o *O11yO11ySpanPercentileIn) GetSpanDurationOk() (*int64, bool) {
 	if o == nil || IsNil(o.SpanDuration) {
 		return nil, false
 	}
@@ -195,8 +195,8 @@ func (o *O11yO11ySpanPercentileIn) HasSpanDuration() bool {
 	return false
 }
 
-// SetSpanDuration gets a reference to the given int32 and assigns it to the SpanDuration field.
-func (o *O11yO11ySpanPercentileIn) SetSpanDuration(v int32) {
+// SetSpanDuration gets a reference to the given int64 and assigns it to the SpanDuration field.
+func (o *O11yO11ySpanPercentileIn) SetSpanDuration(v int64) {
 	o.SpanDuration = &v
 }
 

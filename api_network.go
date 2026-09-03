@@ -22,6 +22,104 @@ import (
 // NetworkAPIService NetworkAPI service
 type NetworkAPIService service
 
+type NetworkAPIDeleteNetworkIdentitiesByIdRequest struct {
+	ctx        context.Context
+	ApiService *NetworkAPIService
+	id         string
+}
+
+func (r NetworkAPIDeleteNetworkIdentitiesByIdRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteNetworkIdentitiesByIdExecute(r)
+}
+
+/*
+DeleteNetworkIdentitiesById Removes one of the org's fabric identities.
+
+Removes one of the org's fabric identities. The device's
+credential stops authenticating and its enrollment, if unspent, stops
+enrolling.
+
+An id belonging to another org — or to nothing — is 404 before any write
+reaches the controller: whether an identity exists is itself a cross-tenant
+fact, and a delete may only ever act on what the caller could list.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the identity id from the path. The URL is the addressing authority, so it binds from there whatever else the request carries.
+	@return NetworkAPIDeleteNetworkIdentitiesByIdRequest
+*/
+func (a *NetworkAPIService) DeleteNetworkIdentitiesById(ctx context.Context, id string) NetworkAPIDeleteNetworkIdentitiesByIdRequest {
+	return NetworkAPIDeleteNetworkIdentitiesByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *NetworkAPIService) DeleteNetworkIdentitiesByIdExecute(r NetworkAPIDeleteNetworkIdentitiesByIdRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NetworkAPIService.DeleteNetworkIdentitiesById")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/network/identities/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type NetworkAPIGetNetworkRequest struct {
 	ctx        context.Context
 	ApiService *NetworkAPIService
@@ -182,6 +280,114 @@ func (a *NetworkAPIService) GetNetworkByIdExecute(r NetworkAPIGetNetworkByIdRequ
 
 	localVarPath := localBasePath + "/v1/network/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type NetworkAPIGetNetworkIdentitiesRequest struct {
+	ctx        context.Context
+	ApiService *NetworkAPIService
+}
+
+func (r NetworkAPIGetNetworkIdentitiesRequest) Execute() (*IdentityList, *http.Response, error) {
+	return r.ApiService.GetNetworkIdentitiesExecute(r)
+}
+
+/*
+GetNetworkIdentities Returns the fabric identities the caller's org owns.
+
+Returns the fabric identities the caller's org owns.
+
+One row per identity tagged with the org's "org-<org>" role attribute — a
+device minted here, enrolled or not. An identity that has not yet enrolled
+still carries its one-time enrollment, so a mislaid JWT is read again here
+rather than re-minted.
+
+A tenancy read over the full inventory, so like the mesh list it does NOT
+degrade: an unconfigured deployment answers 503.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return NetworkAPIGetNetworkIdentitiesRequest
+*/
+func (a *NetworkAPIService) GetNetworkIdentities(ctx context.Context) NetworkAPIGetNetworkIdentitiesRequest {
+	return NetworkAPIGetNetworkIdentitiesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return IdentityList
+func (a *NetworkAPIService) GetNetworkIdentitiesExecute(r NetworkAPIGetNetworkIdentitiesRequest) (*IdentityList, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IdentityList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NetworkAPIService.GetNetworkIdentities")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/network/identities"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -424,6 +630,247 @@ func (a *NetworkAPIService) GetNetworkServicesExecute(r NetworkAPIGetNetworkServ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type NetworkAPIPostNetworkIdentitiesRequest struct {
+	ctx        context.Context
+	ApiService *NetworkAPIService
+	identityIn *IdentityIn
+}
+
+func (r NetworkAPIPostNetworkIdentitiesRequest) IdentityIn(identityIn IdentityIn) NetworkAPIPostNetworkIdentitiesRequest {
+	r.identityIn = &identityIn
+	return r
+}
+
+func (r NetworkAPIPostNetworkIdentitiesRequest) Execute() (*IdentityView, *http.Response, error) {
+	return r.ApiService.PostNetworkIdentitiesExecute(r)
+}
+
+/*
+PostNetworkIdentities Mints a fabric identity for a device the caller's org brings.
+
+Mints a fabric identity for a device the caller's org brings.
+
+The identity is created of type Device, tagged with the org's "org-<org>" role
+attribute plus any supplied roles — each scoped to the org, and a
+"<service>-host" role refused unless the org has published that service. The
+answer carries the controller's one-time enrollment JWT: the device presents
+it once to join the fabric, and until it does the same token can be read back
+off GET /v1/network/identities.
+
+A write, so it does not degrade: an unconfigured deployment answers 503.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return NetworkAPIPostNetworkIdentitiesRequest
+*/
+func (a *NetworkAPIService) PostNetworkIdentities(ctx context.Context) NetworkAPIPostNetworkIdentitiesRequest {
+	return NetworkAPIPostNetworkIdentitiesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return IdentityView
+func (a *NetworkAPIService) PostNetworkIdentitiesExecute(r NetworkAPIPostNetworkIdentitiesRequest) (*IdentityView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IdentityView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NetworkAPIService.PostNetworkIdentities")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/network/identities"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.identityIn == nil {
+		return localVarReturnValue, nil, reportError("identityIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.identityIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type NetworkAPIPostNetworkServicesRequest struct {
+	ctx        context.Context
+	ApiService *NetworkAPIService
+	serviceIn  *ServiceIn
+}
+
+func (r NetworkAPIPostNetworkServicesRequest) ServiceIn(serviceIn ServiceIn) NetworkAPIPostNetworkServicesRequest {
+	r.serviceIn = &serviceIn
+	return r
+}
+
+func (r NetworkAPIPostNetworkServicesRequest) Execute() (*PublishedView, *http.Response, error) {
+	return r.ApiService.PostNetworkServicesExecute(r)
+}
+
+/*
+PostNetworkServices Puts a name on the org's overlay: a fabric service forwarding to host:port on whichever of the org's devices carries the \"<name>-host\" role, dialable at \"<name>.<org>.zt\" by any of the org's identities — and by the cloud's own, which is what lets a BYO cluster's apiserver be attached to the fleet with a \".zt\" kubeconfig.
+
+Puts a name on the org's overlay: a fabric service forwarding
+to host:port on whichever of the org's devices carries the "<name>-host"
+role, dialable at "<name>.<org>.zt" by any of the org's identities — and by
+the cloud's own, which is what lets a BYO cluster's apiserver be attached to
+the fleet with a ".zt" kubeconfig.
+
+Answers 201 with the service and its DNS name. The objects behind it are
+created in dependency order and unwound on failure, so a half-published
+service never lingers on the fabric.
+
+A write, so it does not degrade: an unconfigured deployment answers 503.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return NetworkAPIPostNetworkServicesRequest
+*/
+func (a *NetworkAPIService) PostNetworkServices(ctx context.Context) NetworkAPIPostNetworkServicesRequest {
+	return NetworkAPIPostNetworkServicesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PublishedView
+func (a *NetworkAPIService) PostNetworkServicesExecute(r NetworkAPIPostNetworkServicesRequest) (*PublishedView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PublishedView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NetworkAPIService.PostNetworkServices")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/network/services"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.serviceIn == nil {
+		return localVarReturnValue, nil, reportError("serviceIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.serviceIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

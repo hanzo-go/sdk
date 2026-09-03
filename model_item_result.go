@@ -26,7 +26,7 @@ type ItemResult struct {
 	// Output is what the model under test answered, truncated at 2000 characters.
 	Output *string `json:"output,omitempty"`
 	// Score is the judge's grade.
-	Score *float32 `json:"score,omitempty"`
+	Score *float64 `json:"score,omitempty"`
 	// TraceID is the model call this result came from.
 	TraceId *string `json:"traceId,omitempty"`
 }
@@ -145,9 +145,9 @@ func (o *ItemResult) SetOutput(v string) {
 }
 
 // GetScore returns the Score field value if set, zero value otherwise.
-func (o *ItemResult) GetScore() float32 {
+func (o *ItemResult) GetScore() float64 {
 	if o == nil || IsNil(o.Score) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Score
@@ -155,7 +155,7 @@ func (o *ItemResult) GetScore() float32 {
 
 // GetScoreOk returns a tuple with the Score field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ItemResult) GetScoreOk() (*float32, bool) {
+func (o *ItemResult) GetScoreOk() (*float64, bool) {
 	if o == nil || IsNil(o.Score) {
 		return nil, false
 	}
@@ -171,8 +171,8 @@ func (o *ItemResult) HasScore() bool {
 	return false
 }
 
-// SetScore gets a reference to the given float32 and assigns it to the Score field.
-func (o *ItemResult) SetScore(v float32) {
+// SetScore gets a reference to the given float64 and assigns it to the Score field.
+func (o *ItemResult) SetScore(v float64) {
 	o.Score = &v
 }
 

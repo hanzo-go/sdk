@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AvgDuration** | Pointer to **int32** | AvgDuration is totalDuration divided by views, rounded; 0 when unviewed. | [optional] 
-**PageNumber** | Pointer to **int32** | PageNumber is the page these counts are for. | [optional] 
-**TotalDuration** | Pointer to **int32** | TotalDuration is the summed dwell measure reported for the page. | [optional] 
-**Views** | Pointer to **int32** | Views is how many times the page was viewed. | [optional] 
+**AvgDuration** | Pointer to **int64** | AvgDuration is totalDuration divided by views, rounded; 0 when unviewed. | [optional] 
+**PageNumber** | Pointer to **int64** | PageNumber is the page these counts are for. | [optional] 
+**TotalDuration** | Pointer to **int64** | TotalDuration is the summed dwell measure reported for the page. | [optional] 
+**Views** | Pointer to **int64** | Views is how many times the page was viewed. | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAvgDuration
 
-`func (o *DataroomPageStat) GetAvgDuration() int32`
+`func (o *DataroomPageStat) GetAvgDuration() int64`
 
 GetAvgDuration returns the AvgDuration field if non-nil, zero value otherwise.
 
 ### GetAvgDurationOk
 
-`func (o *DataroomPageStat) GetAvgDurationOk() (*int32, bool)`
+`func (o *DataroomPageStat) GetAvgDurationOk() (*int64, bool)`
 
 GetAvgDurationOk returns a tuple with the AvgDuration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAvgDuration
 
-`func (o *DataroomPageStat) SetAvgDuration(v int32)`
+`func (o *DataroomPageStat) SetAvgDuration(v int64)`
 
 SetAvgDuration sets AvgDuration field to given value.
 
@@ -55,20 +55,20 @@ HasAvgDuration returns a boolean if a field has been set.
 
 ### GetPageNumber
 
-`func (o *DataroomPageStat) GetPageNumber() int32`
+`func (o *DataroomPageStat) GetPageNumber() int64`
 
 GetPageNumber returns the PageNumber field if non-nil, zero value otherwise.
 
 ### GetPageNumberOk
 
-`func (o *DataroomPageStat) GetPageNumberOk() (*int32, bool)`
+`func (o *DataroomPageStat) GetPageNumberOk() (*int64, bool)`
 
 GetPageNumberOk returns a tuple with the PageNumber field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPageNumber
 
-`func (o *DataroomPageStat) SetPageNumber(v int32)`
+`func (o *DataroomPageStat) SetPageNumber(v int64)`
 
 SetPageNumber sets PageNumber field to given value.
 
@@ -80,20 +80,20 @@ HasPageNumber returns a boolean if a field has been set.
 
 ### GetTotalDuration
 
-`func (o *DataroomPageStat) GetTotalDuration() int32`
+`func (o *DataroomPageStat) GetTotalDuration() int64`
 
 GetTotalDuration returns the TotalDuration field if non-nil, zero value otherwise.
 
 ### GetTotalDurationOk
 
-`func (o *DataroomPageStat) GetTotalDurationOk() (*int32, bool)`
+`func (o *DataroomPageStat) GetTotalDurationOk() (*int64, bool)`
 
 GetTotalDurationOk returns a tuple with the TotalDuration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalDuration
 
-`func (o *DataroomPageStat) SetTotalDuration(v int32)`
+`func (o *DataroomPageStat) SetTotalDuration(v int64)`
 
 SetTotalDuration sets TotalDuration field to given value.
 
@@ -105,20 +105,20 @@ HasTotalDuration returns a boolean if a field has been set.
 
 ### GetViews
 
-`func (o *DataroomPageStat) GetViews() int32`
+`func (o *DataroomPageStat) GetViews() int64`
 
 GetViews returns the Views field if non-nil, zero value otherwise.
 
 ### GetViewsOk
 
-`func (o *DataroomPageStat) GetViewsOk() (*int32, bool)`
+`func (o *DataroomPageStat) GetViewsOk() (*int64, bool)`
 
 GetViewsOk returns a tuple with the Views field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetViews
 
-`func (o *DataroomPageStat) SetViews(v int32)`
+`func (o *DataroomPageStat) SetViews(v int64)`
 
 SetViews sets Views field to given value.
 

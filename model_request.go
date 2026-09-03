@@ -24,11 +24,11 @@ type Request struct {
 	// Index names the lexical index to query. Defaults to \"kb\".
 	Index *string `json:"index,omitempty"`
 	// Limit bounds the FUSED result set (default 10, max 50).
-	Limit *int32 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 	// Mode selects the legs: auto (default) | text | semantic | hybrid.
 	Mode *string `json:"mode,omitempty"`
 	// Offset pages the fused result set.
-	Offset *int32 `json:"offset,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
 	// Project narrows to one project scope within the org.
 	Project *string `json:"project,omitempty"`
 	// Query is the natural-language or keyword query. Required.
@@ -117,9 +117,9 @@ func (o *Request) SetIndex(v string) {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *Request) GetLimit() int32 {
+func (o *Request) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -127,7 +127,7 @@ func (o *Request) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Request) GetLimitOk() (*int32, bool) {
+func (o *Request) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -143,8 +143,8 @@ func (o *Request) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *Request) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *Request) SetLimit(v int64) {
 	o.Limit = &v
 }
 
@@ -181,9 +181,9 @@ func (o *Request) SetMode(v string) {
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
-func (o *Request) GetOffset() int32 {
+func (o *Request) GetOffset() int64 {
 	if o == nil || IsNil(o.Offset) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Offset
@@ -191,7 +191,7 @@ func (o *Request) GetOffset() int32 {
 
 // GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Request) GetOffsetOk() (*int32, bool) {
+func (o *Request) GetOffsetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Offset) {
 		return nil, false
 	}
@@ -207,8 +207,8 @@ func (o *Request) HasOffset() bool {
 	return false
 }
 
-// SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *Request) SetOffset(v int32) {
+// SetOffset gets a reference to the given int64 and assigns it to the Offset field.
+func (o *Request) SetOffset(v int64) {
 	o.Offset = &v
 }
 

@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AmountDue** | Pointer to **int32** |  | [optional] 
-**AmountPaid** | Pointer to **int32** |  | [optional] 
-**AttemptCount** | Pointer to **int32** |  | [optional] 
+**AmountDue** | Pointer to **int64** |  | [optional] 
+**AmountPaid** | Pointer to **int64** |  | [optional] 
+**AttemptCount** | Pointer to **int64** |  | [optional] 
 **CreatedAt** | Pointer to **string** |  | [optional] 
-**CreditApplied** | Pointer to **int32** |  | [optional] 
+**CreditApplied** | Pointer to **int64** |  | [optional] 
 **Currency** | Pointer to **string** |  | [optional] 
 **CustomerEmail** | Pointer to **string** |  | [optional] 
-**Discount** | Pointer to **int32** |  | [optional] 
+**Discount** | Pointer to **int64** |  | [optional] 
 **DueDate** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **LineItems** | Pointer to [**[]InvoiceLineItem**](InvoiceLineItem.md) | LineItems carries no omitempty and is never allocated empty, because the wire it reproduces sends &#x60;null&#x60; for an invoice with no lines. An empty array there would be a different answer to \&quot;were there lines\&quot;. | [optional] 
-**Number** | Pointer to **int32** |  | [optional] 
+**Number** | Pointer to **int64** |  | [optional] 
 **NumberStr** | Pointer to **string** |  | [optional] 
 **PaidAt** | Pointer to **string** |  | [optional] 
 **PaymentMethod** | Pointer to **string** |  | [optional] 
@@ -24,8 +24,8 @@ Name | Type | Description | Notes
 **PeriodStart** | Pointer to **string** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 **SubscriptionId** | Pointer to **string** |  | [optional] 
-**Subtotal** | Pointer to **int32** |  | [optional] 
-**Tax** | Pointer to **int32** |  | [optional] 
+**Subtotal** | Pointer to **int64** |  | [optional] 
+**Tax** | Pointer to **int64** |  | [optional] 
 **UpdatedAt** | Pointer to **string** |  | [optional] 
 **UserId** | Pointer to **string** |  | [optional] 
 **VoidedAt** | Pointer to **string** |  | [optional] 
@@ -51,20 +51,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAmountDue
 
-`func (o *BillingInvoice) GetAmountDue() int32`
+`func (o *BillingInvoice) GetAmountDue() int64`
 
 GetAmountDue returns the AmountDue field if non-nil, zero value otherwise.
 
 ### GetAmountDueOk
 
-`func (o *BillingInvoice) GetAmountDueOk() (*int32, bool)`
+`func (o *BillingInvoice) GetAmountDueOk() (*int64, bool)`
 
 GetAmountDueOk returns a tuple with the AmountDue field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmountDue
 
-`func (o *BillingInvoice) SetAmountDue(v int32)`
+`func (o *BillingInvoice) SetAmountDue(v int64)`
 
 SetAmountDue sets AmountDue field to given value.
 
@@ -76,20 +76,20 @@ HasAmountDue returns a boolean if a field has been set.
 
 ### GetAmountPaid
 
-`func (o *BillingInvoice) GetAmountPaid() int32`
+`func (o *BillingInvoice) GetAmountPaid() int64`
 
 GetAmountPaid returns the AmountPaid field if non-nil, zero value otherwise.
 
 ### GetAmountPaidOk
 
-`func (o *BillingInvoice) GetAmountPaidOk() (*int32, bool)`
+`func (o *BillingInvoice) GetAmountPaidOk() (*int64, bool)`
 
 GetAmountPaidOk returns a tuple with the AmountPaid field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmountPaid
 
-`func (o *BillingInvoice) SetAmountPaid(v int32)`
+`func (o *BillingInvoice) SetAmountPaid(v int64)`
 
 SetAmountPaid sets AmountPaid field to given value.
 
@@ -101,20 +101,20 @@ HasAmountPaid returns a boolean if a field has been set.
 
 ### GetAttemptCount
 
-`func (o *BillingInvoice) GetAttemptCount() int32`
+`func (o *BillingInvoice) GetAttemptCount() int64`
 
 GetAttemptCount returns the AttemptCount field if non-nil, zero value otherwise.
 
 ### GetAttemptCountOk
 
-`func (o *BillingInvoice) GetAttemptCountOk() (*int32, bool)`
+`func (o *BillingInvoice) GetAttemptCountOk() (*int64, bool)`
 
 GetAttemptCountOk returns a tuple with the AttemptCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAttemptCount
 
-`func (o *BillingInvoice) SetAttemptCount(v int32)`
+`func (o *BillingInvoice) SetAttemptCount(v int64)`
 
 SetAttemptCount sets AttemptCount field to given value.
 
@@ -151,20 +151,20 @@ HasCreatedAt returns a boolean if a field has been set.
 
 ### GetCreditApplied
 
-`func (o *BillingInvoice) GetCreditApplied() int32`
+`func (o *BillingInvoice) GetCreditApplied() int64`
 
 GetCreditApplied returns the CreditApplied field if non-nil, zero value otherwise.
 
 ### GetCreditAppliedOk
 
-`func (o *BillingInvoice) GetCreditAppliedOk() (*int32, bool)`
+`func (o *BillingInvoice) GetCreditAppliedOk() (*int64, bool)`
 
 GetCreditAppliedOk returns a tuple with the CreditApplied field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreditApplied
 
-`func (o *BillingInvoice) SetCreditApplied(v int32)`
+`func (o *BillingInvoice) SetCreditApplied(v int64)`
 
 SetCreditApplied sets CreditApplied field to given value.
 
@@ -226,20 +226,20 @@ HasCustomerEmail returns a boolean if a field has been set.
 
 ### GetDiscount
 
-`func (o *BillingInvoice) GetDiscount() int32`
+`func (o *BillingInvoice) GetDiscount() int64`
 
 GetDiscount returns the Discount field if non-nil, zero value otherwise.
 
 ### GetDiscountOk
 
-`func (o *BillingInvoice) GetDiscountOk() (*int32, bool)`
+`func (o *BillingInvoice) GetDiscountOk() (*int64, bool)`
 
 GetDiscountOk returns a tuple with the Discount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDiscount
 
-`func (o *BillingInvoice) SetDiscount(v int32)`
+`func (o *BillingInvoice) SetDiscount(v int64)`
 
 SetDiscount sets Discount field to given value.
 
@@ -326,20 +326,20 @@ HasLineItems returns a boolean if a field has been set.
 
 ### GetNumber
 
-`func (o *BillingInvoice) GetNumber() int32`
+`func (o *BillingInvoice) GetNumber() int64`
 
 GetNumber returns the Number field if non-nil, zero value otherwise.
 
 ### GetNumberOk
 
-`func (o *BillingInvoice) GetNumberOk() (*int32, bool)`
+`func (o *BillingInvoice) GetNumberOk() (*int64, bool)`
 
 GetNumberOk returns a tuple with the Number field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumber
 
-`func (o *BillingInvoice) SetNumber(v int32)`
+`func (o *BillingInvoice) SetNumber(v int64)`
 
 SetNumber sets Number field to given value.
 
@@ -551,20 +551,20 @@ HasSubscriptionId returns a boolean if a field has been set.
 
 ### GetSubtotal
 
-`func (o *BillingInvoice) GetSubtotal() int32`
+`func (o *BillingInvoice) GetSubtotal() int64`
 
 GetSubtotal returns the Subtotal field if non-nil, zero value otherwise.
 
 ### GetSubtotalOk
 
-`func (o *BillingInvoice) GetSubtotalOk() (*int32, bool)`
+`func (o *BillingInvoice) GetSubtotalOk() (*int64, bool)`
 
 GetSubtotalOk returns a tuple with the Subtotal field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSubtotal
 
-`func (o *BillingInvoice) SetSubtotal(v int32)`
+`func (o *BillingInvoice) SetSubtotal(v int64)`
 
 SetSubtotal sets Subtotal field to given value.
 
@@ -576,20 +576,20 @@ HasSubtotal returns a boolean if a field has been set.
 
 ### GetTax
 
-`func (o *BillingInvoice) GetTax() int32`
+`func (o *BillingInvoice) GetTax() int64`
 
 GetTax returns the Tax field if non-nil, zero value otherwise.
 
 ### GetTaxOk
 
-`func (o *BillingInvoice) GetTaxOk() (*int32, bool)`
+`func (o *BillingInvoice) GetTaxOk() (*int64, bool)`
 
 GetTaxOk returns a tuple with the Tax field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTax
 
-`func (o *BillingInvoice) SetTax(v int32)`
+`func (o *BillingInvoice) SetTax(v int64)`
 
 SetTax sets Tax field to given value.
 

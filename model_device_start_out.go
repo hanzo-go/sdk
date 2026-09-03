@@ -24,7 +24,7 @@ type DeviceStartOut struct {
 	// Flow is the id to poll with.
 	Flow *string `json:"flow,omitempty"`
 	// Interval is the seconds to wait between polls.
-	Interval *int32 `json:"interval,omitempty"`
+	Interval *int64 `json:"interval,omitempty"`
 	// UserCode is the short code the user types at VerifyURL.
 	UserCode *string `json:"userCode,omitempty"`
 	// VerifyURL is the page the user opens to enter UserCode.
@@ -113,9 +113,9 @@ func (o *DeviceStartOut) SetFlow(v string) {
 }
 
 // GetInterval returns the Interval field value if set, zero value otherwise.
-func (o *DeviceStartOut) GetInterval() int32 {
+func (o *DeviceStartOut) GetInterval() int64 {
 	if o == nil || IsNil(o.Interval) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Interval
@@ -123,7 +123,7 @@ func (o *DeviceStartOut) GetInterval() int32 {
 
 // GetIntervalOk returns a tuple with the Interval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeviceStartOut) GetIntervalOk() (*int32, bool) {
+func (o *DeviceStartOut) GetIntervalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Interval) {
 		return nil, false
 	}
@@ -139,8 +139,8 @@ func (o *DeviceStartOut) HasInterval() bool {
 	return false
 }
 
-// SetInterval gets a reference to the given int32 and assigns it to the Interval field.
-func (o *DeviceStartOut) SetInterval(v int32) {
+// SetInterval gets a reference to the given int64 and assigns it to the Interval field.
+func (o *DeviceStartOut) SetInterval(v int64) {
 	o.Interval = &v
 }
 

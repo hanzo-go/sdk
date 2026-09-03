@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Meta** | Pointer to **map[string]string** |  | [optional] 
-**NamespaceCPU** | Pointer to **float32** |  | [optional] 
-**NamespaceMemory** | Pointer to **float32** |  | [optional] 
+**NamespaceCPU** | Pointer to **float64** |  | [optional] 
+**NamespaceMemory** | Pointer to **float64** |  | [optional] 
 **NamespaceName** | Pointer to **string** |  | [optional] 
 **PodCountsByPhase** | Pointer to [**O11yPodCountsByPhase**](O11yPodCountsByPhase.md) |  | [optional] 
 
@@ -56,20 +56,20 @@ HasMeta returns a boolean if a field has been set.
 
 ### GetNamespaceCPU
 
-`func (o *O11yNamespaceRecord) GetNamespaceCPU() float32`
+`func (o *O11yNamespaceRecord) GetNamespaceCPU() float64`
 
 GetNamespaceCPU returns the NamespaceCPU field if non-nil, zero value otherwise.
 
 ### GetNamespaceCPUOk
 
-`func (o *O11yNamespaceRecord) GetNamespaceCPUOk() (*float32, bool)`
+`func (o *O11yNamespaceRecord) GetNamespaceCPUOk() (*float64, bool)`
 
 GetNamespaceCPUOk returns a tuple with the NamespaceCPU field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNamespaceCPU
 
-`func (o *O11yNamespaceRecord) SetNamespaceCPU(v float32)`
+`func (o *O11yNamespaceRecord) SetNamespaceCPU(v float64)`
 
 SetNamespaceCPU sets NamespaceCPU field to given value.
 
@@ -81,20 +81,20 @@ HasNamespaceCPU returns a boolean if a field has been set.
 
 ### GetNamespaceMemory
 
-`func (o *O11yNamespaceRecord) GetNamespaceMemory() float32`
+`func (o *O11yNamespaceRecord) GetNamespaceMemory() float64`
 
 GetNamespaceMemory returns the NamespaceMemory field if non-nil, zero value otherwise.
 
 ### GetNamespaceMemoryOk
 
-`func (o *O11yNamespaceRecord) GetNamespaceMemoryOk() (*float32, bool)`
+`func (o *O11yNamespaceRecord) GetNamespaceMemoryOk() (*float64, bool)`
 
 GetNamespaceMemoryOk returns a tuple with the NamespaceMemory field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNamespaceMemory
 
-`func (o *O11yNamespaceRecord) SetNamespaceMemory(v float32)`
+`func (o *O11yNamespaceRecord) SetNamespaceMemory(v float64)`
 
 SetNamespaceMemory sets NamespaceMemory field to given value.
 

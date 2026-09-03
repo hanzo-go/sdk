@@ -25,7 +25,7 @@ type Delivery struct {
 	// Headers are the message headers, when any were published.
 	Headers map[string][]string `json:"headers,omitempty"`
 	// Delivered is how many times a consumer has been handed this message (pulls only).
-	NumDelivered *int32 `json:"num_delivered,omitempty"`
+	NumDelivered *int64 `json:"num_delivered,omitempty"`
 	// Remaining is how many messages follow this one for the consumer (pulls only).
 	NumPending *int32 `json:"num_pending,omitempty"`
 	// Sequence is the message's stream sequence.
@@ -118,9 +118,9 @@ func (o *Delivery) SetHeaders(v map[string][]string) {
 }
 
 // GetNumDelivered returns the NumDelivered field value if set, zero value otherwise.
-func (o *Delivery) GetNumDelivered() int32 {
+func (o *Delivery) GetNumDelivered() int64 {
 	if o == nil || IsNil(o.NumDelivered) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.NumDelivered
@@ -128,7 +128,7 @@ func (o *Delivery) GetNumDelivered() int32 {
 
 // GetNumDeliveredOk returns a tuple with the NumDelivered field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Delivery) GetNumDeliveredOk() (*int32, bool) {
+func (o *Delivery) GetNumDeliveredOk() (*int64, bool) {
 	if o == nil || IsNil(o.NumDelivered) {
 		return nil, false
 	}
@@ -144,8 +144,8 @@ func (o *Delivery) HasNumDelivered() bool {
 	return false
 }
 
-// SetNumDelivered gets a reference to the given int32 and assigns it to the NumDelivered field.
-func (o *Delivery) SetNumDelivered(v int32) {
+// SetNumDelivered gets a reference to the given int64 and assigns it to the NumDelivered field.
+func (o *Delivery) SetNumDelivered(v int64) {
 	o.NumDelivered = &v
 }
 

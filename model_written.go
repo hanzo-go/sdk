@@ -24,7 +24,7 @@ type Written struct {
 	// Kind is the section written.
 	Kind *string `json:"kind,omitempty"`
 	// Updated is when it was written, unix milliseconds.
-	Updated *int32 `json:"updated,omitempty"`
+	Updated *int64 `json:"updated,omitempty"`
 }
 
 // NewWritten instantiates a new Written object
@@ -109,9 +109,9 @@ func (o *Written) SetKind(v string) {
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *Written) GetUpdated() int32 {
+func (o *Written) GetUpdated() int64 {
 	if o == nil || IsNil(o.Updated) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Updated
@@ -119,7 +119,7 @@ func (o *Written) GetUpdated() int32 {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Written) GetUpdatedOk() (*int32, bool) {
+func (o *Written) GetUpdatedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *Written) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given int32 and assigns it to the Updated field.
-func (o *Written) SetUpdated(v int32) {
+// SetUpdated gets a reference to the given int64 and assigns it to the Updated field.
+func (o *Written) SetUpdated(v int64) {
 	o.Updated = &v
 }
 

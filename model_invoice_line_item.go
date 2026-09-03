@@ -19,7 +19,7 @@ var _ MappedNullable = &InvoiceLineItem{}
 
 // InvoiceLineItem struct for InvoiceLineItem
 type InvoiceLineItem struct {
-	Amount      *int32  `json:"amount,omitempty"`
+	Amount      *int64  `json:"amount,omitempty"`
 	Currency    *string `json:"currency,omitempty"`
 	Description *string `json:"description,omitempty"`
 	Id          *string `json:"id,omitempty"`
@@ -29,9 +29,9 @@ type InvoiceLineItem struct {
 	PeriodStart *string `json:"periodStart,omitempty"`
 	PlanId      *string `json:"planId,omitempty"`
 	PlanName    *string `json:"planName,omitempty"`
-	Quantity    *int32  `json:"quantity,omitempty"`
+	Quantity    *int64  `json:"quantity,omitempty"`
 	Type        *string `json:"type,omitempty"`
-	UnitPrice   *int32  `json:"unitPrice,omitempty"`
+	UnitPrice   *int64  `json:"unitPrice,omitempty"`
 }
 
 // NewInvoiceLineItem instantiates a new InvoiceLineItem object
@@ -52,9 +52,9 @@ func NewInvoiceLineItemWithDefaults() *InvoiceLineItem {
 }
 
 // GetAmount returns the Amount field value if set, zero value otherwise.
-func (o *InvoiceLineItem) GetAmount() int32 {
+func (o *InvoiceLineItem) GetAmount() int64 {
 	if o == nil || IsNil(o.Amount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Amount
@@ -62,7 +62,7 @@ func (o *InvoiceLineItem) GetAmount() int32 {
 
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InvoiceLineItem) GetAmountOk() (*int32, bool) {
+func (o *InvoiceLineItem) GetAmountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Amount) {
 		return nil, false
 	}
@@ -78,8 +78,8 @@ func (o *InvoiceLineItem) HasAmount() bool {
 	return false
 }
 
-// SetAmount gets a reference to the given int32 and assigns it to the Amount field.
-func (o *InvoiceLineItem) SetAmount(v int32) {
+// SetAmount gets a reference to the given int64 and assigns it to the Amount field.
+func (o *InvoiceLineItem) SetAmount(v int64) {
 	o.Amount = &v
 }
 
@@ -340,9 +340,9 @@ func (o *InvoiceLineItem) SetPlanName(v string) {
 }
 
 // GetQuantity returns the Quantity field value if set, zero value otherwise.
-func (o *InvoiceLineItem) GetQuantity() int32 {
+func (o *InvoiceLineItem) GetQuantity() int64 {
 	if o == nil || IsNil(o.Quantity) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Quantity
@@ -350,7 +350,7 @@ func (o *InvoiceLineItem) GetQuantity() int32 {
 
 // GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InvoiceLineItem) GetQuantityOk() (*int32, bool) {
+func (o *InvoiceLineItem) GetQuantityOk() (*int64, bool) {
 	if o == nil || IsNil(o.Quantity) {
 		return nil, false
 	}
@@ -366,8 +366,8 @@ func (o *InvoiceLineItem) HasQuantity() bool {
 	return false
 }
 
-// SetQuantity gets a reference to the given int32 and assigns it to the Quantity field.
-func (o *InvoiceLineItem) SetQuantity(v int32) {
+// SetQuantity gets a reference to the given int64 and assigns it to the Quantity field.
+func (o *InvoiceLineItem) SetQuantity(v int64) {
 	o.Quantity = &v
 }
 
@@ -404,9 +404,9 @@ func (o *InvoiceLineItem) SetType(v string) {
 }
 
 // GetUnitPrice returns the UnitPrice field value if set, zero value otherwise.
-func (o *InvoiceLineItem) GetUnitPrice() int32 {
+func (o *InvoiceLineItem) GetUnitPrice() int64 {
 	if o == nil || IsNil(o.UnitPrice) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UnitPrice
@@ -414,7 +414,7 @@ func (o *InvoiceLineItem) GetUnitPrice() int32 {
 
 // GetUnitPriceOk returns a tuple with the UnitPrice field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InvoiceLineItem) GetUnitPriceOk() (*int32, bool) {
+func (o *InvoiceLineItem) GetUnitPriceOk() (*int64, bool) {
 	if o == nil || IsNil(o.UnitPrice) {
 		return nil, false
 	}
@@ -430,8 +430,8 @@ func (o *InvoiceLineItem) HasUnitPrice() bool {
 	return false
 }
 
-// SetUnitPrice gets a reference to the given int32 and assigns it to the UnitPrice field.
-func (o *InvoiceLineItem) SetUnitPrice(v int32) {
+// SetUnitPrice gets a reference to the given int64 and assigns it to the UnitPrice field.
+func (o *InvoiceLineItem) SetUnitPrice(v int64) {
 	o.UnitPrice = &v
 }
 

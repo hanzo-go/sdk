@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Currency** | Pointer to **string** | Currency is the ISO code every amount on this quote is denominated in. | [optional] 
-**DueNowCents** | Pointer to **int32** | DueNowCents is what is charged to begin: every non-recurring line. | [optional] 
+**DueNowCents** | Pointer to **int64** | DueNowCents is what is charged to begin: every non-recurring line. | [optional] 
 **Jurisdiction** | Pointer to **string** | Jurisdiction is the state of formation the filing fee belongs to. | [optional] 
 **Lines** | Pointer to [**[]Charge**](Charge.md) | Lines are the charges, in the order a reader should see them. | [optional] 
 **Recurring** | Pointer to **string** | Recurring is how often RecurringCents repeats — \&quot;yearly\&quot; for an agent of record. Empty when nothing on this quote recurs. | [optional] 
-**RecurringCents** | Pointer to **int32** | RecurringCents is what repeats, and Recurring says how often. | [optional] 
+**RecurringCents** | Pointer to **int64** | RecurringCents is what repeats, and Recurring says how often. | [optional] 
 **Structure** | Pointer to **string** | Structure is the entity this prices: c-corp, llc or dao-llc. | [optional] 
 
 ## Methods
@@ -58,20 +58,20 @@ HasCurrency returns a boolean if a field has been set.
 
 ### GetDueNowCents
 
-`func (o *Tariff) GetDueNowCents() int32`
+`func (o *Tariff) GetDueNowCents() int64`
 
 GetDueNowCents returns the DueNowCents field if non-nil, zero value otherwise.
 
 ### GetDueNowCentsOk
 
-`func (o *Tariff) GetDueNowCentsOk() (*int32, bool)`
+`func (o *Tariff) GetDueNowCentsOk() (*int64, bool)`
 
 GetDueNowCentsOk returns a tuple with the DueNowCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDueNowCents
 
-`func (o *Tariff) SetDueNowCents(v int32)`
+`func (o *Tariff) SetDueNowCents(v int64)`
 
 SetDueNowCents sets DueNowCents field to given value.
 
@@ -158,20 +158,20 @@ HasRecurring returns a boolean if a field has been set.
 
 ### GetRecurringCents
 
-`func (o *Tariff) GetRecurringCents() int32`
+`func (o *Tariff) GetRecurringCents() int64`
 
 GetRecurringCents returns the RecurringCents field if non-nil, zero value otherwise.
 
 ### GetRecurringCentsOk
 
-`func (o *Tariff) GetRecurringCentsOk() (*int32, bool)`
+`func (o *Tariff) GetRecurringCentsOk() (*int64, bool)`
 
 GetRecurringCentsOk returns a tuple with the RecurringCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRecurringCents
 
-`func (o *Tariff) SetRecurringCents(v int32)`
+`func (o *Tariff) SetRecurringCents(v int64)`
 
 SetRecurringCents sets RecurringCents field to given value.
 

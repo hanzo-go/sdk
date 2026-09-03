@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Blueprints** | Pointer to **int32** | Blueprints is how many blueprints this build has embedded and priced. | [optional] 
+**Blueprints** | Pointer to **int64** | Blueprints is how many blueprints this build has embedded and priced. | [optional] 
 **RateCard** | Pointer to [**RateCard**](RateCard.md) | RateCard is the rate card actually in force after the operator env overlay (CLOUD_BLUEPRINT_UCPU_HR / CLOUD_BLUEPRINT_UGB_HR), not the shipped default. | [optional] 
 **Service** | Pointer to **string** | Service names the subsystem answering — always \&quot;blueprint\&quot;. | [optional] 
 **Status** | Pointer to **string** | Status is \&quot;ok\&quot;; the route answers 200 whenever the subsystem is mounted. | [optional] 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetBlueprints
 
-`func (o *BlueprintHealth) GetBlueprints() int32`
+`func (o *BlueprintHealth) GetBlueprints() int64`
 
 GetBlueprints returns the Blueprints field if non-nil, zero value otherwise.
 
 ### GetBlueprintsOk
 
-`func (o *BlueprintHealth) GetBlueprintsOk() (*int32, bool)`
+`func (o *BlueprintHealth) GetBlueprintsOk() (*int64, bool)`
 
 GetBlueprintsOk returns a tuple with the Blueprints field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBlueprints
 
-`func (o *BlueprintHealth) SetBlueprints(v int32)`
+`func (o *BlueprintHealth) SetBlueprints(v int64)`
 
 SetBlueprints sets Blueprints field to given value.
 

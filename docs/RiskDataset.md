@@ -9,14 +9,14 @@ Name | Type | Description | Notes
 **Counts** | Pointer to [**RiskSplitCounts**](RiskSplitCounts.md) | Counts is how the rows fall across the splits. | [optional] 
 **Digest** | Pointer to **string** | Digest fingerprints the SPEC and the ROWS together. Two materialisations of one spec agree on it or the plane says they do not. | [optional] 
 **Name** | Pointer to **string** | Name identifies the dataset across all of its versions. | [optional] 
-**Oversize** | Pointer to **int32** | Oversize is how many of the window&#39;s subjects this version could NOT carry because their subject identity exceeds the plane&#39;s per-subject byte bound.  It is on the wire, not only in a log, because it is the one degradation a caller cannot otherwise detect: the rows that are here look complete, and a dataset silently missing a population is a model silently blind to it. Non-zero does not make a version invalid — it makes it a version whose coverage is STATED. Zero is the normal case and omits. | [optional] 
+**Oversize** | Pointer to **int64** | Oversize is how many of the window&#39;s subjects this version could NOT carry because their subject identity exceeds the plane&#39;s per-subject byte bound.  It is on the wire, not only in a log, because it is the one degradation a caller cannot otherwise detect: the rows that are here look complete, and a dataset silently missing a population is a model silently blind to it. Non-zero does not make a version invalid — it makes it a version whose coverage is STATED. Zero is the normal case and omits. | [optional] 
 **Refusal** | Pointer to **string** | Refusal names why there are no bytes, when there are none. | [optional] 
 **Running** | Pointer to **bool** | Running is true while THIS process is materialising the version. A version that is &#x60;materializing&#x60; and not running was started by a process that is gone — two states the register cannot tell apart, because a register cannot know which processes are alive. | [optional] 
-**Share** | Pointer to **int32** | Share is the fraction of the window&#39;s subjects admitted, in thousandths. 1000 means the whole window fitted under the cap; anything less means the version is a reproducible sample and says by how much. | [optional] 
+**Share** | Pointer to **int64** | Share is the fraction of the window&#39;s subjects admitted, in thousandths. 1000 means the whole window fitted under the cap; anything less means the version is a reproducible sample and says by how much. | [optional] 
 **Spec** | Pointer to [**RiskDatasetSpec**](RiskDatasetSpec.md) | Spec is the bound query this version was built from, exactly as recorded. | [optional] 
 **Status** | Pointer to **string** | Status is declared, materializing, ready or refused. Only &#x60;ready&#x60; has bytes, and &#x60;ready&#x60; is terminal: a published version is never rewritten. | [optional] 
 **Truncated** | Pointer to **bool** | Truncated is true when the row cap bound before the window ran out. The trailing subject is dropped whole when that happens, because half a subject on one side of a split is exactly the leak the grouping prevents. | [optional] 
-**Version** | Pointer to **int32** | Version is which version this is, from 1 and monotone within the dataset. A number is never reused — not even after a disposal, where the next declare continues the count — so \&quot;signups v3\&quot; means one thing forever, which is what makes a model&#39;s citation of it checkable. | [optional] 
+**Version** | Pointer to **int64** | Version is which version this is, from 1 and monotone within the dataset. A number is never reused — not even after a disposal, where the next declare continues the count — so \&quot;signups v3\&quot; means one thing forever, which is what makes a model&#39;s citation of it checkable. | [optional] 
 
 ## Methods
 
@@ -164,20 +164,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetOversize
 
-`func (o *RiskDataset) GetOversize() int32`
+`func (o *RiskDataset) GetOversize() int64`
 
 GetOversize returns the Oversize field if non-nil, zero value otherwise.
 
 ### GetOversizeOk
 
-`func (o *RiskDataset) GetOversizeOk() (*int32, bool)`
+`func (o *RiskDataset) GetOversizeOk() (*int64, bool)`
 
 GetOversizeOk returns a tuple with the Oversize field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOversize
 
-`func (o *RiskDataset) SetOversize(v int32)`
+`func (o *RiskDataset) SetOversize(v int64)`
 
 SetOversize sets Oversize field to given value.
 
@@ -239,20 +239,20 @@ HasRunning returns a boolean if a field has been set.
 
 ### GetShare
 
-`func (o *RiskDataset) GetShare() int32`
+`func (o *RiskDataset) GetShare() int64`
 
 GetShare returns the Share field if non-nil, zero value otherwise.
 
 ### GetShareOk
 
-`func (o *RiskDataset) GetShareOk() (*int32, bool)`
+`func (o *RiskDataset) GetShareOk() (*int64, bool)`
 
 GetShareOk returns a tuple with the Share field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetShare
 
-`func (o *RiskDataset) SetShare(v int32)`
+`func (o *RiskDataset) SetShare(v int64)`
 
 SetShare sets Share field to given value.
 
@@ -339,20 +339,20 @@ HasTruncated returns a boolean if a field has been set.
 
 ### GetVersion
 
-`func (o *RiskDataset) GetVersion() int32`
+`func (o *RiskDataset) GetVersion() int64`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *RiskDataset) GetVersionOk() (*int32, bool)`
+`func (o *RiskDataset) GetVersionOk() (*int64, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *RiskDataset) SetVersion(v int32)`
+`func (o *RiskDataset) SetVersion(v int64)`
 
 SetVersion sets Version field to given value.
 

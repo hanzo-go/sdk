@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Dataset** | **string** | Dataset is the set to score, which must belong to the caller&#39;s org and hold at least one ACTIVE example. | 
 **Judge** | Pointer to [**JudgeSpec**](JudgeSpec.md) | Judge is the judge to grade with. Omitted, the model under test grades itself against a default correctness criterion under the score name \&quot;llm-judge\&quot;. | [optional] 
-**Limit** | Pointer to **int32** | Limit caps how many examples this run scores. It defaults to 20, and anything above 100 falls back to that default. | [optional] 
+**Limit** | Pointer to **int64** | Limit caps how many examples this run scores. It defaults to 20, and anything above 100 falls back to that default. | [optional] 
 **Model** | **string** | Model is the model under test. | 
 **RunName** | Pointer to **string** | RunName labels the run and is generated from the clock when omitted. It must match ^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$. | [optional] 
 
@@ -76,20 +76,20 @@ HasJudge returns a boolean if a field has been set.
 
 ### GetLimit
 
-`func (o *RunRequest) GetLimit() int32`
+`func (o *RunRequest) GetLimit() int64`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *RunRequest) GetLimitOk() (*int32, bool)`
+`func (o *RunRequest) GetLimitOk() (*int64, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *RunRequest) SetLimit(v int32)`
+`func (o *RunRequest) SetLimit(v int64)`
 
 SetLimit sets Limit field to given value.
 

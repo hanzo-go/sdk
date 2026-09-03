@@ -25,9 +25,9 @@ type O11yAvailabilityResponse struct {
 	// Services is the current inventory, sorted by name so two reads of an unchanged fleet are byte-identical.
 	Services []O11yServiceUp `json:"services,omitempty"`
 	// Total is how many services the prober currently watches.
-	Total *int32 `json:"total,omitempty"`
+	Total *int64 `json:"total,omitempty"`
 	// Up is how many services are up right now.
-	Up *int32 `json:"up,omitempty"`
+	Up *int64 `json:"up,omitempty"`
 }
 
 // NewO11yAvailabilityResponse instantiates a new O11yAvailabilityResponse object
@@ -144,9 +144,9 @@ func (o *O11yAvailabilityResponse) SetServices(v []O11yServiceUp) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *O11yAvailabilityResponse) GetTotal() int32 {
+func (o *O11yAvailabilityResponse) GetTotal() int64 {
 	if o == nil || IsNil(o.Total) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Total
@@ -154,7 +154,7 @@ func (o *O11yAvailabilityResponse) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yAvailabilityResponse) GetTotalOk() (*int32, bool) {
+func (o *O11yAvailabilityResponse) GetTotalOk() (*int64, bool) {
 	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
@@ -170,15 +170,15 @@ func (o *O11yAvailabilityResponse) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *O11yAvailabilityResponse) SetTotal(v int32) {
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+func (o *O11yAvailabilityResponse) SetTotal(v int64) {
 	o.Total = &v
 }
 
 // GetUp returns the Up field value if set, zero value otherwise.
-func (o *O11yAvailabilityResponse) GetUp() int32 {
+func (o *O11yAvailabilityResponse) GetUp() int64 {
 	if o == nil || IsNil(o.Up) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Up
@@ -186,7 +186,7 @@ func (o *O11yAvailabilityResponse) GetUp() int32 {
 
 // GetUpOk returns a tuple with the Up field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yAvailabilityResponse) GetUpOk() (*int32, bool) {
+func (o *O11yAvailabilityResponse) GetUpOk() (*int64, bool) {
 	if o == nil || IsNil(o.Up) {
 		return nil, false
 	}
@@ -202,8 +202,8 @@ func (o *O11yAvailabilityResponse) HasUp() bool {
 	return false
 }
 
-// SetUp gets a reference to the given int32 and assigns it to the Up field.
-func (o *O11yAvailabilityResponse) SetUp(v int32) {
+// SetUp gets a reference to the given int64 and assigns it to the Up field.
+func (o *O11yAvailabilityResponse) SetUp(v int64) {
 	o.Up = &v
 }
 

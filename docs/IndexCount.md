@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **IsIndexing** | Pointer to **bool** | IsIndexing is always false: writes are applied before their response, so there is never a background pass a caller could be waiting on. | [optional] 
-**NumberOfDocuments** | Pointer to **int32** | NumberOfDocuments is how many documents this org holds in that index. | [optional] 
+**NumberOfDocuments** | Pointer to **int64** | NumberOfDocuments is how many documents this org holds in that index. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasIsIndexing returns a boolean if a field has been set.
 
 ### GetNumberOfDocuments
 
-`func (o *IndexCount) GetNumberOfDocuments() int32`
+`func (o *IndexCount) GetNumberOfDocuments() int64`
 
 GetNumberOfDocuments returns the NumberOfDocuments field if non-nil, zero value otherwise.
 
 ### GetNumberOfDocumentsOk
 
-`func (o *IndexCount) GetNumberOfDocumentsOk() (*int32, bool)`
+`func (o *IndexCount) GetNumberOfDocumentsOk() (*int64, bool)`
 
 GetNumberOfDocumentsOk returns a tuple with the NumberOfDocuments field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumberOfDocuments
 
-`func (o *IndexCount) SetNumberOfDocuments(v int32)`
+`func (o *IndexCount) SetNumberOfDocuments(v int64)`
 
 SetNumberOfDocuments sets NumberOfDocuments field to given value.
 

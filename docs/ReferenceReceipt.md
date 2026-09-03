@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AsOf** | Pointer to **string** | AsOf is when the load happened, RFC 3339. Absent is dated on arrival, which can only make the list look older than it is. | [optional] 
-**Keys** | Pointer to **int32** | Keys is how many designations that load carried. Zero from a publisher who designates somebody is a failed load wearing a successful one&#39;s clothes, and belongs in Refusal instead. | [optional] 
+**Keys** | Pointer to **int64** | Keys is how many designations that load carried. Zero from a publisher who designates somebody is a failed load wearing a successful one&#39;s clothes, and belongs in Refusal instead. | [optional] 
 **Refusal** | Pointer to **string** | Refusal is why the load failed, when it did. | [optional] 
 **Source** | Pointer to **string** | Source is the publisher this receipt is for. | [optional] 
 **Version** | Pointer to **string** | Version is the digest of what that publisher supplied, so a refresh that changed nothing can be told from a refresh that did not run. | [optional] 
@@ -56,20 +56,20 @@ HasAsOf returns a boolean if a field has been set.
 
 ### GetKeys
 
-`func (o *ReferenceReceipt) GetKeys() int32`
+`func (o *ReferenceReceipt) GetKeys() int64`
 
 GetKeys returns the Keys field if non-nil, zero value otherwise.
 
 ### GetKeysOk
 
-`func (o *ReferenceReceipt) GetKeysOk() (*int32, bool)`
+`func (o *ReferenceReceipt) GetKeysOk() (*int64, bool)`
 
 GetKeysOk returns a tuple with the Keys field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetKeys
 
-`func (o *ReferenceReceipt) SetKeys(v int32)`
+`func (o *ReferenceReceipt) SetKeys(v int64)`
 
 SetKeys sets Keys field to given value.
 

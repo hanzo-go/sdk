@@ -26,7 +26,7 @@ type Wallet struct {
 	// Chain is the EVM chain the wallet is bound to, CAIP-2 \"eip155:<n>\" or a bare decimal chain id. Empty is chain-agnostic: the ring signs an unbound digest, and a Safe falls back to the Hanzo L1 (36963) because a Safe and its EIP-712 domain must be chain-bound.
 	Chain *string `json:"chain,omitempty"`
 	// CreatedAt is when the wallet was provisioned, Unix seconds. Listings order by it, newest first.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Custody is the backend holding the signing material, fixed at creation: \"kms\" (a secp256k1 key sealed under KMS and opened in-process), \"mpc\" or \"treasury\" (an m-of-n threshold key on the deployed ring, which differ by governance and not by signing mechanics), or \"safe\" (a Safe contract owned by an MPC key). A kind the deployment has not wired refuses with 503 rather than fabricating a signature.
 	Custody *string `json:"custody,omitempty"`
 	// FinanceAccount is the finance ledger account bound to this wallet — the lookup that turns a ledger account back into an on-chain signer. Absent is the normal state and means unbound; the column is NULL until something binds it.
@@ -187,9 +187,9 @@ func (o *Wallet) SetChain(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *Wallet) GetCreatedAt() int32 {
+func (o *Wallet) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -197,7 +197,7 @@ func (o *Wallet) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Wallet) GetCreatedAtOk() (*int32, bool) {
+func (o *Wallet) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -213,8 +213,8 @@ func (o *Wallet) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *Wallet) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *Wallet) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 

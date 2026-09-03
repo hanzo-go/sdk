@@ -19,12 +19,12 @@ var _ MappedNullable = &O11yO11yRuleHistoryQueryIn{}
 
 // O11yO11yRuleHistoryQueryIn struct for O11yO11yRuleHistoryQueryIn
 type O11yO11yRuleHistoryQueryIn struct {
-	End     *int32         `json:"end,omitempty"`
+	End     *int64         `json:"end,omitempty"`
 	Filters *O11yFilterSet `json:"filters,omitempty"`
-	Limit   *int32         `json:"limit,omitempty"`
-	Offset  *int32         `json:"offset,omitempty"`
+	Limit   *int64         `json:"limit,omitempty"`
+	Offset  *int64         `json:"offset,omitempty"`
 	Order   *string        `json:"order,omitempty"`
-	Start   *int32         `json:"start,omitempty"`
+	Start   *int64         `json:"start,omitempty"`
 	State   *string        `json:"state,omitempty"`
 }
 
@@ -46,9 +46,9 @@ func NewO11yO11yRuleHistoryQueryInWithDefaults() *O11yO11yRuleHistoryQueryIn {
 }
 
 // GetEnd returns the End field value if set, zero value otherwise.
-func (o *O11yO11yRuleHistoryQueryIn) GetEnd() int32 {
+func (o *O11yO11yRuleHistoryQueryIn) GetEnd() int64 {
 	if o == nil || IsNil(o.End) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.End
@@ -56,7 +56,7 @@ func (o *O11yO11yRuleHistoryQueryIn) GetEnd() int32 {
 
 // GetEndOk returns a tuple with the End field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yRuleHistoryQueryIn) GetEndOk() (*int32, bool) {
+func (o *O11yO11yRuleHistoryQueryIn) GetEndOk() (*int64, bool) {
 	if o == nil || IsNil(o.End) {
 		return nil, false
 	}
@@ -72,8 +72,8 @@ func (o *O11yO11yRuleHistoryQueryIn) HasEnd() bool {
 	return false
 }
 
-// SetEnd gets a reference to the given int32 and assigns it to the End field.
-func (o *O11yO11yRuleHistoryQueryIn) SetEnd(v int32) {
+// SetEnd gets a reference to the given int64 and assigns it to the End field.
+func (o *O11yO11yRuleHistoryQueryIn) SetEnd(v int64) {
 	o.End = &v
 }
 
@@ -110,9 +110,9 @@ func (o *O11yO11yRuleHistoryQueryIn) SetFilters(v O11yFilterSet) {
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *O11yO11yRuleHistoryQueryIn) GetLimit() int32 {
+func (o *O11yO11yRuleHistoryQueryIn) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Limit
@@ -120,7 +120,7 @@ func (o *O11yO11yRuleHistoryQueryIn) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yRuleHistoryQueryIn) GetLimitOk() (*int32, bool) {
+func (o *O11yO11yRuleHistoryQueryIn) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -136,15 +136,15 @@ func (o *O11yO11yRuleHistoryQueryIn) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
-func (o *O11yO11yRuleHistoryQueryIn) SetLimit(v int32) {
+// SetLimit gets a reference to the given int64 and assigns it to the Limit field.
+func (o *O11yO11yRuleHistoryQueryIn) SetLimit(v int64) {
 	o.Limit = &v
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
-func (o *O11yO11yRuleHistoryQueryIn) GetOffset() int32 {
+func (o *O11yO11yRuleHistoryQueryIn) GetOffset() int64 {
 	if o == nil || IsNil(o.Offset) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Offset
@@ -152,7 +152,7 @@ func (o *O11yO11yRuleHistoryQueryIn) GetOffset() int32 {
 
 // GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yRuleHistoryQueryIn) GetOffsetOk() (*int32, bool) {
+func (o *O11yO11yRuleHistoryQueryIn) GetOffsetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Offset) {
 		return nil, false
 	}
@@ -168,8 +168,8 @@ func (o *O11yO11yRuleHistoryQueryIn) HasOffset() bool {
 	return false
 }
 
-// SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *O11yO11yRuleHistoryQueryIn) SetOffset(v int32) {
+// SetOffset gets a reference to the given int64 and assigns it to the Offset field.
+func (o *O11yO11yRuleHistoryQueryIn) SetOffset(v int64) {
 	o.Offset = &v
 }
 
@@ -206,9 +206,9 @@ func (o *O11yO11yRuleHistoryQueryIn) SetOrder(v string) {
 }
 
 // GetStart returns the Start field value if set, zero value otherwise.
-func (o *O11yO11yRuleHistoryQueryIn) GetStart() int32 {
+func (o *O11yO11yRuleHistoryQueryIn) GetStart() int64 {
 	if o == nil || IsNil(o.Start) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Start
@@ -216,7 +216,7 @@ func (o *O11yO11yRuleHistoryQueryIn) GetStart() int32 {
 
 // GetStartOk returns a tuple with the Start field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yRuleHistoryQueryIn) GetStartOk() (*int32, bool) {
+func (o *O11yO11yRuleHistoryQueryIn) GetStartOk() (*int64, bool) {
 	if o == nil || IsNil(o.Start) {
 		return nil, false
 	}
@@ -232,8 +232,8 @@ func (o *O11yO11yRuleHistoryQueryIn) HasStart() bool {
 	return false
 }
 
-// SetStart gets a reference to the given int32 and assigns it to the Start field.
-func (o *O11yO11yRuleHistoryQueryIn) SetStart(v int32) {
+// SetStart gets a reference to the given int64 and assigns it to the Start field.
+func (o *O11yO11yRuleHistoryQueryIn) SetStart(v int64) {
 	o.Start = &v
 }
 

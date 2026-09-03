@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **Project** | Pointer to **string** | Project is the AppProject fence the sync is admitted under: which repos this Application may pull from and which destinations it may write to. Empty when the CR declares none. | [optional] 
 **ReconciledAt** | Pointer to **string** | ReconciledAt is when CD last COMPARED this Application against git, RFC 3339. It moves on every comparison, including ones that applied nothing. | [optional] 
 **RepoURL** | Pointer to **string** | RepoURL is the git repository CD polls for this Application&#39;s desired state. | [optional] 
-**Resources** | Pointer to **int32** | Resources is how MANY objects CD manages for this Application (len(status.resources)) — a count, not the objects. Zero for an Application CD has not reconciled. | [optional] 
+**Resources** | Pointer to **int64** | Resources is how MANY objects CD manages for this Application (len(status.resources)) — a count, not the objects. Zero for an Application CD has not reconciled. | [optional] 
 **Revision** | Pointer to **string** | Revision is the commit CD last APPLIED (status.sync.revision). Empty means it has applied none — never read that as the head of TargetRevision. | [optional] 
 **SelfHeal** | Pointer to **bool** | SelfHeal is whether CD also reverts changes made directly in the cluster (syncPolicy.automated.selfHeal). Meaningless unless Automated. | [optional] 
 **Sync** | Pointer to **string** | Sync is CD&#39;s verdict on git versus cluster, verbatim: Synced, OutOfSync or Unknown. It is about the applied REVISION, so an Application can be Synced to a commit that is several behind the branch it tracks. | [optional] 
@@ -291,20 +291,20 @@ HasRepoURL returns a boolean if a field has been set.
 
 ### GetResources
 
-`func (o *GitOpsApp) GetResources() int32`
+`func (o *GitOpsApp) GetResources() int64`
 
 GetResources returns the Resources field if non-nil, zero value otherwise.
 
 ### GetResourcesOk
 
-`func (o *GitOpsApp) GetResourcesOk() (*int32, bool)`
+`func (o *GitOpsApp) GetResourcesOk() (*int64, bool)`
 
 GetResourcesOk returns a tuple with the Resources field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResources
 
-`func (o *GitOpsApp) SetResources(v int32)`
+`func (o *GitOpsApp) SetResources(v int64)`
 
 SetResources sets Resources field to given value.
 

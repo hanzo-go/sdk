@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Backend** | Pointer to **string** | Backend is the local endpoint the share proxies to. | [optional] 
 **BackendMode** | Pointer to **string** | BackendMode is how the tunnel serves the backend, e.g. proxy or web. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt is when the share was opened, unix seconds. | [optional] 
+**CreatedAt** | Pointer to **int64** | CreatedAt is when the share was opened, unix seconds. | [optional] 
 **Token** | Pointer to **string** | Token is the share&#39;s own identifier, the leaf of its public URL. | [optional] 
 **Url** | Pointer to **string** | URL is the share&#39;s public address, rendered from the deployment&#39;s URL template. | [optional] 
 
@@ -81,20 +81,20 @@ HasBackendMode returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *ShareView) GetCreatedAt() int32`
+`func (o *ShareView) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *ShareView) GetCreatedAtOk() (*int32, bool)`
+`func (o *ShareView) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *ShareView) SetCreatedAt(v int32)`
+`func (o *ShareView) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 

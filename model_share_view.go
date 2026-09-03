@@ -24,7 +24,7 @@ type ShareView struct {
 	// BackendMode is how the tunnel serves the backend, e.g. proxy or web.
 	BackendMode *string `json:"backendMode,omitempty"`
 	// CreatedAt is when the share was opened, unix seconds.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
+	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// Token is the share's own identifier, the leaf of its public URL.
 	Token *string `json:"token,omitempty"`
 	// URL is the share's public address, rendered from the deployment's URL template.
@@ -113,9 +113,9 @@ func (o *ShareView) SetBackendMode(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *ShareView) GetCreatedAt() int32 {
+func (o *ShareView) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -123,7 +123,7 @@ func (o *ShareView) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ShareView) GetCreatedAtOk() (*int32, bool) {
+func (o *ShareView) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -139,8 +139,8 @@ func (o *ShareView) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *ShareView) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *ShareView) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 

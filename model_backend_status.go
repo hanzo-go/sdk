@@ -22,13 +22,13 @@ type BackendStatus struct {
 	// Error is the failure text from a leg whose status is degraded — the reason a configured backend could not answer. Absent otherwise.
 	Error *string `json:"error,omitempty"`
 	// Hits is how many results this leg returned, counted BEFORE fusion, so it is not the number that survived into Fusion.Hits — fusion merges what both legs found and the caller's limit and offset then page it. 0 for a leg that did not run.
-	Hits *int32 `json:"hits,omitempty"`
-	// Name is which leg this reports: \"index\", the lexical store, \"vector\", the semantic one, or \"code\", the org's own repositories. Match.Backend uses the same three names.
+	Hits *int64 `json:"hits,omitempty"`
+	// Name is which leg this reports: \"index\", the lexical store, \"vector\", the semantic one, \"code\", the org's own repositories, or \"rerank\", the relevance pass over the fused window. Match.Backend uses the same names.
 	Name *string `json:"name,omitempty"`
 	// Status is one of ok, degraded, disabled, skipped — four distinct operational facts that are never collapsed. It ran and answered; it is configured and FAILED (Error says how, and only this one is a fault); this deployment never provisioned it; or the request's mode excluded it.
 	Status *string `json:"status,omitempty"`
 	// TookMS is how long this leg took, in milliseconds, timed around its own call and excluding fusion. 0 for a leg that was skipped or is disabled, since nothing was called.
-	TookMs *int32 `json:"took_ms,omitempty"`
+	TookMs *int64 `json:"took_ms,omitempty"`
 }
 
 // NewBackendStatus instantiates a new BackendStatus object
@@ -81,9 +81,9 @@ func (o *BackendStatus) SetError(v string) {
 }
 
 // GetHits returns the Hits field value if set, zero value otherwise.
-func (o *BackendStatus) GetHits() int32 {
+func (o *BackendStatus) GetHits() int64 {
 	if o == nil || IsNil(o.Hits) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Hits
@@ -91,7 +91,7 @@ func (o *BackendStatus) GetHits() int32 {
 
 // GetHitsOk returns a tuple with the Hits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BackendStatus) GetHitsOk() (*int32, bool) {
+func (o *BackendStatus) GetHitsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Hits) {
 		return nil, false
 	}
@@ -107,8 +107,8 @@ func (o *BackendStatus) HasHits() bool {
 	return false
 }
 
-// SetHits gets a reference to the given int32 and assigns it to the Hits field.
-func (o *BackendStatus) SetHits(v int32) {
+// SetHits gets a reference to the given int64 and assigns it to the Hits field.
+func (o *BackendStatus) SetHits(v int64) {
 	o.Hits = &v
 }
 
@@ -177,9 +177,9 @@ func (o *BackendStatus) SetStatus(v string) {
 }
 
 // GetTookMs returns the TookMs field value if set, zero value otherwise.
-func (o *BackendStatus) GetTookMs() int32 {
+func (o *BackendStatus) GetTookMs() int64 {
 	if o == nil || IsNil(o.TookMs) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TookMs
@@ -187,7 +187,7 @@ func (o *BackendStatus) GetTookMs() int32 {
 
 // GetTookMsOk returns a tuple with the TookMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BackendStatus) GetTookMsOk() (*int32, bool) {
+func (o *BackendStatus) GetTookMsOk() (*int64, bool) {
 	if o == nil || IsNil(o.TookMs) {
 		return nil, false
 	}
@@ -203,8 +203,8 @@ func (o *BackendStatus) HasTookMs() bool {
 	return false
 }
 
-// SetTookMs gets a reference to the given int32 and assigns it to the TookMs field.
-func (o *BackendStatus) SetTookMs(v int32) {
+// SetTookMs gets a reference to the given int64 and assigns it to the TookMs field.
+func (o *BackendStatus) SetTookMs(v int64) {
 	o.TookMs = &v
 }
 

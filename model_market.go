@@ -30,7 +30,7 @@ type Market struct {
 	// Graph is where this chain's indexer answers, empty where it has none.
 	Graph *string `json:"graph,omitempty"`
 	// ID is the EVM chain id, which is what a wallet must agree with.
-	Id   *int32  `json:"id,omitempty"`
+	Id   *int64  `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 	// Reach is how far the read of this chain's FIGURES got — its own, so one indexer being down describes one row and leaves the others to answer.
 	Reach *Reach `json:"reach,omitempty"`
@@ -250,9 +250,9 @@ func (o *Market) SetGraph(v string) {
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *Market) GetId() int32 {
+func (o *Market) GetId() int64 {
 	if o == nil || IsNil(o.Id) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Id
@@ -260,7 +260,7 @@ func (o *Market) GetId() int32 {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Market) GetIdOk() (*int32, bool) {
+func (o *Market) GetIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -276,8 +276,8 @@ func (o *Market) HasId() bool {
 	return false
 }
 
-// SetId gets a reference to the given int32 and assigns it to the Id field.
-func (o *Market) SetId(v int32) {
+// SetId gets a reference to the given int64 and assigns it to the Id field.
+func (o *Market) SetId(v int64) {
 	o.Id = &v
 }
 

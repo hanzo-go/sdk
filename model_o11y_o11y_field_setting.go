@@ -26,7 +26,7 @@ type O11yO11yFieldSetting struct {
 	// Index is the index expression to put on the column, e.g. minmax, set(N), bloom_filter(P), tokenbf_v1(S,H,SEED). Empty keeps the default.
 	Index *string `json:"index,omitempty"`
 	// IndexGranularity is the index granularity in rows.
-	IndexGranularity *int32 `json:"indexGranularity,omitempty"`
+	IndexGranularity *int64 `json:"indexGranularity,omitempty"`
 	// Name is the field to tune. Required.
 	Name string `json:"name"`
 	// Selected materializes the field as its own column when true.
@@ -114,9 +114,9 @@ func (o *O11yO11yFieldSetting) SetIndex(v string) {
 }
 
 // GetIndexGranularity returns the IndexGranularity field value if set, zero value otherwise.
-func (o *O11yO11yFieldSetting) GetIndexGranularity() int32 {
+func (o *O11yO11yFieldSetting) GetIndexGranularity() int64 {
 	if o == nil || IsNil(o.IndexGranularity) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.IndexGranularity
@@ -124,7 +124,7 @@ func (o *O11yO11yFieldSetting) GetIndexGranularity() int32 {
 
 // GetIndexGranularityOk returns a tuple with the IndexGranularity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yFieldSetting) GetIndexGranularityOk() (*int32, bool) {
+func (o *O11yO11yFieldSetting) GetIndexGranularityOk() (*int64, bool) {
 	if o == nil || IsNil(o.IndexGranularity) {
 		return nil, false
 	}
@@ -140,8 +140,8 @@ func (o *O11yO11yFieldSetting) HasIndexGranularity() bool {
 	return false
 }
 
-// SetIndexGranularity gets a reference to the given int32 and assigns it to the IndexGranularity field.
-func (o *O11yO11yFieldSetting) SetIndexGranularity(v int32) {
+// SetIndexGranularity gets a reference to the given int64 and assigns it to the IndexGranularity field.
+func (o *O11yO11yFieldSetting) SetIndexGranularity(v int64) {
 	o.IndexGranularity = &v
 }
 

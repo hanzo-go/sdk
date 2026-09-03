@@ -20,9 +20,9 @@ var _ MappedNullable = &AnalyzeQuery{}
 // AnalyzeQuery struct for AnalyzeQuery
 type AnalyzeQuery struct {
 	// Alpha overrides the 0.05 two-tailed significance threshold when it lies strictly between 0 and 1; anything else leaves the default in place.
-	Alpha *float32 `json:"alpha,omitempty"`
+	Alpha *float64 `json:"alpha,omitempty"`
 	// Days is how far back to read when no start is given: 1 to 365, 30 by default. A value outside that range leaves the default in place.
-	Days *int32 `json:"days,omitempty"`
+	Days *int64 `json:"days,omitempty"`
 	// End is the window's exclusive end in RFC3339, defaulting to now.
 	End *string `json:"end,omitempty"`
 	// ID is the experiment the URL names.
@@ -49,9 +49,9 @@ func NewAnalyzeQueryWithDefaults() *AnalyzeQuery {
 }
 
 // GetAlpha returns the Alpha field value if set, zero value otherwise.
-func (o *AnalyzeQuery) GetAlpha() float32 {
+func (o *AnalyzeQuery) GetAlpha() float64 {
 	if o == nil || IsNil(o.Alpha) {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Alpha
@@ -59,7 +59,7 @@ func (o *AnalyzeQuery) GetAlpha() float32 {
 
 // GetAlphaOk returns a tuple with the Alpha field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnalyzeQuery) GetAlphaOk() (*float32, bool) {
+func (o *AnalyzeQuery) GetAlphaOk() (*float64, bool) {
 	if o == nil || IsNil(o.Alpha) {
 		return nil, false
 	}
@@ -75,15 +75,15 @@ func (o *AnalyzeQuery) HasAlpha() bool {
 	return false
 }
 
-// SetAlpha gets a reference to the given float32 and assigns it to the Alpha field.
-func (o *AnalyzeQuery) SetAlpha(v float32) {
+// SetAlpha gets a reference to the given float64 and assigns it to the Alpha field.
+func (o *AnalyzeQuery) SetAlpha(v float64) {
 	o.Alpha = &v
 }
 
 // GetDays returns the Days field value if set, zero value otherwise.
-func (o *AnalyzeQuery) GetDays() int32 {
+func (o *AnalyzeQuery) GetDays() int64 {
 	if o == nil || IsNil(o.Days) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Days
@@ -91,7 +91,7 @@ func (o *AnalyzeQuery) GetDays() int32 {
 
 // GetDaysOk returns a tuple with the Days field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnalyzeQuery) GetDaysOk() (*int32, bool) {
+func (o *AnalyzeQuery) GetDaysOk() (*int64, bool) {
 	if o == nil || IsNil(o.Days) {
 		return nil, false
 	}
@@ -107,8 +107,8 @@ func (o *AnalyzeQuery) HasDays() bool {
 	return false
 }
 
-// SetDays gets a reference to the given int32 and assigns it to the Days field.
-func (o *AnalyzeQuery) SetDays(v int32) {
+// SetDays gets a reference to the given int64 and assigns it to the Days field.
+func (o *AnalyzeQuery) SetDays(v int64) {
 	o.Days = &v
 }
 

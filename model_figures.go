@@ -19,9 +19,9 @@ var _ MappedNullable = &Figures{}
 
 // Figures struct for Figures
 type Figures struct {
-	Count  *int32  `json:"count,omitempty"`
+	Count  *int64  `json:"count,omitempty"`
 	Locked *string `json:"locked,omitempty"`
-	Pools  *int32  `json:"pools,omitempty"`
+	Pools  *int64  `json:"pools,omitempty"`
 	Volume *string `json:"volume,omitempty"`
 }
 
@@ -43,9 +43,9 @@ func NewFiguresWithDefaults() *Figures {
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *Figures) GetCount() int32 {
+func (o *Figures) GetCount() int64 {
 	if o == nil || IsNil(o.Count) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Count
@@ -53,7 +53,7 @@ func (o *Figures) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Figures) GetCountOk() (*int32, bool) {
+func (o *Figures) GetCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *Figures) HasCount() bool {
 	return false
 }
 
-// SetCount gets a reference to the given int32 and assigns it to the Count field.
-func (o *Figures) SetCount(v int32) {
+// SetCount gets a reference to the given int64 and assigns it to the Count field.
+func (o *Figures) SetCount(v int64) {
 	o.Count = &v
 }
 
@@ -107,9 +107,9 @@ func (o *Figures) SetLocked(v string) {
 }
 
 // GetPools returns the Pools field value if set, zero value otherwise.
-func (o *Figures) GetPools() int32 {
+func (o *Figures) GetPools() int64 {
 	if o == nil || IsNil(o.Pools) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Pools
@@ -117,7 +117,7 @@ func (o *Figures) GetPools() int32 {
 
 // GetPoolsOk returns a tuple with the Pools field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Figures) GetPoolsOk() (*int32, bool) {
+func (o *Figures) GetPoolsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Pools) {
 		return nil, false
 	}
@@ -133,8 +133,8 @@ func (o *Figures) HasPools() bool {
 	return false
 }
 
-// SetPools gets a reference to the given int32 and assigns it to the Pools field.
-func (o *Figures) SetPools(v int32) {
+// SetPools gets a reference to the given int64 and assigns it to the Pools field.
+func (o *Figures) SetPools(v int64) {
 	o.Pools = &v
 }
 

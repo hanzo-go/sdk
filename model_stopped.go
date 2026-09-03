@@ -20,7 +20,7 @@ var _ MappedNullable = &Stopped{}
 // Stopped struct for Stopped
 type Stopped struct {
 	// Stopped counts the commands that were still running and were interrupted. Zero says the sandbox was idle, not that the stop failed — see above.
-	Stopped *int32 `json:"stopped,omitempty"`
+	Stopped *int64 `json:"stopped,omitempty"`
 }
 
 // NewStopped instantiates a new Stopped object
@@ -41,9 +41,9 @@ func NewStoppedWithDefaults() *Stopped {
 }
 
 // GetStopped returns the Stopped field value if set, zero value otherwise.
-func (o *Stopped) GetStopped() int32 {
+func (o *Stopped) GetStopped() int64 {
 	if o == nil || IsNil(o.Stopped) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Stopped
@@ -51,7 +51,7 @@ func (o *Stopped) GetStopped() int32 {
 
 // GetStoppedOk returns a tuple with the Stopped field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Stopped) GetStoppedOk() (*int32, bool) {
+func (o *Stopped) GetStoppedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Stopped) {
 		return nil, false
 	}
@@ -67,8 +67,8 @@ func (o *Stopped) HasStopped() bool {
 	return false
 }
 
-// SetStopped gets a reference to the given int32 and assigns it to the Stopped field.
-func (o *Stopped) SetStopped(v int32) {
+// SetStopped gets a reference to the given int64 and assigns it to the Stopped field.
+func (o *Stopped) SetStopped(v int64) {
 	o.Stopped = &v
 }
 

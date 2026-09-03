@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CommissionCents** | Pointer to **int32** | CommissionCents is what the caller earned that period, in cents: the sum over each referred org and upline level of margin × that level&#39;s rate. Always ≤ marginCents, by construction. | [optional] 
-**MarginCents** | Pointer to **int32** | MarginCents is the margin Hanzo earned in that period on the spend of every org the caller referred, in cents — the base commission is a rate OF. It is the aggregate base, never any one customer&#39;s bill. | [optional] 
+**CommissionCents** | Pointer to **int64** | CommissionCents is what the caller earned that period, in cents: the sum over each referred org and upline level of margin × that level&#39;s rate. Always ≤ marginCents, by construction. | [optional] 
+**MarginCents** | Pointer to **int64** | MarginCents is the margin Hanzo earned in that period on the spend of every org the caller referred, in cents — the base commission is a rate OF. It is the aggregate base, never any one customer&#39;s bill. | [optional] 
 **Period** | Pointer to **string** | Period is the accrual bucket: the UTC year-month, \&quot;YYYY-MM\&quot;. Commission is latched at most once per referred org per period, so one row is one month. | [optional] 
 
 ## Methods
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCommissionCents
 
-`func (o *PeriodEarningView) GetCommissionCents() int32`
+`func (o *PeriodEarningView) GetCommissionCents() int64`
 
 GetCommissionCents returns the CommissionCents field if non-nil, zero value otherwise.
 
 ### GetCommissionCentsOk
 
-`func (o *PeriodEarningView) GetCommissionCentsOk() (*int32, bool)`
+`func (o *PeriodEarningView) GetCommissionCentsOk() (*int64, bool)`
 
 GetCommissionCentsOk returns a tuple with the CommissionCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCommissionCents
 
-`func (o *PeriodEarningView) SetCommissionCents(v int32)`
+`func (o *PeriodEarningView) SetCommissionCents(v int64)`
 
 SetCommissionCents sets CommissionCents field to given value.
 
@@ -54,20 +54,20 @@ HasCommissionCents returns a boolean if a field has been set.
 
 ### GetMarginCents
 
-`func (o *PeriodEarningView) GetMarginCents() int32`
+`func (o *PeriodEarningView) GetMarginCents() int64`
 
 GetMarginCents returns the MarginCents field if non-nil, zero value otherwise.
 
 ### GetMarginCentsOk
 
-`func (o *PeriodEarningView) GetMarginCentsOk() (*int32, bool)`
+`func (o *PeriodEarningView) GetMarginCentsOk() (*int64, bool)`
 
 GetMarginCentsOk returns a tuple with the MarginCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMarginCents
 
-`func (o *PeriodEarningView) SetMarginCents(v int32)`
+`func (o *PeriodEarningView) SetMarginCents(v int64)`
 
 SetMarginCents sets MarginCents field to given value.
 

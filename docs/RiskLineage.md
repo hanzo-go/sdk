@@ -7,17 +7,17 @@ Name | Type | Description | Notes
 **Dataset** | Pointer to **string** | Dataset is the dataset traced. | [optional] 
 **Digest** | Pointer to **string** | Digest is the version&#39;s fingerprint, repeated here so a lineage answer is self-contained. | [optional] 
 **From** | Pointer to **string** | From is where the window actually read opens, RFC 3339. Same as the spec&#39;s. | [optional] 
-**Holds** | Pointer to **int32** | Holds is what the source holds for the same window NOW. The difference between it and Rows is the whole of the reproducibility claim. | [optional] 
-**Oversize** | Pointer to **int32** | Oversize is how many subjects the window held that were too large to represent when this version was built. It is part of the fingerprint, so it is part of what \&quot;reproducible\&quot; is measured over. | [optional] 
+**Holds** | Pointer to **int64** | Holds is what the source holds for the same window NOW. The difference between it and Rows is the whole of the reproducibility claim. | [optional] 
+**Oversize** | Pointer to **int64** | Oversize is how many subjects the window held that were too large to represent when this version was built. It is part of the fingerprint, so it is part of what \&quot;reproducible\&quot; is measured over. | [optional] 
 **Refusal** | Pointer to **string** | Refusal says which way it failed — the window expired, or the source now holds a different count. Absent when Reproducible is true. | [optional] 
 **Reproducible** | Pointer to **bool** | Reproducible is true when the source still holds what this version was built from — measured by asking it again, not recalled. False is ordinary: the source is fed by a rollup that runs behind the events, so \&quot;it holds more now\&quot; is the common case and it means re-running the spec would not produce this version. | [optional] 
 **Retention** | Pointer to **string** | Retention is the source&#39;s own expiry rule as the store reports it, read at materialisation time rather than assumed. A source whose retention is shorter than this window cannot re-derive it. | [optional] 
-**Rows** | Pointer to **int32** | Rows is how many rows the source held for that window at materialisation time. Holds is the same question asked now, and the difference between them is the whole of the reproducibility claim. | [optional] 
-**Share** | Pointer to **int32** | Share is the fraction of subjects admitted, in thousandths. | [optional] 
+**Rows** | Pointer to **int64** | Rows is how many rows the source held for that window at materialisation time. Holds is the same question asked now, and the difference between them is the whole of the reproducibility claim. | [optional] 
+**Share** | Pointer to **int64** | Share is the fraction of subjects admitted, in thousandths. | [optional] 
 **Source** | Pointer to **string** | Source is the plane the rows were derived from. | [optional] 
-**Subjects** | Pointer to **int32** | Subjects is how many distinct subjects those rows belonged to. It is the real sample size — the row count flatters it whenever a subject is active. | [optional] 
+**Subjects** | Pointer to **int64** | Subjects is how many distinct subjects those rows belonged to. It is the real sample size — the row count flatters it whenever a subject is active. | [optional] 
 **To** | Pointer to **string** | To is where it ends: the spec&#39;s own end pulled BACK by the maturity horizon, so it is usually earlier than the spec says. This is the window a reproduction has to ask for — asking the spec&#39;s would not return these rows. | [optional] 
-**Version** | Pointer to **int32** | Version is the version traced — the one asked for, or the newest published one when the request named none. | [optional] 
+**Version** | Pointer to **int64** | Version is the version traced — the one asked for, or the newest published one when the request named none. | [optional] 
 
 ## Methods
 
@@ -115,20 +115,20 @@ HasFrom returns a boolean if a field has been set.
 
 ### GetHolds
 
-`func (o *RiskLineage) GetHolds() int32`
+`func (o *RiskLineage) GetHolds() int64`
 
 GetHolds returns the Holds field if non-nil, zero value otherwise.
 
 ### GetHoldsOk
 
-`func (o *RiskLineage) GetHoldsOk() (*int32, bool)`
+`func (o *RiskLineage) GetHoldsOk() (*int64, bool)`
 
 GetHoldsOk returns a tuple with the Holds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHolds
 
-`func (o *RiskLineage) SetHolds(v int32)`
+`func (o *RiskLineage) SetHolds(v int64)`
 
 SetHolds sets Holds field to given value.
 
@@ -140,20 +140,20 @@ HasHolds returns a boolean if a field has been set.
 
 ### GetOversize
 
-`func (o *RiskLineage) GetOversize() int32`
+`func (o *RiskLineage) GetOversize() int64`
 
 GetOversize returns the Oversize field if non-nil, zero value otherwise.
 
 ### GetOversizeOk
 
-`func (o *RiskLineage) GetOversizeOk() (*int32, bool)`
+`func (o *RiskLineage) GetOversizeOk() (*int64, bool)`
 
 GetOversizeOk returns a tuple with the Oversize field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOversize
 
-`func (o *RiskLineage) SetOversize(v int32)`
+`func (o *RiskLineage) SetOversize(v int64)`
 
 SetOversize sets Oversize field to given value.
 
@@ -240,20 +240,20 @@ HasRetention returns a boolean if a field has been set.
 
 ### GetRows
 
-`func (o *RiskLineage) GetRows() int32`
+`func (o *RiskLineage) GetRows() int64`
 
 GetRows returns the Rows field if non-nil, zero value otherwise.
 
 ### GetRowsOk
 
-`func (o *RiskLineage) GetRowsOk() (*int32, bool)`
+`func (o *RiskLineage) GetRowsOk() (*int64, bool)`
 
 GetRowsOk returns a tuple with the Rows field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRows
 
-`func (o *RiskLineage) SetRows(v int32)`
+`func (o *RiskLineage) SetRows(v int64)`
 
 SetRows sets Rows field to given value.
 
@@ -265,20 +265,20 @@ HasRows returns a boolean if a field has been set.
 
 ### GetShare
 
-`func (o *RiskLineage) GetShare() int32`
+`func (o *RiskLineage) GetShare() int64`
 
 GetShare returns the Share field if non-nil, zero value otherwise.
 
 ### GetShareOk
 
-`func (o *RiskLineage) GetShareOk() (*int32, bool)`
+`func (o *RiskLineage) GetShareOk() (*int64, bool)`
 
 GetShareOk returns a tuple with the Share field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetShare
 
-`func (o *RiskLineage) SetShare(v int32)`
+`func (o *RiskLineage) SetShare(v int64)`
 
 SetShare sets Share field to given value.
 
@@ -315,20 +315,20 @@ HasSource returns a boolean if a field has been set.
 
 ### GetSubjects
 
-`func (o *RiskLineage) GetSubjects() int32`
+`func (o *RiskLineage) GetSubjects() int64`
 
 GetSubjects returns the Subjects field if non-nil, zero value otherwise.
 
 ### GetSubjectsOk
 
-`func (o *RiskLineage) GetSubjectsOk() (*int32, bool)`
+`func (o *RiskLineage) GetSubjectsOk() (*int64, bool)`
 
 GetSubjectsOk returns a tuple with the Subjects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSubjects
 
-`func (o *RiskLineage) SetSubjects(v int32)`
+`func (o *RiskLineage) SetSubjects(v int64)`
 
 SetSubjects sets Subjects field to given value.
 
@@ -365,20 +365,20 @@ HasTo returns a boolean if a field has been set.
 
 ### GetVersion
 
-`func (o *RiskLineage) GetVersion() int32`
+`func (o *RiskLineage) GetVersion() int64`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *RiskLineage) GetVersionOk() (*int32, bool)`
+`func (o *RiskLineage) GetVersionOk() (*int64, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *RiskLineage) SetVersion(v int32)`
+`func (o *RiskLineage) SetVersion(v int64)`
 
 SetVersion sets Version field to given value.
 

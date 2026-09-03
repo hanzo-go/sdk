@@ -20,23 +20,23 @@ var _ MappedNullable = &IndexResult{}
 // IndexResult struct for IndexResult
 type IndexResult struct {
 	// Chunks is how many AST-boundary chunks the repo holds after this pass.
-	Chunks *int32 `json:"chunks,omitempty"`
+	Chunks *int64 `json:"chunks,omitempty"`
 	// Files is how many files the repo holds after this pass.
-	Files *int32 `json:"files,omitempty"`
+	Files *int64 `json:"files,omitempty"`
 	// Indexed is how many files were parsed and written on this pass.
-	Indexed *int32 `json:"indexed,omitempty"`
+	Indexed *int64 `json:"indexed,omitempty"`
 	// Pruned is how many stored files were deleted because prune was set and they were absent from the request.
-	Pruned *int32 `json:"pruned,omitempty"`
+	Pruned *int64 `json:"pruned,omitempty"`
 	// Repo is the repository that was indexed.
 	Repo *string `json:"repo,omitempty"`
 	// Semantic reports whether the semantic tier was available for this pass. When false the index is lexical + symbolic only and hybrid search still works.
 	Semantic *bool `json:"semantic,omitempty"`
 	// Skipped is how many files were unchanged by content hash and left alone.
-	Skipped *int32 `json:"skipped,omitempty"`
+	Skipped *int64 `json:"skipped,omitempty"`
 	// Symbols is how many symbol definitions the repo holds after this pass.
-	Symbols *int32 `json:"symbols,omitempty"`
+	Symbols *int64 `json:"symbols,omitempty"`
 	// Vectors is how many of those chunks carry an embedding.
-	Vectors *int32 `json:"vectors,omitempty"`
+	Vectors *int64 `json:"vectors,omitempty"`
 }
 
 // NewIndexResult instantiates a new IndexResult object
@@ -57,9 +57,9 @@ func NewIndexResultWithDefaults() *IndexResult {
 }
 
 // GetChunks returns the Chunks field value if set, zero value otherwise.
-func (o *IndexResult) GetChunks() int32 {
+func (o *IndexResult) GetChunks() int64 {
 	if o == nil || IsNil(o.Chunks) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Chunks
@@ -67,7 +67,7 @@ func (o *IndexResult) GetChunks() int32 {
 
 // GetChunksOk returns a tuple with the Chunks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexResult) GetChunksOk() (*int32, bool) {
+func (o *IndexResult) GetChunksOk() (*int64, bool) {
 	if o == nil || IsNil(o.Chunks) {
 		return nil, false
 	}
@@ -83,15 +83,15 @@ func (o *IndexResult) HasChunks() bool {
 	return false
 }
 
-// SetChunks gets a reference to the given int32 and assigns it to the Chunks field.
-func (o *IndexResult) SetChunks(v int32) {
+// SetChunks gets a reference to the given int64 and assigns it to the Chunks field.
+func (o *IndexResult) SetChunks(v int64) {
 	o.Chunks = &v
 }
 
 // GetFiles returns the Files field value if set, zero value otherwise.
-func (o *IndexResult) GetFiles() int32 {
+func (o *IndexResult) GetFiles() int64 {
 	if o == nil || IsNil(o.Files) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Files
@@ -99,7 +99,7 @@ func (o *IndexResult) GetFiles() int32 {
 
 // GetFilesOk returns a tuple with the Files field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexResult) GetFilesOk() (*int32, bool) {
+func (o *IndexResult) GetFilesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Files) {
 		return nil, false
 	}
@@ -115,15 +115,15 @@ func (o *IndexResult) HasFiles() bool {
 	return false
 }
 
-// SetFiles gets a reference to the given int32 and assigns it to the Files field.
-func (o *IndexResult) SetFiles(v int32) {
+// SetFiles gets a reference to the given int64 and assigns it to the Files field.
+func (o *IndexResult) SetFiles(v int64) {
 	o.Files = &v
 }
 
 // GetIndexed returns the Indexed field value if set, zero value otherwise.
-func (o *IndexResult) GetIndexed() int32 {
+func (o *IndexResult) GetIndexed() int64 {
 	if o == nil || IsNil(o.Indexed) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Indexed
@@ -131,7 +131,7 @@ func (o *IndexResult) GetIndexed() int32 {
 
 // GetIndexedOk returns a tuple with the Indexed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexResult) GetIndexedOk() (*int32, bool) {
+func (o *IndexResult) GetIndexedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Indexed) {
 		return nil, false
 	}
@@ -147,15 +147,15 @@ func (o *IndexResult) HasIndexed() bool {
 	return false
 }
 
-// SetIndexed gets a reference to the given int32 and assigns it to the Indexed field.
-func (o *IndexResult) SetIndexed(v int32) {
+// SetIndexed gets a reference to the given int64 and assigns it to the Indexed field.
+func (o *IndexResult) SetIndexed(v int64) {
 	o.Indexed = &v
 }
 
 // GetPruned returns the Pruned field value if set, zero value otherwise.
-func (o *IndexResult) GetPruned() int32 {
+func (o *IndexResult) GetPruned() int64 {
 	if o == nil || IsNil(o.Pruned) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Pruned
@@ -163,7 +163,7 @@ func (o *IndexResult) GetPruned() int32 {
 
 // GetPrunedOk returns a tuple with the Pruned field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexResult) GetPrunedOk() (*int32, bool) {
+func (o *IndexResult) GetPrunedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Pruned) {
 		return nil, false
 	}
@@ -179,8 +179,8 @@ func (o *IndexResult) HasPruned() bool {
 	return false
 }
 
-// SetPruned gets a reference to the given int32 and assigns it to the Pruned field.
-func (o *IndexResult) SetPruned(v int32) {
+// SetPruned gets a reference to the given int64 and assigns it to the Pruned field.
+func (o *IndexResult) SetPruned(v int64) {
 	o.Pruned = &v
 }
 
@@ -249,9 +249,9 @@ func (o *IndexResult) SetSemantic(v bool) {
 }
 
 // GetSkipped returns the Skipped field value if set, zero value otherwise.
-func (o *IndexResult) GetSkipped() int32 {
+func (o *IndexResult) GetSkipped() int64 {
 	if o == nil || IsNil(o.Skipped) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Skipped
@@ -259,7 +259,7 @@ func (o *IndexResult) GetSkipped() int32 {
 
 // GetSkippedOk returns a tuple with the Skipped field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexResult) GetSkippedOk() (*int32, bool) {
+func (o *IndexResult) GetSkippedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Skipped) {
 		return nil, false
 	}
@@ -275,15 +275,15 @@ func (o *IndexResult) HasSkipped() bool {
 	return false
 }
 
-// SetSkipped gets a reference to the given int32 and assigns it to the Skipped field.
-func (o *IndexResult) SetSkipped(v int32) {
+// SetSkipped gets a reference to the given int64 and assigns it to the Skipped field.
+func (o *IndexResult) SetSkipped(v int64) {
 	o.Skipped = &v
 }
 
 // GetSymbols returns the Symbols field value if set, zero value otherwise.
-func (o *IndexResult) GetSymbols() int32 {
+func (o *IndexResult) GetSymbols() int64 {
 	if o == nil || IsNil(o.Symbols) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Symbols
@@ -291,7 +291,7 @@ func (o *IndexResult) GetSymbols() int32 {
 
 // GetSymbolsOk returns a tuple with the Symbols field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexResult) GetSymbolsOk() (*int32, bool) {
+func (o *IndexResult) GetSymbolsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Symbols) {
 		return nil, false
 	}
@@ -307,15 +307,15 @@ func (o *IndexResult) HasSymbols() bool {
 	return false
 }
 
-// SetSymbols gets a reference to the given int32 and assigns it to the Symbols field.
-func (o *IndexResult) SetSymbols(v int32) {
+// SetSymbols gets a reference to the given int64 and assigns it to the Symbols field.
+func (o *IndexResult) SetSymbols(v int64) {
 	o.Symbols = &v
 }
 
 // GetVectors returns the Vectors field value if set, zero value otherwise.
-func (o *IndexResult) GetVectors() int32 {
+func (o *IndexResult) GetVectors() int64 {
 	if o == nil || IsNil(o.Vectors) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Vectors
@@ -323,7 +323,7 @@ func (o *IndexResult) GetVectors() int32 {
 
 // GetVectorsOk returns a tuple with the Vectors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexResult) GetVectorsOk() (*int32, bool) {
+func (o *IndexResult) GetVectorsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Vectors) {
 		return nil, false
 	}
@@ -339,8 +339,8 @@ func (o *IndexResult) HasVectors() bool {
 	return false
 }
 
-// SetVectors gets a reference to the given int32 and assigns it to the Vectors field.
-func (o *IndexResult) SetVectors(v int32) {
+// SetVectors gets a reference to the given int64 and assigns it to the Vectors field.
+func (o *IndexResult) SetVectors(v int64) {
 	o.Vectors = &v
 }
 

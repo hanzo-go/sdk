@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Folded** | Pointer to **int32** | Folded is how many buckets of the tenant&#39;s own feature surface were folded into the model when it became resident. | [optional] 
+**Folded** | Pointer to **int64** | Folded is how many buckets of the tenant&#39;s own feature surface were folded into the model when it became resident. | [optional] 
 **Gap** | Pointer to **string** | Gap says why the fold did not happen or did not complete, when that is the case. An empty surface and an unreachable warehouse are different facts and a model must not report them as the same one. | [optional] 
-**Refused** | Pointer to **int32** | Refused is how many buckets of this organisation&#39;s own surface the fold could not fold, because a subject on them is longer than this plane&#39;s own field bound. It is history the model does not have, said out loud. | [optional] 
-**Replayed** | Pointer to **int32** | Replayed is how many of this organisation&#39;s own recorded observations rebuilt its sliding aggregates when the model became resident. It is what says a rollout was a rebuild rather than a blindness: the aggregates are a projection of a durable record, so a restart costs a replay and not a control. | [optional] 
-**Rolled** | Pointer to **int32** | Rolled is how many windows of this organisation&#39;s own source planes — product events, captured failures, metered inference — were rolled up into its feature surface before that fold. Zero with no gap means the surface was already current, which is a different fact from the rollup never running. | [optional] 
+**Refused** | Pointer to **int64** | Refused is how many buckets of this organisation&#39;s own surface the fold could not fold, because a subject on them is longer than this plane&#39;s own field bound. It is history the model does not have, said out loud. | [optional] 
+**Replayed** | Pointer to **int64** | Replayed is how many of this organisation&#39;s own recorded observations rebuilt its sliding aggregates when the model became resident. It is what says a rollout was a rebuild rather than a blindness: the aggregates are a projection of a durable record, so a restart costs a replay and not a control. | [optional] 
+**Rolled** | Pointer to **int64** | Rolled is how many windows of this organisation&#39;s own source planes — product events, captured failures, metered inference — were rolled up into its feature surface before that fold. Zero with no gap means the surface was already current, which is a different fact from the rollup never running. | [optional] 
 **Window** | Pointer to **string** | Window is the lookback the fold covered. | [optional] 
 
 ## Methods
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetFolded
 
-`func (o *RiskSurface) GetFolded() int32`
+`func (o *RiskSurface) GetFolded() int64`
 
 GetFolded returns the Folded field if non-nil, zero value otherwise.
 
 ### GetFoldedOk
 
-`func (o *RiskSurface) GetFoldedOk() (*int32, bool)`
+`func (o *RiskSurface) GetFoldedOk() (*int64, bool)`
 
 GetFoldedOk returns a tuple with the Folded field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFolded
 
-`func (o *RiskSurface) SetFolded(v int32)`
+`func (o *RiskSurface) SetFolded(v int64)`
 
 SetFolded sets Folded field to given value.
 
@@ -82,20 +82,20 @@ HasGap returns a boolean if a field has been set.
 
 ### GetRefused
 
-`func (o *RiskSurface) GetRefused() int32`
+`func (o *RiskSurface) GetRefused() int64`
 
 GetRefused returns the Refused field if non-nil, zero value otherwise.
 
 ### GetRefusedOk
 
-`func (o *RiskSurface) GetRefusedOk() (*int32, bool)`
+`func (o *RiskSurface) GetRefusedOk() (*int64, bool)`
 
 GetRefusedOk returns a tuple with the Refused field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRefused
 
-`func (o *RiskSurface) SetRefused(v int32)`
+`func (o *RiskSurface) SetRefused(v int64)`
 
 SetRefused sets Refused field to given value.
 
@@ -107,20 +107,20 @@ HasRefused returns a boolean if a field has been set.
 
 ### GetReplayed
 
-`func (o *RiskSurface) GetReplayed() int32`
+`func (o *RiskSurface) GetReplayed() int64`
 
 GetReplayed returns the Replayed field if non-nil, zero value otherwise.
 
 ### GetReplayedOk
 
-`func (o *RiskSurface) GetReplayedOk() (*int32, bool)`
+`func (o *RiskSurface) GetReplayedOk() (*int64, bool)`
 
 GetReplayedOk returns a tuple with the Replayed field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReplayed
 
-`func (o *RiskSurface) SetReplayed(v int32)`
+`func (o *RiskSurface) SetReplayed(v int64)`
 
 SetReplayed sets Replayed field to given value.
 
@@ -132,20 +132,20 @@ HasReplayed returns a boolean if a field has been set.
 
 ### GetRolled
 
-`func (o *RiskSurface) GetRolled() int32`
+`func (o *RiskSurface) GetRolled() int64`
 
 GetRolled returns the Rolled field if non-nil, zero value otherwise.
 
 ### GetRolledOk
 
-`func (o *RiskSurface) GetRolledOk() (*int32, bool)`
+`func (o *RiskSurface) GetRolledOk() (*int64, bool)`
 
 GetRolledOk returns a tuple with the Rolled field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRolled
 
-`func (o *RiskSurface) SetRolled(v int32)`
+`func (o *RiskSurface) SetRolled(v int64)`
 
 SetRolled sets Rolled field to given value.
 

@@ -17,12 +17,12 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 
 **Phone** | Pointer to **string** |  | [optional] 
-**Quota** | Pointer to **int32** |  | [optional] 
+**Quota** | Pointer to **int64** |  | [optional] 
 **SignupGroup** | Pointer to **string** |  | [optional] 
 **State** | Pointer to **string** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 **UpdatedTime** | Pointer to **string** |  | [optional] 
-**UsedCount** | Pointer to **int32** |  | [optional] 
+**UsedCount** | Pointer to **int64** |  | [optional] 
 **Username** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -371,20 +371,20 @@ HasPhone returns a boolean if a field has been set.
 
 ### GetQuota
 
-`func (o *IamInvitation) GetQuota() int32`
+`func (o *IamInvitation) GetQuota() int64`
 
 GetQuota returns the Quota field if non-nil, zero value otherwise.
 
 ### GetQuotaOk
 
-`func (o *IamInvitation) GetQuotaOk() (*int32, bool)`
+`func (o *IamInvitation) GetQuotaOk() (*int64, bool)`
 
 GetQuotaOk returns a tuple with the Quota field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQuota
 
-`func (o *IamInvitation) SetQuota(v int32)`
+`func (o *IamInvitation) SetQuota(v int64)`
 
 SetQuota sets Quota field to given value.
 
@@ -496,20 +496,20 @@ HasUpdatedTime returns a boolean if a field has been set.
 
 ### GetUsedCount
 
-`func (o *IamInvitation) GetUsedCount() int32`
+`func (o *IamInvitation) GetUsedCount() int64`
 
 GetUsedCount returns the UsedCount field if non-nil, zero value otherwise.
 
 ### GetUsedCountOk
 
-`func (o *IamInvitation) GetUsedCountOk() (*int32, bool)`
+`func (o *IamInvitation) GetUsedCountOk() (*int64, bool)`
 
 GetUsedCountOk returns a tuple with the UsedCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUsedCount
 
-`func (o *IamInvitation) SetUsedCount(v int32)`
+`func (o *IamInvitation) SetUsedCount(v int64)`
 
 SetUsedCount sets UsedCount field to given value.
 

@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **At** | Pointer to **string** | At is the pool contract&#39;s address, lowercase. | [optional] 
-**Count** | Pointer to **int32** |  | [optional] 
-**Fee** | Pointer to **int32** | Fee is the pool&#39;s tier in hundredths of a basis point — 3000 is 0.3%. It is the integer the contract stores, unconverted, so nothing here rounds a rate. | [optional] 
+**Count** | Pointer to **int64** |  | [optional] 
+**Fee** | Pointer to **int64** | Fee is the pool&#39;s tier in hundredths of a basis point — 3000 is 0.3%. It is the integer the contract stores, unconverted, so nothing here rounds a rate. | [optional] 
 **Locked** | Pointer to **string** |  | [optional] 
 **Token0** | Pointer to [**Token**](Token.md) |  | [optional] 
 **Token0Price** | Pointer to **string** | Token0Price is token1 per token0, and Token1Price its reciprocal, both as the indexer computed them. Neither is a price ON anything: it is the ratio the pool&#39;s reserves stand at. | [optional] 
@@ -60,20 +60,20 @@ HasAt returns a boolean if a field has been set.
 
 ### GetCount
 
-`func (o *Pool) GetCount() int32`
+`func (o *Pool) GetCount() int64`
 
 GetCount returns the Count field if non-nil, zero value otherwise.
 
 ### GetCountOk
 
-`func (o *Pool) GetCountOk() (*int32, bool)`
+`func (o *Pool) GetCountOk() (*int64, bool)`
 
 GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCount
 
-`func (o *Pool) SetCount(v int32)`
+`func (o *Pool) SetCount(v int64)`
 
 SetCount sets Count field to given value.
 
@@ -85,20 +85,20 @@ HasCount returns a boolean if a field has been set.
 
 ### GetFee
 
-`func (o *Pool) GetFee() int32`
+`func (o *Pool) GetFee() int64`
 
 GetFee returns the Fee field if non-nil, zero value otherwise.
 
 ### GetFeeOk
 
-`func (o *Pool) GetFeeOk() (*int32, bool)`
+`func (o *Pool) GetFeeOk() (*int64, bool)`
 
 GetFeeOk returns a tuple with the Fee field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFee
 
-`func (o *Pool) SetFee(v int32)`
+`func (o *Pool) SetFee(v int64)`
 
 SetFee sets Fee field to given value.
 

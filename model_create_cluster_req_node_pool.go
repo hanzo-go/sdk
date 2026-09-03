@@ -19,7 +19,7 @@ var _ MappedNullable = &CreateClusterReqNodePool{}
 
 // CreateClusterReqNodePool NodePool is the ONE pool the cluster is born with — a cluster with no nodes runs nothing, so it is not optional. More pools are added afterwards through POST /v1/visor/clusters/:clusterId/pools.
 type CreateClusterReqNodePool struct {
-	Count *int32  `json:"count,omitempty"`
+	Count *int64  `json:"count,omitempty"`
 	Name  *string `json:"name,omitempty"`
 	Size  *string `json:"size,omitempty"`
 }
@@ -42,9 +42,9 @@ func NewCreateClusterReqNodePoolWithDefaults() *CreateClusterReqNodePool {
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *CreateClusterReqNodePool) GetCount() int32 {
+func (o *CreateClusterReqNodePool) GetCount() int64 {
 	if o == nil || IsNil(o.Count) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Count
@@ -52,7 +52,7 @@ func (o *CreateClusterReqNodePool) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateClusterReqNodePool) GetCountOk() (*int32, bool) {
+func (o *CreateClusterReqNodePool) GetCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -68,8 +68,8 @@ func (o *CreateClusterReqNodePool) HasCount() bool {
 	return false
 }
 
-// SetCount gets a reference to the given int32 and assigns it to the Count field.
-func (o *CreateClusterReqNodePool) SetCount(v int32) {
+// SetCount gets a reference to the given int64 and assigns it to the Count field.
+func (o *CreateClusterReqNodePool) SetCount(v int64) {
 	o.Count = &v
 }
 
