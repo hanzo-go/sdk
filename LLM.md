@@ -67,7 +67,7 @@ say `{.: .}` and the second driver this repo carried is gone.
 ## One client, at the module root
 
 The repo root `*.go` **is** the client, `package hanzoai` — 2656 generated files
-beside two hand-written ones. There is no second surface: the hand-shipped
+beside four hand-written ones. There is no second surface: the hand-shipped
 client that predated it and the parallel `cloud/` subpackage are both gone.
 
 **The shape, measured against the locked document.** 1814 paths carry 2479
@@ -86,7 +86,10 @@ Hand-written, and safe from regeneration:
 | file | why |
 |---|---|
 | `hanzo.go` | `NewConfig` / `NewClient` — the authenticated constructor |
+| `grant.go` | `As` — acting as one subject, on IAM's act grant |
+| `result.go` | `Read` / `Result` — the answer a person was asked about |
 | `hanzo_test.go` | pins the six flows to their routes; asserts one bearer header |
+| `grant_test.go`, `result_test.go` | the whole round trip against an `httptest` estate |
 | `examples/` | the six flows, plus `models` and `errors` |
 | `go.mod`, `README.md`, `LLM.md`, `hanzo.yml`, `.hanzo/`, `scripts/` | repo-owned |
 
@@ -124,6 +127,52 @@ set in both places is sent twice. `TestFlows` asserts
 `len(Header.Values("Authorization")) == 1` rather than just its value, so the
 day someone wires the context path as well the test says so. A second identity
 is a second client.
+
+## Acting as a subject
+
+`client.As(subject)` returns the same client — the same 2502 methods — scoped to
+one tenant subject. It mints a subject-bound token from IAM's act grant, caches
+it to expiry and re-mints once on a 401, so no method takes a user id: the
+credential is the scope, and a caller cannot pass the wrong one.
+
+**One extension point, an `http.RoundTripper` on the Configuration's
+`HTTPClient`.** Signing and the 401 replay are the same object, because they are
+one question — is this request carrying a live token — asked at the one moment
+the answer is known.
+
+The mint is not a call to the platform. It is
+`POST https://hanzo.id/v1/iam/tokens/issue?id=<subject>`, on IAM's own host,
+carrying the operator credential and nothing else; **`HANZO_ISSUER_URL`** moves
+it for a private estate, the way `HANZO_BASE_URL` moves the gateway. The
+generated `PostIamTokensIssue` cannot serve: the document states that operation
+as an address and not as a shape, so the method carries neither the `id` query
+nor the camelCase `{accessToken, expiresIn}` it answers with — the same reason
+`hanzo.go` exists.
+
+The operator credential does not travel with the minted token. `As` takes
+`Authorization` off the scoped Configuration's default headers and the grant
+sets it per request, so a scoped call carries exactly one — the assertion
+`TestFlows` already makes for the unscoped client.
+
+## The held answer
+
+`Read` takes the three values every generated `Execute` returns and gives a
+`Result[T]` whose value is reachable only through `Value()`, which answers a
+`*HeldError` when the platform stopped the call for a human decision. Go has no
+sum type; an ignored error return is loud where an exported field read is
+silent.
+
+**The body says whether a call was held, not the status code.** A dozen
+operations answer 202 for "accepted, working on it" and carry a real schema — a
+deployment, a preview, a build — so discriminating on the code turns each of
+them into an approval nobody is waiting on, and the caller waits forever for an
+answer from someone who was never asked. Only `"status":"held"` is a hold. That
+is the discriminator the other Hanzo clients use, so there is one contract
+rather than one per language.
+
+`Read` decides the hold before it looks at the error, because the hold is a
+property of the answer: a held body need not fit the operation's own schema, and
+the caller still has to learn a person was asked.
 
 ## Generation knobs
 

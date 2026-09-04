@@ -25,7 +25,8 @@ const DefaultBaseURL = "https://api.hanzo.ai"
 // Configuration once and every operation carries it. Which means there is one
 // place to set it: a token in the context as well would be a SECOND
 // Authorization header on the same request, because the generated client adds
-// both. For a second identity, build a second client.
+// both. For a second identity, build a second client — or, to act as one of
+// your tenant's subjects, see [APIClient.As].
 //
 // Use NewConfig when a request needs more than credentials — an org scope, say:
 //
