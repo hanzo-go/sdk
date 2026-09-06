@@ -21,7 +21,7 @@ var _ MappedNullable = &ToolCall{}
 type ToolCall struct {
 	// Arguments is the tool's own input object, passed through verbatim to whichever source owns it.
 	Arguments map[string]map[string]interface{} `json:"arguments,omitempty"`
-	// Name is the tool to run, exactly as GET /v1/tools reports it.
+	// Name is the tool to run, exactly as GET /v1/tool reports it.
 	Name *string `json:"name,omitempty"`
 }
 

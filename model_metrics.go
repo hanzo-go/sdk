@@ -25,10 +25,10 @@ type Metrics struct {
 	GpuUtil *float64 `json:"gpuUtil,omitempty"`
 	// Load1 is the machine's own one-minute load average — a count of runnable and uninterruptible tasks, NOT a percentage and NOT already divided by core count, so it is read against Spec.CPUs: 8.0 is idle on 16 cores and swamped on 4. Coerced finite and non-negative on write, so 0 means either genuinely idle or nothing reported.
 	Load1 *float64 `json:"load1,omitempty"`
-	// Load5 is the same figure averaged over five minutes.
-	Load5 *float64 `json:"load5,omitempty"`
 	// Load15 is the same figure over fifteen. The three together are what separate a machine that is busy right now from one that has been busy all along — which is the question a dispatcher is really asking.
 	Load15 *float64 `json:"load15,omitempty"`
+	// Load5 is the same figure averaged over five minutes.
+	Load5 *float64 `json:"load5,omitempty"`
 	// bytes
 	MemFree *int64 `json:"memFree,omitempty"`
 	// bytes
@@ -148,38 +148,6 @@ func (o *Metrics) SetLoad1(v float64) {
 	o.Load1 = &v
 }
 
-// GetLoad5 returns the Load5 field value if set, zero value otherwise.
-func (o *Metrics) GetLoad5() float64 {
-	if o == nil || IsNil(o.Load5) {
-		var ret float64
-		return ret
-	}
-	return *o.Load5
-}
-
-// GetLoad5Ok returns a tuple with the Load5 field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Metrics) GetLoad5Ok() (*float64, bool) {
-	if o == nil || IsNil(o.Load5) {
-		return nil, false
-	}
-	return o.Load5, true
-}
-
-// HasLoad5 returns a boolean if a field has been set.
-func (o *Metrics) HasLoad5() bool {
-	if o != nil && !IsNil(o.Load5) {
-		return true
-	}
-
-	return false
-}
-
-// SetLoad5 gets a reference to the given float64 and assigns it to the Load5 field.
-func (o *Metrics) SetLoad5(v float64) {
-	o.Load5 = &v
-}
-
 // GetLoad15 returns the Load15 field value if set, zero value otherwise.
 func (o *Metrics) GetLoad15() float64 {
 	if o == nil || IsNil(o.Load15) {
@@ -210,6 +178,38 @@ func (o *Metrics) HasLoad15() bool {
 // SetLoad15 gets a reference to the given float64 and assigns it to the Load15 field.
 func (o *Metrics) SetLoad15(v float64) {
 	o.Load15 = &v
+}
+
+// GetLoad5 returns the Load5 field value if set, zero value otherwise.
+func (o *Metrics) GetLoad5() float64 {
+	if o == nil || IsNil(o.Load5) {
+		var ret float64
+		return ret
+	}
+	return *o.Load5
+}
+
+// GetLoad5Ok returns a tuple with the Load5 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Metrics) GetLoad5Ok() (*float64, bool) {
+	if o == nil || IsNil(o.Load5) {
+		return nil, false
+	}
+	return o.Load5, true
+}
+
+// HasLoad5 returns a boolean if a field has been set.
+func (o *Metrics) HasLoad5() bool {
+	if o != nil && !IsNil(o.Load5) {
+		return true
+	}
+
+	return false
+}
+
+// SetLoad5 gets a reference to the given float64 and assigns it to the Load5 field.
+func (o *Metrics) SetLoad5(v float64) {
+	o.Load5 = &v
 }
 
 // GetMemFree returns the MemFree field value if set, zero value otherwise.
@@ -295,11 +295,11 @@ func (o Metrics) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Load1) {
 		toSerialize["load1"] = o.Load1
 	}
-	if !IsNil(o.Load5) {
-		toSerialize["load5"] = o.Load5
-	}
 	if !IsNil(o.Load15) {
 		toSerialize["load15"] = o.Load15
+	}
+	if !IsNil(o.Load5) {
+		toSerialize["load5"] = o.Load5
 	}
 	if !IsNil(o.MemFree) {
 		toSerialize["memFree"] = o.MemFree

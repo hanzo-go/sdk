@@ -1,23 +1,23 @@
-# \FlagsAPI
+# \FlagAPI
 
 All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteFlagsDefsByKey**](FlagsAPI.md#DeleteFlagsDefsByKey) | **Delete** /v1/flags/defs/{key} | Removes one flag definition by key and records the deletion in the change log.
-[**GetFlagsActivity**](FlagsAPI.md#GetFlagsActivity) | **Get** /v1/flags/activity | Returns the caller&#39;s flag change log newest-first: every create, update and delete, with the actor and the time.
-[**GetFlagsDefs**](FlagsAPI.md#GetFlagsDefs) | **Get** /v1/flags/defs | Returns every flag definition in the caller&#39;s (org, project) store, by key, with its version and who last changed it.
-[**GetFlagsDefsByKey**](FlagsAPI.md#GetFlagsDefsByKey) | **Get** /v1/flags/defs/{key} | Returns one flag definition by key, or 404 when the caller&#39;s store has none under that key.
-[**GetFlagsHealth**](FlagsAPI.md#GetFlagsHealth) | **Get** /v1/flags/health | Health reports that the flag engine is serving.
-[**PostFlags**](FlagsAPI.md#PostFlags) | **Post** /v1/flags | Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
-[**PostFlagsDecide**](FlagsAPI.md#PostFlagsDecide) | **Post** /v1/flags/decide | Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
-[**PutFlagsDefsByKey**](FlagsAPI.md#PutFlagsDefsByKey) | **Put** /v1/flags/defs/{key} | Creates or replaces the flag definition at the path&#39;s key and returns the stored row.
+[**DeleteFlagDefsByKey**](FlagAPI.md#DeleteFlagDefsByKey) | **Delete** /v1/flag/defs/{key} | Removes one flag definition by key and records the deletion in the change log.
+[**GetFlagActivity**](FlagAPI.md#GetFlagActivity) | **Get** /v1/flag/activity | Returns the caller&#39;s flag change log newest-first: every create, update and delete, with the actor and the time.
+[**GetFlagDefs**](FlagAPI.md#GetFlagDefs) | **Get** /v1/flag/defs | Returns every flag definition in the caller&#39;s (org, project) store, by key, with its version and who last changed it.
+[**GetFlagDefsByKey**](FlagAPI.md#GetFlagDefsByKey) | **Get** /v1/flag/defs/{key} | Returns one flag definition by key, or 404 when the caller&#39;s store has none under that key.
+[**GetFlagHealth**](FlagAPI.md#GetFlagHealth) | **Get** /v1/flag/health | Health reports that the flag engine is serving.
+[**PostFlag**](FlagAPI.md#PostFlag) | **Post** /v1/flag | Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+[**PostFlagDecide**](FlagAPI.md#PostFlagDecide) | **Post** /v1/flag/decide | Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+[**PutFlagDefsByKey**](FlagAPI.md#PutFlagDefsByKey) | **Put** /v1/flag/defs/{key} | Creates or replaces the flag definition at the path&#39;s key and returns the stored row.
 
 
 
-## DeleteFlagsDefsByKey
+## DeleteFlagDefsByKey
 
-> DeletedOut DeleteFlagsDefsByKey(ctx, key).Execute()
+> DeletedOut DeleteFlagDefsByKey(ctx, key).Execute()
 
 Removes one flag definition by key and records the deletion in the change log.
 
@@ -40,13 +40,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlagsAPI.DeleteFlagsDefsByKey(context.Background(), key).Execute()
+	resp, r, err := apiClient.FlagAPI.DeleteFlagDefsByKey(context.Background(), key).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.DeleteFlagsDefsByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagAPI.DeleteFlagDefsByKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteFlagsDefsByKey`: DeletedOut
-	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.DeleteFlagsDefsByKey`: %v\n", resp)
+	// response from `DeleteFlagDefsByKey`: DeletedOut
+	fmt.Fprintf(os.Stdout, "Response from `FlagAPI.DeleteFlagDefsByKey`: %v\n", resp)
 }
 ```
 
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteFlagsDefsByKeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteFlagDefsByKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -85,9 +85,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetFlagsActivity
+## GetFlagActivity
 
-> ActivityOut GetFlagsActivity(ctx).Limit(limit).Execute()
+> ActivityOut GetFlagActivity(ctx).Limit(limit).Execute()
 
 Returns the caller's flag change log newest-first: every create, update and delete, with the actor and the time.
 
@@ -110,13 +110,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlagsAPI.GetFlagsActivity(context.Background()).Limit(limit).Execute()
+	resp, r, err := apiClient.FlagAPI.GetFlagActivity(context.Background()).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.GetFlagsActivity``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagAPI.GetFlagActivity``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFlagsActivity`: ActivityOut
-	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.GetFlagsActivity`: %v\n", resp)
+	// response from `GetFlagActivity`: ActivityOut
+	fmt.Fprintf(os.Stdout, "Response from `FlagAPI.GetFlagActivity`: %v\n", resp)
 }
 ```
 
@@ -126,7 +126,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetFlagsActivityRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFlagActivityRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -151,9 +151,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetFlagsDefs
+## GetFlagDefs
 
-> DefsOut GetFlagsDefs(ctx).Execute()
+> DefsOut GetFlagDefs(ctx).Execute()
 
 Returns every flag definition in the caller's (org, project) store, by key, with its version and who last changed it.
 
@@ -175,13 +175,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlagsAPI.GetFlagsDefs(context.Background()).Execute()
+	resp, r, err := apiClient.FlagAPI.GetFlagDefs(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.GetFlagsDefs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagAPI.GetFlagDefs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFlagsDefs`: DefsOut
-	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.GetFlagsDefs`: %v\n", resp)
+	// response from `GetFlagDefs`: DefsOut
+	fmt.Fprintf(os.Stdout, "Response from `FlagAPI.GetFlagDefs`: %v\n", resp)
 }
 ```
 
@@ -191,7 +191,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetFlagsDefsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFlagDefsRequest struct via the builder pattern
 
 
 ### Return type
@@ -212,9 +212,9 @@ Other parameters are passed through a pointer to a apiGetFlagsDefsRequest struct
 [[Back to README]](../README.md)
 
 
-## GetFlagsDefsByKey
+## GetFlagDefsByKey
 
-> DefRow GetFlagsDefsByKey(ctx, key).Execute()
+> DefRow GetFlagDefsByKey(ctx, key).Execute()
 
 Returns one flag definition by key, or 404 when the caller's store has none under that key.
 
@@ -237,13 +237,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlagsAPI.GetFlagsDefsByKey(context.Background(), key).Execute()
+	resp, r, err := apiClient.FlagAPI.GetFlagDefsByKey(context.Background(), key).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.GetFlagsDefsByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagAPI.GetFlagDefsByKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFlagsDefsByKey`: DefRow
-	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.GetFlagsDefsByKey`: %v\n", resp)
+	// response from `GetFlagDefsByKey`: DefRow
+	fmt.Fprintf(os.Stdout, "Response from `FlagAPI.GetFlagDefsByKey`: %v\n", resp)
 }
 ```
 
@@ -257,7 +257,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetFlagsDefsByKeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFlagDefsByKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -282,9 +282,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetFlagsHealth
+## GetFlagHealth
 
-> HealthOut GetFlagsHealth(ctx).Execute()
+> HealthOut GetFlagHealth(ctx).Execute()
 
 Health reports that the flag engine is serving.
 
@@ -306,13 +306,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlagsAPI.GetFlagsHealth(context.Background()).Execute()
+	resp, r, err := apiClient.FlagAPI.GetFlagHealth(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.GetFlagsHealth``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagAPI.GetFlagHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFlagsHealth`: HealthOut
-	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.GetFlagsHealth`: %v\n", resp)
+	// response from `GetFlagHealth`: HealthOut
+	fmt.Fprintf(os.Stdout, "Response from `FlagAPI.GetFlagHealth`: %v\n", resp)
 }
 ```
 
@@ -322,7 +322,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetFlagsHealthRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFlagHealthRequest struct via the builder pattern
 
 
 ### Return type
@@ -343,9 +343,9 @@ Other parameters are passed through a pointer to a apiGetFlagsHealthRequest stru
 [[Back to README]](../README.md)
 
 
-## PostFlags
+## PostFlag
 
-> interface{} PostFlags(ctx).EvaluateIn(evaluateIn).Execute()
+> interface{} PostFlag(ctx).EvaluateIn(evaluateIn).Execute()
 
 Evaluate runs the caller's flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
 
@@ -368,13 +368,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlagsAPI.PostFlags(context.Background()).EvaluateIn(evaluateIn).Execute()
+	resp, r, err := apiClient.FlagAPI.PostFlag(context.Background()).EvaluateIn(evaluateIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.PostFlags``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagAPI.PostFlag``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostFlags`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.PostFlags`: %v\n", resp)
+	// response from `PostFlag`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `FlagAPI.PostFlag`: %v\n", resp)
 }
 ```
 
@@ -384,7 +384,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostFlagsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostFlagRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -409,9 +409,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostFlagsDecide
+## PostFlagDecide
 
-> interface{} PostFlagsDecide(ctx).EvaluateIn(evaluateIn).Execute()
+> interface{} PostFlagDecide(ctx).EvaluateIn(evaluateIn).Execute()
 
 Evaluate runs the caller's flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
 
@@ -434,13 +434,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlagsAPI.PostFlagsDecide(context.Background()).EvaluateIn(evaluateIn).Execute()
+	resp, r, err := apiClient.FlagAPI.PostFlagDecide(context.Background()).EvaluateIn(evaluateIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.PostFlagsDecide``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagAPI.PostFlagDecide``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostFlagsDecide`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.PostFlagsDecide`: %v\n", resp)
+	// response from `PostFlagDecide`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `FlagAPI.PostFlagDecide`: %v\n", resp)
 }
 ```
 
@@ -450,7 +450,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostFlagsDecideRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostFlagDecideRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -475,9 +475,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PutFlagsDefsByKey
+## PutFlagDefsByKey
 
-> DefRow PutFlagsDefsByKey(ctx, key).Body(body).Execute()
+> DefRow PutFlagDefsByKey(ctx, key).Body(body).Execute()
 
 Creates or replaces the flag definition at the path's key and returns the stored row.
 
@@ -501,13 +501,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlagsAPI.PutFlagsDefsByKey(context.Background(), key).Body(body).Execute()
+	resp, r, err := apiClient.FlagAPI.PutFlagDefsByKey(context.Background(), key).Body(body).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.PutFlagsDefsByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagAPI.PutFlagDefsByKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutFlagsDefsByKey`: DefRow
-	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.PutFlagsDefsByKey`: %v\n", resp)
+	// response from `PutFlagDefsByKey`: DefRow
+	fmt.Fprintf(os.Stdout, "Response from `FlagAPI.PutFlagDefsByKey`: %v\n", resp)
 }
 ```
 
@@ -521,7 +521,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPutFlagsDefsByKeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutFlagDefsByKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

@@ -1,44 +1,44 @@
-# \ProjectsAPI
+# \ProjectAPI
 
 All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteProjectsBySlug**](ProjectsAPI.md#DeleteProjectsBySlug) | **Delete** /v1/projects/{slug} | Deletes a project and takes its site off the internet.
-[**DeleteProjectsBySlugDomainsByHost**](ProjectsAPI.md#DeleteProjectsBySlugDomainsByHost) | **Delete** /v1/projects/{slug}/domains/{host} | Gives a custom hostname back, so the name is free to reuse.
-[**DeleteProjectsBySlugStar**](ProjectsAPI.md#DeleteProjectsBySlugStar) | **Delete** /v1/projects/{slug}/star | Removes the caller&#39;s own bookmark from a project, and answers whether it is starred afterwards.
-[**GetProjects**](ProjectsAPI.md#GetProjects) | **Get** /v1/projects | Returns every project your org owns.
-[**GetProjectsBySlug**](ProjectsAPI.md#GetProjectsBySlug) | **Get** /v1/projects/{slug} | Returns one project of yours by slug — its settings, its live URL and the deployment currently serving it.
-[**GetProjectsBySlugDeployments**](ProjectsAPI.md#GetProjectsBySlugDeployments) | **Get** /v1/projects/{slug}/deployments | Returns a project&#39;s deploy history, newest version first.
-[**GetProjectsBySlugDeploymentsById**](ProjectsAPI.md#GetProjectsBySlugDeploymentsById) | **Get** /v1/projects/{slug}/deployments/{id} | Returns one deployment of a project by id.
-[**GetProjectsBySlugDomains**](ProjectsAPI.md#GetProjectsBySlugDomains) | **Get** /v1/projects/{slug}/domains | Returns every custom hostname this site holds: the live ones, plus any pending claim with the DNS records it still owes.
-[**GetProjectsBySlugReleases**](ProjectsAPI.md#GetProjectsBySlugReleases) | **Get** /v1/projects/{slug}/releases | Returns a site&#39;s releases newest-first, marking the active one — the rollback menu.
-[**GetProjectsBySlugShot**](ProjectsAPI.md#GetProjectsBySlugShot) | **Get** /v1/projects/{slug}/shot | Get a PNG of the project&#39;s live site
-[**GetProjectsEdge**](ProjectsAPI.md#GetProjectsEdge) | **Get** /v1/projects/edge | health reports whether a publish reaches readers, rather than whether it was accepted.
-[**GetProjectsSites**](ProjectsAPI.md#GetProjectsSites) | **Get** /v1/projects/sites | Returns the org&#39;s deployed sites at the pretty URLs they serve at.
-[**GetProjectsSitesBySlug**](ProjectsAPI.md#GetProjectsSitesBySlug) | **Get** /v1/projects/sites/{slug} | Returns one site — the same row ListSites carries, for one slug.
-[**GetProjectsTags**](ProjectsAPI.md#GetProjectsTags) | **Get** /v1/projects/tags | The site&#39;s browser tag set for the hosted tag — which pixels to inject, by publishable key
-[**PatchProjectsBySlug**](ProjectsAPI.md#PatchProjectsBySlug) | **Patch** /v1/projects/{slug} | Changes a project&#39;s settings, and only the settings you send.
-[**PostProjects**](ProjectsAPI.md#PostProjects) | **Post** /v1/projects | Creates a project — the handle a site is deployed and served under — and answers 201 with it in &#x60;draft&#x60;.
-[**PostProjectsBySlugDeploy**](ProjectsAPI.md#PostProjectsBySlugDeploy) | **Post** /v1/projects/{slug}/deploy | Upload a built site as one archive and serve it
-[**PostProjectsBySlugDeployments**](ProjectsAPI.md#PostProjectsBySlugDeployments) | **Post** /v1/projects/{slug}/deployments | Opens a deployment and hands back a short-lived, prefix-scoped grant to write its bytes straight to object storage.
-[**PostProjectsBySlugDeploymentsByIdComplete**](ProjectsAPI.md#PostProjectsBySlugDeploymentsByIdComplete) | **Post** /v1/projects/{slug}/deployments/{id}/complete | CompleteDeployment is the CI completion hook that flips a queued git deployment to live (or error) once CI has synced the built site to S3.
-[**PostProjectsBySlugDomains**](ProjectsAPI.md#PostProjectsBySlugDomains) | **Post** /v1/projects/{slug}/domains | Attaches one or more CUSTOM public hostnames to this org&#39;s site.
-[**PostProjectsBySlugDomainsByHostVerify**](ProjectsAPI.md#PostProjectsBySlugDomainsByHostVerify) | **Post** /v1/projects/{slug}/domains/{host}/verify | Checks the DNS challenge for a pending custom hostname and, when it passes, promotes the host so it begins routing at the edge.
-[**PostProjectsBySlugPublish**](ProjectsAPI.md#PostProjectsBySlugPublish) | **Post** /v1/projects/{slug}/publish | Promotes a build output into a new release AND goes live with it — create+activate in one call, which is the 99% path.
-[**PostProjectsBySlugPurge**](ProjectsAPI.md#PostProjectsBySlugPurge) | **Post** /v1/projects/{slug}/purge | Flushes the site&#39;s edge cache without redeploying anything.
-[**PostProjectsBySlugReleases**](ProjectsAPI.md#PostProjectsBySlugReleases) | **Post** /v1/projects/{slug}/releases | Promotes a build output into a new immutable release WITHOUT serving it — the staged half of publishing, for when you want to check a release before it goes live.
-[**PostProjectsBySlugReleasesByReleaseActivate**](ProjectsAPI.md#PostProjectsBySlugReleasesByReleaseActivate) | **Post** /v1/projects/{slug}/releases/{release}/activate | Points the site at an existing release — the go-live, and equally the ROLLBACK.
-[**PostProjectsFork**](ProjectsAPI.md#PostProjectsFork) | **Post** /v1/projects/fork | Creates a project seeded from a PUBLISHED EXAMPLE — either a starter-kit template from the ONE embedded gallery catalog, or any live project on the platform (an example a seeded creator published, or another org&#39;s app serving at &lt;slug&gt;.hanzo.app).
-[**PostProjectsSites**](ProjectsAPI.md#PostProjectsSites) | **Post** /v1/projects/sites | Generates a self-contained, mobile-responsive static site from a natural-language brief and deploys it live in one call.
-[**PostProjectsSitesDeploy**](ProjectsAPI.md#PostProjectsSitesDeploy) | **Post** /v1/projects/sites/deploy | Deploys a caller-supplied file manifest — the deploy_site capability an agent calls — and answers with where it went live.
-[**PutProjectsBySlugStar**](ProjectsAPI.md#PutProjectsBySlugStar) | **Put** /v1/projects/{slug}/star | Bookmarks a project for the person calling, and answers whether it is starred afterwards.
+[**DeleteProjectBySlug**](ProjectAPI.md#DeleteProjectBySlug) | **Delete** /v1/project/{slug} | Deletes a project and takes its site off the internet.
+[**DeleteProjectBySlugDomainsByHost**](ProjectAPI.md#DeleteProjectBySlugDomainsByHost) | **Delete** /v1/project/{slug}/domains/{host} | Gives a custom hostname back, so the name is free to reuse.
+[**DeleteProjectBySlugStar**](ProjectAPI.md#DeleteProjectBySlugStar) | **Delete** /v1/project/{slug}/star | Removes the caller&#39;s own bookmark from a project, and answers whether it is starred afterwards.
+[**GetProject**](ProjectAPI.md#GetProject) | **Get** /v1/project | Returns every project your org owns.
+[**GetProjectBySlug**](ProjectAPI.md#GetProjectBySlug) | **Get** /v1/project/{slug} | Returns one project of yours by slug — its settings, its live URL and the deployment currently serving it.
+[**GetProjectBySlugDeployments**](ProjectAPI.md#GetProjectBySlugDeployments) | **Get** /v1/project/{slug}/deployments | Returns a project&#39;s deploy history, newest version first.
+[**GetProjectBySlugDeploymentsById**](ProjectAPI.md#GetProjectBySlugDeploymentsById) | **Get** /v1/project/{slug}/deployments/{id} | Returns one deployment of a project by id.
+[**GetProjectBySlugDomains**](ProjectAPI.md#GetProjectBySlugDomains) | **Get** /v1/project/{slug}/domains | Returns every custom hostname this site holds: the live ones, plus any pending claim with the DNS records it still owes.
+[**GetProjectBySlugReleases**](ProjectAPI.md#GetProjectBySlugReleases) | **Get** /v1/project/{slug}/releases | Returns a site&#39;s releases newest-first, marking the active one — the rollback menu.
+[**GetProjectBySlugShot**](ProjectAPI.md#GetProjectBySlugShot) | **Get** /v1/project/{slug}/shot | Get a PNG of the project&#39;s live site
+[**GetProjectEdge**](ProjectAPI.md#GetProjectEdge) | **Get** /v1/project/edge | health reports whether a publish reaches readers, rather than whether it was accepted.
+[**GetProjectSites**](ProjectAPI.md#GetProjectSites) | **Get** /v1/project/sites | Returns the org&#39;s deployed sites at the pretty URLs they serve at.
+[**GetProjectSitesBySlug**](ProjectAPI.md#GetProjectSitesBySlug) | **Get** /v1/project/sites/{slug} | Returns one site — the same row ListSites carries, for one slug.
+[**GetProjectTags**](ProjectAPI.md#GetProjectTags) | **Get** /v1/project/tags | The site&#39;s browser tag set for the hosted tag — which pixels to inject, by publishable key
+[**PatchProjectBySlug**](ProjectAPI.md#PatchProjectBySlug) | **Patch** /v1/project/{slug} | Changes a project&#39;s settings, and only the settings you send.
+[**PostProject**](ProjectAPI.md#PostProject) | **Post** /v1/project | Creates a project — the handle a site is deployed and served under — and answers 201 with it in &#x60;draft&#x60;.
+[**PostProjectBySlugDeploy**](ProjectAPI.md#PostProjectBySlugDeploy) | **Post** /v1/project/{slug}/deploy | Upload a built site as one archive and serve it
+[**PostProjectBySlugDeployments**](ProjectAPI.md#PostProjectBySlugDeployments) | **Post** /v1/project/{slug}/deployments | Opens a deployment and hands back a short-lived, prefix-scoped grant to write its bytes straight to object storage.
+[**PostProjectBySlugDeploymentsByIdComplete**](ProjectAPI.md#PostProjectBySlugDeploymentsByIdComplete) | **Post** /v1/project/{slug}/deployments/{id}/complete | CompleteDeployment is the CI completion hook that flips a queued git deployment to live (or error) once CI has synced the built site to S3.
+[**PostProjectBySlugDomains**](ProjectAPI.md#PostProjectBySlugDomains) | **Post** /v1/project/{slug}/domains | Attaches one or more CUSTOM public hostnames to this org&#39;s site.
+[**PostProjectBySlugDomainsByHostVerify**](ProjectAPI.md#PostProjectBySlugDomainsByHostVerify) | **Post** /v1/project/{slug}/domains/{host}/verify | Checks the DNS challenge for a pending custom hostname and, when it passes, promotes the host so it begins routing at the edge.
+[**PostProjectBySlugPublish**](ProjectAPI.md#PostProjectBySlugPublish) | **Post** /v1/project/{slug}/publish | Promotes a build output into a new release AND goes live with it — create+activate in one call, which is the 99% path.
+[**PostProjectBySlugPurge**](ProjectAPI.md#PostProjectBySlugPurge) | **Post** /v1/project/{slug}/purge | Flushes the site&#39;s edge cache without redeploying anything.
+[**PostProjectBySlugReleases**](ProjectAPI.md#PostProjectBySlugReleases) | **Post** /v1/project/{slug}/releases | Promotes a build output into a new immutable release WITHOUT serving it — the staged half of publishing, for when you want to check a release before it goes live.
+[**PostProjectBySlugReleasesByReleaseActivate**](ProjectAPI.md#PostProjectBySlugReleasesByReleaseActivate) | **Post** /v1/project/{slug}/releases/{release}/activate | Points the site at an existing release — the go-live, and equally the ROLLBACK.
+[**PostProjectFork**](ProjectAPI.md#PostProjectFork) | **Post** /v1/project/fork | Creates a project seeded from a PUBLISHED EXAMPLE — either a starter-kit template from the ONE embedded gallery catalog, or any live project on the platform (an example a seeded creator published, or another org&#39;s app serving at &lt;slug&gt;.hanzo.app).
+[**PostProjectSites**](ProjectAPI.md#PostProjectSites) | **Post** /v1/project/sites | Generates a self-contained, mobile-responsive static site from a natural-language brief and deploys it live in one call.
+[**PostProjectSitesDeploy**](ProjectAPI.md#PostProjectSitesDeploy) | **Post** /v1/project/sites/deploy | Deploys a caller-supplied file manifest — the deploy_site capability an agent calls — and answers with where it went live.
+[**PutProjectBySlugStar**](ProjectAPI.md#PutProjectBySlugStar) | **Put** /v1/project/{slug}/star | Bookmarks a project for the person calling, and answers whether it is starred afterwards.
 
 
 
-## DeleteProjectsBySlug
+## DeleteProjectBySlug
 
-> DeleteProjectsBySlug(ctx, slug).Execute()
+> DeleteProjectBySlug(ctx, slug).Execute()
 
 Deletes a project and takes its site off the internet.
 
@@ -61,9 +61,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProjectsAPI.DeleteProjectsBySlug(context.Background(), slug).Execute()
+	r, err := apiClient.ProjectAPI.DeleteProjectBySlug(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.DeleteProjectsBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.DeleteProjectBySlug``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteProjectsBySlugRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteProjectBySlugRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -104,9 +104,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DeleteProjectsBySlugDomainsByHost
+## DeleteProjectBySlugDomainsByHost
 
-> DeleteProjectsBySlugDomainsByHost(ctx, slug, host).Execute()
+> DeleteProjectBySlugDomainsByHost(ctx, slug, host).Execute()
 
 Gives a custom hostname back, so the name is free to reuse.
 
@@ -130,9 +130,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProjectsAPI.DeleteProjectsBySlugDomainsByHost(context.Background(), slug, host).Execute()
+	r, err := apiClient.ProjectAPI.DeleteProjectBySlugDomainsByHost(context.Background(), slug, host).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.DeleteProjectsBySlugDomainsByHost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.DeleteProjectBySlugDomainsByHost``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -149,7 +149,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteProjectsBySlugDomainsByHostRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteProjectBySlugDomainsByHostRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -175,9 +175,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DeleteProjectsBySlugStar
+## DeleteProjectBySlugStar
 
-> ProjectsStar DeleteProjectsBySlugStar(ctx, slug).Execute()
+> ProjectsStar DeleteProjectBySlugStar(ctx, slug).Execute()
 
 Removes the caller's own bookmark from a project, and answers whether it is starred afterwards.
 
@@ -200,13 +200,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.DeleteProjectsBySlugStar(context.Background(), slug).Execute()
+	resp, r, err := apiClient.ProjectAPI.DeleteProjectBySlugStar(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.DeleteProjectsBySlugStar``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.DeleteProjectBySlugStar``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteProjectsBySlugStar`: ProjectsStar
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.DeleteProjectsBySlugStar`: %v\n", resp)
+	// response from `DeleteProjectBySlugStar`: ProjectsStar
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.DeleteProjectBySlugStar`: %v\n", resp)
 }
 ```
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteProjectsBySlugStarRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteProjectBySlugStarRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -245,9 +245,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetProjects
+## GetProject
 
-> []ProjectsProject GetProjects(ctx).Execute()
+> []ProjectsProject GetProject(ctx).Execute()
 
 Returns every project your org owns.
 
@@ -269,13 +269,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.GetProjects(context.Background()).Execute()
+	resp, r, err := apiClient.ProjectAPI.GetProject(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.GetProjects``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetProject``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProjects`: []ProjectsProject
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.GetProjects`: %v\n", resp)
+	// response from `GetProject`: []ProjectsProject
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.GetProject`: %v\n", resp)
 }
 ```
 
@@ -285,7 +285,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetProjectsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetProjectRequest struct via the builder pattern
 
 
 ### Return type
@@ -306,9 +306,9 @@ Other parameters are passed through a pointer to a apiGetProjectsRequest struct 
 [[Back to README]](../README.md)
 
 
-## GetProjectsBySlug
+## GetProjectBySlug
 
-> ProjectsProject GetProjectsBySlug(ctx, slug).Execute()
+> ProjectsProject GetProjectBySlug(ctx, slug).Execute()
 
 Returns one project of yours by slug — its settings, its live URL and the deployment currently serving it.
 
@@ -331,13 +331,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.GetProjectsBySlug(context.Background(), slug).Execute()
+	resp, r, err := apiClient.ProjectAPI.GetProjectBySlug(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.GetProjectsBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetProjectBySlug``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProjectsBySlug`: ProjectsProject
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.GetProjectsBySlug`: %v\n", resp)
+	// response from `GetProjectBySlug`: ProjectsProject
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.GetProjectBySlug`: %v\n", resp)
 }
 ```
 
@@ -351,7 +351,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetProjectsBySlugRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetProjectBySlugRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -376,9 +376,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetProjectsBySlugDeployments
+## GetProjectBySlugDeployments
 
-> []ProjectsDeployment GetProjectsBySlugDeployments(ctx, slug).Execute()
+> []ProjectsDeployment GetProjectBySlugDeployments(ctx, slug).Execute()
 
 Returns a project's deploy history, newest version first.
 
@@ -401,13 +401,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.GetProjectsBySlugDeployments(context.Background(), slug).Execute()
+	resp, r, err := apiClient.ProjectAPI.GetProjectBySlugDeployments(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.GetProjectsBySlugDeployments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetProjectBySlugDeployments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProjectsBySlugDeployments`: []ProjectsDeployment
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.GetProjectsBySlugDeployments`: %v\n", resp)
+	// response from `GetProjectBySlugDeployments`: []ProjectsDeployment
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.GetProjectBySlugDeployments`: %v\n", resp)
 }
 ```
 
@@ -421,7 +421,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetProjectsBySlugDeploymentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetProjectBySlugDeploymentsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -446,9 +446,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetProjectsBySlugDeploymentsById
+## GetProjectBySlugDeploymentsById
 
-> ProjectsDeployment GetProjectsBySlugDeploymentsById(ctx, slug, id).Execute()
+> ProjectsDeployment GetProjectBySlugDeploymentsById(ctx, slug, id).Execute()
 
 Returns one deployment of a project by id.
 
@@ -472,13 +472,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.GetProjectsBySlugDeploymentsById(context.Background(), slug, id).Execute()
+	resp, r, err := apiClient.ProjectAPI.GetProjectBySlugDeploymentsById(context.Background(), slug, id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.GetProjectsBySlugDeploymentsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetProjectBySlugDeploymentsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProjectsBySlugDeploymentsById`: ProjectsDeployment
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.GetProjectsBySlugDeploymentsById`: %v\n", resp)
+	// response from `GetProjectBySlugDeploymentsById`: ProjectsDeployment
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.GetProjectBySlugDeploymentsById`: %v\n", resp)
 }
 ```
 
@@ -493,7 +493,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetProjectsBySlugDeploymentsByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetProjectBySlugDeploymentsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -519,9 +519,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetProjectsBySlugDomains
+## GetProjectBySlugDomains
 
-> ProjectsDomains GetProjectsBySlugDomains(ctx, slug).Execute()
+> ProjectsDomains GetProjectBySlugDomains(ctx, slug).Execute()
 
 Returns every custom hostname this site holds: the live ones, plus any pending claim with the DNS records it still owes.
 
@@ -544,13 +544,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.GetProjectsBySlugDomains(context.Background(), slug).Execute()
+	resp, r, err := apiClient.ProjectAPI.GetProjectBySlugDomains(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.GetProjectsBySlugDomains``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetProjectBySlugDomains``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProjectsBySlugDomains`: ProjectsDomains
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.GetProjectsBySlugDomains`: %v\n", resp)
+	// response from `GetProjectBySlugDomains`: ProjectsDomains
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.GetProjectBySlugDomains`: %v\n", resp)
 }
 ```
 
@@ -564,7 +564,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetProjectsBySlugDomainsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetProjectBySlugDomainsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -589,9 +589,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetProjectsBySlugReleases
+## GetProjectBySlugReleases
 
-> []ProjectsRelease GetProjectsBySlugReleases(ctx, slug).Execute()
+> []ProjectsRelease GetProjectBySlugReleases(ctx, slug).Execute()
 
 Returns a site's releases newest-first, marking the active one — the rollback menu.
 
@@ -614,13 +614,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.GetProjectsBySlugReleases(context.Background(), slug).Execute()
+	resp, r, err := apiClient.ProjectAPI.GetProjectBySlugReleases(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.GetProjectsBySlugReleases``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetProjectBySlugReleases``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProjectsBySlugReleases`: []ProjectsRelease
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.GetProjectsBySlugReleases`: %v\n", resp)
+	// response from `GetProjectBySlugReleases`: []ProjectsRelease
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.GetProjectBySlugReleases`: %v\n", resp)
 }
 ```
 
@@ -634,7 +634,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetProjectsBySlugReleasesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetProjectBySlugReleasesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -659,9 +659,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetProjectsBySlugShot
+## GetProjectBySlugShot
 
-> GetProjectsBySlugShot(ctx, slug).Execute()
+> GetProjectBySlugShot(ctx, slug).Execute()
 
 Get a PNG of the project's live site
 
@@ -684,9 +684,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProjectsAPI.GetProjectsBySlugShot(context.Background(), slug).Execute()
+	r, err := apiClient.ProjectAPI.GetProjectBySlugShot(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.GetProjectsBySlugShot``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetProjectBySlugShot``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -702,7 +702,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetProjectsBySlugShotRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetProjectBySlugShotRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -727,9 +727,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetProjectsEdge
+## GetProjectEdge
 
-> EdgeState GetProjectsEdge(ctx).Execute()
+> EdgeState GetProjectEdge(ctx).Execute()
 
 health reports whether a publish reaches readers, rather than whether it was accepted.
 
@@ -751,13 +751,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.GetProjectsEdge(context.Background()).Execute()
+	resp, r, err := apiClient.ProjectAPI.GetProjectEdge(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.GetProjectsEdge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetProjectEdge``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProjectsEdge`: EdgeState
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.GetProjectsEdge`: %v\n", resp)
+	// response from `GetProjectEdge`: EdgeState
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.GetProjectEdge`: %v\n", resp)
 }
 ```
 
@@ -767,7 +767,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetProjectsEdgeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetProjectEdgeRequest struct via the builder pattern
 
 
 ### Return type
@@ -788,9 +788,9 @@ Other parameters are passed through a pointer to a apiGetProjectsEdgeRequest str
 [[Back to README]](../README.md)
 
 
-## GetProjectsSites
+## GetProjectSites
 
-> []ProjectsSite GetProjectsSites(ctx).Execute()
+> []ProjectsSite GetProjectSites(ctx).Execute()
 
 Returns the org's deployed sites at the pretty URLs they serve at.
 
@@ -812,13 +812,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.GetProjectsSites(context.Background()).Execute()
+	resp, r, err := apiClient.ProjectAPI.GetProjectSites(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.GetProjectsSites``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetProjectSites``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProjectsSites`: []ProjectsSite
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.GetProjectsSites`: %v\n", resp)
+	// response from `GetProjectSites`: []ProjectsSite
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.GetProjectSites`: %v\n", resp)
 }
 ```
 
@@ -828,7 +828,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetProjectsSitesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetProjectSitesRequest struct via the builder pattern
 
 
 ### Return type
@@ -849,9 +849,9 @@ Other parameters are passed through a pointer to a apiGetProjectsSitesRequest st
 [[Back to README]](../README.md)
 
 
-## GetProjectsSitesBySlug
+## GetProjectSitesBySlug
 
-> ProjectsSite GetProjectsSitesBySlug(ctx, slug).Execute()
+> ProjectsSite GetProjectSitesBySlug(ctx, slug).Execute()
 
 Returns one site — the same row ListSites carries, for one slug.
 
@@ -874,13 +874,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.GetProjectsSitesBySlug(context.Background(), slug).Execute()
+	resp, r, err := apiClient.ProjectAPI.GetProjectSitesBySlug(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.GetProjectsSitesBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetProjectSitesBySlug``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProjectsSitesBySlug`: ProjectsSite
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.GetProjectsSitesBySlug`: %v\n", resp)
+	// response from `GetProjectSitesBySlug`: ProjectsSite
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.GetProjectSitesBySlug`: %v\n", resp)
 }
 ```
 
@@ -894,7 +894,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetProjectsSitesBySlugRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetProjectSitesBySlugRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -919,9 +919,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetProjectsTags
+## GetProjectTags
 
-> TagConfig GetProjectsTags(ctx).Execute()
+> TagConfig GetProjectTags(ctx).Execute()
 
 The site's browser tag set for the hosted tag — which pixels to inject, by publishable key
 
@@ -943,13 +943,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.GetProjectsTags(context.Background()).Execute()
+	resp, r, err := apiClient.ProjectAPI.GetProjectTags(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.GetProjectsTags``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetProjectTags``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProjectsTags`: TagConfig
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.GetProjectsTags`: %v\n", resp)
+	// response from `GetProjectTags`: TagConfig
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.GetProjectTags`: %v\n", resp)
 }
 ```
 
@@ -959,7 +959,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetProjectsTagsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetProjectTagsRequest struct via the builder pattern
 
 
 ### Return type
@@ -980,9 +980,9 @@ Other parameters are passed through a pointer to a apiGetProjectsTagsRequest str
 [[Back to README]](../README.md)
 
 
-## PatchProjectsBySlug
+## PatchProjectBySlug
 
-> ProjectsProject PatchProjectsBySlug(ctx, slug).ProjectsUpdate(projectsUpdate).Execute()
+> ProjectsProject PatchProjectBySlug(ctx, slug).ProjectsUpdate(projectsUpdate).Execute()
 
 Changes a project's settings, and only the settings you send.
 
@@ -1006,13 +1006,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.PatchProjectsBySlug(context.Background(), slug).ProjectsUpdate(projectsUpdate).Execute()
+	resp, r, err := apiClient.ProjectAPI.PatchProjectBySlug(context.Background(), slug).ProjectsUpdate(projectsUpdate).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PatchProjectsBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.PatchProjectBySlug``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PatchProjectsBySlug`: ProjectsProject
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PatchProjectsBySlug`: %v\n", resp)
+	// response from `PatchProjectBySlug`: ProjectsProject
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.PatchProjectBySlug`: %v\n", resp)
 }
 ```
 
@@ -1026,7 +1026,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPatchProjectsBySlugRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchProjectBySlugRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1052,9 +1052,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostProjects
+## PostProject
 
-> ProjectsProject PostProjects(ctx).ProjectsCreate(projectsCreate).Execute()
+> ProjectsProject PostProject(ctx).ProjectsCreate(projectsCreate).Execute()
 
 Creates a project — the handle a site is deployed and served under — and answers 201 with it in `draft`.
 
@@ -1077,13 +1077,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.PostProjects(context.Background()).ProjectsCreate(projectsCreate).Execute()
+	resp, r, err := apiClient.ProjectAPI.PostProject(context.Background()).ProjectsCreate(projectsCreate).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjects``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.PostProject``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProjects`: ProjectsProject
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjects`: %v\n", resp)
+	// response from `PostProject`: ProjectsProject
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.PostProject`: %v\n", resp)
 }
 ```
 
@@ -1093,7 +1093,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostProjectsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1118,9 +1118,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostProjectsBySlugDeploy
+## PostProjectBySlugDeploy
 
-> ProjectsDeployment PostProjectsBySlugDeploy(ctx, slug).Body(body).Execute()
+> ProjectsDeployment PostProjectBySlugDeploy(ctx, slug).Body(body).Execute()
 
 Upload a built site as one archive and serve it
 
@@ -1144,13 +1144,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.PostProjectsBySlugDeploy(context.Background(), slug).Body(body).Execute()
+	resp, r, err := apiClient.ProjectAPI.PostProjectBySlugDeploy(context.Background(), slug).Body(body).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjectsBySlugDeploy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.PostProjectBySlugDeploy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProjectsBySlugDeploy`: ProjectsDeployment
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjectsBySlugDeploy`: %v\n", resp)
+	// response from `PostProjectBySlugDeploy`: ProjectsDeployment
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.PostProjectBySlugDeploy`: %v\n", resp)
 }
 ```
 
@@ -1164,7 +1164,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostProjectsBySlugDeployRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectBySlugDeployRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1190,9 +1190,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostProjectsBySlugDeployments
+## PostProjectBySlugDeployments
 
-> ProjectsDeployment PostProjectsBySlugDeployments(ctx, slug).ProjectsDeployStart(projectsDeployStart).Execute()
+> ProjectsDeployment PostProjectBySlugDeployments(ctx, slug).ProjectsDeployStart(projectsDeployStart).Execute()
 
 Opens a deployment and hands back a short-lived, prefix-scoped grant to write its bytes straight to object storage.
 
@@ -1216,13 +1216,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.PostProjectsBySlugDeployments(context.Background(), slug).ProjectsDeployStart(projectsDeployStart).Execute()
+	resp, r, err := apiClient.ProjectAPI.PostProjectBySlugDeployments(context.Background(), slug).ProjectsDeployStart(projectsDeployStart).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjectsBySlugDeployments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.PostProjectBySlugDeployments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProjectsBySlugDeployments`: ProjectsDeployment
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjectsBySlugDeployments`: %v\n", resp)
+	// response from `PostProjectBySlugDeployments`: ProjectsDeployment
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.PostProjectBySlugDeployments`: %v\n", resp)
 }
 ```
 
@@ -1236,7 +1236,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostProjectsBySlugDeploymentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectBySlugDeploymentsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1262,9 +1262,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostProjectsBySlugDeploymentsByIdComplete
+## PostProjectBySlugDeploymentsByIdComplete
 
-> ProjectsDeployment PostProjectsBySlugDeploymentsByIdComplete(ctx, slug, id).ProjectsComplete(projectsComplete).Execute()
+> ProjectsDeployment PostProjectBySlugDeploymentsByIdComplete(ctx, slug, id).ProjectsComplete(projectsComplete).Execute()
 
 CompleteDeployment is the CI completion hook that flips a queued git deployment to live (or error) once CI has synced the built site to S3.
 
@@ -1289,13 +1289,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.PostProjectsBySlugDeploymentsByIdComplete(context.Background(), slug, id).ProjectsComplete(projectsComplete).Execute()
+	resp, r, err := apiClient.ProjectAPI.PostProjectBySlugDeploymentsByIdComplete(context.Background(), slug, id).ProjectsComplete(projectsComplete).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjectsBySlugDeploymentsByIdComplete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.PostProjectBySlugDeploymentsByIdComplete``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProjectsBySlugDeploymentsByIdComplete`: ProjectsDeployment
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjectsBySlugDeploymentsByIdComplete`: %v\n", resp)
+	// response from `PostProjectBySlugDeploymentsByIdComplete`: ProjectsDeployment
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.PostProjectBySlugDeploymentsByIdComplete`: %v\n", resp)
 }
 ```
 
@@ -1310,7 +1310,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostProjectsBySlugDeploymentsByIdCompleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectBySlugDeploymentsByIdCompleteRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1337,9 +1337,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostProjectsBySlugDomains
+## PostProjectBySlugDomains
 
-> ProjectsBoundDomains PostProjectsBySlugDomains(ctx, slug).ProjectsDomainsBind(projectsDomainsBind).Execute()
+> ProjectsBoundDomains PostProjectBySlugDomains(ctx, slug).ProjectsDomainsBind(projectsDomainsBind).Execute()
 
 Attaches one or more CUSTOM public hostnames to this org's site.
 
@@ -1363,13 +1363,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.PostProjectsBySlugDomains(context.Background(), slug).ProjectsDomainsBind(projectsDomainsBind).Execute()
+	resp, r, err := apiClient.ProjectAPI.PostProjectBySlugDomains(context.Background(), slug).ProjectsDomainsBind(projectsDomainsBind).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjectsBySlugDomains``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.PostProjectBySlugDomains``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProjectsBySlugDomains`: ProjectsBoundDomains
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjectsBySlugDomains`: %v\n", resp)
+	// response from `PostProjectBySlugDomains`: ProjectsBoundDomains
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.PostProjectBySlugDomains`: %v\n", resp)
 }
 ```
 
@@ -1383,7 +1383,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostProjectsBySlugDomainsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectBySlugDomainsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1409,9 +1409,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostProjectsBySlugDomainsByHostVerify
+## PostProjectBySlugDomainsByHostVerify
 
-> ProjectsDomain PostProjectsBySlugDomainsByHostVerify(ctx, slug, host).Execute()
+> ProjectsDomain PostProjectBySlugDomainsByHostVerify(ctx, slug, host).Execute()
 
 Checks the DNS challenge for a pending custom hostname and, when it passes, promotes the host so it begins routing at the edge.
 
@@ -1435,13 +1435,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.PostProjectsBySlugDomainsByHostVerify(context.Background(), slug, host).Execute()
+	resp, r, err := apiClient.ProjectAPI.PostProjectBySlugDomainsByHostVerify(context.Background(), slug, host).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjectsBySlugDomainsByHostVerify``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.PostProjectBySlugDomainsByHostVerify``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProjectsBySlugDomainsByHostVerify`: ProjectsDomain
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjectsBySlugDomainsByHostVerify`: %v\n", resp)
+	// response from `PostProjectBySlugDomainsByHostVerify`: ProjectsDomain
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.PostProjectBySlugDomainsByHostVerify`: %v\n", resp)
 }
 ```
 
@@ -1456,7 +1456,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostProjectsBySlugDomainsByHostVerifyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectBySlugDomainsByHostVerifyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1482,9 +1482,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostProjectsBySlugPublish
+## PostProjectBySlugPublish
 
-> ProjectsRelease PostProjectsBySlugPublish(ctx, slug).ProjectsPublish(projectsPublish).Execute()
+> ProjectsRelease PostProjectBySlugPublish(ctx, slug).ProjectsPublish(projectsPublish).Execute()
 
 Promotes a build output into a new release AND goes live with it — create+activate in one call, which is the 99% path.
 
@@ -1508,13 +1508,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.PostProjectsBySlugPublish(context.Background(), slug).ProjectsPublish(projectsPublish).Execute()
+	resp, r, err := apiClient.ProjectAPI.PostProjectBySlugPublish(context.Background(), slug).ProjectsPublish(projectsPublish).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjectsBySlugPublish``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.PostProjectBySlugPublish``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProjectsBySlugPublish`: ProjectsRelease
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjectsBySlugPublish`: %v\n", resp)
+	// response from `PostProjectBySlugPublish`: ProjectsRelease
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.PostProjectBySlugPublish`: %v\n", resp)
 }
 ```
 
@@ -1528,7 +1528,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostProjectsBySlugPublishRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectBySlugPublishRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1554,9 +1554,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostProjectsBySlugPurge
+## PostProjectBySlugPurge
 
-> ProjectsProject PostProjectsBySlugPurge(ctx, slug).Execute()
+> ProjectsProject PostProjectBySlugPurge(ctx, slug).Execute()
 
 Flushes the site's edge cache without redeploying anything.
 
@@ -1579,13 +1579,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.PostProjectsBySlugPurge(context.Background(), slug).Execute()
+	resp, r, err := apiClient.ProjectAPI.PostProjectBySlugPurge(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjectsBySlugPurge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.PostProjectBySlugPurge``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProjectsBySlugPurge`: ProjectsProject
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjectsBySlugPurge`: %v\n", resp)
+	// response from `PostProjectBySlugPurge`: ProjectsProject
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.PostProjectBySlugPurge`: %v\n", resp)
 }
 ```
 
@@ -1599,7 +1599,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostProjectsBySlugPurgeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectBySlugPurgeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1624,9 +1624,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostProjectsBySlugReleases
+## PostProjectBySlugReleases
 
-> ProjectsRelease PostProjectsBySlugReleases(ctx, slug).ProjectsPublish(projectsPublish).Execute()
+> ProjectsRelease PostProjectBySlugReleases(ctx, slug).ProjectsPublish(projectsPublish).Execute()
 
 Promotes a build output into a new immutable release WITHOUT serving it — the staged half of publishing, for when you want to check a release before it goes live.
 
@@ -1650,13 +1650,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.PostProjectsBySlugReleases(context.Background(), slug).ProjectsPublish(projectsPublish).Execute()
+	resp, r, err := apiClient.ProjectAPI.PostProjectBySlugReleases(context.Background(), slug).ProjectsPublish(projectsPublish).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjectsBySlugReleases``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.PostProjectBySlugReleases``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProjectsBySlugReleases`: ProjectsRelease
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjectsBySlugReleases`: %v\n", resp)
+	// response from `PostProjectBySlugReleases`: ProjectsRelease
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.PostProjectBySlugReleases`: %v\n", resp)
 }
 ```
 
@@ -1670,7 +1670,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostProjectsBySlugReleasesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectBySlugReleasesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1696,9 +1696,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostProjectsBySlugReleasesByReleaseActivate
+## PostProjectBySlugReleasesByReleaseActivate
 
-> ProjectsRelease PostProjectsBySlugReleasesByReleaseActivate(ctx, slug, release).Execute()
+> ProjectsRelease PostProjectBySlugReleasesByReleaseActivate(ctx, slug, release).Execute()
 
 Points the site at an existing release — the go-live, and equally the ROLLBACK.
 
@@ -1722,13 +1722,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.PostProjectsBySlugReleasesByReleaseActivate(context.Background(), slug, release).Execute()
+	resp, r, err := apiClient.ProjectAPI.PostProjectBySlugReleasesByReleaseActivate(context.Background(), slug, release).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjectsBySlugReleasesByReleaseActivate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.PostProjectBySlugReleasesByReleaseActivate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProjectsBySlugReleasesByReleaseActivate`: ProjectsRelease
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjectsBySlugReleasesByReleaseActivate`: %v\n", resp)
+	// response from `PostProjectBySlugReleasesByReleaseActivate`: ProjectsRelease
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.PostProjectBySlugReleasesByReleaseActivate`: %v\n", resp)
 }
 ```
 
@@ -1743,7 +1743,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostProjectsBySlugReleasesByReleaseActivateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectBySlugReleasesByReleaseActivateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1769,9 +1769,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostProjectsFork
+## PostProjectFork
 
-> ProjectsProject PostProjectsFork(ctx).ProjectsFork(projectsFork).Execute()
+> ProjectsProject PostProjectFork(ctx).ProjectsFork(projectsFork).Execute()
 
 Creates a project seeded from a PUBLISHED EXAMPLE — either a starter-kit template from the ONE embedded gallery catalog, or any live project on the platform (an example a seeded creator published, or another org's app serving at <slug>.hanzo.app).
 
@@ -1794,13 +1794,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.PostProjectsFork(context.Background()).ProjectsFork(projectsFork).Execute()
+	resp, r, err := apiClient.ProjectAPI.PostProjectFork(context.Background()).ProjectsFork(projectsFork).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjectsFork``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.PostProjectFork``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProjectsFork`: ProjectsProject
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjectsFork`: %v\n", resp)
+	// response from `PostProjectFork`: ProjectsProject
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.PostProjectFork`: %v\n", resp)
 }
 ```
 
@@ -1810,7 +1810,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostProjectsForkRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectForkRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1835,9 +1835,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostProjectsSites
+## PostProjectSites
 
-> ProjectsSiteDeploy PostProjectsSites(ctx).ProjectsBuildSite(projectsBuildSite).Execute()
+> ProjectsSiteDeploy PostProjectSites(ctx).ProjectsBuildSite(projectsBuildSite).Execute()
 
 Generates a self-contained, mobile-responsive static site from a natural-language brief and deploys it live in one call.
 
@@ -1860,13 +1860,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.PostProjectsSites(context.Background()).ProjectsBuildSite(projectsBuildSite).Execute()
+	resp, r, err := apiClient.ProjectAPI.PostProjectSites(context.Background()).ProjectsBuildSite(projectsBuildSite).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjectsSites``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.PostProjectSites``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProjectsSites`: ProjectsSiteDeploy
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjectsSites`: %v\n", resp)
+	// response from `PostProjectSites`: ProjectsSiteDeploy
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.PostProjectSites`: %v\n", resp)
 }
 ```
 
@@ -1876,7 +1876,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostProjectsSitesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectSitesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1901,9 +1901,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostProjectsSitesDeploy
+## PostProjectSitesDeploy
 
-> ProjectsSiteDeploy PostProjectsSitesDeploy(ctx).ProjectsDeploySite(projectsDeploySite).Execute()
+> ProjectsSiteDeploy PostProjectSitesDeploy(ctx).ProjectsDeploySite(projectsDeploySite).Execute()
 
 Deploys a caller-supplied file manifest — the deploy_site capability an agent calls — and answers with where it went live.
 
@@ -1926,13 +1926,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.PostProjectsSitesDeploy(context.Background()).ProjectsDeploySite(projectsDeploySite).Execute()
+	resp, r, err := apiClient.ProjectAPI.PostProjectSitesDeploy(context.Background()).ProjectsDeploySite(projectsDeploySite).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjectsSitesDeploy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.PostProjectSitesDeploy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProjectsSitesDeploy`: ProjectsSiteDeploy
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjectsSitesDeploy`: %v\n", resp)
+	// response from `PostProjectSitesDeploy`: ProjectsSiteDeploy
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.PostProjectSitesDeploy`: %v\n", resp)
 }
 ```
 
@@ -1942,7 +1942,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostProjectsSitesDeployRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectSitesDeployRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1967,9 +1967,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PutProjectsBySlugStar
+## PutProjectBySlugStar
 
-> ProjectsStar PutProjectsBySlugStar(ctx, slug).Execute()
+> ProjectsStar PutProjectBySlugStar(ctx, slug).Execute()
 
 Bookmarks a project for the person calling, and answers whether it is starred afterwards.
 
@@ -1992,13 +1992,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.PutProjectsBySlugStar(context.Background(), slug).Execute()
+	resp, r, err := apiClient.ProjectAPI.PutProjectBySlugStar(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PutProjectsBySlugStar``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.PutProjectBySlugStar``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutProjectsBySlugStar`: ProjectsStar
-	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PutProjectsBySlugStar`: %v\n", resp)
+	// response from `PutProjectBySlugStar`: ProjectsStar
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.PutProjectBySlugStar`: %v\n", resp)
 }
 ```
 
@@ -2012,7 +2012,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPutProjectsBySlugStarRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutProjectBySlugStarRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

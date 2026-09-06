@@ -20,21 +20,21 @@ import (
 	"strings"
 )
 
-// ProjectsAPIService ProjectsAPI service
-type ProjectsAPIService service
+// ProjectAPIService ProjectAPI service
+type ProjectAPIService service
 
-type ProjectsAPIDeleteProjectsBySlugRequest struct {
+type ProjectAPIDeleteProjectBySlugRequest struct {
 	ctx        context.Context
-	ApiService *ProjectsAPIService
+	ApiService *ProjectAPIService
 	slug       string
 }
 
-func (r ProjectsAPIDeleteProjectsBySlugRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteProjectsBySlugExecute(r)
+func (r ProjectAPIDeleteProjectBySlugRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteProjectBySlugExecute(r)
 }
 
 /*
-DeleteProjectsBySlug Deletes a project and takes its site off the internet.
+DeleteProjectBySlug Deletes a project and takes its site off the internet.
 
 Deletes a project and takes its site off the internet.
 
@@ -54,10 +54,10 @@ nothing of theirs is touched.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
-	@return ProjectsAPIDeleteProjectsBySlugRequest
+	@return ProjectAPIDeleteProjectBySlugRequest
 */
-func (a *ProjectsAPIService) DeleteProjectsBySlug(ctx context.Context, slug string) ProjectsAPIDeleteProjectsBySlugRequest {
-	return ProjectsAPIDeleteProjectsBySlugRequest{
+func (a *ProjectAPIService) DeleteProjectBySlug(ctx context.Context, slug string) ProjectAPIDeleteProjectBySlugRequest {
+	return ProjectAPIDeleteProjectBySlugRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -65,19 +65,19 @@ func (a *ProjectsAPIService) DeleteProjectsBySlug(ctx context.Context, slug stri
 }
 
 // Execute executes the request
-func (a *ProjectsAPIService) DeleteProjectsBySlugExecute(r ProjectsAPIDeleteProjectsBySlugRequest) (*http.Response, error) {
+func (a *ProjectAPIService) DeleteProjectBySlugExecute(r ProjectAPIDeleteProjectBySlugRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.DeleteProjectsBySlug")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.DeleteProjectBySlug")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}"
+	localVarPath := localBasePath + "/v1/project/{slug}"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -129,19 +129,19 @@ func (a *ProjectsAPIService) DeleteProjectsBySlugExecute(r ProjectsAPIDeleteProj
 	return localVarHTTPResponse, nil
 }
 
-type ProjectsAPIDeleteProjectsBySlugDomainsByHostRequest struct {
+type ProjectAPIDeleteProjectBySlugDomainsByHostRequest struct {
 	ctx        context.Context
-	ApiService *ProjectsAPIService
+	ApiService *ProjectAPIService
 	slug       string
 	host       string
 }
 
-func (r ProjectsAPIDeleteProjectsBySlugDomainsByHostRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteProjectsBySlugDomainsByHostExecute(r)
+func (r ProjectAPIDeleteProjectBySlugDomainsByHostRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteProjectBySlugDomainsByHostExecute(r)
 }
 
 /*
-DeleteProjectsBySlugDomainsByHost Gives a custom hostname back, so the name is free to reuse.
+DeleteProjectBySlugDomainsByHost Gives a custom hostname back, so the name is free to reuse.
 
 Gives a custom hostname back, so the name is free to reuse.
 
@@ -160,10 +160,10 @@ resolved within that principal's org, so another tenant's slug is a 404.
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the project the host is attached to, from the path.
 	@param host Host is the custom hostname, from the path. It is cleaned to its canonical form (lowercased, trailing dot dropped) before anything is looked up.
-	@return ProjectsAPIDeleteProjectsBySlugDomainsByHostRequest
+	@return ProjectAPIDeleteProjectBySlugDomainsByHostRequest
 */
-func (a *ProjectsAPIService) DeleteProjectsBySlugDomainsByHost(ctx context.Context, slug string, host string) ProjectsAPIDeleteProjectsBySlugDomainsByHostRequest {
-	return ProjectsAPIDeleteProjectsBySlugDomainsByHostRequest{
+func (a *ProjectAPIService) DeleteProjectBySlugDomainsByHost(ctx context.Context, slug string, host string) ProjectAPIDeleteProjectBySlugDomainsByHostRequest {
+	return ProjectAPIDeleteProjectBySlugDomainsByHostRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -172,19 +172,19 @@ func (a *ProjectsAPIService) DeleteProjectsBySlugDomainsByHost(ctx context.Conte
 }
 
 // Execute executes the request
-func (a *ProjectsAPIService) DeleteProjectsBySlugDomainsByHostExecute(r ProjectsAPIDeleteProjectsBySlugDomainsByHostRequest) (*http.Response, error) {
+func (a *ProjectAPIService) DeleteProjectBySlugDomainsByHostExecute(r ProjectAPIDeleteProjectBySlugDomainsByHostRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.DeleteProjectsBySlugDomainsByHost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.DeleteProjectBySlugDomainsByHost")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}/domains/{host}"
+	localVarPath := localBasePath + "/v1/project/{slug}/domains/{host}"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"host"+"}", url.PathEscape(parameterValueToString(r.host, "host")), -1)
 
@@ -237,18 +237,18 @@ func (a *ProjectsAPIService) DeleteProjectsBySlugDomainsByHostExecute(r Projects
 	return localVarHTTPResponse, nil
 }
 
-type ProjectsAPIDeleteProjectsBySlugStarRequest struct {
+type ProjectAPIDeleteProjectBySlugStarRequest struct {
 	ctx        context.Context
-	ApiService *ProjectsAPIService
+	ApiService *ProjectAPIService
 	slug       string
 }
 
-func (r ProjectsAPIDeleteProjectsBySlugStarRequest) Execute() (*ProjectsStar, *http.Response, error) {
-	return r.ApiService.DeleteProjectsBySlugStarExecute(r)
+func (r ProjectAPIDeleteProjectBySlugStarRequest) Execute() (*ProjectsStar, *http.Response, error) {
+	return r.ApiService.DeleteProjectBySlugStarExecute(r)
 }
 
 /*
-DeleteProjectsBySlugStar Removes the caller's own bookmark from a project, and answers whether it is starred afterwards.
+DeleteProjectBySlugStar Removes the caller's own bookmark from a project, and answers whether it is starred afterwards.
 
 Removes the caller's own bookmark from a project, and answers whether
 it is starred afterwards.
@@ -259,10 +259,10 @@ is not an error; it leaves it unstarred.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
-	@return ProjectsAPIDeleteProjectsBySlugStarRequest
+	@return ProjectAPIDeleteProjectBySlugStarRequest
 */
-func (a *ProjectsAPIService) DeleteProjectsBySlugStar(ctx context.Context, slug string) ProjectsAPIDeleteProjectsBySlugStarRequest {
-	return ProjectsAPIDeleteProjectsBySlugStarRequest{
+func (a *ProjectAPIService) DeleteProjectBySlugStar(ctx context.Context, slug string) ProjectAPIDeleteProjectBySlugStarRequest {
+	return ProjectAPIDeleteProjectBySlugStarRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -272,7 +272,7 @@ func (a *ProjectsAPIService) DeleteProjectsBySlugStar(ctx context.Context, slug 
 // Execute executes the request
 //
 //	@return ProjectsStar
-func (a *ProjectsAPIService) DeleteProjectsBySlugStarExecute(r ProjectsAPIDeleteProjectsBySlugStarRequest) (*ProjectsStar, *http.Response, error) {
+func (a *ProjectAPIService) DeleteProjectBySlugStarExecute(r ProjectAPIDeleteProjectBySlugStarRequest) (*ProjectsStar, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
@@ -280,12 +280,12 @@ func (a *ProjectsAPIService) DeleteProjectsBySlugStarExecute(r ProjectsAPIDelete
 		localVarReturnValue *ProjectsStar
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.DeleteProjectsBySlugStar")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.DeleteProjectBySlugStar")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}/star"
+	localVarPath := localBasePath + "/v1/project/{slug}/star"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -346,17 +346,17 @@ func (a *ProjectsAPIService) DeleteProjectsBySlugStarExecute(r ProjectsAPIDelete
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIGetProjectsRequest struct {
+type ProjectAPIGetProjectRequest struct {
 	ctx        context.Context
-	ApiService *ProjectsAPIService
+	ApiService *ProjectAPIService
 }
 
-func (r ProjectsAPIGetProjectsRequest) Execute() ([]ProjectsProject, *http.Response, error) {
-	return r.ApiService.GetProjectsExecute(r)
+func (r ProjectAPIGetProjectRequest) Execute() ([]ProjectsProject, *http.Response, error) {
+	return r.ApiService.GetProjectExecute(r)
 }
 
 /*
-GetProjects Returns every project your org owns.
+GetProject Returns every project your org owns.
 
 Returns every project your org owns.
 
@@ -366,10 +366,10 @@ behind both. It requires a validated principal (403 without one) and is keyed
 by that principal's org, so it never contains another tenant's project.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ProjectsAPIGetProjectsRequest
+	@return ProjectAPIGetProjectRequest
 */
-func (a *ProjectsAPIService) GetProjects(ctx context.Context) ProjectsAPIGetProjectsRequest {
-	return ProjectsAPIGetProjectsRequest{
+func (a *ProjectAPIService) GetProject(ctx context.Context) ProjectAPIGetProjectRequest {
+	return ProjectAPIGetProjectRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -378,7 +378,7 @@ func (a *ProjectsAPIService) GetProjects(ctx context.Context) ProjectsAPIGetProj
 // Execute executes the request
 //
 //	@return []ProjectsProject
-func (a *ProjectsAPIService) GetProjectsExecute(r ProjectsAPIGetProjectsRequest) ([]ProjectsProject, *http.Response, error) {
+func (a *ProjectAPIService) GetProjectExecute(r ProjectAPIGetProjectRequest) ([]ProjectsProject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -386,12 +386,12 @@ func (a *ProjectsAPIService) GetProjectsExecute(r ProjectsAPIGetProjectsRequest)
 		localVarReturnValue []ProjectsProject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.GetProjects")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.GetProject")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects"
+	localVarPath := localBasePath + "/v1/project"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -451,18 +451,18 @@ func (a *ProjectsAPIService) GetProjectsExecute(r ProjectsAPIGetProjectsRequest)
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIGetProjectsBySlugRequest struct {
+type ProjectAPIGetProjectBySlugRequest struct {
 	ctx        context.Context
-	ApiService *ProjectsAPIService
+	ApiService *ProjectAPIService
 	slug       string
 }
 
-func (r ProjectsAPIGetProjectsBySlugRequest) Execute() (*ProjectsProject, *http.Response, error) {
-	return r.ApiService.GetProjectsBySlugExecute(r)
+func (r ProjectAPIGetProjectBySlugRequest) Execute() (*ProjectsProject, *http.Response, error) {
+	return r.ApiService.GetProjectBySlugExecute(r)
 }
 
 /*
-GetProjectsBySlug Returns one project of yours by slug — its settings, its live URL and the deployment currently serving it.
+GetProjectBySlug Returns one project of yours by slug — its settings, its live URL and the deployment currently serving it.
 
 Returns one project of yours by slug — its settings, its live URL
 and the deployment currently serving it.
@@ -473,10 +473,10 @@ nonexistent one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
-	@return ProjectsAPIGetProjectsBySlugRequest
+	@return ProjectAPIGetProjectBySlugRequest
 */
-func (a *ProjectsAPIService) GetProjectsBySlug(ctx context.Context, slug string) ProjectsAPIGetProjectsBySlugRequest {
-	return ProjectsAPIGetProjectsBySlugRequest{
+func (a *ProjectAPIService) GetProjectBySlug(ctx context.Context, slug string) ProjectAPIGetProjectBySlugRequest {
+	return ProjectAPIGetProjectBySlugRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -486,7 +486,7 @@ func (a *ProjectsAPIService) GetProjectsBySlug(ctx context.Context, slug string)
 // Execute executes the request
 //
 //	@return ProjectsProject
-func (a *ProjectsAPIService) GetProjectsBySlugExecute(r ProjectsAPIGetProjectsBySlugRequest) (*ProjectsProject, *http.Response, error) {
+func (a *ProjectAPIService) GetProjectBySlugExecute(r ProjectAPIGetProjectBySlugRequest) (*ProjectsProject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -494,12 +494,12 @@ func (a *ProjectsAPIService) GetProjectsBySlugExecute(r ProjectsAPIGetProjectsBy
 		localVarReturnValue *ProjectsProject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.GetProjectsBySlug")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.GetProjectBySlug")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}"
+	localVarPath := localBasePath + "/v1/project/{slug}"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -560,18 +560,18 @@ func (a *ProjectsAPIService) GetProjectsBySlugExecute(r ProjectsAPIGetProjectsBy
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIGetProjectsBySlugDeploymentsRequest struct {
+type ProjectAPIGetProjectBySlugDeploymentsRequest struct {
 	ctx        context.Context
-	ApiService *ProjectsAPIService
+	ApiService *ProjectAPIService
 	slug       string
 }
 
-func (r ProjectsAPIGetProjectsBySlugDeploymentsRequest) Execute() ([]ProjectsDeployment, *http.Response, error) {
-	return r.ApiService.GetProjectsBySlugDeploymentsExecute(r)
+func (r ProjectAPIGetProjectBySlugDeploymentsRequest) Execute() ([]ProjectsDeployment, *http.Response, error) {
+	return r.ApiService.GetProjectBySlugDeploymentsExecute(r)
 }
 
 /*
-GetProjectsBySlugDeployments Returns a project's deploy history, newest version first.
+GetProjectBySlugDeployments Returns a project's deploy history, newest version first.
 
 Returns a project's deploy history, newest version first.
 
@@ -586,10 +586,10 @@ resolved within that principal's org, so another tenant's slug is a 404.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
-	@return ProjectsAPIGetProjectsBySlugDeploymentsRequest
+	@return ProjectAPIGetProjectBySlugDeploymentsRequest
 */
-func (a *ProjectsAPIService) GetProjectsBySlugDeployments(ctx context.Context, slug string) ProjectsAPIGetProjectsBySlugDeploymentsRequest {
-	return ProjectsAPIGetProjectsBySlugDeploymentsRequest{
+func (a *ProjectAPIService) GetProjectBySlugDeployments(ctx context.Context, slug string) ProjectAPIGetProjectBySlugDeploymentsRequest {
+	return ProjectAPIGetProjectBySlugDeploymentsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -599,7 +599,7 @@ func (a *ProjectsAPIService) GetProjectsBySlugDeployments(ctx context.Context, s
 // Execute executes the request
 //
 //	@return []ProjectsDeployment
-func (a *ProjectsAPIService) GetProjectsBySlugDeploymentsExecute(r ProjectsAPIGetProjectsBySlugDeploymentsRequest) ([]ProjectsDeployment, *http.Response, error) {
+func (a *ProjectAPIService) GetProjectBySlugDeploymentsExecute(r ProjectAPIGetProjectBySlugDeploymentsRequest) ([]ProjectsDeployment, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -607,12 +607,12 @@ func (a *ProjectsAPIService) GetProjectsBySlugDeploymentsExecute(r ProjectsAPIGe
 		localVarReturnValue []ProjectsDeployment
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.GetProjectsBySlugDeployments")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.GetProjectBySlugDeployments")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}/deployments"
+	localVarPath := localBasePath + "/v1/project/{slug}/deployments"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -673,19 +673,19 @@ func (a *ProjectsAPIService) GetProjectsBySlugDeploymentsExecute(r ProjectsAPIGe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIGetProjectsBySlugDeploymentsByIdRequest struct {
+type ProjectAPIGetProjectBySlugDeploymentsByIdRequest struct {
 	ctx        context.Context
-	ApiService *ProjectsAPIService
+	ApiService *ProjectAPIService
 	slug       string
 	id         string
 }
 
-func (r ProjectsAPIGetProjectsBySlugDeploymentsByIdRequest) Execute() (*ProjectsDeployment, *http.Response, error) {
-	return r.ApiService.GetProjectsBySlugDeploymentsByIdExecute(r)
+func (r ProjectAPIGetProjectBySlugDeploymentsByIdRequest) Execute() (*ProjectsDeployment, *http.Response, error) {
+	return r.ApiService.GetProjectBySlugDeploymentsByIdExecute(r)
 }
 
 /*
-GetProjectsBySlugDeploymentsById Returns one deployment of a project by id.
+GetProjectBySlugDeploymentsById Returns one deployment of a project by id.
 
 Returns one deployment of a project by id.
 
@@ -700,10 +700,10 @@ of another project — or of another tenant — is a 404.
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the project the deployment belongs to, from the path.
 	@param id ID is the deployment id, from the path. A deployment of another project — or of another tenant's project — is not found.
-	@return ProjectsAPIGetProjectsBySlugDeploymentsByIdRequest
+	@return ProjectAPIGetProjectBySlugDeploymentsByIdRequest
 */
-func (a *ProjectsAPIService) GetProjectsBySlugDeploymentsById(ctx context.Context, slug string, id string) ProjectsAPIGetProjectsBySlugDeploymentsByIdRequest {
-	return ProjectsAPIGetProjectsBySlugDeploymentsByIdRequest{
+func (a *ProjectAPIService) GetProjectBySlugDeploymentsById(ctx context.Context, slug string, id string) ProjectAPIGetProjectBySlugDeploymentsByIdRequest {
+	return ProjectAPIGetProjectBySlugDeploymentsByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -714,7 +714,7 @@ func (a *ProjectsAPIService) GetProjectsBySlugDeploymentsById(ctx context.Contex
 // Execute executes the request
 //
 //	@return ProjectsDeployment
-func (a *ProjectsAPIService) GetProjectsBySlugDeploymentsByIdExecute(r ProjectsAPIGetProjectsBySlugDeploymentsByIdRequest) (*ProjectsDeployment, *http.Response, error) {
+func (a *ProjectAPIService) GetProjectBySlugDeploymentsByIdExecute(r ProjectAPIGetProjectBySlugDeploymentsByIdRequest) (*ProjectsDeployment, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -722,12 +722,12 @@ func (a *ProjectsAPIService) GetProjectsBySlugDeploymentsByIdExecute(r ProjectsA
 		localVarReturnValue *ProjectsDeployment
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.GetProjectsBySlugDeploymentsById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.GetProjectBySlugDeploymentsById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}/deployments/{id}"
+	localVarPath := localBasePath + "/v1/project/{slug}/deployments/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
@@ -789,18 +789,18 @@ func (a *ProjectsAPIService) GetProjectsBySlugDeploymentsByIdExecute(r ProjectsA
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIGetProjectsBySlugDomainsRequest struct {
+type ProjectAPIGetProjectBySlugDomainsRequest struct {
 	ctx        context.Context
-	ApiService *ProjectsAPIService
+	ApiService *ProjectAPIService
 	slug       string
 }
 
-func (r ProjectsAPIGetProjectsBySlugDomainsRequest) Execute() (*ProjectsDomains, *http.Response, error) {
-	return r.ApiService.GetProjectsBySlugDomainsExecute(r)
+func (r ProjectAPIGetProjectBySlugDomainsRequest) Execute() (*ProjectsDomains, *http.Response, error) {
+	return r.ApiService.GetProjectBySlugDomainsExecute(r)
 }
 
 /*
-GetProjectsBySlugDomains Returns every custom hostname this site holds: the live ones, plus any pending claim with the DNS records it still owes.
+GetProjectBySlugDomains Returns every custom hostname this site holds: the live ones, plus any pending claim with the DNS records it still owes.
 
 Returns every custom hostname this site holds: the live ones, plus
 any pending claim with the DNS records it still owes.
@@ -814,10 +814,10 @@ resolved within that principal's org, so another tenant's slug is a 404.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
-	@return ProjectsAPIGetProjectsBySlugDomainsRequest
+	@return ProjectAPIGetProjectBySlugDomainsRequest
 */
-func (a *ProjectsAPIService) GetProjectsBySlugDomains(ctx context.Context, slug string) ProjectsAPIGetProjectsBySlugDomainsRequest {
-	return ProjectsAPIGetProjectsBySlugDomainsRequest{
+func (a *ProjectAPIService) GetProjectBySlugDomains(ctx context.Context, slug string) ProjectAPIGetProjectBySlugDomainsRequest {
+	return ProjectAPIGetProjectBySlugDomainsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -827,7 +827,7 @@ func (a *ProjectsAPIService) GetProjectsBySlugDomains(ctx context.Context, slug 
 // Execute executes the request
 //
 //	@return ProjectsDomains
-func (a *ProjectsAPIService) GetProjectsBySlugDomainsExecute(r ProjectsAPIGetProjectsBySlugDomainsRequest) (*ProjectsDomains, *http.Response, error) {
+func (a *ProjectAPIService) GetProjectBySlugDomainsExecute(r ProjectAPIGetProjectBySlugDomainsRequest) (*ProjectsDomains, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -835,12 +835,12 @@ func (a *ProjectsAPIService) GetProjectsBySlugDomainsExecute(r ProjectsAPIGetPro
 		localVarReturnValue *ProjectsDomains
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.GetProjectsBySlugDomains")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.GetProjectBySlugDomains")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}/domains"
+	localVarPath := localBasePath + "/v1/project/{slug}/domains"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -901,18 +901,18 @@ func (a *ProjectsAPIService) GetProjectsBySlugDomainsExecute(r ProjectsAPIGetPro
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIGetProjectsBySlugReleasesRequest struct {
+type ProjectAPIGetProjectBySlugReleasesRequest struct {
 	ctx        context.Context
-	ApiService *ProjectsAPIService
+	ApiService *ProjectAPIService
 	slug       string
 }
 
-func (r ProjectsAPIGetProjectsBySlugReleasesRequest) Execute() ([]ProjectsRelease, *http.Response, error) {
-	return r.ApiService.GetProjectsBySlugReleasesExecute(r)
+func (r ProjectAPIGetProjectBySlugReleasesRequest) Execute() ([]ProjectsRelease, *http.Response, error) {
+	return r.ApiService.GetProjectBySlugReleasesExecute(r)
 }
 
 /*
-GetProjectsBySlugReleases Returns a site's releases newest-first, marking the active one — the rollback menu.
+GetProjectBySlugReleases Returns a site's releases newest-first, marking the active one — the rollback menu.
 
 Returns a site's releases newest-first, marking the active one —
 the rollback menu.
@@ -927,10 +927,10 @@ resolved within that principal's org, so another tenant's slug is a 404.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
-	@return ProjectsAPIGetProjectsBySlugReleasesRequest
+	@return ProjectAPIGetProjectBySlugReleasesRequest
 */
-func (a *ProjectsAPIService) GetProjectsBySlugReleases(ctx context.Context, slug string) ProjectsAPIGetProjectsBySlugReleasesRequest {
-	return ProjectsAPIGetProjectsBySlugReleasesRequest{
+func (a *ProjectAPIService) GetProjectBySlugReleases(ctx context.Context, slug string) ProjectAPIGetProjectBySlugReleasesRequest {
+	return ProjectAPIGetProjectBySlugReleasesRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -940,7 +940,7 @@ func (a *ProjectsAPIService) GetProjectsBySlugReleases(ctx context.Context, slug
 // Execute executes the request
 //
 //	@return []ProjectsRelease
-func (a *ProjectsAPIService) GetProjectsBySlugReleasesExecute(r ProjectsAPIGetProjectsBySlugReleasesRequest) ([]ProjectsRelease, *http.Response, error) {
+func (a *ProjectAPIService) GetProjectBySlugReleasesExecute(r ProjectAPIGetProjectBySlugReleasesRequest) ([]ProjectsRelease, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -948,12 +948,12 @@ func (a *ProjectsAPIService) GetProjectsBySlugReleasesExecute(r ProjectsAPIGetPr
 		localVarReturnValue []ProjectsRelease
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.GetProjectsBySlugReleases")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.GetProjectBySlugReleases")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}/releases"
+	localVarPath := localBasePath + "/v1/project/{slug}/releases"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1014,27 +1014,27 @@ func (a *ProjectsAPIService) GetProjectsBySlugReleasesExecute(r ProjectsAPIGetPr
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIGetProjectsBySlugShotRequest struct {
+type ProjectAPIGetProjectBySlugShotRequest struct {
 	ctx        context.Context
-	ApiService *ProjectsAPIService
+	ApiService *ProjectAPIService
 	slug       string
 }
 
-func (r ProjectsAPIGetProjectsBySlugShotRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetProjectsBySlugShotExecute(r)
+func (r ProjectAPIGetProjectBySlugShotRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetProjectBySlugShotExecute(r)
 }
 
 /*
-GetProjectsBySlugShot Get a PNG of the project's live site
+GetProjectBySlugShot Get a PNG of the project's live site
 
 Returns a screenshot of what this project currently serves, as image/png. The capture is keyed by the deployment, so a redeploy invalidates it by construction rather than by anyone remembering to clear a cache. A project with nothing deployed answers 404 — that is a 404 about the PICTURE and not about the project, which is still right there in the list. Scoped to the caller's org: a validated principal is required, and a slug belonging to another org is not found rather than forbidden.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug
-	@return ProjectsAPIGetProjectsBySlugShotRequest
+	@return ProjectAPIGetProjectBySlugShotRequest
 */
-func (a *ProjectsAPIService) GetProjectsBySlugShot(ctx context.Context, slug string) ProjectsAPIGetProjectsBySlugShotRequest {
-	return ProjectsAPIGetProjectsBySlugShotRequest{
+func (a *ProjectAPIService) GetProjectBySlugShot(ctx context.Context, slug string) ProjectAPIGetProjectBySlugShotRequest {
+	return ProjectAPIGetProjectBySlugShotRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -1042,19 +1042,19 @@ func (a *ProjectsAPIService) GetProjectsBySlugShot(ctx context.Context, slug str
 }
 
 // Execute executes the request
-func (a *ProjectsAPIService) GetProjectsBySlugShotExecute(r ProjectsAPIGetProjectsBySlugShotRequest) (*http.Response, error) {
+func (a *ProjectAPIService) GetProjectBySlugShotExecute(r ProjectAPIGetProjectBySlugShotRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.GetProjectsBySlugShot")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.GetProjectBySlugShot")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}/shot"
+	localVarPath := localBasePath + "/v1/project/{slug}/shot"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1106,17 +1106,17 @@ func (a *ProjectsAPIService) GetProjectsBySlugShotExecute(r ProjectsAPIGetProjec
 	return localVarHTTPResponse, nil
 }
 
-type ProjectsAPIGetProjectsEdgeRequest struct {
+type ProjectAPIGetProjectEdgeRequest struct {
 	ctx        context.Context
-	ApiService *ProjectsAPIService
+	ApiService *ProjectAPIService
 }
 
-func (r ProjectsAPIGetProjectsEdgeRequest) Execute() (*EdgeState, *http.Response, error) {
-	return r.ApiService.GetProjectsEdgeExecute(r)
+func (r ProjectAPIGetProjectEdgeRequest) Execute() (*EdgeState, *http.Response, error) {
+	return r.ApiService.GetProjectEdgeExecute(r)
 }
 
 /*
-GetProjectsEdge health reports whether a publish reaches readers, rather than whether it was accepted.
+GetProjectEdge health reports whether a publish reaches readers, rather than whether it was accepted.
 
 health reports whether a publish reaches readers, rather than whether it was
 accepted. Those are different questions and only the second one was ever
@@ -1127,10 +1127,10 @@ Configured is a local fact, it is the fact that was missing, and a health check
 that spends a third-party API call is one an operator learns not to run.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ProjectsAPIGetProjectsEdgeRequest
+	@return ProjectAPIGetProjectEdgeRequest
 */
-func (a *ProjectsAPIService) GetProjectsEdge(ctx context.Context) ProjectsAPIGetProjectsEdgeRequest {
-	return ProjectsAPIGetProjectsEdgeRequest{
+func (a *ProjectAPIService) GetProjectEdge(ctx context.Context) ProjectAPIGetProjectEdgeRequest {
+	return ProjectAPIGetProjectEdgeRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1139,7 +1139,7 @@ func (a *ProjectsAPIService) GetProjectsEdge(ctx context.Context) ProjectsAPIGet
 // Execute executes the request
 //
 //	@return EdgeState
-func (a *ProjectsAPIService) GetProjectsEdgeExecute(r ProjectsAPIGetProjectsEdgeRequest) (*EdgeState, *http.Response, error) {
+func (a *ProjectAPIService) GetProjectEdgeExecute(r ProjectAPIGetProjectEdgeRequest) (*EdgeState, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1147,12 +1147,12 @@ func (a *ProjectsAPIService) GetProjectsEdgeExecute(r ProjectsAPIGetProjectsEdge
 		localVarReturnValue *EdgeState
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.GetProjectsEdge")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.GetProjectEdge")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/edge"
+	localVarPath := localBasePath + "/v1/project/edge"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1222,21 +1222,21 @@ func (a *ProjectsAPIService) GetProjectsEdgeExecute(r ProjectsAPIGetProjectsEdge
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIGetProjectsSitesRequest struct {
+type ProjectAPIGetProjectSitesRequest struct {
 	ctx        context.Context
-	ApiService *ProjectsAPIService
+	ApiService *ProjectAPIService
 }
 
-func (r ProjectsAPIGetProjectsSitesRequest) Execute() ([]ProjectsSite, *http.Response, error) {
-	return r.ApiService.GetProjectsSitesExecute(r)
+func (r ProjectAPIGetProjectSitesRequest) Execute() ([]ProjectsSite, *http.Response, error) {
+	return r.ApiService.GetProjectSitesExecute(r)
 }
 
 /*
-GetProjectsSites Returns the org's deployed sites at the pretty URLs they serve at.
+GetProjectSites Returns the org's deployed sites at the pretty URLs they serve at.
 
 Returns the org's deployed sites at the pretty URLs they serve at.
 
-It reads the SAME org-scoped store as /v1/projects and keeps only the projects
+It reads the SAME org-scoped store as /v1/project and keeps only the projects
 that are actually `live`, so a draft or a failed build is not advertised as a
 site.
 
@@ -1244,10 +1244,10 @@ Scope: a validated principal is required (403 without one) and the list is
 keyed by that principal's org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ProjectsAPIGetProjectsSitesRequest
+	@return ProjectAPIGetProjectSitesRequest
 */
-func (a *ProjectsAPIService) GetProjectsSites(ctx context.Context) ProjectsAPIGetProjectsSitesRequest {
-	return ProjectsAPIGetProjectsSitesRequest{
+func (a *ProjectAPIService) GetProjectSites(ctx context.Context) ProjectAPIGetProjectSitesRequest {
+	return ProjectAPIGetProjectSitesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1256,7 +1256,7 @@ func (a *ProjectsAPIService) GetProjectsSites(ctx context.Context) ProjectsAPIGe
 // Execute executes the request
 //
 //	@return []ProjectsSite
-func (a *ProjectsAPIService) GetProjectsSitesExecute(r ProjectsAPIGetProjectsSitesRequest) ([]ProjectsSite, *http.Response, error) {
+func (a *ProjectAPIService) GetProjectSitesExecute(r ProjectAPIGetProjectSitesRequest) ([]ProjectsSite, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1264,12 +1264,12 @@ func (a *ProjectsAPIService) GetProjectsSitesExecute(r ProjectsAPIGetProjectsSit
 		localVarReturnValue []ProjectsSite
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.GetProjectsSites")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.GetProjectSites")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/sites"
+	localVarPath := localBasePath + "/v1/project/sites"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1329,18 +1329,18 @@ func (a *ProjectsAPIService) GetProjectsSitesExecute(r ProjectsAPIGetProjectsSit
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIGetProjectsSitesBySlugRequest struct {
+type ProjectAPIGetProjectSitesBySlugRequest struct {
 	ctx        context.Context
-	ApiService *ProjectsAPIService
+	ApiService *ProjectAPIService
 	slug       string
 }
 
-func (r ProjectsAPIGetProjectsSitesBySlugRequest) Execute() (*ProjectsSite, *http.Response, error) {
-	return r.ApiService.GetProjectsSitesBySlugExecute(r)
+func (r ProjectAPIGetProjectSitesBySlugRequest) Execute() (*ProjectsSite, *http.Response, error) {
+	return r.ApiService.GetProjectSitesBySlugExecute(r)
 }
 
 /*
-GetProjectsSitesBySlug Returns one site — the same row ListSites carries, for one slug.
+GetProjectSitesBySlug Returns one site — the same row ListSites carries, for one slug.
 
 Returns one site — the same row ListSites carries, for one slug.
 
@@ -1362,10 +1362,10 @@ as a site. One definition of "is a site", used by both.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
-	@return ProjectsAPIGetProjectsSitesBySlugRequest
+	@return ProjectAPIGetProjectSitesBySlugRequest
 */
-func (a *ProjectsAPIService) GetProjectsSitesBySlug(ctx context.Context, slug string) ProjectsAPIGetProjectsSitesBySlugRequest {
-	return ProjectsAPIGetProjectsSitesBySlugRequest{
+func (a *ProjectAPIService) GetProjectSitesBySlug(ctx context.Context, slug string) ProjectAPIGetProjectSitesBySlugRequest {
+	return ProjectAPIGetProjectSitesBySlugRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -1375,7 +1375,7 @@ func (a *ProjectsAPIService) GetProjectsSitesBySlug(ctx context.Context, slug st
 // Execute executes the request
 //
 //	@return ProjectsSite
-func (a *ProjectsAPIService) GetProjectsSitesBySlugExecute(r ProjectsAPIGetProjectsSitesBySlugRequest) (*ProjectsSite, *http.Response, error) {
+func (a *ProjectAPIService) GetProjectSitesBySlugExecute(r ProjectAPIGetProjectSitesBySlugRequest) (*ProjectsSite, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1383,12 +1383,12 @@ func (a *ProjectsAPIService) GetProjectsSitesBySlugExecute(r ProjectsAPIGetProje
 		localVarReturnValue *ProjectsSite
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.GetProjectsSitesBySlug")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.GetProjectSitesBySlug")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/sites/{slug}"
+	localVarPath := localBasePath + "/v1/project/sites/{slug}"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1449,25 +1449,25 @@ func (a *ProjectsAPIService) GetProjectsSitesBySlugExecute(r ProjectsAPIGetProje
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIGetProjectsTagsRequest struct {
+type ProjectAPIGetProjectTagsRequest struct {
 	ctx        context.Context
-	ApiService *ProjectsAPIService
+	ApiService *ProjectAPIService
 }
 
-func (r ProjectsAPIGetProjectsTagsRequest) Execute() (*TagConfig, *http.Response, error) {
-	return r.ApiService.GetProjectsTagsExecute(r)
+func (r ProjectAPIGetProjectTagsRequest) Execute() (*TagConfig, *http.Response, error) {
+	return r.ApiService.GetProjectTagsExecute(r)
 }
 
 /*
-GetProjectsTags The site's browser tag set for the hosted tag — which pixels to inject, by publishable key
+GetProjectTags The site's browser tag set for the hosted tag — which pixels to inject, by publishable key
 
 Returns the client-side pixels the SITE has connected (GA4, Google Ads, LinkedIn, Meta, Pinterest, Reddit, TikTok, X) with their NON-SECRET ids, so the hosted tag injects them first-party and stamps each browser event with the same event_id the server-side Conversions API uses — deduping the two. Resolved per site: by the publishable key on ?key= when it names a project, else by the request host, so hanzo.ai and hanzo.chat carry different tags under one org. WITHOUT a resolvable site it answers an empty set at 200 — a page never breaks on its tag config.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ProjectsAPIGetProjectsTagsRequest
+	@return ProjectAPIGetProjectTagsRequest
 */
-func (a *ProjectsAPIService) GetProjectsTags(ctx context.Context) ProjectsAPIGetProjectsTagsRequest {
-	return ProjectsAPIGetProjectsTagsRequest{
+func (a *ProjectAPIService) GetProjectTags(ctx context.Context) ProjectAPIGetProjectTagsRequest {
+	return ProjectAPIGetProjectTagsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1476,7 +1476,7 @@ func (a *ProjectsAPIService) GetProjectsTags(ctx context.Context) ProjectsAPIGet
 // Execute executes the request
 //
 //	@return TagConfig
-func (a *ProjectsAPIService) GetProjectsTagsExecute(r ProjectsAPIGetProjectsTagsRequest) (*TagConfig, *http.Response, error) {
+func (a *ProjectAPIService) GetProjectTagsExecute(r ProjectAPIGetProjectTagsRequest) (*TagConfig, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1484,12 +1484,12 @@ func (a *ProjectsAPIService) GetProjectsTagsExecute(r ProjectsAPIGetProjectsTags
 		localVarReturnValue *TagConfig
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.GetProjectsTags")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.GetProjectTags")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/tags"
+	localVarPath := localBasePath + "/v1/project/tags"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1549,24 +1549,24 @@ func (a *ProjectsAPIService) GetProjectsTagsExecute(r ProjectsAPIGetProjectsTags
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIPatchProjectsBySlugRequest struct {
+type ProjectAPIPatchProjectBySlugRequest struct {
 	ctx            context.Context
-	ApiService     *ProjectsAPIService
+	ApiService     *ProjectAPIService
 	slug           string
 	projectsUpdate *ProjectsUpdate
 }
 
-func (r ProjectsAPIPatchProjectsBySlugRequest) ProjectsUpdate(projectsUpdate ProjectsUpdate) ProjectsAPIPatchProjectsBySlugRequest {
+func (r ProjectAPIPatchProjectBySlugRequest) ProjectsUpdate(projectsUpdate ProjectsUpdate) ProjectAPIPatchProjectBySlugRequest {
 	r.projectsUpdate = &projectsUpdate
 	return r
 }
 
-func (r ProjectsAPIPatchProjectsBySlugRequest) Execute() (*ProjectsProject, *http.Response, error) {
-	return r.ApiService.PatchProjectsBySlugExecute(r)
+func (r ProjectAPIPatchProjectBySlugRequest) Execute() (*ProjectsProject, *http.Response, error) {
+	return r.ApiService.PatchProjectBySlugExecute(r)
 }
 
 /*
-PatchProjectsBySlug Changes a project's settings, and only the settings you send.
+PatchProjectBySlug Changes a project's settings, and only the settings you send.
 
 Changes a project's settings, and only the settings you send.
 
@@ -1588,10 +1588,10 @@ resolved within that principal's org, so another tenant's slug is a 404.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the project to update, from the path. The URL is the addressing authority — a `slug` in the body cannot move the write to another project.
-	@return ProjectsAPIPatchProjectsBySlugRequest
+	@return ProjectAPIPatchProjectBySlugRequest
 */
-func (a *ProjectsAPIService) PatchProjectsBySlug(ctx context.Context, slug string) ProjectsAPIPatchProjectsBySlugRequest {
-	return ProjectsAPIPatchProjectsBySlugRequest{
+func (a *ProjectAPIService) PatchProjectBySlug(ctx context.Context, slug string) ProjectAPIPatchProjectBySlugRequest {
+	return ProjectAPIPatchProjectBySlugRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -1601,7 +1601,7 @@ func (a *ProjectsAPIService) PatchProjectsBySlug(ctx context.Context, slug strin
 // Execute executes the request
 //
 //	@return ProjectsProject
-func (a *ProjectsAPIService) PatchProjectsBySlugExecute(r ProjectsAPIPatchProjectsBySlugRequest) (*ProjectsProject, *http.Response, error) {
+func (a *ProjectAPIService) PatchProjectBySlugExecute(r ProjectAPIPatchProjectBySlugRequest) (*ProjectsProject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -1609,12 +1609,12 @@ func (a *ProjectsAPIService) PatchProjectsBySlugExecute(r ProjectsAPIPatchProjec
 		localVarReturnValue *ProjectsProject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.PatchProjectsBySlug")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.PatchProjectBySlug")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}"
+	localVarPath := localBasePath + "/v1/project/{slug}"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1680,23 +1680,23 @@ func (a *ProjectsAPIService) PatchProjectsBySlugExecute(r ProjectsAPIPatchProjec
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIPostProjectsRequest struct {
+type ProjectAPIPostProjectRequest struct {
 	ctx            context.Context
-	ApiService     *ProjectsAPIService
+	ApiService     *ProjectAPIService
 	projectsCreate *ProjectsCreate
 }
 
-func (r ProjectsAPIPostProjectsRequest) ProjectsCreate(projectsCreate ProjectsCreate) ProjectsAPIPostProjectsRequest {
+func (r ProjectAPIPostProjectRequest) ProjectsCreate(projectsCreate ProjectsCreate) ProjectAPIPostProjectRequest {
 	r.projectsCreate = &projectsCreate
 	return r
 }
 
-func (r ProjectsAPIPostProjectsRequest) Execute() (*ProjectsProject, *http.Response, error) {
-	return r.ApiService.PostProjectsExecute(r)
+func (r ProjectAPIPostProjectRequest) Execute() (*ProjectsProject, *http.Response, error) {
+	return r.ApiService.PostProjectExecute(r)
 }
 
 /*
-PostProjects Creates a project — the handle a site is deployed and served under — and answers 201 with it in `draft`.
+PostProject Creates a project — the handle a site is deployed and served under — and answers 201 with it in `draft`.
 
 Creates a project — the handle a site is deployed and served
 under — and answers 201 with it in `draft`.
@@ -1722,10 +1722,10 @@ used in the caller's own org is a 409 while the same slug in another org is
 irrelevant.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ProjectsAPIPostProjectsRequest
+	@return ProjectAPIPostProjectRequest
 */
-func (a *ProjectsAPIService) PostProjects(ctx context.Context) ProjectsAPIPostProjectsRequest {
-	return ProjectsAPIPostProjectsRequest{
+func (a *ProjectAPIService) PostProject(ctx context.Context) ProjectAPIPostProjectRequest {
+	return ProjectAPIPostProjectRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1734,7 +1734,7 @@ func (a *ProjectsAPIService) PostProjects(ctx context.Context) ProjectsAPIPostPr
 // Execute executes the request
 //
 //	@return ProjectsProject
-func (a *ProjectsAPIService) PostProjectsExecute(r ProjectsAPIPostProjectsRequest) (*ProjectsProject, *http.Response, error) {
+func (a *ProjectAPIService) PostProjectExecute(r ProjectAPIPostProjectRequest) (*ProjectsProject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1742,12 +1742,12 @@ func (a *ProjectsAPIService) PostProjectsExecute(r ProjectsAPIPostProjectsReques
 		localVarReturnValue *ProjectsProject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.PostProjects")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.PostProject")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects"
+	localVarPath := localBasePath + "/v1/project"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1812,28 +1812,28 @@ func (a *ProjectsAPIService) PostProjectsExecute(r ProjectsAPIPostProjectsReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIPostProjectsBySlugDeployRequest struct {
+type ProjectAPIPostProjectBySlugDeployRequest struct {
 	ctx        context.Context
-	ApiService *ProjectsAPIService
+	ApiService *ProjectAPIService
 	slug       string
 	body       *os.File
 }
 
-func (r ProjectsAPIPostProjectsBySlugDeployRequest) Body(body *os.File) ProjectsAPIPostProjectsBySlugDeployRequest {
+func (r ProjectAPIPostProjectBySlugDeployRequest) Body(body *os.File) ProjectAPIPostProjectBySlugDeployRequest {
 	r.body = body
 	return r
 }
 
-func (r ProjectsAPIPostProjectsBySlugDeployRequest) Execute() (*ProjectsDeployment, *http.Response, error) {
-	return r.ApiService.PostProjectsBySlugDeployExecute(r)
+func (r ProjectAPIPostProjectBySlugDeployRequest) Execute() (*ProjectsDeployment, *http.Response, error) {
+	return r.ApiService.PostProjectBySlugDeployExecute(r)
 }
 
 /*
-PostProjectsBySlugDeploy Upload a built site as one archive and serve it
+PostProjectBySlugDeploy Upload a built site as one archive and serve it
 
 Takes a built site live at `https://<slug>.hanzo.app` in one call. The body is the site itself — a `zip` or `tar.gz` holding `index.html` at its root (or a single wrapper directory that does), sent raw or as a multipart file part. It is unpacked to the site's own storage prefix and served immediately, answering the finished deployment.
 
-It is bounded by the edge body limit (16 MiB by default), and that bound is the whole reason the other path exists: an oversized POST is refused by the server BEFORE any handler runs and surfaces as an opaque `400 Error when parsing request` that reads like a malformed payload rather than a size cap. A site too large for one archive opens a deployment with `POST /v1/projects/{slug}/deployments` instead and writes its files straight to storage against the scoped grant that answers with — no body limit, and no bytes through this API at all.
+It is bounded by the edge body limit (16 MiB by default), and that bound is the whole reason the other path exists: an oversized POST is refused by the server BEFORE any handler runs and surfaces as an opaque `400 Error when parsing request` that reads like a malformed payload rather than a size cap. A site too large for one archive opens a deployment with `POST /v1/project/{slug}/deployments` instead and writes its files straight to storage against the scoped grant that answers with — no body limit, and no bytes through this API at all.
 
 Billing is fail-closed and fails FIRST: the hosting gate runs before anything is parsed or uploaded, so an unfunded org is 402 and an unreachable commerce is 503 with nothing written. The debit lands only on success — a failed upload is never billed and never flips the live site — and a redeploy answers the SAME URL, because slug and apex are stable.
 
@@ -1841,10 +1841,10 @@ Scope: a validated principal is required (403 without one) and the site is resol
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug
-	@return ProjectsAPIPostProjectsBySlugDeployRequest
+	@return ProjectAPIPostProjectBySlugDeployRequest
 */
-func (a *ProjectsAPIService) PostProjectsBySlugDeploy(ctx context.Context, slug string) ProjectsAPIPostProjectsBySlugDeployRequest {
-	return ProjectsAPIPostProjectsBySlugDeployRequest{
+func (a *ProjectAPIService) PostProjectBySlugDeploy(ctx context.Context, slug string) ProjectAPIPostProjectBySlugDeployRequest {
+	return ProjectAPIPostProjectBySlugDeployRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -1854,7 +1854,7 @@ func (a *ProjectsAPIService) PostProjectsBySlugDeploy(ctx context.Context, slug 
 // Execute executes the request
 //
 //	@return ProjectsDeployment
-func (a *ProjectsAPIService) PostProjectsBySlugDeployExecute(r ProjectsAPIPostProjectsBySlugDeployRequest) (*ProjectsDeployment, *http.Response, error) {
+func (a *ProjectAPIService) PostProjectBySlugDeployExecute(r ProjectAPIPostProjectBySlugDeployRequest) (*ProjectsDeployment, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1862,12 +1862,12 @@ func (a *ProjectsAPIService) PostProjectsBySlugDeployExecute(r ProjectsAPIPostPr
 		localVarReturnValue *ProjectsDeployment
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.PostProjectsBySlugDeploy")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.PostProjectBySlugDeploy")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}/deploy"
+	localVarPath := localBasePath + "/v1/project/{slug}/deploy"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1930,24 +1930,24 @@ func (a *ProjectsAPIService) PostProjectsBySlugDeployExecute(r ProjectsAPIPostPr
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIPostProjectsBySlugDeploymentsRequest struct {
+type ProjectAPIPostProjectBySlugDeploymentsRequest struct {
 	ctx                 context.Context
-	ApiService          *ProjectsAPIService
+	ApiService          *ProjectAPIService
 	slug                string
 	projectsDeployStart *ProjectsDeployStart
 }
 
-func (r ProjectsAPIPostProjectsBySlugDeploymentsRequest) ProjectsDeployStart(projectsDeployStart ProjectsDeployStart) ProjectsAPIPostProjectsBySlugDeploymentsRequest {
+func (r ProjectAPIPostProjectBySlugDeploymentsRequest) ProjectsDeployStart(projectsDeployStart ProjectsDeployStart) ProjectAPIPostProjectBySlugDeploymentsRequest {
 	r.projectsDeployStart = &projectsDeployStart
 	return r
 }
 
-func (r ProjectsAPIPostProjectsBySlugDeploymentsRequest) Execute() (*ProjectsDeployment, *http.Response, error) {
-	return r.ApiService.PostProjectsBySlugDeploymentsExecute(r)
+func (r ProjectAPIPostProjectBySlugDeploymentsRequest) Execute() (*ProjectsDeployment, *http.Response, error) {
+	return r.ApiService.PostProjectBySlugDeploymentsExecute(r)
 }
 
 /*
-PostProjectsBySlugDeployments Opens a deployment and hands back a short-lived, prefix-scoped grant to write its bytes straight to object storage.
+PostProjectBySlugDeployments Opens a deployment and hands back a short-lived, prefix-scoped grant to write its bytes straight to object storage.
 
 Opens a deployment and hands back a short-lived, prefix-scoped
 grant to write its bytes straight to object storage. Answers 202.
@@ -1983,10 +1983,10 @@ resolved within that principal's org, so another tenant's slug is a 404.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the site to deploy, from the path.
-	@return ProjectsAPIPostProjectsBySlugDeploymentsRequest
+	@return ProjectAPIPostProjectBySlugDeploymentsRequest
 */
-func (a *ProjectsAPIService) PostProjectsBySlugDeployments(ctx context.Context, slug string) ProjectsAPIPostProjectsBySlugDeploymentsRequest {
-	return ProjectsAPIPostProjectsBySlugDeploymentsRequest{
+func (a *ProjectAPIService) PostProjectBySlugDeployments(ctx context.Context, slug string) ProjectAPIPostProjectBySlugDeploymentsRequest {
+	return ProjectAPIPostProjectBySlugDeploymentsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -1996,7 +1996,7 @@ func (a *ProjectsAPIService) PostProjectsBySlugDeployments(ctx context.Context, 
 // Execute executes the request
 //
 //	@return ProjectsDeployment
-func (a *ProjectsAPIService) PostProjectsBySlugDeploymentsExecute(r ProjectsAPIPostProjectsBySlugDeploymentsRequest) (*ProjectsDeployment, *http.Response, error) {
+func (a *ProjectAPIService) PostProjectBySlugDeploymentsExecute(r ProjectAPIPostProjectBySlugDeploymentsRequest) (*ProjectsDeployment, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -2004,12 +2004,12 @@ func (a *ProjectsAPIService) PostProjectsBySlugDeploymentsExecute(r ProjectsAPIP
 		localVarReturnValue *ProjectsDeployment
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.PostProjectsBySlugDeployments")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.PostProjectBySlugDeployments")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}/deployments"
+	localVarPath := localBasePath + "/v1/project/{slug}/deployments"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2075,25 +2075,25 @@ func (a *ProjectsAPIService) PostProjectsBySlugDeploymentsExecute(r ProjectsAPIP
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIPostProjectsBySlugDeploymentsByIdCompleteRequest struct {
+type ProjectAPIPostProjectBySlugDeploymentsByIdCompleteRequest struct {
 	ctx              context.Context
-	ApiService       *ProjectsAPIService
+	ApiService       *ProjectAPIService
 	slug             string
 	id               string
 	projectsComplete *ProjectsComplete
 }
 
-func (r ProjectsAPIPostProjectsBySlugDeploymentsByIdCompleteRequest) ProjectsComplete(projectsComplete ProjectsComplete) ProjectsAPIPostProjectsBySlugDeploymentsByIdCompleteRequest {
+func (r ProjectAPIPostProjectBySlugDeploymentsByIdCompleteRequest) ProjectsComplete(projectsComplete ProjectsComplete) ProjectAPIPostProjectBySlugDeploymentsByIdCompleteRequest {
 	r.projectsComplete = &projectsComplete
 	return r
 }
 
-func (r ProjectsAPIPostProjectsBySlugDeploymentsByIdCompleteRequest) Execute() (*ProjectsDeployment, *http.Response, error) {
-	return r.ApiService.PostProjectsBySlugDeploymentsByIdCompleteExecute(r)
+func (r ProjectAPIPostProjectBySlugDeploymentsByIdCompleteRequest) Execute() (*ProjectsDeployment, *http.Response, error) {
+	return r.ApiService.PostProjectBySlugDeploymentsByIdCompleteExecute(r)
 }
 
 /*
-PostProjectsBySlugDeploymentsByIdComplete CompleteDeployment is the CI completion hook that flips a queued git deployment to live (or error) once CI has synced the built site to S3.
+PostProjectBySlugDeploymentsByIdComplete CompleteDeployment is the CI completion hook that flips a queued git deployment to live (or error) once CI has synced the built site to S3.
 
 CompleteDeployment is the CI completion hook that flips a queued git
 deployment to live (or error) once CI has synced the built site to S3.
@@ -2118,10 +2118,10 @@ within that principal's org and another tenant's slug or deployment id is a
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the project the deployment belongs to, from the path.
 	@param id ID is the queued deployment to complete, from the path.
-	@return ProjectsAPIPostProjectsBySlugDeploymentsByIdCompleteRequest
+	@return ProjectAPIPostProjectBySlugDeploymentsByIdCompleteRequest
 */
-func (a *ProjectsAPIService) PostProjectsBySlugDeploymentsByIdComplete(ctx context.Context, slug string, id string) ProjectsAPIPostProjectsBySlugDeploymentsByIdCompleteRequest {
-	return ProjectsAPIPostProjectsBySlugDeploymentsByIdCompleteRequest{
+func (a *ProjectAPIService) PostProjectBySlugDeploymentsByIdComplete(ctx context.Context, slug string, id string) ProjectAPIPostProjectBySlugDeploymentsByIdCompleteRequest {
+	return ProjectAPIPostProjectBySlugDeploymentsByIdCompleteRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -2132,7 +2132,7 @@ func (a *ProjectsAPIService) PostProjectsBySlugDeploymentsByIdComplete(ctx conte
 // Execute executes the request
 //
 //	@return ProjectsDeployment
-func (a *ProjectsAPIService) PostProjectsBySlugDeploymentsByIdCompleteExecute(r ProjectsAPIPostProjectsBySlugDeploymentsByIdCompleteRequest) (*ProjectsDeployment, *http.Response, error) {
+func (a *ProjectAPIService) PostProjectBySlugDeploymentsByIdCompleteExecute(r ProjectAPIPostProjectBySlugDeploymentsByIdCompleteRequest) (*ProjectsDeployment, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -2140,12 +2140,12 @@ func (a *ProjectsAPIService) PostProjectsBySlugDeploymentsByIdCompleteExecute(r 
 		localVarReturnValue *ProjectsDeployment
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.PostProjectsBySlugDeploymentsByIdComplete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.PostProjectBySlugDeploymentsByIdComplete")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}/deployments/{id}/complete"
+	localVarPath := localBasePath + "/v1/project/{slug}/deployments/{id}/complete"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
@@ -2212,24 +2212,24 @@ func (a *ProjectsAPIService) PostProjectsBySlugDeploymentsByIdCompleteExecute(r 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIPostProjectsBySlugDomainsRequest struct {
+type ProjectAPIPostProjectBySlugDomainsRequest struct {
 	ctx                 context.Context
-	ApiService          *ProjectsAPIService
+	ApiService          *ProjectAPIService
 	slug                string
 	projectsDomainsBind *ProjectsDomainsBind
 }
 
-func (r ProjectsAPIPostProjectsBySlugDomainsRequest) ProjectsDomainsBind(projectsDomainsBind ProjectsDomainsBind) ProjectsAPIPostProjectsBySlugDomainsRequest {
+func (r ProjectAPIPostProjectBySlugDomainsRequest) ProjectsDomainsBind(projectsDomainsBind ProjectsDomainsBind) ProjectAPIPostProjectBySlugDomainsRequest {
 	r.projectsDomainsBind = &projectsDomainsBind
 	return r
 }
 
-func (r ProjectsAPIPostProjectsBySlugDomainsRequest) Execute() (*ProjectsBoundDomains, *http.Response, error) {
-	return r.ApiService.PostProjectsBySlugDomainsExecute(r)
+func (r ProjectAPIPostProjectBySlugDomainsRequest) Execute() (*ProjectsBoundDomains, *http.Response, error) {
+	return r.ApiService.PostProjectBySlugDomainsExecute(r)
 }
 
 /*
-PostProjectsBySlugDomains Attaches one or more CUSTOM public hostnames to this org's site.
+PostProjectBySlugDomains Attaches one or more CUSTOM public hostnames to this org's site.
 
 Attaches one or more CUSTOM public hostnames to this org's site.
 
@@ -2256,10 +2256,10 @@ resolved within that principal's org, so another tenant's slug is a 404.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the site the hosts attach to, from the path.
-	@return ProjectsAPIPostProjectsBySlugDomainsRequest
+	@return ProjectAPIPostProjectBySlugDomainsRequest
 */
-func (a *ProjectsAPIService) PostProjectsBySlugDomains(ctx context.Context, slug string) ProjectsAPIPostProjectsBySlugDomainsRequest {
-	return ProjectsAPIPostProjectsBySlugDomainsRequest{
+func (a *ProjectAPIService) PostProjectBySlugDomains(ctx context.Context, slug string) ProjectAPIPostProjectBySlugDomainsRequest {
+	return ProjectAPIPostProjectBySlugDomainsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -2269,7 +2269,7 @@ func (a *ProjectsAPIService) PostProjectsBySlugDomains(ctx context.Context, slug
 // Execute executes the request
 //
 //	@return ProjectsBoundDomains
-func (a *ProjectsAPIService) PostProjectsBySlugDomainsExecute(r ProjectsAPIPostProjectsBySlugDomainsRequest) (*ProjectsBoundDomains, *http.Response, error) {
+func (a *ProjectAPIService) PostProjectBySlugDomainsExecute(r ProjectAPIPostProjectBySlugDomainsRequest) (*ProjectsBoundDomains, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -2277,12 +2277,12 @@ func (a *ProjectsAPIService) PostProjectsBySlugDomainsExecute(r ProjectsAPIPostP
 		localVarReturnValue *ProjectsBoundDomains
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.PostProjectsBySlugDomains")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.PostProjectBySlugDomains")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}/domains"
+	localVarPath := localBasePath + "/v1/project/{slug}/domains"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2348,19 +2348,19 @@ func (a *ProjectsAPIService) PostProjectsBySlugDomainsExecute(r ProjectsAPIPostP
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIPostProjectsBySlugDomainsByHostVerifyRequest struct {
+type ProjectAPIPostProjectBySlugDomainsByHostVerifyRequest struct {
 	ctx        context.Context
-	ApiService *ProjectsAPIService
+	ApiService *ProjectAPIService
 	slug       string
 	host       string
 }
 
-func (r ProjectsAPIPostProjectsBySlugDomainsByHostVerifyRequest) Execute() (*ProjectsDomain, *http.Response, error) {
-	return r.ApiService.PostProjectsBySlugDomainsByHostVerifyExecute(r)
+func (r ProjectAPIPostProjectBySlugDomainsByHostVerifyRequest) Execute() (*ProjectsDomain, *http.Response, error) {
+	return r.ApiService.PostProjectBySlugDomainsByHostVerifyExecute(r)
 }
 
 /*
-PostProjectsBySlugDomainsByHostVerify Checks the DNS challenge for a pending custom hostname and, when it passes, promotes the host so it begins routing at the edge.
+PostProjectBySlugDomainsByHostVerify Checks the DNS challenge for a pending custom hostname and, when it passes, promotes the host so it begins routing at the edge.
 
 Checks the DNS challenge for a pending custom hostname and, when
 it passes, promotes the host so it begins routing at the edge.
@@ -2380,10 +2380,10 @@ another tenant is "not claimed by this site".
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the project the host is attached to, from the path.
 	@param host Host is the custom hostname, from the path. It is cleaned to its canonical form (lowercased, trailing dot dropped) before anything is looked up.
-	@return ProjectsAPIPostProjectsBySlugDomainsByHostVerifyRequest
+	@return ProjectAPIPostProjectBySlugDomainsByHostVerifyRequest
 */
-func (a *ProjectsAPIService) PostProjectsBySlugDomainsByHostVerify(ctx context.Context, slug string, host string) ProjectsAPIPostProjectsBySlugDomainsByHostVerifyRequest {
-	return ProjectsAPIPostProjectsBySlugDomainsByHostVerifyRequest{
+func (a *ProjectAPIService) PostProjectBySlugDomainsByHostVerify(ctx context.Context, slug string, host string) ProjectAPIPostProjectBySlugDomainsByHostVerifyRequest {
+	return ProjectAPIPostProjectBySlugDomainsByHostVerifyRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -2394,7 +2394,7 @@ func (a *ProjectsAPIService) PostProjectsBySlugDomainsByHostVerify(ctx context.C
 // Execute executes the request
 //
 //	@return ProjectsDomain
-func (a *ProjectsAPIService) PostProjectsBySlugDomainsByHostVerifyExecute(r ProjectsAPIPostProjectsBySlugDomainsByHostVerifyRequest) (*ProjectsDomain, *http.Response, error) {
+func (a *ProjectAPIService) PostProjectBySlugDomainsByHostVerifyExecute(r ProjectAPIPostProjectBySlugDomainsByHostVerifyRequest) (*ProjectsDomain, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -2402,12 +2402,12 @@ func (a *ProjectsAPIService) PostProjectsBySlugDomainsByHostVerifyExecute(r Proj
 		localVarReturnValue *ProjectsDomain
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.PostProjectsBySlugDomainsByHostVerify")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.PostProjectBySlugDomainsByHostVerify")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}/domains/{host}/verify"
+	localVarPath := localBasePath + "/v1/project/{slug}/domains/{host}/verify"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"host"+"}", url.PathEscape(parameterValueToString(r.host, "host")), -1)
 
@@ -2469,24 +2469,24 @@ func (a *ProjectsAPIService) PostProjectsBySlugDomainsByHostVerifyExecute(r Proj
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIPostProjectsBySlugPublishRequest struct {
+type ProjectAPIPostProjectBySlugPublishRequest struct {
 	ctx             context.Context
-	ApiService      *ProjectsAPIService
+	ApiService      *ProjectAPIService
 	slug            string
 	projectsPublish *ProjectsPublish
 }
 
-func (r ProjectsAPIPostProjectsBySlugPublishRequest) ProjectsPublish(projectsPublish ProjectsPublish) ProjectsAPIPostProjectsBySlugPublishRequest {
+func (r ProjectAPIPostProjectBySlugPublishRequest) ProjectsPublish(projectsPublish ProjectsPublish) ProjectAPIPostProjectBySlugPublishRequest {
 	r.projectsPublish = &projectsPublish
 	return r
 }
 
-func (r ProjectsAPIPostProjectsBySlugPublishRequest) Execute() (*ProjectsRelease, *http.Response, error) {
-	return r.ApiService.PostProjectsBySlugPublishExecute(r)
+func (r ProjectAPIPostProjectBySlugPublishRequest) Execute() (*ProjectsRelease, *http.Response, error) {
+	return r.ApiService.PostProjectBySlugPublishExecute(r)
 }
 
 /*
-PostProjectsBySlugPublish Promotes a build output into a new release AND goes live with it — create+activate in one call, which is the 99% path.
+PostProjectBySlugPublish Promotes a build output into a new release AND goes live with it — create+activate in one call, which is the 99% path.
 
 Promotes a build output into a new release AND goes live with it —
 create+activate in one call, which is the 99% path.
@@ -2503,10 +2503,10 @@ resolved within that principal's org, so another tenant's slug is a 404.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the site to publish, from the path.
-	@return ProjectsAPIPostProjectsBySlugPublishRequest
+	@return ProjectAPIPostProjectBySlugPublishRequest
 */
-func (a *ProjectsAPIService) PostProjectsBySlugPublish(ctx context.Context, slug string) ProjectsAPIPostProjectsBySlugPublishRequest {
-	return ProjectsAPIPostProjectsBySlugPublishRequest{
+func (a *ProjectAPIService) PostProjectBySlugPublish(ctx context.Context, slug string) ProjectAPIPostProjectBySlugPublishRequest {
+	return ProjectAPIPostProjectBySlugPublishRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -2516,7 +2516,7 @@ func (a *ProjectsAPIService) PostProjectsBySlugPublish(ctx context.Context, slug
 // Execute executes the request
 //
 //	@return ProjectsRelease
-func (a *ProjectsAPIService) PostProjectsBySlugPublishExecute(r ProjectsAPIPostProjectsBySlugPublishRequest) (*ProjectsRelease, *http.Response, error) {
+func (a *ProjectAPIService) PostProjectBySlugPublishExecute(r ProjectAPIPostProjectBySlugPublishRequest) (*ProjectsRelease, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -2524,12 +2524,12 @@ func (a *ProjectsAPIService) PostProjectsBySlugPublishExecute(r ProjectsAPIPostP
 		localVarReturnValue *ProjectsRelease
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.PostProjectsBySlugPublish")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.PostProjectBySlugPublish")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}/publish"
+	localVarPath := localBasePath + "/v1/project/{slug}/publish"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2595,18 +2595,18 @@ func (a *ProjectsAPIService) PostProjectsBySlugPublishExecute(r ProjectsAPIPostP
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIPostProjectsBySlugPurgeRequest struct {
+type ProjectAPIPostProjectBySlugPurgeRequest struct {
 	ctx        context.Context
-	ApiService *ProjectsAPIService
+	ApiService *ProjectAPIService
 	slug       string
 }
 
-func (r ProjectsAPIPostProjectsBySlugPurgeRequest) Execute() (*ProjectsProject, *http.Response, error) {
-	return r.ApiService.PostProjectsBySlugPurgeExecute(r)
+func (r ProjectAPIPostProjectBySlugPurgeRequest) Execute() (*ProjectsProject, *http.Response, error) {
+	return r.ApiService.PostProjectBySlugPurgeExecute(r)
 }
 
 /*
-PostProjectsBySlugPurge Flushes the site's edge cache without redeploying anything.
+PostProjectBySlugPurge Flushes the site's edge cache without redeploying anything.
 
 Flushes the site's edge cache without redeploying anything.
 
@@ -2622,10 +2622,10 @@ resolved within that principal's org, so another tenant's slug is a 404.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
-	@return ProjectsAPIPostProjectsBySlugPurgeRequest
+	@return ProjectAPIPostProjectBySlugPurgeRequest
 */
-func (a *ProjectsAPIService) PostProjectsBySlugPurge(ctx context.Context, slug string) ProjectsAPIPostProjectsBySlugPurgeRequest {
-	return ProjectsAPIPostProjectsBySlugPurgeRequest{
+func (a *ProjectAPIService) PostProjectBySlugPurge(ctx context.Context, slug string) ProjectAPIPostProjectBySlugPurgeRequest {
+	return ProjectAPIPostProjectBySlugPurgeRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -2635,7 +2635,7 @@ func (a *ProjectsAPIService) PostProjectsBySlugPurge(ctx context.Context, slug s
 // Execute executes the request
 //
 //	@return ProjectsProject
-func (a *ProjectsAPIService) PostProjectsBySlugPurgeExecute(r ProjectsAPIPostProjectsBySlugPurgeRequest) (*ProjectsProject, *http.Response, error) {
+func (a *ProjectAPIService) PostProjectBySlugPurgeExecute(r ProjectAPIPostProjectBySlugPurgeRequest) (*ProjectsProject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -2643,12 +2643,12 @@ func (a *ProjectsAPIService) PostProjectsBySlugPurgeExecute(r ProjectsAPIPostPro
 		localVarReturnValue *ProjectsProject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.PostProjectsBySlugPurge")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.PostProjectBySlugPurge")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}/purge"
+	localVarPath := localBasePath + "/v1/project/{slug}/purge"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2709,24 +2709,24 @@ func (a *ProjectsAPIService) PostProjectsBySlugPurgeExecute(r ProjectsAPIPostPro
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIPostProjectsBySlugReleasesRequest struct {
+type ProjectAPIPostProjectBySlugReleasesRequest struct {
 	ctx             context.Context
-	ApiService      *ProjectsAPIService
+	ApiService      *ProjectAPIService
 	slug            string
 	projectsPublish *ProjectsPublish
 }
 
-func (r ProjectsAPIPostProjectsBySlugReleasesRequest) ProjectsPublish(projectsPublish ProjectsPublish) ProjectsAPIPostProjectsBySlugReleasesRequest {
+func (r ProjectAPIPostProjectBySlugReleasesRequest) ProjectsPublish(projectsPublish ProjectsPublish) ProjectAPIPostProjectBySlugReleasesRequest {
 	r.projectsPublish = &projectsPublish
 	return r
 }
 
-func (r ProjectsAPIPostProjectsBySlugReleasesRequest) Execute() (*ProjectsRelease, *http.Response, error) {
-	return r.ApiService.PostProjectsBySlugReleasesExecute(r)
+func (r ProjectAPIPostProjectBySlugReleasesRequest) Execute() (*ProjectsRelease, *http.Response, error) {
+	return r.ApiService.PostProjectBySlugReleasesExecute(r)
 }
 
 /*
-PostProjectsBySlugReleases Promotes a build output into a new immutable release WITHOUT serving it — the staged half of publishing, for when you want to check a release before it goes live.
+PostProjectBySlugReleases Promotes a build output into a new immutable release WITHOUT serving it — the staged half of publishing, for when you want to check a release before it goes live.
 
 Promotes a build output into a new immutable release WITHOUT
 serving it — the staged half of publishing, for when you want to check a
@@ -2753,10 +2753,10 @@ resolved within that principal's org, so another tenant's slug is a 404.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the site to publish, from the path.
-	@return ProjectsAPIPostProjectsBySlugReleasesRequest
+	@return ProjectAPIPostProjectBySlugReleasesRequest
 */
-func (a *ProjectsAPIService) PostProjectsBySlugReleases(ctx context.Context, slug string) ProjectsAPIPostProjectsBySlugReleasesRequest {
-	return ProjectsAPIPostProjectsBySlugReleasesRequest{
+func (a *ProjectAPIService) PostProjectBySlugReleases(ctx context.Context, slug string) ProjectAPIPostProjectBySlugReleasesRequest {
+	return ProjectAPIPostProjectBySlugReleasesRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -2766,7 +2766,7 @@ func (a *ProjectsAPIService) PostProjectsBySlugReleases(ctx context.Context, slu
 // Execute executes the request
 //
 //	@return ProjectsRelease
-func (a *ProjectsAPIService) PostProjectsBySlugReleasesExecute(r ProjectsAPIPostProjectsBySlugReleasesRequest) (*ProjectsRelease, *http.Response, error) {
+func (a *ProjectAPIService) PostProjectBySlugReleasesExecute(r ProjectAPIPostProjectBySlugReleasesRequest) (*ProjectsRelease, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -2774,12 +2774,12 @@ func (a *ProjectsAPIService) PostProjectsBySlugReleasesExecute(r ProjectsAPIPost
 		localVarReturnValue *ProjectsRelease
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.PostProjectsBySlugReleases")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.PostProjectBySlugReleases")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}/releases"
+	localVarPath := localBasePath + "/v1/project/{slug}/releases"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2845,19 +2845,19 @@ func (a *ProjectsAPIService) PostProjectsBySlugReleasesExecute(r ProjectsAPIPost
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIPostProjectsBySlugReleasesByReleaseActivateRequest struct {
+type ProjectAPIPostProjectBySlugReleasesByReleaseActivateRequest struct {
 	ctx        context.Context
-	ApiService *ProjectsAPIService
+	ApiService *ProjectAPIService
 	slug       string
 	release    string
 }
 
-func (r ProjectsAPIPostProjectsBySlugReleasesByReleaseActivateRequest) Execute() (*ProjectsRelease, *http.Response, error) {
-	return r.ApiService.PostProjectsBySlugReleasesByReleaseActivateExecute(r)
+func (r ProjectAPIPostProjectBySlugReleasesByReleaseActivateRequest) Execute() (*ProjectsRelease, *http.Response, error) {
+	return r.ApiService.PostProjectBySlugReleasesByReleaseActivateExecute(r)
 }
 
 /*
-PostProjectsBySlugReleasesByReleaseActivate Points the site at an existing release — the go-live, and equally the ROLLBACK.
+PostProjectBySlugReleasesByReleaseActivate Points the site at an existing release — the go-live, and equally the ROLLBACK.
 
 Points the site at an existing release — the go-live, and
 equally the ROLLBACK.
@@ -2879,10 +2879,10 @@ resolved within that principal's org, so another tenant's slug is a 404.
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the site the release belongs to, from the path.
 	@param release Release is the content-addressed release id (\"rel_\" + 32 hex chars), from the path. Anything that is not that shape is not found, rather than being interpolated into a storage prefix.
-	@return ProjectsAPIPostProjectsBySlugReleasesByReleaseActivateRequest
+	@return ProjectAPIPostProjectBySlugReleasesByReleaseActivateRequest
 */
-func (a *ProjectsAPIService) PostProjectsBySlugReleasesByReleaseActivate(ctx context.Context, slug string, release string) ProjectsAPIPostProjectsBySlugReleasesByReleaseActivateRequest {
-	return ProjectsAPIPostProjectsBySlugReleasesByReleaseActivateRequest{
+func (a *ProjectAPIService) PostProjectBySlugReleasesByReleaseActivate(ctx context.Context, slug string, release string) ProjectAPIPostProjectBySlugReleasesByReleaseActivateRequest {
+	return ProjectAPIPostProjectBySlugReleasesByReleaseActivateRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -2893,7 +2893,7 @@ func (a *ProjectsAPIService) PostProjectsBySlugReleasesByReleaseActivate(ctx con
 // Execute executes the request
 //
 //	@return ProjectsRelease
-func (a *ProjectsAPIService) PostProjectsBySlugReleasesByReleaseActivateExecute(r ProjectsAPIPostProjectsBySlugReleasesByReleaseActivateRequest) (*ProjectsRelease, *http.Response, error) {
+func (a *ProjectAPIService) PostProjectBySlugReleasesByReleaseActivateExecute(r ProjectAPIPostProjectBySlugReleasesByReleaseActivateRequest) (*ProjectsRelease, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -2901,12 +2901,12 @@ func (a *ProjectsAPIService) PostProjectsBySlugReleasesByReleaseActivateExecute(
 		localVarReturnValue *ProjectsRelease
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.PostProjectsBySlugReleasesByReleaseActivate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.PostProjectBySlugReleasesByReleaseActivate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}/releases/{release}/activate"
+	localVarPath := localBasePath + "/v1/project/{slug}/releases/{release}/activate"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"release"+"}", url.PathEscape(parameterValueToString(r.release, "release")), -1)
 
@@ -2968,23 +2968,23 @@ func (a *ProjectsAPIService) PostProjectsBySlugReleasesByReleaseActivateExecute(
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIPostProjectsForkRequest struct {
+type ProjectAPIPostProjectForkRequest struct {
 	ctx          context.Context
-	ApiService   *ProjectsAPIService
+	ApiService   *ProjectAPIService
 	projectsFork *ProjectsFork
 }
 
-func (r ProjectsAPIPostProjectsForkRequest) ProjectsFork(projectsFork ProjectsFork) ProjectsAPIPostProjectsForkRequest {
+func (r ProjectAPIPostProjectForkRequest) ProjectsFork(projectsFork ProjectsFork) ProjectAPIPostProjectForkRequest {
 	r.projectsFork = &projectsFork
 	return r
 }
 
-func (r ProjectsAPIPostProjectsForkRequest) Execute() (*ProjectsProject, *http.Response, error) {
-	return r.ApiService.PostProjectsForkExecute(r)
+func (r ProjectAPIPostProjectForkRequest) Execute() (*ProjectsProject, *http.Response, error) {
+	return r.ApiService.PostProjectForkExecute(r)
 }
 
 /*
-PostProjectsFork Creates a project seeded from a PUBLISHED EXAMPLE — either a starter-kit template from the ONE embedded gallery catalog, or any live project on the platform (an example a seeded creator published, or another org's app serving at <slug>.hanzo.app).
+PostProjectFork Creates a project seeded from a PUBLISHED EXAMPLE — either a starter-kit template from the ONE embedded gallery catalog, or any live project on the platform (an example a seeded creator published, or another org's app serving at <slug>.hanzo.app).
 
 Creates a project seeded from a PUBLISHED EXAMPLE — either a
 starter-kit template from the ONE embedded gallery catalog, or any live
@@ -3007,7 +3007,7 @@ own. The parent it actually resolved is stamped on the child as `forkedFrom`,
 so attribution is a fact recorded at fork time rather than a claim
 reconstructed later.
 
-It funnels through the SAME create path POST /v1/projects uses, so slug
+It funnels through the SAME create path POST /v1/project uses, so slug
 validation, org scoping, ID minting and the 409 on a slug the caller's own org
 already uses are identical.
 
@@ -3015,10 +3015,10 @@ Scope: a validated principal is required (403 without one) and the child is
 created in THAT principal's org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ProjectsAPIPostProjectsForkRequest
+	@return ProjectAPIPostProjectForkRequest
 */
-func (a *ProjectsAPIService) PostProjectsFork(ctx context.Context) ProjectsAPIPostProjectsForkRequest {
-	return ProjectsAPIPostProjectsForkRequest{
+func (a *ProjectAPIService) PostProjectFork(ctx context.Context) ProjectAPIPostProjectForkRequest {
+	return ProjectAPIPostProjectForkRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -3027,7 +3027,7 @@ func (a *ProjectsAPIService) PostProjectsFork(ctx context.Context) ProjectsAPIPo
 // Execute executes the request
 //
 //	@return ProjectsProject
-func (a *ProjectsAPIService) PostProjectsForkExecute(r ProjectsAPIPostProjectsForkRequest) (*ProjectsProject, *http.Response, error) {
+func (a *ProjectAPIService) PostProjectForkExecute(r ProjectAPIPostProjectForkRequest) (*ProjectsProject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3035,12 +3035,12 @@ func (a *ProjectsAPIService) PostProjectsForkExecute(r ProjectsAPIPostProjectsFo
 		localVarReturnValue *ProjectsProject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.PostProjectsFork")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.PostProjectFork")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/fork"
+	localVarPath := localBasePath + "/v1/project/fork"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3105,23 +3105,23 @@ func (a *ProjectsAPIService) PostProjectsForkExecute(r ProjectsAPIPostProjectsFo
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIPostProjectsSitesRequest struct {
+type ProjectAPIPostProjectSitesRequest struct {
 	ctx               context.Context
-	ApiService        *ProjectsAPIService
+	ApiService        *ProjectAPIService
 	projectsBuildSite *ProjectsBuildSite
 }
 
-func (r ProjectsAPIPostProjectsSitesRequest) ProjectsBuildSite(projectsBuildSite ProjectsBuildSite) ProjectsAPIPostProjectsSitesRequest {
+func (r ProjectAPIPostProjectSitesRequest) ProjectsBuildSite(projectsBuildSite ProjectsBuildSite) ProjectAPIPostProjectSitesRequest {
 	r.projectsBuildSite = &projectsBuildSite
 	return r
 }
 
-func (r ProjectsAPIPostProjectsSitesRequest) Execute() (*ProjectsSiteDeploy, *http.Response, error) {
-	return r.ApiService.PostProjectsSitesExecute(r)
+func (r ProjectAPIPostProjectSitesRequest) Execute() (*ProjectsSiteDeploy, *http.Response, error) {
+	return r.ApiService.PostProjectSitesExecute(r)
 }
 
 /*
-PostProjectsSites Generates a self-contained, mobile-responsive static site from a natural-language brief and deploys it live in one call.
+PostProjectSites Generates a self-contained, mobile-responsive static site from a natural-language brief and deploys it live in one call.
 
 Generates a self-contained, mobile-responsive static site from a
 natural-language brief and deploys it live in one call.
@@ -3135,7 +3135,7 @@ generated site is fully inline — no CDNs, no remote fonts or images — so it 
 CSP-safe. `slug` and `name` are optional: the model's own title is preferred,
 and a slug is derived or minted when none is given.
 
-It writes into the SAME org-scoped store as /v1/projects — it ensures a
+It writes into the SAME org-scoped store as /v1/project — it ensures a
 project (framework `static`) for the resolved slug and records a deployment —
 so this is a second entry point to one publish pipeline, not a second copy of
 project state. Ordering is the billing contract: the hosting gate runs BEFORE
@@ -3150,10 +3150,10 @@ Scope: a validated principal is required (403 without one) and the site is
 published into THAT principal's org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ProjectsAPIPostProjectsSitesRequest
+	@return ProjectAPIPostProjectSitesRequest
 */
-func (a *ProjectsAPIService) PostProjectsSites(ctx context.Context) ProjectsAPIPostProjectsSitesRequest {
-	return ProjectsAPIPostProjectsSitesRequest{
+func (a *ProjectAPIService) PostProjectSites(ctx context.Context) ProjectAPIPostProjectSitesRequest {
+	return ProjectAPIPostProjectSitesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -3162,7 +3162,7 @@ func (a *ProjectsAPIService) PostProjectsSites(ctx context.Context) ProjectsAPIP
 // Execute executes the request
 //
 //	@return ProjectsSiteDeploy
-func (a *ProjectsAPIService) PostProjectsSitesExecute(r ProjectsAPIPostProjectsSitesRequest) (*ProjectsSiteDeploy, *http.Response, error) {
+func (a *ProjectAPIService) PostProjectSitesExecute(r ProjectAPIPostProjectSitesRequest) (*ProjectsSiteDeploy, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3170,12 +3170,12 @@ func (a *ProjectsAPIService) PostProjectsSitesExecute(r ProjectsAPIPostProjectsS
 		localVarReturnValue *ProjectsSiteDeploy
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.PostProjectsSites")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.PostProjectSites")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/sites"
+	localVarPath := localBasePath + "/v1/project/sites"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3240,23 +3240,23 @@ func (a *ProjectsAPIService) PostProjectsSitesExecute(r ProjectsAPIPostProjectsS
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIPostProjectsSitesDeployRequest struct {
+type ProjectAPIPostProjectSitesDeployRequest struct {
 	ctx                context.Context
-	ApiService         *ProjectsAPIService
+	ApiService         *ProjectAPIService
 	projectsDeploySite *ProjectsDeploySite
 }
 
-func (r ProjectsAPIPostProjectsSitesDeployRequest) ProjectsDeploySite(projectsDeploySite ProjectsDeploySite) ProjectsAPIPostProjectsSitesDeployRequest {
+func (r ProjectAPIPostProjectSitesDeployRequest) ProjectsDeploySite(projectsDeploySite ProjectsDeploySite) ProjectAPIPostProjectSitesDeployRequest {
 	r.projectsDeploySite = &projectsDeploySite
 	return r
 }
 
-func (r ProjectsAPIPostProjectsSitesDeployRequest) Execute() (*ProjectsSiteDeploy, *http.Response, error) {
-	return r.ApiService.PostProjectsSitesDeployExecute(r)
+func (r ProjectAPIPostProjectSitesDeployRequest) Execute() (*ProjectsSiteDeploy, *http.Response, error) {
+	return r.ApiService.PostProjectSitesDeployExecute(r)
 }
 
 /*
-PostProjectsSitesDeploy Deploys a caller-supplied file manifest — the deploy_site capability an agent calls — and answers with where it went live.
+PostProjectSitesDeploy Deploys a caller-supplied file manifest — the deploy_site capability an agent calls — and answers with where it went live.
 
 Deploys a caller-supplied file manifest — the deploy_site
 capability an agent calls — and answers with where it went live.
@@ -3268,7 +3268,7 @@ mobile viewport meta tag injected into every HTML document that lacks one — so
 a hand-built site is exactly as safe and as responsive as a generated one.
 `slug` and `name` are optional; a slug is derived from the name or minted.
 
-It writes into the SAME org-scoped store as /v1/projects, ensuring a project
+It writes into the SAME org-scoped store as /v1/project, ensuring a project
 (framework `static`) for the resolved slug and recording a deployment. The
 hosting gate runs before the upload and the debit lands once, after the site
 is live — a failed upload is never billed. Answers 503 when object storage is
@@ -3278,10 +3278,10 @@ Scope: a validated principal is required (403 without one) and the site is
 published into THAT principal's org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ProjectsAPIPostProjectsSitesDeployRequest
+	@return ProjectAPIPostProjectSitesDeployRequest
 */
-func (a *ProjectsAPIService) PostProjectsSitesDeploy(ctx context.Context) ProjectsAPIPostProjectsSitesDeployRequest {
-	return ProjectsAPIPostProjectsSitesDeployRequest{
+func (a *ProjectAPIService) PostProjectSitesDeploy(ctx context.Context) ProjectAPIPostProjectSitesDeployRequest {
+	return ProjectAPIPostProjectSitesDeployRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -3290,7 +3290,7 @@ func (a *ProjectsAPIService) PostProjectsSitesDeploy(ctx context.Context) Projec
 // Execute executes the request
 //
 //	@return ProjectsSiteDeploy
-func (a *ProjectsAPIService) PostProjectsSitesDeployExecute(r ProjectsAPIPostProjectsSitesDeployRequest) (*ProjectsSiteDeploy, *http.Response, error) {
+func (a *ProjectAPIService) PostProjectSitesDeployExecute(r ProjectAPIPostProjectSitesDeployRequest) (*ProjectsSiteDeploy, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3298,12 +3298,12 @@ func (a *ProjectsAPIService) PostProjectsSitesDeployExecute(r ProjectsAPIPostPro
 		localVarReturnValue *ProjectsSiteDeploy
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.PostProjectsSitesDeploy")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.PostProjectSitesDeploy")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/sites/deploy"
+	localVarPath := localBasePath + "/v1/project/sites/deploy"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3368,18 +3368,18 @@ func (a *ProjectsAPIService) PostProjectsSitesDeployExecute(r ProjectsAPIPostPro
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ProjectsAPIPutProjectsBySlugStarRequest struct {
+type ProjectAPIPutProjectBySlugStarRequest struct {
 	ctx        context.Context
-	ApiService *ProjectsAPIService
+	ApiService *ProjectAPIService
 	slug       string
 }
 
-func (r ProjectsAPIPutProjectsBySlugStarRequest) Execute() (*ProjectsStar, *http.Response, error) {
-	return r.ApiService.PutProjectsBySlugStarExecute(r)
+func (r ProjectAPIPutProjectBySlugStarRequest) Execute() (*ProjectsStar, *http.Response, error) {
+	return r.ApiService.PutProjectBySlugStarExecute(r)
 }
 
 /*
-PutProjectsBySlugStar Bookmarks a project for the person calling, and answers whether it is starred afterwards.
+PutProjectBySlugStar Bookmarks a project for the person calling, and answers whether it is starred afterwards.
 
 Bookmarks a project for the person calling, and answers whether it is
 starred afterwards.
@@ -3390,10 +3390,10 @@ else's list. Starring a project you have already starred leaves it starred.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
-	@return ProjectsAPIPutProjectsBySlugStarRequest
+	@return ProjectAPIPutProjectBySlugStarRequest
 */
-func (a *ProjectsAPIService) PutProjectsBySlugStar(ctx context.Context, slug string) ProjectsAPIPutProjectsBySlugStarRequest {
-	return ProjectsAPIPutProjectsBySlugStarRequest{
+func (a *ProjectAPIService) PutProjectBySlugStar(ctx context.Context, slug string) ProjectAPIPutProjectBySlugStarRequest {
+	return ProjectAPIPutProjectBySlugStarRequest{
 		ApiService: a,
 		ctx:        ctx,
 		slug:       slug,
@@ -3403,7 +3403,7 @@ func (a *ProjectsAPIService) PutProjectsBySlugStar(ctx context.Context, slug str
 // Execute executes the request
 //
 //	@return ProjectsStar
-func (a *ProjectsAPIService) PutProjectsBySlugStarExecute(r ProjectsAPIPutProjectsBySlugStarRequest) (*ProjectsStar, *http.Response, error) {
+func (a *ProjectAPIService) PutProjectBySlugStarExecute(r ProjectAPIPutProjectBySlugStarRequest) (*ProjectsStar, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
@@ -3411,12 +3411,12 @@ func (a *ProjectsAPIService) PutProjectsBySlugStarExecute(r ProjectsAPIPutProjec
 		localVarReturnValue *ProjectsStar
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.PutProjectsBySlugStar")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.PutProjectBySlugStar")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{slug}/star"
+	localVarPath := localBasePath + "/v1/project/{slug}/star"
 	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 
 	localVarHeaderParams := make(map[string]string)

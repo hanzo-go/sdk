@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **At** | Pointer to **int64** | unix seconds, server-stamped | [optional] 
 **GpuUtil** | Pointer to **float64** | 0..1 aggregate utilization | [optional] 
 **Load1** | Pointer to **float64** | Load1 is the machine&#39;s own one-minute load average — a count of runnable and uninterruptible tasks, NOT a percentage and NOT already divided by core count, so it is read against Spec.CPUs: 8.0 is idle on 16 cores and swamped on 4. Coerced finite and non-negative on write, so 0 means either genuinely idle or nothing reported. | [optional] 
-**Load5** | Pointer to **float64** | Load5 is the same figure averaged over five minutes. | [optional] 
 **Load15** | Pointer to **float64** | Load15 is the same figure over fifteen. The three together are what separate a machine that is busy right now from one that has been busy all along — which is the question a dispatcher is really asking. | [optional] 
+**Load5** | Pointer to **float64** | Load5 is the same figure averaged over five minutes. | [optional] 
 **MemFree** | Pointer to **int64** | bytes | [optional] 
 **MemUsed** | Pointer to **int64** | bytes | [optional] 
 
@@ -106,31 +106,6 @@ SetLoad1 sets Load1 field to given value.
 
 HasLoad1 returns a boolean if a field has been set.
 
-### GetLoad5
-
-`func (o *Metrics) GetLoad5() float64`
-
-GetLoad5 returns the Load5 field if non-nil, zero value otherwise.
-
-### GetLoad5Ok
-
-`func (o *Metrics) GetLoad5Ok() (*float64, bool)`
-
-GetLoad5Ok returns a tuple with the Load5 field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLoad5
-
-`func (o *Metrics) SetLoad5(v float64)`
-
-SetLoad5 sets Load5 field to given value.
-
-### HasLoad5
-
-`func (o *Metrics) HasLoad5() bool`
-
-HasLoad5 returns a boolean if a field has been set.
-
 ### GetLoad15
 
 `func (o *Metrics) GetLoad15() float64`
@@ -155,6 +130,31 @@ SetLoad15 sets Load15 field to given value.
 `func (o *Metrics) HasLoad15() bool`
 
 HasLoad15 returns a boolean if a field has been set.
+
+### GetLoad5
+
+`func (o *Metrics) GetLoad5() float64`
+
+GetLoad5 returns the Load5 field if non-nil, zero value otherwise.
+
+### GetLoad5Ok
+
+`func (o *Metrics) GetLoad5Ok() (*float64, bool)`
+
+GetLoad5Ok returns a tuple with the Load5 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLoad5
+
+`func (o *Metrics) SetLoad5(v float64)`
+
+SetLoad5 sets Load5 field to given value.
+
+### HasLoad5
+
+`func (o *Metrics) HasLoad5() bool`
+
+HasLoad5 returns a boolean if a field has been set.
 
 ### GetMemFree
 

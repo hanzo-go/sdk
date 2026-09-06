@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Arguments** | Pointer to **map[string]map[string]interface{}** | Arguments is the tool&#39;s own input object, passed through verbatim to whichever source owns it. | [optional] 
-**Name** | Pointer to **string** | Name is the tool to run, exactly as GET /v1/tools reports it. | [optional] 
+**Name** | Pointer to **string** | Name is the tool to run, exactly as GET /v1/tool reports it. | [optional] 
 
 ## Methods
 

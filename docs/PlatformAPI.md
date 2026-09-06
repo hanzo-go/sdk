@@ -28,7 +28,6 @@ Method | HTTP request | Description
 [**GetPlatformReleases**](PlatformAPI.md#GetPlatformReleases) | **Get** /v1/platform/releases | Returns the versions that actually reached the cluster.
 [**PostPlatformApps**](PlatformAPI.md#PostPlatformApps) | **Post** /v1/platform/apps | Deploy an app through cd.hanzo.ai
 [**PostPlatformFleetByAppDeploy**](PlatformAPI.md#PostPlatformFleetByAppDeploy) | **Post** /v1/platform/fleet/{app}/deploy | Rolls a platform service&#39;s pods, in a named environment.
-[**PostPlatformHook**](PlatformAPI.md#PostPlatformHook) | **Post** /v1/platform/hook | Receive a push from the forge and trigger its build
 [**PostPlatformProjectsByProjectApps**](PlatformAPI.md#PostPlatformProjectsByProjectApps) | **Post** /v1/platform/projects/{project}/apps | Creates an application from a git repo or a container image.
 [**PostPlatformProjectsByProjectAppsByAppDeploy**](PlatformAPI.md#PostPlatformProjectsByProjectAppsByAppDeploy) | **Post** /v1/platform/projects/{project}/apps/{app}/deploy | Deploys the app — building it first if it comes from git.
 [**PostPlatformProjectsByProjectAppsByAppDomains**](PlatformAPI.md#PostPlatformProjectsByProjectAppsByAppDomains) | **Post** /v1/platform/projects/{project}/apps/{app}/domains | Attaches a hostname — instantly if you already own it, otherwise with a DNS challenge.
@@ -1656,72 +1655,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Restarted**](Restarted.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostPlatformHook
-
-> Verdict PostPlatformHook(ctx).Push(push).Execute()
-
-Receive a push from the forge and trigger its build
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	push := *openapiclient.NewPush() // Push |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformAPI.PostPlatformHook(context.Background()).Push(push).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PostPlatformHook``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostPlatformHook`: Verdict
-	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PostPlatformHook`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostPlatformHookRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **push** | [**Push**](Push.md) |  | 
-
-### Return type
-
-[**Verdict**](Verdict.md)
 
 ### Authorization
 

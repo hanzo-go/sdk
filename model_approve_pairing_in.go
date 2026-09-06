@@ -21,7 +21,7 @@ var _ MappedNullable = &ApprovePairingIn{}
 type ApprovePairingIn struct {
 	// Channel is the transport the request came in on: discord, slack, teams, telegram or whatsapp.
 	Channel *string `json:"channel,omitempty"`
-	// Code is the pairing code from GET /v1/channels/pairing. It is a capability: holding it is what authorises the approval, alongside org admin.
+	// Code is the pairing code from GET /v1/channel/pairing. It is a capability: holding it is what authorises the approval, alongside org admin.
 	Code *string `json:"code,omitempty"`
 }
 

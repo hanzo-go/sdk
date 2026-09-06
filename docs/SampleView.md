@@ -13,8 +13,8 @@ Name | Type | Description | Notes
 **Host** | Pointer to **string** | Host is the hostname the unit reported at the time of the reading. | [optional] 
 **Kind** | Pointer to **string** | Kind is what the measured unit is: laptop, cloud, gpu, cluster, machine or worker. | [optional] 
 **Load1** | Pointer to **float64** | Load1 is the 1-minute load average — runnable processes, not a percentage. | [optional] 
-**Load5** | Pointer to **float64** | Load5 is the 5-minute load average, the same units as Load1. | [optional] 
 **Load15** | Pointer to **float64** | Load15 is the 15-minute load average, the same units as Load1. | [optional] 
+**Load5** | Pointer to **float64** | Load5 is the 5-minute load average, the same units as Load1. | [optional] 
 **MemFree** | Pointer to **int64** | MemFree is host memory available, in BYTES, as reported rather than derived. | [optional] 
 **MemUsed** | Pointer to **int64** | MemUsed is host memory in use, in BYTES. | [optional] 
 **Memory** | Pointer to **int64** | Memory is total system RAM in BYTES at the time of the reading. | [optional] 
@@ -265,31 +265,6 @@ SetLoad1 sets Load1 field to given value.
 
 HasLoad1 returns a boolean if a field has been set.
 
-### GetLoad5
-
-`func (o *SampleView) GetLoad5() float64`
-
-GetLoad5 returns the Load5 field if non-nil, zero value otherwise.
-
-### GetLoad5Ok
-
-`func (o *SampleView) GetLoad5Ok() (*float64, bool)`
-
-GetLoad5Ok returns a tuple with the Load5 field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLoad5
-
-`func (o *SampleView) SetLoad5(v float64)`
-
-SetLoad5 sets Load5 field to given value.
-
-### HasLoad5
-
-`func (o *SampleView) HasLoad5() bool`
-
-HasLoad5 returns a boolean if a field has been set.
-
 ### GetLoad15
 
 `func (o *SampleView) GetLoad15() float64`
@@ -314,6 +289,31 @@ SetLoad15 sets Load15 field to given value.
 `func (o *SampleView) HasLoad15() bool`
 
 HasLoad15 returns a boolean if a field has been set.
+
+### GetLoad5
+
+`func (o *SampleView) GetLoad5() float64`
+
+GetLoad5 returns the Load5 field if non-nil, zero value otherwise.
+
+### GetLoad5Ok
+
+`func (o *SampleView) GetLoad5Ok() (*float64, bool)`
+
+GetLoad5Ok returns a tuple with the Load5 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLoad5
+
+`func (o *SampleView) SetLoad5(v float64)`
+
+SetLoad5 sets Load5 field to given value.
+
+### HasLoad5
+
+`func (o *SampleView) HasLoad5() bool`
+
+HasLoad5 returns a boolean if a field has been set.
 
 ### GetMemFree
 

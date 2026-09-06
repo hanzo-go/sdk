@@ -14,34 +14,34 @@ import (
 	"encoding/json"
 )
 
-// checks if the PushPusher type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &PushPusher{}
+// checks if the ForgeJobRepositoryOwner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ForgeJobRepositoryOwner{}
 
-// PushPusher struct for PushPusher
-type PushPusher struct {
+// ForgeJobRepositoryOwner struct for ForgeJobRepositoryOwner
+type ForgeJobRepositoryOwner struct {
 	Login    *string `json:"login,omitempty"`
 	Username *string `json:"username,omitempty"`
 }
 
-// NewPushPusher instantiates a new PushPusher object
+// NewForgeJobRepositoryOwner instantiates a new ForgeJobRepositoryOwner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPushPusher() *PushPusher {
-	this := PushPusher{}
+func NewForgeJobRepositoryOwner() *ForgeJobRepositoryOwner {
+	this := ForgeJobRepositoryOwner{}
 	return &this
 }
 
-// NewPushPusherWithDefaults instantiates a new PushPusher object
+// NewForgeJobRepositoryOwnerWithDefaults instantiates a new ForgeJobRepositoryOwner object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPushPusherWithDefaults() *PushPusher {
-	this := PushPusher{}
+func NewForgeJobRepositoryOwnerWithDefaults() *ForgeJobRepositoryOwner {
+	this := ForgeJobRepositoryOwner{}
 	return &this
 }
 
 // GetLogin returns the Login field value if set, zero value otherwise.
-func (o *PushPusher) GetLogin() string {
+func (o *ForgeJobRepositoryOwner) GetLogin() string {
 	if o == nil || IsNil(o.Login) {
 		var ret string
 		return ret
@@ -51,7 +51,7 @@ func (o *PushPusher) GetLogin() string {
 
 // GetLoginOk returns a tuple with the Login field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PushPusher) GetLoginOk() (*string, bool) {
+func (o *ForgeJobRepositoryOwner) GetLoginOk() (*string, bool) {
 	if o == nil || IsNil(o.Login) {
 		return nil, false
 	}
@@ -59,7 +59,7 @@ func (o *PushPusher) GetLoginOk() (*string, bool) {
 }
 
 // HasLogin returns a boolean if a field has been set.
-func (o *PushPusher) HasLogin() bool {
+func (o *ForgeJobRepositoryOwner) HasLogin() bool {
 	if o != nil && !IsNil(o.Login) {
 		return true
 	}
@@ -68,12 +68,12 @@ func (o *PushPusher) HasLogin() bool {
 }
 
 // SetLogin gets a reference to the given string and assigns it to the Login field.
-func (o *PushPusher) SetLogin(v string) {
+func (o *ForgeJobRepositoryOwner) SetLogin(v string) {
 	o.Login = &v
 }
 
 // GetUsername returns the Username field value if set, zero value otherwise.
-func (o *PushPusher) GetUsername() string {
+func (o *ForgeJobRepositoryOwner) GetUsername() string {
 	if o == nil || IsNil(o.Username) {
 		var ret string
 		return ret
@@ -83,7 +83,7 @@ func (o *PushPusher) GetUsername() string {
 
 // GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PushPusher) GetUsernameOk() (*string, bool) {
+func (o *ForgeJobRepositoryOwner) GetUsernameOk() (*string, bool) {
 	if o == nil || IsNil(o.Username) {
 		return nil, false
 	}
@@ -91,7 +91,7 @@ func (o *PushPusher) GetUsernameOk() (*string, bool) {
 }
 
 // HasUsername returns a boolean if a field has been set.
-func (o *PushPusher) HasUsername() bool {
+func (o *ForgeJobRepositoryOwner) HasUsername() bool {
 	if o != nil && !IsNil(o.Username) {
 		return true
 	}
@@ -100,11 +100,11 @@ func (o *PushPusher) HasUsername() bool {
 }
 
 // SetUsername gets a reference to the given string and assigns it to the Username field.
-func (o *PushPusher) SetUsername(v string) {
+func (o *ForgeJobRepositoryOwner) SetUsername(v string) {
 	o.Username = &v
 }
 
-func (o PushPusher) MarshalJSON() ([]byte, error) {
+func (o ForgeJobRepositoryOwner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -112,7 +112,7 @@ func (o PushPusher) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o PushPusher) ToMap() (map[string]interface{}, error) {
+func (o ForgeJobRepositoryOwner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Login) {
 		toSerialize["login"] = o.Login
@@ -123,38 +123,38 @@ func (o PushPusher) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullablePushPusher struct {
-	value *PushPusher
+type NullableForgeJobRepositoryOwner struct {
+	value *ForgeJobRepositoryOwner
 	isSet bool
 }
 
-func (v NullablePushPusher) Get() *PushPusher {
+func (v NullableForgeJobRepositoryOwner) Get() *ForgeJobRepositoryOwner {
 	return v.value
 }
 
-func (v *NullablePushPusher) Set(val *PushPusher) {
+func (v *NullableForgeJobRepositoryOwner) Set(val *ForgeJobRepositoryOwner) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePushPusher) IsSet() bool {
+func (v NullableForgeJobRepositoryOwner) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePushPusher) Unset() {
+func (v *NullableForgeJobRepositoryOwner) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePushPusher(val *PushPusher) *NullablePushPusher {
-	return &NullablePushPusher{value: val, isSet: true}
+func NewNullableForgeJobRepositoryOwner(val *ForgeJobRepositoryOwner) *NullableForgeJobRepositoryOwner {
+	return &NullableForgeJobRepositoryOwner{value: val, isSet: true}
 }
 
-func (v NullablePushPusher) MarshalJSON() ([]byte, error) {
+func (v NullableForgeJobRepositoryOwner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePushPusher) UnmarshalJSON(src []byte) error {
+func (v *NullableForgeJobRepositoryOwner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

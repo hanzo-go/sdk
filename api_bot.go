@@ -22,6 +22,112 @@ import (
 // BotAPIService BotAPI service
 type BotAPIService service
 
+type BotAPIGetBotMembersRequest struct {
+	ctx        context.Context
+	ApiService *BotAPIService
+}
+
+func (r BotAPIGetBotMembersRequest) Execute() (*BotRoster, *http.Response, error) {
+	return r.ApiService.GetBotMembersExecute(r)
+}
+
+/*
+GetBotMembers Returns the caller org's bots as space members — each with the member account uuid and the Person reference the roster addresses it by.
+
+Returns the caller org's bots as space members — each with the member
+account uuid and the Person reference the roster addresses it by.
+
+A deployment that runs no team subsystem has no spaces and therefore no
+roster, which is an empty list rather than an error: ErrNoPeer is the ONE
+error that means "this deployment does not run that app", and every other
+failure is an outage and says so.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return BotAPIGetBotMembersRequest
+*/
+func (a *BotAPIService) GetBotMembers(ctx context.Context) BotAPIGetBotMembersRequest {
+	return BotAPIGetBotMembersRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return BotRoster
+func (a *BotAPIService) GetBotMembersExecute(r BotAPIGetBotMembersRequest) (*BotRoster, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BotRoster
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BotAPIService.GetBotMembers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/bot/members"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type BotAPIGetBotRunsRequest struct {
 	ctx        context.Context
 	ApiService *BotAPIService
@@ -70,6 +176,108 @@ func (a *BotAPIService) GetBotRunsExecute(r BotAPIGetBotRunsRequest) (*BotRuns, 
 	}
 
 	localVarPath := localBasePath + "/v1/bot/runs"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type BotAPIPostBotMembersSyncRequest struct {
+	ctx        context.Context
+	ApiService *BotAPIService
+}
+
+func (r BotAPIPostBotMembersSyncRequest) Execute() (*BotSync, *http.Response, error) {
+	return r.ApiService.PostBotMembersSyncExecute(r)
+}
+
+/*
+PostBotMembersSync Re-projects the caller org's bots as members into every space of the org and removes the ones whose agent is gone.
+
+Re-projects the caller org's bots as members into every space of the org
+and removes the ones whose agent is gone. Idempotent, and admin only — the
+admin bit rides the caller to team, which is what decides it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return BotAPIPostBotMembersSyncRequest
+*/
+func (a *BotAPIService) PostBotMembersSync(ctx context.Context) BotAPIPostBotMembersSyncRequest {
+	return BotAPIPostBotMembersSyncRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return BotSync
+func (a *BotAPIService) PostBotMembersSyncExecute(r BotAPIPostBotMembersSyncRequest) (*BotSync, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BotSync
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BotAPIService.PostBotMembersSync")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/bot/members/sync"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

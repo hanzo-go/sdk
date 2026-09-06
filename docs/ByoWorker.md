@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Arch** | Pointer to **string** | Arch/CPUs/Memory are the connecting host&#39;s static CPU spec, mirrored from the registration: Arch is runtime.GOARCH (amd64 | arm64), Memory is total RAM in BYTES — the same fields a code-linked run-target carries, so the /v1/visor/fleet board renders a linked node&#39;s arch + cores + RAM like any other unit. | [optional] 
+**Arch** | Pointer to **string** | Arch/CPUs/Memory are the connecting host&#39;s static CPU spec, mirrored from the registration: Arch is runtime.GOARCH (amd64 | arm64), Memory is total RAM in BYTES — the same fields a code-linked run-target carries, so the /v1/compute/fleet board renders a linked node&#39;s arch + cores + RAM like any other unit. | [optional] 
 **Capabilities** | Pointer to **[]string** | Capabilities is what this worker offers the org: \&quot;studio.render\&quot; when the node can render, \&quot;engine.serve\&quot; when it serves a model endpoint. A node advertises one only once it can honour it, so an absent list means a node that has dialed in but is not ready to serve any of them yet. | [optional] 
 **CpuModel** | Pointer to **string** | CPUModel is the processor as the host names it (\&quot;Apple M3 Max\&quot;), for display. | [optional] 
 **Cpus** | Pointer to **int64** | CPUs is the host&#39;s logical core count. | [optional] 

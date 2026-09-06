@@ -19,30 +19,30 @@ import (
 	"strings"
 )
 
-// AgentsAPIService AgentsAPI service
-type AgentsAPIService service
+// AgentAPIService AgentAPI service
+type AgentAPIService service
 
-type AgentsAPIDeleteAgentsByRefRequest struct {
+type AgentAPIDeleteAgentByRefRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	ref        string
 }
 
-func (r AgentsAPIDeleteAgentsByRefRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteAgentsByRefExecute(r)
+func (r AgentAPIDeleteAgentByRefRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteAgentByRefExecute(r)
 }
 
 /*
-DeleteAgentsByRef Removes an agent and every run recorded against it.
+DeleteAgentByRef Removes an agent and every run recorded against it.
 
 Removes an agent and every run recorded against it. Answers 204.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param ref Ref is the agent's public id (the agent_… handle create and list return) or its org-unique name, from the path. Either resolves the same agent.
-	@return AgentsAPIDeleteAgentsByRefRequest
+	@return AgentAPIDeleteAgentByRefRequest
 */
-func (a *AgentsAPIService) DeleteAgentsByRef(ctx context.Context, ref string) AgentsAPIDeleteAgentsByRefRequest {
-	return AgentsAPIDeleteAgentsByRefRequest{
+func (a *AgentAPIService) DeleteAgentByRef(ctx context.Context, ref string) AgentAPIDeleteAgentByRefRequest {
+	return AgentAPIDeleteAgentByRefRequest{
 		ApiService: a,
 		ctx:        ctx,
 		ref:        ref,
@@ -50,19 +50,19 @@ func (a *AgentsAPIService) DeleteAgentsByRef(ctx context.Context, ref string) Ag
 }
 
 // Execute executes the request
-func (a *AgentsAPIService) DeleteAgentsByRefExecute(r AgentsAPIDeleteAgentsByRefRequest) (*http.Response, error) {
+func (a *AgentAPIService) DeleteAgentByRefExecute(r AgentAPIDeleteAgentByRefRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.DeleteAgentsByRef")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.DeleteAgentByRef")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/{ref}"
+	localVarPath := localBasePath + "/v1/agent/{ref}"
 	localVarPath = strings.Replace(localVarPath, "{"+"ref"+"}", url.PathEscape(parameterValueToString(r.ref, "ref")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -114,18 +114,18 @@ func (a *AgentsAPIService) DeleteAgentsByRefExecute(r AgentsAPIDeleteAgentsByRef
 	return localVarHTTPResponse, nil
 }
 
-type AgentsAPIDeleteAgentsTargetsByIdRequest struct {
+type AgentAPIDeleteAgentTargetsByIdRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	id         string
 }
 
-func (r AgentsAPIDeleteAgentsTargetsByIdRequest) Execute() (*TargetDeleted, *http.Response, error) {
-	return r.ApiService.DeleteAgentsTargetsByIdExecute(r)
+func (r AgentAPIDeleteAgentTargetsByIdRequest) Execute() (*TargetDeleted, *http.Response, error) {
+	return r.ApiService.DeleteAgentTargetsByIdExecute(r)
 }
 
 /*
-DeleteAgentsTargetsById Deregisters one machine.
+DeleteAgentTargetsById Deregisters one machine.
 
 Deregisters one machine. Only its owner, or an org admin, may
 remove it; an unknown id, a cross-org id and a machine owned by someone else
@@ -133,10 +133,10 @@ all answer the same not-found, so a probe learns nothing about what exists.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the target to act on, from the path.
-	@return AgentsAPIDeleteAgentsTargetsByIdRequest
+	@return AgentAPIDeleteAgentTargetsByIdRequest
 */
-func (a *AgentsAPIService) DeleteAgentsTargetsById(ctx context.Context, id string) AgentsAPIDeleteAgentsTargetsByIdRequest {
-	return AgentsAPIDeleteAgentsTargetsByIdRequest{
+func (a *AgentAPIService) DeleteAgentTargetsById(ctx context.Context, id string) AgentAPIDeleteAgentTargetsByIdRequest {
+	return AgentAPIDeleteAgentTargetsByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -146,7 +146,7 @@ func (a *AgentsAPIService) DeleteAgentsTargetsById(ctx context.Context, id strin
 // Execute executes the request
 //
 //	@return TargetDeleted
-func (a *AgentsAPIService) DeleteAgentsTargetsByIdExecute(r AgentsAPIDeleteAgentsTargetsByIdRequest) (*TargetDeleted, *http.Response, error) {
+func (a *AgentAPIService) DeleteAgentTargetsByIdExecute(r AgentAPIDeleteAgentTargetsByIdRequest) (*TargetDeleted, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
@@ -154,12 +154,12 @@ func (a *AgentsAPIService) DeleteAgentsTargetsByIdExecute(r AgentsAPIDeleteAgent
 		localVarReturnValue *TargetDeleted
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.DeleteAgentsTargetsById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.DeleteAgentTargetsById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/targets/{id}"
+	localVarPath := localBasePath + "/v1/agent/targets/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -220,26 +220,26 @@ func (a *AgentsAPIService) DeleteAgentsTargetsByIdExecute(r AgentsAPIDeleteAgent
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIGetAgentsRequest struct {
+type AgentAPIGetAgentRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 }
 
-func (r AgentsAPIGetAgentsRequest) Execute() (*AgentList, *http.Response, error) {
-	return r.ApiService.GetAgentsExecute(r)
+func (r AgentAPIGetAgentRequest) Execute() (*AgentList, *http.Response, error) {
+	return r.ApiService.GetAgentExecute(r)
 }
 
 /*
-GetAgents Returns every agent defined in the caller's org, each with the number of runs recorded against it.
+GetAgent Returns every agent defined in the caller's org, each with the number of runs recorded against it.
 
 Returns every agent defined in the caller's org, each with the
 number of runs recorded against it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AgentsAPIGetAgentsRequest
+	@return AgentAPIGetAgentRequest
 */
-func (a *AgentsAPIService) GetAgents(ctx context.Context) AgentsAPIGetAgentsRequest {
-	return AgentsAPIGetAgentsRequest{
+func (a *AgentAPIService) GetAgent(ctx context.Context) AgentAPIGetAgentRequest {
+	return AgentAPIGetAgentRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -248,7 +248,7 @@ func (a *AgentsAPIService) GetAgents(ctx context.Context) AgentsAPIGetAgentsRequ
 // Execute executes the request
 //
 //	@return AgentList
-func (a *AgentsAPIService) GetAgentsExecute(r AgentsAPIGetAgentsRequest) (*AgentList, *http.Response, error) {
+func (a *AgentAPIService) GetAgentExecute(r AgentAPIGetAgentRequest) (*AgentList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -256,12 +256,12 @@ func (a *AgentsAPIService) GetAgentsExecute(r AgentsAPIGetAgentsRequest) (*Agent
 		localVarReturnValue *AgentList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgents")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgent")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents"
+	localVarPath := localBasePath + "/v1/agent"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -321,17 +321,17 @@ func (a *AgentsAPIService) GetAgentsExecute(r AgentsAPIGetAgentsRequest) (*Agent
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIGetAgentsActivityRequest struct {
+type AgentAPIGetAgentActivityRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 }
 
-func (r AgentsAPIGetAgentsActivityRequest) Execute() (*ActivityFeed, *http.Response, error) {
-	return r.ApiService.GetAgentsActivityExecute(r)
+func (r AgentAPIGetAgentActivityRequest) Execute() (*ActivityFeed, *http.Response, error) {
+	return r.ApiService.GetAgentActivityExecute(r)
 }
 
 /*
-GetAgentsActivity Serves the org-wide recent-activity feed.
+GetAgentActivity Serves the org-wide recent-activity feed.
 
 Serves the org-wide recent-activity feed. Events are REAL: each
 recorded run is an invoked (ok) or failed (error) event; each agent's own
@@ -339,10 +339,10 @@ create/update timestamps are created/updated events. Merged, newest first,
 capped. Nothing is invented — an org with no agents and no runs gets [].
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AgentsAPIGetAgentsActivityRequest
+	@return AgentAPIGetAgentActivityRequest
 */
-func (a *AgentsAPIService) GetAgentsActivity(ctx context.Context) AgentsAPIGetAgentsActivityRequest {
-	return AgentsAPIGetAgentsActivityRequest{
+func (a *AgentAPIService) GetAgentActivity(ctx context.Context) AgentAPIGetAgentActivityRequest {
+	return AgentAPIGetAgentActivityRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -351,7 +351,7 @@ func (a *AgentsAPIService) GetAgentsActivity(ctx context.Context) AgentsAPIGetAg
 // Execute executes the request
 //
 //	@return ActivityFeed
-func (a *AgentsAPIService) GetAgentsActivityExecute(r AgentsAPIGetAgentsActivityRequest) (*ActivityFeed, *http.Response, error) {
+func (a *AgentAPIService) GetAgentActivityExecute(r AgentAPIGetAgentActivityRequest) (*ActivityFeed, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -359,12 +359,12 @@ func (a *AgentsAPIService) GetAgentsActivityExecute(r AgentsAPIGetAgentsActivity
 		localVarReturnValue *ActivityFeed
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgentsActivity")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentActivity")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/activity"
+	localVarPath := localBasePath + "/v1/agent/activity"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -424,24 +424,24 @@ func (a *AgentsAPIService) GetAgentsActivityExecute(r AgentsAPIGetAgentsActivity
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIGetAgentsBuildsRequest struct {
+type AgentAPIGetAgentBuildsRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	limit      *int64
 }
 
 // Limit caps the page. Absent, zero or over 500 reads as 100.
-func (r AgentsAPIGetAgentsBuildsRequest) Limit(limit int64) AgentsAPIGetAgentsBuildsRequest {
+func (r AgentAPIGetAgentBuildsRequest) Limit(limit int64) AgentAPIGetAgentBuildsRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r AgentsAPIGetAgentsBuildsRequest) Execute() (*BuildList, *http.Response, error) {
-	return r.ApiService.GetAgentsBuildsExecute(r)
+func (r AgentAPIGetAgentBuildsRequest) Execute() (*BuildList, *http.Response, error) {
+	return r.ApiService.GetAgentBuildsExecute(r)
 }
 
 /*
-GetAgentsBuilds Returns the public index of every published build, most recently updated first, so a gallery can link straight to the story behind each product.
+GetAgentBuilds Returns the public index of every published build, most recently updated first, so a gallery can link straight to the story behind each product.
 
 Returns the public index of every published build, most recently
 updated first, so a gallery can link straight to the story behind each product.
@@ -449,10 +449,10 @@ PUBLIC, no tenancy: publishing is the author's act, and only published root
 sessions appear here.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AgentsAPIGetAgentsBuildsRequest
+	@return AgentAPIGetAgentBuildsRequest
 */
-func (a *AgentsAPIService) GetAgentsBuilds(ctx context.Context) AgentsAPIGetAgentsBuildsRequest {
-	return AgentsAPIGetAgentsBuildsRequest{
+func (a *AgentAPIService) GetAgentBuilds(ctx context.Context) AgentAPIGetAgentBuildsRequest {
+	return AgentAPIGetAgentBuildsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -461,7 +461,7 @@ func (a *AgentsAPIService) GetAgentsBuilds(ctx context.Context) AgentsAPIGetAgen
 // Execute executes the request
 //
 //	@return BuildList
-func (a *AgentsAPIService) GetAgentsBuildsExecute(r AgentsAPIGetAgentsBuildsRequest) (*BuildList, *http.Response, error) {
+func (a *AgentAPIService) GetAgentBuildsExecute(r AgentAPIGetAgentBuildsRequest) (*BuildList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -469,12 +469,12 @@ func (a *AgentsAPIService) GetAgentsBuildsExecute(r AgentsAPIGetAgentsBuildsRequ
 		localVarReturnValue *BuildList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgentsBuilds")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentBuilds")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/builds"
+	localVarPath := localBasePath + "/v1/agent/builds"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -537,19 +537,19 @@ func (a *AgentsAPIService) GetAgentsBuildsExecute(r AgentsAPIGetAgentsBuildsRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIGetAgentsBuildsByOrgByProjectRequest struct {
+type AgentAPIGetAgentBuildsByOrgByProjectRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	org        string
 	project    string
 }
 
-func (r AgentsAPIGetAgentsBuildsByOrgByProjectRequest) Execute() (*BuildView, *http.Response, error) {
-	return r.ApiService.GetAgentsBuildsByOrgByProjectExecute(r)
+func (r AgentAPIGetAgentBuildsByOrgByProjectRequest) Execute() (*BuildView, *http.Response, error) {
+	return r.ApiService.GetAgentBuildsByOrgByProjectExecute(r)
 }
 
 /*
-GetAgentsBuildsByOrgByProject Returns the readable build of one product: the agent session that produced it, turn by turn — the prompts, the reasoning, the commits each turn produced — plus the exact `git log` that re-derives every commit binding from git itself, so nothing here has to be taken on trust.
+GetAgentBuildsByOrgByProject Returns the readable build of one product: the agent session that produced it, turn by turn — the prompts, the reasoning, the commits each turn produced — plus the exact `git log` that re-derives every commit binding from git itself, so nothing here has to be taken on trust.
 
 Returns the readable build of one product: the agent session that
 produced it, turn by turn — the prompts, the reasoning, the commits each turn
@@ -559,15 +559,15 @@ git itself, so nothing here has to be taken on trust.
 PUBLIC, no tenancy: it answers only for a session its author explicitly
 published, which is what makes it safe to be anonymous. An unpublished session
 is invisible here no matter who asks; its owner reads it through the org-scoped
-/v1/agents/sessions routes, which need a validated principal.
+/v1/agent/sessions routes, which need a validated principal.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param org Org is the org that published the build, from the path.
 	@param project Project is the product's slug, from the path.
-	@return AgentsAPIGetAgentsBuildsByOrgByProjectRequest
+	@return AgentAPIGetAgentBuildsByOrgByProjectRequest
 */
-func (a *AgentsAPIService) GetAgentsBuildsByOrgByProject(ctx context.Context, org string, project string) AgentsAPIGetAgentsBuildsByOrgByProjectRequest {
-	return AgentsAPIGetAgentsBuildsByOrgByProjectRequest{
+func (a *AgentAPIService) GetAgentBuildsByOrgByProject(ctx context.Context, org string, project string) AgentAPIGetAgentBuildsByOrgByProjectRequest {
+	return AgentAPIGetAgentBuildsByOrgByProjectRequest{
 		ApiService: a,
 		ctx:        ctx,
 		org:        org,
@@ -578,7 +578,7 @@ func (a *AgentsAPIService) GetAgentsBuildsByOrgByProject(ctx context.Context, or
 // Execute executes the request
 //
 //	@return BuildView
-func (a *AgentsAPIService) GetAgentsBuildsByOrgByProjectExecute(r AgentsAPIGetAgentsBuildsByOrgByProjectRequest) (*BuildView, *http.Response, error) {
+func (a *AgentAPIService) GetAgentBuildsByOrgByProjectExecute(r AgentAPIGetAgentBuildsByOrgByProjectRequest) (*BuildView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -586,12 +586,12 @@ func (a *AgentsAPIService) GetAgentsBuildsByOrgByProjectExecute(r AgentsAPIGetAg
 		localVarReturnValue *BuildView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgentsBuildsByOrgByProject")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentBuildsByOrgByProject")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/builds/{org}/{project}"
+	localVarPath := localBasePath + "/v1/agent/builds/{org}/{project}"
 	localVarPath = strings.Replace(localVarPath, "{"+"org"+"}", url.PathEscape(parameterValueToString(r.org, "org")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
 
@@ -653,18 +653,18 @@ func (a *AgentsAPIService) GetAgentsBuildsByOrgByProjectExecute(r AgentsAPIGetAg
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIGetAgentsByRefRequest struct {
+type AgentAPIGetAgentByRefRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	ref        string
 }
 
-func (r AgentsAPIGetAgentsByRefRequest) Execute() (*AgentDetail, *http.Response, error) {
-	return r.ApiService.GetAgentsByRefExecute(r)
+func (r AgentAPIGetAgentByRefRequest) Execute() (*AgentDetail, *http.Response, error) {
+	return r.ApiService.GetAgentByRefExecute(r)
 }
 
 /*
-GetAgentsByRef Returns one agent with its system prompt and its 20 most recent runs.
+GetAgentByRef Returns one agent with its system prompt and its 20 most recent runs.
 
 Returns one agent with its system prompt and its 20 most recent runs.
 The ref is the agent's public id or its org-unique name — a created agent is
@@ -672,10 +672,10 @@ immediately gettable by whatever create handed back.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param ref Ref is the agent's public id (the agent_… handle create and list return) or its org-unique name, from the path. Either resolves the same agent.
-	@return AgentsAPIGetAgentsByRefRequest
+	@return AgentAPIGetAgentByRefRequest
 */
-func (a *AgentsAPIService) GetAgentsByRef(ctx context.Context, ref string) AgentsAPIGetAgentsByRefRequest {
-	return AgentsAPIGetAgentsByRefRequest{
+func (a *AgentAPIService) GetAgentByRef(ctx context.Context, ref string) AgentAPIGetAgentByRefRequest {
+	return AgentAPIGetAgentByRefRequest{
 		ApiService: a,
 		ctx:        ctx,
 		ref:        ref,
@@ -685,7 +685,7 @@ func (a *AgentsAPIService) GetAgentsByRef(ctx context.Context, ref string) Agent
 // Execute executes the request
 //
 //	@return AgentDetail
-func (a *AgentsAPIService) GetAgentsByRefExecute(r AgentsAPIGetAgentsByRefRequest) (*AgentDetail, *http.Response, error) {
+func (a *AgentAPIService) GetAgentByRefExecute(r AgentAPIGetAgentByRefRequest) (*AgentDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -693,12 +693,12 @@ func (a *AgentsAPIService) GetAgentsByRefExecute(r AgentsAPIGetAgentsByRefReques
 		localVarReturnValue *AgentDetail
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgentsByRef")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentByRef")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/{ref}"
+	localVarPath := localBasePath + "/v1/agent/{ref}"
 	localVarPath = strings.Replace(localVarPath, "{"+"ref"+"}", url.PathEscape(parameterValueToString(r.ref, "ref")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -759,25 +759,25 @@ func (a *AgentsAPIService) GetAgentsByRefExecute(r AgentsAPIGetAgentsByRefReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIGetAgentsByRefRunsRequest struct {
+type AgentAPIGetAgentByRefRunsRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	ref        string
 	limit      *int64
 }
 
 // Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50.
-func (r AgentsAPIGetAgentsByRefRunsRequest) Limit(limit int64) AgentsAPIGetAgentsByRefRunsRequest {
+func (r AgentAPIGetAgentByRefRunsRequest) Limit(limit int64) AgentAPIGetAgentByRefRunsRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r AgentsAPIGetAgentsByRefRunsRequest) Execute() (*RunList, *http.Response, error) {
-	return r.ApiService.GetAgentsByRefRunsExecute(r)
+func (r AgentAPIGetAgentByRefRunsRequest) Execute() (*RunList, *http.Response, error) {
+	return r.ApiService.GetAgentByRefRunsExecute(r)
 }
 
 /*
-GetAgentsByRefRuns Returns one agent's execution history, newest first — each run's input, its output or its error, and how long it took.
+GetAgentByRefRuns Returns one agent's execution history, newest first — each run's input, its output or its error, and how long it took.
 
 Returns one agent's execution history, newest first — each run's
 input, its output or its error, and how long it took. Every row is a run that
@@ -785,10 +785,10 @@ actually happened.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param ref Ref is the agent's public id or its org-unique name, from the path.
-	@return AgentsAPIGetAgentsByRefRunsRequest
+	@return AgentAPIGetAgentByRefRunsRequest
 */
-func (a *AgentsAPIService) GetAgentsByRefRuns(ctx context.Context, ref string) AgentsAPIGetAgentsByRefRunsRequest {
-	return AgentsAPIGetAgentsByRefRunsRequest{
+func (a *AgentAPIService) GetAgentByRefRuns(ctx context.Context, ref string) AgentAPIGetAgentByRefRunsRequest {
+	return AgentAPIGetAgentByRefRunsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		ref:        ref,
@@ -798,7 +798,7 @@ func (a *AgentsAPIService) GetAgentsByRefRuns(ctx context.Context, ref string) A
 // Execute executes the request
 //
 //	@return RunList
-func (a *AgentsAPIService) GetAgentsByRefRunsExecute(r AgentsAPIGetAgentsByRefRunsRequest) (*RunList, *http.Response, error) {
+func (a *AgentAPIService) GetAgentByRefRunsExecute(r AgentAPIGetAgentByRefRunsRequest) (*RunList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -806,12 +806,12 @@ func (a *AgentsAPIService) GetAgentsByRefRunsExecute(r AgentsAPIGetAgentsByRefRu
 		localVarReturnValue *RunList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgentsByRefRuns")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentByRefRuns")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/{ref}/runs"
+	localVarPath := localBasePath + "/v1/agent/{ref}/runs"
 	localVarPath = strings.Replace(localVarPath, "{"+"ref"+"}", url.PathEscape(parameterValueToString(r.ref, "ref")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -875,46 +875,46 @@ func (a *AgentsAPIService) GetAgentsByRefRunsExecute(r AgentsAPIGetAgentsByRefRu
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIGetAgentsChatConversationsRequest struct {
+type AgentAPIGetAgentChatConversationsRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 }
 
-func (r AgentsAPIGetAgentsChatConversationsRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetAgentsChatConversationsExecute(r)
+func (r AgentAPIGetAgentChatConversationsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAgentChatConversationsExecute(r)
 }
 
 /*
-GetAgentsChatConversations List the agent threads in your org
+GetAgentChatConversations List the agent threads in your org
 
 Returns a summary of every agent conversation in the caller's org — id, derived title, and when it was last appended to — for populating a thread list.
 
 Scoped to the caller's org and nothing else, and that isolation is structural rather than a filter: conversations are persisted in a store opened PER ORG, so there is no query in which another tenant's threads could appear. A validated principal with a non-empty org is required; 403 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AgentsAPIGetAgentsChatConversationsRequest
+	@return AgentAPIGetAgentChatConversationsRequest
 */
-func (a *AgentsAPIService) GetAgentsChatConversations(ctx context.Context) AgentsAPIGetAgentsChatConversationsRequest {
-	return AgentsAPIGetAgentsChatConversationsRequest{
+func (a *AgentAPIService) GetAgentChatConversations(ctx context.Context) AgentAPIGetAgentChatConversationsRequest {
+	return AgentAPIGetAgentChatConversationsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *AgentsAPIService) GetAgentsChatConversationsExecute(r AgentsAPIGetAgentsChatConversationsRequest) (*http.Response, error) {
+func (a *AgentAPIService) GetAgentChatConversationsExecute(r AgentAPIGetAgentChatConversationsRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgentsChatConversations")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentChatConversations")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/chat/conversations"
+	localVarPath := localBasePath + "/v1/agent/chat/conversations"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -965,18 +965,18 @@ func (a *AgentsAPIService) GetAgentsChatConversationsExecute(r AgentsAPIGetAgent
 	return localVarHTTPResponse, nil
 }
 
-type AgentsAPIGetAgentsChatConversationsByIdRequest struct {
+type AgentAPIGetAgentChatConversationsByIdRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	id         string
 }
 
-func (r AgentsAPIGetAgentsChatConversationsByIdRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetAgentsChatConversationsByIdExecute(r)
+func (r AgentAPIGetAgentChatConversationsByIdRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAgentChatConversationsByIdExecute(r)
 }
 
 /*
-GetAgentsChatConversationsById Read one agent thread in full
+GetAgentChatConversationsById Read one agent thread in full
 
 Returns every message of one conversation in order — role, content, the assistant's tool calls where it made any, and each message's creation time — which is the transcript a client replays to resume a thread.
 
@@ -984,10 +984,10 @@ The lookup happens inside the caller's OWN per-org store, so an id belonging to 
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
-	@return AgentsAPIGetAgentsChatConversationsByIdRequest
+	@return AgentAPIGetAgentChatConversationsByIdRequest
 */
-func (a *AgentsAPIService) GetAgentsChatConversationsById(ctx context.Context, id string) AgentsAPIGetAgentsChatConversationsByIdRequest {
-	return AgentsAPIGetAgentsChatConversationsByIdRequest{
+func (a *AgentAPIService) GetAgentChatConversationsById(ctx context.Context, id string) AgentAPIGetAgentChatConversationsByIdRequest {
+	return AgentAPIGetAgentChatConversationsByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -995,19 +995,19 @@ func (a *AgentsAPIService) GetAgentsChatConversationsById(ctx context.Context, i
 }
 
 // Execute executes the request
-func (a *AgentsAPIService) GetAgentsChatConversationsByIdExecute(r AgentsAPIGetAgentsChatConversationsByIdRequest) (*http.Response, error) {
+func (a *AgentAPIService) GetAgentChatConversationsByIdExecute(r AgentAPIGetAgentChatConversationsByIdRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgentsChatConversationsById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentChatConversationsById")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/chat/conversations/{id}"
+	localVarPath := localBasePath + "/v1/agent/chat/conversations/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1059,46 +1059,46 @@ func (a *AgentsAPIService) GetAgentsChatConversationsByIdExecute(r AgentsAPIGetA
 	return localVarHTTPResponse, nil
 }
 
-type AgentsAPIGetAgentsChatPresetsRequest struct {
+type AgentAPIGetAgentChatPresetsRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 }
 
-func (r AgentsAPIGetAgentsChatPresetsRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetAgentsChatPresetsExecute(r)
+func (r AgentAPIGetAgentChatPresetsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAgentChatPresetsExecute(r)
 }
 
 /*
-GetAgentsChatPresets List the agent presets available to a caller
+GetAgentChatPresets List the agent presets available to a caller
 
 Returns the preset catalog: each entry's id, its description and whether it is server-executing — the flag that decides if a preset's tool calls run here or come back for the client to apply. The ids are what the round accepts in `preset`.
 
 The catalog is compiled into the build, identical for every caller, and this is the one read in the group that needs no principal.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AgentsAPIGetAgentsChatPresetsRequest
+	@return AgentAPIGetAgentChatPresetsRequest
 */
-func (a *AgentsAPIService) GetAgentsChatPresets(ctx context.Context) AgentsAPIGetAgentsChatPresetsRequest {
-	return AgentsAPIGetAgentsChatPresetsRequest{
+func (a *AgentAPIService) GetAgentChatPresets(ctx context.Context) AgentAPIGetAgentChatPresetsRequest {
+	return AgentAPIGetAgentChatPresetsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *AgentsAPIService) GetAgentsChatPresetsExecute(r AgentsAPIGetAgentsChatPresetsRequest) (*http.Response, error) {
+func (a *AgentAPIService) GetAgentChatPresetsExecute(r AgentAPIGetAgentChatPresetsRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgentsChatPresets")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentChatPresets")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/chat/presets"
+	localVarPath := localBasePath + "/v1/agent/chat/presets"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1149,24 +1149,24 @@ func (a *AgentsAPIService) GetAgentsChatPresetsExecute(r AgentsAPIGetAgentsChatP
 	return localVarHTTPResponse, nil
 }
 
-type AgentsAPIGetAgentsMetricsRequest struct {
+type AgentAPIGetAgentMetricsRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	range_     *string
 }
 
 // Range is the window to bucket: 24H, 7D or 30D. Anything else reads as 30D.
-func (r AgentsAPIGetAgentsMetricsRequest) Range_(range_ string) AgentsAPIGetAgentsMetricsRequest {
+func (r AgentAPIGetAgentMetricsRequest) Range_(range_ string) AgentAPIGetAgentMetricsRequest {
 	r.range_ = &range_
 	return r
 }
 
-func (r AgentsAPIGetAgentsMetricsRequest) Execute() (*MetricsView, *http.Response, error) {
-	return r.ApiService.GetAgentsMetricsExecute(r)
+func (r AgentAPIGetAgentMetricsRequest) Execute() (*MetricsView, *http.Response, error) {
+	return r.ApiService.GetAgentMetricsExecute(r)
 }
 
 /*
-GetAgentsMetrics Serves the invocations-over-time histogram for the org's Agents dashboard.
+GetAgentMetrics Serves the invocations-over-time histogram for the org's Agents dashboard.
 
 Serves the invocations-over-time histogram for the org's Agents
 dashboard. Every point is a REAL count of recorded runs in that time bucket —
@@ -1176,10 +1176,10 @@ renders those as "—" rather than a fabricated figure. No runs => empty series
 (an honest "not connected / no activity yet"), never a synthesized trend.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AgentsAPIGetAgentsMetricsRequest
+	@return AgentAPIGetAgentMetricsRequest
 */
-func (a *AgentsAPIService) GetAgentsMetrics(ctx context.Context) AgentsAPIGetAgentsMetricsRequest {
-	return AgentsAPIGetAgentsMetricsRequest{
+func (a *AgentAPIService) GetAgentMetrics(ctx context.Context) AgentAPIGetAgentMetricsRequest {
+	return AgentAPIGetAgentMetricsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1188,7 +1188,7 @@ func (a *AgentsAPIService) GetAgentsMetrics(ctx context.Context) AgentsAPIGetAge
 // Execute executes the request
 //
 //	@return MetricsView
-func (a *AgentsAPIService) GetAgentsMetricsExecute(r AgentsAPIGetAgentsMetricsRequest) (*MetricsView, *http.Response, error) {
+func (a *AgentAPIService) GetAgentMetricsExecute(r AgentAPIGetAgentMetricsRequest) (*MetricsView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1196,12 +1196,12 @@ func (a *AgentsAPIService) GetAgentsMetricsExecute(r AgentsAPIGetAgentsMetricsRe
 		localVarReturnValue *MetricsView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgentsMetrics")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentMetrics")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/metrics"
+	localVarPath := localBasePath + "/v1/agent/metrics"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1264,31 +1264,31 @@ func (a *AgentsAPIService) GetAgentsMetricsExecute(r AgentsAPIGetAgentsMetricsRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIGetAgentsRunsRequest struct {
+type AgentAPIGetAgentRunsRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	limit      *int64
 	status     *string
 }
 
 // Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50.
-func (r AgentsAPIGetAgentsRunsRequest) Limit(limit int64) AgentsAPIGetAgentsRunsRequest {
+func (r AgentAPIGetAgentRunsRequest) Limit(limit int64) AgentAPIGetAgentRunsRequest {
 	r.limit = &limit
 	return r
 }
 
 // Status keeps only runs with this outcome (\&quot;ok\&quot; or \&quot;error\&quot;). Empty keeps both. It is the filter an operator reaches for first — \&quot;show me what broke\&quot; — and answering it here rather than by paging the whole history client-side is the difference between a usable feed and a download.
-func (r AgentsAPIGetAgentsRunsRequest) Status(status string) AgentsAPIGetAgentsRunsRequest {
+func (r AgentAPIGetAgentRunsRequest) Status(status string) AgentAPIGetAgentRunsRequest {
 	r.status = &status
 	return r
 }
 
-func (r AgentsAPIGetAgentsRunsRequest) Execute() (*RunList, *http.Response, error) {
-	return r.ApiService.GetAgentsRunsExecute(r)
+func (r AgentAPIGetAgentRunsRequest) Execute() (*RunList, *http.Response, error) {
+	return r.ApiService.GetAgentRunsExecute(r)
 }
 
 /*
-GetAgentsRuns Returns the org's agent runs across EVERY agent, newest first — what ran here, for whom, on which model, how long it took, and why it failed.
+GetAgentRuns Returns the org's agent runs across EVERY agent, newest first — what ran here, for whom, on which model, how long it took, and why it failed.
 
 Returns the org's agent runs across EVERY agent, newest first —
 what ran here, for whom, on which model, how long it took, and why it failed.
@@ -1305,10 +1305,10 @@ history is the tenant's own record, and the only tenant this can answer for is
 the one asking.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AgentsAPIGetAgentsRunsRequest
+	@return AgentAPIGetAgentRunsRequest
 */
-func (a *AgentsAPIService) GetAgentsRuns(ctx context.Context) AgentsAPIGetAgentsRunsRequest {
-	return AgentsAPIGetAgentsRunsRequest{
+func (a *AgentAPIService) GetAgentRuns(ctx context.Context) AgentAPIGetAgentRunsRequest {
+	return AgentAPIGetAgentRunsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1317,7 +1317,7 @@ func (a *AgentsAPIService) GetAgentsRuns(ctx context.Context) AgentsAPIGetAgents
 // Execute executes the request
 //
 //	@return RunList
-func (a *AgentsAPIService) GetAgentsRunsExecute(r AgentsAPIGetAgentsRunsRequest) (*RunList, *http.Response, error) {
+func (a *AgentAPIService) GetAgentRunsExecute(r AgentAPIGetAgentRunsRequest) (*RunList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1325,12 +1325,12 @@ func (a *AgentsAPIService) GetAgentsRunsExecute(r AgentsAPIGetAgentsRunsRequest)
 		localVarReturnValue *RunList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgentsRuns")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentRuns")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/runs"
+	localVarPath := localBasePath + "/v1/agent/runs"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1396,9 +1396,9 @@ func (a *AgentsAPIService) GetAgentsRunsExecute(r AgentsAPIGetAgentsRunsRequest)
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIGetAgentsSessionsRequest struct {
+type AgentAPIGetAgentSessionsRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	root       *string
 	parent     *string
 	status     *string
@@ -1408,47 +1408,47 @@ type AgentsAPIGetAgentsSessionsRequest struct {
 }
 
 // Root scopes the page to one subagent tree (its root session id).
-func (r AgentsAPIGetAgentsSessionsRequest) Root(root string) AgentsAPIGetAgentsSessionsRequest {
+func (r AgentAPIGetAgentSessionsRequest) Root(root string) AgentAPIGetAgentSessionsRequest {
 	r.root = &root
 	return r
 }
 
 // Parent scopes the page to the direct children of one session. Ignored when root is set; with neither, only ROOT sessions come back.
-func (r AgentsAPIGetAgentsSessionsRequest) Parent(parent string) AgentsAPIGetAgentsSessionsRequest {
+func (r AgentAPIGetAgentSessionsRequest) Parent(parent string) AgentAPIGetAgentSessionsRequest {
 	r.parent = &parent
 	return r
 }
 
 // Status filters to running, paused, done or error.
-func (r AgentsAPIGetAgentsSessionsRequest) Status(status string) AgentsAPIGetAgentsSessionsRequest {
+func (r AgentAPIGetAgentSessionsRequest) Status(status string) AgentAPIGetAgentSessionsRequest {
 	r.status = &status
 	return r
 }
 
 // Project filters to the sessions tagged with one product slug.
-func (r AgentsAPIGetAgentsSessionsRequest) Project(project string) AgentsAPIGetAgentsSessionsRequest {
+func (r AgentAPIGetAgentSessionsRequest) Project(project string) AgentAPIGetAgentSessionsRequest {
 	r.project = &project
 	return r
 }
 
 // Room filters to the sessions started in one collaborative room — the query a space view runs to show what has been run in it.
-func (r AgentsAPIGetAgentsSessionsRequest) Room(room string) AgentsAPIGetAgentsSessionsRequest {
+func (r AgentAPIGetAgentSessionsRequest) Room(room string) AgentAPIGetAgentSessionsRequest {
 	r.room = &room
 	return r
 }
 
 // Limit caps the page. Absent, zero or over 500 reads as 100.
-func (r AgentsAPIGetAgentsSessionsRequest) Limit(limit int64) AgentsAPIGetAgentsSessionsRequest {
+func (r AgentAPIGetAgentSessionsRequest) Limit(limit int64) AgentAPIGetAgentSessionsRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r AgentsAPIGetAgentsSessionsRequest) Execute() (*SessionList, *http.Response, error) {
-	return r.ApiService.GetAgentsSessionsExecute(r)
+func (r AgentAPIGetAgentSessionsRequest) Execute() (*SessionList, *http.Response, error) {
+	return r.ApiService.GetAgentSessionsExecute(r)
 }
 
 /*
-GetAgentsSessions Returns the caller org's live sessions, newest first — each with its event count, its direct-child count and a one-line preview of its latest event.
+GetAgentSessions Returns the caller org's live sessions, newest first — each with its event count, its direct-child count and a one-line preview of its latest event.
 
 Returns the caller org's live sessions, newest first — each with
 its event count, its direct-child count and a one-line preview of its latest
@@ -1456,10 +1456,10 @@ event. With no filter it returns ROOT sessions only, so a dashboard shows one
 row per flow rather than one per subagent; ?root= or ?parent= descends.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AgentsAPIGetAgentsSessionsRequest
+	@return AgentAPIGetAgentSessionsRequest
 */
-func (a *AgentsAPIService) GetAgentsSessions(ctx context.Context) AgentsAPIGetAgentsSessionsRequest {
-	return AgentsAPIGetAgentsSessionsRequest{
+func (a *AgentAPIService) GetAgentSessions(ctx context.Context) AgentAPIGetAgentSessionsRequest {
+	return AgentAPIGetAgentSessionsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1468,7 +1468,7 @@ func (a *AgentsAPIService) GetAgentsSessions(ctx context.Context) AgentsAPIGetAg
 // Execute executes the request
 //
 //	@return SessionList
-func (a *AgentsAPIService) GetAgentsSessionsExecute(r AgentsAPIGetAgentsSessionsRequest) (*SessionList, *http.Response, error) {
+func (a *AgentAPIService) GetAgentSessionsExecute(r AgentAPIGetAgentSessionsRequest) (*SessionList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1476,12 +1476,12 @@ func (a *AgentsAPIService) GetAgentsSessionsExecute(r AgentsAPIGetAgentsSessions
 		localVarReturnValue *SessionList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgentsSessions")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentSessions")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/sessions"
+	localVarPath := localBasePath + "/v1/agent/sessions"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1559,28 +1559,28 @@ func (a *AgentsAPIService) GetAgentsSessionsExecute(r AgentsAPIGetAgentsSessions
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIGetAgentsSessionsByIdRequest struct {
+type AgentAPIGetAgentSessionsByIdRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	id         string
 }
 
-func (r AgentsAPIGetAgentsSessionsByIdRequest) Execute() (*SessionDetail, *http.Response, error) {
-	return r.ApiService.GetAgentsSessionsByIdExecute(r)
+func (r AgentAPIGetAgentSessionsByIdRequest) Execute() (*SessionDetail, *http.Response, error) {
+	return r.ApiService.GetAgentSessionsByIdExecute(r)
 }
 
 /*
-GetAgentsSessionsById Returns one session with its direct child sessions and its 50 most recent events, oldest of those first.
+GetAgentSessionsById Returns one session with its direct child sessions and its 50 most recent events, oldest of those first.
 
 Returns one session with its direct child sessions and its 50 most
 recent events, oldest of those first.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the session to act on, from the path.
-	@return AgentsAPIGetAgentsSessionsByIdRequest
+	@return AgentAPIGetAgentSessionsByIdRequest
 */
-func (a *AgentsAPIService) GetAgentsSessionsById(ctx context.Context, id string) AgentsAPIGetAgentsSessionsByIdRequest {
-	return AgentsAPIGetAgentsSessionsByIdRequest{
+func (a *AgentAPIService) GetAgentSessionsById(ctx context.Context, id string) AgentAPIGetAgentSessionsByIdRequest {
+	return AgentAPIGetAgentSessionsByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -1590,7 +1590,7 @@ func (a *AgentsAPIService) GetAgentsSessionsById(ctx context.Context, id string)
 // Execute executes the request
 //
 //	@return SessionDetail
-func (a *AgentsAPIService) GetAgentsSessionsByIdExecute(r AgentsAPIGetAgentsSessionsByIdRequest) (*SessionDetail, *http.Response, error) {
+func (a *AgentAPIService) GetAgentSessionsByIdExecute(r AgentAPIGetAgentSessionsByIdRequest) (*SessionDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1598,12 +1598,12 @@ func (a *AgentsAPIService) GetAgentsSessionsByIdExecute(r AgentsAPIGetAgentsSess
 		localVarReturnValue *SessionDetail
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgentsSessionsById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentSessionsById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/sessions/{id}"
+	localVarPath := localBasePath + "/v1/agent/sessions/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1664,25 +1664,25 @@ func (a *AgentsAPIService) GetAgentsSessionsByIdExecute(r AgentsAPIGetAgentsSess
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIGetAgentsSessionsByIdControlRequest struct {
+type AgentAPIGetAgentSessionsByIdControlRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	id         string
 	after      *int64
 }
 
 // After is the last seq this poller applied; only commands newer than it come back. Absent or negative reads as 0, which drains from the beginning.
-func (r AgentsAPIGetAgentsSessionsByIdControlRequest) After(after int64) AgentsAPIGetAgentsSessionsByIdControlRequest {
+func (r AgentAPIGetAgentSessionsByIdControlRequest) After(after int64) AgentAPIGetAgentSessionsByIdControlRequest {
 	r.after = &after
 	return r
 }
 
-func (r AgentsAPIGetAgentsSessionsByIdControlRequest) Execute() (*ControlDrain, *http.Response, error) {
-	return r.ApiService.GetAgentsSessionsByIdControlExecute(r)
+func (r AgentAPIGetAgentSessionsByIdControlRequest) Execute() (*ControlDrain, *http.Response, error) {
+	return r.ApiService.GetAgentSessionsByIdControlExecute(r)
 }
 
 /*
-GetAgentsSessionsByIdControl Returns the steering commands (pause/resume/stop/message) recorded against the caller's own session that are newer than the cursor, oldest first, with the cursor to poll from next.
+GetAgentSessionsByIdControl Returns the steering commands (pause/resume/stop/message) recorded against the caller's own session that are newer than the cursor, oldest first, with the cursor to poll from next.
 
 Returns the steering commands (pause/resume/stop/message)
 recorded against the caller's own session that are newer than the cursor,
@@ -1694,10 +1694,10 @@ never redelivered.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the session whose commands are being drained, from the path.
-	@return AgentsAPIGetAgentsSessionsByIdControlRequest
+	@return AgentAPIGetAgentSessionsByIdControlRequest
 */
-func (a *AgentsAPIService) GetAgentsSessionsByIdControl(ctx context.Context, id string) AgentsAPIGetAgentsSessionsByIdControlRequest {
-	return AgentsAPIGetAgentsSessionsByIdControlRequest{
+func (a *AgentAPIService) GetAgentSessionsByIdControl(ctx context.Context, id string) AgentAPIGetAgentSessionsByIdControlRequest {
+	return AgentAPIGetAgentSessionsByIdControlRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -1707,7 +1707,7 @@ func (a *AgentsAPIService) GetAgentsSessionsByIdControl(ctx context.Context, id 
 // Execute executes the request
 //
 //	@return ControlDrain
-func (a *AgentsAPIService) GetAgentsSessionsByIdControlExecute(r AgentsAPIGetAgentsSessionsByIdControlRequest) (*ControlDrain, *http.Response, error) {
+func (a *AgentAPIService) GetAgentSessionsByIdControlExecute(r AgentAPIGetAgentSessionsByIdControlRequest) (*ControlDrain, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1715,12 +1715,12 @@ func (a *AgentsAPIService) GetAgentsSessionsByIdControlExecute(r AgentsAPIGetAge
 		localVarReturnValue *ControlDrain
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgentsSessionsByIdControl")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentSessionsByIdControl")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/sessions/{id}/control"
+	localVarPath := localBasePath + "/v1/agent/sessions/{id}/control"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1784,18 +1784,18 @@ func (a *AgentsAPIService) GetAgentsSessionsByIdControlExecute(r AgentsAPIGetAge
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIGetAgentsSessionsByIdProgressRequest struct {
+type AgentAPIGetAgentSessionsByIdProgressRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	id         string
 }
 
-func (r AgentsAPIGetAgentsSessionsByIdProgressRequest) Execute() (*SessionProgress, *http.Response, error) {
-	return r.ApiService.GetAgentsSessionsByIdProgressExecute(r)
+func (r AgentAPIGetAgentSessionsByIdProgressRequest) Execute() (*SessionProgress, *http.Response, error) {
+	return r.ApiService.GetAgentSessionsByIdProgressExecute(r)
 }
 
 /*
-GetAgentsSessionsByIdProgress Returns how far along one run is: the share of its goal that is done, whether it is running, blocked or finished, and a line saying what it is doing right now.
+GetAgentSessionsByIdProgress Returns how far along one run is: the share of its goal that is done, whether it is running, blocked or finished, and a line saying what it is doing right now.
 
 Returns how far along one run is: the share of its goal that
 is done, whether it is running, blocked or finished, and a line saying what it
@@ -1815,10 +1815,10 @@ wallet the session already names, at most once every thirty seconds per run.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the session to act on, from the path.
-	@return AgentsAPIGetAgentsSessionsByIdProgressRequest
+	@return AgentAPIGetAgentSessionsByIdProgressRequest
 */
-func (a *AgentsAPIService) GetAgentsSessionsByIdProgress(ctx context.Context, id string) AgentsAPIGetAgentsSessionsByIdProgressRequest {
-	return AgentsAPIGetAgentsSessionsByIdProgressRequest{
+func (a *AgentAPIService) GetAgentSessionsByIdProgress(ctx context.Context, id string) AgentAPIGetAgentSessionsByIdProgressRequest {
+	return AgentAPIGetAgentSessionsByIdProgressRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -1828,7 +1828,7 @@ func (a *AgentsAPIService) GetAgentsSessionsByIdProgress(ctx context.Context, id
 // Execute executes the request
 //
 //	@return SessionProgress
-func (a *AgentsAPIService) GetAgentsSessionsByIdProgressExecute(r AgentsAPIGetAgentsSessionsByIdProgressRequest) (*SessionProgress, *http.Response, error) {
+func (a *AgentAPIService) GetAgentSessionsByIdProgressExecute(r AgentAPIGetAgentSessionsByIdProgressRequest) (*SessionProgress, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1836,12 +1836,12 @@ func (a *AgentsAPIService) GetAgentsSessionsByIdProgressExecute(r AgentsAPIGetAg
 		localVarReturnValue *SessionProgress
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgentsSessionsByIdProgress")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentSessionsByIdProgress")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/sessions/{id}/progress"
+	localVarPath := localBasePath + "/v1/agent/sessions/{id}/progress"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1902,18 +1902,18 @@ func (a *AgentsAPIService) GetAgentsSessionsByIdProgressExecute(r AgentsAPIGetAg
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIGetAgentsSessionsByIdTreeRequest struct {
+type AgentAPIGetAgentSessionsByIdTreeRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	id         string
 }
 
-func (r AgentsAPIGetAgentsSessionsByIdTreeRequest) Execute() (*TreeNode, *http.Response, error) {
-	return r.ApiService.GetAgentsSessionsByIdTreeExecute(r)
+func (r AgentAPIGetAgentSessionsByIdTreeRequest) Execute() (*TreeNode, *http.Response, error) {
+	return r.ApiService.GetAgentSessionsByIdTreeExecute(r)
 }
 
 /*
-GetAgentsSessionsByIdTree Returns the subagent-flow graph rooted at this session: the session, its children, their children, each node carrying its own event count.
+GetAgentSessionsByIdTree Returns the subagent-flow graph rooted at this session: the session, its children, their children, each node carrying its own event count.
 
 Returns the subagent-flow graph rooted at this session: the session,
 its children, their children, each node carrying its own event count. One
@@ -1922,10 +1922,10 @@ the shape is assembled in memory rather than by walking the store per node.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the session to act on, from the path.
-	@return AgentsAPIGetAgentsSessionsByIdTreeRequest
+	@return AgentAPIGetAgentSessionsByIdTreeRequest
 */
-func (a *AgentsAPIService) GetAgentsSessionsByIdTree(ctx context.Context, id string) AgentsAPIGetAgentsSessionsByIdTreeRequest {
-	return AgentsAPIGetAgentsSessionsByIdTreeRequest{
+func (a *AgentAPIService) GetAgentSessionsByIdTree(ctx context.Context, id string) AgentAPIGetAgentSessionsByIdTreeRequest {
+	return AgentAPIGetAgentSessionsByIdTreeRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -1935,7 +1935,7 @@ func (a *AgentsAPIService) GetAgentsSessionsByIdTree(ctx context.Context, id str
 // Execute executes the request
 //
 //	@return TreeNode
-func (a *AgentsAPIService) GetAgentsSessionsByIdTreeExecute(r AgentsAPIGetAgentsSessionsByIdTreeRequest) (*TreeNode, *http.Response, error) {
+func (a *AgentAPIService) GetAgentSessionsByIdTreeExecute(r AgentAPIGetAgentSessionsByIdTreeRequest) (*TreeNode, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1943,12 +1943,12 @@ func (a *AgentsAPIService) GetAgentsSessionsByIdTreeExecute(r AgentsAPIGetAgents
 		localVarReturnValue *TreeNode
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgentsSessionsByIdTree")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentSessionsByIdTree")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/sessions/{id}/tree"
+	localVarPath := localBasePath + "/v1/agent/sessions/{id}/tree"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2009,17 +2009,17 @@ func (a *AgentsAPIService) GetAgentsSessionsByIdTreeExecute(r AgentsAPIGetAgents
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIGetAgentsSessionsStreamRequest struct {
+type AgentAPIGetAgentSessionsStreamRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 }
 
-func (r AgentsAPIGetAgentsSessionsStreamRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetAgentsSessionsStreamExecute(r)
+func (r AgentAPIGetAgentSessionsStreamRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAgentSessionsStreamExecute(r)
 }
 
 /*
-GetAgentsSessionsStream Live session and event updates for the caller's org, as Server-Sent Events.
+GetAgentSessionsStream Live session and event updates for the caller's org, as Server-Sent Events.
 
 Holds the connection open as text/event-stream and pushes a frame each time the org's registry moves: an `event: session` frame carrying the same session shape the list and detail reads answer with (a registration, an update, or a login-manager revoke tearing a session down), and an `event: event` frame carrying one appended turn. Optional ?root=<session id> narrows the feed to a single subagent tree.
 
@@ -2028,29 +2028,29 @@ Requires a validated principal carrying an org; 403 without one. Org-scoped fail
 Delivery is best-effort and the GET reads remain the source of truth. A subscriber that falls more than 256 frames behind is DROPPED — its channel is closed and the stream ends — so one stuck dashboard can never back-pressure a session write; the client reconnects and re-reads the session endpoints to resynchronise. A `: ping` comment every 25 seconds holds the connection open through proxies and is how a departed client is noticed.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AgentsAPIGetAgentsSessionsStreamRequest
+	@return AgentAPIGetAgentSessionsStreamRequest
 */
-func (a *AgentsAPIService) GetAgentsSessionsStream(ctx context.Context) AgentsAPIGetAgentsSessionsStreamRequest {
-	return AgentsAPIGetAgentsSessionsStreamRequest{
+func (a *AgentAPIService) GetAgentSessionsStream(ctx context.Context) AgentAPIGetAgentSessionsStreamRequest {
+	return AgentAPIGetAgentSessionsStreamRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *AgentsAPIService) GetAgentsSessionsStreamExecute(r AgentsAPIGetAgentsSessionsStreamRequest) (*http.Response, error) {
+func (a *AgentAPIService) GetAgentSessionsStreamExecute(r AgentAPIGetAgentSessionsStreamRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgentsSessionsStream")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentSessionsStream")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/sessions/stream"
+	localVarPath := localBasePath + "/v1/agent/sessions/stream"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2101,26 +2101,26 @@ func (a *AgentsAPIService) GetAgentsSessionsStreamExecute(r AgentsAPIGetAgentsSe
 	return localVarHTTPResponse, nil
 }
 
-type AgentsAPIGetAgentsTargetsRequest struct {
+type AgentAPIGetAgentTargetsRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 }
 
-func (r AgentsAPIGetAgentsTargetsRequest) Execute() (*TargetList, *http.Response, error) {
-	return r.ApiService.GetAgentsTargetsExecute(r)
+func (r AgentAPIGetAgentTargetsRequest) Execute() (*TargetList, *http.Response, error) {
+	return r.ApiService.GetAgentTargetsExecute(r)
 }
 
 /*
-GetAgentsTargets Returns every machine registered to the caller's org, newest first, each with its live session load.
+GetAgentTargets Returns every machine registered to the caller's org, newest first, each with its live session load.
 
 Returns every machine registered to the caller's org, newest
 first, each with its live session load.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AgentsAPIGetAgentsTargetsRequest
+	@return AgentAPIGetAgentTargetsRequest
 */
-func (a *AgentsAPIService) GetAgentsTargets(ctx context.Context) AgentsAPIGetAgentsTargetsRequest {
-	return AgentsAPIGetAgentsTargetsRequest{
+func (a *AgentAPIService) GetAgentTargets(ctx context.Context) AgentAPIGetAgentTargetsRequest {
+	return AgentAPIGetAgentTargetsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2129,7 +2129,7 @@ func (a *AgentsAPIService) GetAgentsTargets(ctx context.Context) AgentsAPIGetAge
 // Execute executes the request
 //
 //	@return TargetList
-func (a *AgentsAPIService) GetAgentsTargetsExecute(r AgentsAPIGetAgentsTargetsRequest) (*TargetList, *http.Response, error) {
+func (a *AgentAPIService) GetAgentTargetsExecute(r AgentAPIGetAgentTargetsRequest) (*TargetList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2137,12 +2137,12 @@ func (a *AgentsAPIService) GetAgentsTargetsExecute(r AgentsAPIGetAgentsTargetsRe
 		localVarReturnValue *TargetList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgentsTargets")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentTargets")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/targets"
+	localVarPath := localBasePath + "/v1/agent/targets"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2202,27 +2202,27 @@ func (a *AgentsAPIService) GetAgentsTargetsExecute(r AgentsAPIGetAgentsTargetsRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIGetAgentsTargetsByIdRequest struct {
+type AgentAPIGetAgentTargetsByIdRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	id         string
 }
 
-func (r AgentsAPIGetAgentsTargetsByIdRequest) Execute() (*TargetView, *http.Response, error) {
-	return r.ApiService.GetAgentsTargetsByIdExecute(r)
+func (r AgentAPIGetAgentTargetsByIdRequest) Execute() (*TargetView, *http.Response, error) {
+	return r.ApiService.GetAgentTargetsByIdExecute(r)
 }
 
 /*
-GetAgentsTargetsById Returns one registered machine, with its live session load.
+GetAgentTargetsById Returns one registered machine, with its live session load.
 
 Returns one registered machine, with its live session load.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the target to act on, from the path.
-	@return AgentsAPIGetAgentsTargetsByIdRequest
+	@return AgentAPIGetAgentTargetsByIdRequest
 */
-func (a *AgentsAPIService) GetAgentsTargetsById(ctx context.Context, id string) AgentsAPIGetAgentsTargetsByIdRequest {
-	return AgentsAPIGetAgentsTargetsByIdRequest{
+func (a *AgentAPIService) GetAgentTargetsById(ctx context.Context, id string) AgentAPIGetAgentTargetsByIdRequest {
+	return AgentAPIGetAgentTargetsByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -2232,7 +2232,7 @@ func (a *AgentsAPIService) GetAgentsTargetsById(ctx context.Context, id string) 
 // Execute executes the request
 //
 //	@return TargetView
-func (a *AgentsAPIService) GetAgentsTargetsByIdExecute(r AgentsAPIGetAgentsTargetsByIdRequest) (*TargetView, *http.Response, error) {
+func (a *AgentAPIService) GetAgentTargetsByIdExecute(r AgentAPIGetAgentTargetsByIdRequest) (*TargetView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2240,12 +2240,12 @@ func (a *AgentsAPIService) GetAgentsTargetsByIdExecute(r AgentsAPIGetAgentsTarge
 		localVarReturnValue *TargetView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgentsTargetsById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentTargetsById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/targets/{id}"
+	localVarPath := localBasePath + "/v1/agent/targets/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2306,24 +2306,24 @@ func (a *AgentsAPIService) GetAgentsTargetsByIdExecute(r AgentsAPIGetAgentsTarge
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIPatchAgentsByRefRequest struct {
+type AgentAPIPatchAgentByRefRequest struct {
 	ctx           context.Context
-	ApiService    *AgentsAPIService
+	ApiService    *AgentAPIService
 	ref           string
 	updateAgentIn *UpdateAgentIn
 }
 
-func (r AgentsAPIPatchAgentsByRefRequest) UpdateAgentIn(updateAgentIn UpdateAgentIn) AgentsAPIPatchAgentsByRefRequest {
+func (r AgentAPIPatchAgentByRefRequest) UpdateAgentIn(updateAgentIn UpdateAgentIn) AgentAPIPatchAgentByRefRequest {
 	r.updateAgentIn = &updateAgentIn
 	return r
 }
 
-func (r AgentsAPIPatchAgentsByRefRequest) Execute() (*AgentView, *http.Response, error) {
-	return r.ApiService.PatchAgentsByRefExecute(r)
+func (r AgentAPIPatchAgentByRefRequest) Execute() (*AgentView, *http.Response, error) {
+	return r.ApiService.PatchAgentByRefExecute(r)
 }
 
 /*
-PatchAgentsByRef Changes an agent in place.
+PatchAgentByRef Changes an agent in place.
 
 Changes an agent in place. Every field is optional; a field the
 request omits keeps its stored value. The resulting mode+schedule are
@@ -2333,10 +2333,10 @@ long-running counts against the per-org cap on scheduled agents.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param ref Ref is the agent to update — its public id or org-unique name, from the path.
-	@return AgentsAPIPatchAgentsByRefRequest
+	@return AgentAPIPatchAgentByRefRequest
 */
-func (a *AgentsAPIService) PatchAgentsByRef(ctx context.Context, ref string) AgentsAPIPatchAgentsByRefRequest {
-	return AgentsAPIPatchAgentsByRefRequest{
+func (a *AgentAPIService) PatchAgentByRef(ctx context.Context, ref string) AgentAPIPatchAgentByRefRequest {
+	return AgentAPIPatchAgentByRefRequest{
 		ApiService: a,
 		ctx:        ctx,
 		ref:        ref,
@@ -2346,7 +2346,7 @@ func (a *AgentsAPIService) PatchAgentsByRef(ctx context.Context, ref string) Age
 // Execute executes the request
 //
 //	@return AgentView
-func (a *AgentsAPIService) PatchAgentsByRefExecute(r AgentsAPIPatchAgentsByRefRequest) (*AgentView, *http.Response, error) {
+func (a *AgentAPIService) PatchAgentByRefExecute(r AgentAPIPatchAgentByRefRequest) (*AgentView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -2354,12 +2354,12 @@ func (a *AgentsAPIService) PatchAgentsByRefExecute(r AgentsAPIPatchAgentsByRefRe
 		localVarReturnValue *AgentView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PatchAgentsByRef")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PatchAgentByRef")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/{ref}"
+	localVarPath := localBasePath + "/v1/agent/{ref}"
 	localVarPath = strings.Replace(localVarPath, "{"+"ref"+"}", url.PathEscape(parameterValueToString(r.ref, "ref")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2425,24 +2425,24 @@ func (a *AgentsAPIService) PatchAgentsByRefExecute(r AgentsAPIPatchAgentsByRefRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIPatchAgentsSessionsByIdRequest struct {
+type AgentAPIPatchAgentSessionsByIdRequest struct {
 	ctx            context.Context
-	ApiService     *AgentsAPIService
+	ApiService     *AgentAPIService
 	id             string
 	patchSessionIn *PatchSessionIn
 }
 
-func (r AgentsAPIPatchAgentsSessionsByIdRequest) PatchSessionIn(patchSessionIn PatchSessionIn) AgentsAPIPatchAgentsSessionsByIdRequest {
+func (r AgentAPIPatchAgentSessionsByIdRequest) PatchSessionIn(patchSessionIn PatchSessionIn) AgentAPIPatchAgentSessionsByIdRequest {
 	r.patchSessionIn = &patchSessionIn
 	return r
 }
 
-func (r AgentsAPIPatchAgentsSessionsByIdRequest) Execute() (*SessionView, *http.Response, error) {
-	return r.ApiService.PatchAgentsSessionsByIdExecute(r)
+func (r AgentAPIPatchAgentSessionsByIdRequest) Execute() (*SessionView, *http.Response, error) {
+	return r.ApiService.PatchAgentSessionsByIdExecute(r)
 }
 
 /*
-PatchAgentsSessionsById Updates a session's surface-owned truth: its status, its title, the run-target it is dispatched to, and the product it built plus whether that build's story is public.
+PatchAgentSessionsById Updates a session's surface-owned truth: its status, its title, the run-target it is dispatched to, and the product it built plus whether that build's story is public.
 
 Updates a session's surface-owned truth: its status, its title,
 the run-target it is dispatched to, and the product it built plus whether that
@@ -2453,10 +2453,10 @@ session names the project it built, because the public build route is keyed on
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the session to update, from the path.
-	@return AgentsAPIPatchAgentsSessionsByIdRequest
+	@return AgentAPIPatchAgentSessionsByIdRequest
 */
-func (a *AgentsAPIService) PatchAgentsSessionsById(ctx context.Context, id string) AgentsAPIPatchAgentsSessionsByIdRequest {
-	return AgentsAPIPatchAgentsSessionsByIdRequest{
+func (a *AgentAPIService) PatchAgentSessionsById(ctx context.Context, id string) AgentAPIPatchAgentSessionsByIdRequest {
+	return AgentAPIPatchAgentSessionsByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -2466,7 +2466,7 @@ func (a *AgentsAPIService) PatchAgentsSessionsById(ctx context.Context, id strin
 // Execute executes the request
 //
 //	@return SessionView
-func (a *AgentsAPIService) PatchAgentsSessionsByIdExecute(r AgentsAPIPatchAgentsSessionsByIdRequest) (*SessionView, *http.Response, error) {
+func (a *AgentAPIService) PatchAgentSessionsByIdExecute(r AgentAPIPatchAgentSessionsByIdRequest) (*SessionView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -2474,12 +2474,12 @@ func (a *AgentsAPIService) PatchAgentsSessionsByIdExecute(r AgentsAPIPatchAgents
 		localVarReturnValue *SessionView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PatchAgentsSessionsById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PatchAgentSessionsById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/sessions/{id}"
+	localVarPath := localBasePath + "/v1/agent/sessions/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2545,24 +2545,24 @@ func (a *AgentsAPIService) PatchAgentsSessionsByIdExecute(r AgentsAPIPatchAgents
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIPatchAgentsTargetsByIdRequest struct {
+type AgentAPIPatchAgentTargetsByIdRequest struct {
 	ctx           context.Context
-	ApiService    *AgentsAPIService
+	ApiService    *AgentAPIService
 	id            string
 	patchTargetIn *PatchTargetIn
 }
 
-func (r AgentsAPIPatchAgentsTargetsByIdRequest) PatchTargetIn(patchTargetIn PatchTargetIn) AgentsAPIPatchAgentsTargetsByIdRequest {
+func (r AgentAPIPatchAgentTargetsByIdRequest) PatchTargetIn(patchTargetIn PatchTargetIn) AgentAPIPatchAgentTargetsByIdRequest {
 	r.patchTargetIn = &patchTargetIn
 	return r
 }
 
-func (r AgentsAPIPatchAgentsTargetsByIdRequest) Execute() (*TargetView, *http.Response, error) {
-	return r.ApiService.PatchAgentsTargetsByIdExecute(r)
+func (r AgentAPIPatchAgentTargetsByIdRequest) Execute() (*TargetView, *http.Response, error) {
+	return r.ApiService.PatchAgentTargetsByIdExecute(r)
 }
 
 /*
-PatchAgentsTargetsById Updates one machine in place.
+PatchAgentTargetsById Updates one machine in place.
 
 Updates one machine in place. Every field is optional; a field the
 request omits is left alone. A metrics patch IS a heartbeat — the server stamps
@@ -2570,10 +2570,10 @@ its own clock, so a client can neither forge nor backdate staleness.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the target to update, from the path.
-	@return AgentsAPIPatchAgentsTargetsByIdRequest
+	@return AgentAPIPatchAgentTargetsByIdRequest
 */
-func (a *AgentsAPIService) PatchAgentsTargetsById(ctx context.Context, id string) AgentsAPIPatchAgentsTargetsByIdRequest {
-	return AgentsAPIPatchAgentsTargetsByIdRequest{
+func (a *AgentAPIService) PatchAgentTargetsById(ctx context.Context, id string) AgentAPIPatchAgentTargetsByIdRequest {
+	return AgentAPIPatchAgentTargetsByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -2583,7 +2583,7 @@ func (a *AgentsAPIService) PatchAgentsTargetsById(ctx context.Context, id string
 // Execute executes the request
 //
 //	@return TargetView
-func (a *AgentsAPIService) PatchAgentsTargetsByIdExecute(r AgentsAPIPatchAgentsTargetsByIdRequest) (*TargetView, *http.Response, error) {
+func (a *AgentAPIService) PatchAgentTargetsByIdExecute(r AgentAPIPatchAgentTargetsByIdRequest) (*TargetView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -2591,12 +2591,12 @@ func (a *AgentsAPIService) PatchAgentsTargetsByIdExecute(r AgentsAPIPatchAgentsT
 		localVarReturnValue *TargetView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PatchAgentsTargetsById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PatchAgentTargetsById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/targets/{id}"
+	localVarPath := localBasePath + "/v1/agent/targets/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2662,23 +2662,23 @@ func (a *AgentsAPIService) PatchAgentsTargetsByIdExecute(r AgentsAPIPatchAgentsT
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIPostAgentsRequest struct {
+type AgentAPIPostAgentRequest struct {
 	ctx           context.Context
-	ApiService    *AgentsAPIService
+	ApiService    *AgentAPIService
 	createAgentIn *CreateAgentIn
 }
 
-func (r AgentsAPIPostAgentsRequest) CreateAgentIn(createAgentIn CreateAgentIn) AgentsAPIPostAgentsRequest {
+func (r AgentAPIPostAgentRequest) CreateAgentIn(createAgentIn CreateAgentIn) AgentAPIPostAgentRequest {
 	r.createAgentIn = &createAgentIn
 	return r
 }
 
-func (r AgentsAPIPostAgentsRequest) Execute() (*AgentView, *http.Response, error) {
-	return r.ApiService.PostAgentsExecute(r)
+func (r AgentAPIPostAgentRequest) Execute() (*AgentView, *http.Response, error) {
+	return r.ApiService.PostAgentExecute(r)
 }
 
 /*
-PostAgents Defines an agent in the caller's org: a model, a system prompt (instructions) and a set of tool names.
+PostAgent Defines an agent in the caller's org: a model, a system prompt (instructions) and a set of tool names.
 
 Defines an agent in the caller's org: a model, a system prompt
 (instructions) and a set of tool names. The name must be unique in the org and
@@ -2690,10 +2690,10 @@ schedule (the scheduler would otherwise never fire it) and counts against a
 per-org cap on scheduled agents.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AgentsAPIPostAgentsRequest
+	@return AgentAPIPostAgentRequest
 */
-func (a *AgentsAPIService) PostAgents(ctx context.Context) AgentsAPIPostAgentsRequest {
-	return AgentsAPIPostAgentsRequest{
+func (a *AgentAPIService) PostAgent(ctx context.Context) AgentAPIPostAgentRequest {
+	return AgentAPIPostAgentRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2702,7 +2702,7 @@ func (a *AgentsAPIService) PostAgents(ctx context.Context) AgentsAPIPostAgentsRe
 // Execute executes the request
 //
 //	@return AgentView
-func (a *AgentsAPIService) PostAgentsExecute(r AgentsAPIPostAgentsRequest) (*AgentView, *http.Response, error) {
+func (a *AgentAPIService) PostAgentExecute(r AgentAPIPostAgentRequest) (*AgentView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -2710,12 +2710,12 @@ func (a *AgentsAPIService) PostAgentsExecute(r AgentsAPIPostAgentsRequest) (*Age
 		localVarReturnValue *AgentView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgents")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgent")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents"
+	localVarPath := localBasePath + "/v1/agent"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2780,18 +2780,18 @@ func (a *AgentsAPIService) PostAgentsExecute(r AgentsAPIPostAgentsRequest) (*Age
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIPostAgentsByRefRunRequest struct {
+type AgentAPIPostAgentByRefRunRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	ref        string
 }
 
-func (r AgentsAPIPostAgentsByRefRunRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostAgentsByRefRunExecute(r)
+func (r AgentAPIPostAgentByRefRunRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAgentByRefRunExecute(r)
 }
 
 /*
-PostAgentsByRefRun Run one of your org's agents and get the recorded run back.
+PostAgentByRefRun Run one of your org's agents and get the recorded run back.
 
 Composes the agent's stored instructions with the caller's `input`, executes one real chat completion through the same in-process AI client the rest of the console uses, and answers with the run that was recorded: its id, status, model, output, duration and error. Every run this returns reflects an execution that actually happened — a model failure is recorded and reported, never hidden and never fabricated. A transient upstream failure (429, 5xx, empty choices) is retried up to three times with jittered backoff, and a configured failover model is tried before the run is called an error.
 
@@ -2803,10 +2803,10 @@ THE RULE A READER GETS WRONG: a failed run is a 502 whose body is the RUN, not a
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param ref
-	@return AgentsAPIPostAgentsByRefRunRequest
+	@return AgentAPIPostAgentByRefRunRequest
 */
-func (a *AgentsAPIService) PostAgentsByRefRun(ctx context.Context, ref string) AgentsAPIPostAgentsByRefRunRequest {
-	return AgentsAPIPostAgentsByRefRunRequest{
+func (a *AgentAPIService) PostAgentByRefRun(ctx context.Context, ref string) AgentAPIPostAgentByRefRunRequest {
+	return AgentAPIPostAgentByRefRunRequest{
 		ApiService: a,
 		ctx:        ctx,
 		ref:        ref,
@@ -2814,19 +2814,19 @@ func (a *AgentsAPIService) PostAgentsByRefRun(ctx context.Context, ref string) A
 }
 
 // Execute executes the request
-func (a *AgentsAPIService) PostAgentsByRefRunExecute(r AgentsAPIPostAgentsByRefRunRequest) (*http.Response, error) {
+func (a *AgentAPIService) PostAgentByRefRunExecute(r AgentAPIPostAgentByRefRunRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsByRefRun")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentByRefRun")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/{ref}/run"
+	localVarPath := localBasePath + "/v1/agent/{ref}/run"
 	localVarPath = strings.Replace(localVarPath, "{"+"ref"+"}", url.PathEscape(parameterValueToString(r.ref, "ref")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2878,17 +2878,17 @@ func (a *AgentsAPIService) PostAgentsByRefRunExecute(r AgentsAPIPostAgentsByRefR
 	return localVarHTTPResponse, nil
 }
 
-type AgentsAPIPostAgentsChatRequest struct {
+type AgentAPIPostAgentChatRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 }
 
-func (r AgentsAPIPostAgentsChatRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostAgentsChatExecute(r)
+func (r AgentAPIPostAgentChatRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAgentChatExecute(r)
 }
 
 /*
-PostAgentsChat Run one tool-calling round against your org's own tools
+PostAgentChat Run one tool-calling round against your org's own tools
 
 Answers one turn of a conversation with four things: the model's `reply`, the `actions` the server executed on the caller's behalf, the `ops` the client must apply itself, and the `conversationId` the turn was recorded under.
 
@@ -2899,29 +2899,29 @@ The split between actions and ops is the rule most easily got wrong. A tool call
 A completion refused for the caller's own reason — 402 insufficient balance, 429, 403 — is relayed with its own status and body verbatim, so the real billing message reaches the client instead of an opaque gateway error. Only a genuine upstream fault becomes a 502.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AgentsAPIPostAgentsChatRequest
+	@return AgentAPIPostAgentChatRequest
 */
-func (a *AgentsAPIService) PostAgentsChat(ctx context.Context) AgentsAPIPostAgentsChatRequest {
-	return AgentsAPIPostAgentsChatRequest{
+func (a *AgentAPIService) PostAgentChat(ctx context.Context) AgentAPIPostAgentChatRequest {
+	return AgentAPIPostAgentChatRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *AgentsAPIService) PostAgentsChatExecute(r AgentsAPIPostAgentsChatRequest) (*http.Response, error) {
+func (a *AgentAPIService) PostAgentChatExecute(r AgentAPIPostAgentChatRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsChat")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentChat")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/chat"
+	localVarPath := localBasePath + "/v1/agent/chat"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2972,46 +2972,46 @@ func (a *AgentsAPIService) PostAgentsChatExecute(r AgentsAPIPostAgentsChatReques
 	return localVarHTTPResponse, nil
 }
 
-type AgentsAPIPostAgentsChatConversationsRequest struct {
+type AgentAPIPostAgentChatConversationsRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 }
 
-func (r AgentsAPIPostAgentsChatConversationsRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostAgentsChatConversationsExecute(r)
+func (r AgentAPIPostAgentChatConversationsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAgentChatConversationsExecute(r)
 }
 
 /*
-PostAgentsChatConversations Record turns in a conversation
+PostAgentChatConversations Record turns in a conversation
 
 Writes turns to the caller's thread store without running a completion, and answers the `conversationId` they were written under. An absent `conversationId` opens a new thread; supplying one appends to it.
 
 This is for a client that streams its own turn through /v1/chat/completions and still wants the conversation in its history — the round records what IT answers, and is otherwise the only writer. It takes the same store, the same per-org isolation and the same notion of a thread: what is recorded here reads back through the two GETs beside it and the round can continue it by id. A validated principal with a non-empty org is required; 403 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AgentsAPIPostAgentsChatConversationsRequest
+	@return AgentAPIPostAgentChatConversationsRequest
 */
-func (a *AgentsAPIService) PostAgentsChatConversations(ctx context.Context) AgentsAPIPostAgentsChatConversationsRequest {
-	return AgentsAPIPostAgentsChatConversationsRequest{
+func (a *AgentAPIService) PostAgentChatConversations(ctx context.Context) AgentAPIPostAgentChatConversationsRequest {
+	return AgentAPIPostAgentChatConversationsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *AgentsAPIService) PostAgentsChatConversationsExecute(r AgentsAPIPostAgentsChatConversationsRequest) (*http.Response, error) {
+func (a *AgentAPIService) PostAgentChatConversationsExecute(r AgentAPIPostAgentChatConversationsRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsChatConversations")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentChatConversations")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/chat/conversations"
+	localVarPath := localBasePath + "/v1/agent/chat/conversations"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3062,29 +3062,29 @@ func (a *AgentsAPIService) PostAgentsChatConversationsExecute(r AgentsAPIPostAge
 	return localVarHTTPResponse, nil
 }
 
-type AgentsAPIPostAgentsCodingRequest struct {
+type AgentAPIPostAgentCodingRequest struct {
 	ctx           context.Context
-	ApiService    *AgentsAPIService
+	ApiService    *AgentAPIService
 	codingStartIn *CodingStartIn
 }
 
-func (r AgentsAPIPostAgentsCodingRequest) CodingStartIn(codingStartIn CodingStartIn) AgentsAPIPostAgentsCodingRequest {
+func (r AgentAPIPostAgentCodingRequest) CodingStartIn(codingStartIn CodingStartIn) AgentAPIPostAgentCodingRequest {
 	r.codingStartIn = &codingStartIn
 	return r
 }
 
-func (r AgentsAPIPostAgentsCodingRequest) Execute() (*CodingStarted, *http.Response, error) {
-	return r.ApiService.PostAgentsCodingExecute(r)
+func (r AgentAPIPostAgentCodingRequest) Execute() (*CodingStarted, *http.Response, error) {
+	return r.ApiService.PostAgentCodingExecute(r)
 }
 
 /*
-PostAgentsCoding Start one autonomous coding run against a repo in the caller's org
+PostAgentCoding Start one autonomous coding run against a repo in the caller's org
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AgentsAPIPostAgentsCodingRequest
+	@return AgentAPIPostAgentCodingRequest
 */
-func (a *AgentsAPIService) PostAgentsCoding(ctx context.Context) AgentsAPIPostAgentsCodingRequest {
-	return AgentsAPIPostAgentsCodingRequest{
+func (a *AgentAPIService) PostAgentCoding(ctx context.Context) AgentAPIPostAgentCodingRequest {
+	return AgentAPIPostAgentCodingRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -3093,7 +3093,7 @@ func (a *AgentsAPIService) PostAgentsCoding(ctx context.Context) AgentsAPIPostAg
 // Execute executes the request
 //
 //	@return CodingStarted
-func (a *AgentsAPIService) PostAgentsCodingExecute(r AgentsAPIPostAgentsCodingRequest) (*CodingStarted, *http.Response, error) {
+func (a *AgentAPIService) PostAgentCodingExecute(r AgentAPIPostAgentCodingRequest) (*CodingStarted, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3101,12 +3101,12 @@ func (a *AgentsAPIService) PostAgentsCodingExecute(r AgentsAPIPostAgentsCodingRe
 		localVarReturnValue *CodingStarted
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsCoding")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentCoding")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/coding"
+	localVarPath := localBasePath + "/v1/agent/coding"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3171,23 +3171,23 @@ func (a *AgentsAPIService) PostAgentsCodingExecute(r AgentsAPIPostAgentsCodingRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIPostAgentsSessionsRequest struct {
+type AgentAPIPostAgentSessionsRequest struct {
 	ctx         context.Context
-	ApiService  *AgentsAPIService
+	ApiService  *AgentAPIService
 	registerReq *RegisterReq
 }
 
-func (r AgentsAPIPostAgentsSessionsRequest) RegisterReq(registerReq RegisterReq) AgentsAPIPostAgentsSessionsRequest {
+func (r AgentAPIPostAgentSessionsRequest) RegisterReq(registerReq RegisterReq) AgentAPIPostAgentSessionsRequest {
 	r.registerReq = &registerReq
 	return r
 }
 
-func (r AgentsAPIPostAgentsSessionsRequest) Execute() (*SessionView, *http.Response, error) {
-	return r.ApiService.PostAgentsSessionsExecute(r)
+func (r AgentAPIPostAgentSessionsRequest) Execute() (*SessionView, *http.Response, error) {
+	return r.ApiService.PostAgentSessionsExecute(r)
 }
 
 /*
-PostAgentsSessions Opens a live agent session in the caller's org — the row every surface (the CLI's outer agent, hanzo.bot, the console, chat) hangs its activity off.
+PostAgentSessions Opens a live agent session in the caller's org — the row every surface (the CLI's outer agent, hanzo.bot, the console, chat) hangs its activity off.
 
 Opens a live agent session in the caller's org — the row every
 surface (the CLI's outer agent, hanzo.bot, the console, chat) hangs its
@@ -3197,10 +3197,10 @@ itself a root. Registering with a terminal status records a session that has
 already finished.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AgentsAPIPostAgentsSessionsRequest
+	@return AgentAPIPostAgentSessionsRequest
 */
-func (a *AgentsAPIService) PostAgentsSessions(ctx context.Context) AgentsAPIPostAgentsSessionsRequest {
-	return AgentsAPIPostAgentsSessionsRequest{
+func (a *AgentAPIService) PostAgentSessions(ctx context.Context) AgentAPIPostAgentSessionsRequest {
+	return AgentAPIPostAgentSessionsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -3209,7 +3209,7 @@ func (a *AgentsAPIService) PostAgentsSessions(ctx context.Context) AgentsAPIPost
 // Execute executes the request
 //
 //	@return SessionView
-func (a *AgentsAPIService) PostAgentsSessionsExecute(r AgentsAPIPostAgentsSessionsRequest) (*SessionView, *http.Response, error) {
+func (a *AgentAPIService) PostAgentSessionsExecute(r AgentAPIPostAgentSessionsRequest) (*SessionView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3217,12 +3217,12 @@ func (a *AgentsAPIService) PostAgentsSessionsExecute(r AgentsAPIPostAgentsSessio
 		localVarReturnValue *SessionView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsSessions")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentSessions")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/sessions"
+	localVarPath := localBasePath + "/v1/agent/sessions"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3287,24 +3287,24 @@ func (a *AgentsAPIService) PostAgentsSessionsExecute(r AgentsAPIPostAgentsSessio
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIPostAgentsSessionsByIdEventsRequest struct {
+type AgentAPIPostAgentSessionsByIdEventsRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	id         string
 	eventIn    *EventIn
 }
 
-func (r AgentsAPIPostAgentsSessionsByIdEventsRequest) EventIn(eventIn EventIn) AgentsAPIPostAgentsSessionsByIdEventsRequest {
+func (r AgentAPIPostAgentSessionsByIdEventsRequest) EventIn(eventIn EventIn) AgentAPIPostAgentSessionsByIdEventsRequest {
 	r.eventIn = &eventIn
 	return r
 }
 
-func (r AgentsAPIPostAgentsSessionsByIdEventsRequest) Execute() (*EventView, *http.Response, error) {
-	return r.ApiService.PostAgentsSessionsByIdEventsExecute(r)
+func (r AgentAPIPostAgentSessionsByIdEventsRequest) Execute() (*EventView, *http.Response, error) {
+	return r.ApiService.PostAgentSessionsByIdEventsExecute(r)
 }
 
 /*
-PostAgentsSessionsByIdEvents Records one turn of a session's transcript and answers 201 with it.
+PostAgentSessionsByIdEvents Records one turn of a session's transcript and answers 201 with it.
 
 Records one turn of a session's transcript and answers 201 with it.
 
@@ -3322,10 +3322,10 @@ line, a MASKED preview and the fingerprint. The secret is never in the answer.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the session to append to, from the path.
-	@return AgentsAPIPostAgentsSessionsByIdEventsRequest
+	@return AgentAPIPostAgentSessionsByIdEventsRequest
 */
-func (a *AgentsAPIService) PostAgentsSessionsByIdEvents(ctx context.Context, id string) AgentsAPIPostAgentsSessionsByIdEventsRequest {
-	return AgentsAPIPostAgentsSessionsByIdEventsRequest{
+func (a *AgentAPIService) PostAgentSessionsByIdEvents(ctx context.Context, id string) AgentAPIPostAgentSessionsByIdEventsRequest {
+	return AgentAPIPostAgentSessionsByIdEventsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -3335,7 +3335,7 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdEvents(ctx context.Context, id 
 // Execute executes the request
 //
 //	@return EventView
-func (a *AgentsAPIService) PostAgentsSessionsByIdEventsExecute(r AgentsAPIPostAgentsSessionsByIdEventsRequest) (*EventView, *http.Response, error) {
+func (a *AgentAPIService) PostAgentSessionsByIdEventsExecute(r AgentAPIPostAgentSessionsByIdEventsRequest) (*EventView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3343,12 +3343,12 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdEventsExecute(r AgentsAPIPostAg
 		localVarReturnValue *EventView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsSessionsByIdEvents")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentSessionsByIdEvents")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/sessions/{id}/events"
+	localVarPath := localBasePath + "/v1/agent/sessions/{id}/events"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3414,24 +3414,24 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdEventsExecute(r AgentsAPIPostAg
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIPostAgentsSessionsByIdMessageRequest struct {
+type AgentAPIPostAgentSessionsByIdMessageRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	id         string
 	controlIn  *ControlIn
 }
 
-func (r AgentsAPIPostAgentsSessionsByIdMessageRequest) ControlIn(controlIn ControlIn) AgentsAPIPostAgentsSessionsByIdMessageRequest {
+func (r AgentAPIPostAgentSessionsByIdMessageRequest) ControlIn(controlIn ControlIn) AgentAPIPostAgentSessionsByIdMessageRequest {
 	r.controlIn = &controlIn
 	return r
 }
 
-func (r AgentsAPIPostAgentsSessionsByIdMessageRequest) Execute() (*ControlResult, *http.Response, error) {
-	return r.ApiService.PostAgentsSessionsByIdMessageExecute(r)
+func (r AgentAPIPostAgentSessionsByIdMessageRequest) Execute() (*ControlResult, *http.Response, error) {
+	return r.ApiService.PostAgentSessionsByIdMessageExecute(r)
 }
 
 /*
-PostAgentsSessionsByIdMessage Sends a steering message to a running session — the endpoint a human or another agent interrupts through.
+PostAgentSessionsByIdMessage Sends a steering message to a running session — the endpoint a human or another agent interrupts through.
 
 Sends a steering message to a running session — the endpoint a
 human or another agent interrupts through. It requires a `message` or a
@@ -3439,10 +3439,10 @@ human or another agent interrupts through. It requires a `message` or a
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the session to steer, from the path.
-	@return AgentsAPIPostAgentsSessionsByIdMessageRequest
+	@return AgentAPIPostAgentSessionsByIdMessageRequest
 */
-func (a *AgentsAPIService) PostAgentsSessionsByIdMessage(ctx context.Context, id string) AgentsAPIPostAgentsSessionsByIdMessageRequest {
-	return AgentsAPIPostAgentsSessionsByIdMessageRequest{
+func (a *AgentAPIService) PostAgentSessionsByIdMessage(ctx context.Context, id string) AgentAPIPostAgentSessionsByIdMessageRequest {
+	return AgentAPIPostAgentSessionsByIdMessageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -3452,7 +3452,7 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdMessage(ctx context.Context, id
 // Execute executes the request
 //
 //	@return ControlResult
-func (a *AgentsAPIService) PostAgentsSessionsByIdMessageExecute(r AgentsAPIPostAgentsSessionsByIdMessageRequest) (*ControlResult, *http.Response, error) {
+func (a *AgentAPIService) PostAgentSessionsByIdMessageExecute(r AgentAPIPostAgentSessionsByIdMessageRequest) (*ControlResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3460,12 +3460,12 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdMessageExecute(r AgentsAPIPostA
 		localVarReturnValue *ControlResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsSessionsByIdMessage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentSessionsByIdMessage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/sessions/{id}/message"
+	localVarPath := localBasePath + "/v1/agent/sessions/{id}/message"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3531,34 +3531,34 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdMessageExecute(r AgentsAPIPostA
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIPostAgentsSessionsByIdPauseRequest struct {
+type AgentAPIPostAgentSessionsByIdPauseRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	id         string
 	controlIn  *ControlIn
 }
 
-func (r AgentsAPIPostAgentsSessionsByIdPauseRequest) ControlIn(controlIn ControlIn) AgentsAPIPostAgentsSessionsByIdPauseRequest {
+func (r AgentAPIPostAgentSessionsByIdPauseRequest) ControlIn(controlIn ControlIn) AgentAPIPostAgentSessionsByIdPauseRequest {
 	r.controlIn = &controlIn
 	return r
 }
 
-func (r AgentsAPIPostAgentsSessionsByIdPauseRequest) Execute() (*ControlResult, *http.Response, error) {
-	return r.ApiService.PostAgentsSessionsByIdPauseExecute(r)
+func (r AgentAPIPostAgentSessionsByIdPauseRequest) Execute() (*ControlResult, *http.Response, error) {
+	return r.ApiService.PostAgentSessionsByIdPauseExecute(r)
 }
 
 /*
-PostAgentsSessionsByIdPause Asks a running session to pause.
+PostAgentSessionsByIdPause Asks a running session to pause.
 
 Asks a running session to pause. Recorded durably, and forwarded
 to the durable-execution engine when the session is task-backed.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the session to steer, from the path.
-	@return AgentsAPIPostAgentsSessionsByIdPauseRequest
+	@return AgentAPIPostAgentSessionsByIdPauseRequest
 */
-func (a *AgentsAPIService) PostAgentsSessionsByIdPause(ctx context.Context, id string) AgentsAPIPostAgentsSessionsByIdPauseRequest {
-	return AgentsAPIPostAgentsSessionsByIdPauseRequest{
+func (a *AgentAPIService) PostAgentSessionsByIdPause(ctx context.Context, id string) AgentAPIPostAgentSessionsByIdPauseRequest {
+	return AgentAPIPostAgentSessionsByIdPauseRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -3568,7 +3568,7 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdPause(ctx context.Context, id s
 // Execute executes the request
 //
 //	@return ControlResult
-func (a *AgentsAPIService) PostAgentsSessionsByIdPauseExecute(r AgentsAPIPostAgentsSessionsByIdPauseRequest) (*ControlResult, *http.Response, error) {
+func (a *AgentAPIService) PostAgentSessionsByIdPauseExecute(r AgentAPIPostAgentSessionsByIdPauseRequest) (*ControlResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3576,12 +3576,12 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdPauseExecute(r AgentsAPIPostAge
 		localVarReturnValue *ControlResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsSessionsByIdPause")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentSessionsByIdPause")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/sessions/{id}/pause"
+	localVarPath := localBasePath + "/v1/agent/sessions/{id}/pause"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3647,33 +3647,33 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdPauseExecute(r AgentsAPIPostAge
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIPostAgentsSessionsByIdResumeRequest struct {
+type AgentAPIPostAgentSessionsByIdResumeRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	id         string
 	controlIn  *ControlIn
 }
 
-func (r AgentsAPIPostAgentsSessionsByIdResumeRequest) ControlIn(controlIn ControlIn) AgentsAPIPostAgentsSessionsByIdResumeRequest {
+func (r AgentAPIPostAgentSessionsByIdResumeRequest) ControlIn(controlIn ControlIn) AgentAPIPostAgentSessionsByIdResumeRequest {
 	r.controlIn = &controlIn
 	return r
 }
 
-func (r AgentsAPIPostAgentsSessionsByIdResumeRequest) Execute() (*ControlResult, *http.Response, error) {
-	return r.ApiService.PostAgentsSessionsByIdResumeExecute(r)
+func (r AgentAPIPostAgentSessionsByIdResumeRequest) Execute() (*ControlResult, *http.Response, error) {
+	return r.ApiService.PostAgentSessionsByIdResumeExecute(r)
 }
 
 /*
-PostAgentsSessionsByIdResume Asks a paused session to continue, on the same terms as a pause.
+PostAgentSessionsByIdResume Asks a paused session to continue, on the same terms as a pause.
 
 Asks a paused session to continue, on the same terms as a pause.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the session to steer, from the path.
-	@return AgentsAPIPostAgentsSessionsByIdResumeRequest
+	@return AgentAPIPostAgentSessionsByIdResumeRequest
 */
-func (a *AgentsAPIService) PostAgentsSessionsByIdResume(ctx context.Context, id string) AgentsAPIPostAgentsSessionsByIdResumeRequest {
-	return AgentsAPIPostAgentsSessionsByIdResumeRequest{
+func (a *AgentAPIService) PostAgentSessionsByIdResume(ctx context.Context, id string) AgentAPIPostAgentSessionsByIdResumeRequest {
+	return AgentAPIPostAgentSessionsByIdResumeRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -3683,7 +3683,7 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdResume(ctx context.Context, id 
 // Execute executes the request
 //
 //	@return ControlResult
-func (a *AgentsAPIService) PostAgentsSessionsByIdResumeExecute(r AgentsAPIPostAgentsSessionsByIdResumeRequest) (*ControlResult, *http.Response, error) {
+func (a *AgentAPIService) PostAgentSessionsByIdResumeExecute(r AgentAPIPostAgentSessionsByIdResumeRequest) (*ControlResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3691,12 +3691,12 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdResumeExecute(r AgentsAPIPostAg
 		localVarReturnValue *ControlResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsSessionsByIdResume")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentSessionsByIdResume")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/sessions/{id}/resume"
+	localVarPath := localBasePath + "/v1/agent/sessions/{id}/resume"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3762,24 +3762,24 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdResumeExecute(r AgentsAPIPostAg
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIPostAgentsSessionsByIdStopRequest struct {
+type AgentAPIPostAgentSessionsByIdStopRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	id         string
 	controlIn  *ControlIn
 }
 
-func (r AgentsAPIPostAgentsSessionsByIdStopRequest) ControlIn(controlIn ControlIn) AgentsAPIPostAgentsSessionsByIdStopRequest {
+func (r AgentAPIPostAgentSessionsByIdStopRequest) ControlIn(controlIn ControlIn) AgentAPIPostAgentSessionsByIdStopRequest {
 	r.controlIn = &controlIn
 	return r
 }
 
-func (r AgentsAPIPostAgentsSessionsByIdStopRequest) Execute() (*ControlResult, *http.Response, error) {
-	return r.ApiService.PostAgentsSessionsByIdStopExecute(r)
+func (r AgentAPIPostAgentSessionsByIdStopRequest) Execute() (*ControlResult, *http.Response, error) {
+	return r.ApiService.PostAgentSessionsByIdStopExecute(r)
 }
 
 /*
-PostAgentsSessionsByIdStop Ends a running session.
+PostAgentSessionsByIdStop Ends a running session.
 
 Ends a running session. `message` is recorded as the cancellation
 reason, which is what a later reader of the transcript sees.
@@ -3790,10 +3790,10 @@ stop.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the session to steer, from the path.
-	@return AgentsAPIPostAgentsSessionsByIdStopRequest
+	@return AgentAPIPostAgentSessionsByIdStopRequest
 */
-func (a *AgentsAPIService) PostAgentsSessionsByIdStop(ctx context.Context, id string) AgentsAPIPostAgentsSessionsByIdStopRequest {
-	return AgentsAPIPostAgentsSessionsByIdStopRequest{
+func (a *AgentAPIService) PostAgentSessionsByIdStop(ctx context.Context, id string) AgentAPIPostAgentSessionsByIdStopRequest {
+	return AgentAPIPostAgentSessionsByIdStopRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -3803,7 +3803,7 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdStop(ctx context.Context, id st
 // Execute executes the request
 //
 //	@return ControlResult
-func (a *AgentsAPIService) PostAgentsSessionsByIdStopExecute(r AgentsAPIPostAgentsSessionsByIdStopRequest) (*ControlResult, *http.Response, error) {
+func (a *AgentAPIService) PostAgentSessionsByIdStopExecute(r AgentAPIPostAgentSessionsByIdStopRequest) (*ControlResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3811,12 +3811,12 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdStopExecute(r AgentsAPIPostAgen
 		localVarReturnValue *ControlResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsSessionsByIdStop")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentSessionsByIdStop")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/sessions/{id}/stop"
+	localVarPath := localBasePath + "/v1/agent/sessions/{id}/stop"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3882,23 +3882,23 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdStopExecute(r AgentsAPIPostAgen
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIPostAgentsTargetsRequest struct {
+type AgentAPIPostAgentTargetsRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	targetReq  *TargetReq
 }
 
-func (r AgentsAPIPostAgentsTargetsRequest) TargetReq(targetReq TargetReq) AgentsAPIPostAgentsTargetsRequest {
+func (r AgentAPIPostAgentTargetsRequest) TargetReq(targetReq TargetReq) AgentAPIPostAgentTargetsRequest {
 	r.targetReq = &targetReq
 	return r
 }
 
-func (r AgentsAPIPostAgentsTargetsRequest) Execute() (*TargetView, *http.Response, error) {
-	return r.ApiService.PostAgentsTargetsExecute(r)
+func (r AgentAPIPostAgentTargetsRequest) Execute() (*TargetView, *http.Response, error) {
+	return r.ApiService.PostAgentTargetsExecute(r)
 }
 
 /*
-PostAgentsTargets Registers a machine as an agent target, or re-links one that is already registered.
+PostAgentTargets Registers a machine as an agent target, or re-links one that is already registered.
 
 Registers a machine as an agent target, or re-links one that is
 already registered. Re-linking is idempotent and keyed on org+host+owner, so a
@@ -3906,10 +3906,10 @@ machine that reconnects refreshes its own row rather than piling up duplicates;
 it answers 200, while a first registration answers 201.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AgentsAPIPostAgentsTargetsRequest
+	@return AgentAPIPostAgentTargetsRequest
 */
-func (a *AgentsAPIService) PostAgentsTargets(ctx context.Context) AgentsAPIPostAgentsTargetsRequest {
-	return AgentsAPIPostAgentsTargetsRequest{
+func (a *AgentAPIService) PostAgentTargets(ctx context.Context) AgentAPIPostAgentTargetsRequest {
+	return AgentAPIPostAgentTargetsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -3918,7 +3918,7 @@ func (a *AgentsAPIService) PostAgentsTargets(ctx context.Context) AgentsAPIPostA
 // Execute executes the request
 //
 //	@return TargetView
-func (a *AgentsAPIService) PostAgentsTargetsExecute(r AgentsAPIPostAgentsTargetsRequest) (*TargetView, *http.Response, error) {
+func (a *AgentAPIService) PostAgentTargetsExecute(r AgentAPIPostAgentTargetsRequest) (*TargetView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3926,12 +3926,12 @@ func (a *AgentsAPIService) PostAgentsTargetsExecute(r AgentsAPIPostAgentsTargets
 		localVarReturnValue *TargetView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsTargets")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentTargets")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/targets"
+	localVarPath := localBasePath + "/v1/agent/targets"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3996,18 +3996,18 @@ func (a *AgentsAPIService) PostAgentsTargetsExecute(r AgentsAPIPostAgentsTargets
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIPostAgentsTargetsByIdClaimRequest struct {
+type AgentAPIPostAgentTargetsByIdClaimRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	id         string
 }
 
-func (r AgentsAPIPostAgentsTargetsByIdClaimRequest) Execute() (*RoutedRunOut, *http.Response, error) {
-	return r.ApiService.PostAgentsTargetsByIdClaimExecute(r)
+func (r AgentAPIPostAgentTargetsByIdClaimRequest) Execute() (*RoutedRunOut, *http.Response, error) {
+	return r.ApiService.PostAgentTargetsByIdClaimExecute(r)
 }
 
 /*
-PostAgentsTargetsByIdClaim ClaimRoutedRun is the machine's long poll for work: it authenticates the daemon, stamps the liveness the dispatch gate reads (the poll IS the proof a runner is listening), and waits up to 25 seconds for the next run addressed to THIS machine.
+PostAgentTargetsByIdClaim ClaimRoutedRun is the machine's long poll for work: it authenticates the daemon, stamps the liveness the dispatch gate reads (the poll IS the proof a runner is listening), and waits up to 25 seconds for the next run addressed to THIS machine.
 
 ClaimRoutedRun is the machine's long poll for work: it authenticates the
 daemon, stamps the liveness the dispatch gate reads (the poll IS the proof a
@@ -4021,10 +4021,10 @@ X-Target-Key. A run offered to one machine is unreachable from another's claim.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the target to act on, from the path.
-	@return AgentsAPIPostAgentsTargetsByIdClaimRequest
+	@return AgentAPIPostAgentTargetsByIdClaimRequest
 */
-func (a *AgentsAPIService) PostAgentsTargetsByIdClaim(ctx context.Context, id string) AgentsAPIPostAgentsTargetsByIdClaimRequest {
-	return AgentsAPIPostAgentsTargetsByIdClaimRequest{
+func (a *AgentAPIService) PostAgentTargetsByIdClaim(ctx context.Context, id string) AgentAPIPostAgentTargetsByIdClaimRequest {
+	return AgentAPIPostAgentTargetsByIdClaimRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -4034,7 +4034,7 @@ func (a *AgentsAPIService) PostAgentsTargetsByIdClaim(ctx context.Context, id st
 // Execute executes the request
 //
 //	@return RoutedRunOut
-func (a *AgentsAPIService) PostAgentsTargetsByIdClaimExecute(r AgentsAPIPostAgentsTargetsByIdClaimRequest) (*RoutedRunOut, *http.Response, error) {
+func (a *AgentAPIService) PostAgentTargetsByIdClaimExecute(r AgentAPIPostAgentTargetsByIdClaimRequest) (*RoutedRunOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -4042,12 +4042,12 @@ func (a *AgentsAPIService) PostAgentsTargetsByIdClaimExecute(r AgentsAPIPostAgen
 		localVarReturnValue *RoutedRunOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsTargetsByIdClaim")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentTargetsByIdClaim")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/targets/{id}/claim"
+	localVarPath := localBasePath + "/v1/agent/targets/{id}/claim"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -4108,18 +4108,18 @@ func (a *AgentsAPIService) PostAgentsTargetsByIdClaimExecute(r AgentsAPIPostAgen
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIPostAgentsTargetsByIdKeyRequest struct {
+type AgentAPIPostAgentTargetsByIdKeyRequest struct {
 	ctx        context.Context
-	ApiService *AgentsAPIService
+	ApiService *AgentAPIService
 	id         string
 }
 
-func (r AgentsAPIPostAgentsTargetsByIdKeyRequest) Execute() (*ClaimKeyOut, *http.Response, error) {
-	return r.ApiService.PostAgentsTargetsByIdKeyExecute(r)
+func (r AgentAPIPostAgentTargetsByIdKeyRequest) Execute() (*ClaimKeyOut, *http.Response, error) {
+	return r.ApiService.PostAgentTargetsByIdKeyExecute(r)
 }
 
 /*
-PostAgentsTargetsByIdKey Mints (or rotates) the claim key a `hanzo code --serve` daemon presents to claim work for this machine, and returns it ONCE: only its SHA-256 hash is stored.
+PostAgentTargetsByIdKey Mints (or rotates) the claim key a `hanzo code --serve` daemon presents to claim work for this machine, and returns it ONCE: only its SHA-256 hash is stored.
 
 Mints (or rotates) the claim key a `hanzo code --serve`
 daemon presents to claim work for this machine, and returns it ONCE: only its
@@ -4129,10 +4129,10 @@ same not-found an unknown id gets, and learns nothing about what exists.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the target to act on, from the path.
-	@return AgentsAPIPostAgentsTargetsByIdKeyRequest
+	@return AgentAPIPostAgentTargetsByIdKeyRequest
 */
-func (a *AgentsAPIService) PostAgentsTargetsByIdKey(ctx context.Context, id string) AgentsAPIPostAgentsTargetsByIdKeyRequest {
-	return AgentsAPIPostAgentsTargetsByIdKeyRequest{
+func (a *AgentAPIService) PostAgentTargetsByIdKey(ctx context.Context, id string) AgentAPIPostAgentTargetsByIdKeyRequest {
+	return AgentAPIPostAgentTargetsByIdKeyRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -4142,7 +4142,7 @@ func (a *AgentsAPIService) PostAgentsTargetsByIdKey(ctx context.Context, id stri
 // Execute executes the request
 //
 //	@return ClaimKeyOut
-func (a *AgentsAPIService) PostAgentsTargetsByIdKeyExecute(r AgentsAPIPostAgentsTargetsByIdKeyRequest) (*ClaimKeyOut, *http.Response, error) {
+func (a *AgentAPIService) PostAgentTargetsByIdKeyExecute(r AgentAPIPostAgentTargetsByIdKeyRequest) (*ClaimKeyOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -4150,12 +4150,12 @@ func (a *AgentsAPIService) PostAgentsTargetsByIdKeyExecute(r AgentsAPIPostAgents
 		localVarReturnValue *ClaimKeyOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsTargetsByIdKey")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentTargetsByIdKey")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/targets/{id}/key"
+	localVarPath := localBasePath + "/v1/agent/targets/{id}/key"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -4216,25 +4216,25 @@ func (a *AgentsAPIService) PostAgentsTargetsByIdKeyExecute(r AgentsAPIPostAgents
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentsAPIPostAgentsTargetsByIdRunsByRunidReportRequest struct {
+type AgentAPIPostAgentTargetsByIdRunsByRunidReportRequest struct {
 	ctx         context.Context
-	ApiService  *AgentsAPIService
+	ApiService  *AgentAPIService
 	id          string
 	runId       string
 	reportRunIn *ReportRunIn
 }
 
-func (r AgentsAPIPostAgentsTargetsByIdRunsByRunidReportRequest) ReportRunIn(reportRunIn ReportRunIn) AgentsAPIPostAgentsTargetsByIdRunsByRunidReportRequest {
+func (r AgentAPIPostAgentTargetsByIdRunsByRunidReportRequest) ReportRunIn(reportRunIn ReportRunIn) AgentAPIPostAgentTargetsByIdRunsByRunidReportRequest {
 	r.reportRunIn = &reportRunIn
 	return r
 }
 
-func (r AgentsAPIPostAgentsTargetsByIdRunsByRunidReportRequest) Execute() (*ReportOut, *http.Response, error) {
-	return r.ApiService.PostAgentsTargetsByIdRunsByRunidReportExecute(r)
+func (r AgentAPIPostAgentTargetsByIdRunsByRunidReportRequest) Execute() (*ReportOut, *http.Response, error) {
+	return r.ApiService.PostAgentTargetsByIdRunsByRunidReportExecute(r)
 }
 
 /*
-PostAgentsTargetsByIdRunsByRunidReport Completes a claimed run: it delivers the terminal result to the run's durable owner, which is what lets that workflow finish.
+PostAgentTargetsByIdRunsByRunidReport Completes a claimed run: it delivers the terminal result to the run's durable owner, which is what lets that workflow finish.
 
 Completes a claimed run: it delivers the terminal result to the
 run's durable owner, which is what lets that workflow finish. Scoped to (org,
@@ -4246,10 +4246,10 @@ session's terminal state was already set by the machine's own stream.
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the machine reporting, from the path.
 	@param runId RunID is the routed run being completed, from the path.
-	@return AgentsAPIPostAgentsTargetsByIdRunsByRunidReportRequest
+	@return AgentAPIPostAgentTargetsByIdRunsByRunidReportRequest
 */
-func (a *AgentsAPIService) PostAgentsTargetsByIdRunsByRunidReport(ctx context.Context, id string, runId string) AgentsAPIPostAgentsTargetsByIdRunsByRunidReportRequest {
-	return AgentsAPIPostAgentsTargetsByIdRunsByRunidReportRequest{
+func (a *AgentAPIService) PostAgentTargetsByIdRunsByRunidReport(ctx context.Context, id string, runId string) AgentAPIPostAgentTargetsByIdRunsByRunidReportRequest {
+	return AgentAPIPostAgentTargetsByIdRunsByRunidReportRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -4260,7 +4260,7 @@ func (a *AgentsAPIService) PostAgentsTargetsByIdRunsByRunidReport(ctx context.Co
 // Execute executes the request
 //
 //	@return ReportOut
-func (a *AgentsAPIService) PostAgentsTargetsByIdRunsByRunidReportExecute(r AgentsAPIPostAgentsTargetsByIdRunsByRunidReportRequest) (*ReportOut, *http.Response, error) {
+func (a *AgentAPIService) PostAgentTargetsByIdRunsByRunidReportExecute(r AgentAPIPostAgentTargetsByIdRunsByRunidReportRequest) (*ReportOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -4268,12 +4268,12 @@ func (a *AgentsAPIService) PostAgentsTargetsByIdRunsByRunidReportExecute(r Agent
 		localVarReturnValue *ReportOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsTargetsByIdRunsByRunidReport")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentTargetsByIdRunsByRunidReport")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agents/targets/{id}/runs/{runId}/report"
+	localVarPath := localBasePath + "/v1/agent/targets/{id}/runs/{runId}/report"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"runId"+"}", url.PathEscape(parameterValueToString(r.runId, "runId")), -1)
 

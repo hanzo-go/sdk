@@ -19,13 +19,10 @@ var _ MappedNullable = &Verdict{}
 
 // Verdict struct for Verdict
 type Verdict struct {
-	Builds *int32  `json:"builds,omitempty"`
-	Commit *string `json:"commit,omitempty"`
-	Fired  *bool   `json:"fired,omitempty"`
-	Org    *string `json:"org,omitempty"`
-	Reason *string `json:"reason,omitempty"`
-	Ref    *string `json:"ref,omitempty"`
-	Repo   *string `json:"repo,omitempty"`
+	// Flags are the findings behind the severity, in detection order: floating-declared, floating-running, stale, un-rolled, then the release-artifact ones. Always present — `[]` for a row that runs what it declares, never null.
+	Flags []DriftFlag `json:"flags,omitempty"`
+	// Severity is the roll-up over Flags — red if any flag is red, else yellow if any is yellow, else ok. It is the column a board sorts and filters on, and \"ok\" is exactly what no flags means.
+	Severity *string `json:"severity,omitempty"`
 }
 
 // NewVerdict instantiates a new Verdict object
@@ -45,228 +42,68 @@ func NewVerdictWithDefaults() *Verdict {
 	return &this
 }
 
-// GetBuilds returns the Builds field value if set, zero value otherwise.
-func (o *Verdict) GetBuilds() int32 {
-	if o == nil || IsNil(o.Builds) {
-		var ret int32
+// GetFlags returns the Flags field value if set, zero value otherwise.
+func (o *Verdict) GetFlags() []DriftFlag {
+	if o == nil || IsNil(o.Flags) {
+		var ret []DriftFlag
 		return ret
 	}
-	return *o.Builds
+	return o.Flags
 }
 
-// GetBuildsOk returns a tuple with the Builds field value if set, nil otherwise
+// GetFlagsOk returns a tuple with the Flags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Verdict) GetBuildsOk() (*int32, bool) {
-	if o == nil || IsNil(o.Builds) {
+func (o *Verdict) GetFlagsOk() ([]DriftFlag, bool) {
+	if o == nil || IsNil(o.Flags) {
 		return nil, false
 	}
-	return o.Builds, true
+	return o.Flags, true
 }
 
-// HasBuilds returns a boolean if a field has been set.
-func (o *Verdict) HasBuilds() bool {
-	if o != nil && !IsNil(o.Builds) {
+// HasFlags returns a boolean if a field has been set.
+func (o *Verdict) HasFlags() bool {
+	if o != nil && !IsNil(o.Flags) {
 		return true
 	}
 
 	return false
 }
 
-// SetBuilds gets a reference to the given int32 and assigns it to the Builds field.
-func (o *Verdict) SetBuilds(v int32) {
-	o.Builds = &v
+// SetFlags gets a reference to the given []DriftFlag and assigns it to the Flags field.
+func (o *Verdict) SetFlags(v []DriftFlag) {
+	o.Flags = v
 }
 
-// GetCommit returns the Commit field value if set, zero value otherwise.
-func (o *Verdict) GetCommit() string {
-	if o == nil || IsNil(o.Commit) {
+// GetSeverity returns the Severity field value if set, zero value otherwise.
+func (o *Verdict) GetSeverity() string {
+	if o == nil || IsNil(o.Severity) {
 		var ret string
 		return ret
 	}
-	return *o.Commit
+	return *o.Severity
 }
 
-// GetCommitOk returns a tuple with the Commit field value if set, nil otherwise
+// GetSeverityOk returns a tuple with the Severity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Verdict) GetCommitOk() (*string, bool) {
-	if o == nil || IsNil(o.Commit) {
+func (o *Verdict) GetSeverityOk() (*string, bool) {
+	if o == nil || IsNil(o.Severity) {
 		return nil, false
 	}
-	return o.Commit, true
+	return o.Severity, true
 }
 
-// HasCommit returns a boolean if a field has been set.
-func (o *Verdict) HasCommit() bool {
-	if o != nil && !IsNil(o.Commit) {
+// HasSeverity returns a boolean if a field has been set.
+func (o *Verdict) HasSeverity() bool {
+	if o != nil && !IsNil(o.Severity) {
 		return true
 	}
 
 	return false
 }
 
-// SetCommit gets a reference to the given string and assigns it to the Commit field.
-func (o *Verdict) SetCommit(v string) {
-	o.Commit = &v
-}
-
-// GetFired returns the Fired field value if set, zero value otherwise.
-func (o *Verdict) GetFired() bool {
-	if o == nil || IsNil(o.Fired) {
-		var ret bool
-		return ret
-	}
-	return *o.Fired
-}
-
-// GetFiredOk returns a tuple with the Fired field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Verdict) GetFiredOk() (*bool, bool) {
-	if o == nil || IsNil(o.Fired) {
-		return nil, false
-	}
-	return o.Fired, true
-}
-
-// HasFired returns a boolean if a field has been set.
-func (o *Verdict) HasFired() bool {
-	if o != nil && !IsNil(o.Fired) {
-		return true
-	}
-
-	return false
-}
-
-// SetFired gets a reference to the given bool and assigns it to the Fired field.
-func (o *Verdict) SetFired(v bool) {
-	o.Fired = &v
-}
-
-// GetOrg returns the Org field value if set, zero value otherwise.
-func (o *Verdict) GetOrg() string {
-	if o == nil || IsNil(o.Org) {
-		var ret string
-		return ret
-	}
-	return *o.Org
-}
-
-// GetOrgOk returns a tuple with the Org field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Verdict) GetOrgOk() (*string, bool) {
-	if o == nil || IsNil(o.Org) {
-		return nil, false
-	}
-	return o.Org, true
-}
-
-// HasOrg returns a boolean if a field has been set.
-func (o *Verdict) HasOrg() bool {
-	if o != nil && !IsNil(o.Org) {
-		return true
-	}
-
-	return false
-}
-
-// SetOrg gets a reference to the given string and assigns it to the Org field.
-func (o *Verdict) SetOrg(v string) {
-	o.Org = &v
-}
-
-// GetReason returns the Reason field value if set, zero value otherwise.
-func (o *Verdict) GetReason() string {
-	if o == nil || IsNil(o.Reason) {
-		var ret string
-		return ret
-	}
-	return *o.Reason
-}
-
-// GetReasonOk returns a tuple with the Reason field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Verdict) GetReasonOk() (*string, bool) {
-	if o == nil || IsNil(o.Reason) {
-		return nil, false
-	}
-	return o.Reason, true
-}
-
-// HasReason returns a boolean if a field has been set.
-func (o *Verdict) HasReason() bool {
-	if o != nil && !IsNil(o.Reason) {
-		return true
-	}
-
-	return false
-}
-
-// SetReason gets a reference to the given string and assigns it to the Reason field.
-func (o *Verdict) SetReason(v string) {
-	o.Reason = &v
-}
-
-// GetRef returns the Ref field value if set, zero value otherwise.
-func (o *Verdict) GetRef() string {
-	if o == nil || IsNil(o.Ref) {
-		var ret string
-		return ret
-	}
-	return *o.Ref
-}
-
-// GetRefOk returns a tuple with the Ref field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Verdict) GetRefOk() (*string, bool) {
-	if o == nil || IsNil(o.Ref) {
-		return nil, false
-	}
-	return o.Ref, true
-}
-
-// HasRef returns a boolean if a field has been set.
-func (o *Verdict) HasRef() bool {
-	if o != nil && !IsNil(o.Ref) {
-		return true
-	}
-
-	return false
-}
-
-// SetRef gets a reference to the given string and assigns it to the Ref field.
-func (o *Verdict) SetRef(v string) {
-	o.Ref = &v
-}
-
-// GetRepo returns the Repo field value if set, zero value otherwise.
-func (o *Verdict) GetRepo() string {
-	if o == nil || IsNil(o.Repo) {
-		var ret string
-		return ret
-	}
-	return *o.Repo
-}
-
-// GetRepoOk returns a tuple with the Repo field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Verdict) GetRepoOk() (*string, bool) {
-	if o == nil || IsNil(o.Repo) {
-		return nil, false
-	}
-	return o.Repo, true
-}
-
-// HasRepo returns a boolean if a field has been set.
-func (o *Verdict) HasRepo() bool {
-	if o != nil && !IsNil(o.Repo) {
-		return true
-	}
-
-	return false
-}
-
-// SetRepo gets a reference to the given string and assigns it to the Repo field.
-func (o *Verdict) SetRepo(v string) {
-	o.Repo = &v
+// SetSeverity gets a reference to the given string and assigns it to the Severity field.
+func (o *Verdict) SetSeverity(v string) {
+	o.Severity = &v
 }
 
 func (o Verdict) MarshalJSON() ([]byte, error) {
@@ -279,26 +116,11 @@ func (o Verdict) MarshalJSON() ([]byte, error) {
 
 func (o Verdict) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Builds) {
-		toSerialize["builds"] = o.Builds
+	if !IsNil(o.Flags) {
+		toSerialize["flags"] = o.Flags
 	}
-	if !IsNil(o.Commit) {
-		toSerialize["commit"] = o.Commit
-	}
-	if !IsNil(o.Fired) {
-		toSerialize["fired"] = o.Fired
-	}
-	if !IsNil(o.Org) {
-		toSerialize["org"] = o.Org
-	}
-	if !IsNil(o.Reason) {
-		toSerialize["reason"] = o.Reason
-	}
-	if !IsNil(o.Ref) {
-		toSerialize["ref"] = o.Ref
-	}
-	if !IsNil(o.Repo) {
-		toSerialize["repo"] = o.Repo
+	if !IsNil(o.Severity) {
+		toSerialize["severity"] = o.Severity
 	}
 	return toSerialize, nil
 }

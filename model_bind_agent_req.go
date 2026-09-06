@@ -19,7 +19,7 @@ var _ MappedNullable = &BindAgentReq{}
 
 // BindAgentReq struct for BindAgentReq
 type BindAgentReq struct {
-	// AgentName is the cloud Agent (/v1/agents) the machine will run. Required.
+	// AgentName is the cloud Agent (/v1/agent) the machine will run. Required.
 	AgentName *string `json:"agentName,omitempty"`
 	// BotVersion pins the @hanzo/bot runtime version; empty takes the default.
 	BotVersion *string `json:"botVersion,omitempty"`

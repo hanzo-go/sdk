@@ -37,10 +37,10 @@ type SampleView struct {
 	Kind *string `json:"kind,omitempty"`
 	// Load1 is the 1-minute load average — runnable processes, not a percentage.
 	Load1 *float64 `json:"load1,omitempty"`
-	// Load5 is the 5-minute load average, the same units as Load1.
-	Load5 *float64 `json:"load5,omitempty"`
 	// Load15 is the 15-minute load average, the same units as Load1.
 	Load15 *float64 `json:"load15,omitempty"`
+	// Load5 is the 5-minute load average, the same units as Load1.
+	Load5 *float64 `json:"load5,omitempty"`
 	// MemFree is host memory available, in BYTES, as reported rather than derived.
 	MemFree *int64 `json:"memFree,omitempty"`
 	// MemUsed is host memory in use, in BYTES.
@@ -358,38 +358,6 @@ func (o *SampleView) SetLoad1(v float64) {
 	o.Load1 = &v
 }
 
-// GetLoad5 returns the Load5 field value if set, zero value otherwise.
-func (o *SampleView) GetLoad5() float64 {
-	if o == nil || IsNil(o.Load5) {
-		var ret float64
-		return ret
-	}
-	return *o.Load5
-}
-
-// GetLoad5Ok returns a tuple with the Load5 field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SampleView) GetLoad5Ok() (*float64, bool) {
-	if o == nil || IsNil(o.Load5) {
-		return nil, false
-	}
-	return o.Load5, true
-}
-
-// HasLoad5 returns a boolean if a field has been set.
-func (o *SampleView) HasLoad5() bool {
-	if o != nil && !IsNil(o.Load5) {
-		return true
-	}
-
-	return false
-}
-
-// SetLoad5 gets a reference to the given float64 and assigns it to the Load5 field.
-func (o *SampleView) SetLoad5(v float64) {
-	o.Load5 = &v
-}
-
 // GetLoad15 returns the Load15 field value if set, zero value otherwise.
 func (o *SampleView) GetLoad15() float64 {
 	if o == nil || IsNil(o.Load15) {
@@ -420,6 +388,38 @@ func (o *SampleView) HasLoad15() bool {
 // SetLoad15 gets a reference to the given float64 and assigns it to the Load15 field.
 func (o *SampleView) SetLoad15(v float64) {
 	o.Load15 = &v
+}
+
+// GetLoad5 returns the Load5 field value if set, zero value otherwise.
+func (o *SampleView) GetLoad5() float64 {
+	if o == nil || IsNil(o.Load5) {
+		var ret float64
+		return ret
+	}
+	return *o.Load5
+}
+
+// GetLoad5Ok returns a tuple with the Load5 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SampleView) GetLoad5Ok() (*float64, bool) {
+	if o == nil || IsNil(o.Load5) {
+		return nil, false
+	}
+	return o.Load5, true
+}
+
+// HasLoad5 returns a boolean if a field has been set.
+func (o *SampleView) HasLoad5() bool {
+	if o != nil && !IsNil(o.Load5) {
+		return true
+	}
+
+	return false
+}
+
+// SetLoad5 gets a reference to the given float64 and assigns it to the Load5 field.
+func (o *SampleView) SetLoad5(v float64) {
+	o.Load5 = &v
 }
 
 // GetMemFree returns the MemFree field value if set, zero value otherwise.
@@ -619,11 +619,11 @@ func (o SampleView) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Load1) {
 		toSerialize["load1"] = o.Load1
 	}
-	if !IsNil(o.Load5) {
-		toSerialize["load5"] = o.Load5
-	}
 	if !IsNil(o.Load15) {
 		toSerialize["load15"] = o.Load15
+	}
+	if !IsNil(o.Load5) {
+		toSerialize["load5"] = o.Load5
 	}
 	if !IsNil(o.MemFree) {
 		toSerialize["memFree"] = o.MemFree

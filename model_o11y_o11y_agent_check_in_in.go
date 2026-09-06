@@ -20,8 +20,8 @@ var _ MappedNullable = &O11yO11yAgentCheckInIn{}
 // O11yO11yAgentCheckInIn struct for O11yO11yAgentCheckInIn
 type O11yO11yAgentCheckInIn struct {
 	AccountId          *string                           `json:"account_id,omitempty"`
-	CloudAccountId     *string                           `json:"cloud_account_id,omitempty"`
 	CloudIntegrationId interface{}                       `json:"cloudIntegrationId,omitempty"`
+	CloudAccountId     *string                           `json:"cloud_account_id,omitempty"`
 	Data               map[string]map[string]interface{} `json:"data,omitempty"`
 	ProviderAccountId  *string                           `json:"providerAccountId,omitempty"`
 }
@@ -75,38 +75,6 @@ func (o *O11yO11yAgentCheckInIn) SetAccountId(v string) {
 	o.AccountId = &v
 }
 
-// GetCloudAccountId returns the CloudAccountId field value if set, zero value otherwise.
-func (o *O11yO11yAgentCheckInIn) GetCloudAccountId() string {
-	if o == nil || IsNil(o.CloudAccountId) {
-		var ret string
-		return ret
-	}
-	return *o.CloudAccountId
-}
-
-// GetCloudAccountIdOk returns a tuple with the CloudAccountId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *O11yO11yAgentCheckInIn) GetCloudAccountIdOk() (*string, bool) {
-	if o == nil || IsNil(o.CloudAccountId) {
-		return nil, false
-	}
-	return o.CloudAccountId, true
-}
-
-// HasCloudAccountId returns a boolean if a field has been set.
-func (o *O11yO11yAgentCheckInIn) HasCloudAccountId() bool {
-	if o != nil && !IsNil(o.CloudAccountId) {
-		return true
-	}
-
-	return false
-}
-
-// SetCloudAccountId gets a reference to the given string and assigns it to the CloudAccountId field.
-func (o *O11yO11yAgentCheckInIn) SetCloudAccountId(v string) {
-	o.CloudAccountId = &v
-}
-
 // GetCloudIntegrationId returns the CloudIntegrationId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *O11yO11yAgentCheckInIn) GetCloudIntegrationId() interface{} {
 	if o == nil {
@@ -138,6 +106,38 @@ func (o *O11yO11yAgentCheckInIn) HasCloudIntegrationId() bool {
 // SetCloudIntegrationId gets a reference to the given interface{} and assigns it to the CloudIntegrationId field.
 func (o *O11yO11yAgentCheckInIn) SetCloudIntegrationId(v interface{}) {
 	o.CloudIntegrationId = v
+}
+
+// GetCloudAccountId returns the CloudAccountId field value if set, zero value otherwise.
+func (o *O11yO11yAgentCheckInIn) GetCloudAccountId() string {
+	if o == nil || IsNil(o.CloudAccountId) {
+		var ret string
+		return ret
+	}
+	return *o.CloudAccountId
+}
+
+// GetCloudAccountIdOk returns a tuple with the CloudAccountId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *O11yO11yAgentCheckInIn) GetCloudAccountIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CloudAccountId) {
+		return nil, false
+	}
+	return o.CloudAccountId, true
+}
+
+// HasCloudAccountId returns a boolean if a field has been set.
+func (o *O11yO11yAgentCheckInIn) HasCloudAccountId() bool {
+	if o != nil && !IsNil(o.CloudAccountId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCloudAccountId gets a reference to the given string and assigns it to the CloudAccountId field.
+func (o *O11yO11yAgentCheckInIn) SetCloudAccountId(v string) {
+	o.CloudAccountId = &v
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
@@ -217,11 +217,11 @@ func (o O11yO11yAgentCheckInIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AccountId) {
 		toSerialize["account_id"] = o.AccountId
 	}
-	if !IsNil(o.CloudAccountId) {
-		toSerialize["cloud_account_id"] = o.CloudAccountId
-	}
 	if o.CloudIntegrationId != nil {
 		toSerialize["cloudIntegrationId"] = o.CloudIntegrationId
+	}
+	if !IsNil(o.CloudAccountId) {
+		toSerialize["cloud_account_id"] = o.CloudAccountId
 	}
 	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data

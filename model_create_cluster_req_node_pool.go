@@ -17,7 +17,7 @@ import (
 // checks if the CreateClusterReqNodePool type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CreateClusterReqNodePool{}
 
-// CreateClusterReqNodePool NodePool is the ONE pool the cluster is born with — a cluster with no nodes runs nothing, so it is not optional. More pools are added afterwards through POST /v1/visor/clusters/:clusterId/pools.
+// CreateClusterReqNodePool NodePool is the ONE pool the cluster is born with — a cluster with no nodes runs nothing, so it is not optional. More pools are added afterwards through POST /v1/compute/clusters/:clusterId/pools.
 type CreateClusterReqNodePool struct {
 	Count *int64  `json:"count,omitempty"`
 	Name  *string `json:"name,omitempty"`

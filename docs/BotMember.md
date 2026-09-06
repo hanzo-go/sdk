@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Active** | Pointer to **bool** | Active is whether the agent projects as a LIVE space member, derived from its registry status: empty, \&quot;active\&quot; and \&quot;ready\&quot; are live, anything else (archived/retired) is not. An inactive bot drops out of the Team list while its past authorship survives. | [optional] 
-**Id** | Pointer to **string** | the agent id | [optional] 
-**Name** | Pointer to **string** | display name | [optional] 
-**PersonRef** | Pointer to **string** | the projected Person _id | [optional] 
-**UserId** | Pointer to **string** | derived member account uuid (personUuid) | [optional] 
+**Active** | Pointer to **bool** | Active is whether the agent projects as a LIVE space member, derived from its registry status: empty, \&quot;active\&quot; and \&quot;ready\&quot; are live, anything else (archived/retired) is not. An inactive bot drops out of the roster while its past authorship survives. | [optional] 
+**Id** | Pointer to **string** | ID is the agent id. | [optional] 
+**Name** | Pointer to **string** | Name is the display name. | [optional] 
+**PersonRef** | Pointer to **string** | PersonRef is the projected Person _id. | [optional] 
+**UserId** | Pointer to **string** | UserID is the derived member account uuid (personUuid). | [optional] 
 
 ## Methods
 

@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountId** | Pointer to **string** | Older fields for backward compatibility with existing AWS agents | [optional] 
-**CloudAccountId** | Pointer to **string** |  | [optional] 
 **CloudIntegrationId** | Pointer to **string** |  | [optional] 
-**IntegrationConfigLegacy** | Pointer to [**O11yIntegrationConfig**](O11yIntegrationConfig.md) |  | [optional] 
+**CloudAccountId** | Pointer to **string** |  | [optional] 
 **IntegrationConfig** | Pointer to [**O11yProviderIntegrationConfig**](O11yProviderIntegrationConfig.md) |  | [optional] 
+**IntegrationConfigLegacy** | Pointer to [**O11yIntegrationConfig**](O11yIntegrationConfig.md) |  | [optional] 
 **ProviderAccountId** | Pointer to **string** |  | [optional] 
-**RemovedAtLegacy** | Pointer to **time.Time** |  | [optional] 
 **RemovedAt** | Pointer to **time.Time** |  | [optional] 
+**RemovedAtLegacy** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 
@@ -57,31 +57,6 @@ SetAccountId sets AccountId field to given value.
 
 HasAccountId returns a boolean if a field has been set.
 
-### GetCloudAccountId
-
-`func (o *O11yGettableAgentCheckIn) GetCloudAccountId() string`
-
-GetCloudAccountId returns the CloudAccountId field if non-nil, zero value otherwise.
-
-### GetCloudAccountIdOk
-
-`func (o *O11yGettableAgentCheckIn) GetCloudAccountIdOk() (*string, bool)`
-
-GetCloudAccountIdOk returns a tuple with the CloudAccountId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCloudAccountId
-
-`func (o *O11yGettableAgentCheckIn) SetCloudAccountId(v string)`
-
-SetCloudAccountId sets CloudAccountId field to given value.
-
-### HasCloudAccountId
-
-`func (o *O11yGettableAgentCheckIn) HasCloudAccountId() bool`
-
-HasCloudAccountId returns a boolean if a field has been set.
-
 ### GetCloudIntegrationId
 
 `func (o *O11yGettableAgentCheckIn) GetCloudIntegrationId() string`
@@ -107,30 +82,30 @@ SetCloudIntegrationId sets CloudIntegrationId field to given value.
 
 HasCloudIntegrationId returns a boolean if a field has been set.
 
-### GetIntegrationConfigLegacy
+### GetCloudAccountId
 
-`func (o *O11yGettableAgentCheckIn) GetIntegrationConfigLegacy() O11yIntegrationConfig`
+`func (o *O11yGettableAgentCheckIn) GetCloudAccountId() string`
 
-GetIntegrationConfigLegacy returns the IntegrationConfigLegacy field if non-nil, zero value otherwise.
+GetCloudAccountId returns the CloudAccountId field if non-nil, zero value otherwise.
 
-### GetIntegrationConfigLegacyOk
+### GetCloudAccountIdOk
 
-`func (o *O11yGettableAgentCheckIn) GetIntegrationConfigLegacyOk() (*O11yIntegrationConfig, bool)`
+`func (o *O11yGettableAgentCheckIn) GetCloudAccountIdOk() (*string, bool)`
 
-GetIntegrationConfigLegacyOk returns a tuple with the IntegrationConfigLegacy field if it's non-nil, zero value otherwise
+GetCloudAccountIdOk returns a tuple with the CloudAccountId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIntegrationConfigLegacy
+### SetCloudAccountId
 
-`func (o *O11yGettableAgentCheckIn) SetIntegrationConfigLegacy(v O11yIntegrationConfig)`
+`func (o *O11yGettableAgentCheckIn) SetCloudAccountId(v string)`
 
-SetIntegrationConfigLegacy sets IntegrationConfigLegacy field to given value.
+SetCloudAccountId sets CloudAccountId field to given value.
 
-### HasIntegrationConfigLegacy
+### HasCloudAccountId
 
-`func (o *O11yGettableAgentCheckIn) HasIntegrationConfigLegacy() bool`
+`func (o *O11yGettableAgentCheckIn) HasCloudAccountId() bool`
 
-HasIntegrationConfigLegacy returns a boolean if a field has been set.
+HasCloudAccountId returns a boolean if a field has been set.
 
 ### GetIntegrationConfig
 
@@ -157,6 +132,31 @@ SetIntegrationConfig sets IntegrationConfig field to given value.
 
 HasIntegrationConfig returns a boolean if a field has been set.
 
+### GetIntegrationConfigLegacy
+
+`func (o *O11yGettableAgentCheckIn) GetIntegrationConfigLegacy() O11yIntegrationConfig`
+
+GetIntegrationConfigLegacy returns the IntegrationConfigLegacy field if non-nil, zero value otherwise.
+
+### GetIntegrationConfigLegacyOk
+
+`func (o *O11yGettableAgentCheckIn) GetIntegrationConfigLegacyOk() (*O11yIntegrationConfig, bool)`
+
+GetIntegrationConfigLegacyOk returns a tuple with the IntegrationConfigLegacy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIntegrationConfigLegacy
+
+`func (o *O11yGettableAgentCheckIn) SetIntegrationConfigLegacy(v O11yIntegrationConfig)`
+
+SetIntegrationConfigLegacy sets IntegrationConfigLegacy field to given value.
+
+### HasIntegrationConfigLegacy
+
+`func (o *O11yGettableAgentCheckIn) HasIntegrationConfigLegacy() bool`
+
+HasIntegrationConfigLegacy returns a boolean if a field has been set.
+
 ### GetProviderAccountId
 
 `func (o *O11yGettableAgentCheckIn) GetProviderAccountId() string`
@@ -182,31 +182,6 @@ SetProviderAccountId sets ProviderAccountId field to given value.
 
 HasProviderAccountId returns a boolean if a field has been set.
 
-### GetRemovedAtLegacy
-
-`func (o *O11yGettableAgentCheckIn) GetRemovedAtLegacy() time.Time`
-
-GetRemovedAtLegacy returns the RemovedAtLegacy field if non-nil, zero value otherwise.
-
-### GetRemovedAtLegacyOk
-
-`func (o *O11yGettableAgentCheckIn) GetRemovedAtLegacyOk() (*time.Time, bool)`
-
-GetRemovedAtLegacyOk returns a tuple with the RemovedAtLegacy field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRemovedAtLegacy
-
-`func (o *O11yGettableAgentCheckIn) SetRemovedAtLegacy(v time.Time)`
-
-SetRemovedAtLegacy sets RemovedAtLegacy field to given value.
-
-### HasRemovedAtLegacy
-
-`func (o *O11yGettableAgentCheckIn) HasRemovedAtLegacy() bool`
-
-HasRemovedAtLegacy returns a boolean if a field has been set.
-
 ### GetRemovedAt
 
 `func (o *O11yGettableAgentCheckIn) GetRemovedAt() time.Time`
@@ -231,6 +206,31 @@ SetRemovedAt sets RemovedAt field to given value.
 `func (o *O11yGettableAgentCheckIn) HasRemovedAt() bool`
 
 HasRemovedAt returns a boolean if a field has been set.
+
+### GetRemovedAtLegacy
+
+`func (o *O11yGettableAgentCheckIn) GetRemovedAtLegacy() time.Time`
+
+GetRemovedAtLegacy returns the RemovedAtLegacy field if non-nil, zero value otherwise.
+
+### GetRemovedAtLegacyOk
+
+`func (o *O11yGettableAgentCheckIn) GetRemovedAtLegacyOk() (*time.Time, bool)`
+
+GetRemovedAtLegacyOk returns a tuple with the RemovedAtLegacy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemovedAtLegacy
+
+`func (o *O11yGettableAgentCheckIn) SetRemovedAtLegacy(v time.Time)`
+
+SetRemovedAtLegacy sets RemovedAtLegacy field to given value.
+
+### HasRemovedAtLegacy
+
+`func (o *O11yGettableAgentCheckIn) HasRemovedAtLegacy() bool`
+
+HasRemovedAtLegacy returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -19,55 +19,57 @@ import (
 	"strings"
 )
 
-// FlagsAPIService FlagsAPI service
-type FlagsAPIService service
+// ChannelAPIService ChannelAPI service
+type ChannelAPIService service
 
-type FlagsAPIDeleteFlagsDefsByKeyRequest struct {
+type ChannelAPIGetChannelRequest struct {
 	ctx        context.Context
-	ApiService *FlagsAPIService
-	key        string
+	ApiService *ChannelAPIService
 }
 
-func (r FlagsAPIDeleteFlagsDefsByKeyRequest) Execute() (*DeletedOut, *http.Response, error) {
-	return r.ApiService.DeleteFlagsDefsByKeyExecute(r)
+func (r ChannelAPIGetChannelRequest) Execute() (*ChatChannels, *http.Response, error) {
+	return r.ApiService.GetChannelExecute(r)
 }
 
 /*
-DeleteFlagsDefsByKey Removes one flag definition by key and records the deletion in the change log.
+GetChannel Reports every chat channel this org can send through, and whether it can send through it right now.
 
-Removes one flag definition by key and records the
-deletion in the change log. A key the caller's store does not hold is a 404.
+Reports every chat channel this org can send through, and whether it can
+send through it right now.
+
+A channel appears here whether or not it is connected — an empty list would
+leave a caller unable to tell "this org has no Slack" from "Slack is down",
+which are different problems with different fixes. Each entry carries the
+connection behind it, so the answer to "why can I not post?" is in the same
+response as the channel that cannot post.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param key Key is the flag key to act on, from the path.
-	@return FlagsAPIDeleteFlagsDefsByKeyRequest
+	@return ChannelAPIGetChannelRequest
 */
-func (a *FlagsAPIService) DeleteFlagsDefsByKey(ctx context.Context, key string) FlagsAPIDeleteFlagsDefsByKeyRequest {
-	return FlagsAPIDeleteFlagsDefsByKeyRequest{
+func (a *ChannelAPIService) GetChannel(ctx context.Context) ChannelAPIGetChannelRequest {
+	return ChannelAPIGetChannelRequest{
 		ApiService: a,
 		ctx:        ctx,
-		key:        key,
 	}
 }
 
 // Execute executes the request
 //
-//	@return DeletedOut
-func (a *FlagsAPIService) DeleteFlagsDefsByKeyExecute(r FlagsAPIDeleteFlagsDefsByKeyRequest) (*DeletedOut, *http.Response, error) {
+//	@return ChatChannels
+func (a *ChannelAPIService) GetChannelExecute(r ChannelAPIGetChannelRequest) (*ChatChannels, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
+		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeletedOut
+		localVarReturnValue *ChatChannels
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlagsAPIService.DeleteFlagsDefsByKey")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannel")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/flags/defs/{key}"
-	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+	localVarPath := localBasePath + "/v1/channel"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -127,33 +129,33 @@ func (a *FlagsAPIService) DeleteFlagsDefsByKeyExecute(r FlagsAPIDeleteFlagsDefsB
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type FlagsAPIGetFlagsActivityRequest struct {
+type ChannelAPIGetChannelAgentRequest struct {
 	ctx        context.Context
-	ApiService *FlagsAPIService
-	limit      *int64
+	ApiService *ChannelAPIService
+	channel    *string
 }
 
-// Limit caps the rows returned. 1–500; anything else takes the default 100.
-func (r FlagsAPIGetFlagsActivityRequest) Limit(limit int64) FlagsAPIGetFlagsActivityRequest {
-	r.limit = &limit
+// Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404.
+func (r ChannelAPIGetChannelAgentRequest) Channel(channel string) ChannelAPIGetChannelAgentRequest {
+	r.channel = &channel
 	return r
 }
 
-func (r FlagsAPIGetFlagsActivityRequest) Execute() (*ActivityOut, *http.Response, error) {
-	return r.ApiService.GetFlagsActivityExecute(r)
+func (r ChannelAPIGetChannelAgentRequest) Execute() (*ChannelAgents, *http.Response, error) {
+	return r.ApiService.GetChannelAgentExecute(r)
 }
 
 /*
-GetFlagsActivity Returns the caller's flag change log newest-first: every create, update and delete, with the actor and the time.
+GetChannelAgent Returns which agent answers the caller org's channel: the default and every room bound to another agent.
 
-Returns the caller's flag change log newest-first: every
-create, update and delete, with the actor and the time.
+Returns which agent answers the caller org's channel: the default and
+every room bound to another agent.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return FlagsAPIGetFlagsActivityRequest
+	@return ChannelAPIGetChannelAgentRequest
 */
-func (a *FlagsAPIService) GetFlagsActivity(ctx context.Context) FlagsAPIGetFlagsActivityRequest {
-	return FlagsAPIGetFlagsActivityRequest{
+func (a *ChannelAPIService) GetChannelAgent(ctx context.Context) ChannelAPIGetChannelAgentRequest {
+	return ChannelAPIGetChannelAgentRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -161,26 +163,264 @@ func (a *FlagsAPIService) GetFlagsActivity(ctx context.Context) FlagsAPIGetFlags
 
 // Execute executes the request
 //
-//	@return ActivityOut
-func (a *FlagsAPIService) GetFlagsActivityExecute(r FlagsAPIGetFlagsActivityRequest) (*ActivityOut, *http.Response, error) {
+//	@return ChannelAgents
+func (a *ChannelAPIService) GetChannelAgentExecute(r ChannelAPIGetChannelAgentRequest) (*ChannelAgents, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ActivityOut
+		localVarReturnValue *ChannelAgents
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlagsAPIService.GetFlagsActivity")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannelAgent")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/flags/activity"
+	localVarPath := localBasePath + "/v1/channel/agent"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.channel != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "channel", r.channel, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ChannelAPIGetChannelAllowlistRequest struct {
+	ctx        context.Context
+	ApiService *ChannelAPIService
+	channel    *string
+}
+
+// Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404.
+func (r ChannelAPIGetChannelAllowlistRequest) Channel(channel string) ChannelAPIGetChannelAllowlistRequest {
+	r.channel = &channel
+	return r
+}
+
+func (r ChannelAPIGetChannelAllowlistRequest) Execute() (*AllowlistView, *http.Response, error) {
+	return r.ApiService.GetChannelAllowlistExecute(r)
+}
+
+/*
+GetChannelAllowlist Returns the caller org's access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org's named access groups.
+
+Returns the caller org's access policy for one channel: whether
+DMs are pairing-gated, allowlisted or open, whether group rooms are open,
+allowlisted or disabled, the config-managed DM and group allow entries, the
+senders approved through PAIRING (read-only here), and the org's named access
+groups. An unknown channel is a 404.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ChannelAPIGetChannelAllowlistRequest
+*/
+func (a *ChannelAPIService) GetChannelAllowlist(ctx context.Context) ChannelAPIGetChannelAllowlistRequest {
+	return ChannelAPIGetChannelAllowlistRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AllowlistView
+func (a *ChannelAPIService) GetChannelAllowlistExecute(r ChannelAPIGetChannelAllowlistRequest) (*AllowlistView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AllowlistView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannelAllowlist")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/channel/allowlist"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.channel != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "channel", r.channel, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ChannelAPIGetChannelInboxRequest struct {
+	ctx        context.Context
+	ApiService *ChannelAPIService
+	since      *string
+	limit      *string
+}
+
+// Since is the exclusive cursor: only messages with a higher row id come back. Empty starts at the beginning. Must parse as an integer.
+func (r ChannelAPIGetChannelInboxRequest) Since(since string) ChannelAPIGetChannelInboxRequest {
+	r.since = &since
+	return r
+}
+
+// Limit caps how many messages come back. Empty or 0 uses the store&#39;s default page size. Must parse as an integer.
+func (r ChannelAPIGetChannelInboxRequest) Limit(limit string) ChannelAPIGetChannelInboxRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r ChannelAPIGetChannelInboxRequest) Execute() (*InboxPage, *http.Response, error) {
+	return r.ApiService.GetChannelInboxExecute(r)
+}
+
+/*
+GetChannelInbox Returns the messages people have sent to the caller org's connected chat bots, oldest first, in the portable envelope shape every transport normalises into.
+
+Returns the messages people have sent to the caller org's connected chat
+bots, oldest first, in the portable envelope shape every transport normalises
+into. It is a CURSOR feed, not a search: pass the returned cursor back as
+`since` to get only what has arrived since. Only this org's messages are
+stored under this org, so the feed can never carry another tenant's chat.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ChannelAPIGetChannelInboxRequest
+*/
+func (a *ChannelAPIService) GetChannelInbox(ctx context.Context) ChannelAPIGetChannelInboxRequest {
+	return ChannelAPIGetChannelInboxRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return InboxPage
+func (a *ChannelAPIService) GetChannelInboxExecute(r ChannelAPIGetChannelInboxRequest) (*InboxPage, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *InboxPage
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannelInbox")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/channel/inbox"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.since != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
+	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
@@ -238,26 +478,29 @@ func (a *FlagsAPIService) GetFlagsActivityExecute(r FlagsAPIGetFlagsActivityRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type FlagsAPIGetFlagsDefsRequest struct {
+type ChannelAPIGetChannelPairingRequest struct {
 	ctx        context.Context
-	ApiService *FlagsAPIService
+	ApiService *ChannelAPIService
 }
 
-func (r FlagsAPIGetFlagsDefsRequest) Execute() (*DefsOut, *http.Response, error) {
-	return r.ApiService.GetFlagsDefsExecute(r)
+func (r ChannelAPIGetChannelPairingRequest) Execute() (*PairingQueue, *http.Response, error) {
+	return r.ApiService.GetChannelPairingExecute(r)
 }
 
 /*
-GetFlagsDefs Returns every flag definition in the caller's (org, project) store, by key, with its version and who last changed it.
+GetChannelPairing Returns the pairing requests waiting for the caller org to approve — one per person who messaged a connected bot on a channel whose DM policy is \"pairing\" and who is not allowed yet.
 
-Returns every flag definition in the caller's (org,
-project) store, by key, with its version and who last changed it.
+Returns the pairing requests waiting for the caller org to approve
+— one per person who messaged a connected bot on a channel whose DM policy is
+"pairing" and who is not allowed yet. Each row carries the CODE an org admin
+passes to POST /v1/channel/pairing/approve. Expired requests are not
+returned. Codes are capability strings: they are shown here, and never logged.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return FlagsAPIGetFlagsDefsRequest
+	@return ChannelAPIGetChannelPairingRequest
 */
-func (a *FlagsAPIService) GetFlagsDefs(ctx context.Context) FlagsAPIGetFlagsDefsRequest {
-	return FlagsAPIGetFlagsDefsRequest{
+func (a *ChannelAPIService) GetChannelPairing(ctx context.Context) ChannelAPIGetChannelPairingRequest {
+	return ChannelAPIGetChannelPairingRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -265,21 +508,21 @@ func (a *FlagsAPIService) GetFlagsDefs(ctx context.Context) FlagsAPIGetFlagsDefs
 
 // Execute executes the request
 //
-//	@return DefsOut
-func (a *FlagsAPIService) GetFlagsDefsExecute(r FlagsAPIGetFlagsDefsRequest) (*DefsOut, *http.Response, error) {
+//	@return PairingQueue
+func (a *ChannelAPIService) GetChannelPairingExecute(r ChannelAPIGetChannelPairingRequest) (*PairingQueue, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DefsOut
+		localVarReturnValue *PairingQueue
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlagsAPIService.GetFlagsDefs")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannelPairing")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/flags/defs"
+	localVarPath := localBasePath + "/v1/channel/pairing"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -339,52 +582,54 @@ func (a *FlagsAPIService) GetFlagsDefsExecute(r FlagsAPIGetFlagsDefsRequest) (*D
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type FlagsAPIGetFlagsDefsByKeyRequest struct {
+type ChannelAPIPostChannelByChannelSendRequest struct {
 	ctx        context.Context
-	ApiService *FlagsAPIService
-	key        string
+	ApiService *ChannelAPIService
+	channel    string
 }
 
-func (r FlagsAPIGetFlagsDefsByKeyRequest) Execute() (*DefRow, *http.Response, error) {
-	return r.ApiService.GetFlagsDefsByKeyExecute(r)
+func (r ChannelAPIPostChannelByChannelSendRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostChannelByChannelSendExecute(r)
 }
 
 /*
-GetFlagsDefsByKey Returns one flag definition by key, or 404 when the caller's store has none under that key.
+PostChannelByChannelSend Send a message from your org's bot to one chat room
 
-Returns one flag definition by key, or 404 when the caller's
-store has none under that key.
+Delivers text, attachments and actions to one room on a connected chat transport — discord, github, linear, slack, teams, telegram or whatsapp — and answers that transport's own receipt, the `messageId` it assigned and the Unix second it landed. An unknown channel is a 404.
+
+The body is the envelope's NARROW outbound projection: `room`, `text`, `attachments`, `actions`, `replyTo` and `idempotency`, and nothing else. Identity is not a field — the channel is the path segment and the sender is the caller's validated org — so a body carrying `sender`, `account` or `channel` is refused with 400 rather than having it silently dropped. `room.id` is required, and so is something to say: text, or at least one attachment.
+
+Requires a validated principal; 403 without one. The room must already belong to the caller's org — each transport verifies the binding itself, so a room this org has not bound is 403 and a room whose route the bot has never learned is 409, meaning someone has to message the bot there first. A route learned only so a pairing reply could be delivered lasts exactly as long as that pairing request does, so a room whose sender was never approved goes back to 409 within the hour. A transport that fails answers 502 carrying status and shape only, never a token.
+
+Sending is at-most-once only if you ask for it: pass an `idempotency` string and a replay answers 200 with the PRIOR receipt instead of sending twice, while a send that fails releases the key so the caller can re-attempt. Bodies over 1 MiB are refused. Every transport currently renders text only, so attachments and actions are flattened deterministically to one line each after the text rather than dropped.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param key Key is the flag key to act on, from the path.
-	@return FlagsAPIGetFlagsDefsByKeyRequest
+	@param channel
+	@return ChannelAPIPostChannelByChannelSendRequest
 */
-func (a *FlagsAPIService) GetFlagsDefsByKey(ctx context.Context, key string) FlagsAPIGetFlagsDefsByKeyRequest {
-	return FlagsAPIGetFlagsDefsByKeyRequest{
+func (a *ChannelAPIService) PostChannelByChannelSend(ctx context.Context, channel string) ChannelAPIPostChannelByChannelSendRequest {
+	return ChannelAPIPostChannelByChannelSendRequest{
 		ApiService: a,
 		ctx:        ctx,
-		key:        key,
+		channel:    channel,
 	}
 }
 
 // Execute executes the request
-//
-//	@return DefRow
-func (a *FlagsAPIService) GetFlagsDefsByKeyExecute(r FlagsAPIGetFlagsDefsByKeyRequest) (*DefRow, *http.Response, error) {
+func (a *ChannelAPIService) PostChannelByChannelSendExecute(r ChannelAPIPostChannelByChannelSendRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *DefRow
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlagsAPIService.GetFlagsDefsByKey")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.PostChannelByChannelSend")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/flags/defs/{key}"
-	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+	localVarPath := localBasePath + "/v1/channel/{channel}/send"
+	localVarPath = strings.Replace(localVarPath, "{"+"channel"+"}", url.PathEscape(parameterValueToString(r.channel, "channel")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -400,7 +645,7 @@ func (a *FlagsAPIService) GetFlagsDefsByKeyExecute(r FlagsAPIGetFlagsDefsByKeyRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -409,19 +654,19 @@ func (a *FlagsAPIService) GetFlagsDefsByKeyExecute(r FlagsAPIGetFlagsDefsByKeyRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -429,151 +674,42 @@ func (a *FlagsAPIService) GetFlagsDefsByKeyExecute(r FlagsAPIGetFlagsDefsByKeyRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
-type FlagsAPIGetFlagsHealthRequest struct {
-	ctx        context.Context
-	ApiService *FlagsAPIService
+type ChannelAPIPostChannelPairingApproveRequest struct {
+	ctx              context.Context
+	ApiService       *ChannelAPIService
+	approvePairingIn *ApprovePairingIn
 }
 
-func (r FlagsAPIGetFlagsHealthRequest) Execute() (*HealthOut, *http.Response, error) {
-	return r.ApiService.GetFlagsHealthExecute(r)
-}
-
-/*
-GetFlagsHealth Health reports that the flag engine is serving.
-
-Health reports that the flag engine is serving. It is not gated: liveness must
-be probe-able without a token.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return FlagsAPIGetFlagsHealthRequest
-*/
-func (a *FlagsAPIService) GetFlagsHealth(ctx context.Context) FlagsAPIGetFlagsHealthRequest {
-	return FlagsAPIGetFlagsHealthRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return HealthOut
-func (a *FlagsAPIService) GetFlagsHealthExecute(r FlagsAPIGetFlagsHealthRequest) (*HealthOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *HealthOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlagsAPIService.GetFlagsHealth")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/flags/health"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type FlagsAPIPostFlagsRequest struct {
-	ctx        context.Context
-	ApiService *FlagsAPIService
-	evaluateIn *EvaluateIn
-}
-
-func (r FlagsAPIPostFlagsRequest) EvaluateIn(evaluateIn EvaluateIn) FlagsAPIPostFlagsRequest {
-	r.evaluateIn = &evaluateIn
+func (r ChannelAPIPostChannelPairingApproveRequest) ApprovePairingIn(approvePairingIn ApprovePairingIn) ChannelAPIPostChannelPairingApproveRequest {
+	r.approvePairingIn = &approvePairingIn
 	return r
 }
 
-func (r FlagsAPIPostFlagsRequest) Execute() (interface{}, *http.Response, error) {
-	return r.ApiService.PostFlagsExecute(r)
+func (r ChannelAPIPostChannelPairingApproveRequest) Execute() (*PairingApproved, *http.Response, error) {
+	return r.ApiService.PostChannelPairingApproveExecute(r)
 }
 
 /*
-PostFlags Evaluate runs the caller's flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+PostChannelPairingApprove Turns one pending pairing code into a standing allow entry, so that person can DM the org's bot on that channel from now on.
 
-Evaluate runs the caller's flag definitions for one identity and returns the
-flag verdict: which flags are on (or which variant), their payloads,
-and whether any definition failed to compute. Evaluation is in-process over the
-caller's own (org, project) definitions — no network hop, no shared KV — so a
-tenant can only ever evaluate its own flags.
+Turns one pending pairing code into a standing allow entry, so
+that person can DM the org's bot on that channel from now on. It requires ORG
+ADMIN, not merely membership. The first approval an org makes on a channel also
+bootstraps that sender as the channel's owner, which the answer reports. An
+unknown or expired code is a 404, and a code always belongs to exactly one
+org, so it can never approve someone into another tenant.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return FlagsAPIPostFlagsRequest
+	@return ChannelAPIPostChannelPairingApproveRequest
 */
-func (a *FlagsAPIService) PostFlags(ctx context.Context) FlagsAPIPostFlagsRequest {
-	return FlagsAPIPostFlagsRequest{
+func (a *ChannelAPIService) PostChannelPairingApprove(ctx context.Context) ChannelAPIPostChannelPairingApproveRequest {
+	return ChannelAPIPostChannelPairingApproveRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -581,27 +717,27 @@ func (a *FlagsAPIService) PostFlags(ctx context.Context) FlagsAPIPostFlagsReques
 
 // Execute executes the request
 //
-//	@return interface{}
-func (a *FlagsAPIService) PostFlagsExecute(r FlagsAPIPostFlagsRequest) (interface{}, *http.Response, error) {
+//	@return PairingApproved
+func (a *ChannelAPIService) PostChannelPairingApproveExecute(r ChannelAPIPostChannelPairingApproveRequest) (*PairingApproved, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue interface{}
+		localVarReturnValue *PairingApproved
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlagsAPIService.PostFlags")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.PostChannelPairingApprove")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/flags"
+	localVarPath := localBasePath + "/v1/channel/pairing/approve"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.evaluateIn == nil {
-		return localVarReturnValue, nil, reportError("evaluateIn is required and must be specified")
+	if r.approvePairingIn == nil {
+		return localVarReturnValue, nil, reportError("approvePairingIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -622,7 +758,7 @@ func (a *FlagsAPIService) PostFlagsExecute(r FlagsAPIPostFlagsRequest) (interfac
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.evaluateIn
+	localVarPostBody = r.approvePairingIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -660,35 +796,33 @@ func (a *FlagsAPIService) PostFlagsExecute(r FlagsAPIPostFlagsRequest) (interfac
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type FlagsAPIPostFlagsDecideRequest struct {
-	ctx        context.Context
-	ApiService *FlagsAPIService
-	evaluateIn *EvaluateIn
+type ChannelAPIPutChannelAgentRequest struct {
+	ctx              context.Context
+	ApiService       *ChannelAPIService
+	channelAgentsPut *ChannelAgentsPut
 }
 
-func (r FlagsAPIPostFlagsDecideRequest) EvaluateIn(evaluateIn EvaluateIn) FlagsAPIPostFlagsDecideRequest {
-	r.evaluateIn = &evaluateIn
+func (r ChannelAPIPutChannelAgentRequest) ChannelAgentsPut(channelAgentsPut ChannelAgentsPut) ChannelAPIPutChannelAgentRequest {
+	r.channelAgentsPut = &channelAgentsPut
 	return r
 }
 
-func (r FlagsAPIPostFlagsDecideRequest) Execute() (interface{}, *http.Response, error) {
-	return r.ApiService.PostFlagsDecideExecute(r)
+func (r ChannelAPIPutChannelAgentRequest) Execute() (*ChannelAgents, *http.Response, error) {
+	return r.ApiService.PutChannelAgentExecute(r)
 }
 
 /*
-PostFlagsDecide Evaluate runs the caller's flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+PutChannelAgent Binds agents to the caller org's channel and answers the bindings as GET would.
 
-Evaluate runs the caller's flag definitions for one identity and returns the
-flag verdict: which flags are on (or which variant), their payloads,
-and whether any definition failed to compute. Evaluation is in-process over the
-caller's own (org, project) definitions — no network hop, no shared KV — so a
-tenant can only ever evaluate its own flags.
+Binds agents to the caller org's channel and answers the bindings as
+GET would. It requires ORG ADMIN. The agent is named by its ref — the name an
+org gave it at POST /v1/agent, or a built-in such as dev, des or vi.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return FlagsAPIPostFlagsDecideRequest
+	@return ChannelAPIPutChannelAgentRequest
 */
-func (a *FlagsAPIService) PostFlagsDecide(ctx context.Context) FlagsAPIPostFlagsDecideRequest {
-	return FlagsAPIPostFlagsDecideRequest{
+func (a *ChannelAPIService) PutChannelAgent(ctx context.Context) ChannelAPIPutChannelAgentRequest {
+	return ChannelAPIPutChannelAgentRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -696,147 +830,27 @@ func (a *FlagsAPIService) PostFlagsDecide(ctx context.Context) FlagsAPIPostFlags
 
 // Execute executes the request
 //
-//	@return interface{}
-func (a *FlagsAPIService) PostFlagsDecideExecute(r FlagsAPIPostFlagsDecideRequest) (interface{}, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue interface{}
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlagsAPIService.PostFlagsDecide")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/flags/decide"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.evaluateIn == nil {
-		return localVarReturnValue, nil, reportError("evaluateIn is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.evaluateIn
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type FlagsAPIPutFlagsDefsByKeyRequest struct {
-	ctx        context.Context
-	ApiService *FlagsAPIService
-	key        string
-	body       *interface{}
-}
-
-func (r FlagsAPIPutFlagsDefsByKeyRequest) Body(body interface{}) FlagsAPIPutFlagsDefsByKeyRequest {
-	r.body = &body
-	return r
-}
-
-func (r FlagsAPIPutFlagsDefsByKeyRequest) Execute() (*DefRow, *http.Response, error) {
-	return r.ApiService.PutFlagsDefsByKeyExecute(r)
-}
-
-/*
-PutFlagsDefsByKey Creates or replaces the flag definition at the path's key and returns the stored row.
-
-Creates or replaces the flag definition at the path's key and
-returns the stored row. The BODY IS THE DEFINITION DOCUMENT — the flag-definition
-JSON object the evaluator consumes — and it is stored verbatim except that its
-"key" is forced to the key in the URL, so a document can never be filed under a
-name other than the one it was addressed by. Every write bumps the version and
-appends to the change log under the caller's identity.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param key Key is the flag key to write, from the path.
-	@return FlagsAPIPutFlagsDefsByKeyRequest
-*/
-func (a *FlagsAPIService) PutFlagsDefsByKey(ctx context.Context, key string) FlagsAPIPutFlagsDefsByKeyRequest {
-	return FlagsAPIPutFlagsDefsByKeyRequest{
-		ApiService: a,
-		ctx:        ctx,
-		key:        key,
-	}
-}
-
-// Execute executes the request
-//
-//	@return DefRow
-func (a *FlagsAPIService) PutFlagsDefsByKeyExecute(r FlagsAPIPutFlagsDefsByKeyRequest) (*DefRow, *http.Response, error) {
+//	@return ChannelAgents
+func (a *ChannelAPIService) PutChannelAgentExecute(r ChannelAPIPutChannelAgentRequest) (*ChannelAgents, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DefRow
+		localVarReturnValue *ChannelAgents
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlagsAPIService.PutFlagsDefsByKey")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.PutChannelAgent")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/flags/defs/{key}"
-	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+	localVarPath := localBasePath + "/v1/channel/agent"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	if r.channelAgentsPut == nil {
+		return localVarReturnValue, nil, reportError("channelAgentsPut is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -857,7 +871,124 @@ func (a *FlagsAPIService) PutFlagsDefsByKeyExecute(r FlagsAPIPutFlagsDefsByKeyRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.body
+	localVarPostBody = r.channelAgentsPut
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ChannelAPIPutChannelAllowlistRequest struct {
+	ctx            context.Context
+	ApiService     *ChannelAPIService
+	allowlistPutIn *AllowlistPutIn
+}
+
+func (r ChannelAPIPutChannelAllowlistRequest) AllowlistPutIn(allowlistPutIn AllowlistPutIn) ChannelAPIPutChannelAllowlistRequest {
+	r.allowlistPutIn = &allowlistPutIn
+	return r
+}
+
+func (r ChannelAPIPutChannelAllowlistRequest) Execute() (*AllowlistView, *http.Response, error) {
+	return r.ApiService.PutChannelAllowlistExecute(r)
+}
+
+/*
+PutChannelAllowlist Edits the caller org's access policy for one channel and answers the policy as GET would, so both verbs return ONE shape.
+
+Edits the caller org's access policy for one channel and answers
+the policy as GET would, so both verbs return ONE shape. It requires ORG ADMIN.
+Every field but `channel` is optional and applied only when provided: an empty
+policy string leaves that policy alone, an absent or null list leaves that list
+alone, and an EMPTY list clears it. It writes only CONFIG-sourced allow entries
+— senders approved through pairing belong to the approval flow, so a policy
+edit can never revoke one. An unknown channel is a 404.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ChannelAPIPutChannelAllowlistRequest
+*/
+func (a *ChannelAPIService) PutChannelAllowlist(ctx context.Context) ChannelAPIPutChannelAllowlistRequest {
+	return ChannelAPIPutChannelAllowlistRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AllowlistView
+func (a *ChannelAPIService) PutChannelAllowlistExecute(r ChannelAPIPutChannelAllowlistRequest) (*AllowlistView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AllowlistView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.PutChannelAllowlist")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/channel/allowlist"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.allowlistPutIn == nil {
+		return localVarReturnValue, nil, reportError("allowlistPutIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.allowlistPutIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

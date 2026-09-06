@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Channel** | Pointer to **string** | Channel is the transport the request came in on: discord, slack, teams, telegram or whatsapp. | [optional] 
-**Code** | Pointer to **string** | Code is the pairing code from GET /v1/channels/pairing. It is a capability: holding it is what authorises the approval, alongside org admin. | [optional] 
+**Code** | Pointer to **string** | Code is the pairing code from GET /v1/channel/pairing. It is a capability: holding it is what authorises the approval, alongside org admin. | [optional] 
 
 ## Methods
 

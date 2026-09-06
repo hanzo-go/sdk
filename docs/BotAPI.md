@@ -4,10 +4,73 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**GetBotMembers**](BotAPI.md#GetBotMembers) | **Get** /v1/bot/members | Returns the caller org&#39;s bots as space members — each with the member account uuid and the Person reference the roster addresses it by.
 [**GetBotRuns**](BotAPI.md#GetBotRuns) | **Get** /v1/bot/runs | List returns the caller org&#39;s live bot runs, read from the bot runtime and projected into the console contract with each run&#39;s live session URL derived here.
+[**PostBotMembersSync**](BotAPI.md#PostBotMembersSync) | **Post** /v1/bot/members/sync | Re-projects the caller org&#39;s bots as members into every space of the org and removes the ones whose agent is gone.
 [**PostBotRuns**](BotAPI.md#PostBotRuns) | **Post** /v1/bot/runs | Answers 501 to every call: launching a bot run is not implemented.
 [**PostBotRunsByRunidStop**](BotAPI.md#PostBotRunsByRunidStop) | **Post** /v1/bot/runs/{runId}/stop | Stop terminates one of the caller org&#39;s own bot runs and reports its terminal state.
 
+
+
+## GetBotMembers
+
+> BotRoster GetBotMembers(ctx).Execute()
+
+Returns the caller org's bots as space members — each with the member account uuid and the Person reference the roster addresses it by.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BotAPI.GetBotMembers(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.GetBotMembers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBotMembers`: BotRoster
+	fmt.Fprintf(os.Stdout, "Response from `BotAPI.GetBotMembers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBotMembersRequest struct via the builder pattern
+
+
+### Return type
+
+[**BotRoster**](BotRoster.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## GetBotRuns
@@ -56,6 +119,67 @@ Other parameters are passed through a pointer to a apiGetBotRunsRequest struct v
 ### Return type
 
 [**BotRuns**](BotRuns.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostBotMembersSync
+
+> BotSync PostBotMembersSync(ctx).Execute()
+
+Re-projects the caller org's bots as members into every space of the org and removes the ones whose agent is gone.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BotAPI.PostBotMembersSync(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.PostBotMembersSync``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostBotMembersSync`: BotSync
+	fmt.Fprintf(os.Stdout, "Response from `BotAPI.PostBotMembersSync`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostBotMembersSyncRequest struct via the builder pattern
+
+
+### Return type
+
+[**BotSync**](BotSync.md)
 
 ### Authorization
 

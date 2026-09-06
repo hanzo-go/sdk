@@ -1742,7 +1742,7 @@ program, so it comes back as data and not as an error.
 
 Name a `session` and the command NARRATES INTO IT: its output is appended to
 that session's live log as the program produces it, so anything watching the
-session — GET /v1/agents/sessions/stream, scoped to one run with ?root= —
+session — GET /v1/agent/sessions/stream, scoped to one run with ?root= —
 watches the work happen rather than waiting for the verdict. Without it the
 call is what it always was: silent until it returns, which for an agentic run
 is twenty-five minutes of blank screen.

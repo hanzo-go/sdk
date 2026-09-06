@@ -54,7 +54,7 @@ type APIClient struct {
 
 	AffiliateAPI *AffiliateAPIService
 
-	AgentsAPI *AgentsAPIService
+	AgentAPI *AgentAPIService
 
 	AiAPI *AiAPIService
 
@@ -88,7 +88,7 @@ type APIClient struct {
 
 	CatalogAPI *CatalogAPIService
 
-	ChannelsAPI *ChannelsAPIService
+	ChannelAPI *ChannelAPIService
 
 	CiAPI *CiAPIService
 
@@ -101,6 +101,8 @@ type APIClient struct {
 	CompanyAPI *CompanyAPIService
 
 	ComplianceAPI *ComplianceAPIService
+
+	ComputeAPI *ComputeAPIService
 
 	ContentAPI *ContentAPIService
 
@@ -134,13 +136,13 @@ type APIClient struct {
 
 	ExplorerAPI *ExplorerAPIService
 
-	FlagsAPI *FlagsAPIService
+	FlagAPI *FlagAPIService
 
 	FlowAPI *FlowAPIService
 
 	FrameworkAPI *FrameworkAPIService
 
-	FunctionsAPI *FunctionsAPIService
+	FunctionAPI *FunctionAPIService
 
 	GatewayAPI *GatewayAPIService
 
@@ -158,7 +160,7 @@ type APIClient struct {
 
 	IngressAPI *IngressAPIService
 
-	IntegrationsAPI *IntegrationsAPIService
+	IntegrationAPI *IntegrationAPIService
 
 	KmsAPI *KmsAPIService
 
@@ -210,7 +212,7 @@ type APIClient struct {
 
 	PricingAPI *PricingAPIService
 
-	ProjectsAPI *ProjectsAPIService
+	ProjectAPI *ProjectAPIService
 
 	PromptAPI *PromptAPIService
 
@@ -262,7 +264,7 @@ type APIClient struct {
 
 	TodoAPI *TodoAPIService
 
-	ToolsAPI *ToolsAPIService
+	ToolAPI *ToolAPIService
 
 	TranslateAPI *TranslateAPIService
 
@@ -273,8 +275,6 @@ type APIClient struct {
 	UsageAPI *UsageAPIService
 
 	ValidatorAPI *ValidatorAPIService
-
-	VisorAPI *VisorAPIService
 
 	WalletAPI *WalletAPIService
 
@@ -308,7 +308,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AccountAPI = (*AccountAPIService)(&c.common)
 	c.AdAPI = (*AdAPIService)(&c.common)
 	c.AffiliateAPI = (*AffiliateAPIService)(&c.common)
-	c.AgentsAPI = (*AgentsAPIService)(&c.common)
+	c.AgentAPI = (*AgentAPIService)(&c.common)
 	c.AiAPI = (*AiAPIService)(&c.common)
 	c.AllowanceAPI = (*AllowanceAPIService)(&c.common)
 	c.AskAPI = (*AskAPIService)(&c.common)
@@ -325,13 +325,14 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.CampaignAPI = (*CampaignAPIService)(&c.common)
 	c.CaptableAPI = (*CaptableAPIService)(&c.common)
 	c.CatalogAPI = (*CatalogAPIService)(&c.common)
-	c.ChannelsAPI = (*ChannelsAPIService)(&c.common)
+	c.ChannelAPI = (*ChannelAPIService)(&c.common)
 	c.CiAPI = (*CiAPIService)(&c.common)
 	c.CloudflareAPI = (*CloudflareAPIService)(&c.common)
 	c.CodeAPI = (*CodeAPIService)(&c.common)
 	c.CommerceAPI = (*CommerceAPIService)(&c.common)
 	c.CompanyAPI = (*CompanyAPIService)(&c.common)
 	c.ComplianceAPI = (*ComplianceAPIService)(&c.common)
+	c.ComputeAPI = (*ComputeAPIService)(&c.common)
 	c.ContentAPI = (*ContentAPIService)(&c.common)
 	c.CrawlAPI = (*CrawlAPIService)(&c.common)
 	c.DataroomAPI = (*DataroomAPIService)(&c.common)
@@ -348,10 +349,10 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ExecAPI = (*ExecAPIService)(&c.common)
 	c.ExperimentAPI = (*ExperimentAPIService)(&c.common)
 	c.ExplorerAPI = (*ExplorerAPIService)(&c.common)
-	c.FlagsAPI = (*FlagsAPIService)(&c.common)
+	c.FlagAPI = (*FlagAPIService)(&c.common)
 	c.FlowAPI = (*FlowAPIService)(&c.common)
 	c.FrameworkAPI = (*FrameworkAPIService)(&c.common)
-	c.FunctionsAPI = (*FunctionsAPIService)(&c.common)
+	c.FunctionAPI = (*FunctionAPIService)(&c.common)
 	c.GatewayAPI = (*GatewayAPIService)(&c.common)
 	c.GitAPI = (*GitAPIService)(&c.common)
 	c.GraphAPI = (*GraphAPIService)(&c.common)
@@ -360,7 +361,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.IamAPI = (*IamAPIService)(&c.common)
 	c.IndexAPI = (*IndexAPIService)(&c.common)
 	c.IngressAPI = (*IngressAPIService)(&c.common)
-	c.IntegrationsAPI = (*IntegrationsAPIService)(&c.common)
+	c.IntegrationAPI = (*IntegrationAPIService)(&c.common)
 	c.KmsAPI = (*KmsAPIService)(&c.common)
 	c.KnowledgeAPI = (*KnowledgeAPIService)(&c.common)
 	c.KvAPI = (*KvAPIService)(&c.common)
@@ -386,7 +387,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.PlatformAPI = (*PlatformAPIService)(&c.common)
 	c.PrefAPI = (*PrefAPIService)(&c.common)
 	c.PricingAPI = (*PricingAPIService)(&c.common)
-	c.ProjectsAPI = (*ProjectsAPIService)(&c.common)
+	c.ProjectAPI = (*ProjectAPIService)(&c.common)
 	c.PromptAPI = (*PromptAPIService)(&c.common)
 	c.ProvisioningAPI = (*ProvisioningAPIService)(&c.common)
 	c.PubsubAPI = (*PubsubAPIService)(&c.common)
@@ -412,13 +413,12 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.TelAPI = (*TelAPIService)(&c.common)
 	c.TemplateAPI = (*TemplateAPIService)(&c.common)
 	c.TodoAPI = (*TodoAPIService)(&c.common)
-	c.ToolsAPI = (*ToolsAPIService)(&c.common)
+	c.ToolAPI = (*ToolAPIService)(&c.common)
 	c.TranslateAPI = (*TranslateAPIService)(&c.common)
 	c.TreasuryAPI = (*TreasuryAPIService)(&c.common)
 	c.TrustAPI = (*TrustAPIService)(&c.common)
 	c.UsageAPI = (*UsageAPIService)(&c.common)
 	c.ValidatorAPI = (*ValidatorAPIService)(&c.common)
-	c.VisorAPI = (*VisorAPIService)(&c.common)
 	c.WalletAPI = (*WalletAPIService)(&c.common)
 	c.Web3API = (*Web3APIService)(&c.common)
 	c.WebhookAPI = (*WebhookAPIService)(&c.common)

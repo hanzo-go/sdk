@@ -4,13 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Builds** | Pointer to **int32** |  | [optional] 
-**Commit** | Pointer to **string** |  | [optional] 
-**Fired** | Pointer to **bool** |  | [optional] 
-**Org** | Pointer to **string** |  | [optional] 
-**Reason** | Pointer to **string** |  | [optional] 
-**Ref** | Pointer to **string** |  | [optional] 
-**Repo** | Pointer to **string** |  | [optional] 
+**Flags** | Pointer to [**[]DriftFlag**](DriftFlag.md) | Flags are the findings behind the severity, in detection order: floating-declared, floating-running, stale, un-rolled, then the release-artifact ones. Always present — &#x60;[]&#x60; for a row that runs what it declares, never null. | [optional] 
+**Severity** | Pointer to **string** | Severity is the roll-up over Flags — red if any flag is red, else yellow if any is yellow, else ok. It is the column a board sorts and filters on, and \&quot;ok\&quot; is exactly what no flags means. | [optional] 
 
 ## Methods
 
@@ -31,180 +26,55 @@ NewVerdictWithDefaults instantiates a new Verdict object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetBuilds
+### GetFlags
 
-`func (o *Verdict) GetBuilds() int32`
+`func (o *Verdict) GetFlags() []DriftFlag`
 
-GetBuilds returns the Builds field if non-nil, zero value otherwise.
+GetFlags returns the Flags field if non-nil, zero value otherwise.
 
-### GetBuildsOk
+### GetFlagsOk
 
-`func (o *Verdict) GetBuildsOk() (*int32, bool)`
+`func (o *Verdict) GetFlagsOk() (*[]DriftFlag, bool)`
 
-GetBuildsOk returns a tuple with the Builds field if it's non-nil, zero value otherwise
+GetFlagsOk returns a tuple with the Flags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetBuilds
+### SetFlags
 
-`func (o *Verdict) SetBuilds(v int32)`
+`func (o *Verdict) SetFlags(v []DriftFlag)`
 
-SetBuilds sets Builds field to given value.
+SetFlags sets Flags field to given value.
 
-### HasBuilds
+### HasFlags
 
-`func (o *Verdict) HasBuilds() bool`
+`func (o *Verdict) HasFlags() bool`
 
-HasBuilds returns a boolean if a field has been set.
+HasFlags returns a boolean if a field has been set.
 
-### GetCommit
+### GetSeverity
 
-`func (o *Verdict) GetCommit() string`
+`func (o *Verdict) GetSeverity() string`
 
-GetCommit returns the Commit field if non-nil, zero value otherwise.
+GetSeverity returns the Severity field if non-nil, zero value otherwise.
 
-### GetCommitOk
+### GetSeverityOk
 
-`func (o *Verdict) GetCommitOk() (*string, bool)`
+`func (o *Verdict) GetSeverityOk() (*string, bool)`
 
-GetCommitOk returns a tuple with the Commit field if it's non-nil, zero value otherwise
+GetSeverityOk returns a tuple with the Severity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCommit
+### SetSeverity
 
-`func (o *Verdict) SetCommit(v string)`
+`func (o *Verdict) SetSeverity(v string)`
 
-SetCommit sets Commit field to given value.
+SetSeverity sets Severity field to given value.
 
-### HasCommit
+### HasSeverity
 
-`func (o *Verdict) HasCommit() bool`
+`func (o *Verdict) HasSeverity() bool`
 
-HasCommit returns a boolean if a field has been set.
-
-### GetFired
-
-`func (o *Verdict) GetFired() bool`
-
-GetFired returns the Fired field if non-nil, zero value otherwise.
-
-### GetFiredOk
-
-`func (o *Verdict) GetFiredOk() (*bool, bool)`
-
-GetFiredOk returns a tuple with the Fired field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFired
-
-`func (o *Verdict) SetFired(v bool)`
-
-SetFired sets Fired field to given value.
-
-### HasFired
-
-`func (o *Verdict) HasFired() bool`
-
-HasFired returns a boolean if a field has been set.
-
-### GetOrg
-
-`func (o *Verdict) GetOrg() string`
-
-GetOrg returns the Org field if non-nil, zero value otherwise.
-
-### GetOrgOk
-
-`func (o *Verdict) GetOrgOk() (*string, bool)`
-
-GetOrgOk returns a tuple with the Org field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOrg
-
-`func (o *Verdict) SetOrg(v string)`
-
-SetOrg sets Org field to given value.
-
-### HasOrg
-
-`func (o *Verdict) HasOrg() bool`
-
-HasOrg returns a boolean if a field has been set.
-
-### GetReason
-
-`func (o *Verdict) GetReason() string`
-
-GetReason returns the Reason field if non-nil, zero value otherwise.
-
-### GetReasonOk
-
-`func (o *Verdict) GetReasonOk() (*string, bool)`
-
-GetReasonOk returns a tuple with the Reason field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetReason
-
-`func (o *Verdict) SetReason(v string)`
-
-SetReason sets Reason field to given value.
-
-### HasReason
-
-`func (o *Verdict) HasReason() bool`
-
-HasReason returns a boolean if a field has been set.
-
-### GetRef
-
-`func (o *Verdict) GetRef() string`
-
-GetRef returns the Ref field if non-nil, zero value otherwise.
-
-### GetRefOk
-
-`func (o *Verdict) GetRefOk() (*string, bool)`
-
-GetRefOk returns a tuple with the Ref field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRef
-
-`func (o *Verdict) SetRef(v string)`
-
-SetRef sets Ref field to given value.
-
-### HasRef
-
-`func (o *Verdict) HasRef() bool`
-
-HasRef returns a boolean if a field has been set.
-
-### GetRepo
-
-`func (o *Verdict) GetRepo() string`
-
-GetRepo returns the Repo field if non-nil, zero value otherwise.
-
-### GetRepoOk
-
-`func (o *Verdict) GetRepoOk() (*string, bool)`
-
-GetRepoOk returns a tuple with the Repo field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRepo
-
-`func (o *Verdict) SetRepo(v string)`
-
-SetRepo sets Repo field to given value.
-
-### HasRepo
-
-`func (o *Verdict) HasRepo() bool`
-
-HasRepo returns a boolean if a field has been set.
+HasSeverity returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

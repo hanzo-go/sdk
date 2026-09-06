@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AgentName** | Pointer to **string** | AgentName is the cloud Agent (/v1/agents) the machine will run. Required. | [optional] 
+**AgentName** | Pointer to **string** | AgentName is the cloud Agent (/v1/agent) the machine will run. Required. | [optional] 
 **BotVersion** | Pointer to **string** | BotVersion pins the @hanzo/bot runtime version; empty takes the default. | [optional] 
 **Id** | Pointer to **string** | ID is the machine to bind, from the URL path. | [optional] 
 

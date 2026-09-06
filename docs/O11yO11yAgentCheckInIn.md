@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountId** | Pointer to **string** |  | [optional] 
-**CloudAccountId** | Pointer to **string** |  | [optional] 
 **CloudIntegrationId** | Pointer to **interface{}** |  | [optional] 
+**CloudAccountId** | Pointer to **string** |  | [optional] 
 **Data** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 **ProviderAccountId** | Pointer to **string** |  | [optional] 
 
@@ -54,31 +54,6 @@ SetAccountId sets AccountId field to given value.
 
 HasAccountId returns a boolean if a field has been set.
 
-### GetCloudAccountId
-
-`func (o *O11yO11yAgentCheckInIn) GetCloudAccountId() string`
-
-GetCloudAccountId returns the CloudAccountId field if non-nil, zero value otherwise.
-
-### GetCloudAccountIdOk
-
-`func (o *O11yO11yAgentCheckInIn) GetCloudAccountIdOk() (*string, bool)`
-
-GetCloudAccountIdOk returns a tuple with the CloudAccountId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCloudAccountId
-
-`func (o *O11yO11yAgentCheckInIn) SetCloudAccountId(v string)`
-
-SetCloudAccountId sets CloudAccountId field to given value.
-
-### HasCloudAccountId
-
-`func (o *O11yO11yAgentCheckInIn) HasCloudAccountId() bool`
-
-HasCloudAccountId returns a boolean if a field has been set.
-
 ### GetCloudIntegrationId
 
 `func (o *O11yO11yAgentCheckInIn) GetCloudIntegrationId() interface{}`
@@ -114,6 +89,31 @@ HasCloudIntegrationId returns a boolean if a field has been set.
 `func (o *O11yO11yAgentCheckInIn) UnsetCloudIntegrationId()`
 
 UnsetCloudIntegrationId ensures that no value is present for CloudIntegrationId, not even an explicit nil
+### GetCloudAccountId
+
+`func (o *O11yO11yAgentCheckInIn) GetCloudAccountId() string`
+
+GetCloudAccountId returns the CloudAccountId field if non-nil, zero value otherwise.
+
+### GetCloudAccountIdOk
+
+`func (o *O11yO11yAgentCheckInIn) GetCloudAccountIdOk() (*string, bool)`
+
+GetCloudAccountIdOk returns a tuple with the CloudAccountId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCloudAccountId
+
+`func (o *O11yO11yAgentCheckInIn) SetCloudAccountId(v string)`
+
+SetCloudAccountId sets CloudAccountId field to given value.
+
+### HasCloudAccountId
+
+`func (o *O11yO11yAgentCheckInIn) HasCloudAccountId() bool`
+
+HasCloudAccountId returns a boolean if a field has been set.
+
 ### GetData
 
 `func (o *O11yO11yAgentCheckInIn) GetData() map[string]map[string]interface{}`

@@ -58,6 +58,7 @@ type IamUser struct {
 	CreatedTime  *string `json:"createdTime,omitempty"`
 	Currency     *string `json:"currency,omitempty"`
 	Custom       *string `json:"custom,omitempty"`
+	Custom10     *string `json:"custom10,omitempty"`
 	Custom2      *string `json:"custom2,omitempty"`
 	Custom3      *string `json:"custom3,omitempty"`
 	Custom4      *string `json:"custom4,omitempty"`
@@ -66,7 +67,6 @@ type IamUser struct {
 	Custom7      *string `json:"custom7,omitempty"`
 	Custom8      *string `json:"custom8,omitempty"`
 	Custom9      *string `json:"custom9,omitempty"`
-	Custom10     *string `json:"custom10,omitempty"`
 	Dailymotion  *string `json:"dailymotion,omitempty"`
 	Deezer       *string `json:"deezer,omitempty"`
 	Deleted      *bool   `json:"deleted,omitempty"`
@@ -1354,6 +1354,38 @@ func (o *IamUser) SetCustom(v string) {
 	o.Custom = &v
 }
 
+// GetCustom10 returns the Custom10 field value if set, zero value otherwise.
+func (o *IamUser) GetCustom10() string {
+	if o == nil || IsNil(o.Custom10) {
+		var ret string
+		return ret
+	}
+	return *o.Custom10
+}
+
+// GetCustom10Ok returns a tuple with the Custom10 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamUser) GetCustom10Ok() (*string, bool) {
+	if o == nil || IsNil(o.Custom10) {
+		return nil, false
+	}
+	return o.Custom10, true
+}
+
+// HasCustom10 returns a boolean if a field has been set.
+func (o *IamUser) HasCustom10() bool {
+	if o != nil && !IsNil(o.Custom10) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustom10 gets a reference to the given string and assigns it to the Custom10 field.
+func (o *IamUser) SetCustom10(v string) {
+	o.Custom10 = &v
+}
+
 // GetCustom2 returns the Custom2 field value if set, zero value otherwise.
 func (o *IamUser) GetCustom2() string {
 	if o == nil || IsNil(o.Custom2) {
@@ -1608,38 +1640,6 @@ func (o *IamUser) HasCustom9() bool {
 // SetCustom9 gets a reference to the given string and assigns it to the Custom9 field.
 func (o *IamUser) SetCustom9(v string) {
 	o.Custom9 = &v
-}
-
-// GetCustom10 returns the Custom10 field value if set, zero value otherwise.
-func (o *IamUser) GetCustom10() string {
-	if o == nil || IsNil(o.Custom10) {
-		var ret string
-		return ret
-	}
-	return *o.Custom10
-}
-
-// GetCustom10Ok returns a tuple with the Custom10 field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IamUser) GetCustom10Ok() (*string, bool) {
-	if o == nil || IsNil(o.Custom10) {
-		return nil, false
-	}
-	return o.Custom10, true
-}
-
-// HasCustom10 returns a boolean if a field has been set.
-func (o *IamUser) HasCustom10() bool {
-	if o != nil && !IsNil(o.Custom10) {
-		return true
-	}
-
-	return false
-}
-
-// SetCustom10 gets a reference to the given string and assigns it to the Custom10 field.
-func (o *IamUser) SetCustom10(v string) {
-	o.Custom10 = &v
 }
 
 // GetDailymotion returns the Dailymotion field value if set, zero value otherwise.
@@ -6237,6 +6237,9 @@ func (o IamUser) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Custom) {
 		toSerialize["custom"] = o.Custom
 	}
+	if !IsNil(o.Custom10) {
+		toSerialize["custom10"] = o.Custom10
+	}
 	if !IsNil(o.Custom2) {
 		toSerialize["custom2"] = o.Custom2
 	}
@@ -6260,9 +6263,6 @@ func (o IamUser) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Custom9) {
 		toSerialize["custom9"] = o.Custom9
-	}
-	if !IsNil(o.Custom10) {
-		toSerialize["custom10"] = o.Custom10
 	}
 	if !IsNil(o.Dailymotion) {
 		toSerialize["dailymotion"] = o.Dailymotion

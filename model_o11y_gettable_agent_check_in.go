@@ -22,13 +22,13 @@ var _ MappedNullable = &O11yGettableAgentCheckIn{}
 type O11yGettableAgentCheckIn struct {
 	// Older fields for backward compatibility with existing AWS agents
 	AccountId               *string                        `json:"account_id,omitempty"`
-	CloudAccountId          *string                        `json:"cloud_account_id,omitempty"`
 	CloudIntegrationId      *string                        `json:"cloudIntegrationId,omitempty"`
-	IntegrationConfigLegacy *O11yIntegrationConfig         `json:"integration_config,omitempty"`
+	CloudAccountId          *string                        `json:"cloud_account_id,omitempty"`
 	IntegrationConfig       *O11yProviderIntegrationConfig `json:"integrationConfig,omitempty"`
+	IntegrationConfigLegacy *O11yIntegrationConfig         `json:"integration_config,omitempty"`
 	ProviderAccountId       *string                        `json:"providerAccountId,omitempty"`
-	RemovedAtLegacy         *time.Time                     `json:"removed_at,omitempty"`
 	RemovedAt               *time.Time                     `json:"removedAt,omitempty"`
+	RemovedAtLegacy         *time.Time                     `json:"removed_at,omitempty"`
 }
 
 // NewO11yGettableAgentCheckIn instantiates a new O11yGettableAgentCheckIn object
@@ -80,38 +80,6 @@ func (o *O11yGettableAgentCheckIn) SetAccountId(v string) {
 	o.AccountId = &v
 }
 
-// GetCloudAccountId returns the CloudAccountId field value if set, zero value otherwise.
-func (o *O11yGettableAgentCheckIn) GetCloudAccountId() string {
-	if o == nil || IsNil(o.CloudAccountId) {
-		var ret string
-		return ret
-	}
-	return *o.CloudAccountId
-}
-
-// GetCloudAccountIdOk returns a tuple with the CloudAccountId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *O11yGettableAgentCheckIn) GetCloudAccountIdOk() (*string, bool) {
-	if o == nil || IsNil(o.CloudAccountId) {
-		return nil, false
-	}
-	return o.CloudAccountId, true
-}
-
-// HasCloudAccountId returns a boolean if a field has been set.
-func (o *O11yGettableAgentCheckIn) HasCloudAccountId() bool {
-	if o != nil && !IsNil(o.CloudAccountId) {
-		return true
-	}
-
-	return false
-}
-
-// SetCloudAccountId gets a reference to the given string and assigns it to the CloudAccountId field.
-func (o *O11yGettableAgentCheckIn) SetCloudAccountId(v string) {
-	o.CloudAccountId = &v
-}
-
 // GetCloudIntegrationId returns the CloudIntegrationId field value if set, zero value otherwise.
 func (o *O11yGettableAgentCheckIn) GetCloudIntegrationId() string {
 	if o == nil || IsNil(o.CloudIntegrationId) {
@@ -144,36 +112,36 @@ func (o *O11yGettableAgentCheckIn) SetCloudIntegrationId(v string) {
 	o.CloudIntegrationId = &v
 }
 
-// GetIntegrationConfigLegacy returns the IntegrationConfigLegacy field value if set, zero value otherwise.
-func (o *O11yGettableAgentCheckIn) GetIntegrationConfigLegacy() O11yIntegrationConfig {
-	if o == nil || IsNil(o.IntegrationConfigLegacy) {
-		var ret O11yIntegrationConfig
+// GetCloudAccountId returns the CloudAccountId field value if set, zero value otherwise.
+func (o *O11yGettableAgentCheckIn) GetCloudAccountId() string {
+	if o == nil || IsNil(o.CloudAccountId) {
+		var ret string
 		return ret
 	}
-	return *o.IntegrationConfigLegacy
+	return *o.CloudAccountId
 }
 
-// GetIntegrationConfigLegacyOk returns a tuple with the IntegrationConfigLegacy field value if set, nil otherwise
+// GetCloudAccountIdOk returns a tuple with the CloudAccountId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yGettableAgentCheckIn) GetIntegrationConfigLegacyOk() (*O11yIntegrationConfig, bool) {
-	if o == nil || IsNil(o.IntegrationConfigLegacy) {
+func (o *O11yGettableAgentCheckIn) GetCloudAccountIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CloudAccountId) {
 		return nil, false
 	}
-	return o.IntegrationConfigLegacy, true
+	return o.CloudAccountId, true
 }
 
-// HasIntegrationConfigLegacy returns a boolean if a field has been set.
-func (o *O11yGettableAgentCheckIn) HasIntegrationConfigLegacy() bool {
-	if o != nil && !IsNil(o.IntegrationConfigLegacy) {
+// HasCloudAccountId returns a boolean if a field has been set.
+func (o *O11yGettableAgentCheckIn) HasCloudAccountId() bool {
+	if o != nil && !IsNil(o.CloudAccountId) {
 		return true
 	}
 
 	return false
 }
 
-// SetIntegrationConfigLegacy gets a reference to the given O11yIntegrationConfig and assigns it to the IntegrationConfigLegacy field.
-func (o *O11yGettableAgentCheckIn) SetIntegrationConfigLegacy(v O11yIntegrationConfig) {
-	o.IntegrationConfigLegacy = &v
+// SetCloudAccountId gets a reference to the given string and assigns it to the CloudAccountId field.
+func (o *O11yGettableAgentCheckIn) SetCloudAccountId(v string) {
+	o.CloudAccountId = &v
 }
 
 // GetIntegrationConfig returns the IntegrationConfig field value if set, zero value otherwise.
@@ -208,6 +176,38 @@ func (o *O11yGettableAgentCheckIn) SetIntegrationConfig(v O11yProviderIntegratio
 	o.IntegrationConfig = &v
 }
 
+// GetIntegrationConfigLegacy returns the IntegrationConfigLegacy field value if set, zero value otherwise.
+func (o *O11yGettableAgentCheckIn) GetIntegrationConfigLegacy() O11yIntegrationConfig {
+	if o == nil || IsNil(o.IntegrationConfigLegacy) {
+		var ret O11yIntegrationConfig
+		return ret
+	}
+	return *o.IntegrationConfigLegacy
+}
+
+// GetIntegrationConfigLegacyOk returns a tuple with the IntegrationConfigLegacy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *O11yGettableAgentCheckIn) GetIntegrationConfigLegacyOk() (*O11yIntegrationConfig, bool) {
+	if o == nil || IsNil(o.IntegrationConfigLegacy) {
+		return nil, false
+	}
+	return o.IntegrationConfigLegacy, true
+}
+
+// HasIntegrationConfigLegacy returns a boolean if a field has been set.
+func (o *O11yGettableAgentCheckIn) HasIntegrationConfigLegacy() bool {
+	if o != nil && !IsNil(o.IntegrationConfigLegacy) {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegrationConfigLegacy gets a reference to the given O11yIntegrationConfig and assigns it to the IntegrationConfigLegacy field.
+func (o *O11yGettableAgentCheckIn) SetIntegrationConfigLegacy(v O11yIntegrationConfig) {
+	o.IntegrationConfigLegacy = &v
+}
+
 // GetProviderAccountId returns the ProviderAccountId field value if set, zero value otherwise.
 func (o *O11yGettableAgentCheckIn) GetProviderAccountId() string {
 	if o == nil || IsNil(o.ProviderAccountId) {
@@ -238,38 +238,6 @@ func (o *O11yGettableAgentCheckIn) HasProviderAccountId() bool {
 // SetProviderAccountId gets a reference to the given string and assigns it to the ProviderAccountId field.
 func (o *O11yGettableAgentCheckIn) SetProviderAccountId(v string) {
 	o.ProviderAccountId = &v
-}
-
-// GetRemovedAtLegacy returns the RemovedAtLegacy field value if set, zero value otherwise.
-func (o *O11yGettableAgentCheckIn) GetRemovedAtLegacy() time.Time {
-	if o == nil || IsNil(o.RemovedAtLegacy) {
-		var ret time.Time
-		return ret
-	}
-	return *o.RemovedAtLegacy
-}
-
-// GetRemovedAtLegacyOk returns a tuple with the RemovedAtLegacy field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *O11yGettableAgentCheckIn) GetRemovedAtLegacyOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.RemovedAtLegacy) {
-		return nil, false
-	}
-	return o.RemovedAtLegacy, true
-}
-
-// HasRemovedAtLegacy returns a boolean if a field has been set.
-func (o *O11yGettableAgentCheckIn) HasRemovedAtLegacy() bool {
-	if o != nil && !IsNil(o.RemovedAtLegacy) {
-		return true
-	}
-
-	return false
-}
-
-// SetRemovedAtLegacy gets a reference to the given time.Time and assigns it to the RemovedAtLegacy field.
-func (o *O11yGettableAgentCheckIn) SetRemovedAtLegacy(v time.Time) {
-	o.RemovedAtLegacy = &v
 }
 
 // GetRemovedAt returns the RemovedAt field value if set, zero value otherwise.
@@ -304,6 +272,38 @@ func (o *O11yGettableAgentCheckIn) SetRemovedAt(v time.Time) {
 	o.RemovedAt = &v
 }
 
+// GetRemovedAtLegacy returns the RemovedAtLegacy field value if set, zero value otherwise.
+func (o *O11yGettableAgentCheckIn) GetRemovedAtLegacy() time.Time {
+	if o == nil || IsNil(o.RemovedAtLegacy) {
+		var ret time.Time
+		return ret
+	}
+	return *o.RemovedAtLegacy
+}
+
+// GetRemovedAtLegacyOk returns a tuple with the RemovedAtLegacy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *O11yGettableAgentCheckIn) GetRemovedAtLegacyOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.RemovedAtLegacy) {
+		return nil, false
+	}
+	return o.RemovedAtLegacy, true
+}
+
+// HasRemovedAtLegacy returns a boolean if a field has been set.
+func (o *O11yGettableAgentCheckIn) HasRemovedAtLegacy() bool {
+	if o != nil && !IsNil(o.RemovedAtLegacy) {
+		return true
+	}
+
+	return false
+}
+
+// SetRemovedAtLegacy gets a reference to the given time.Time and assigns it to the RemovedAtLegacy field.
+func (o *O11yGettableAgentCheckIn) SetRemovedAtLegacy(v time.Time) {
+	o.RemovedAtLegacy = &v
+}
+
 func (o O11yGettableAgentCheckIn) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -317,26 +317,26 @@ func (o O11yGettableAgentCheckIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AccountId) {
 		toSerialize["account_id"] = o.AccountId
 	}
-	if !IsNil(o.CloudAccountId) {
-		toSerialize["cloud_account_id"] = o.CloudAccountId
-	}
 	if !IsNil(o.CloudIntegrationId) {
 		toSerialize["cloudIntegrationId"] = o.CloudIntegrationId
 	}
-	if !IsNil(o.IntegrationConfigLegacy) {
-		toSerialize["integration_config"] = o.IntegrationConfigLegacy
+	if !IsNil(o.CloudAccountId) {
+		toSerialize["cloud_account_id"] = o.CloudAccountId
 	}
 	if !IsNil(o.IntegrationConfig) {
 		toSerialize["integrationConfig"] = o.IntegrationConfig
 	}
+	if !IsNil(o.IntegrationConfigLegacy) {
+		toSerialize["integration_config"] = o.IntegrationConfigLegacy
+	}
 	if !IsNil(o.ProviderAccountId) {
 		toSerialize["providerAccountId"] = o.ProviderAccountId
 	}
-	if !IsNil(o.RemovedAtLegacy) {
-		toSerialize["removed_at"] = o.RemovedAtLegacy
-	}
 	if !IsNil(o.RemovedAt) {
 		toSerialize["removedAt"] = o.RemovedAt
+	}
+	if !IsNil(o.RemovedAtLegacy) {
+		toSerialize["removed_at"] = o.RemovedAtLegacy
 	}
 	return toSerialize, nil
 }

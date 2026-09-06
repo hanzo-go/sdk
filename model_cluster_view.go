@@ -25,7 +25,7 @@ type ClusterView struct {
 	CreatedAt *string `json:"createdAt,omitempty"`
 	// DoClusterID carries the SAME id as DoksClusterID. Both names exist because the console's Cluster type reads either one; neither is a second identifier.
 	DoClusterId *string `json:"doClusterId,omitempty"`
-	// DoksClusterID is the provider's own id for the cluster, and the value the /v1/visor/k8s/clusters/:id routes take. Empty for a BYO cluster: an attached kubeconfig was never provisioned, so there is no provider id to state.
+	// DoksClusterID is the provider's own id for the cluster, and the value the /v1/compute/k8s/clusters/:id routes take. Empty for a BYO cluster: an attached kubeconfig was never provisioned, so there is no provider id to state.
 	DoksClusterId *string `json:"doksClusterId,omitempty"`
 	// Kind says which of the two kinds of cluster this row is, and there are only two: \"managed\" — Visor provisioned it and Hanzo's account pays the provider — or \"byo\", an existing cluster the org attached by kubeconfig.
 	Kind *string `json:"kind,omitempty"`
@@ -33,7 +33,7 @@ type ClusterView struct {
 	Name *string `json:"name,omitempty"`
 	// NodeCount is how many worker nodes the cluster has — the sum over its pools for a managed cluster, and for a BYO one the node count read off the cluster when it was attached.
 	NodeCount *int64 `json:"nodeCount,omitempty"`
-	// NodePools is the authoritative node inventory — every pool, each with its own size and count. It is empty in two cases that are not \"no pools\": a row from the /v1/visor/k8s/clusters LIST, which is deliberately lightweight and whose :id detail carries them, and a BYO cluster, whose pools were never read.
+	// NodePools is the authoritative node inventory — every pool, each with its own size and count. It is empty in two cases that are not \"no pools\": a row from the /v1/compute/k8s/clusters LIST, which is deliberately lightweight and whose :id detail carries them, and a BYO cluster, whose pools were never read.
 	NodePools []NodePoolView `json:"nodePools,omitempty"`
 	// NodeSize is a display convenience: the size slug of the FIRST pool. A cluster mixing sizes has more than one, and NodePools is where they all are.
 	NodeSize *string `json:"nodeSize,omitempty"`

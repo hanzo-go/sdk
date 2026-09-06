@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AuthHeader** | Pointer to **string** | AuthHeader is the request header the credential is injected into, e.g. \&quot;Authorization\&quot;. Empty means the server needs no credential. | [optional] 
-**Listing** | Pointer to **string** | Listing enables a CATALOG entry instead — the id from GET /v1/tools/catalog. The endpoint is the listing&#39;s own streamable-http remote, so a listing that only ships a stdio package is refused: there is nothing to reach yet. | [optional] 
+**Listing** | Pointer to **string** | Listing enables a CATALOG entry instead — the id from GET /v1/tool/catalog. The endpoint is the listing&#39;s own streamable-http remote, so a listing that only ships a stdio package is refused: there is nothing to reach yet. | [optional] 
 **Name** | Pointer to **string** | Name labels the server for the org. Required with URL; with Listing it defaults to the listing&#39;s own title. | [optional] 
 **Secret** | Pointer to **string** | Secret is the credential VALUE. It is sealed into KMS under a per-org ref and never stored in SQLite, never listed, and never returned. | [optional] 
 **Url** | Pointer to **string** | URL is the server&#39;s JSON-RPC endpoint. It must be an http(s) URL naming a PUBLIC host: loopback, link-local, private and cloud-metadata addresses are refused here and again when the dialer connects. | [optional] 

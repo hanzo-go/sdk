@@ -19,37 +19,37 @@ import (
 	"strings"
 )
 
-// VisorAPIService VisorAPI service
-type VisorAPIService service
+// ComputeAPIService ComputeAPI service
+type ComputeAPIService service
 
-type VisorAPIAttachClusterRequest struct {
+type ComputeAPIAttachClusterRequest struct {
 	ctx           context.Context
-	ApiService    *VisorAPIService
+	ApiService    *ComputeAPIService
 	clusterAttach *ClusterAttach
 }
 
-func (r VisorAPIAttachClusterRequest) ClusterAttach(clusterAttach ClusterAttach) VisorAPIAttachClusterRequest {
+func (r ComputeAPIAttachClusterRequest) ClusterAttach(clusterAttach ClusterAttach) ComputeAPIAttachClusterRequest {
 	r.clusterAttach = &clusterAttach
 	return r
 }
 
-func (r VisorAPIAttachClusterRequest) Execute() (*ClusterView, *http.Response, error) {
+func (r ComputeAPIAttachClusterRequest) Execute() (*ClusterView, *http.Response, error) {
 	return r.ApiService.AttachClusterExecute(r)
 }
 
 /*
-AttachCluster Attaches a BYO cluster to the caller's org — the kubeconfig is validated, KMS-sealed and added to the fleet — and answers 201 with the cluster as it now appears on GET /v1/visor/clusters.
+AttachCluster Attaches a BYO cluster to the caller's org — the kubeconfig is validated, KMS-sealed and added to the fleet — and answers 201 with the cluster as it now appears on GET /v1/compute/clusters.
 
 Attaches a BYO cluster to the caller's org — the kubeconfig is
 validated, KMS-sealed and added to the fleet — and answers 201 with the cluster
-as it now appears on GET /v1/visor/clusters. Billed the nominal management fee: the
+as it now appears on GET /v1/compute/clusters. Billed the nominal management fee: the
 customer brings the compute, Hanzo meters the management plane.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return VisorAPIAttachClusterRequest
+	@return ComputeAPIAttachClusterRequest
 */
-func (a *VisorAPIService) AttachCluster(ctx context.Context) VisorAPIAttachClusterRequest {
-	return VisorAPIAttachClusterRequest{
+func (a *ComputeAPIService) AttachCluster(ctx context.Context) ComputeAPIAttachClusterRequest {
+	return ComputeAPIAttachClusterRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -58,7 +58,7 @@ func (a *VisorAPIService) AttachCluster(ctx context.Context) VisorAPIAttachClust
 // Execute executes the request
 //
 //	@return ClusterView
-func (a *VisorAPIService) AttachClusterExecute(r VisorAPIAttachClusterRequest) (*ClusterView, *http.Response, error) {
+func (a *ComputeAPIService) AttachClusterExecute(r ComputeAPIAttachClusterRequest) (*ClusterView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -66,12 +66,12 @@ func (a *VisorAPIService) AttachClusterExecute(r VisorAPIAttachClusterRequest) (
 		localVarReturnValue *ClusterView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.AttachCluster")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.AttachCluster")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/clusters"
+	localVarPath := localBasePath + "/v1/compute/clusters"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -136,19 +136,19 @@ func (a *VisorAPIService) AttachClusterExecute(r VisorAPIAttachClusterRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIBindMachineAgentRequest struct {
+type ComputeAPIBindMachineAgentRequest struct {
 	ctx          context.Context
-	ApiService   *VisorAPIService
+	ApiService   *ComputeAPIService
 	id           string
 	bindAgentReq *BindAgentReq
 }
 
-func (r VisorAPIBindMachineAgentRequest) BindAgentReq(bindAgentReq BindAgentReq) VisorAPIBindMachineAgentRequest {
+func (r ComputeAPIBindMachineAgentRequest) BindAgentReq(bindAgentReq BindAgentReq) ComputeAPIBindMachineAgentRequest {
 	r.bindAgentReq = &bindAgentReq
 	return r
 }
 
-func (r VisorAPIBindMachineAgentRequest) Execute() (*AgentBinding, *http.Response, error) {
+func (r ComputeAPIBindMachineAgentRequest) Execute() (*AgentBinding, *http.Response, error) {
 	return r.ApiService.BindMachineAgentExecute(r)
 }
 
@@ -161,10 +161,10 @@ the validated tenant, never a client field.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the machine to bind, from the URL path.
-	@return VisorAPIBindMachineAgentRequest
+	@return ComputeAPIBindMachineAgentRequest
 */
-func (a *VisorAPIService) BindMachineAgent(ctx context.Context, id string) VisorAPIBindMachineAgentRequest {
-	return VisorAPIBindMachineAgentRequest{
+func (a *ComputeAPIService) BindMachineAgent(ctx context.Context, id string) ComputeAPIBindMachineAgentRequest {
+	return ComputeAPIBindMachineAgentRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -174,7 +174,7 @@ func (a *VisorAPIService) BindMachineAgent(ctx context.Context, id string) Visor
 // Execute executes the request
 //
 //	@return AgentBinding
-func (a *VisorAPIService) BindMachineAgentExecute(r VisorAPIBindMachineAgentRequest) (*AgentBinding, *http.Response, error) {
+func (a *ComputeAPIService) BindMachineAgentExecute(r ComputeAPIBindMachineAgentRequest) (*AgentBinding, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
@@ -182,12 +182,12 @@ func (a *VisorAPIService) BindMachineAgentExecute(r VisorAPIBindMachineAgentRequ
 		localVarReturnValue *AgentBinding
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.BindMachineAgent")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.BindMachineAgent")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/machines/{id}/agent"
+	localVarPath := localBasePath + "/v1/compute/machines/{id}/agent"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -253,19 +253,19 @@ func (a *VisorAPIService) BindMachineAgentExecute(r VisorAPIBindMachineAgentRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPICancelFleetJobRequest struct {
+type ComputeAPICancelFleetJobRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 	id         string
 	jobCancel  *JobCancel
 }
 
-func (r VisorAPICancelFleetJobRequest) JobCancel(jobCancel JobCancel) VisorAPICancelFleetJobRequest {
+func (r ComputeAPICancelFleetJobRequest) JobCancel(jobCancel JobCancel) ComputeAPICancelFleetJobRequest {
 	r.jobCancel = &jobCancel
 	return r
 }
 
-func (r VisorAPICancelFleetJobRequest) Execute() (*JobCanceled, *http.Response, error) {
+func (r ComputeAPICancelFleetJobRequest) Execute() (*JobCanceled, *http.Response, error) {
 	return r.ApiService.CancelFleetJobExecute(r)
 }
 
@@ -279,10 +279,10 @@ already-finished job is 409.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the job (activity) id, from the URL path.
-	@return VisorAPICancelFleetJobRequest
+	@return ComputeAPICancelFleetJobRequest
 */
-func (a *VisorAPIService) CancelFleetJob(ctx context.Context, id string) VisorAPICancelFleetJobRequest {
-	return VisorAPICancelFleetJobRequest{
+func (a *ComputeAPIService) CancelFleetJob(ctx context.Context, id string) ComputeAPICancelFleetJobRequest {
+	return ComputeAPICancelFleetJobRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -292,7 +292,7 @@ func (a *VisorAPIService) CancelFleetJob(ctx context.Context, id string) VisorAP
 // Execute executes the request
 //
 //	@return JobCanceled
-func (a *VisorAPIService) CancelFleetJobExecute(r VisorAPICancelFleetJobRequest) (*JobCanceled, *http.Response, error) {
+func (a *ComputeAPIService) CancelFleetJobExecute(r ComputeAPICancelFleetJobRequest) (*JobCanceled, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -300,12 +300,12 @@ func (a *VisorAPIService) CancelFleetJobExecute(r VisorAPICancelFleetJobRequest)
 		localVarReturnValue *JobCanceled
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.CancelFleetJob")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.CancelFleetJob")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/fleet/jobs/{id}/cancel"
+	localVarPath := localBasePath + "/v1/compute/fleet/jobs/{id}/cancel"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -371,18 +371,18 @@ func (a *VisorAPIService) CancelFleetJobExecute(r VisorAPICancelFleetJobRequest)
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPICreateKubernetesClusterRequest struct {
+type ComputeAPICreateKubernetesClusterRequest struct {
 	ctx              context.Context
-	ApiService       *VisorAPIService
+	ApiService       *ComputeAPIService
 	createClusterReq *CreateClusterReq
 }
 
-func (r VisorAPICreateKubernetesClusterRequest) CreateClusterReq(createClusterReq CreateClusterReq) VisorAPICreateKubernetesClusterRequest {
+func (r ComputeAPICreateKubernetesClusterRequest) CreateClusterReq(createClusterReq CreateClusterReq) ComputeAPICreateKubernetesClusterRequest {
 	r.createClusterReq = &createClusterReq
 	return r
 }
 
-func (r VisorAPICreateKubernetesClusterRequest) Execute() (*ClusterView, *http.Response, error) {
+func (r ComputeAPICreateKubernetesClusterRequest) Execute() (*ClusterView, *http.Response, error) {
 	return r.ApiService.CreateKubernetesClusterExecute(r)
 }
 
@@ -396,10 +396,10 @@ validated at this boundary, then Visor owns provisioning and the hanzo-org
 ownership tag.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return VisorAPICreateKubernetesClusterRequest
+	@return ComputeAPICreateKubernetesClusterRequest
 */
-func (a *VisorAPIService) CreateKubernetesCluster(ctx context.Context) VisorAPICreateKubernetesClusterRequest {
-	return VisorAPICreateKubernetesClusterRequest{
+func (a *ComputeAPIService) CreateKubernetesCluster(ctx context.Context) ComputeAPICreateKubernetesClusterRequest {
+	return ComputeAPICreateKubernetesClusterRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -408,7 +408,7 @@ func (a *VisorAPIService) CreateKubernetesCluster(ctx context.Context) VisorAPIC
 // Execute executes the request
 //
 //	@return ClusterView
-func (a *VisorAPIService) CreateKubernetesClusterExecute(r VisorAPICreateKubernetesClusterRequest) (*ClusterView, *http.Response, error) {
+func (a *ComputeAPIService) CreateKubernetesClusterExecute(r ComputeAPICreateKubernetesClusterRequest) (*ClusterView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -416,12 +416,12 @@ func (a *VisorAPIService) CreateKubernetesClusterExecute(r VisorAPICreateKuberne
 		localVarReturnValue *ClusterView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.CreateKubernetesCluster")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.CreateKubernetesCluster")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/k8s/clusters"
+	localVarPath := localBasePath + "/v1/compute/k8s/clusters"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -486,19 +486,19 @@ func (a *VisorAPIService) CreateKubernetesClusterExecute(r VisorAPICreateKuberne
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPICreateNodePoolRequest struct {
+type ComputeAPICreateNodePoolRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 	clusterId  string
 	poolCreate *PoolCreate
 }
 
-func (r VisorAPICreateNodePoolRequest) PoolCreate(poolCreate PoolCreate) VisorAPICreateNodePoolRequest {
+func (r ComputeAPICreateNodePoolRequest) PoolCreate(poolCreate PoolCreate) ComputeAPICreateNodePoolRequest {
 	r.poolCreate = &poolCreate
 	return r
 }
 
-func (r VisorAPICreateNodePoolRequest) Execute() (*NodePoolView, *http.Response, error) {
+func (r ComputeAPICreateNodePoolRequest) Execute() (*NodePoolView, *http.Response, error) {
 	return r.ApiService.CreateNodePoolExecute(r)
 }
 
@@ -511,10 +511,10 @@ owner/provider/clusterId ride in the query exactly as Visor expects them.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param clusterId ClusterID is the cluster to add the pool to, from the URL path.
-	@return VisorAPICreateNodePoolRequest
+	@return ComputeAPICreateNodePoolRequest
 */
-func (a *VisorAPIService) CreateNodePool(ctx context.Context, clusterId string) VisorAPICreateNodePoolRequest {
-	return VisorAPICreateNodePoolRequest{
+func (a *ComputeAPIService) CreateNodePool(ctx context.Context, clusterId string) ComputeAPICreateNodePoolRequest {
+	return ComputeAPICreateNodePoolRequest{
 		ApiService: a,
 		ctx:        ctx,
 		clusterId:  clusterId,
@@ -524,7 +524,7 @@ func (a *VisorAPIService) CreateNodePool(ctx context.Context, clusterId string) 
 // Execute executes the request
 //
 //	@return NodePoolView
-func (a *VisorAPIService) CreateNodePoolExecute(r VisorAPICreateNodePoolRequest) (*NodePoolView, *http.Response, error) {
+func (a *ComputeAPIService) CreateNodePoolExecute(r ComputeAPICreateNodePoolRequest) (*NodePoolView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -532,12 +532,12 @@ func (a *VisorAPIService) CreateNodePoolExecute(r VisorAPICreateNodePoolRequest)
 		localVarReturnValue *NodePoolView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.CreateNodePool")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.CreateNodePool")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/clusters/{clusterId}/pools"
+	localVarPath := localBasePath + "/v1/compute/clusters/{clusterId}/pools"
 	localVarPath = strings.Replace(localVarPath, "{"+"clusterId"+"}", url.PathEscape(parameterValueToString(r.clusterId, "clusterId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -603,106 +603,13 @@ func (a *VisorAPIService) CreateNodePoolExecute(r VisorAPICreateNodePoolRequest)
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIDeleteBotRequest struct {
+type ComputeAPIDeleteKubernetesClusterRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 	id         string
 }
 
-func (r VisorAPIDeleteBotRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteBotExecute(r)
-}
-
-/*
-DeleteBot Tears down both halves of a bot: it unbinds the agent (best-effort — a bot with no binding still deletes), then terminates the machine.
-
-Tears down both halves of a bot: it unbinds the agent (best-effort — a
-bot with no binding still deletes), then terminates the machine. Answers 204.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID is the bot machine's id — the same id the machines surface addresses it by. Scoped to the caller's org upstream, so another tenant's id is 404.
-	@return VisorAPIDeleteBotRequest
-*/
-func (a *VisorAPIService) DeleteBot(ctx context.Context, id string) VisorAPIDeleteBotRequest {
-	return VisorAPIDeleteBotRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-func (a *VisorAPIService) DeleteBotExecute(r VisorAPIDeleteBotRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.DeleteBot")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/visor/compute/bots/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type VisorAPIDeleteKubernetesClusterRequest struct {
-	ctx        context.Context
-	ApiService *VisorAPIService
-	id         string
-}
-
-func (r VisorAPIDeleteKubernetesClusterRequest) Execute() (*http.Response, error) {
+func (r ComputeAPIDeleteKubernetesClusterRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteKubernetesClusterExecute(r)
 }
 
@@ -715,10 +622,10 @@ only ever remove the caller org's own cluster.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the provider's DOKS cluster id. Visor scopes the lookup to the caller's org, so another tenant's id resolves to not-found rather than their cluster.
-	@return VisorAPIDeleteKubernetesClusterRequest
+	@return ComputeAPIDeleteKubernetesClusterRequest
 */
-func (a *VisorAPIService) DeleteKubernetesCluster(ctx context.Context, id string) VisorAPIDeleteKubernetesClusterRequest {
-	return VisorAPIDeleteKubernetesClusterRequest{
+func (a *ComputeAPIService) DeleteKubernetesCluster(ctx context.Context, id string) ComputeAPIDeleteKubernetesClusterRequest {
+	return ComputeAPIDeleteKubernetesClusterRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -726,19 +633,19 @@ func (a *VisorAPIService) DeleteKubernetesCluster(ctx context.Context, id string
 }
 
 // Execute executes the request
-func (a *VisorAPIService) DeleteKubernetesClusterExecute(r VisorAPIDeleteKubernetesClusterRequest) (*http.Response, error) {
+func (a *ComputeAPIService) DeleteKubernetesClusterExecute(r ComputeAPIDeleteKubernetesClusterRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.DeleteKubernetesCluster")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.DeleteKubernetesCluster")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/k8s/clusters/{id}"
+	localVarPath := localBasePath + "/v1/compute/k8s/clusters/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -790,13 +697,13 @@ func (a *VisorAPIService) DeleteKubernetesClusterExecute(r VisorAPIDeleteKuberne
 	return localVarHTTPResponse, nil
 }
 
-type VisorAPIDeleteMachineRequest struct {
+type ComputeAPIDeleteMachineRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 	id         string
 }
 
-func (r VisorAPIDeleteMachineRequest) Execute() (*http.Response, error) {
+func (r ComputeAPIDeleteMachineRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteMachineExecute(r)
 }
 
@@ -809,10 +716,10 @@ caller can only ever terminate its own tenant's machine. Answers 204.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the machine's org-scoped NAME — the stable key Visor addresses a machine by (owner/name), not the ephemeral provider id.
-	@return VisorAPIDeleteMachineRequest
+	@return ComputeAPIDeleteMachineRequest
 */
-func (a *VisorAPIService) DeleteMachine(ctx context.Context, id string) VisorAPIDeleteMachineRequest {
-	return VisorAPIDeleteMachineRequest{
+func (a *ComputeAPIService) DeleteMachine(ctx context.Context, id string) ComputeAPIDeleteMachineRequest {
+	return ComputeAPIDeleteMachineRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -820,19 +727,19 @@ func (a *VisorAPIService) DeleteMachine(ctx context.Context, id string) VisorAPI
 }
 
 // Execute executes the request
-func (a *VisorAPIService) DeleteMachineExecute(r VisorAPIDeleteMachineRequest) (*http.Response, error) {
+func (a *ComputeAPIService) DeleteMachineExecute(r ComputeAPIDeleteMachineRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.DeleteMachine")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.DeleteMachine")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/machines/{id}"
+	localVarPath := localBasePath + "/v1/compute/machines/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -884,21 +791,21 @@ func (a *VisorAPIService) DeleteMachineExecute(r VisorAPIDeleteMachineRequest) (
 	return localVarHTTPResponse, nil
 }
 
-type VisorAPIDeleteNodePoolRequest struct {
+type ComputeAPIDeleteNodePoolRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 	clusterId  string
 	poolId     string
 	provider   *string
 }
 
 // Provider is the cloud the cluster lives on, from ?provider&#x3D;. Required.
-func (r VisorAPIDeleteNodePoolRequest) Provider(provider string) VisorAPIDeleteNodePoolRequest {
+func (r ComputeAPIDeleteNodePoolRequest) Provider(provider string) ComputeAPIDeleteNodePoolRequest {
 	r.provider = &provider
 	return r
 }
 
-func (r VisorAPIDeleteNodePoolRequest) Execute() (*http.Response, error) {
+func (r ComputeAPIDeleteNodePoolRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteNodePoolExecute(r)
 }
 
@@ -912,10 +819,10 @@ provider-side removal. Answers 204.
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param clusterId ClusterID and PoolID address the pool, from the URL path.
 	@param poolId
-	@return VisorAPIDeleteNodePoolRequest
+	@return ComputeAPIDeleteNodePoolRequest
 */
-func (a *VisorAPIService) DeleteNodePool(ctx context.Context, clusterId string, poolId string) VisorAPIDeleteNodePoolRequest {
-	return VisorAPIDeleteNodePoolRequest{
+func (a *ComputeAPIService) DeleteNodePool(ctx context.Context, clusterId string, poolId string) ComputeAPIDeleteNodePoolRequest {
+	return ComputeAPIDeleteNodePoolRequest{
 		ApiService: a,
 		ctx:        ctx,
 		clusterId:  clusterId,
@@ -924,19 +831,19 @@ func (a *VisorAPIService) DeleteNodePool(ctx context.Context, clusterId string, 
 }
 
 // Execute executes the request
-func (a *VisorAPIService) DeleteNodePoolExecute(r VisorAPIDeleteNodePoolRequest) (*http.Response, error) {
+func (a *ComputeAPIService) DeleteNodePoolExecute(r ComputeAPIDeleteNodePoolRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.DeleteNodePool")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.DeleteNodePool")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/clusters/{clusterId}/pools/{poolId}"
+	localVarPath := localBasePath + "/v1/compute/clusters/{clusterId}/pools/{poolId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"clusterId"+"}", url.PathEscape(parameterValueToString(r.clusterId, "clusterId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"poolId"+"}", url.PathEscape(parameterValueToString(r.poolId, "poolId")), -1)
 
@@ -992,13 +899,13 @@ func (a *VisorAPIService) DeleteNodePoolExecute(r VisorAPIDeleteNodePoolRequest)
 	return localVarHTTPResponse, nil
 }
 
-type VisorAPIDetachClusterRequest struct {
+type ComputeAPIDetachClusterRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 	id         string
 }
 
-func (r VisorAPIDetachClusterRequest) Execute() (*ClusterDetached, *http.Response, error) {
+func (r ComputeAPIDetachClusterRequest) Execute() (*ClusterDetached, *http.Response, error) {
 	return r.ApiService.DetachClusterExecute(r)
 }
 
@@ -1011,10 +918,10 @@ routes — and answers 404 when the name is not in this org's fleet.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the cluster's fleet name (the `name` it was attached under), matched lower-cased.
-	@return VisorAPIDetachClusterRequest
+	@return ComputeAPIDetachClusterRequest
 */
-func (a *VisorAPIService) DetachCluster(ctx context.Context, id string) VisorAPIDetachClusterRequest {
-	return VisorAPIDetachClusterRequest{
+func (a *ComputeAPIService) DetachCluster(ctx context.Context, id string) ComputeAPIDetachClusterRequest {
+	return ComputeAPIDetachClusterRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -1024,7 +931,7 @@ func (a *VisorAPIService) DetachCluster(ctx context.Context, id string) VisorAPI
 // Execute executes the request
 //
 //	@return ClusterDetached
-func (a *VisorAPIService) DetachClusterExecute(r VisorAPIDetachClusterRequest) (*ClusterDetached, *http.Response, error) {
+func (a *ComputeAPIService) DetachClusterExecute(r ComputeAPIDetachClusterRequest) (*ClusterDetached, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
@@ -1032,12 +939,12 @@ func (a *VisorAPIService) DetachClusterExecute(r VisorAPIDetachClusterRequest) (
 		localVarReturnValue *ClusterDetached
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.DetachCluster")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.DetachCluster")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/clusters/{id}"
+	localVarPath := localBasePath + "/v1/compute/clusters/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1098,56 +1005,51 @@ func (a *VisorAPIService) DetachClusterExecute(r VisorAPIDetachClusterRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIGetBotRequest struct {
+type ComputeAPIGetComputeRegionsRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
-	id         string
+	ApiService *ComputeAPIService
 }
 
-func (r VisorAPIGetBotRequest) Execute() (*BotView, *http.Response, error) {
-	return r.ApiService.GetBotExecute(r)
+func (r ComputeAPIGetComputeRegionsRequest) Execute() (interface{}, *http.Response, error) {
+	return r.ApiService.GetComputeRegionsExecute(r)
 }
 
 /*
-GetBot Returns one of the caller org's bot machines with its agent binding.
+GetComputeRegions Regions lists the regions a machine can be launched in.
 
-Returns one of the caller org's bot machines with its agent binding.
+Regions lists the regions a machine can be launched in.
 
-A machine counts as a Bot if it carries the hanzo-kind:bot tag OR has an agent
-binding — either signal is authoritative, so a bot resolves even before its
-cloud-init has stamped every tag. A machine that is neither is 404: this route
-answers for bots, not for machines.
+The catalog is GLOBAL — identical for every tenant — so no owner is forwarded
+upstream. It is still org-gated, because a catalog is a map of what this
+deployment can spend money in and an anonymous caller has no business reading it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID is the bot machine's id — the same id the machines surface addresses it by. Scoped to the caller's org upstream, so another tenant's id is 404.
-	@return VisorAPIGetBotRequest
+	@return ComputeAPIGetComputeRegionsRequest
 */
-func (a *VisorAPIService) GetBot(ctx context.Context, id string) VisorAPIGetBotRequest {
-	return VisorAPIGetBotRequest{
+func (a *ComputeAPIService) GetComputeRegions(ctx context.Context) ComputeAPIGetComputeRegionsRequest {
+	return ComputeAPIGetComputeRegionsRequest{
 		ApiService: a,
 		ctx:        ctx,
-		id:         id,
 	}
 }
 
 // Execute executes the request
 //
-//	@return BotView
-func (a *VisorAPIService) GetBotExecute(r VisorAPIGetBotRequest) (*BotView, *http.Response, error) {
+//	@return interface{}
+func (a *ComputeAPIService) GetComputeRegionsExecute(r ComputeAPIGetComputeRegionsRequest) (interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BotView
+		localVarReturnValue interface{}
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.GetBot")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.GetComputeRegions")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/compute/bots/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath := localBasePath + "/v1/compute/regions"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1207,13 +1109,115 @@ func (a *VisorAPIService) GetBotExecute(r VisorAPIGetBotRequest) (*BotView, *htt
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIGetKubernetesClusterRequest struct {
+type ComputeAPIGetComputeSizesRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
+}
+
+func (r ComputeAPIGetComputeSizesRequest) Execute() (interface{}, *http.Response, error) {
+	return r.ApiService.GetComputeSizesExecute(r)
+}
+
+/*
+GetComputeSizes Sizes lists the machine sizes available to launch, with their specifications.
+
+Sizes lists the machine sizes available to launch, with their specifications.
+
+Global and org-gated, exactly as the region catalog is, and for the same reasons.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ComputeAPIGetComputeSizesRequest
+*/
+func (a *ComputeAPIService) GetComputeSizes(ctx context.Context) ComputeAPIGetComputeSizesRequest {
+	return ComputeAPIGetComputeSizesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return interface{}
+func (a *ComputeAPIService) GetComputeSizesExecute(r ComputeAPIGetComputeSizesRequest) (interface{}, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.GetComputeSizes")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/compute/sizes"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ComputeAPIGetKubernetesClusterRequest struct {
+	ctx        context.Context
+	ApiService *ComputeAPIService
 	id         string
 }
 
-func (r VisorAPIGetKubernetesClusterRequest) Execute() (*ClusterDetailView, *http.Response, error) {
+func (r ComputeAPIGetKubernetesClusterRequest) Execute() (*ClusterDetailView, *http.Response, error) {
 	return r.ApiService.GetKubernetesClusterExecute(r)
 }
 
@@ -1226,10 +1230,10 @@ can never read another tenant's cluster by guessing an id.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the provider's DOKS cluster id. Visor scopes the lookup to the caller's org, so another tenant's id resolves to not-found rather than their cluster.
-	@return VisorAPIGetKubernetesClusterRequest
+	@return ComputeAPIGetKubernetesClusterRequest
 */
-func (a *VisorAPIService) GetKubernetesCluster(ctx context.Context, id string) VisorAPIGetKubernetesClusterRequest {
-	return VisorAPIGetKubernetesClusterRequest{
+func (a *ComputeAPIService) GetKubernetesCluster(ctx context.Context, id string) ComputeAPIGetKubernetesClusterRequest {
+	return ComputeAPIGetKubernetesClusterRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -1239,7 +1243,7 @@ func (a *VisorAPIService) GetKubernetesCluster(ctx context.Context, id string) V
 // Execute executes the request
 //
 //	@return ClusterDetailView
-func (a *VisorAPIService) GetKubernetesClusterExecute(r VisorAPIGetKubernetesClusterRequest) (*ClusterDetailView, *http.Response, error) {
+func (a *ComputeAPIService) GetKubernetesClusterExecute(r ComputeAPIGetKubernetesClusterRequest) (*ClusterDetailView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1247,12 +1251,12 @@ func (a *VisorAPIService) GetKubernetesClusterExecute(r VisorAPIGetKubernetesClu
 		localVarReturnValue *ClusterDetailView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.GetKubernetesCluster")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.GetKubernetesCluster")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/k8s/clusters/{id}"
+	localVarPath := localBasePath + "/v1/compute/k8s/clusters/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1313,13 +1317,13 @@ func (a *VisorAPIService) GetKubernetesClusterExecute(r VisorAPIGetKubernetesClu
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIGetMachineRequest struct {
+type ComputeAPIGetMachineRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 	id         string
 }
 
-func (r VisorAPIGetMachineRequest) Execute() (*MachineView, *http.Response, error) {
+func (r ComputeAPIGetMachineRequest) Execute() (*MachineView, *http.Response, error) {
 	return r.ApiService.GetMachineExecute(r)
 }
 
@@ -1332,10 +1336,10 @@ resolves to not-found rather than another org's machine.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the machine's org-scoped NAME — the stable key Visor addresses a machine by (owner/name), not the ephemeral provider id.
-	@return VisorAPIGetMachineRequest
+	@return ComputeAPIGetMachineRequest
 */
-func (a *VisorAPIService) GetMachine(ctx context.Context, id string) VisorAPIGetMachineRequest {
-	return VisorAPIGetMachineRequest{
+func (a *ComputeAPIService) GetMachine(ctx context.Context, id string) ComputeAPIGetMachineRequest {
+	return ComputeAPIGetMachineRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -1345,7 +1349,7 @@ func (a *VisorAPIService) GetMachine(ctx context.Context, id string) VisorAPIGet
 // Execute executes the request
 //
 //	@return MachineView
-func (a *VisorAPIService) GetMachineExecute(r VisorAPIGetMachineRequest) (*MachineView, *http.Response, error) {
+func (a *ComputeAPIService) GetMachineExecute(r ComputeAPIGetMachineRequest) (*MachineView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1353,12 +1357,12 @@ func (a *VisorAPIService) GetMachineExecute(r VisorAPIGetMachineRequest) (*Machi
 		localVarReturnValue *MachineView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.GetMachine")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.GetMachine")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/machines/{id}"
+	localVarPath := localBasePath + "/v1/compute/machines/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1419,13 +1423,13 @@ func (a *VisorAPIService) GetMachineExecute(r VisorAPIGetMachineRequest) (*Machi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIGetMachineAgentRequest struct {
+type ComputeAPIGetMachineAgentRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 	id         string
 }
 
-func (r VisorAPIGetMachineAgentRequest) Execute() (*AgentBinding, *http.Response, error) {
+func (r ComputeAPIGetMachineAgentRequest) Execute() (*AgentBinding, *http.Response, error) {
 	return r.ApiService.GetMachineAgentExecute(r)
 }
 
@@ -1437,10 +1441,10 @@ machines, or 404 when the machine runs no bot runtime.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the machine's org-scoped NAME — the stable key Visor addresses a machine by (owner/name), not the ephemeral provider id.
-	@return VisorAPIGetMachineAgentRequest
+	@return ComputeAPIGetMachineAgentRequest
 */
-func (a *VisorAPIService) GetMachineAgent(ctx context.Context, id string) VisorAPIGetMachineAgentRequest {
-	return VisorAPIGetMachineAgentRequest{
+func (a *ComputeAPIService) GetMachineAgent(ctx context.Context, id string) ComputeAPIGetMachineAgentRequest {
+	return ComputeAPIGetMachineAgentRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -1450,7 +1454,7 @@ func (a *VisorAPIService) GetMachineAgent(ctx context.Context, id string) VisorA
 // Execute executes the request
 //
 //	@return AgentBinding
-func (a *VisorAPIService) GetMachineAgentExecute(r VisorAPIGetMachineAgentRequest) (*AgentBinding, *http.Response, error) {
+func (a *ComputeAPIService) GetMachineAgentExecute(r ComputeAPIGetMachineAgentRequest) (*AgentBinding, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1458,12 +1462,12 @@ func (a *VisorAPIService) GetMachineAgentExecute(r VisorAPIGetMachineAgentReques
 		localVarReturnValue *AgentBinding
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.GetMachineAgent")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.GetMachineAgent")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/machines/{id}/agent"
+	localVarPath := localBasePath + "/v1/compute/machines/{id}/agent"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1524,323 +1528,12 @@ func (a *VisorAPIService) GetMachineAgentExecute(r VisorAPIGetMachineAgentReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIGetVisorComputeRegionsRequest struct {
+type ComputeAPIListClustersRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 }
 
-func (r VisorAPIGetVisorComputeRegionsRequest) Execute() (interface{}, *http.Response, error) {
-	return r.ApiService.GetVisorComputeRegionsExecute(r)
-}
-
-/*
-GetVisorComputeRegions Regions lists the regions a machine can be launched in.
-
-Regions lists the regions a machine can be launched in.
-
-The catalog is GLOBAL — identical for every tenant — so no owner is forwarded
-upstream. It is still org-gated, because a catalog is a map of what this
-deployment can spend money in and an anonymous caller has no business reading it.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return VisorAPIGetVisorComputeRegionsRequest
-*/
-func (a *VisorAPIService) GetVisorComputeRegions(ctx context.Context) VisorAPIGetVisorComputeRegionsRequest {
-	return VisorAPIGetVisorComputeRegionsRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return interface{}
-func (a *VisorAPIService) GetVisorComputeRegionsExecute(r VisorAPIGetVisorComputeRegionsRequest) (interface{}, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue interface{}
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.GetVisorComputeRegions")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/visor/compute/regions"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type VisorAPIGetVisorComputeSizesRequest struct {
-	ctx        context.Context
-	ApiService *VisorAPIService
-}
-
-func (r VisorAPIGetVisorComputeSizesRequest) Execute() (interface{}, *http.Response, error) {
-	return r.ApiService.GetVisorComputeSizesExecute(r)
-}
-
-/*
-GetVisorComputeSizes Sizes lists the machine sizes available to launch, with their specifications.
-
-Sizes lists the machine sizes available to launch, with their specifications.
-
-Global and org-gated, exactly as the region catalog is, and for the same reasons.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return VisorAPIGetVisorComputeSizesRequest
-*/
-func (a *VisorAPIService) GetVisorComputeSizes(ctx context.Context) VisorAPIGetVisorComputeSizesRequest {
-	return VisorAPIGetVisorComputeSizesRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return interface{}
-func (a *VisorAPIService) GetVisorComputeSizesExecute(r VisorAPIGetVisorComputeSizesRequest) (interface{}, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue interface{}
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.GetVisorComputeSizes")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/visor/compute/sizes"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type VisorAPIListBotsRequest struct {
-	ctx        context.Context
-	ApiService *VisorAPIService
-}
-
-func (r VisorAPIListBotsRequest) Execute() (*BotList, *http.Response, error) {
-	return r.ApiService.ListBotsExecute(r)
-}
-
-/*
-ListBots Returns the caller org's bot machines — the kind=bot machines — each joined with the agent binding that says which cloud Agent it runs.
-
-Returns the caller org's bot machines — the kind=bot machines — each
-joined with the agent binding that says which cloud Agent it runs.
-
-The bindings are read ONCE and joined by machine id, so the list is O(1) upstream
-calls, not N+1. A bindings read that fails only costs the reconciled status: a bot
-still lists without it.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return VisorAPIListBotsRequest
-*/
-func (a *VisorAPIService) ListBots(ctx context.Context) VisorAPIListBotsRequest {
-	return VisorAPIListBotsRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return BotList
-func (a *VisorAPIService) ListBotsExecute(r VisorAPIListBotsRequest) (*BotList, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BotList
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.ListBots")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/visor/compute/bots"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type VisorAPIListClustersRequest struct {
-	ctx        context.Context
-	ApiService *VisorAPIService
-}
-
-func (r VisorAPIListClustersRequest) Execute() (*ClusterList, *http.Response, error) {
+func (r ComputeAPIListClustersRequest) Execute() (*ClusterList, *http.Response, error) {
 	return r.ApiService.ListClustersExecute(r)
 }
 
@@ -1854,10 +1547,10 @@ still lists, because a page that 502s on an optional provider is worse than a
 page that shows what it can.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return VisorAPIListClustersRequest
+	@return ComputeAPIListClustersRequest
 */
-func (a *VisorAPIService) ListClusters(ctx context.Context) VisorAPIListClustersRequest {
-	return VisorAPIListClustersRequest{
+func (a *ComputeAPIService) ListClusters(ctx context.Context) ComputeAPIListClustersRequest {
+	return ComputeAPIListClustersRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1866,7 +1559,7 @@ func (a *VisorAPIService) ListClusters(ctx context.Context) VisorAPIListClusters
 // Execute executes the request
 //
 //	@return ClusterList
-func (a *VisorAPIService) ListClustersExecute(r VisorAPIListClustersRequest) (*ClusterList, *http.Response, error) {
+func (a *ComputeAPIService) ListClustersExecute(r ComputeAPIListClustersRequest) (*ClusterList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1874,12 +1567,12 @@ func (a *VisorAPIService) ListClustersExecute(r VisorAPIListClustersRequest) (*C
 		localVarReturnValue *ClusterList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.ListClusters")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListClusters")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/clusters"
+	localVarPath := localBasePath + "/v1/compute/clusters"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1939,12 +1632,12 @@ func (a *VisorAPIService) ListClustersExecute(r VisorAPIListClustersRequest) (*C
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIListFleetRequest struct {
+type ComputeAPIListFleetRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 }
 
-func (r VisorAPIListFleetRequest) Execute() (*FleetBoard, *http.Response, error) {
+func (r ComputeAPIListFleetRequest) Execute() (*FleetBoard, *http.Response, error) {
 	return r.ApiService.ListFleetExecute(r)
 }
 
@@ -1962,10 +1655,10 @@ another's row. BYO GPU units also carry their gpu-jobs queue depth. Every source
 is folded in independently: a broken one costs its own rows and nothing else.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return VisorAPIListFleetRequest
+	@return ComputeAPIListFleetRequest
 */
-func (a *VisorAPIService) ListFleet(ctx context.Context) VisorAPIListFleetRequest {
-	return VisorAPIListFleetRequest{
+func (a *ComputeAPIService) ListFleet(ctx context.Context) ComputeAPIListFleetRequest {
+	return ComputeAPIListFleetRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1974,7 +1667,7 @@ func (a *VisorAPIService) ListFleet(ctx context.Context) VisorAPIListFleetReques
 // Execute executes the request
 //
 //	@return FleetBoard
-func (a *VisorAPIService) ListFleetExecute(r VisorAPIListFleetRequest) (*FleetBoard, *http.Response, error) {
+func (a *ComputeAPIService) ListFleetExecute(r ComputeAPIListFleetRequest) (*FleetBoard, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1982,12 +1675,12 @@ func (a *VisorAPIService) ListFleetExecute(r VisorAPIListFleetRequest) (*FleetBo
 		localVarReturnValue *FleetBoard
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.ListFleet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListFleet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/fleet"
+	localVarPath := localBasePath + "/v1/compute/fleet"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2047,26 +1740,26 @@ func (a *VisorAPIService) ListFleetExecute(r VisorAPIListFleetRequest) (*FleetBo
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIListFleetJobsRequest struct {
+type ComputeAPIListFleetJobsRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 	gpu        *string
 	status     *string
 }
 
 // GPU selects one node&#39;s lane: jobs TARGETED at it (gpu:&lt;node&gt;) or CLAIMED by it. The literal \&quot;shared\&quot; selects the any-GPU lane — no target, no claimant. Matched case-insensitively.
-func (r VisorAPIListFleetJobsRequest) Gpu(gpu string) VisorAPIListFleetJobsRequest {
+func (r ComputeAPIListFleetJobsRequest) Gpu(gpu string) ComputeAPIListFleetJobsRequest {
 	r.gpu = &gpu
 	return r
 }
 
 // Status selects one lifecycle state: queued, running, stalled, completed, failed or canceled.
-func (r VisorAPIListFleetJobsRequest) Status(status string) VisorAPIListFleetJobsRequest {
+func (r ComputeAPIListFleetJobsRequest) Status(status string) ComputeAPIListFleetJobsRequest {
 	r.status = &status
 	return r
 }
 
-func (r VisorAPIListFleetJobsRequest) Execute() (*JobList, *http.Response, error) {
+func (r ComputeAPIListFleetJobsRequest) Execute() (*JobList, *http.Response, error) {
 	return r.ApiService.ListFleetJobsExecute(r)
 }
 
@@ -2082,10 +1775,10 @@ reads "stalled", not "running". Fail-soft: an unavailable tasks engine yields an
 empty queue rather than an error.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return VisorAPIListFleetJobsRequest
+	@return ComputeAPIListFleetJobsRequest
 */
-func (a *VisorAPIService) ListFleetJobs(ctx context.Context) VisorAPIListFleetJobsRequest {
-	return VisorAPIListFleetJobsRequest{
+func (a *ComputeAPIService) ListFleetJobs(ctx context.Context) ComputeAPIListFleetJobsRequest {
+	return ComputeAPIListFleetJobsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2094,7 +1787,7 @@ func (a *VisorAPIService) ListFleetJobs(ctx context.Context) VisorAPIListFleetJo
 // Execute executes the request
 //
 //	@return JobList
-func (a *VisorAPIService) ListFleetJobsExecute(r VisorAPIListFleetJobsRequest) (*JobList, *http.Response, error) {
+func (a *ComputeAPIService) ListFleetJobsExecute(r ComputeAPIListFleetJobsRequest) (*JobList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2102,12 +1795,12 @@ func (a *VisorAPIService) ListFleetJobsExecute(r VisorAPIListFleetJobsRequest) (
 		localVarReturnValue *JobList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.ListFleetJobs")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListFleetJobs")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/fleet/jobs"
+	localVarPath := localBasePath + "/v1/compute/fleet/jobs"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2173,33 +1866,33 @@ func (a *VisorAPIService) ListFleetJobsExecute(r VisorAPIListFleetJobsRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIListFleetSamplesRequest struct {
+type ComputeAPIListFleetSamplesRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 	unit       *string
 	source     *string
 	range_     *string
 }
 
 // Unit selects one compute unit&#39;s series by its source-local id.
-func (r VisorAPIListFleetSamplesRequest) Unit(unit string) VisorAPIListFleetSamplesRequest {
+func (r ComputeAPIListFleetSamplesRequest) Unit(unit string) ComputeAPIListFleetSamplesRequest {
 	r.unit = &unit
 	return r
 }
 
 // Source selects one plane: \&quot;agent\&quot;, \&quot;byo\&quot; or \&quot;visor\&quot;.
-func (r VisorAPIListFleetSamplesRequest) Source(source string) VisorAPIListFleetSamplesRequest {
+func (r ComputeAPIListFleetSamplesRequest) Source(source string) ComputeAPIListFleetSamplesRequest {
 	r.source = &source
 	return r
 }
 
 // Range is the lookback window (e.g. \&quot;1h\&quot;, \&quot;24h\&quot;, \&quot;7d\&quot;); empty takes the warehouse default.
-func (r VisorAPIListFleetSamplesRequest) Range_(range_ string) VisorAPIListFleetSamplesRequest {
+func (r ComputeAPIListFleetSamplesRequest) Range_(range_ string) ComputeAPIListFleetSamplesRequest {
 	r.range_ = &range_
 	return r
 }
 
-func (r VisorAPIListFleetSamplesRequest) Execute() (*SampleList, *http.Response, error) {
+func (r ComputeAPIListFleetSamplesRequest) Execute() (*SampleList, *http.Response, error) {
 	return r.ApiService.ListFleetSamplesExecute(r)
 }
 
@@ -2215,10 +1908,10 @@ is worse than one that says so. An ABSENT warehouse is different again: it retur
 an empty series, which renders honestly as "no samples yet".
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return VisorAPIListFleetSamplesRequest
+	@return ComputeAPIListFleetSamplesRequest
 */
-func (a *VisorAPIService) ListFleetSamples(ctx context.Context) VisorAPIListFleetSamplesRequest {
-	return VisorAPIListFleetSamplesRequest{
+func (a *ComputeAPIService) ListFleetSamples(ctx context.Context) ComputeAPIListFleetSamplesRequest {
+	return ComputeAPIListFleetSamplesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2227,7 +1920,7 @@ func (a *VisorAPIService) ListFleetSamples(ctx context.Context) VisorAPIListFlee
 // Execute executes the request
 //
 //	@return SampleList
-func (a *VisorAPIService) ListFleetSamplesExecute(r VisorAPIListFleetSamplesRequest) (*SampleList, *http.Response, error) {
+func (a *ComputeAPIService) ListFleetSamplesExecute(r ComputeAPIListFleetSamplesRequest) (*SampleList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2235,12 +1928,12 @@ func (a *VisorAPIService) ListFleetSamplesExecute(r VisorAPIListFleetSamplesRequ
 		localVarReturnValue *SampleList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.ListFleetSamples")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListFleetSamples")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/fleet/samples"
+	localVarPath := localBasePath + "/v1/compute/fleet/samples"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2309,12 +2002,12 @@ func (a *VisorAPIService) ListFleetSamplesExecute(r VisorAPIListFleetSamplesRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIListFleetWorkersRequest struct {
+type ComputeAPIListFleetWorkersRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 }
 
-func (r VisorAPIListFleetWorkersRequest) Execute() (*WorkerList, *http.Response, error) {
+func (r ComputeAPIListFleetWorkersRequest) Execute() (*WorkerList, *http.Response, error) {
 	return r.ApiService.ListFleetWorkersExecute(r)
 }
 
@@ -2327,10 +2020,10 @@ and GPUs pages fold the same data into their normalized shapes; this is the
 canonical raw list a fleet view (or the CLI's `status`) reads.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return VisorAPIListFleetWorkersRequest
+	@return ComputeAPIListFleetWorkersRequest
 */
-func (a *VisorAPIService) ListFleetWorkers(ctx context.Context) VisorAPIListFleetWorkersRequest {
-	return VisorAPIListFleetWorkersRequest{
+func (a *ComputeAPIService) ListFleetWorkers(ctx context.Context) ComputeAPIListFleetWorkersRequest {
+	return ComputeAPIListFleetWorkersRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2339,7 +2032,7 @@ func (a *VisorAPIService) ListFleetWorkers(ctx context.Context) VisorAPIListFlee
 // Execute executes the request
 //
 //	@return WorkerList
-func (a *VisorAPIService) ListFleetWorkersExecute(r VisorAPIListFleetWorkersRequest) (*WorkerList, *http.Response, error) {
+func (a *ComputeAPIService) ListFleetWorkersExecute(r ComputeAPIListFleetWorkersRequest) (*WorkerList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2347,12 +2040,12 @@ func (a *VisorAPIService) ListFleetWorkersExecute(r VisorAPIListFleetWorkersRequ
 		localVarReturnValue *WorkerList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.ListFleetWorkers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListFleetWorkers")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/fleet/workers"
+	localVarPath := localBasePath + "/v1/compute/fleet/workers"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2412,12 +2105,12 @@ func (a *VisorAPIService) ListFleetWorkersExecute(r VisorAPIListFleetWorkersRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIListGpuAlertsRequest struct {
+type ComputeAPIListGpuAlertsRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 }
 
-func (r VisorAPIListGpuAlertsRequest) Execute() (*GpuAlertList, *http.Response, error) {
+func (r ComputeAPIListGpuAlertsRequest) Execute() (*GpuAlertList, *http.Response, error) {
 	return r.ApiService.ListGpuAlertsExecute(r)
 }
 
@@ -2430,10 +2123,10 @@ route so the console's alerts fetch resolves (200 [], not a 404) — an honest
 "no alerts", the same discipline the rest of the surface follows.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return VisorAPIListGpuAlertsRequest
+	@return ComputeAPIListGpuAlertsRequest
 */
-func (a *VisorAPIService) ListGpuAlerts(ctx context.Context) VisorAPIListGpuAlertsRequest {
-	return VisorAPIListGpuAlertsRequest{
+func (a *ComputeAPIService) ListGpuAlerts(ctx context.Context) ComputeAPIListGpuAlertsRequest {
+	return ComputeAPIListGpuAlertsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2442,7 +2135,7 @@ func (a *VisorAPIService) ListGpuAlerts(ctx context.Context) VisorAPIListGpuAler
 // Execute executes the request
 //
 //	@return GpuAlertList
-func (a *VisorAPIService) ListGpuAlertsExecute(r VisorAPIListGpuAlertsRequest) (*GpuAlertList, *http.Response, error) {
+func (a *ComputeAPIService) ListGpuAlertsExecute(r ComputeAPIListGpuAlertsRequest) (*GpuAlertList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2450,12 +2143,12 @@ func (a *VisorAPIService) ListGpuAlertsExecute(r VisorAPIListGpuAlertsRequest) (
 		localVarReturnValue *GpuAlertList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.ListGpuAlerts")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListGpuAlerts")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/gpus/alerts"
+	localVarPath := localBasePath + "/v1/compute/gpus/alerts"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2515,12 +2208,12 @@ func (a *VisorAPIService) ListGpuAlertsExecute(r VisorAPIListGpuAlertsRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIListGpusRequest struct {
+type ComputeAPIListGpusRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 }
 
-func (r VisorAPIListGpusRequest) Execute() (*GpuList, *http.Response, error) {
+func (r ComputeAPIListGpusRequest) Execute() (*GpuList, *http.Response, error) {
 	return r.ApiService.ListGpusExecute(r)
 }
 
@@ -2535,10 +2228,10 @@ Live telemetry is absent on Visor rows because Visor's machine object carries
 none — an honest omission the console renders as "—", never a fabricated 0.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return VisorAPIListGpusRequest
+	@return ComputeAPIListGpusRequest
 */
-func (a *VisorAPIService) ListGpus(ctx context.Context) VisorAPIListGpusRequest {
-	return VisorAPIListGpusRequest{
+func (a *ComputeAPIService) ListGpus(ctx context.Context) ComputeAPIListGpusRequest {
+	return ComputeAPIListGpusRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2547,7 +2240,7 @@ func (a *VisorAPIService) ListGpus(ctx context.Context) VisorAPIListGpusRequest 
 // Execute executes the request
 //
 //	@return GpuList
-func (a *VisorAPIService) ListGpusExecute(r VisorAPIListGpusRequest) (*GpuList, *http.Response, error) {
+func (a *ComputeAPIService) ListGpusExecute(r ComputeAPIListGpusRequest) (*GpuList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2555,12 +2248,12 @@ func (a *VisorAPIService) ListGpusExecute(r VisorAPIListGpusRequest) (*GpuList, 
 		localVarReturnValue *GpuList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.ListGpus")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListGpus")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/gpus"
+	localVarPath := localBasePath + "/v1/compute/gpus"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2620,12 +2313,12 @@ func (a *VisorAPIService) ListGpusExecute(r VisorAPIListGpusRequest) (*GpuList, 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIListKubernetesClustersRequest struct {
+type ComputeAPIListKubernetesClustersRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 }
 
-func (r VisorAPIListKubernetesClustersRequest) Execute() (*ClusterList, *http.Response, error) {
+func (r ComputeAPIListKubernetesClustersRequest) Execute() (*ClusterList, *http.Response, error) {
 	return r.ApiService.ListKubernetesClustersExecute(r)
 }
 
@@ -2637,10 +2330,10 @@ the org's BYO clusters — ONE fleet cluster view under the unified k8s noun. A 
 outage is logged and skipped so a down optional provider never hides the BYO list.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return VisorAPIListKubernetesClustersRequest
+	@return ComputeAPIListKubernetesClustersRequest
 */
-func (a *VisorAPIService) ListKubernetesClusters(ctx context.Context) VisorAPIListKubernetesClustersRequest {
-	return VisorAPIListKubernetesClustersRequest{
+func (a *ComputeAPIService) ListKubernetesClusters(ctx context.Context) ComputeAPIListKubernetesClustersRequest {
+	return ComputeAPIListKubernetesClustersRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2649,7 +2342,7 @@ func (a *VisorAPIService) ListKubernetesClusters(ctx context.Context) VisorAPILi
 // Execute executes the request
 //
 //	@return ClusterList
-func (a *VisorAPIService) ListKubernetesClustersExecute(r VisorAPIListKubernetesClustersRequest) (*ClusterList, *http.Response, error) {
+func (a *ComputeAPIService) ListKubernetesClustersExecute(r ComputeAPIListKubernetesClustersRequest) (*ClusterList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2657,12 +2350,12 @@ func (a *VisorAPIService) ListKubernetesClustersExecute(r VisorAPIListKubernetes
 		localVarReturnValue *ClusterList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.ListKubernetesClusters")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListKubernetesClusters")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/k8s/clusters"
+	localVarPath := localBasePath + "/v1/compute/k8s/clusters"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2722,12 +2415,12 @@ func (a *VisorAPIService) ListKubernetesClustersExecute(r VisorAPIListKubernetes
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIListKubernetesNodesRequest struct {
+type ComputeAPIListKubernetesNodesRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 }
 
-func (r VisorAPIListKubernetesNodesRequest) Execute() (*NodeList, *http.Response, error) {
+func (r ComputeAPIListKubernetesNodesRequest) Execute() (*NodeList, *http.Response, error) {
 	return r.ApiService.ListKubernetesNodesExecute(r)
 }
 
@@ -2739,10 +2432,10 @@ the SAME set the fleet folds in (managedMachines), exposed directly under the k8
 noun. House account (hanzo-org cluster tag) + BYOC, deduped by Visor.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return VisorAPIListKubernetesNodesRequest
+	@return ComputeAPIListKubernetesNodesRequest
 */
-func (a *VisorAPIService) ListKubernetesNodes(ctx context.Context) VisorAPIListKubernetesNodesRequest {
-	return VisorAPIListKubernetesNodesRequest{
+func (a *ComputeAPIService) ListKubernetesNodes(ctx context.Context) ComputeAPIListKubernetesNodesRequest {
+	return ComputeAPIListKubernetesNodesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2751,7 +2444,7 @@ func (a *VisorAPIService) ListKubernetesNodes(ctx context.Context) VisorAPIListK
 // Execute executes the request
 //
 //	@return NodeList
-func (a *VisorAPIService) ListKubernetesNodesExecute(r VisorAPIListKubernetesNodesRequest) (*NodeList, *http.Response, error) {
+func (a *ComputeAPIService) ListKubernetesNodesExecute(r ComputeAPIListKubernetesNodesRequest) (*NodeList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2759,12 +2452,12 @@ func (a *VisorAPIService) ListKubernetesNodesExecute(r VisorAPIListKubernetesNod
 		localVarReturnValue *NodeList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.ListKubernetesNodes")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListKubernetesNodes")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/k8s/nodes"
+	localVarPath := localBasePath + "/v1/compute/k8s/nodes"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2824,12 +2517,12 @@ func (a *VisorAPIService) ListKubernetesNodesExecute(r VisorAPIListKubernetesNod
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIListMachineAgentsRequest struct {
+type ComputeAPIListMachineAgentsRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 }
 
-func (r VisorAPIListMachineAgentsRequest) Execute() (*BindingList, *http.Response, error) {
+func (r ComputeAPIListMachineAgentsRequest) Execute() (*BindingList, *http.Response, error) {
 	return r.ApiService.ListMachineAgentsExecute(r)
 }
 
@@ -2840,10 +2533,10 @@ Returns every agent↔machine binding in the caller's org — which
 machines are running which cloud Agent, with vm's own reconciled status.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return VisorAPIListMachineAgentsRequest
+	@return ComputeAPIListMachineAgentsRequest
 */
-func (a *VisorAPIService) ListMachineAgents(ctx context.Context) VisorAPIListMachineAgentsRequest {
-	return VisorAPIListMachineAgentsRequest{
+func (a *ComputeAPIService) ListMachineAgents(ctx context.Context) ComputeAPIListMachineAgentsRequest {
+	return ComputeAPIListMachineAgentsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2852,7 +2545,7 @@ func (a *VisorAPIService) ListMachineAgents(ctx context.Context) VisorAPIListMac
 // Execute executes the request
 //
 //	@return BindingList
-func (a *VisorAPIService) ListMachineAgentsExecute(r VisorAPIListMachineAgentsRequest) (*BindingList, *http.Response, error) {
+func (a *ComputeAPIService) ListMachineAgentsExecute(r ComputeAPIListMachineAgentsRequest) (*BindingList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2860,12 +2553,12 @@ func (a *VisorAPIService) ListMachineAgentsExecute(r VisorAPIListMachineAgentsRe
 		localVarReturnValue *BindingList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.ListMachineAgents")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListMachineAgents")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/machines/agents"
+	localVarPath := localBasePath + "/v1/compute/machines/agents"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2925,12 +2618,18 @@ func (a *VisorAPIService) ListMachineAgentsExecute(r VisorAPIListMachineAgentsRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIListMachinesRequest struct {
+type ComputeAPIListMachinesRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
+	kind       *string
 }
 
-func (r VisorAPIListMachinesRequest) Execute() (*MachineList, *http.Response, error) {
+func (r ComputeAPIListMachinesRequest) Kind(kind string) ComputeAPIListMachinesRequest {
+	r.kind = &kind
+	return r
+}
+
+func (r ComputeAPIListMachinesRequest) Execute() (*MachineList, *http.Response, error) {
 	return r.ApiService.ListMachinesExecute(r)
 }
 
@@ -2945,10 +2644,10 @@ A source Visor cannot answer for is logged and skipped, never an error: one
 wedged upstream must not hide the machines the other sources can see.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return VisorAPIListMachinesRequest
+	@return ComputeAPIListMachinesRequest
 */
-func (a *VisorAPIService) ListMachines(ctx context.Context) VisorAPIListMachinesRequest {
-	return VisorAPIListMachinesRequest{
+func (a *ComputeAPIService) ListMachines(ctx context.Context) ComputeAPIListMachinesRequest {
+	return ComputeAPIListMachinesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2957,7 +2656,7 @@ func (a *VisorAPIService) ListMachines(ctx context.Context) VisorAPIListMachines
 // Execute executes the request
 //
 //	@return MachineList
-func (a *VisorAPIService) ListMachinesExecute(r VisorAPIListMachinesRequest) (*MachineList, *http.Response, error) {
+func (a *ComputeAPIService) ListMachinesExecute(r ComputeAPIListMachinesRequest) (*MachineList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2965,17 +2664,20 @@ func (a *VisorAPIService) ListMachinesExecute(r VisorAPIListMachinesRequest) (*M
 		localVarReturnValue *MachineList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.ListMachines")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListMachines")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/machines"
+	localVarPath := localBasePath + "/v1/compute/machines"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.kind != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "kind", r.kind, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -3030,19 +2732,109 @@ func (a *VisorAPIService) ListMachinesExecute(r VisorAPIListMachinesRequest) (*M
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIPostVisorComputeBotsByIdByActionRequest struct {
+type ComputeAPIPostComputeMachinesRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
+}
+
+func (r ComputeAPIPostComputeMachinesRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostComputeMachinesExecute(r)
+}
+
+/*
+PostComputeMachines Launch a metered machine for your org, or price one first with dryRun
+
+Provisions a machine owned by the caller's org and answers 201 with the machine. Send `dryRun: true` to get a PRICE QUOTE instead: 200 with the upstream quote passed through verbatim, nothing launched and nothing spent. Two response shapes on one address is the rule to know, and it is why this is not a typed op.
+
+Metering is not this plane's: the launch fronts the compute provider's resell endpoint, which owns the balance gate and the per-hour meter, and cloud only forwards the tenant. Ownership is the validated principal's org and is never read from the body, so a launch always lands in the caller's OWN tenant and the machine it creates is only ever visible to that tenant. Fails closed: a validated principal is required (403 without one) and `size` (or its `instanceType` alias) is required (400).
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ComputeAPIPostComputeMachinesRequest
+*/
+func (a *ComputeAPIService) PostComputeMachines(ctx context.Context) ComputeAPIPostComputeMachinesRequest {
+	return ComputeAPIPostComputeMachinesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *ComputeAPIService) PostComputeMachinesExecute(r ComputeAPIPostComputeMachinesRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.PostComputeMachines")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/compute/machines"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ComputeAPIPostComputeMachinesByIdByActionRequest struct {
+	ctx        context.Context
+	ApiService *ComputeAPIService
 	id         string
 	action     string
 }
 
-func (r VisorAPIPostVisorComputeBotsByIdByActionRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostVisorComputeBotsByIdByActionExecute(r)
+func (r ComputeAPIPostComputeMachinesByIdByActionRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostComputeMachinesByIdByActionExecute(r)
 }
 
 /*
-PostVisorComputeBotsByIdByAction Message a bot, or stop it, by naming the action in the path
+PostComputeMachinesByIdByAction Message a bot, or stop it, by naming the action in the path
 
 Dispatches one verb against a bot the caller's org owns. `message` runs the bot's bound agent with the request body as the message and streams the agent's answer back VERBATIM — the upstream body, its content type and its status — so a message is a real agent run, recorded, billed and traced exactly like any other, under the caller's own identity rather than a fabricated one. `stop` and `pause` are the same single honest capability: they halt the runtime by unbinding the agent while LEAVING THE MACHINE UP, so the bot stops answering but keeps costing — rebind to resume, or delete the bot to tear it down. Stopping is idempotent; a bot with no binding still reports stopped.
 
@@ -3051,10 +2843,10 @@ Org-scoped and fails closed: a validated principal is required (403 without one)
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
 	@param action
-	@return VisorAPIPostVisorComputeBotsByIdByActionRequest
+	@return ComputeAPIPostComputeMachinesByIdByActionRequest
 */
-func (a *VisorAPIService) PostVisorComputeBotsByIdByAction(ctx context.Context, id string, action string) VisorAPIPostVisorComputeBotsByIdByActionRequest {
-	return VisorAPIPostVisorComputeBotsByIdByActionRequest{
+func (a *ComputeAPIService) PostComputeMachinesByIdByAction(ctx context.Context, id string, action string) ComputeAPIPostComputeMachinesByIdByActionRequest {
+	return ComputeAPIPostComputeMachinesByIdByActionRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -3063,19 +2855,19 @@ func (a *VisorAPIService) PostVisorComputeBotsByIdByAction(ctx context.Context, 
 }
 
 // Execute executes the request
-func (a *VisorAPIService) PostVisorComputeBotsByIdByActionExecute(r VisorAPIPostVisorComputeBotsByIdByActionRequest) (*http.Response, error) {
+func (a *ComputeAPIService) PostComputeMachinesByIdByActionExecute(r ComputeAPIPostComputeMachinesByIdByActionRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.PostVisorComputeBotsByIdByAction")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.PostComputeMachinesByIdByAction")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/compute/bots/{id}/{action}"
+	localVarPath := localBasePath + "/v1/compute/machines/{id}/{action}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"action"+"}", url.PathEscape(parameterValueToString(r.action, "action")), -1)
 
@@ -3128,200 +2920,18 @@ func (a *VisorAPIService) PostVisorComputeBotsByIdByActionExecute(r VisorAPIPost
 	return localVarHTTPResponse, nil
 }
 
-type VisorAPIPostVisorComputeBotsLaunchRequest struct {
-	ctx        context.Context
-	ApiService *VisorAPIService
-}
-
-func (r VisorAPIPostVisorComputeBotsLaunchRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostVisorComputeBotsLaunchExecute(r)
-}
-
-/*
-PostVisorComputeBotsLaunch Launch a bot machine — an agent plus the machine that runs it — or price one
-
-Creates BOTH halves of a bot in one call and answers 201 with the bot: the cloud agent it runs, then a bot-kind machine bootstrapped with the bot runtime, then the binding between them, so a launched bot is immediately messageable. Send `dryRun: true` for a price quote instead — 200 with the upstream quote verbatim, no agent created, no machine launched, nothing spent.
-
-The agent is created FIRST and on purpose: it is create-if-absent (an agent that already exists is reused, so a relaunch is fine and several bots may share one explicit `agent`), and doing it before the machine means a bad request — a model that is not in the catalog, say — fails with the real reason BEFORE any metered machine is provisioned. `agent` defaults to the bot's name and an empty `model` takes the deployment default.
-
-Org-scoped and fails closed: a validated principal is required (403 without one), the owning org is that principal's and never a body field, `size` is required (400), and `name` is required for a real launch though not for a quote.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return VisorAPIPostVisorComputeBotsLaunchRequest
-*/
-func (a *VisorAPIService) PostVisorComputeBotsLaunch(ctx context.Context) VisorAPIPostVisorComputeBotsLaunchRequest {
-	return VisorAPIPostVisorComputeBotsLaunchRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *VisorAPIService) PostVisorComputeBotsLaunchExecute(r VisorAPIPostVisorComputeBotsLaunchRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.PostVisorComputeBotsLaunch")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/visor/compute/bots/launch"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type VisorAPIPostVisorMachinesRequest struct {
-	ctx        context.Context
-	ApiService *VisorAPIService
-}
-
-func (r VisorAPIPostVisorMachinesRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostVisorMachinesExecute(r)
-}
-
-/*
-PostVisorMachines Launch a metered machine for your org, or price one first with dryRun
-
-Provisions a machine owned by the caller's org and answers 201 with the machine. Send `dryRun: true` to get a PRICE QUOTE instead: 200 with the upstream quote passed through verbatim, nothing launched and nothing spent. Two response shapes on one address is the rule to know, and it is why this is not a typed op.
-
-Metering is not this plane's: the launch fronts the compute provider's resell endpoint, which owns the balance gate and the per-hour meter, and cloud only forwards the tenant. Ownership is the validated principal's org and is never read from the body, so a launch always lands in the caller's OWN tenant and the machine it creates is only ever visible to that tenant. Fails closed: a validated principal is required (403 without one) and `size` (or its `instanceType` alias) is required (400).
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return VisorAPIPostVisorMachinesRequest
-*/
-func (a *VisorAPIService) PostVisorMachines(ctx context.Context) VisorAPIPostVisorMachinesRequest {
-	return VisorAPIPostVisorMachinesRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *VisorAPIService) PostVisorMachinesExecute(r VisorAPIPostVisorMachinesRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.PostVisorMachines")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/visor/machines"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type VisorAPIRecordFleetSampleRequest struct {
+type ComputeAPIRecordFleetSampleRequest struct {
 	ctx          context.Context
-	ApiService   *VisorAPIService
+	ApiService   *ComputeAPIService
 	sampleIngest *SampleIngest
 }
 
-func (r VisorAPIRecordFleetSampleRequest) SampleIngest(sampleIngest SampleIngest) VisorAPIRecordFleetSampleRequest {
+func (r ComputeAPIRecordFleetSampleRequest) SampleIngest(sampleIngest SampleIngest) ComputeAPIRecordFleetSampleRequest {
 	r.sampleIngest = &sampleIngest
 	return r
 }
 
-func (r VisorAPIRecordFleetSampleRequest) Execute() (*SampleAccepted, *http.Response, error) {
+func (r ComputeAPIRecordFleetSampleRequest) Execute() (*SampleAccepted, *http.Response, error) {
 	return r.ApiService.RecordFleetSampleExecute(r)
 }
 
@@ -3336,10 +2946,10 @@ context, never in the response path), so a slow or absent warehouse cannot stall
 heartbeat.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return VisorAPIRecordFleetSampleRequest
+	@return ComputeAPIRecordFleetSampleRequest
 */
-func (a *VisorAPIService) RecordFleetSample(ctx context.Context) VisorAPIRecordFleetSampleRequest {
-	return VisorAPIRecordFleetSampleRequest{
+func (a *ComputeAPIService) RecordFleetSample(ctx context.Context) ComputeAPIRecordFleetSampleRequest {
+	return ComputeAPIRecordFleetSampleRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -3348,7 +2958,7 @@ func (a *VisorAPIService) RecordFleetSample(ctx context.Context) VisorAPIRecordF
 // Execute executes the request
 //
 //	@return SampleAccepted
-func (a *VisorAPIService) RecordFleetSampleExecute(r VisorAPIRecordFleetSampleRequest) (*SampleAccepted, *http.Response, error) {
+func (a *ComputeAPIService) RecordFleetSampleExecute(r ComputeAPIRecordFleetSampleRequest) (*SampleAccepted, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3356,12 +2966,12 @@ func (a *VisorAPIService) RecordFleetSampleExecute(r VisorAPIRecordFleetSampleRe
 		localVarReturnValue *SampleAccepted
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.RecordFleetSample")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.RecordFleetSample")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/fleet/samples"
+	localVarPath := localBasePath + "/v1/compute/fleet/samples"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3426,20 +3036,20 @@ func (a *VisorAPIService) RecordFleetSampleExecute(r VisorAPIRecordFleetSampleRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIScaleNodePoolRequest struct {
+type ComputeAPIScaleNodePoolRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 	clusterId  string
 	poolId     string
 	poolScale  *PoolScale
 }
 
-func (r VisorAPIScaleNodePoolRequest) PoolScale(poolScale PoolScale) VisorAPIScaleNodePoolRequest {
+func (r ComputeAPIScaleNodePoolRequest) PoolScale(poolScale PoolScale) ComputeAPIScaleNodePoolRequest {
 	r.poolScale = &poolScale
 	return r
 }
 
-func (r VisorAPIScaleNodePoolRequest) Execute() (*NodePoolView, *http.Response, error) {
+func (r ComputeAPIScaleNodePoolRequest) Execute() (*NodePoolView, *http.Response, error) {
 	return r.ApiService.ScaleNodePoolExecute(r)
 }
 
@@ -3452,10 +3062,10 @@ Visor reports it after the change.
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param clusterId ClusterID is the cluster holding the pool, from the URL path.
 	@param poolId PoolID is the pool to resize, from the URL path — the `poolId` a cluster read reports for it. Required.
-	@return VisorAPIScaleNodePoolRequest
+	@return ComputeAPIScaleNodePoolRequest
 */
-func (a *VisorAPIService) ScaleNodePool(ctx context.Context, clusterId string, poolId string) VisorAPIScaleNodePoolRequest {
-	return VisorAPIScaleNodePoolRequest{
+func (a *ComputeAPIService) ScaleNodePool(ctx context.Context, clusterId string, poolId string) ComputeAPIScaleNodePoolRequest {
+	return ComputeAPIScaleNodePoolRequest{
 		ApiService: a,
 		ctx:        ctx,
 		clusterId:  clusterId,
@@ -3466,7 +3076,7 @@ func (a *VisorAPIService) ScaleNodePool(ctx context.Context, clusterId string, p
 // Execute executes the request
 //
 //	@return NodePoolView
-func (a *VisorAPIService) ScaleNodePoolExecute(r VisorAPIScaleNodePoolRequest) (*NodePoolView, *http.Response, error) {
+func (a *ComputeAPIService) ScaleNodePoolExecute(r ComputeAPIScaleNodePoolRequest) (*NodePoolView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3474,12 +3084,12 @@ func (a *VisorAPIService) ScaleNodePoolExecute(r VisorAPIScaleNodePoolRequest) (
 		localVarReturnValue *NodePoolView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.ScaleNodePool")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ScaleNodePool")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/clusters/{clusterId}/pools/{poolId}/scale"
+	localVarPath := localBasePath + "/v1/compute/clusters/{clusterId}/pools/{poolId}/scale"
 	localVarPath = strings.Replace(localVarPath, "{"+"clusterId"+"}", url.PathEscape(parameterValueToString(r.clusterId, "clusterId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"poolId"+"}", url.PathEscape(parameterValueToString(r.poolId, "poolId")), -1)
 
@@ -3546,13 +3156,13 @@ func (a *VisorAPIService) ScaleNodePoolExecute(r VisorAPIScaleNodePoolRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type VisorAPIUnbindMachineAgentRequest struct {
+type ComputeAPIUnbindMachineAgentRequest struct {
 	ctx        context.Context
-	ApiService *VisorAPIService
+	ApiService *ComputeAPIService
 	id         string
 }
 
-func (r VisorAPIUnbindMachineAgentRequest) Execute() (*http.Response, error) {
+func (r ComputeAPIUnbindMachineAgentRequest) Execute() (*http.Response, error) {
 	return r.ApiService.UnbindMachineAgentExecute(r)
 }
 
@@ -3565,10 +3175,10 @@ compute. Answers 204.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the machine's org-scoped NAME — the stable key Visor addresses a machine by (owner/name), not the ephemeral provider id.
-	@return VisorAPIUnbindMachineAgentRequest
+	@return ComputeAPIUnbindMachineAgentRequest
 */
-func (a *VisorAPIService) UnbindMachineAgent(ctx context.Context, id string) VisorAPIUnbindMachineAgentRequest {
-	return VisorAPIUnbindMachineAgentRequest{
+func (a *ComputeAPIService) UnbindMachineAgent(ctx context.Context, id string) ComputeAPIUnbindMachineAgentRequest {
+	return ComputeAPIUnbindMachineAgentRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -3576,19 +3186,19 @@ func (a *VisorAPIService) UnbindMachineAgent(ctx context.Context, id string) Vis
 }
 
 // Execute executes the request
-func (a *VisorAPIService) UnbindMachineAgentExecute(r VisorAPIUnbindMachineAgentRequest) (*http.Response, error) {
+func (a *ComputeAPIService) UnbindMachineAgentExecute(r ComputeAPIUnbindMachineAgentRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.UnbindMachineAgent")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.UnbindMachineAgent")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/visor/machines/{id}/agent"
+	localVarPath := localBasePath + "/v1/compute/machines/{id}/agent"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)

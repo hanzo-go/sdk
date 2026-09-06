@@ -39,6 +39,7 @@ Name | Type | Description | Notes
 **CreatedTime** | Pointer to **string** |  | [optional] 
 **Currency** | Pointer to **string** |  | [optional] 
 **Custom** | Pointer to **string** |  | [optional] 
+**Custom10** | Pointer to **string** |  | [optional] 
 **Custom2** | Pointer to **string** |  | [optional] 
 **Custom3** | Pointer to **string** |  | [optional] 
 **Custom4** | Pointer to **string** |  | [optional] 
@@ -47,7 +48,6 @@ Name | Type | Description | Notes
 **Custom7** | Pointer to **string** |  | [optional] 
 **Custom8** | Pointer to **string** |  | [optional] 
 **Custom9** | Pointer to **string** |  | [optional] 
-**Custom10** | Pointer to **string** |  | [optional] 
 **Dailymotion** | Pointer to **string** |  | [optional] 
 **Deezer** | Pointer to **string** |  | [optional] 
 **Deleted** | Pointer to **bool** |  | [optional] 
@@ -1083,6 +1083,31 @@ SetCustom sets Custom field to given value.
 
 HasCustom returns a boolean if a field has been set.
 
+### GetCustom10
+
+`func (o *IamUser) GetCustom10() string`
+
+GetCustom10 returns the Custom10 field if non-nil, zero value otherwise.
+
+### GetCustom10Ok
+
+`func (o *IamUser) GetCustom10Ok() (*string, bool)`
+
+GetCustom10Ok returns a tuple with the Custom10 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustom10
+
+`func (o *IamUser) SetCustom10(v string)`
+
+SetCustom10 sets Custom10 field to given value.
+
+### HasCustom10
+
+`func (o *IamUser) HasCustom10() bool`
+
+HasCustom10 returns a boolean if a field has been set.
+
 ### GetCustom2
 
 `func (o *IamUser) GetCustom2() string`
@@ -1282,31 +1307,6 @@ SetCustom9 sets Custom9 field to given value.
 `func (o *IamUser) HasCustom9() bool`
 
 HasCustom9 returns a boolean if a field has been set.
-
-### GetCustom10
-
-`func (o *IamUser) GetCustom10() string`
-
-GetCustom10 returns the Custom10 field if non-nil, zero value otherwise.
-
-### GetCustom10Ok
-
-`func (o *IamUser) GetCustom10Ok() (*string, bool)`
-
-GetCustom10Ok returns a tuple with the Custom10 field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCustom10
-
-`func (o *IamUser) SetCustom10(v string)`
-
-SetCustom10 sets Custom10 field to given value.
-
-### HasCustom10
-
-`func (o *IamUser) HasCustom10() bool`
-
-HasCustom10 returns a boolean if a field has been set.
 
 ### GetDailymotion
 

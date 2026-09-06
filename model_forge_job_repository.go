@@ -14,34 +14,34 @@ import (
 	"encoding/json"
 )
 
-// checks if the PushRepository type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &PushRepository{}
+// checks if the ForgeJobRepository type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ForgeJobRepository{}
 
-// PushRepository struct for PushRepository
-type PushRepository struct {
-	Name  *string     `json:"name,omitempty"`
-	Owner *PushPusher `json:"owner,omitempty"`
+// ForgeJobRepository struct for ForgeJobRepository
+type ForgeJobRepository struct {
+	Name  *string                  `json:"name,omitempty"`
+	Owner *ForgeJobRepositoryOwner `json:"owner,omitempty"`
 }
 
-// NewPushRepository instantiates a new PushRepository object
+// NewForgeJobRepository instantiates a new ForgeJobRepository object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPushRepository() *PushRepository {
-	this := PushRepository{}
+func NewForgeJobRepository() *ForgeJobRepository {
+	this := ForgeJobRepository{}
 	return &this
 }
 
-// NewPushRepositoryWithDefaults instantiates a new PushRepository object
+// NewForgeJobRepositoryWithDefaults instantiates a new ForgeJobRepository object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPushRepositoryWithDefaults() *PushRepository {
-	this := PushRepository{}
+func NewForgeJobRepositoryWithDefaults() *ForgeJobRepository {
+	this := ForgeJobRepository{}
 	return &this
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
-func (o *PushRepository) GetName() string {
+func (o *ForgeJobRepository) GetName() string {
 	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
@@ -51,7 +51,7 @@ func (o *PushRepository) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PushRepository) GetNameOk() (*string, bool) {
+func (o *ForgeJobRepository) GetNameOk() (*string, bool) {
 	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
@@ -59,7 +59,7 @@ func (o *PushRepository) GetNameOk() (*string, bool) {
 }
 
 // HasName returns a boolean if a field has been set.
-func (o *PushRepository) HasName() bool {
+func (o *ForgeJobRepository) HasName() bool {
 	if o != nil && !IsNil(o.Name) {
 		return true
 	}
@@ -68,14 +68,14 @@ func (o *PushRepository) HasName() bool {
 }
 
 // SetName gets a reference to the given string and assigns it to the Name field.
-func (o *PushRepository) SetName(v string) {
+func (o *ForgeJobRepository) SetName(v string) {
 	o.Name = &v
 }
 
 // GetOwner returns the Owner field value if set, zero value otherwise.
-func (o *PushRepository) GetOwner() PushPusher {
+func (o *ForgeJobRepository) GetOwner() ForgeJobRepositoryOwner {
 	if o == nil || IsNil(o.Owner) {
-		var ret PushPusher
+		var ret ForgeJobRepositoryOwner
 		return ret
 	}
 	return *o.Owner
@@ -83,7 +83,7 @@ func (o *PushRepository) GetOwner() PushPusher {
 
 // GetOwnerOk returns a tuple with the Owner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PushRepository) GetOwnerOk() (*PushPusher, bool) {
+func (o *ForgeJobRepository) GetOwnerOk() (*ForgeJobRepositoryOwner, bool) {
 	if o == nil || IsNil(o.Owner) {
 		return nil, false
 	}
@@ -91,7 +91,7 @@ func (o *PushRepository) GetOwnerOk() (*PushPusher, bool) {
 }
 
 // HasOwner returns a boolean if a field has been set.
-func (o *PushRepository) HasOwner() bool {
+func (o *ForgeJobRepository) HasOwner() bool {
 	if o != nil && !IsNil(o.Owner) {
 		return true
 	}
@@ -99,12 +99,12 @@ func (o *PushRepository) HasOwner() bool {
 	return false
 }
 
-// SetOwner gets a reference to the given PushPusher and assigns it to the Owner field.
-func (o *PushRepository) SetOwner(v PushPusher) {
+// SetOwner gets a reference to the given ForgeJobRepositoryOwner and assigns it to the Owner field.
+func (o *ForgeJobRepository) SetOwner(v ForgeJobRepositoryOwner) {
 	o.Owner = &v
 }
 
-func (o PushRepository) MarshalJSON() ([]byte, error) {
+func (o ForgeJobRepository) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -112,7 +112,7 @@ func (o PushRepository) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o PushRepository) ToMap() (map[string]interface{}, error) {
+func (o ForgeJobRepository) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
@@ -123,38 +123,38 @@ func (o PushRepository) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullablePushRepository struct {
-	value *PushRepository
+type NullableForgeJobRepository struct {
+	value *ForgeJobRepository
 	isSet bool
 }
 
-func (v NullablePushRepository) Get() *PushRepository {
+func (v NullableForgeJobRepository) Get() *ForgeJobRepository {
 	return v.value
 }
 
-func (v *NullablePushRepository) Set(val *PushRepository) {
+func (v *NullableForgeJobRepository) Set(val *ForgeJobRepository) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePushRepository) IsSet() bool {
+func (v NullableForgeJobRepository) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePushRepository) Unset() {
+func (v *NullableForgeJobRepository) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePushRepository(val *PushRepository) *NullablePushRepository {
-	return &NullablePushRepository{value: val, isSet: true}
+func NewNullableForgeJobRepository(val *ForgeJobRepository) *NullableForgeJobRepository {
+	return &NullableForgeJobRepository{value: val, isSet: true}
 }
 
-func (v NullablePushRepository) MarshalJSON() ([]byte, error) {
+func (v NullableForgeJobRepository) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePushRepository) UnmarshalJSON(src []byte) error {
+func (v *NullableForgeJobRepository) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

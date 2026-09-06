@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AgentName** | Pointer to **string** | AgentName is the cloud Agent (/v1/agents) this machine runs — the agent a message to the bot is actually run against. It is the one field that decides what the bot DOES. | [optional] 
+**AgentName** | Pointer to **string** | AgentName is the cloud Agent (/v1/agent) this machine runs — the agent a message to the bot is actually run against. It is the one field that decides what the bot DOES. | [optional] 
 **BotVersion** | Pointer to **string** | BotVersion pins the @hanzo/bot runtime version the machine runs. Empty means the machine took the default in force when it was bound. | [optional] 
 **CreatedTime** | Pointer to **string** | CreatedTime is when the binding was first made. | [optional] 
 **MachineId** | Pointer to **string** | MachineId is the bound machine as vm addresses it, owner-qualified (\&quot;&lt;org&gt;/&lt;machine&gt;\&quot;). The unqualified half is what this surface&#39;s :id routes take. | [optional] 

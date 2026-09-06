@@ -19,21 +19,21 @@ import (
 	"strings"
 )
 
-// FunctionsAPIService FunctionsAPI service
-type FunctionsAPIService service
+// FunctionAPIService FunctionAPI service
+type FunctionAPIService service
 
-type FunctionsAPIDeleteFunctionsByNameRequest struct {
+type FunctionAPIDeleteFunctionByNameRequest struct {
 	ctx        context.Context
-	ApiService *FunctionsAPIService
+	ApiService *FunctionAPIService
 	name       string
 }
 
-func (r FunctionsAPIDeleteFunctionsByNameRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteFunctionsByNameExecute(r)
+func (r FunctionAPIDeleteFunctionByNameRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteFunctionByNameExecute(r)
 }
 
 /*
-DeleteFunctionsByName Removes one of the caller org's functions and answers 204.
+DeleteFunctionByName Removes one of the caller org's functions and answers 204.
 
 Removes one of the caller org's functions and answers 204.
 
@@ -43,10 +43,10 @@ the validated org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name Name is the function the URL names.
-	@return FunctionsAPIDeleteFunctionsByNameRequest
+	@return FunctionAPIDeleteFunctionByNameRequest
 */
-func (a *FunctionsAPIService) DeleteFunctionsByName(ctx context.Context, name string) FunctionsAPIDeleteFunctionsByNameRequest {
-	return FunctionsAPIDeleteFunctionsByNameRequest{
+func (a *FunctionAPIService) DeleteFunctionByName(ctx context.Context, name string) FunctionAPIDeleteFunctionByNameRequest {
+	return FunctionAPIDeleteFunctionByNameRequest{
 		ApiService: a,
 		ctx:        ctx,
 		name:       name,
@@ -54,19 +54,19 @@ func (a *FunctionsAPIService) DeleteFunctionsByName(ctx context.Context, name st
 }
 
 // Execute executes the request
-func (a *FunctionsAPIService) DeleteFunctionsByNameExecute(r FunctionsAPIDeleteFunctionsByNameRequest) (*http.Response, error) {
+func (a *FunctionAPIService) DeleteFunctionByNameExecute(r FunctionAPIDeleteFunctionByNameRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsAPIService.DeleteFunctionsByName")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.DeleteFunctionByName")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/functions/{name}"
+	localVarPath := localBasePath + "/v1/function/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -118,17 +118,17 @@ func (a *FunctionsAPIService) DeleteFunctionsByNameExecute(r FunctionsAPIDeleteF
 	return localVarHTTPResponse, nil
 }
 
-type FunctionsAPIGetFunctionsRequest struct {
+type FunctionAPIGetFunctionRequest struct {
 	ctx        context.Context
-	ApiService *FunctionsAPIService
+	ApiService *FunctionAPIService
 }
 
-func (r FunctionsAPIGetFunctionsRequest) Execute() (*FnList, *http.Response, error) {
-	return r.ApiService.GetFunctionsExecute(r)
+func (r FunctionAPIGetFunctionRequest) Execute() (*FnList, *http.Response, error) {
+	return r.ApiService.GetFunctionExecute(r)
 }
 
 /*
-GetFunctions Is every serverless function the caller's org has published, each with its real 7-day rollup.
+GetFunction Is every serverless function the caller's org has published, each with its real 7-day rollup.
 
 Is every serverless function the caller's org has published, each with its
 real 7-day rollup.
@@ -141,10 +141,10 @@ console renders "—" instead of a fabricated 0.
 Requires a validated principal; the listing is scoped to its org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return FunctionsAPIGetFunctionsRequest
+	@return FunctionAPIGetFunctionRequest
 */
-func (a *FunctionsAPIService) GetFunctions(ctx context.Context) FunctionsAPIGetFunctionsRequest {
-	return FunctionsAPIGetFunctionsRequest{
+func (a *FunctionAPIService) GetFunction(ctx context.Context) FunctionAPIGetFunctionRequest {
+	return FunctionAPIGetFunctionRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -153,7 +153,7 @@ func (a *FunctionsAPIService) GetFunctions(ctx context.Context) FunctionsAPIGetF
 // Execute executes the request
 //
 //	@return FnList
-func (a *FunctionsAPIService) GetFunctionsExecute(r FunctionsAPIGetFunctionsRequest) (*FnList, *http.Response, error) {
+func (a *FunctionAPIService) GetFunctionExecute(r FunctionAPIGetFunctionRequest) (*FnList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -161,12 +161,12 @@ func (a *FunctionsAPIService) GetFunctionsExecute(r FunctionsAPIGetFunctionsRequ
 		localVarReturnValue *FnList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsAPIService.GetFunctions")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.GetFunction")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/functions"
+	localVarPath := localBasePath + "/v1/function"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -226,18 +226,18 @@ func (a *FunctionsAPIService) GetFunctionsExecute(r FunctionsAPIGetFunctionsRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type FunctionsAPIGetFunctionsByNameRequest struct {
+type FunctionAPIGetFunctionByNameRequest struct {
 	ctx        context.Context
-	ApiService *FunctionsAPIService
+	ApiService *FunctionAPIService
 	name       string
 }
 
-func (r FunctionsAPIGetFunctionsByNameRequest) Execute() (*FunctionDetail, *http.Response, error) {
-	return r.ApiService.GetFunctionsByNameExecute(r)
+func (r FunctionAPIGetFunctionByNameRequest) Execute() (*FunctionDetail, *http.Response, error) {
+	return r.ApiService.GetFunctionByNameExecute(r)
 }
 
 /*
-GetFunctionsByName Is one function with everything a detail page needs in one round-trip: its definition, its 7-day rollup, its trigger, its twenty most recent invocations and the NAMES of the secrets it mounts.
+GetFunctionByName Is one function with everything a detail page needs in one round-trip: its definition, its 7-day rollup, its trigger, its twenty most recent invocations and the NAMES of the secrets it mounts.
 
 Is one function with everything a detail page needs in one round-trip: its
 definition, its 7-day rollup, its trigger, its twenty most recent invocations
@@ -248,10 +248,10 @@ is 404, which is also what another tenant's function looks like from here.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name Name is the function the URL names.
-	@return FunctionsAPIGetFunctionsByNameRequest
+	@return FunctionAPIGetFunctionByNameRequest
 */
-func (a *FunctionsAPIService) GetFunctionsByName(ctx context.Context, name string) FunctionsAPIGetFunctionsByNameRequest {
-	return FunctionsAPIGetFunctionsByNameRequest{
+func (a *FunctionAPIService) GetFunctionByName(ctx context.Context, name string) FunctionAPIGetFunctionByNameRequest {
+	return FunctionAPIGetFunctionByNameRequest{
 		ApiService: a,
 		ctx:        ctx,
 		name:       name,
@@ -261,7 +261,7 @@ func (a *FunctionsAPIService) GetFunctionsByName(ctx context.Context, name strin
 // Execute executes the request
 //
 //	@return FunctionDetail
-func (a *FunctionsAPIService) GetFunctionsByNameExecute(r FunctionsAPIGetFunctionsByNameRequest) (*FunctionDetail, *http.Response, error) {
+func (a *FunctionAPIService) GetFunctionByNameExecute(r FunctionAPIGetFunctionByNameRequest) (*FunctionDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -269,12 +269,12 @@ func (a *FunctionsAPIService) GetFunctionsByNameExecute(r FunctionsAPIGetFunctio
 		localVarReturnValue *FunctionDetail
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsAPIService.GetFunctionsByName")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.GetFunctionByName")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/functions/{name}"
+	localVarPath := localBasePath + "/v1/function/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -335,25 +335,25 @@ func (a *FunctionsAPIService) GetFunctionsByNameExecute(r FunctionsAPIGetFunctio
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type FunctionsAPIGetFunctionsByNameInvocationsRequest struct {
+type FunctionAPIGetFunctionByNameInvocationsRequest struct {
 	ctx        context.Context
-	ApiService *FunctionsAPIService
+	ApiService *FunctionAPIService
 	name       string
 	limit      *int64
 }
 
 // Limit caps the page, defaulting to 100.
-func (r FunctionsAPIGetFunctionsByNameInvocationsRequest) Limit(limit int64) FunctionsAPIGetFunctionsByNameInvocationsRequest {
+func (r FunctionAPIGetFunctionByNameInvocationsRequest) Limit(limit int64) FunctionAPIGetFunctionByNameInvocationsRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r FunctionsAPIGetFunctionsByNameInvocationsRequest) Execute() (*InvocationList, *http.Response, error) {
-	return r.ApiService.GetFunctionsByNameInvocationsExecute(r)
+func (r FunctionAPIGetFunctionByNameInvocationsRequest) Execute() (*InvocationList, *http.Response, error) {
+	return r.ApiService.GetFunctionByNameInvocationsExecute(r)
 }
 
 /*
-GetFunctionsByNameInvocations Is one function's past runs, newest first — each with its status, HTTP code, method, time and duration.
+GetFunctionByNameInvocations Is one function's past runs, newest first — each with its status, HTTP code, method, time and duration.
 
 Is one function's past runs, newest first — each with its status,
 HTTP code, method, time and duration.
@@ -364,10 +364,10 @@ org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name Name is the function the URL names.
-	@return FunctionsAPIGetFunctionsByNameInvocationsRequest
+	@return FunctionAPIGetFunctionByNameInvocationsRequest
 */
-func (a *FunctionsAPIService) GetFunctionsByNameInvocations(ctx context.Context, name string) FunctionsAPIGetFunctionsByNameInvocationsRequest {
-	return FunctionsAPIGetFunctionsByNameInvocationsRequest{
+func (a *FunctionAPIService) GetFunctionByNameInvocations(ctx context.Context, name string) FunctionAPIGetFunctionByNameInvocationsRequest {
+	return FunctionAPIGetFunctionByNameInvocationsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		name:       name,
@@ -377,7 +377,7 @@ func (a *FunctionsAPIService) GetFunctionsByNameInvocations(ctx context.Context,
 // Execute executes the request
 //
 //	@return InvocationList
-func (a *FunctionsAPIService) GetFunctionsByNameInvocationsExecute(r FunctionsAPIGetFunctionsByNameInvocationsRequest) (*InvocationList, *http.Response, error) {
+func (a *FunctionAPIService) GetFunctionByNameInvocationsExecute(r FunctionAPIGetFunctionByNameInvocationsRequest) (*InvocationList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -385,12 +385,12 @@ func (a *FunctionsAPIService) GetFunctionsByNameInvocationsExecute(r FunctionsAP
 		localVarReturnValue *InvocationList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsAPIService.GetFunctionsByNameInvocations")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.GetFunctionByNameInvocations")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/functions/{name}/invocations"
+	localVarPath := localBasePath + "/v1/function/{name}/invocations"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -454,18 +454,18 @@ func (a *FunctionsAPIService) GetFunctionsByNameInvocationsExecute(r FunctionsAP
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type FunctionsAPIGetFunctionsByNameLogsRequest struct {
+type FunctionAPIGetFunctionByNameLogsRequest struct {
 	ctx        context.Context
-	ApiService *FunctionsAPIService
+	ApiService *FunctionAPIService
 	name       string
 }
 
-func (r FunctionsAPIGetFunctionsByNameLogsRequest) Execute() (*LogLines, *http.Response, error) {
-	return r.ApiService.GetFunctionsByNameLogsExecute(r)
+func (r FunctionAPIGetFunctionByNameLogsRequest) Execute() (*LogLines, *http.Response, error) {
+	return r.ApiService.GetFunctionByNameLogsExecute(r)
 }
 
 /*
-GetFunctionsByNameLogs Is the output of a function's most recent run — its error text when that run failed, else what it printed.
+GetFunctionByNameLogs Is the output of a function's most recent run — its error text when that run failed, else what it printed.
 
 Is the output of a function's most recent run — its error text when that
 run failed, else what it printed.
@@ -475,10 +475,10 @@ is no log retention behind this beyond the recorded invocation itself.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name Name is the function the URL names.
-	@return FunctionsAPIGetFunctionsByNameLogsRequest
+	@return FunctionAPIGetFunctionByNameLogsRequest
 */
-func (a *FunctionsAPIService) GetFunctionsByNameLogs(ctx context.Context, name string) FunctionsAPIGetFunctionsByNameLogsRequest {
-	return FunctionsAPIGetFunctionsByNameLogsRequest{
+func (a *FunctionAPIService) GetFunctionByNameLogs(ctx context.Context, name string) FunctionAPIGetFunctionByNameLogsRequest {
+	return FunctionAPIGetFunctionByNameLogsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		name:       name,
@@ -488,7 +488,7 @@ func (a *FunctionsAPIService) GetFunctionsByNameLogs(ctx context.Context, name s
 // Execute executes the request
 //
 //	@return LogLines
-func (a *FunctionsAPIService) GetFunctionsByNameLogsExecute(r FunctionsAPIGetFunctionsByNameLogsRequest) (*LogLines, *http.Response, error) {
+func (a *FunctionAPIService) GetFunctionByNameLogsExecute(r FunctionAPIGetFunctionByNameLogsRequest) (*LogLines, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -496,12 +496,12 @@ func (a *FunctionsAPIService) GetFunctionsByNameLogsExecute(r FunctionsAPIGetFun
 		localVarReturnValue *LogLines
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsAPIService.GetFunctionsByNameLogs")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.GetFunctionByNameLogs")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/functions/{name}/logs"
+	localVarPath := localBasePath + "/v1/function/{name}/logs"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -562,17 +562,17 @@ func (a *FunctionsAPIService) GetFunctionsByNameLogsExecute(r FunctionsAPIGetFun
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type FunctionsAPIGetFunctionsDeploymentsRequest struct {
+type FunctionAPIGetFunctionDeploymentsRequest struct {
 	ctx        context.Context
-	ApiService *FunctionsAPIService
+	ApiService *FunctionAPIService
 }
 
-func (r FunctionsAPIGetFunctionsDeploymentsRequest) Execute() (*FnList, *http.Response, error) {
-	return r.ApiService.GetFunctionsDeploymentsExecute(r)
+func (r FunctionAPIGetFunctionDeploymentsRequest) Execute() (*FnList, *http.Response, error) {
+	return r.ApiService.GetFunctionDeploymentsExecute(r)
 }
 
 /*
-GetFunctionsDeployments Is what is live right now — each function's current record IS its live deployment, so this is the deployment inventory.
+GetFunctionDeployments Is what is live right now — each function's current record IS its live deployment, so this is the deployment inventory.
 
 Is what is live right now — each function's current record IS its
 live deployment, so this is the deployment inventory.
@@ -582,10 +582,10 @@ publishing replaces it. The 7-day rollup is deliberately absent here, because
 this read is about what is deployed rather than about how it has performed.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return FunctionsAPIGetFunctionsDeploymentsRequest
+	@return FunctionAPIGetFunctionDeploymentsRequest
 */
-func (a *FunctionsAPIService) GetFunctionsDeployments(ctx context.Context) FunctionsAPIGetFunctionsDeploymentsRequest {
-	return FunctionsAPIGetFunctionsDeploymentsRequest{
+func (a *FunctionAPIService) GetFunctionDeployments(ctx context.Context) FunctionAPIGetFunctionDeploymentsRequest {
+	return FunctionAPIGetFunctionDeploymentsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -594,7 +594,7 @@ func (a *FunctionsAPIService) GetFunctionsDeployments(ctx context.Context) Funct
 // Execute executes the request
 //
 //	@return FnList
-func (a *FunctionsAPIService) GetFunctionsDeploymentsExecute(r FunctionsAPIGetFunctionsDeploymentsRequest) (*FnList, *http.Response, error) {
+func (a *FunctionAPIService) GetFunctionDeploymentsExecute(r FunctionAPIGetFunctionDeploymentsRequest) (*FnList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -602,12 +602,12 @@ func (a *FunctionsAPIService) GetFunctionsDeploymentsExecute(r FunctionsAPIGetFu
 		localVarReturnValue *FnList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsAPIService.GetFunctionsDeployments")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.GetFunctionDeployments")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/functions/deployments"
+	localVarPath := localBasePath + "/v1/function/deployments"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -667,24 +667,24 @@ func (a *FunctionsAPIService) GetFunctionsDeploymentsExecute(r FunctionsAPIGetFu
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type FunctionsAPIGetFunctionsMetricsRequest struct {
+type FunctionAPIGetFunctionMetricsRequest struct {
 	ctx        context.Context
-	ApiService *FunctionsAPIService
+	ApiService *FunctionAPIService
 	range_     *string
 }
 
 // Range is 1H, 6H, 24H (the default), 7D or 30D. Anything else falls back to 24H rather than failing.
-func (r FunctionsAPIGetFunctionsMetricsRequest) Range_(range_ string) FunctionsAPIGetFunctionsMetricsRequest {
+func (r FunctionAPIGetFunctionMetricsRequest) Range_(range_ string) FunctionAPIGetFunctionMetricsRequest {
 	r.range_ = &range_
 	return r
 }
 
-func (r FunctionsAPIGetFunctionsMetricsRequest) Execute() (*Usage, *http.Response, error) {
-	return r.ApiService.GetFunctionsMetricsExecute(r)
+func (r FunctionAPIGetFunctionMetricsRequest) Execute() (*Usage, *http.Response, error) {
+	return r.ApiService.GetFunctionMetricsExecute(r)
 }
 
 /*
-GetFunctionsMetrics Is the org's serverless dashboard over a window: a per-function invocation costLine and how those invocations ended.
+GetFunctionMetrics Is the org's serverless dashboard over a window: a per-function invocation costLine and how those invocations ended.
 
 Is the org's serverless dashboard over a window: a per-function
 invocation costLine and how those invocations ended.
@@ -698,10 +698,10 @@ and reporting a number computed some other way would be a guess presented as a
 measurement. Requires a validated principal; the read is scoped to its org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return FunctionsAPIGetFunctionsMetricsRequest
+	@return FunctionAPIGetFunctionMetricsRequest
 */
-func (a *FunctionsAPIService) GetFunctionsMetrics(ctx context.Context) FunctionsAPIGetFunctionsMetricsRequest {
-	return FunctionsAPIGetFunctionsMetricsRequest{
+func (a *FunctionAPIService) GetFunctionMetrics(ctx context.Context) FunctionAPIGetFunctionMetricsRequest {
+	return FunctionAPIGetFunctionMetricsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -710,7 +710,7 @@ func (a *FunctionsAPIService) GetFunctionsMetrics(ctx context.Context) Functions
 // Execute executes the request
 //
 //	@return Usage
-func (a *FunctionsAPIService) GetFunctionsMetricsExecute(r FunctionsAPIGetFunctionsMetricsRequest) (*Usage, *http.Response, error) {
+func (a *FunctionAPIService) GetFunctionMetricsExecute(r FunctionAPIGetFunctionMetricsRequest) (*Usage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -718,12 +718,12 @@ func (a *FunctionsAPIService) GetFunctionsMetricsExecute(r FunctionsAPIGetFuncti
 		localVarReturnValue *Usage
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsAPIService.GetFunctionsMetrics")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.GetFunctionMetrics")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/functions/metrics"
+	localVarPath := localBasePath + "/v1/function/metrics"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -786,17 +786,17 @@ func (a *FunctionsAPIService) GetFunctionsMetricsExecute(r FunctionsAPIGetFuncti
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type FunctionsAPIGetFunctionsSecretsRequest struct {
+type FunctionAPIGetFunctionSecretsRequest struct {
 	ctx        context.Context
-	ApiService *FunctionsAPIService
+	ApiService *FunctionAPIService
 }
 
-func (r FunctionsAPIGetFunctionsSecretsRequest) Execute() (*SecretList, *http.Response, error) {
-	return r.ApiService.GetFunctionsSecretsExecute(r)
+func (r FunctionAPIGetFunctionSecretsRequest) Execute() (*SecretList, *http.Response, error) {
+	return r.ApiService.GetFunctionSecretsExecute(r)
 }
 
 /*
-GetFunctionsSecrets Is the NAMES of the secrets the caller org's functions mount.
+GetFunctionSecrets Is the NAMES of the secrets the caller org's functions mount.
 
 Is the NAMES of the secrets the caller org's functions mount.
 
@@ -805,10 +805,10 @@ asks for and nothing about what is behind them, which is what makes it safe to
 list at all. One row per distinct (namespace, name).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return FunctionsAPIGetFunctionsSecretsRequest
+	@return FunctionAPIGetFunctionSecretsRequest
 */
-func (a *FunctionsAPIService) GetFunctionsSecrets(ctx context.Context) FunctionsAPIGetFunctionsSecretsRequest {
-	return FunctionsAPIGetFunctionsSecretsRequest{
+func (a *FunctionAPIService) GetFunctionSecrets(ctx context.Context) FunctionAPIGetFunctionSecretsRequest {
+	return FunctionAPIGetFunctionSecretsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -817,7 +817,7 @@ func (a *FunctionsAPIService) GetFunctionsSecrets(ctx context.Context) Functions
 // Execute executes the request
 //
 //	@return SecretList
-func (a *FunctionsAPIService) GetFunctionsSecretsExecute(r FunctionsAPIGetFunctionsSecretsRequest) (*SecretList, *http.Response, error) {
+func (a *FunctionAPIService) GetFunctionSecretsExecute(r FunctionAPIGetFunctionSecretsRequest) (*SecretList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -825,12 +825,12 @@ func (a *FunctionsAPIService) GetFunctionsSecretsExecute(r FunctionsAPIGetFuncti
 		localVarReturnValue *SecretList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsAPIService.GetFunctionsSecrets")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.GetFunctionSecrets")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/functions/secrets"
+	localVarPath := localBasePath + "/v1/function/secrets"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -890,17 +890,17 @@ func (a *FunctionsAPIService) GetFunctionsSecretsExecute(r FunctionsAPIGetFuncti
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type FunctionsAPIGetFunctionsTriggersRequest struct {
+type FunctionAPIGetFunctionTriggersRequest struct {
 	ctx        context.Context
-	ApiService *FunctionsAPIService
+	ApiService *FunctionAPIService
 }
 
-func (r FunctionsAPIGetFunctionsTriggersRequest) Execute() (*TriggerList, *http.Response, error) {
-	return r.ApiService.GetFunctionsTriggersExecute(r)
+func (r FunctionAPIGetFunctionTriggersRequest) Execute() (*TriggerList, *http.Response, error) {
+	return r.ApiService.GetFunctionTriggersExecute(r)
 }
 
 /*
-GetFunctionsTriggers Is what calls the caller org's functions — one row per function.
+GetFunctionTriggers Is what calls the caller org's functions — one row per function.
 
 Is what calls the caller org's functions — one row per function.
 
@@ -908,10 +908,10 @@ Every function has exactly one trigger today, its HTTP invoke endpoint, so this
 is the function list read as "how is each of these reached".
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return FunctionsAPIGetFunctionsTriggersRequest
+	@return FunctionAPIGetFunctionTriggersRequest
 */
-func (a *FunctionsAPIService) GetFunctionsTriggers(ctx context.Context) FunctionsAPIGetFunctionsTriggersRequest {
-	return FunctionsAPIGetFunctionsTriggersRequest{
+func (a *FunctionAPIService) GetFunctionTriggers(ctx context.Context) FunctionAPIGetFunctionTriggersRequest {
+	return FunctionAPIGetFunctionTriggersRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -920,7 +920,7 @@ func (a *FunctionsAPIService) GetFunctionsTriggers(ctx context.Context) Function
 // Execute executes the request
 //
 //	@return TriggerList
-func (a *FunctionsAPIService) GetFunctionsTriggersExecute(r FunctionsAPIGetFunctionsTriggersRequest) (*TriggerList, *http.Response, error) {
+func (a *FunctionAPIService) GetFunctionTriggersExecute(r FunctionAPIGetFunctionTriggersRequest) (*TriggerList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -928,12 +928,12 @@ func (a *FunctionsAPIService) GetFunctionsTriggersExecute(r FunctionsAPIGetFunct
 		localVarReturnValue *TriggerList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsAPIService.GetFunctionsTriggers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.GetFunctionTriggers")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/functions/triggers"
+	localVarPath := localBasePath + "/v1/function/triggers"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -993,23 +993,23 @@ func (a *FunctionsAPIService) GetFunctionsTriggersExecute(r FunctionsAPIGetFunct
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type FunctionsAPIPostFunctionsRequest struct {
+type FunctionAPIPostFunctionRequest struct {
 	ctx        context.Context
-	ApiService *FunctionsAPIService
+	ApiService *FunctionAPIService
 	definition *Definition
 }
 
-func (r FunctionsAPIPostFunctionsRequest) Definition(definition Definition) FunctionsAPIPostFunctionsRequest {
+func (r FunctionAPIPostFunctionRequest) Definition(definition Definition) FunctionAPIPostFunctionRequest {
 	r.definition = &definition
 	return r
 }
 
-func (r FunctionsAPIPostFunctionsRequest) Execute() (*FunctionView, *http.Response, error) {
-	return r.ApiService.PostFunctionsExecute(r)
+func (r FunctionAPIPostFunctionRequest) Execute() (*FunctionView, *http.Response, error) {
+	return r.ApiService.PostFunctionExecute(r)
 }
 
 /*
-PostFunctions Publishes a serverless function under the caller's org and answers 201 with it.
+PostFunction Publishes a serverless function under the caller's org and answers 201 with it.
 
 Publishes a serverless function under the caller's org and answers 201
 with it.
@@ -1026,10 +1026,10 @@ on the org's own GPU fleet and supports runtime=python only.
 Requires a validated principal; the function is owned by that principal's org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return FunctionsAPIPostFunctionsRequest
+	@return FunctionAPIPostFunctionRequest
 */
-func (a *FunctionsAPIService) PostFunctions(ctx context.Context) FunctionsAPIPostFunctionsRequest {
-	return FunctionsAPIPostFunctionsRequest{
+func (a *FunctionAPIService) PostFunction(ctx context.Context) FunctionAPIPostFunctionRequest {
+	return FunctionAPIPostFunctionRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1038,7 +1038,7 @@ func (a *FunctionsAPIService) PostFunctions(ctx context.Context) FunctionsAPIPos
 // Execute executes the request
 //
 //	@return FunctionView
-func (a *FunctionsAPIService) PostFunctionsExecute(r FunctionsAPIPostFunctionsRequest) (*FunctionView, *http.Response, error) {
+func (a *FunctionAPIService) PostFunctionExecute(r FunctionAPIPostFunctionRequest) (*FunctionView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1046,12 +1046,12 @@ func (a *FunctionsAPIService) PostFunctionsExecute(r FunctionsAPIPostFunctionsRe
 		localVarReturnValue *FunctionView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsAPIService.PostFunctions")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.PostFunction")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/functions"
+	localVarPath := localBasePath + "/v1/function"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1116,24 +1116,24 @@ func (a *FunctionsAPIService) PostFunctionsExecute(r FunctionsAPIPostFunctionsRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type FunctionsAPIPostFunctionsByNameInvokeRequest struct {
+type FunctionAPIPostFunctionByNameInvokeRequest struct {
 	ctx        context.Context
-	ApiService *FunctionsAPIService
+	ApiService *FunctionAPIService
 	name       string
 	invokeReq  *InvokeReq
 }
 
-func (r FunctionsAPIPostFunctionsByNameInvokeRequest) InvokeReq(invokeReq InvokeReq) FunctionsAPIPostFunctionsByNameInvokeRequest {
+func (r FunctionAPIPostFunctionByNameInvokeRequest) InvokeReq(invokeReq InvokeReq) FunctionAPIPostFunctionByNameInvokeRequest {
 	r.invokeReq = &invokeReq
 	return r
 }
 
-func (r FunctionsAPIPostFunctionsByNameInvokeRequest) Execute() (*InvocationView, *http.Response, error) {
-	return r.ApiService.PostFunctionsByNameInvokeExecute(r)
+func (r FunctionAPIPostFunctionByNameInvokeRequest) Execute() (*InvocationView, *http.Response, error) {
+	return r.ApiService.PostFunctionByNameInvokeExecute(r)
 }
 
 /*
-PostFunctionsByNameInvoke Runs a function and records a REAL invocation.
+PostFunctionByNameInvoke Runs a function and records a REAL invocation.
 
 Runs a function and records a REAL invocation.
 
@@ -1159,10 +1159,10 @@ output. Scoped to the caller's org; requires a validated principal.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name
-	@return FunctionsAPIPostFunctionsByNameInvokeRequest
+	@return FunctionAPIPostFunctionByNameInvokeRequest
 */
-func (a *FunctionsAPIService) PostFunctionsByNameInvoke(ctx context.Context, name string) FunctionsAPIPostFunctionsByNameInvokeRequest {
-	return FunctionsAPIPostFunctionsByNameInvokeRequest{
+func (a *FunctionAPIService) PostFunctionByNameInvoke(ctx context.Context, name string) FunctionAPIPostFunctionByNameInvokeRequest {
+	return FunctionAPIPostFunctionByNameInvokeRequest{
 		ApiService: a,
 		ctx:        ctx,
 		name:       name,
@@ -1172,7 +1172,7 @@ func (a *FunctionsAPIService) PostFunctionsByNameInvoke(ctx context.Context, nam
 // Execute executes the request
 //
 //	@return InvocationView
-func (a *FunctionsAPIService) PostFunctionsByNameInvokeExecute(r FunctionsAPIPostFunctionsByNameInvokeRequest) (*InvocationView, *http.Response, error) {
+func (a *FunctionAPIService) PostFunctionByNameInvokeExecute(r FunctionAPIPostFunctionByNameInvokeRequest) (*InvocationView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1180,12 +1180,12 @@ func (a *FunctionsAPIService) PostFunctionsByNameInvokeExecute(r FunctionsAPIPos
 		localVarReturnValue *InvocationView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsAPIService.PostFunctionsByNameInvoke")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.PostFunctionByNameInvoke")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/functions/{name}/invoke"
+	localVarPath := localBasePath + "/v1/function/{name}/invoke"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)

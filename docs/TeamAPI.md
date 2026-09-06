@@ -11,7 +11,6 @@ Method | HTTP request | Description
 [**GetTeamAccountProviders**](TeamAPI.md#GetTeamAccountProviders) | **Get** /v1/team/account/providers | Returns the identity providers this deployment starts a login with.
 [**GetTeamBillingPlan**](TeamAPI.md#GetTeamBillingPlan) | **Get** /v1/team/billing/plan | Returns the plan and seat counts for the caller&#39;s OWN org, resolved from the VERIFIED team session token — never a client header.
 [**GetTeamBillingUi**](TeamAPI.md#GetTeamBillingUi) | **Get** /v1/team/billing/ui | Open the wallet page
-[**GetTeamBots**](TeamAPI.md#GetTeamBots) | **Get** /v1/team/bots | Returns the caller org&#39;s bot members — the org&#39;s agents projected as the space Employees they become, each with the member account uuid and Person reference the roster addresses it by.
 [**GetTeamCollaborator**](TeamAPI.md#GetTeamCollaborator) | **Get** /v1/team/collaborator | Open the live collaborative-editing socket
 [**GetTeamFilesBySpaceByFilename**](TeamAPI.md#GetTeamFilesBySpaceByFilename) | **Get** /v1/team/files/{space}/{filename} | Download a space file
 [**GetTeamPublic**](TeamAPI.md#GetTeamPublic) | **Get** /v1/team/public | Lists the rooms orgs have published, across every org.
@@ -20,7 +19,6 @@ Method | HTTP request | Description
 [**GetTeamTransactorByToken**](TeamAPI.md#GetTeamTransactorByToken) | **Get** /v1/team/transactor/{token} | Open the space data-plane socket
 [**GetTeamTransactorStatistics**](TeamAPI.md#GetTeamTransactorStatistics) | **Get** /v1/team/transactor/statistics | Statistics returns the transactor&#39;s live sessions for the space the caller&#39;s credential names — the endpoint the front&#39;s space switcher and server panel poll on the transactor base.
 [**PostTeamAccount**](TeamAPI.md#PostTeamAccount) | **Post** /v1/team/account | Read the caller&#39;s account and switch space
-[**PostTeamBotsSync**](TeamAPI.md#PostTeamBotsSync) | **Post** /v1/team/bots/sync | SyncBots re-projects the caller org&#39;s agents as space members into EVERY space of the org, and removes the ones whose agent is gone.
 [**PostTeamCollaboratorRpcByDocumentid**](TeamAPI.md#PostTeamCollaboratorRpcByDocumentid) | **Post** /v1/team/collaborator/rpc/{documentId} | CollabRPC is the collaborative-markup snapshot plane the Team front&#39;s editor speaks: createContent stores a document field&#39;s markup at a fresh, immutable blob ref and returns it, updateContent stores a new snapshot and answers nothing, and getContent reads back the exact snapshot a ref names.
 [**PostTeamFilesBySpace**](TeamAPI.md#PostTeamFilesBySpace) | **Post** /v1/team/files/{space} | Upload a file into a space
 [**PostTeamRooms**](TeamAPI.md#PostTeamRooms) | **Post** /v1/team/rooms | Opens a named room and answers it as the store now holds it.
@@ -477,67 +475,6 @@ Other parameters are passed through a pointer to a apiGetTeamBillingUiRequest st
 
 - **Content-Type**: Not defined
 - **Accept**: text/html; charset=utf-8
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetTeamBots
-
-> BotRoster GetTeamBots(ctx).Execute()
-
-Returns the caller org's bot members — the org's agents projected as the space Employees they become, each with the member account uuid and Person reference the roster addresses it by.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.GetTeamBots(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamBots``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetTeamBots`: BotRoster
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamBots`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetTeamBotsRequest struct via the builder pattern
-
-
-### Return type
-
-[**BotRoster**](BotRoster.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1066,67 +1003,6 @@ Other parameters are passed through a pointer to a apiPostTeamAccountRequest str
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostTeamBotsSync
-
-> BotSync PostTeamBotsSync(ctx).Execute()
-
-SyncBots re-projects the caller org's agents as space members into EVERY space of the org, and removes the ones whose agent is gone.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.PostTeamBotsSync(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PostTeamBotsSync``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostTeamBotsSync`: BotSync
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.PostTeamBotsSync`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostTeamBotsSyncRequest struct via the builder pattern
-
-
-### Return type
-
-[**BotSync**](BotSync.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

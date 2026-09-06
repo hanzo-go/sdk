@@ -1,34 +1,34 @@
-# \ToolsAPI
+# \ToolAPI
 
 All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteToolsMcpServersById**](ToolsAPI.md#DeleteToolsMcpServersById) | **Delete** /v1/tools/mcp/servers/{id} | Deregisters one of the caller org&#39;s external MCP servers, so its tools leave the registry.
-[**DeleteToolsPluginsAuthoredById**](ToolsAPI.md#DeleteToolsPluginsAuthoredById) | **Delete** /v1/tools/plugins/authored/{id} | Removes one of the caller org&#39;s built plugins, so the runtime can no longer load it.
-[**DeleteToolsSkillsById**](ToolsAPI.md#DeleteToolsSkillsById) | **Delete** /v1/tools/skills/{id} | Removes one of the caller org&#39;s authored skills.
-[**GetTools**](ToolsAPI.md#GetTools) | **Get** /v1/tools | Lists every tool the caller&#39;s org and project can reach, from every source, each flagged with whether it is activated.
-[**GetToolsActivation**](ToolsAPI.md#GetToolsActivation) | **Get** /v1/tools/activation | Reports which tools are switched on for the caller&#39;s org and project.
-[**GetToolsCatalog**](ToolsAPI.md#GetToolsCatalog) | **Get** /v1/tools/catalog | Lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.
-[**GetToolsCatalogById**](ToolsAPI.md#GetToolsCatalogById) | **Get** /v1/tools/catalog/{id} | Returns one catalog entry in full: the publisher&#39;s description, its repository and site, every package form with the runtime that launches it, and every hosted endpoint.
-[**GetToolsMcpServers**](ToolsAPI.md#GetToolsMcpServers) | **Get** /v1/tools/mcp/servers | Lists the external MCP servers the caller&#39;s org has registered.
-[**GetToolsPlugins**](ToolsAPI.md#GetToolsPlugins) | **Get** /v1/tools/plugins | Reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on.
-[**GetToolsPluginsAuthored**](ToolsAPI.md#GetToolsPluginsAuthored) | **Get** /v1/tools/plugins/authored | Lists the plugins the caller&#39;s org BUILT, newest first, each with the TypeScript as authored.
-[**GetToolsSkills**](ToolsAPI.md#GetToolsSkills) | **Get** /v1/tools/skills | Lists the skills the caller&#39;s org can reach — the brand&#39;s embedded catalogue plus the org&#39;s own authored ones — with each one&#39;s activation flag.
-[**GetToolsSkillsAuthored**](ToolsAPI.md#GetToolsSkillsAuthored) | **Get** /v1/tools/skills/authored | Lists the caller org&#39;s OWN skills with their SKILL.md bodies.
-[**PatchToolsCatalogById**](ToolsAPI.md#PatchToolsCatalogById) | **Patch** /v1/tools/catalog/{id} | Sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
-[**PostToolsCall**](ToolsAPI.md#PostToolsCall) | **Post** /v1/tools/call | Runs one of the caller&#39;s activated tools and answers with its output.
-[**PostToolsCatalogSync**](ToolsAPI.md#PostToolsCatalogSync) | **Post** /v1/tools/catalog/sync | Pulls the public MCP registry into our canonical copy and reports what changed.
-[**PostToolsMcpServers**](ToolsAPI.md#PostToolsMcpServers) | **Post** /v1/tools/mcp/servers | Gives the caller&#39;s org one more external MCP server, so its tools join the org&#39;s tool plane and the fleet&#39;s MCP server.
-[**PostToolsPluginsBuild**](ToolsAPI.md#PostToolsPluginsBuild) | **Post** /v1/tools/plugins/build | Builds and stores one plugin for the caller&#39;s org.
-[**PostToolsSkills**](ToolsAPI.md#PostToolsSkills) | **Post** /v1/tools/skills | Adds or revises one of the caller org&#39;s own skills, and answers 201 with the stored record.
-[**PutToolsActivation**](ToolsAPI.md#PutToolsActivation) | **Put** /v1/tools/activation | Switches tools on and off for the caller&#39;s org and project, and answers with the resulting activated set.
+[**DeleteToolMcpServersById**](ToolAPI.md#DeleteToolMcpServersById) | **Delete** /v1/tool/mcp/servers/{id} | Deregisters one of the caller org&#39;s external MCP servers, so its tools leave the registry.
+[**DeleteToolPluginsAuthoredById**](ToolAPI.md#DeleteToolPluginsAuthoredById) | **Delete** /v1/tool/plugins/authored/{id} | Removes one of the caller org&#39;s built plugins, so the runtime can no longer load it.
+[**DeleteToolSkillsById**](ToolAPI.md#DeleteToolSkillsById) | **Delete** /v1/tool/skills/{id} | Removes one of the caller org&#39;s authored skills.
+[**GetTool**](ToolAPI.md#GetTool) | **Get** /v1/tool | Lists every tool the caller&#39;s org and project can reach, from every source, each flagged with whether it is activated.
+[**GetToolActivation**](ToolAPI.md#GetToolActivation) | **Get** /v1/tool/activation | Reports which tools are switched on for the caller&#39;s org and project.
+[**GetToolCatalog**](ToolAPI.md#GetToolCatalog) | **Get** /v1/tool/catalog | Lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.
+[**GetToolCatalogById**](ToolAPI.md#GetToolCatalogById) | **Get** /v1/tool/catalog/{id} | Returns one catalog entry in full: the publisher&#39;s description, its repository and site, every package form with the runtime that launches it, and every hosted endpoint.
+[**GetToolMcpServers**](ToolAPI.md#GetToolMcpServers) | **Get** /v1/tool/mcp/servers | Lists the external MCP servers the caller&#39;s org has registered.
+[**GetToolPlugins**](ToolAPI.md#GetToolPlugins) | **Get** /v1/tool/plugins | Reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on.
+[**GetToolPluginsAuthored**](ToolAPI.md#GetToolPluginsAuthored) | **Get** /v1/tool/plugins/authored | Lists the plugins the caller&#39;s org BUILT, newest first, each with the TypeScript as authored.
+[**GetToolSkills**](ToolAPI.md#GetToolSkills) | **Get** /v1/tool/skills | Lists the skills the caller&#39;s org can reach — the brand&#39;s embedded catalogue plus the org&#39;s own authored ones — with each one&#39;s activation flag.
+[**GetToolSkillsAuthored**](ToolAPI.md#GetToolSkillsAuthored) | **Get** /v1/tool/skills/authored | Lists the caller org&#39;s OWN skills with their SKILL.md bodies.
+[**PatchToolCatalogById**](ToolAPI.md#PatchToolCatalogById) | **Patch** /v1/tool/catalog/{id} | Sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
+[**PostToolCall**](ToolAPI.md#PostToolCall) | **Post** /v1/tool/call | Runs one of the caller&#39;s activated tools and answers with its output.
+[**PostToolCatalogSync**](ToolAPI.md#PostToolCatalogSync) | **Post** /v1/tool/catalog/sync | Pulls the public MCP registry into our canonical copy and reports what changed.
+[**PostToolMcpServers**](ToolAPI.md#PostToolMcpServers) | **Post** /v1/tool/mcp/servers | Gives the caller&#39;s org one more external MCP server, so its tools join the org&#39;s tool plane and the fleet&#39;s MCP server.
+[**PostToolPluginsBuild**](ToolAPI.md#PostToolPluginsBuild) | **Post** /v1/tool/plugins/build | Builds and stores one plugin for the caller&#39;s org.
+[**PostToolSkills**](ToolAPI.md#PostToolSkills) | **Post** /v1/tool/skills | Adds or revises one of the caller org&#39;s own skills, and answers 201 with the stored record.
+[**PutToolActivation**](ToolAPI.md#PutToolActivation) | **Put** /v1/tool/activation | Switches tools on and off for the caller&#39;s org and project, and answers with the resulting activated set.
 
 
 
-## DeleteToolsMcpServersById
+## DeleteToolMcpServersById
 
-> DeleteToolsMcpServersById(ctx, id).Execute()
+> DeleteToolMcpServersById(ctx, id).Execute()
 
 Deregisters one of the caller org's external MCP servers, so its tools leave the registry.
 
@@ -51,9 +51,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ToolsAPI.DeleteToolsMcpServersById(context.Background(), id).Execute()
+	r, err := apiClient.ToolAPI.DeleteToolMcpServersById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.DeleteToolsMcpServersById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.DeleteToolMcpServersById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteToolsMcpServersByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteToolMcpServersByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -94,9 +94,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DeleteToolsPluginsAuthoredById
+## DeleteToolPluginsAuthoredById
 
-> PluginDeleted DeleteToolsPluginsAuthoredById(ctx, id).Execute()
+> PluginDeleted DeleteToolPluginsAuthoredById(ctx, id).Execute()
 
 Removes one of the caller org's built plugins, so the runtime can no longer load it.
 
@@ -119,13 +119,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.DeleteToolsPluginsAuthoredById(context.Background(), id).Execute()
+	resp, r, err := apiClient.ToolAPI.DeleteToolPluginsAuthoredById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.DeleteToolsPluginsAuthoredById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.DeleteToolPluginsAuthoredById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteToolsPluginsAuthoredById`: PluginDeleted
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.DeleteToolsPluginsAuthoredById`: %v\n", resp)
+	// response from `DeleteToolPluginsAuthoredById`: PluginDeleted
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.DeleteToolPluginsAuthoredById`: %v\n", resp)
 }
 ```
 
@@ -139,7 +139,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteToolsPluginsAuthoredByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteToolPluginsAuthoredByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -164,9 +164,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DeleteToolsSkillsById
+## DeleteToolSkillsById
 
-> SkillDeleted DeleteToolsSkillsById(ctx, id).Execute()
+> SkillDeleted DeleteToolSkillsById(ctx, id).Execute()
 
 Removes one of the caller org's authored skills.
 
@@ -189,13 +189,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.DeleteToolsSkillsById(context.Background(), id).Execute()
+	resp, r, err := apiClient.ToolAPI.DeleteToolSkillsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.DeleteToolsSkillsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.DeleteToolSkillsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteToolsSkillsById`: SkillDeleted
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.DeleteToolsSkillsById`: %v\n", resp)
+	// response from `DeleteToolSkillsById`: SkillDeleted
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.DeleteToolSkillsById`: %v\n", resp)
 }
 ```
 
@@ -209,7 +209,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteToolsSkillsByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteToolSkillsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -234,9 +234,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetTools
+## GetTool
 
-> ToolList GetTools(ctx).Source(source).Activated(activated).Execute()
+> ToolList GetTool(ctx).Source(source).Activated(activated).Execute()
 
 Lists every tool the caller's org and project can reach, from every source, each flagged with whether it is activated.
 
@@ -260,13 +260,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.GetTools(context.Background()).Source(source).Activated(activated).Execute()
+	resp, r, err := apiClient.ToolAPI.GetTool(context.Background()).Source(source).Activated(activated).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.GetTools``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.GetTool``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTools`: ToolList
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.GetTools`: %v\n", resp)
+	// response from `GetTool`: ToolList
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.GetTool`: %v\n", resp)
 }
 ```
 
@@ -276,7 +276,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetToolsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetToolRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -302,9 +302,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetToolsActivation
+## GetToolActivation
 
-> ActivationSet GetToolsActivation(ctx).Execute()
+> ActivationSet GetToolActivation(ctx).Execute()
 
 Reports which tools are switched on for the caller's org and project.
 
@@ -326,13 +326,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.GetToolsActivation(context.Background()).Execute()
+	resp, r, err := apiClient.ToolAPI.GetToolActivation(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.GetToolsActivation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.GetToolActivation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetToolsActivation`: ActivationSet
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.GetToolsActivation`: %v\n", resp)
+	// response from `GetToolActivation`: ActivationSet
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.GetToolActivation`: %v\n", resp)
 }
 ```
 
@@ -342,7 +342,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetToolsActivationRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetToolActivationRequest struct via the builder pattern
 
 
 ### Return type
@@ -363,9 +363,9 @@ Other parameters are passed through a pointer to a apiGetToolsActivationRequest 
 [[Back to README]](../README.md)
 
 
-## GetToolsCatalog
+## GetToolCatalog
 
-> McpCatalog GetToolsCatalog(ctx).Q(q).Featured(featured).Official(official).Limit(limit).Offset(offset).Execute()
+> McpCatalog GetToolCatalog(ctx).Q(q).Featured(featured).Official(official).Limit(limit).Offset(offset).Execute()
 
 Lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.
 
@@ -392,13 +392,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.GetToolsCatalog(context.Background()).Q(q).Featured(featured).Official(official).Limit(limit).Offset(offset).Execute()
+	resp, r, err := apiClient.ToolAPI.GetToolCatalog(context.Background()).Q(q).Featured(featured).Official(official).Limit(limit).Offset(offset).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.GetToolsCatalog``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.GetToolCatalog``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetToolsCatalog`: McpCatalog
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.GetToolsCatalog`: %v\n", resp)
+	// response from `GetToolCatalog`: McpCatalog
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.GetToolCatalog`: %v\n", resp)
 }
 ```
 
@@ -408,7 +408,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetToolsCatalogRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetToolCatalogRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -437,9 +437,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetToolsCatalogById
+## GetToolCatalogById
 
-> MCPListing GetToolsCatalogById(ctx, id).Execute()
+> MCPListing GetToolCatalogById(ctx, id).Execute()
 
 Returns one catalog entry in full: the publisher's description, its repository and site, every package form with the runtime that launches it, and every hosted endpoint.
 
@@ -462,13 +462,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.GetToolsCatalogById(context.Background(), id).Execute()
+	resp, r, err := apiClient.ToolAPI.GetToolCatalogById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.GetToolsCatalogById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.GetToolCatalogById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetToolsCatalogById`: MCPListing
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.GetToolsCatalogById`: %v\n", resp)
+	// response from `GetToolCatalogById`: MCPListing
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.GetToolCatalogById`: %v\n", resp)
 }
 ```
 
@@ -482,7 +482,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetToolsCatalogByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetToolCatalogByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -507,9 +507,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetToolsMcpServers
+## GetToolMcpServers
 
-> McpServerList GetToolsMcpServers(ctx).Execute()
+> McpServerList GetToolMcpServers(ctx).Execute()
 
 Lists the external MCP servers the caller's org has registered.
 
@@ -531,13 +531,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.GetToolsMcpServers(context.Background()).Execute()
+	resp, r, err := apiClient.ToolAPI.GetToolMcpServers(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.GetToolsMcpServers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.GetToolMcpServers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetToolsMcpServers`: McpServerList
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.GetToolsMcpServers`: %v\n", resp)
+	// response from `GetToolMcpServers`: McpServerList
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.GetToolMcpServers`: %v\n", resp)
 }
 ```
 
@@ -547,7 +547,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetToolsMcpServersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetToolMcpServersRequest struct via the builder pattern
 
 
 ### Return type
@@ -568,9 +568,9 @@ Other parameters are passed through a pointer to a apiGetToolsMcpServersRequest 
 [[Back to README]](../README.md)
 
 
-## GetToolsPlugins
+## GetToolPlugins
 
-> PluginMountList GetToolsPlugins(ctx).All(all).Execute()
+> PluginMountList GetToolPlugins(ctx).All(all).Execute()
 
 Reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on.
 
@@ -593,13 +593,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.GetToolsPlugins(context.Background()).All(all).Execute()
+	resp, r, err := apiClient.ToolAPI.GetToolPlugins(context.Background()).All(all).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.GetToolsPlugins``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.GetToolPlugins``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetToolsPlugins`: PluginMountList
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.GetToolsPlugins`: %v\n", resp)
+	// response from `GetToolPlugins`: PluginMountList
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.GetToolPlugins`: %v\n", resp)
 }
 ```
 
@@ -609,7 +609,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetToolsPluginsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetToolPluginsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -634,9 +634,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetToolsPluginsAuthored
+## GetToolPluginsAuthored
 
-> AuthoredPluginList GetToolsPluginsAuthored(ctx).Execute()
+> AuthoredPluginList GetToolPluginsAuthored(ctx).Execute()
 
 Lists the plugins the caller's org BUILT, newest first, each with the TypeScript as authored.
 
@@ -658,13 +658,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.GetToolsPluginsAuthored(context.Background()).Execute()
+	resp, r, err := apiClient.ToolAPI.GetToolPluginsAuthored(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.GetToolsPluginsAuthored``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.GetToolPluginsAuthored``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetToolsPluginsAuthored`: AuthoredPluginList
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.GetToolsPluginsAuthored`: %v\n", resp)
+	// response from `GetToolPluginsAuthored`: AuthoredPluginList
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.GetToolPluginsAuthored`: %v\n", resp)
 }
 ```
 
@@ -674,7 +674,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetToolsPluginsAuthoredRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetToolPluginsAuthoredRequest struct via the builder pattern
 
 
 ### Return type
@@ -695,9 +695,9 @@ Other parameters are passed through a pointer to a apiGetToolsPluginsAuthoredReq
 [[Back to README]](../README.md)
 
 
-## GetToolsSkills
+## GetToolSkills
 
-> SourceToolList GetToolsSkills(ctx).Activated(activated).Execute()
+> SourceToolList GetToolSkills(ctx).Activated(activated).Execute()
 
 Lists the skills the caller's org can reach — the brand's embedded catalogue plus the org's own authored ones — with each one's activation flag.
 
@@ -720,13 +720,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.GetToolsSkills(context.Background()).Activated(activated).Execute()
+	resp, r, err := apiClient.ToolAPI.GetToolSkills(context.Background()).Activated(activated).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.GetToolsSkills``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.GetToolSkills``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetToolsSkills`: SourceToolList
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.GetToolsSkills`: %v\n", resp)
+	// response from `GetToolSkills`: SourceToolList
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.GetToolSkills`: %v\n", resp)
 }
 ```
 
@@ -736,7 +736,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetToolsSkillsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetToolSkillsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -761,9 +761,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetToolsSkillsAuthored
+## GetToolSkillsAuthored
 
-> AuthoredSkillList GetToolsSkillsAuthored(ctx).Execute()
+> AuthoredSkillList GetToolSkillsAuthored(ctx).Execute()
 
 Lists the caller org's OWN skills with their SKILL.md bodies.
 
@@ -785,13 +785,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.GetToolsSkillsAuthored(context.Background()).Execute()
+	resp, r, err := apiClient.ToolAPI.GetToolSkillsAuthored(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.GetToolsSkillsAuthored``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.GetToolSkillsAuthored``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetToolsSkillsAuthored`: AuthoredSkillList
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.GetToolsSkillsAuthored`: %v\n", resp)
+	// response from `GetToolSkillsAuthored`: AuthoredSkillList
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.GetToolSkillsAuthored`: %v\n", resp)
 }
 ```
 
@@ -801,7 +801,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetToolsSkillsAuthoredRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetToolSkillsAuthoredRequest struct via the builder pattern
 
 
 ### Return type
@@ -822,9 +822,9 @@ Other parameters are passed through a pointer to a apiGetToolsSkillsAuthoredRequ
 [[Back to README]](../README.md)
 
 
-## PatchToolsCatalogById
+## PatchToolCatalogById
 
-> MCPListing PatchToolsCatalogById(ctx, id).CurateReq(curateReq).Execute()
+> MCPListing PatchToolCatalogById(ctx, id).CurateReq(curateReq).Execute()
 
 Sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
 
@@ -848,13 +848,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.PatchToolsCatalogById(context.Background(), id).CurateReq(curateReq).Execute()
+	resp, r, err := apiClient.ToolAPI.PatchToolCatalogById(context.Background(), id).CurateReq(curateReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.PatchToolsCatalogById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.PatchToolCatalogById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PatchToolsCatalogById`: MCPListing
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.PatchToolsCatalogById`: %v\n", resp)
+	// response from `PatchToolCatalogById`: MCPListing
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.PatchToolCatalogById`: %v\n", resp)
 }
 ```
 
@@ -868,7 +868,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPatchToolsCatalogByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchToolCatalogByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -894,9 +894,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostToolsCall
+## PostToolCall
 
-> ToolResult PostToolsCall(ctx).ToolCall(toolCall).Execute()
+> ToolResult PostToolCall(ctx).ToolCall(toolCall).Execute()
 
 Runs one of the caller's activated tools and answers with its output.
 
@@ -919,13 +919,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.PostToolsCall(context.Background()).ToolCall(toolCall).Execute()
+	resp, r, err := apiClient.ToolAPI.PostToolCall(context.Background()).ToolCall(toolCall).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.PostToolsCall``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.PostToolCall``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostToolsCall`: ToolResult
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.PostToolsCall`: %v\n", resp)
+	// response from `PostToolCall`: ToolResult
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.PostToolCall`: %v\n", resp)
 }
 ```
 
@@ -935,7 +935,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostToolsCallRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostToolCallRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -960,9 +960,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostToolsCatalogSync
+## PostToolCatalogSync
 
-> McpCatalogSync PostToolsCatalogSync(ctx).Execute()
+> McpCatalogSync PostToolCatalogSync(ctx).Execute()
 
 Pulls the public MCP registry into our canonical copy and reports what changed.
 
@@ -984,13 +984,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.PostToolsCatalogSync(context.Background()).Execute()
+	resp, r, err := apiClient.ToolAPI.PostToolCatalogSync(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.PostToolsCatalogSync``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.PostToolCatalogSync``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostToolsCatalogSync`: McpCatalogSync
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.PostToolsCatalogSync`: %v\n", resp)
+	// response from `PostToolCatalogSync`: McpCatalogSync
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.PostToolCatalogSync`: %v\n", resp)
 }
 ```
 
@@ -1000,7 +1000,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostToolsCatalogSyncRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostToolCatalogSyncRequest struct via the builder pattern
 
 
 ### Return type
@@ -1021,9 +1021,9 @@ Other parameters are passed through a pointer to a apiPostToolsCatalogSyncReques
 [[Back to README]](../README.md)
 
 
-## PostToolsMcpServers
+## PostToolMcpServers
 
-> MCPServer PostToolsMcpServers(ctx).CreateServerReq(createServerReq).Execute()
+> MCPServer PostToolMcpServers(ctx).CreateServerReq(createServerReq).Execute()
 
 Gives the caller's org one more external MCP server, so its tools join the org's tool plane and the fleet's MCP server.
 
@@ -1046,13 +1046,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.PostToolsMcpServers(context.Background()).CreateServerReq(createServerReq).Execute()
+	resp, r, err := apiClient.ToolAPI.PostToolMcpServers(context.Background()).CreateServerReq(createServerReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.PostToolsMcpServers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.PostToolMcpServers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostToolsMcpServers`: MCPServer
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.PostToolsMcpServers`: %v\n", resp)
+	// response from `PostToolMcpServers`: MCPServer
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.PostToolMcpServers`: %v\n", resp)
 }
 ```
 
@@ -1062,7 +1062,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostToolsMcpServersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostToolMcpServersRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1087,9 +1087,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostToolsPluginsBuild
+## PostToolPluginsBuild
 
-> BuildOut PostToolsPluginsBuild(ctx).BuildRequest(buildRequest).Execute()
+> BuildOut PostToolPluginsBuild(ctx).BuildRequest(buildRequest).Execute()
 
 Builds and stores one plugin for the caller's org.
 
@@ -1112,13 +1112,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.PostToolsPluginsBuild(context.Background()).BuildRequest(buildRequest).Execute()
+	resp, r, err := apiClient.ToolAPI.PostToolPluginsBuild(context.Background()).BuildRequest(buildRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.PostToolsPluginsBuild``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.PostToolPluginsBuild``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostToolsPluginsBuild`: BuildOut
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.PostToolsPluginsBuild`: %v\n", resp)
+	// response from `PostToolPluginsBuild`: BuildOut
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.PostToolPluginsBuild`: %v\n", resp)
 }
 ```
 
@@ -1128,7 +1128,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostToolsPluginsBuildRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostToolPluginsBuildRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1153,9 +1153,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostToolsSkills
+## PostToolSkills
 
-> SkillWritten PostToolsSkills(ctx).SkillIn(skillIn).Execute()
+> SkillWritten PostToolSkills(ctx).SkillIn(skillIn).Execute()
 
 Adds or revises one of the caller org's own skills, and answers 201 with the stored record.
 
@@ -1178,13 +1178,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.PostToolsSkills(context.Background()).SkillIn(skillIn).Execute()
+	resp, r, err := apiClient.ToolAPI.PostToolSkills(context.Background()).SkillIn(skillIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.PostToolsSkills``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.PostToolSkills``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostToolsSkills`: SkillWritten
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.PostToolsSkills`: %v\n", resp)
+	// response from `PostToolSkills`: SkillWritten
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.PostToolSkills`: %v\n", resp)
 }
 ```
 
@@ -1194,7 +1194,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostToolsSkillsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostToolSkillsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1219,9 +1219,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PutToolsActivation
+## PutToolActivation
 
-> ActivationSet PutToolsActivation(ctx).ActivationReq(activationReq).Execute()
+> ActivationSet PutToolActivation(ctx).ActivationReq(activationReq).Execute()
 
 Switches tools on and off for the caller's org and project, and answers with the resulting activated set.
 
@@ -1244,13 +1244,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.PutToolsActivation(context.Background()).ActivationReq(activationReq).Execute()
+	resp, r, err := apiClient.ToolAPI.PutToolActivation(context.Background()).ActivationReq(activationReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.PutToolsActivation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.PutToolActivation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutToolsActivation`: ActivationSet
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.PutToolsActivation`: %v\n", resp)
+	// response from `PutToolActivation`: ActivationSet
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.PutToolActivation`: %v\n", resp)
 }
 ```
 
@@ -1260,7 +1260,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPutToolsActivationRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutToolActivationRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

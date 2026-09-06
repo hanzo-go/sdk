@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | ID is the card&#39;s address: its host machine&#39;s id, \&quot;#\&quot;, and the card&#39;s ordinal within that machine (\&quot;gpu-1#0\&quot;). Stable for as long as the machine is, and the only id a single accelerator has — providers do not name cards. | [optional] 
 **Location** | Pointer to **string** | Location is where the card physically sits, which for every source today is the same value Region carries — the console renders it in its own column. | [optional] 
-**Machine** | Pointer to **string** | Machine is the id of the machine holding this card, addressable as-is on /v1/visor/machines/:id. | [optional] 
+**Machine** | Pointer to **string** | Machine is the id of the machine holding this card, addressable as-is on /v1/compute/machines/:id. | [optional] 
 **Memory** | Pointer to **string** | Memory is the card&#39;s VRAM as its own tooling reported it (\&quot;122880 MiB\&quot;) — a display string in the reporter&#39;s units, not a byte count. BYO cards carry it (nvidia-smi); Visor&#39;s machine object states no VRAM, so a rented card leaves it empty and the console renders \&quot;—\&quot; rather than a fabricated 0. | [optional] 
 **Model** | Pointer to **string** | Model is the accelerator: the model token read out of the size slug for a Visor GPU droplet (\&quot;H100\&quot;, \&quot;MI300X\&quot;), or the name nvidia-smi reported for a BYO card (\&quot;NVIDIA GB10\&quot;). | [optional] 
 **Name** | Pointer to **string** | Name is the HOST MACHINE&#39;s display name, not the card&#39;s — every card in a gpu-h100x8 node repeats it. Model is what says which accelerator this is. | [optional] 

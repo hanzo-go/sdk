@@ -42,7 +42,7 @@ Method | HTTP request | Description
 [**PostGitReposByNamePush**](GitAPI.md#PostGitReposByNamePush) | **Post** /v1/git/repos/{name}/push | Lands a set of files as one commit without a git client — the hanzo.app builder&#39;s push.
 [**PostGitReposByNameSubscriptions**](GitAPI.md#PostGitReposByNameSubscriptions) | **Post** /v1/git/repos/{name}/subscriptions | Binds a Slack channel to a repo, so the lifecycle notifier posts that repo&#39;s push and deploy events there.
 [**PostGitReposByNameTargets**](GitAPI.md#PostGitReposByNameTargets) | **Post** /v1/git/repos/{name}/targets | Registers a downstream remote the repo&#39;s advanced refs are pushed to whenever a push lands here.
-[**PostGitWebhook**](GitAPI.md#PostGitWebhook) | **Post** /v1/git/webhook | Retired — forge pushes build via platform.hanzo.ai
+[**PostGitWebhook**](GitAPI.md#PostGitWebhook) | **Post** /v1/git/webhook | Retired — push-to-deploy has no inbound webhook
 
 
 
@@ -2716,7 +2716,7 @@ Name | Type | Description  | Notes
 
 > PostGitWebhook(ctx).Execute()
 
-Retired — forge pushes build via platform.hanzo.ai
+Retired — push-to-deploy has no inbound webhook
 
 
 

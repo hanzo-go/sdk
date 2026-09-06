@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Direct** | Pointer to **bool** | Direct reports that this is a room between people rather than a named room. It is derived from the document&#39;s class, so it cannot disagree with what the client will render. | [optional] 
 **Id** | Pointer to **string** | ID is the room document&#39;s own id, and the value the bind op addresses. It is unique within a space, not across the org. | [optional] 
 **Life** | Pointer to **string** | Life is the room&#39;s lifecycle INTENT — \&quot;standing\&quot; or \&quot;bound\&quot; (HIP-0523 §2). Absent on the document it reads \&quot;standing\&quot;: a room nobody classified is one that persists. | [optional] 
-**Members** | Pointer to **[]string** | Members are the account uuids in the room, agents included: an agent projects as a space member under a uuid derived from its id, so a caller comparing this against GET /v1/team/bots learns which rooms an agent is in. | [optional] 
+**Members** | Pointer to **[]string** | Members are the account uuids in the room, agents included: an agent projects as a space member under a uuid derived from its id, so a caller comparing this against GET /v1/bot/members learns which rooms an agent is in. | [optional] 
 **Name** | Pointer to **string** | Name is what a person sees in a sidebar. A direct message carries none, so this is empty for one — the members are its name. | [optional] 
 **Private** | Pointer to **bool** | Private reports that the room is restricted to its members. | [optional] 
 **Space** | Pointer to **string** | Space is the space uuid holding this room. It is part of the room&#39;s address: two spaces of one org may each hold a room with the same name, and only the pair identifies one. | [optional] 

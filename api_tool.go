@@ -19,21 +19,21 @@ import (
 	"strings"
 )
 
-// ToolsAPIService ToolsAPI service
-type ToolsAPIService service
+// ToolAPIService ToolAPI service
+type ToolAPIService service
 
-type ToolsAPIDeleteToolsMcpServersByIdRequest struct {
+type ToolAPIDeleteToolMcpServersByIdRequest struct {
 	ctx        context.Context
-	ApiService *ToolsAPIService
+	ApiService *ToolAPIService
 	id         string
 }
 
-func (r ToolsAPIDeleteToolsMcpServersByIdRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteToolsMcpServersByIdExecute(r)
+func (r ToolAPIDeleteToolMcpServersByIdRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteToolMcpServersByIdExecute(r)
 }
 
 /*
-DeleteToolsMcpServersById Deregisters one of the caller org's external MCP servers, so its tools leave the registry.
+DeleteToolMcpServersById Deregisters one of the caller org's external MCP servers, so its tools leave the registry.
 
 Deregisters one of the caller org's external MCP servers, so its
 tools leave the registry. Scoped to the caller's org, so an id belonging to
@@ -42,10 +42,10 @@ this org does not have is 404.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the server to deregister, from the path.
-	@return ToolsAPIDeleteToolsMcpServersByIdRequest
+	@return ToolAPIDeleteToolMcpServersByIdRequest
 */
-func (a *ToolsAPIService) DeleteToolsMcpServersById(ctx context.Context, id string) ToolsAPIDeleteToolsMcpServersByIdRequest {
-	return ToolsAPIDeleteToolsMcpServersByIdRequest{
+func (a *ToolAPIService) DeleteToolMcpServersById(ctx context.Context, id string) ToolAPIDeleteToolMcpServersByIdRequest {
+	return ToolAPIDeleteToolMcpServersByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -53,19 +53,19 @@ func (a *ToolsAPIService) DeleteToolsMcpServersById(ctx context.Context, id stri
 }
 
 // Execute executes the request
-func (a *ToolsAPIService) DeleteToolsMcpServersByIdExecute(r ToolsAPIDeleteToolsMcpServersByIdRequest) (*http.Response, error) {
+func (a *ToolAPIService) DeleteToolMcpServersByIdExecute(r ToolAPIDeleteToolMcpServersByIdRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.DeleteToolsMcpServersById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.DeleteToolMcpServersById")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/tools/mcp/servers/{id}"
+	localVarPath := localBasePath + "/v1/tool/mcp/servers/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -117,18 +117,18 @@ func (a *ToolsAPIService) DeleteToolsMcpServersByIdExecute(r ToolsAPIDeleteTools
 	return localVarHTTPResponse, nil
 }
 
-type ToolsAPIDeleteToolsPluginsAuthoredByIdRequest struct {
+type ToolAPIDeleteToolPluginsAuthoredByIdRequest struct {
 	ctx        context.Context
-	ApiService *ToolsAPIService
+	ApiService *ToolAPIService
 	id         string
 }
 
-func (r ToolsAPIDeleteToolsPluginsAuthoredByIdRequest) Execute() (*PluginDeleted, *http.Response, error) {
-	return r.ApiService.DeleteToolsPluginsAuthoredByIdExecute(r)
+func (r ToolAPIDeleteToolPluginsAuthoredByIdRequest) Execute() (*PluginDeleted, *http.Response, error) {
+	return r.ApiService.DeleteToolPluginsAuthoredByIdExecute(r)
 }
 
 /*
-DeleteToolsPluginsAuthoredById Removes one of the caller org's built plugins, so the runtime can no longer load it.
+DeleteToolPluginsAuthoredById Removes one of the caller org's built plugins, so the runtime can no longer load it.
 
 Removes one of the caller org's built plugins, so the
 runtime can no longer load it. Scoped to the caller's org, so an id belonging
@@ -136,10 +136,10 @@ to another tenant answers 404 and is not deleted.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the plugin to remove, from the path.
-	@return ToolsAPIDeleteToolsPluginsAuthoredByIdRequest
+	@return ToolAPIDeleteToolPluginsAuthoredByIdRequest
 */
-func (a *ToolsAPIService) DeleteToolsPluginsAuthoredById(ctx context.Context, id string) ToolsAPIDeleteToolsPluginsAuthoredByIdRequest {
-	return ToolsAPIDeleteToolsPluginsAuthoredByIdRequest{
+func (a *ToolAPIService) DeleteToolPluginsAuthoredById(ctx context.Context, id string) ToolAPIDeleteToolPluginsAuthoredByIdRequest {
+	return ToolAPIDeleteToolPluginsAuthoredByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -149,7 +149,7 @@ func (a *ToolsAPIService) DeleteToolsPluginsAuthoredById(ctx context.Context, id
 // Execute executes the request
 //
 //	@return PluginDeleted
-func (a *ToolsAPIService) DeleteToolsPluginsAuthoredByIdExecute(r ToolsAPIDeleteToolsPluginsAuthoredByIdRequest) (*PluginDeleted, *http.Response, error) {
+func (a *ToolAPIService) DeleteToolPluginsAuthoredByIdExecute(r ToolAPIDeleteToolPluginsAuthoredByIdRequest) (*PluginDeleted, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
@@ -157,12 +157,12 @@ func (a *ToolsAPIService) DeleteToolsPluginsAuthoredByIdExecute(r ToolsAPIDelete
 		localVarReturnValue *PluginDeleted
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.DeleteToolsPluginsAuthoredById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.DeleteToolPluginsAuthoredById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/tools/plugins/authored/{id}"
+	localVarPath := localBasePath + "/v1/tool/plugins/authored/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -223,18 +223,18 @@ func (a *ToolsAPIService) DeleteToolsPluginsAuthoredByIdExecute(r ToolsAPIDelete
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ToolsAPIDeleteToolsSkillsByIdRequest struct {
+type ToolAPIDeleteToolSkillsByIdRequest struct {
 	ctx        context.Context
-	ApiService *ToolsAPIService
+	ApiService *ToolAPIService
 	id         string
 }
 
-func (r ToolsAPIDeleteToolsSkillsByIdRequest) Execute() (*SkillDeleted, *http.Response, error) {
-	return r.ApiService.DeleteToolsSkillsByIdExecute(r)
+func (r ToolAPIDeleteToolSkillsByIdRequest) Execute() (*SkillDeleted, *http.Response, error) {
+	return r.ApiService.DeleteToolSkillsByIdExecute(r)
 }
 
 /*
-DeleteToolsSkillsById Removes one of the caller org's authored skills.
+DeleteToolSkillsById Removes one of the caller org's authored skills.
 
 Removes one of the caller org's authored skills. Scoped to the
 caller's org, so an id belonging to another tenant is never reached. Removing
@@ -242,10 +242,10 @@ what is not there is not an error — the caller's intent is "gone", and it is.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the skill to remove, from the path. It is the skill's name.
-	@return ToolsAPIDeleteToolsSkillsByIdRequest
+	@return ToolAPIDeleteToolSkillsByIdRequest
 */
-func (a *ToolsAPIService) DeleteToolsSkillsById(ctx context.Context, id string) ToolsAPIDeleteToolsSkillsByIdRequest {
-	return ToolsAPIDeleteToolsSkillsByIdRequest{
+func (a *ToolAPIService) DeleteToolSkillsById(ctx context.Context, id string) ToolAPIDeleteToolSkillsByIdRequest {
+	return ToolAPIDeleteToolSkillsByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -255,7 +255,7 @@ func (a *ToolsAPIService) DeleteToolsSkillsById(ctx context.Context, id string) 
 // Execute executes the request
 //
 //	@return SkillDeleted
-func (a *ToolsAPIService) DeleteToolsSkillsByIdExecute(r ToolsAPIDeleteToolsSkillsByIdRequest) (*SkillDeleted, *http.Response, error) {
+func (a *ToolAPIService) DeleteToolSkillsByIdExecute(r ToolAPIDeleteToolSkillsByIdRequest) (*SkillDeleted, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
@@ -263,12 +263,12 @@ func (a *ToolsAPIService) DeleteToolsSkillsByIdExecute(r ToolsAPIDeleteToolsSkil
 		localVarReturnValue *SkillDeleted
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.DeleteToolsSkillsById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.DeleteToolSkillsById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/tools/skills/{id}"
+	localVarPath := localBasePath + "/v1/tool/skills/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -329,44 +329,44 @@ func (a *ToolsAPIService) DeleteToolsSkillsByIdExecute(r ToolsAPIDeleteToolsSkil
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ToolsAPIGetToolsRequest struct {
+type ToolAPIGetToolRequest struct {
 	ctx        context.Context
-	ApiService *ToolsAPIService
+	ApiService *ToolAPIService
 	source     *string
 	activated  *string
 }
 
 // Source keeps only tools from one source — connector, function, zap-service, agent, skill or mcp. Empty keeps every source.
-func (r ToolsAPIGetToolsRequest) Source(source string) ToolsAPIGetToolsRequest {
+func (r ToolAPIGetToolRequest) Source(source string) ToolAPIGetToolRequest {
 	r.source = &source
 	return r
 }
 
 // Activated keeps only the tools activated for the caller&#39;s org and project, and only when it is exactly the string \&quot;true\&quot;.
-func (r ToolsAPIGetToolsRequest) Activated(activated string) ToolsAPIGetToolsRequest {
+func (r ToolAPIGetToolRequest) Activated(activated string) ToolAPIGetToolRequest {
 	r.activated = &activated
 	return r
 }
 
-func (r ToolsAPIGetToolsRequest) Execute() (*ToolList, *http.Response, error) {
-	return r.ApiService.GetToolsExecute(r)
+func (r ToolAPIGetToolRequest) Execute() (*ToolList, *http.Response, error) {
+	return r.ApiService.GetToolExecute(r)
 }
 
 /*
-GetTools Lists every tool the caller's org and project can reach, from every source, each flagged with whether it is activated.
+GetTool Lists every tool the caller's org and project can reach, from every source, each flagged with whether it is activated.
 
 Lists every tool the caller's org and project can reach, from every
 source, each flagged with whether it is activated. This is the discovery
 surface: one flat set of names spanning connector actions, user functions,
 zap-service routes, agents, skills and the org's own external MCP servers,
 deduplicated by name so the highest-precedence source wins a collision. It
-lists; it does not call — dispatch is POST /v1/tools/call.
+lists; it does not call — dispatch is POST /v1/tool/call.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ToolsAPIGetToolsRequest
+	@return ToolAPIGetToolRequest
 */
-func (a *ToolsAPIService) GetTools(ctx context.Context) ToolsAPIGetToolsRequest {
-	return ToolsAPIGetToolsRequest{
+func (a *ToolAPIService) GetTool(ctx context.Context) ToolAPIGetToolRequest {
+	return ToolAPIGetToolRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -375,7 +375,7 @@ func (a *ToolsAPIService) GetTools(ctx context.Context) ToolsAPIGetToolsRequest 
 // Execute executes the request
 //
 //	@return ToolList
-func (a *ToolsAPIService) GetToolsExecute(r ToolsAPIGetToolsRequest) (*ToolList, *http.Response, error) {
+func (a *ToolAPIService) GetToolExecute(r ToolAPIGetToolRequest) (*ToolList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -383,12 +383,12 @@ func (a *ToolsAPIService) GetToolsExecute(r ToolsAPIGetToolsRequest) (*ToolList,
 		localVarReturnValue *ToolList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.GetTools")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.GetTool")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/tools"
+	localVarPath := localBasePath + "/v1/tool"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -454,17 +454,17 @@ func (a *ToolsAPIService) GetToolsExecute(r ToolsAPIGetToolsRequest) (*ToolList,
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ToolsAPIGetToolsActivationRequest struct {
+type ToolAPIGetToolActivationRequest struct {
 	ctx        context.Context
-	ApiService *ToolsAPIService
+	ApiService *ToolAPIService
 }
 
-func (r ToolsAPIGetToolsActivationRequest) Execute() (*ActivationSet, *http.Response, error) {
-	return r.ApiService.GetToolsActivationExecute(r)
+func (r ToolAPIGetToolActivationRequest) Execute() (*ActivationSet, *http.Response, error) {
+	return r.ApiService.GetToolActivationExecute(r)
 }
 
 /*
-GetToolsActivation Reports which tools are switched on for the caller's org and project.
+GetToolActivation Reports which tools are switched on for the caller's org and project.
 
 Reports which tools are switched on for the caller's org and
 project. Activation is what makes a tool dispatchable and what makes it visible
@@ -472,10 +472,10 @@ to an agent, so this is the set the MCP tool list is drawn from — every other
 tool in the registry is discoverable but refused at call time.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ToolsAPIGetToolsActivationRequest
+	@return ToolAPIGetToolActivationRequest
 */
-func (a *ToolsAPIService) GetToolsActivation(ctx context.Context) ToolsAPIGetToolsActivationRequest {
-	return ToolsAPIGetToolsActivationRequest{
+func (a *ToolAPIService) GetToolActivation(ctx context.Context) ToolAPIGetToolActivationRequest {
+	return ToolAPIGetToolActivationRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -484,7 +484,7 @@ func (a *ToolsAPIService) GetToolsActivation(ctx context.Context) ToolsAPIGetToo
 // Execute executes the request
 //
 //	@return ActivationSet
-func (a *ToolsAPIService) GetToolsActivationExecute(r ToolsAPIGetToolsActivationRequest) (*ActivationSet, *http.Response, error) {
+func (a *ToolAPIService) GetToolActivationExecute(r ToolAPIGetToolActivationRequest) (*ActivationSet, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -492,12 +492,12 @@ func (a *ToolsAPIService) GetToolsActivationExecute(r ToolsAPIGetToolsActivation
 		localVarReturnValue *ActivationSet
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.GetToolsActivation")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.GetToolActivation")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/tools/activation"
+	localVarPath := localBasePath + "/v1/tool/activation"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -557,9 +557,9 @@ func (a *ToolsAPIService) GetToolsActivationExecute(r ToolsAPIGetToolsActivation
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ToolsAPIGetToolsCatalogRequest struct {
+type ToolAPIGetToolCatalogRequest struct {
 	ctx        context.Context
-	ApiService *ToolsAPIService
+	ApiService *ToolAPIService
 	q          *string
 	featured   *string
 	official   *string
@@ -568,48 +568,48 @@ type ToolsAPIGetToolsCatalogRequest struct {
 }
 
 // Q matches the name, title or description, case-insensitively.
-func (r ToolsAPIGetToolsCatalogRequest) Q(q string) ToolsAPIGetToolsCatalogRequest {
+func (r ToolAPIGetToolCatalogRequest) Q(q string) ToolAPIGetToolCatalogRequest {
 	r.q = &q
 	return r
 }
 
 // Featured keeps only the listings we put on the front of the shelf, and only when it is exactly the string \&quot;true\&quot;.
-func (r ToolsAPIGetToolsCatalogRequest) Featured(featured string) ToolsAPIGetToolsCatalogRequest {
+func (r ToolAPIGetToolCatalogRequest) Featured(featured string) ToolAPIGetToolCatalogRequest {
 	r.featured = &featured
 	return r
 }
 
 // Official keeps only the vendors&#39; OWN servers — not third-party copies of them — and only when it is exactly the string \&quot;true\&quot;.
-func (r ToolsAPIGetToolsCatalogRequest) Official(official string) ToolsAPIGetToolsCatalogRequest {
+func (r ToolAPIGetToolCatalogRequest) Official(official string) ToolAPIGetToolCatalogRequest {
 	r.official = &official
 	return r
 }
 
 // Limit bounds the page: default 50, maximum 200. A value that is not a positive integer reads as the default.
-func (r ToolsAPIGetToolsCatalogRequest) Limit(limit int64) ToolsAPIGetToolsCatalogRequest {
+func (r ToolAPIGetToolCatalogRequest) Limit(limit int64) ToolAPIGetToolCatalogRequest {
 	r.limit = &limit
 	return r
 }
 
 // Offset skips that many listings.
-func (r ToolsAPIGetToolsCatalogRequest) Offset(offset int64) ToolsAPIGetToolsCatalogRequest {
+func (r ToolAPIGetToolCatalogRequest) Offset(offset int64) ToolAPIGetToolCatalogRequest {
 	r.offset = &offset
 	return r
 }
 
-func (r ToolsAPIGetToolsCatalogRequest) Execute() (*McpCatalog, *http.Response, error) {
-	return r.ApiService.GetToolsCatalogExecute(r)
+func (r ToolAPIGetToolCatalogRequest) Execute() (*McpCatalog, *http.Response, error) {
+	return r.ApiService.GetToolCatalogExecute(r)
 }
 
 /*
-GetToolsCatalog Lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.
+GetToolCatalog Lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.
 
 Lists the MCP servers the public registries publish, as we hold
 them: our canonical copy of registry.modelcontextprotocol.io, plus what we
 decided about each entry.
 
 This is the SHELF an org picks from. A listing with a streamable-http endpoint
-can be enabled as-is — POST /v1/tools/mcp/servers with its id — and its tools then
+can be enabled as-is — POST /v1/tool/mcp/servers with its id — and its tools then
 join the org's tool plane and the fleet's MCP server. A listing that only ships a
 stdio package needs a process to run it, which is why the transports are on
 every entry rather than implied.
@@ -623,10 +623,10 @@ thousands of servers, so an unbounded answer is a twenty-megabyte response and a
 storefront that renders in a minute. total is the whole match, not the page.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ToolsAPIGetToolsCatalogRequest
+	@return ToolAPIGetToolCatalogRequest
 */
-func (a *ToolsAPIService) GetToolsCatalog(ctx context.Context) ToolsAPIGetToolsCatalogRequest {
-	return ToolsAPIGetToolsCatalogRequest{
+func (a *ToolAPIService) GetToolCatalog(ctx context.Context) ToolAPIGetToolCatalogRequest {
+	return ToolAPIGetToolCatalogRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -635,7 +635,7 @@ func (a *ToolsAPIService) GetToolsCatalog(ctx context.Context) ToolsAPIGetToolsC
 // Execute executes the request
 //
 //	@return McpCatalog
-func (a *ToolsAPIService) GetToolsCatalogExecute(r ToolsAPIGetToolsCatalogRequest) (*McpCatalog, *http.Response, error) {
+func (a *ToolAPIService) GetToolCatalogExecute(r ToolAPIGetToolCatalogRequest) (*McpCatalog, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -643,12 +643,12 @@ func (a *ToolsAPIService) GetToolsCatalogExecute(r ToolsAPIGetToolsCatalogReques
 		localVarReturnValue *McpCatalog
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.GetToolsCatalog")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.GetToolCatalog")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/tools/catalog"
+	localVarPath := localBasePath + "/v1/tool/catalog"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -723,18 +723,18 @@ func (a *ToolsAPIService) GetToolsCatalogExecute(r ToolsAPIGetToolsCatalogReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ToolsAPIGetToolsCatalogByIdRequest struct {
+type ToolAPIGetToolCatalogByIdRequest struct {
 	ctx        context.Context
-	ApiService *ToolsAPIService
+	ApiService *ToolAPIService
 	id         string
 }
 
-func (r ToolsAPIGetToolsCatalogByIdRequest) Execute() (*MCPListing, *http.Response, error) {
-	return r.ApiService.GetToolsCatalogByIdExecute(r)
+func (r ToolAPIGetToolCatalogByIdRequest) Execute() (*MCPListing, *http.Response, error) {
+	return r.ApiService.GetToolCatalogByIdExecute(r)
 }
 
 /*
-GetToolsCatalogById Returns one catalog entry in full: the publisher's description, its repository and site, every package form with the runtime that launches it, and every hosted endpoint.
+GetToolCatalogById Returns one catalog entry in full: the publisher's description, its repository and site, every package form with the runtime that launches it, and every hosted endpoint.
 
 Returns one catalog entry in full: the publisher's description, its
 repository and site, every package form with the runtime that launches it, and
@@ -748,10 +748,10 @@ is the one deciding whether to put it back.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the listing, from the path. It is the publisher's reverse-DNS name with its one slash written as an underscore — \"com.stripe_mcp\".
-	@return ToolsAPIGetToolsCatalogByIdRequest
+	@return ToolAPIGetToolCatalogByIdRequest
 */
-func (a *ToolsAPIService) GetToolsCatalogById(ctx context.Context, id string) ToolsAPIGetToolsCatalogByIdRequest {
-	return ToolsAPIGetToolsCatalogByIdRequest{
+func (a *ToolAPIService) GetToolCatalogById(ctx context.Context, id string) ToolAPIGetToolCatalogByIdRequest {
+	return ToolAPIGetToolCatalogByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -761,7 +761,7 @@ func (a *ToolsAPIService) GetToolsCatalogById(ctx context.Context, id string) To
 // Execute executes the request
 //
 //	@return MCPListing
-func (a *ToolsAPIService) GetToolsCatalogByIdExecute(r ToolsAPIGetToolsCatalogByIdRequest) (*MCPListing, *http.Response, error) {
+func (a *ToolAPIService) GetToolCatalogByIdExecute(r ToolAPIGetToolCatalogByIdRequest) (*MCPListing, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -769,12 +769,12 @@ func (a *ToolsAPIService) GetToolsCatalogByIdExecute(r ToolsAPIGetToolsCatalogBy
 		localVarReturnValue *MCPListing
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.GetToolsCatalogById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.GetToolCatalogById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/tools/catalog/{id}"
+	localVarPath := localBasePath + "/v1/tool/catalog/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -835,17 +835,17 @@ func (a *ToolsAPIService) GetToolsCatalogByIdExecute(r ToolsAPIGetToolsCatalogBy
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ToolsAPIGetToolsMcpServersRequest struct {
+type ToolAPIGetToolMcpServersRequest struct {
 	ctx        context.Context
-	ApiService *ToolsAPIService
+	ApiService *ToolAPIService
 }
 
-func (r ToolsAPIGetToolsMcpServersRequest) Execute() (*McpServerList, *http.Response, error) {
-	return r.ApiService.GetToolsMcpServersExecute(r)
+func (r ToolAPIGetToolMcpServersRequest) Execute() (*McpServerList, *http.Response, error) {
+	return r.ApiService.GetToolMcpServersExecute(r)
 }
 
 /*
-GetToolsMcpServers Lists the external MCP servers the caller's org has registered.
+GetToolMcpServers Lists the external MCP servers the caller's org has registered.
 
 Lists the external MCP servers the caller's org has registered.
 Each record carries the URL and the name of the header its credential is
@@ -853,10 +853,10 @@ injected into; the credential VALUE lives only in KMS and is never returned,
 so hasSecret is the whole of what this surface says about it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ToolsAPIGetToolsMcpServersRequest
+	@return ToolAPIGetToolMcpServersRequest
 */
-func (a *ToolsAPIService) GetToolsMcpServers(ctx context.Context) ToolsAPIGetToolsMcpServersRequest {
-	return ToolsAPIGetToolsMcpServersRequest{
+func (a *ToolAPIService) GetToolMcpServers(ctx context.Context) ToolAPIGetToolMcpServersRequest {
+	return ToolAPIGetToolMcpServersRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -865,7 +865,7 @@ func (a *ToolsAPIService) GetToolsMcpServers(ctx context.Context) ToolsAPIGetToo
 // Execute executes the request
 //
 //	@return McpServerList
-func (a *ToolsAPIService) GetToolsMcpServersExecute(r ToolsAPIGetToolsMcpServersRequest) (*McpServerList, *http.Response, error) {
+func (a *ToolAPIService) GetToolMcpServersExecute(r ToolAPIGetToolMcpServersRequest) (*McpServerList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -873,12 +873,12 @@ func (a *ToolsAPIService) GetToolsMcpServersExecute(r ToolsAPIGetToolsMcpServers
 		localVarReturnValue *McpServerList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.GetToolsMcpServers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.GetToolMcpServers")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/tools/mcp/servers"
+	localVarPath := localBasePath + "/v1/tool/mcp/servers"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -938,24 +938,24 @@ func (a *ToolsAPIService) GetToolsMcpServersExecute(r ToolsAPIGetToolsMcpServers
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ToolsAPIGetToolsPluginsRequest struct {
+type ToolAPIGetToolPluginsRequest struct {
 	ctx        context.Context
-	ApiService *ToolsAPIService
+	ApiService *ToolAPIService
 	all        *string
 }
 
 // All includes the configured-but-disabled subsystems too, but only when it is exactly the string \&quot;true\&quot;. Otherwise only the running ones are reported.
-func (r ToolsAPIGetToolsPluginsRequest) All(all string) ToolsAPIGetToolsPluginsRequest {
+func (r ToolAPIGetToolPluginsRequest) All(all string) ToolAPIGetToolPluginsRequest {
 	r.all = &all
 	return r
 }
 
-func (r ToolsAPIGetToolsPluginsRequest) Execute() (*PluginMountList, *http.Response, error) {
-	return r.ApiService.GetToolsPluginsExecute(r)
+func (r ToolAPIGetToolPluginsRequest) Execute() (*PluginMountList, *http.Response, error) {
+	return r.ApiService.GetToolPluginsExecute(r)
 }
 
 /*
-GetToolsPlugins Reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on.
+GetToolPlugins Reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on.
 
 Reports what this deployment actually mounted: every subsystem the
 composition root declared and whether it is switched on. A plugin here is
@@ -967,10 +967,10 @@ asking what this deployment can do wants what is running; ?all=true adds the
 configured-but-off ones.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ToolsAPIGetToolsPluginsRequest
+	@return ToolAPIGetToolPluginsRequest
 */
-func (a *ToolsAPIService) GetToolsPlugins(ctx context.Context) ToolsAPIGetToolsPluginsRequest {
-	return ToolsAPIGetToolsPluginsRequest{
+func (a *ToolAPIService) GetToolPlugins(ctx context.Context) ToolAPIGetToolPluginsRequest {
+	return ToolAPIGetToolPluginsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -979,7 +979,7 @@ func (a *ToolsAPIService) GetToolsPlugins(ctx context.Context) ToolsAPIGetToolsP
 // Execute executes the request
 //
 //	@return PluginMountList
-func (a *ToolsAPIService) GetToolsPluginsExecute(r ToolsAPIGetToolsPluginsRequest) (*PluginMountList, *http.Response, error) {
+func (a *ToolAPIService) GetToolPluginsExecute(r ToolAPIGetToolPluginsRequest) (*PluginMountList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -987,12 +987,12 @@ func (a *ToolsAPIService) GetToolsPluginsExecute(r ToolsAPIGetToolsPluginsReques
 		localVarReturnValue *PluginMountList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.GetToolsPlugins")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.GetToolPlugins")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/tools/plugins"
+	localVarPath := localBasePath + "/v1/tool/plugins"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1055,30 +1055,30 @@ func (a *ToolsAPIService) GetToolsPluginsExecute(r ToolsAPIGetToolsPluginsReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ToolsAPIGetToolsPluginsAuthoredRequest struct {
+type ToolAPIGetToolPluginsAuthoredRequest struct {
 	ctx        context.Context
-	ApiService *ToolsAPIService
+	ApiService *ToolAPIService
 }
 
-func (r ToolsAPIGetToolsPluginsAuthoredRequest) Execute() (*AuthoredPluginList, *http.Response, error) {
-	return r.ApiService.GetToolsPluginsAuthoredExecute(r)
+func (r ToolAPIGetToolPluginsAuthoredRequest) Execute() (*AuthoredPluginList, *http.Response, error) {
+	return r.ApiService.GetToolPluginsAuthoredExecute(r)
 }
 
 /*
-GetToolsPluginsAuthored Lists the plugins the caller's org BUILT, newest first, each with the TypeScript as authored.
+GetToolPluginsAuthored Lists the plugins the caller's org BUILT, newest first, each with the TypeScript as authored.
 
 Lists the plugins the caller's org BUILT, newest first,
 each with the TypeScript as authored. That is a different set with a different
-lifecycle from GET /v1/tools/plugins, which reports the subsystems this deployment
+lifecycle from GET /v1/tool/plugins, which reports the subsystems this deployment
 mounted. The bundled CommonJS the runtime executes is never included, and
 neither is any credential — a plugin names the connectors provider it needs and
 reads the credential from ctx.auth at run time.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ToolsAPIGetToolsPluginsAuthoredRequest
+	@return ToolAPIGetToolPluginsAuthoredRequest
 */
-func (a *ToolsAPIService) GetToolsPluginsAuthored(ctx context.Context) ToolsAPIGetToolsPluginsAuthoredRequest {
-	return ToolsAPIGetToolsPluginsAuthoredRequest{
+func (a *ToolAPIService) GetToolPluginsAuthored(ctx context.Context) ToolAPIGetToolPluginsAuthoredRequest {
+	return ToolAPIGetToolPluginsAuthoredRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1087,7 +1087,7 @@ func (a *ToolsAPIService) GetToolsPluginsAuthored(ctx context.Context) ToolsAPIG
 // Execute executes the request
 //
 //	@return AuthoredPluginList
-func (a *ToolsAPIService) GetToolsPluginsAuthoredExecute(r ToolsAPIGetToolsPluginsAuthoredRequest) (*AuthoredPluginList, *http.Response, error) {
+func (a *ToolAPIService) GetToolPluginsAuthoredExecute(r ToolAPIGetToolPluginsAuthoredRequest) (*AuthoredPluginList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1095,12 +1095,12 @@ func (a *ToolsAPIService) GetToolsPluginsAuthoredExecute(r ToolsAPIGetToolsPlugi
 		localVarReturnValue *AuthoredPluginList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.GetToolsPluginsAuthored")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.GetToolPluginsAuthored")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/tools/plugins/authored"
+	localVarPath := localBasePath + "/v1/tool/plugins/authored"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1160,37 +1160,37 @@ func (a *ToolsAPIService) GetToolsPluginsAuthoredExecute(r ToolsAPIGetToolsPlugi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ToolsAPIGetToolsSkillsRequest struct {
+type ToolAPIGetToolSkillsRequest struct {
 	ctx        context.Context
-	ApiService *ToolsAPIService
+	ApiService *ToolAPIService
 	activated  *string
 }
 
 // Activated keeps only the tools activated for the caller&#39;s org and project, and only when it is exactly the string \&quot;true\&quot;.
-func (r ToolsAPIGetToolsSkillsRequest) Activated(activated string) ToolsAPIGetToolsSkillsRequest {
+func (r ToolAPIGetToolSkillsRequest) Activated(activated string) ToolAPIGetToolSkillsRequest {
 	r.activated = &activated
 	return r
 }
 
-func (r ToolsAPIGetToolsSkillsRequest) Execute() (*SourceToolList, *http.Response, error) {
-	return r.ApiService.GetToolsSkillsExecute(r)
+func (r ToolAPIGetToolSkillsRequest) Execute() (*SourceToolList, *http.Response, error) {
+	return r.ApiService.GetToolSkillsExecute(r)
 }
 
 /*
-GetToolsSkills Lists the skills the caller's org can reach — the brand's embedded catalogue plus the org's own authored ones — with each one's activation flag.
+GetToolSkills Lists the skills the caller's org can reach — the brand's embedded catalogue plus the org's own authored ones — with each one's activation flag.
 
 Lists the skills the caller's org can reach — the brand's embedded
 catalogue plus the org's own authored ones — with each one's activation flag.
 A skill is discovery and activation metadata attached to an agent, never called
-directly, so every entry here is non-dispatchable. It is GET /v1/tools narrowed
+directly, so every entry here is non-dispatchable. It is GET /v1/tool narrowed
 to one source, not a second store: a name a caller sees here is the same entry,
 with the same activation state, that discovery reports.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ToolsAPIGetToolsSkillsRequest
+	@return ToolAPIGetToolSkillsRequest
 */
-func (a *ToolsAPIService) GetToolsSkills(ctx context.Context) ToolsAPIGetToolsSkillsRequest {
-	return ToolsAPIGetToolsSkillsRequest{
+func (a *ToolAPIService) GetToolSkills(ctx context.Context) ToolAPIGetToolSkillsRequest {
+	return ToolAPIGetToolSkillsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1199,7 +1199,7 @@ func (a *ToolsAPIService) GetToolsSkills(ctx context.Context) ToolsAPIGetToolsSk
 // Execute executes the request
 //
 //	@return SourceToolList
-func (a *ToolsAPIService) GetToolsSkillsExecute(r ToolsAPIGetToolsSkillsRequest) (*SourceToolList, *http.Response, error) {
+func (a *ToolAPIService) GetToolSkillsExecute(r ToolAPIGetToolSkillsRequest) (*SourceToolList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1207,12 +1207,12 @@ func (a *ToolsAPIService) GetToolsSkillsExecute(r ToolsAPIGetToolsSkillsRequest)
 		localVarReturnValue *SourceToolList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.GetToolsSkills")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.GetToolSkills")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/tools/skills"
+	localVarPath := localBasePath + "/v1/tool/skills"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1275,28 +1275,28 @@ func (a *ToolsAPIService) GetToolsSkillsExecute(r ToolsAPIGetToolsSkillsRequest)
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ToolsAPIGetToolsSkillsAuthoredRequest struct {
+type ToolAPIGetToolSkillsAuthoredRequest struct {
 	ctx        context.Context
-	ApiService *ToolsAPIService
+	ApiService *ToolAPIService
 }
 
-func (r ToolsAPIGetToolsSkillsAuthoredRequest) Execute() (*AuthoredSkillList, *http.Response, error) {
-	return r.ApiService.GetToolsSkillsAuthoredExecute(r)
+func (r ToolAPIGetToolSkillsAuthoredRequest) Execute() (*AuthoredSkillList, *http.Response, error) {
+	return r.ApiService.GetToolSkillsAuthoredExecute(r)
 }
 
 /*
-GetToolsSkillsAuthored Lists the caller org's OWN skills with their SKILL.md bodies.
+GetToolSkillsAuthored Lists the caller org's OWN skills with their SKILL.md bodies.
 
 Lists the caller org's OWN skills with their SKILL.md
-bodies. GET /v1/tools/skills is the registry view — the brand's catalogue plus this
+bodies. GET /v1/tool/skills is the registry view — the brand's catalogue plus this
 org's, with activation flags and no bodies; this is the EDITABLE set, so it
 carries the content that view omits and nothing the org did not write.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ToolsAPIGetToolsSkillsAuthoredRequest
+	@return ToolAPIGetToolSkillsAuthoredRequest
 */
-func (a *ToolsAPIService) GetToolsSkillsAuthored(ctx context.Context) ToolsAPIGetToolsSkillsAuthoredRequest {
-	return ToolsAPIGetToolsSkillsAuthoredRequest{
+func (a *ToolAPIService) GetToolSkillsAuthored(ctx context.Context) ToolAPIGetToolSkillsAuthoredRequest {
+	return ToolAPIGetToolSkillsAuthoredRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1305,7 +1305,7 @@ func (a *ToolsAPIService) GetToolsSkillsAuthored(ctx context.Context) ToolsAPIGe
 // Execute executes the request
 //
 //	@return AuthoredSkillList
-func (a *ToolsAPIService) GetToolsSkillsAuthoredExecute(r ToolsAPIGetToolsSkillsAuthoredRequest) (*AuthoredSkillList, *http.Response, error) {
+func (a *ToolAPIService) GetToolSkillsAuthoredExecute(r ToolAPIGetToolSkillsAuthoredRequest) (*AuthoredSkillList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1313,12 +1313,12 @@ func (a *ToolsAPIService) GetToolsSkillsAuthoredExecute(r ToolsAPIGetToolsSkills
 		localVarReturnValue *AuthoredSkillList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.GetToolsSkillsAuthored")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.GetToolSkillsAuthored")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/tools/skills/authored"
+	localVarPath := localBasePath + "/v1/tool/skills/authored"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1378,24 +1378,24 @@ func (a *ToolsAPIService) GetToolsSkillsAuthoredExecute(r ToolsAPIGetToolsSkills
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ToolsAPIPatchToolsCatalogByIdRequest struct {
+type ToolAPIPatchToolCatalogByIdRequest struct {
 	ctx        context.Context
-	ApiService *ToolsAPIService
+	ApiService *ToolAPIService
 	id         string
 	curateReq  *CurateReq
 }
 
-func (r ToolsAPIPatchToolsCatalogByIdRequest) CurateReq(curateReq CurateReq) ToolsAPIPatchToolsCatalogByIdRequest {
+func (r ToolAPIPatchToolCatalogByIdRequest) CurateReq(curateReq CurateReq) ToolAPIPatchToolCatalogByIdRequest {
 	r.curateReq = &curateReq
 	return r
 }
 
-func (r ToolsAPIPatchToolsCatalogByIdRequest) Execute() (*MCPListing, *http.Response, error) {
-	return r.ApiService.PatchToolsCatalogByIdExecute(r)
+func (r ToolAPIPatchToolCatalogByIdRequest) Execute() (*MCPListing, *http.Response, error) {
+	return r.ApiService.PatchToolCatalogByIdExecute(r)
 }
 
 /*
-PatchToolsCatalogById Sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
+PatchToolCatalogById Sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
 
 Sets what WE say about one catalog entry — hidden, featured,
 official, logo — and answers with the stored listing. SuperAdmin only; every
@@ -1408,10 +1408,10 @@ next sync would silently undo it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the listing to curate, from the path.
-	@return ToolsAPIPatchToolsCatalogByIdRequest
+	@return ToolAPIPatchToolCatalogByIdRequest
 */
-func (a *ToolsAPIService) PatchToolsCatalogById(ctx context.Context, id string) ToolsAPIPatchToolsCatalogByIdRequest {
-	return ToolsAPIPatchToolsCatalogByIdRequest{
+func (a *ToolAPIService) PatchToolCatalogById(ctx context.Context, id string) ToolAPIPatchToolCatalogByIdRequest {
+	return ToolAPIPatchToolCatalogByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -1421,7 +1421,7 @@ func (a *ToolsAPIService) PatchToolsCatalogById(ctx context.Context, id string) 
 // Execute executes the request
 //
 //	@return MCPListing
-func (a *ToolsAPIService) PatchToolsCatalogByIdExecute(r ToolsAPIPatchToolsCatalogByIdRequest) (*MCPListing, *http.Response, error) {
+func (a *ToolAPIService) PatchToolCatalogByIdExecute(r ToolAPIPatchToolCatalogByIdRequest) (*MCPListing, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -1429,12 +1429,12 @@ func (a *ToolsAPIService) PatchToolsCatalogByIdExecute(r ToolsAPIPatchToolsCatal
 		localVarReturnValue *MCPListing
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.PatchToolsCatalogById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.PatchToolCatalogById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/tools/catalog/{id}"
+	localVarPath := localBasePath + "/v1/tool/catalog/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1500,23 +1500,23 @@ func (a *ToolsAPIService) PatchToolsCatalogByIdExecute(r ToolsAPIPatchToolsCatal
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ToolsAPIPostToolsCallRequest struct {
+type ToolAPIPostToolCallRequest struct {
 	ctx        context.Context
-	ApiService *ToolsAPIService
+	ApiService *ToolAPIService
 	toolCall   *ToolCall
 }
 
-func (r ToolsAPIPostToolsCallRequest) ToolCall(toolCall ToolCall) ToolsAPIPostToolsCallRequest {
+func (r ToolAPIPostToolCallRequest) ToolCall(toolCall ToolCall) ToolAPIPostToolCallRequest {
 	r.toolCall = &toolCall
 	return r
 }
 
-func (r ToolsAPIPostToolsCallRequest) Execute() (*ToolResult, *http.Response, error) {
-	return r.ApiService.PostToolsCallExecute(r)
+func (r ToolAPIPostToolCallRequest) Execute() (*ToolResult, *http.Response, error) {
+	return r.ApiService.PostToolCallExecute(r)
 }
 
 /*
-PostToolsCall Runs one of the caller's activated tools and answers with its output.
+PostToolCall Runs one of the caller's activated tools and answers with its output.
 
 Runs one of the caller's activated tools and answers with its output.
 
@@ -1531,13 +1531,13 @@ One policy, the registry's: resolve by precedence, refuse an unactivated tool
 dispatch to the winning source bound to the caller's own (org, project). One
 metered unit, one audit record. A caller can only ever dispatch its own tools.
 
-Discovery is GET /v1/tools — ?activated=true for the callable set.
+Discovery is GET /v1/tool — ?activated=true for the callable set.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ToolsAPIPostToolsCallRequest
+	@return ToolAPIPostToolCallRequest
 */
-func (a *ToolsAPIService) PostToolsCall(ctx context.Context) ToolsAPIPostToolsCallRequest {
-	return ToolsAPIPostToolsCallRequest{
+func (a *ToolAPIService) PostToolCall(ctx context.Context) ToolAPIPostToolCallRequest {
+	return ToolAPIPostToolCallRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1546,7 +1546,7 @@ func (a *ToolsAPIService) PostToolsCall(ctx context.Context) ToolsAPIPostToolsCa
 // Execute executes the request
 //
 //	@return ToolResult
-func (a *ToolsAPIService) PostToolsCallExecute(r ToolsAPIPostToolsCallRequest) (*ToolResult, *http.Response, error) {
+func (a *ToolAPIService) PostToolCallExecute(r ToolAPIPostToolCallRequest) (*ToolResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1554,12 +1554,12 @@ func (a *ToolsAPIService) PostToolsCallExecute(r ToolsAPIPostToolsCallRequest) (
 		localVarReturnValue *ToolResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.PostToolsCall")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.PostToolCall")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/tools/call"
+	localVarPath := localBasePath + "/v1/tool/call"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1624,17 +1624,17 @@ func (a *ToolsAPIService) PostToolsCallExecute(r ToolsAPIPostToolsCallRequest) (
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ToolsAPIPostToolsCatalogSyncRequest struct {
+type ToolAPIPostToolCatalogSyncRequest struct {
 	ctx        context.Context
-	ApiService *ToolsAPIService
+	ApiService *ToolAPIService
 }
 
-func (r ToolsAPIPostToolsCatalogSyncRequest) Execute() (*McpCatalogSync, *http.Response, error) {
-	return r.ApiService.PostToolsCatalogSyncExecute(r)
+func (r ToolAPIPostToolCatalogSyncRequest) Execute() (*McpCatalogSync, *http.Response, error) {
+	return r.ApiService.PostToolCatalogSyncExecute(r)
 }
 
 /*
-PostToolsCatalogSync Pulls the public MCP registry into our canonical copy and reports what changed.
+PostToolCatalogSync Pulls the public MCP registry into our canonical copy and reports what changed.
 
 Pulls the public MCP registry into our canonical copy and reports
 what changed. SuperAdmin only; every other caller is refused.
@@ -1647,10 +1647,10 @@ server. And it never touches CURATION: hidden, featured, an admin-set official
 and a logo survive every sync, because the write does not name those columns.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ToolsAPIPostToolsCatalogSyncRequest
+	@return ToolAPIPostToolCatalogSyncRequest
 */
-func (a *ToolsAPIService) PostToolsCatalogSync(ctx context.Context) ToolsAPIPostToolsCatalogSyncRequest {
-	return ToolsAPIPostToolsCatalogSyncRequest{
+func (a *ToolAPIService) PostToolCatalogSync(ctx context.Context) ToolAPIPostToolCatalogSyncRequest {
+	return ToolAPIPostToolCatalogSyncRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1659,7 +1659,7 @@ func (a *ToolsAPIService) PostToolsCatalogSync(ctx context.Context) ToolsAPIPost
 // Execute executes the request
 //
 //	@return McpCatalogSync
-func (a *ToolsAPIService) PostToolsCatalogSyncExecute(r ToolsAPIPostToolsCatalogSyncRequest) (*McpCatalogSync, *http.Response, error) {
+func (a *ToolAPIService) PostToolCatalogSyncExecute(r ToolAPIPostToolCatalogSyncRequest) (*McpCatalogSync, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1667,12 +1667,12 @@ func (a *ToolsAPIService) PostToolsCatalogSyncExecute(r ToolsAPIPostToolsCatalog
 		localVarReturnValue *McpCatalogSync
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.PostToolsCatalogSync")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.PostToolCatalogSync")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/tools/catalog/sync"
+	localVarPath := localBasePath + "/v1/tool/catalog/sync"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1732,23 +1732,23 @@ func (a *ToolsAPIService) PostToolsCatalogSyncExecute(r ToolsAPIPostToolsCatalog
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ToolsAPIPostToolsMcpServersRequest struct {
+type ToolAPIPostToolMcpServersRequest struct {
 	ctx             context.Context
-	ApiService      *ToolsAPIService
+	ApiService      *ToolAPIService
 	createServerReq *CreateServerReq
 }
 
-func (r ToolsAPIPostToolsMcpServersRequest) CreateServerReq(createServerReq CreateServerReq) ToolsAPIPostToolsMcpServersRequest {
+func (r ToolAPIPostToolMcpServersRequest) CreateServerReq(createServerReq CreateServerReq) ToolAPIPostToolMcpServersRequest {
 	r.createServerReq = &createServerReq
 	return r
 }
 
-func (r ToolsAPIPostToolsMcpServersRequest) Execute() (*MCPServer, *http.Response, error) {
-	return r.ApiService.PostToolsMcpServersExecute(r)
+func (r ToolAPIPostToolMcpServersRequest) Execute() (*MCPServer, *http.Response, error) {
+	return r.ApiService.PostToolMcpServersExecute(r)
 }
 
 /*
-PostToolsMcpServers Gives the caller's org one more external MCP server, so its tools join the org's tool plane and the fleet's MCP server.
+PostToolMcpServers Gives the caller's org one more external MCP server, so its tools join the org's tool plane and the fleet's MCP server.
 
 Gives the caller's org one more external MCP server, so its tools
 join the org's tool plane and the fleet's MCP server. It is the ONE way an org
@@ -1768,10 +1768,10 @@ adding a near-duplicate beside it, so a retried enable is the same one server.
 Answers 201 with the stored record.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ToolsAPIPostToolsMcpServersRequest
+	@return ToolAPIPostToolMcpServersRequest
 */
-func (a *ToolsAPIService) PostToolsMcpServers(ctx context.Context) ToolsAPIPostToolsMcpServersRequest {
-	return ToolsAPIPostToolsMcpServersRequest{
+func (a *ToolAPIService) PostToolMcpServers(ctx context.Context) ToolAPIPostToolMcpServersRequest {
+	return ToolAPIPostToolMcpServersRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1780,7 +1780,7 @@ func (a *ToolsAPIService) PostToolsMcpServers(ctx context.Context) ToolsAPIPostT
 // Execute executes the request
 //
 //	@return MCPServer
-func (a *ToolsAPIService) PostToolsMcpServersExecute(r ToolsAPIPostToolsMcpServersRequest) (*MCPServer, *http.Response, error) {
+func (a *ToolAPIService) PostToolMcpServersExecute(r ToolAPIPostToolMcpServersRequest) (*MCPServer, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1788,12 +1788,12 @@ func (a *ToolsAPIService) PostToolsMcpServersExecute(r ToolsAPIPostToolsMcpServe
 		localVarReturnValue *MCPServer
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.PostToolsMcpServers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.PostToolMcpServers")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/tools/mcp/servers"
+	localVarPath := localBasePath + "/v1/tool/mcp/servers"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1858,23 +1858,23 @@ func (a *ToolsAPIService) PostToolsMcpServersExecute(r ToolsAPIPostToolsMcpServe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ToolsAPIPostToolsPluginsBuildRequest struct {
+type ToolAPIPostToolPluginsBuildRequest struct {
 	ctx          context.Context
-	ApiService   *ToolsAPIService
+	ApiService   *ToolAPIService
 	buildRequest *BuildRequest
 }
 
-func (r ToolsAPIPostToolsPluginsBuildRequest) BuildRequest(buildRequest BuildRequest) ToolsAPIPostToolsPluginsBuildRequest {
+func (r ToolAPIPostToolPluginsBuildRequest) BuildRequest(buildRequest BuildRequest) ToolAPIPostToolPluginsBuildRequest {
 	r.buildRequest = &buildRequest
 	return r
 }
 
-func (r ToolsAPIPostToolsPluginsBuildRequest) Execute() (*BuildOut, *http.Response, error) {
-	return r.ApiService.PostToolsPluginsBuildExecute(r)
+func (r ToolAPIPostToolPluginsBuildRequest) Execute() (*BuildOut, *http.Response, error) {
+	return r.ApiService.PostToolPluginsBuildExecute(r)
 }
 
 /*
-PostToolsPluginsBuild Builds and stores one plugin for the caller's org.
+PostToolPluginsBuild Builds and stores one plugin for the caller's org.
 
 Builds and stores one plugin for the caller's org. The 201 carries
 the bundle's size, whether a model wrote the source, and the plugin as stored.
@@ -1899,10 +1899,10 @@ custody. Source that carries something key-shaped is REFUSED rather than
 silently persisted — a scrubbed key looks like it worked.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ToolsAPIPostToolsPluginsBuildRequest
+	@return ToolAPIPostToolPluginsBuildRequest
 */
-func (a *ToolsAPIService) PostToolsPluginsBuild(ctx context.Context) ToolsAPIPostToolsPluginsBuildRequest {
-	return ToolsAPIPostToolsPluginsBuildRequest{
+func (a *ToolAPIService) PostToolPluginsBuild(ctx context.Context) ToolAPIPostToolPluginsBuildRequest {
+	return ToolAPIPostToolPluginsBuildRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1911,7 +1911,7 @@ func (a *ToolsAPIService) PostToolsPluginsBuild(ctx context.Context) ToolsAPIPos
 // Execute executes the request
 //
 //	@return BuildOut
-func (a *ToolsAPIService) PostToolsPluginsBuildExecute(r ToolsAPIPostToolsPluginsBuildRequest) (*BuildOut, *http.Response, error) {
+func (a *ToolAPIService) PostToolPluginsBuildExecute(r ToolAPIPostToolPluginsBuildRequest) (*BuildOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1919,12 +1919,12 @@ func (a *ToolsAPIService) PostToolsPluginsBuildExecute(r ToolsAPIPostToolsPlugin
 		localVarReturnValue *BuildOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.PostToolsPluginsBuild")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.PostToolPluginsBuild")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/tools/plugins/build"
+	localVarPath := localBasePath + "/v1/tool/plugins/build"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1989,23 +1989,23 @@ func (a *ToolsAPIService) PostToolsPluginsBuildExecute(r ToolsAPIPostToolsPlugin
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ToolsAPIPostToolsSkillsRequest struct {
+type ToolAPIPostToolSkillsRequest struct {
 	ctx        context.Context
-	ApiService *ToolsAPIService
+	ApiService *ToolAPIService
 	skillIn    *SkillIn
 }
 
-func (r ToolsAPIPostToolsSkillsRequest) SkillIn(skillIn SkillIn) ToolsAPIPostToolsSkillsRequest {
+func (r ToolAPIPostToolSkillsRequest) SkillIn(skillIn SkillIn) ToolAPIPostToolSkillsRequest {
 	r.skillIn = &skillIn
 	return r
 }
 
-func (r ToolsAPIPostToolsSkillsRequest) Execute() (*SkillWritten, *http.Response, error) {
-	return r.ApiService.PostToolsSkillsExecute(r)
+func (r ToolAPIPostToolSkillsRequest) Execute() (*SkillWritten, *http.Response, error) {
+	return r.ApiService.PostToolSkillsExecute(r)
 }
 
 /*
-PostToolsSkills Adds or revises one of the caller org's own skills, and answers 201 with the stored record.
+PostToolSkills Adds or revises one of the caller org's own skills, and answers 201 with the stored record.
 
 Adds or revises one of the caller org's own skills, and answers 201
 with the stored record. The id is derived from the name, so writing the same
@@ -2016,10 +2016,10 @@ catalogue and have no path into the public gallery — and a brand skill always
 wins a name collision against an org's.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ToolsAPIPostToolsSkillsRequest
+	@return ToolAPIPostToolSkillsRequest
 */
-func (a *ToolsAPIService) PostToolsSkills(ctx context.Context) ToolsAPIPostToolsSkillsRequest {
-	return ToolsAPIPostToolsSkillsRequest{
+func (a *ToolAPIService) PostToolSkills(ctx context.Context) ToolAPIPostToolSkillsRequest {
+	return ToolAPIPostToolSkillsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2028,7 +2028,7 @@ func (a *ToolsAPIService) PostToolsSkills(ctx context.Context) ToolsAPIPostTools
 // Execute executes the request
 //
 //	@return SkillWritten
-func (a *ToolsAPIService) PostToolsSkillsExecute(r ToolsAPIPostToolsSkillsRequest) (*SkillWritten, *http.Response, error) {
+func (a *ToolAPIService) PostToolSkillsExecute(r ToolAPIPostToolSkillsRequest) (*SkillWritten, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -2036,12 +2036,12 @@ func (a *ToolsAPIService) PostToolsSkillsExecute(r ToolsAPIPostToolsSkillsReques
 		localVarReturnValue *SkillWritten
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.PostToolsSkills")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.PostToolSkills")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/tools/skills"
+	localVarPath := localBasePath + "/v1/tool/skills"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2106,23 +2106,23 @@ func (a *ToolsAPIService) PostToolsSkillsExecute(r ToolsAPIPostToolsSkillsReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ToolsAPIPutToolsActivationRequest struct {
+type ToolAPIPutToolActivationRequest struct {
 	ctx           context.Context
-	ApiService    *ToolsAPIService
+	ApiService    *ToolAPIService
 	activationReq *ActivationReq
 }
 
-func (r ToolsAPIPutToolsActivationRequest) ActivationReq(activationReq ActivationReq) ToolsAPIPutToolsActivationRequest {
+func (r ToolAPIPutToolActivationRequest) ActivationReq(activationReq ActivationReq) ToolAPIPutToolActivationRequest {
 	r.activationReq = &activationReq
 	return r
 }
 
-func (r ToolsAPIPutToolsActivationRequest) Execute() (*ActivationSet, *http.Response, error) {
-	return r.ApiService.PutToolsActivationExecute(r)
+func (r ToolAPIPutToolActivationRequest) Execute() (*ActivationSet, *http.Response, error) {
+	return r.ApiService.PutToolActivationExecute(r)
 }
 
 /*
-PutToolsActivation Switches tools on and off for the caller's org and project, and answers with the resulting activated set.
+PutToolActivation Switches tools on and off for the caller's org and project, and answers with the resulting activated set.
 
 Switches tools on and off for the caller's org and project, and
 answers with the resulting activated set. It is the ONE write path that turns
@@ -2132,10 +2132,10 @@ Deactivate, so a name in both lists ends up off. More than 256 toggles in one
 request is refused 413.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ToolsAPIPutToolsActivationRequest
+	@return ToolAPIPutToolActivationRequest
 */
-func (a *ToolsAPIService) PutToolsActivation(ctx context.Context) ToolsAPIPutToolsActivationRequest {
-	return ToolsAPIPutToolsActivationRequest{
+func (a *ToolAPIService) PutToolActivation(ctx context.Context) ToolAPIPutToolActivationRequest {
+	return ToolAPIPutToolActivationRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2144,7 +2144,7 @@ func (a *ToolsAPIService) PutToolsActivation(ctx context.Context) ToolsAPIPutToo
 // Execute executes the request
 //
 //	@return ActivationSet
-func (a *ToolsAPIService) PutToolsActivationExecute(r ToolsAPIPutToolsActivationRequest) (*ActivationSet, *http.Response, error) {
+func (a *ToolAPIService) PutToolActivationExecute(r ToolAPIPutToolActivationRequest) (*ActivationSet, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
@@ -2152,12 +2152,12 @@ func (a *ToolsAPIService) PutToolsActivationExecute(r ToolsAPIPutToolsActivation
 		localVarReturnValue *ActivationSet
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.PutToolsActivation")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.PutToolActivation")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/tools/activation"
+	localVarPath := localBasePath + "/v1/tool/activation"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

@@ -1,24 +1,24 @@
-# \ChannelsAPI
+# \ChannelAPI
 
 All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetChannels**](ChannelsAPI.md#GetChannels) | **Get** /v1/channels | Reports every chat channel this org can send through, and whether it can send through it right now.
-[**GetChannelsAgent**](ChannelsAPI.md#GetChannelsAgent) | **Get** /v1/channels/agent | Returns which agent answers the caller org&#39;s channel: the default and every room bound to another agent.
-[**GetChannelsAllowlist**](ChannelsAPI.md#GetChannelsAllowlist) | **Get** /v1/channels/allowlist | Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
-[**GetChannelsInbox**](ChannelsAPI.md#GetChannelsInbox) | **Get** /v1/channels/inbox | Returns the messages people have sent to the caller org&#39;s connected chat bots, oldest first, in the portable envelope shape every transport normalises into.
-[**GetChannelsPairing**](ChannelsAPI.md#GetChannelsPairing) | **Get** /v1/channels/pairing | Returns the pairing requests waiting for the caller org to approve — one per person who messaged a connected bot on a channel whose DM policy is \&quot;pairing\&quot; and who is not allowed yet.
-[**PostChannelsByChannelSend**](ChannelsAPI.md#PostChannelsByChannelSend) | **Post** /v1/channels/{channel}/send | Send a message from your org&#39;s bot to one chat room
-[**PostChannelsPairingApprove**](ChannelsAPI.md#PostChannelsPairingApprove) | **Post** /v1/channels/pairing/approve | Turns one pending pairing code into a standing allow entry, so that person can DM the org&#39;s bot on that channel from now on.
-[**PutChannelsAgent**](ChannelsAPI.md#PutChannelsAgent) | **Put** /v1/channels/agent | Binds agents to the caller org&#39;s channel and answers the bindings as GET would.
-[**PutChannelsAllowlist**](ChannelsAPI.md#PutChannelsAllowlist) | **Put** /v1/channels/allowlist | Edits the caller org&#39;s access policy for one channel and answers the policy as GET would, so both verbs return ONE shape.
+[**GetChannel**](ChannelAPI.md#GetChannel) | **Get** /v1/channel | Reports every chat channel this org can send through, and whether it can send through it right now.
+[**GetChannelAgent**](ChannelAPI.md#GetChannelAgent) | **Get** /v1/channel/agent | Returns which agent answers the caller org&#39;s channel: the default and every room bound to another agent.
+[**GetChannelAllowlist**](ChannelAPI.md#GetChannelAllowlist) | **Get** /v1/channel/allowlist | Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
+[**GetChannelInbox**](ChannelAPI.md#GetChannelInbox) | **Get** /v1/channel/inbox | Returns the messages people have sent to the caller org&#39;s connected chat bots, oldest first, in the portable envelope shape every transport normalises into.
+[**GetChannelPairing**](ChannelAPI.md#GetChannelPairing) | **Get** /v1/channel/pairing | Returns the pairing requests waiting for the caller org to approve — one per person who messaged a connected bot on a channel whose DM policy is \&quot;pairing\&quot; and who is not allowed yet.
+[**PostChannelByChannelSend**](ChannelAPI.md#PostChannelByChannelSend) | **Post** /v1/channel/{channel}/send | Send a message from your org&#39;s bot to one chat room
+[**PostChannelPairingApprove**](ChannelAPI.md#PostChannelPairingApprove) | **Post** /v1/channel/pairing/approve | Turns one pending pairing code into a standing allow entry, so that person can DM the org&#39;s bot on that channel from now on.
+[**PutChannelAgent**](ChannelAPI.md#PutChannelAgent) | **Put** /v1/channel/agent | Binds agents to the caller org&#39;s channel and answers the bindings as GET would.
+[**PutChannelAllowlist**](ChannelAPI.md#PutChannelAllowlist) | **Put** /v1/channel/allowlist | Edits the caller org&#39;s access policy for one channel and answers the policy as GET would, so both verbs return ONE shape.
 
 
 
-## GetChannels
+## GetChannel
 
-> ChatChannels GetChannels(ctx).Execute()
+> ChatChannels GetChannel(ctx).Execute()
 
 Reports every chat channel this org can send through, and whether it can send through it right now.
 
@@ -40,13 +40,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChannelsAPI.GetChannels(context.Background()).Execute()
+	resp, r, err := apiClient.ChannelAPI.GetChannel(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.GetChannels``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannel``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetChannels`: ChatChannels
-	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.GetChannels`: %v\n", resp)
+	// response from `GetChannel`: ChatChannels
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannel`: %v\n", resp)
 }
 ```
 
@@ -56,7 +56,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetChannelsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetChannelRequest struct via the builder pattern
 
 
 ### Return type
@@ -77,9 +77,9 @@ Other parameters are passed through a pointer to a apiGetChannelsRequest struct 
 [[Back to README]](../README.md)
 
 
-## GetChannelsAgent
+## GetChannelAgent
 
-> ChannelAgents GetChannelsAgent(ctx).Channel(channel).Execute()
+> ChannelAgents GetChannelAgent(ctx).Channel(channel).Execute()
 
 Returns which agent answers the caller org's channel: the default and every room bound to another agent.
 
@@ -102,13 +102,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChannelsAPI.GetChannelsAgent(context.Background()).Channel(channel).Execute()
+	resp, r, err := apiClient.ChannelAPI.GetChannelAgent(context.Background()).Channel(channel).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.GetChannelsAgent``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannelAgent``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetChannelsAgent`: ChannelAgents
-	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.GetChannelsAgent`: %v\n", resp)
+	// response from `GetChannelAgent`: ChannelAgents
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannelAgent`: %v\n", resp)
 }
 ```
 
@@ -118,7 +118,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetChannelsAgentRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetChannelAgentRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -143,9 +143,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetChannelsAllowlist
+## GetChannelAllowlist
 
-> AllowlistView GetChannelsAllowlist(ctx).Channel(channel).Execute()
+> AllowlistView GetChannelAllowlist(ctx).Channel(channel).Execute()
 
 Returns the caller org's access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org's named access groups.
 
@@ -168,13 +168,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChannelsAPI.GetChannelsAllowlist(context.Background()).Channel(channel).Execute()
+	resp, r, err := apiClient.ChannelAPI.GetChannelAllowlist(context.Background()).Channel(channel).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.GetChannelsAllowlist``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannelAllowlist``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetChannelsAllowlist`: AllowlistView
-	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.GetChannelsAllowlist`: %v\n", resp)
+	// response from `GetChannelAllowlist`: AllowlistView
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannelAllowlist`: %v\n", resp)
 }
 ```
 
@@ -184,7 +184,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetChannelsAllowlistRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetChannelAllowlistRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -209,9 +209,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetChannelsInbox
+## GetChannelInbox
 
-> InboxPage GetChannelsInbox(ctx).Since(since).Limit(limit).Execute()
+> InboxPage GetChannelInbox(ctx).Since(since).Limit(limit).Execute()
 
 Returns the messages people have sent to the caller org's connected chat bots, oldest first, in the portable envelope shape every transport normalises into.
 
@@ -235,13 +235,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChannelsAPI.GetChannelsInbox(context.Background()).Since(since).Limit(limit).Execute()
+	resp, r, err := apiClient.ChannelAPI.GetChannelInbox(context.Background()).Since(since).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.GetChannelsInbox``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannelInbox``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetChannelsInbox`: InboxPage
-	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.GetChannelsInbox`: %v\n", resp)
+	// response from `GetChannelInbox`: InboxPage
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannelInbox`: %v\n", resp)
 }
 ```
 
@@ -251,7 +251,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetChannelsInboxRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetChannelInboxRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -277,9 +277,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetChannelsPairing
+## GetChannelPairing
 
-> PairingQueue GetChannelsPairing(ctx).Execute()
+> PairingQueue GetChannelPairing(ctx).Execute()
 
 Returns the pairing requests waiting for the caller org to approve — one per person who messaged a connected bot on a channel whose DM policy is \"pairing\" and who is not allowed yet.
 
@@ -301,13 +301,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChannelsAPI.GetChannelsPairing(context.Background()).Execute()
+	resp, r, err := apiClient.ChannelAPI.GetChannelPairing(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.GetChannelsPairing``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannelPairing``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetChannelsPairing`: PairingQueue
-	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.GetChannelsPairing`: %v\n", resp)
+	// response from `GetChannelPairing`: PairingQueue
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannelPairing`: %v\n", resp)
 }
 ```
 
@@ -317,7 +317,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetChannelsPairingRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetChannelPairingRequest struct via the builder pattern
 
 
 ### Return type
@@ -338,9 +338,9 @@ Other parameters are passed through a pointer to a apiGetChannelsPairingRequest 
 [[Back to README]](../README.md)
 
 
-## PostChannelsByChannelSend
+## PostChannelByChannelSend
 
-> PostChannelsByChannelSend(ctx, channel).Execute()
+> PostChannelByChannelSend(ctx, channel).Execute()
 
 Send a message from your org's bot to one chat room
 
@@ -363,9 +363,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ChannelsAPI.PostChannelsByChannelSend(context.Background(), channel).Execute()
+	r, err := apiClient.ChannelAPI.PostChannelByChannelSend(context.Background(), channel).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.PostChannelsByChannelSend``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.PostChannelByChannelSend``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -381,7 +381,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostChannelsByChannelSendRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostChannelByChannelSendRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -406,9 +406,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostChannelsPairingApprove
+## PostChannelPairingApprove
 
-> PairingApproved PostChannelsPairingApprove(ctx).ApprovePairingIn(approvePairingIn).Execute()
+> PairingApproved PostChannelPairingApprove(ctx).ApprovePairingIn(approvePairingIn).Execute()
 
 Turns one pending pairing code into a standing allow entry, so that person can DM the org's bot on that channel from now on.
 
@@ -431,13 +431,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChannelsAPI.PostChannelsPairingApprove(context.Background()).ApprovePairingIn(approvePairingIn).Execute()
+	resp, r, err := apiClient.ChannelAPI.PostChannelPairingApprove(context.Background()).ApprovePairingIn(approvePairingIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.PostChannelsPairingApprove``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.PostChannelPairingApprove``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostChannelsPairingApprove`: PairingApproved
-	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.PostChannelsPairingApprove`: %v\n", resp)
+	// response from `PostChannelPairingApprove`: PairingApproved
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.PostChannelPairingApprove`: %v\n", resp)
 }
 ```
 
@@ -447,7 +447,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostChannelsPairingApproveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostChannelPairingApproveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -472,9 +472,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PutChannelsAgent
+## PutChannelAgent
 
-> ChannelAgents PutChannelsAgent(ctx).ChannelAgentsPut(channelAgentsPut).Execute()
+> ChannelAgents PutChannelAgent(ctx).ChannelAgentsPut(channelAgentsPut).Execute()
 
 Binds agents to the caller org's channel and answers the bindings as GET would.
 
@@ -497,13 +497,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChannelsAPI.PutChannelsAgent(context.Background()).ChannelAgentsPut(channelAgentsPut).Execute()
+	resp, r, err := apiClient.ChannelAPI.PutChannelAgent(context.Background()).ChannelAgentsPut(channelAgentsPut).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.PutChannelsAgent``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.PutChannelAgent``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutChannelsAgent`: ChannelAgents
-	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.PutChannelsAgent`: %v\n", resp)
+	// response from `PutChannelAgent`: ChannelAgents
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.PutChannelAgent`: %v\n", resp)
 }
 ```
 
@@ -513,7 +513,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPutChannelsAgentRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutChannelAgentRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -538,9 +538,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PutChannelsAllowlist
+## PutChannelAllowlist
 
-> AllowlistView PutChannelsAllowlist(ctx).AllowlistPutIn(allowlistPutIn).Execute()
+> AllowlistView PutChannelAllowlist(ctx).AllowlistPutIn(allowlistPutIn).Execute()
 
 Edits the caller org's access policy for one channel and answers the policy as GET would, so both verbs return ONE shape.
 
@@ -563,13 +563,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChannelsAPI.PutChannelsAllowlist(context.Background()).AllowlistPutIn(allowlistPutIn).Execute()
+	resp, r, err := apiClient.ChannelAPI.PutChannelAllowlist(context.Background()).AllowlistPutIn(allowlistPutIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.PutChannelsAllowlist``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.PutChannelAllowlist``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutChannelsAllowlist`: AllowlistView
-	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.PutChannelsAllowlist`: %v\n", resp)
+	// response from `PutChannelAllowlist`: AllowlistView
+	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.PutChannelAllowlist`: %v\n", resp)
 }
 ```
 
@@ -579,7 +579,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPutChannelsAllowlistRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutChannelAllowlistRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

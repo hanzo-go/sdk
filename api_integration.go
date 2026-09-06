@@ -19,21 +19,21 @@ import (
 	"strings"
 )
 
-// IntegrationsAPIService IntegrationsAPI service
-type IntegrationsAPIService service
+// IntegrationAPIService IntegrationAPI service
+type IntegrationAPIService service
 
-type IntegrationsAPIDeleteIntegrationsConnectorsByIdRequest struct {
+type IntegrationAPIDeleteIntegrationConnectorsByIdRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 	id         string
 }
 
-func (r IntegrationsAPIDeleteIntegrationsConnectorsByIdRequest) Execute() (*DisconnectOut, *http.Response, error) {
-	return r.ApiService.DeleteIntegrationsConnectorsByIdExecute(r)
+func (r IntegrationAPIDeleteIntegrationConnectorsByIdRequest) Execute() (*DisconnectOut, *http.Response, error) {
+	return r.ApiService.DeleteIntegrationConnectorsByIdExecute(r)
 }
 
 /*
-DeleteIntegrationsConnectorsById Forgets a connector: every custodied secret, then the row.
+DeleteIntegrationConnectorsById Forgets a connector: every custodied secret, then the row.
 
 Forgets a connector: every custodied secret, then the row.
 Idempotent — dropping a never-connected id still answers {disconnected:true}
@@ -42,10 +42,10 @@ exposes a revoke endpoint.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the connector id, provider + \":\" + label (\"openai:default\") — the auth-profile-id shape. Another user's id is simply no row, so 404.
-	@return IntegrationsAPIDeleteIntegrationsConnectorsByIdRequest
+	@return IntegrationAPIDeleteIntegrationConnectorsByIdRequest
 */
-func (a *IntegrationsAPIService) DeleteIntegrationsConnectorsById(ctx context.Context, id string) IntegrationsAPIDeleteIntegrationsConnectorsByIdRequest {
-	return IntegrationsAPIDeleteIntegrationsConnectorsByIdRequest{
+func (a *IntegrationAPIService) DeleteIntegrationConnectorsById(ctx context.Context, id string) IntegrationAPIDeleteIntegrationConnectorsByIdRequest {
+	return IntegrationAPIDeleteIntegrationConnectorsByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -55,7 +55,7 @@ func (a *IntegrationsAPIService) DeleteIntegrationsConnectorsById(ctx context.Co
 // Execute executes the request
 //
 //	@return DisconnectOut
-func (a *IntegrationsAPIService) DeleteIntegrationsConnectorsByIdExecute(r IntegrationsAPIDeleteIntegrationsConnectorsByIdRequest) (*DisconnectOut, *http.Response, error) {
+func (a *IntegrationAPIService) DeleteIntegrationConnectorsByIdExecute(r IntegrationAPIDeleteIntegrationConnectorsByIdRequest) (*DisconnectOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
@@ -63,12 +63,12 @@ func (a *IntegrationsAPIService) DeleteIntegrationsConnectorsByIdExecute(r Integ
 		localVarReturnValue *DisconnectOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.DeleteIntegrationsConnectorsById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.DeleteIntegrationConnectorsById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/connectors/{id}"
+	localVarPath := localBasePath + "/v1/integration/connectors/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -129,28 +129,28 @@ func (a *IntegrationsAPIService) DeleteIntegrationsConnectorsByIdExecute(r Integ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIDeleteIntegrationsGithubReposByRepoPagesRequest struct {
+type IntegrationAPIDeleteIntegrationGithubReposByRepoPagesRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 	repo       string
 }
 
-func (r IntegrationsAPIDeleteIntegrationsGithubReposByRepoPagesRequest) Execute() (*GithubPagesDisabledOut, *http.Response, error) {
-	return r.ApiService.DeleteIntegrationsGithubReposByRepoPagesExecute(r)
+func (r IntegrationAPIDeleteIntegrationGithubReposByRepoPagesRequest) Execute() (*GithubPagesDisabledOut, *http.Response, error) {
+	return r.ApiService.DeleteIntegrationGithubReposByRepoPagesExecute(r)
 }
 
 /*
-DeleteIntegrationsGithubReposByRepoPages Deletes the repo's Pages site.
+DeleteIntegrationGithubReposByRepoPages Deletes the repo's Pages site.
 
 Deletes the repo's Pages site. 404 when there is none, so a
 caller can tell "turned it off" from "there was nothing on".
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param repo Repo is the repository's short name within the org's installation, with no owner prefix (the owner is server-derived from the grant). A trailing \".git\" is stripped.
-	@return IntegrationsAPIDeleteIntegrationsGithubReposByRepoPagesRequest
+	@return IntegrationAPIDeleteIntegrationGithubReposByRepoPagesRequest
 */
-func (a *IntegrationsAPIService) DeleteIntegrationsGithubReposByRepoPages(ctx context.Context, repo string) IntegrationsAPIDeleteIntegrationsGithubReposByRepoPagesRequest {
-	return IntegrationsAPIDeleteIntegrationsGithubReposByRepoPagesRequest{
+func (a *IntegrationAPIService) DeleteIntegrationGithubReposByRepoPages(ctx context.Context, repo string) IntegrationAPIDeleteIntegrationGithubReposByRepoPagesRequest {
+	return IntegrationAPIDeleteIntegrationGithubReposByRepoPagesRequest{
 		ApiService: a,
 		ctx:        ctx,
 		repo:       repo,
@@ -160,7 +160,7 @@ func (a *IntegrationsAPIService) DeleteIntegrationsGithubReposByRepoPages(ctx co
 // Execute executes the request
 //
 //	@return GithubPagesDisabledOut
-func (a *IntegrationsAPIService) DeleteIntegrationsGithubReposByRepoPagesExecute(r IntegrationsAPIDeleteIntegrationsGithubReposByRepoPagesRequest) (*GithubPagesDisabledOut, *http.Response, error) {
+func (a *IntegrationAPIService) DeleteIntegrationGithubReposByRepoPagesExecute(r IntegrationAPIDeleteIntegrationGithubReposByRepoPagesRequest) (*GithubPagesDisabledOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
@@ -168,12 +168,12 @@ func (a *IntegrationsAPIService) DeleteIntegrationsGithubReposByRepoPagesExecute
 		localVarReturnValue *GithubPagesDisabledOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.DeleteIntegrationsGithubReposByRepoPages")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.DeleteIntegrationGithubReposByRepoPages")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/github/repos/{repo}/pages"
+	localVarPath := localBasePath + "/v1/integration/github/repos/{repo}/pages"
 	localVarPath = strings.Replace(localVarPath, "{"+"repo"+"}", url.PathEscape(parameterValueToString(r.repo, "repo")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -234,29 +234,29 @@ func (a *IntegrationsAPIService) DeleteIntegrationsGithubReposByRepoPagesExecute
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsRequest struct {
+type IntegrationAPIGetIntegrationRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsRequest) Execute() (*ListOut, *http.Response, error) {
-	return r.ApiService.GetIntegrationsExecute(r)
+func (r IntegrationAPIGetIntegrationRequest) Execute() (*ListOut, *http.Response, error) {
+	return r.ApiService.GetIntegrationExecute(r)
 }
 
 /*
-GetIntegrations Returns every registered integration provider together with THIS org's connection status for it — the catalog the console's Integrations page renders.
+GetIntegration Returns every registered integration provider together with THIS org's connection status for it — the catalog the console's Integrations page renders.
 
 Returns every registered integration provider together with THIS org's
 connection status for it — the catalog the console's Integrations page renders.
 Org-authed: a caller with no validated principal is 403, because the status is
-per-org and there is no org-less answer. User-plane providers (the /v1/integrations/connectors
+per-org and there is no org-less answer. User-plane providers (the /v1/integration/connectors
 surface) are omitted; the two planes are disjoint.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsRequest
+	@return IntegrationAPIGetIntegrationRequest
 */
-func (a *IntegrationsAPIService) GetIntegrations(ctx context.Context) IntegrationsAPIGetIntegrationsRequest {
-	return IntegrationsAPIGetIntegrationsRequest{
+func (a *IntegrationAPIService) GetIntegration(ctx context.Context) IntegrationAPIGetIntegrationRequest {
+	return IntegrationAPIGetIntegrationRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -265,7 +265,7 @@ func (a *IntegrationsAPIService) GetIntegrations(ctx context.Context) Integratio
 // Execute executes the request
 //
 //	@return ListOut
-func (a *IntegrationsAPIService) GetIntegrationsExecute(r IntegrationsAPIGetIntegrationsRequest) (*ListOut, *http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationExecute(r IntegrationAPIGetIntegrationRequest) (*ListOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -273,12 +273,12 @@ func (a *IntegrationsAPIService) GetIntegrationsExecute(r IntegrationsAPIGetInte
 		localVarReturnValue *ListOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrations")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegration")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations"
+	localVarPath := localBasePath + "/v1/integration"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -338,29 +338,29 @@ func (a *IntegrationsAPIService) GetIntegrationsExecute(r IntegrationsAPIGetInte
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsByProviderRequest struct {
+type IntegrationAPIGetIntegrationByProviderRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 	provider   string
 }
 
-func (r IntegrationsAPIGetIntegrationsByProviderRequest) Execute() (*ProviderView, *http.Response, error) {
-	return r.ApiService.GetIntegrationsByProviderExecute(r)
+func (r IntegrationAPIGetIntegrationByProviderRequest) Execute() (*ProviderView, *http.Response, error) {
+	return r.ApiService.GetIntegrationByProviderExecute(r)
 }
 
 /*
-GetIntegrationsByProvider Returns ONE provider with this org's connection status — the same view list carries, for a single id.
+GetIntegrationByProvider Returns ONE provider with this org's connection status — the same view list carries, for a single id.
 
 Returns ONE provider with this org's connection status — the same view list
 carries, for a single id. An unknown id is 404, and so is a user-plane provider:
 the org surface never resolves one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param provider Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves.
-	@return IntegrationsAPIGetIntegrationsByProviderRequest
+	@param provider Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/integration/connectors) providers, which this surface never resolves.
+	@return IntegrationAPIGetIntegrationByProviderRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsByProvider(ctx context.Context, provider string) IntegrationsAPIGetIntegrationsByProviderRequest {
-	return IntegrationsAPIGetIntegrationsByProviderRequest{
+func (a *IntegrationAPIService) GetIntegrationByProvider(ctx context.Context, provider string) IntegrationAPIGetIntegrationByProviderRequest {
+	return IntegrationAPIGetIntegrationByProviderRequest{
 		ApiService: a,
 		ctx:        ctx,
 		provider:   provider,
@@ -370,7 +370,7 @@ func (a *IntegrationsAPIService) GetIntegrationsByProvider(ctx context.Context, 
 // Execute executes the request
 //
 //	@return ProviderView
-func (a *IntegrationsAPIService) GetIntegrationsByProviderExecute(r IntegrationsAPIGetIntegrationsByProviderRequest) (*ProviderView, *http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationByProviderExecute(r IntegrationAPIGetIntegrationByProviderRequest) (*ProviderView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -378,12 +378,12 @@ func (a *IntegrationsAPIService) GetIntegrationsByProviderExecute(r Integrations
 		localVarReturnValue *ProviderView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsByProvider")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationByProvider")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/{provider}"
+	localVarPath := localBasePath + "/v1/integration/{provider}"
 	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -444,18 +444,18 @@ func (a *IntegrationsAPIService) GetIntegrationsByProviderExecute(r Integrations
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsByProviderCallbackRequest struct {
+type IntegrationAPIGetIntegrationByProviderCallbackRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 	provider   string
 }
 
-func (r IntegrationsAPIGetIntegrationsByProviderCallbackRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetIntegrationsByProviderCallbackExecute(r)
+func (r IntegrationAPIGetIntegrationByProviderCallbackRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetIntegrationByProviderCallbackExecute(r)
 }
 
 /*
-GetIntegrationsByProviderCallback OAuth return for any connector
+GetIntegrationByProviderCallback OAuth return for any connector
 
 The single address every connector's OAuth flow returns to. It exchanges the authorization the provider granted, records the connection, and ALWAYS redirects the browser back to the console — on success and on every labeled failure alike, so a user never lands on a raw JSON dead end.
 
@@ -467,10 +467,10 @@ One generalization is worth knowing: a GitHub App installation returns an instal
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param provider
-	@return IntegrationsAPIGetIntegrationsByProviderCallbackRequest
+	@return IntegrationAPIGetIntegrationByProviderCallbackRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsByProviderCallback(ctx context.Context, provider string) IntegrationsAPIGetIntegrationsByProviderCallbackRequest {
-	return IntegrationsAPIGetIntegrationsByProviderCallbackRequest{
+func (a *IntegrationAPIService) GetIntegrationByProviderCallback(ctx context.Context, provider string) IntegrationAPIGetIntegrationByProviderCallbackRequest {
+	return IntegrationAPIGetIntegrationByProviderCallbackRequest{
 		ApiService: a,
 		ctx:        ctx,
 		provider:   provider,
@@ -478,19 +478,19 @@ func (a *IntegrationsAPIService) GetIntegrationsByProviderCallback(ctx context.C
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) GetIntegrationsByProviderCallbackExecute(r IntegrationsAPIGetIntegrationsByProviderCallbackRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationByProviderCallbackExecute(r IntegrationAPIGetIntegrationByProviderCallbackRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsByProviderCallback")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationByProviderCallback")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/{provider}/callback"
+	localVarPath := localBasePath + "/v1/integration/{provider}/callback"
 	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -542,27 +542,27 @@ func (a *IntegrationsAPIService) GetIntegrationsByProviderCallbackExecute(r Inte
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsConnectorsRequest struct {
+type IntegrationAPIGetIntegrationConnectorsRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsConnectorsRequest) Execute() (*ConnectorsOut, *http.Response, error) {
-	return r.ApiService.GetIntegrationsConnectorsExecute(r)
+func (r IntegrationAPIGetIntegrationConnectorsRequest) Execute() (*ConnectorsOut, *http.Response, error) {
+	return r.ApiService.GetIntegrationConnectorsExecute(r)
 }
 
 /*
-GetIntegrationsConnectors Lists the caller's OWN connectors across every provider — the set `hanzo connector ls` prints.
+GetIntegrationConnectors Lists the caller's OWN connectors across every provider — the set `hanzo connector ls` prints.
 
 Lists the caller's OWN connectors across every provider — the set
 `hanzo connector ls` prints. Rows are keyed (org,user), so this can never
 surface another user's connector, and no secret is in the view.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsConnectorsRequest
+	@return IntegrationAPIGetIntegrationConnectorsRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsConnectors(ctx context.Context) IntegrationsAPIGetIntegrationsConnectorsRequest {
-	return IntegrationsAPIGetIntegrationsConnectorsRequest{
+func (a *IntegrationAPIService) GetIntegrationConnectors(ctx context.Context) IntegrationAPIGetIntegrationConnectorsRequest {
+	return IntegrationAPIGetIntegrationConnectorsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -571,7 +571,7 @@ func (a *IntegrationsAPIService) GetIntegrationsConnectors(ctx context.Context) 
 // Execute executes the request
 //
 //	@return ConnectorsOut
-func (a *IntegrationsAPIService) GetIntegrationsConnectorsExecute(r IntegrationsAPIGetIntegrationsConnectorsRequest) (*ConnectorsOut, *http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationConnectorsExecute(r IntegrationAPIGetIntegrationConnectorsRequest) (*ConnectorsOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -579,12 +579,12 @@ func (a *IntegrationsAPIService) GetIntegrationsConnectorsExecute(r Integrations
 		localVarReturnValue *ConnectorsOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsConnectors")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationConnectors")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/connectors"
+	localVarPath := localBasePath + "/v1/integration/connectors"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -644,18 +644,18 @@ func (a *IntegrationsAPIService) GetIntegrationsConnectorsExecute(r Integrations
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsConnectorsByIdTokenRequest struct {
+type IntegrationAPIGetIntegrationConnectorsByIdTokenRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 	id         string
 }
 
-func (r IntegrationsAPIGetIntegrationsConnectorsByIdTokenRequest) Execute() (*ConnectorTokenOut, *http.Response, error) {
-	return r.ApiService.GetIntegrationsConnectorsByIdTokenExecute(r)
+func (r IntegrationAPIGetIntegrationConnectorsByIdTokenRequest) Execute() (*ConnectorTokenOut, *http.Response, error) {
+	return r.ApiService.GetIntegrationConnectorsByIdTokenExecute(r)
 }
 
 /*
-GetIntegrationsConnectorsByIdToken Hands the custodied access token to its owner — the ONE place custody exits.
+GetIntegrationConnectorsByIdToken Hands the custodied access token to its owner — the ONE place custody exits.
 
 Hands the custodied access token to its owner — the ONE place
 custody exits. The (org,user)-keyed row IS the same-user gate: another user's
@@ -665,10 +665,10 @@ tokens are NEVER returned — custody keeps the sink. The token is never logged.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the connector id, provider + \":\" + label (\"openai:default\") — the auth-profile-id shape. Another user's id is simply no row, so 404.
-	@return IntegrationsAPIGetIntegrationsConnectorsByIdTokenRequest
+	@return IntegrationAPIGetIntegrationConnectorsByIdTokenRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsConnectorsByIdToken(ctx context.Context, id string) IntegrationsAPIGetIntegrationsConnectorsByIdTokenRequest {
-	return IntegrationsAPIGetIntegrationsConnectorsByIdTokenRequest{
+func (a *IntegrationAPIService) GetIntegrationConnectorsByIdToken(ctx context.Context, id string) IntegrationAPIGetIntegrationConnectorsByIdTokenRequest {
+	return IntegrationAPIGetIntegrationConnectorsByIdTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -678,7 +678,7 @@ func (a *IntegrationsAPIService) GetIntegrationsConnectorsByIdToken(ctx context.
 // Execute executes the request
 //
 //	@return ConnectorTokenOut
-func (a *IntegrationsAPIService) GetIntegrationsConnectorsByIdTokenExecute(r IntegrationsAPIGetIntegrationsConnectorsByIdTokenRequest) (*ConnectorTokenOut, *http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationConnectorsByIdTokenExecute(r IntegrationAPIGetIntegrationConnectorsByIdTokenRequest) (*ConnectorTokenOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -686,12 +686,12 @@ func (a *IntegrationsAPIService) GetIntegrationsConnectorsByIdTokenExecute(r Int
 		localVarReturnValue *ConnectorTokenOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsConnectorsByIdToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationConnectorsByIdToken")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/connectors/{id}/token"
+	localVarPath := localBasePath + "/v1/integration/connectors/{id}/token"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -752,27 +752,27 @@ func (a *IntegrationsAPIService) GetIntegrationsConnectorsByIdTokenExecute(r Int
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsConnectorsProvidersRequest struct {
+type IntegrationAPIGetIntegrationConnectorsProvidersRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsConnectorsProvidersRequest) Execute() (*ConnectorProvidersOut, *http.Response, error) {
-	return r.ApiService.GetIntegrationsConnectorsProvidersExecute(r)
+func (r IntegrationAPIGetIntegrationConnectorsProvidersRequest) Execute() (*ConnectorProvidersOut, *http.Response, error) {
+	return r.ApiService.GetIntegrationConnectorsProvidersExecute(r)
 }
 
 /*
-GetIntegrationsConnectorsProviders Lists the user-scoped provider cards — the catalog of what a user can connect, and how.
+GetIntegrationConnectorsProviders Lists the user-scoped provider cards — the catalog of what a user can connect, and how.
 
 Lists the user-scoped provider cards — the catalog of what a
 user can connect, and how. Methods derive from capabilities (Device/Adopt/Verify
 — Mount asserts at least one), never from a parallel kind enum.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsConnectorsProvidersRequest
+	@return IntegrationAPIGetIntegrationConnectorsProvidersRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsConnectorsProviders(ctx context.Context) IntegrationsAPIGetIntegrationsConnectorsProvidersRequest {
-	return IntegrationsAPIGetIntegrationsConnectorsProvidersRequest{
+func (a *IntegrationAPIService) GetIntegrationConnectorsProviders(ctx context.Context) IntegrationAPIGetIntegrationConnectorsProvidersRequest {
+	return IntegrationAPIGetIntegrationConnectorsProvidersRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -781,7 +781,7 @@ func (a *IntegrationsAPIService) GetIntegrationsConnectorsProviders(ctx context.
 // Execute executes the request
 //
 //	@return ConnectorProvidersOut
-func (a *IntegrationsAPIService) GetIntegrationsConnectorsProvidersExecute(r IntegrationsAPIGetIntegrationsConnectorsProvidersRequest) (*ConnectorProvidersOut, *http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationConnectorsProvidersExecute(r IntegrationAPIGetIntegrationConnectorsProvidersRequest) (*ConnectorProvidersOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -789,12 +789,12 @@ func (a *IntegrationsAPIService) GetIntegrationsConnectorsProvidersExecute(r Int
 		localVarReturnValue *ConnectorProvidersOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsConnectorsProviders")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationConnectorsProviders")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/connectors/providers"
+	localVarPath := localBasePath + "/v1/integration/connectors/providers"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -854,46 +854,46 @@ func (a *IntegrationsAPIService) GetIntegrationsConnectorsProvidersExecute(r Int
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsDiscordLinkRequest struct {
+type IntegrationAPIGetIntegrationDiscordLinkRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsDiscordLinkRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetIntegrationsDiscordLinkExecute(r)
+func (r IntegrationAPIGetIntegrationDiscordLinkRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetIntegrationDiscordLinkExecute(r)
 }
 
 /*
-GetIntegrationsDiscordLink Begin linking a Hanzo account from Discord
+GetIntegrationDiscordLink Begin linking a Hanzo account from Discord
 
 The entry point behind the connect prompt Hanzo shows in a Discord server. It starts a link session and redirects to Discord's OAuth `identify` consent — the narrowest scope that establishes which Discord user is asking, and nothing more.
 
 This is one leg of a three-leg flow, and the legs are not interchangeable: a browser is expected to arrive here only from the leg before it. The link URL's state proves the prompt was server-minted and carries the CHAT it started from — it is provenance only, and it never decides which account gets linked. The account identity always comes from the platform's own verified sign-in and a host-bound cookie, so forwarding a link to someone else cannot bind their account, and a session lifted into another browser is refused rather than completed. Each link is single-use, and a deployment without linking configured answers 503.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsDiscordLinkRequest
+	@return IntegrationAPIGetIntegrationDiscordLinkRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsDiscordLink(ctx context.Context) IntegrationsAPIGetIntegrationsDiscordLinkRequest {
-	return IntegrationsAPIGetIntegrationsDiscordLinkRequest{
+func (a *IntegrationAPIService) GetIntegrationDiscordLink(ctx context.Context) IntegrationAPIGetIntegrationDiscordLinkRequest {
+	return IntegrationAPIGetIntegrationDiscordLinkRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) GetIntegrationsDiscordLinkExecute(r IntegrationsAPIGetIntegrationsDiscordLinkRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationDiscordLinkExecute(r IntegrationAPIGetIntegrationDiscordLinkRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsDiscordLink")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationDiscordLink")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/discord/link"
+	localVarPath := localBasePath + "/v1/integration/discord/link"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -944,46 +944,46 @@ func (a *IntegrationsAPIService) GetIntegrationsDiscordLinkExecute(r Integration
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsDiscordLinkCallbackRequest struct {
+type IntegrationAPIGetIntegrationDiscordLinkCallbackRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsDiscordLinkCallbackRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetIntegrationsDiscordLinkCallbackExecute(r)
+func (r IntegrationAPIGetIntegrationDiscordLinkCallbackRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetIntegrationDiscordLinkCallbackExecute(r)
 }
 
 /*
-GetIntegrationsDiscordLinkCallback Complete the Discord account link
+GetIntegrationDiscordLinkCallback Complete the Discord account link
 
 The final leg: it binds the verified Discord user to the Hanzo account that just signed in, and answers a short confirmation page telling them to return to Discord. The Hanzo credential is sealed into the connected org's KMS namespace rather than stored beside the link.
 
 This is one leg of a three-leg flow, and the legs are not interchangeable: a browser is expected to arrive here only from the leg before it. The link URL's state proves the prompt was server-minted and carries the CHAT it started from — it is provenance only, and it never decides which account gets linked. The account identity always comes from the platform's own verified sign-in and a host-bound cookie, so forwarding a link to someone else cannot bind their account, and a session lifted into another browser is refused rather than completed. Each link is single-use, and a deployment without linking configured answers 503.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsDiscordLinkCallbackRequest
+	@return IntegrationAPIGetIntegrationDiscordLinkCallbackRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsDiscordLinkCallback(ctx context.Context) IntegrationsAPIGetIntegrationsDiscordLinkCallbackRequest {
-	return IntegrationsAPIGetIntegrationsDiscordLinkCallbackRequest{
+func (a *IntegrationAPIService) GetIntegrationDiscordLinkCallback(ctx context.Context) IntegrationAPIGetIntegrationDiscordLinkCallbackRequest {
+	return IntegrationAPIGetIntegrationDiscordLinkCallbackRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) GetIntegrationsDiscordLinkCallbackExecute(r IntegrationsAPIGetIntegrationsDiscordLinkCallbackRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationDiscordLinkCallbackExecute(r IntegrationAPIGetIntegrationDiscordLinkCallbackRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsDiscordLinkCallback")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationDiscordLinkCallback")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/discord/link/callback"
+	localVarPath := localBasePath + "/v1/integration/discord/link/callback"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1034,46 +1034,46 @@ func (a *IntegrationsAPIService) GetIntegrationsDiscordLinkCallbackExecute(r Int
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsDiscordLinkDiscordRequest struct {
+type IntegrationAPIGetIntegrationDiscordLinkDiscordRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsDiscordLinkDiscordRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetIntegrationsDiscordLinkDiscordExecute(r)
+func (r IntegrationAPIGetIntegrationDiscordLinkDiscordRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetIntegrationDiscordLinkDiscordExecute(r)
 }
 
 /*
-GetIntegrationsDiscordLinkDiscord Discord sign-in return leg
+GetIntegrationDiscordLinkDiscord Discord sign-in return leg
 
 Where Discord returns the user after the identify consent. It resolves the verified Discord user, confirms the server is connected to an org, and hands the browser to the Hanzo sign-in that completes the link.
 
 This is one leg of a three-leg flow, and the legs are not interchangeable: a browser is expected to arrive here only from the leg before it. The link URL's state proves the prompt was server-minted and carries the CHAT it started from — it is provenance only, and it never decides which account gets linked. The account identity always comes from the platform's own verified sign-in and a host-bound cookie, so forwarding a link to someone else cannot bind their account, and a session lifted into another browser is refused rather than completed. Each link is single-use, and a deployment without linking configured answers 503.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsDiscordLinkDiscordRequest
+	@return IntegrationAPIGetIntegrationDiscordLinkDiscordRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsDiscordLinkDiscord(ctx context.Context) IntegrationsAPIGetIntegrationsDiscordLinkDiscordRequest {
-	return IntegrationsAPIGetIntegrationsDiscordLinkDiscordRequest{
+func (a *IntegrationAPIService) GetIntegrationDiscordLinkDiscord(ctx context.Context) IntegrationAPIGetIntegrationDiscordLinkDiscordRequest {
+	return IntegrationAPIGetIntegrationDiscordLinkDiscordRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) GetIntegrationsDiscordLinkDiscordExecute(r IntegrationsAPIGetIntegrationsDiscordLinkDiscordRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationDiscordLinkDiscordExecute(r IntegrationAPIGetIntegrationDiscordLinkDiscordRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsDiscordLinkDiscord")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationDiscordLinkDiscord")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/discord/link/discord"
+	localVarPath := localBasePath + "/v1/integration/discord/link/discord"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1124,17 +1124,17 @@ func (a *IntegrationsAPIService) GetIntegrationsDiscordLinkDiscordExecute(r Inte
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsGithubInstallationsRequest struct {
+type IntegrationAPIGetIntegrationGithubInstallationsRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsGithubInstallationsRequest) Execute() (*GithubInstallationsOut, *http.Response, error) {
-	return r.ApiService.GetIntegrationsGithubInstallationsExecute(r)
+func (r IntegrationAPIGetIntegrationGithubInstallationsRequest) Execute() (*GithubInstallationsOut, *http.Response, error) {
+	return r.ApiService.GetIntegrationGithubInstallationsExecute(r)
 }
 
 /*
-GetIntegrationsGithubInstallations Lists the GitHub accounts the caller may see the App installed on, each confirmed against the App's own list, plus where to add another.
+GetIntegrationGithubInstallations Lists the GitHub accounts the caller may see the App installed on, each confirmed against the App's own list, plus where to add another.
 
 Lists the GitHub accounts the caller may see the App
 installed on, each confirmed against the App's own list, plus where to add
@@ -1161,10 +1161,10 @@ answer for accounts already bound, which is precisely the accounts that were
 never the question.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsGithubInstallationsRequest
+	@return IntegrationAPIGetIntegrationGithubInstallationsRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsGithubInstallations(ctx context.Context) IntegrationsAPIGetIntegrationsGithubInstallationsRequest {
-	return IntegrationsAPIGetIntegrationsGithubInstallationsRequest{
+func (a *IntegrationAPIService) GetIntegrationGithubInstallations(ctx context.Context) IntegrationAPIGetIntegrationGithubInstallationsRequest {
+	return IntegrationAPIGetIntegrationGithubInstallationsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1173,7 +1173,7 @@ func (a *IntegrationsAPIService) GetIntegrationsGithubInstallations(ctx context.
 // Execute executes the request
 //
 //	@return GithubInstallationsOut
-func (a *IntegrationsAPIService) GetIntegrationsGithubInstallationsExecute(r IntegrationsAPIGetIntegrationsGithubInstallationsRequest) (*GithubInstallationsOut, *http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationGithubInstallationsExecute(r IntegrationAPIGetIntegrationGithubInstallationsRequest) (*GithubInstallationsOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1181,12 +1181,12 @@ func (a *IntegrationsAPIService) GetIntegrationsGithubInstallationsExecute(r Int
 		localVarReturnValue *GithubInstallationsOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsGithubInstallations")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationGithubInstallations")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/github/installations"
+	localVarPath := localBasePath + "/v1/integration/github/installations"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1246,17 +1246,17 @@ func (a *IntegrationsAPIService) GetIntegrationsGithubInstallationsExecute(r Int
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsGithubReposRequest struct {
+type IntegrationAPIGetIntegrationGithubReposRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsGithubReposRequest) Execute() (*GithubReposOut, *http.Response, error) {
-	return r.ApiService.GetIntegrationsGithubReposExecute(r)
+func (r IntegrationAPIGetIntegrationGithubReposRequest) Execute() (*GithubReposOut, *http.Response, error) {
+	return r.ApiService.GetIntegrationGithubReposExecute(r)
 }
 
 /*
-GetIntegrationsGithubRepos Lists the org's granted GitHub repositories, each annotated with its native import + sync status from the git object plane.
+GetIntegrationGithubRepos Lists the org's granted GitHub repositories, each annotated with its native import + sync status from the git object plane.
 
 Lists the org's granted GitHub repositories, each annotated with its
 native import + sync status from the git object plane. Org-authed: the org comes
@@ -1265,10 +1265,10 @@ installation token — an org can never enumerate another org's repos. The conso
 polls it to watch an import flip a repo to imported.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsGithubReposRequest
+	@return IntegrationAPIGetIntegrationGithubReposRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsGithubRepos(ctx context.Context) IntegrationsAPIGetIntegrationsGithubReposRequest {
-	return IntegrationsAPIGetIntegrationsGithubReposRequest{
+func (a *IntegrationAPIService) GetIntegrationGithubRepos(ctx context.Context) IntegrationAPIGetIntegrationGithubReposRequest {
+	return IntegrationAPIGetIntegrationGithubReposRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1277,7 +1277,7 @@ func (a *IntegrationsAPIService) GetIntegrationsGithubRepos(ctx context.Context)
 // Execute executes the request
 //
 //	@return GithubReposOut
-func (a *IntegrationsAPIService) GetIntegrationsGithubReposExecute(r IntegrationsAPIGetIntegrationsGithubReposRequest) (*GithubReposOut, *http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationGithubReposExecute(r IntegrationAPIGetIntegrationGithubReposRequest) (*GithubReposOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1285,12 +1285,12 @@ func (a *IntegrationsAPIService) GetIntegrationsGithubReposExecute(r Integration
 		localVarReturnValue *GithubReposOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsGithubRepos")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationGithubRepos")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/github/repos"
+	localVarPath := localBasePath + "/v1/integration/github/repos"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1350,18 +1350,18 @@ func (a *IntegrationsAPIService) GetIntegrationsGithubReposExecute(r Integration
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsGithubReposByRepoPagesRequest struct {
+type IntegrationAPIGetIntegrationGithubReposByRepoPagesRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 	repo       string
 }
 
-func (r IntegrationsAPIGetIntegrationsGithubReposByRepoPagesRequest) Execute() (*GithubPagesView, *http.Response, error) {
-	return r.ApiService.GetIntegrationsGithubReposByRepoPagesExecute(r)
+func (r IntegrationAPIGetIntegrationGithubReposByRepoPagesRequest) Execute() (*GithubPagesView, *http.Response, error) {
+	return r.ApiService.GetIntegrationGithubReposByRepoPagesExecute(r)
 }
 
 /*
-GetIntegrationsGithubReposByRepoPages Returns the repo's Pages status, live URL, custom domain and build source.
+GetIntegrationGithubReposByRepoPages Returns the repo's Pages status, live URL, custom domain and build source.
 
 Returns the repo's Pages status, live URL, custom domain and build
 source. The repo is resolved against the org installation's GRANTED set, so a
@@ -1370,10 +1370,10 @@ Pages site.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param repo Repo is the repository's short name within the org's installation, with no owner prefix (the owner is server-derived from the grant). A trailing \".git\" is stripped.
-	@return IntegrationsAPIGetIntegrationsGithubReposByRepoPagesRequest
+	@return IntegrationAPIGetIntegrationGithubReposByRepoPagesRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsGithubReposByRepoPages(ctx context.Context, repo string) IntegrationsAPIGetIntegrationsGithubReposByRepoPagesRequest {
-	return IntegrationsAPIGetIntegrationsGithubReposByRepoPagesRequest{
+func (a *IntegrationAPIService) GetIntegrationGithubReposByRepoPages(ctx context.Context, repo string) IntegrationAPIGetIntegrationGithubReposByRepoPagesRequest {
+	return IntegrationAPIGetIntegrationGithubReposByRepoPagesRequest{
 		ApiService: a,
 		ctx:        ctx,
 		repo:       repo,
@@ -1383,7 +1383,7 @@ func (a *IntegrationsAPIService) GetIntegrationsGithubReposByRepoPages(ctx conte
 // Execute executes the request
 //
 //	@return GithubPagesView
-func (a *IntegrationsAPIService) GetIntegrationsGithubReposByRepoPagesExecute(r IntegrationsAPIGetIntegrationsGithubReposByRepoPagesRequest) (*GithubPagesView, *http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationGithubReposByRepoPagesExecute(r IntegrationAPIGetIntegrationGithubReposByRepoPagesRequest) (*GithubPagesView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1391,12 +1391,12 @@ func (a *IntegrationsAPIService) GetIntegrationsGithubReposByRepoPagesExecute(r 
 		localVarReturnValue *GithubPagesView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsGithubReposByRepoPages")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationGithubReposByRepoPages")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/github/repos/{repo}/pages"
+	localVarPath := localBasePath + "/v1/integration/github/repos/{repo}/pages"
 	localVarPath = strings.Replace(localVarPath, "{"+"repo"+"}", url.PathEscape(parameterValueToString(r.repo, "repo")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1457,26 +1457,26 @@ func (a *IntegrationsAPIService) GetIntegrationsGithubReposByRepoPagesExecute(r 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsGitlabProjectsRequest struct {
+type IntegrationAPIGetIntegrationGitlabProjectsRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsGitlabProjectsRequest) Execute() (*GitlabProjectsOut, *http.Response, error) {
-	return r.ApiService.GetIntegrationsGitlabProjectsExecute(r)
+func (r IntegrationAPIGetIntegrationGitlabProjectsRequest) Execute() (*GitlabProjectsOut, *http.Response, error) {
+	return r.ApiService.GetIntegrationGitlabProjectsExecute(r)
 }
 
 /*
-GetIntegrationsGitlabProjects Lists the projects the org's GitLab connection can reach — membership projects, most recently active first.
+GetIntegrationGitlabProjects Lists the projects the org's GitLab connection can reach — membership projects, most recently active first.
 
 Lists the projects the org's GitLab connection can reach —
 membership projects, most recently active first.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsGitlabProjectsRequest
+	@return IntegrationAPIGetIntegrationGitlabProjectsRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsGitlabProjects(ctx context.Context) IntegrationsAPIGetIntegrationsGitlabProjectsRequest {
-	return IntegrationsAPIGetIntegrationsGitlabProjectsRequest{
+func (a *IntegrationAPIService) GetIntegrationGitlabProjects(ctx context.Context) IntegrationAPIGetIntegrationGitlabProjectsRequest {
+	return IntegrationAPIGetIntegrationGitlabProjectsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1485,7 +1485,7 @@ func (a *IntegrationsAPIService) GetIntegrationsGitlabProjects(ctx context.Conte
 // Execute executes the request
 //
 //	@return GitlabProjectsOut
-func (a *IntegrationsAPIService) GetIntegrationsGitlabProjectsExecute(r IntegrationsAPIGetIntegrationsGitlabProjectsRequest) (*GitlabProjectsOut, *http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationGitlabProjectsExecute(r IntegrationAPIGetIntegrationGitlabProjectsRequest) (*GitlabProjectsOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1493,12 +1493,12 @@ func (a *IntegrationsAPIService) GetIntegrationsGitlabProjectsExecute(r Integrat
 		localVarReturnValue *GitlabProjectsOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsGitlabProjects")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationGitlabProjects")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/gitlab/projects"
+	localVarPath := localBasePath + "/v1/integration/gitlab/projects"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1558,17 +1558,17 @@ func (a *IntegrationsAPIService) GetIntegrationsGitlabProjectsExecute(r Integrat
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsSlackInstallRequest struct {
+type IntegrationAPIGetIntegrationSlackInstallRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsSlackInstallRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetIntegrationsSlackInstallExecute(r)
+func (r IntegrationAPIGetIntegrationSlackInstallRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetIntegrationSlackInstallExecute(r)
 }
 
 /*
-GetIntegrationsSlackInstall Install the Hanzo app into a Slack workspace
+GetIntegrationSlackInstall Install the Hanzo app into a Slack workspace
 
 The address behind Slack's "Add to Slack" and Marketplace Install buttons. It answers a 302 to Slack's own consent screen and does nothing else — it is a redirector by design.
 
@@ -1579,29 +1579,29 @@ It is PUBLIC and carries no principal, because whoever clicks Install in Slack's
 Where the app is not configured it answers 503, rather than a consent URL carrying an empty client_id that Slack would render as its own dead-end error page.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsSlackInstallRequest
+	@return IntegrationAPIGetIntegrationSlackInstallRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsSlackInstall(ctx context.Context) IntegrationsAPIGetIntegrationsSlackInstallRequest {
-	return IntegrationsAPIGetIntegrationsSlackInstallRequest{
+func (a *IntegrationAPIService) GetIntegrationSlackInstall(ctx context.Context) IntegrationAPIGetIntegrationSlackInstallRequest {
+	return IntegrationAPIGetIntegrationSlackInstallRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) GetIntegrationsSlackInstallExecute(r IntegrationsAPIGetIntegrationsSlackInstallRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationSlackInstallExecute(r IntegrationAPIGetIntegrationSlackInstallRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsSlackInstall")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationSlackInstall")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/slack/install"
+	localVarPath := localBasePath + "/v1/integration/slack/install"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1652,46 +1652,46 @@ func (a *IntegrationsAPIService) GetIntegrationsSlackInstallExecute(r Integratio
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsSlackLinkRequest struct {
+type IntegrationAPIGetIntegrationSlackLinkRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsSlackLinkRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetIntegrationsSlackLinkExecute(r)
+func (r IntegrationAPIGetIntegrationSlackLinkRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetIntegrationSlackLinkExecute(r)
 }
 
 /*
-GetIntegrationsSlackLink Begin linking a Hanzo account from Slack
+GetIntegrationSlackLink Begin linking a Hanzo account from Slack
 
 The entry point behind the connect prompt Hanzo posts in Slack. It starts a link session in the browser and redirects to Slack's own sign-in, which is what proves which Slack user is asking.
 
 This is one leg of a three-leg flow, and the legs are not interchangeable: a browser is expected to arrive here only from the leg before it. The link URL's state proves the prompt was server-minted and carries the CHAT it started from — it is provenance only, and it never decides which account gets linked. The account identity always comes from the platform's own verified sign-in and a host-bound cookie, so forwarding a link to someone else cannot bind their account, and a session lifted into another browser is refused rather than completed. Each link is single-use, and a deployment without linking configured answers 503.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsSlackLinkRequest
+	@return IntegrationAPIGetIntegrationSlackLinkRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsSlackLink(ctx context.Context) IntegrationsAPIGetIntegrationsSlackLinkRequest {
-	return IntegrationsAPIGetIntegrationsSlackLinkRequest{
+func (a *IntegrationAPIService) GetIntegrationSlackLink(ctx context.Context) IntegrationAPIGetIntegrationSlackLinkRequest {
+	return IntegrationAPIGetIntegrationSlackLinkRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) GetIntegrationsSlackLinkExecute(r IntegrationsAPIGetIntegrationsSlackLinkRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationSlackLinkExecute(r IntegrationAPIGetIntegrationSlackLinkRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsSlackLink")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationSlackLink")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/slack/link"
+	localVarPath := localBasePath + "/v1/integration/slack/link"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1742,17 +1742,17 @@ func (a *IntegrationsAPIService) GetIntegrationsSlackLinkExecute(r IntegrationsA
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsSlackLinkCallbackRequest struct {
+type IntegrationAPIGetIntegrationSlackLinkCallbackRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsSlackLinkCallbackRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetIntegrationsSlackLinkCallbackExecute(r)
+func (r IntegrationAPIGetIntegrationSlackLinkCallbackRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetIntegrationSlackLinkCallbackExecute(r)
 }
 
 /*
-GetIntegrationsSlackLinkCallback Complete the Slack account link
+GetIntegrationSlackLinkCallback Complete the Slack account link
 
 The final leg: the user has proved both who they are in Slack and who they are in Hanzo, and this binds the two. It answers a short confirmation page telling them to return to Slack.
 
@@ -1761,29 +1761,29 @@ The Hanzo credential obtained here is sealed into the connected workspace's own 
 This is one leg of a three-leg flow, and the legs are not interchangeable: a browser is expected to arrive here only from the leg before it. The link URL's state proves the prompt was server-minted and carries the CHAT it started from — it is provenance only, and it never decides which account gets linked. The account identity always comes from the platform's own verified sign-in and a host-bound cookie, so forwarding a link to someone else cannot bind their account, and a session lifted into another browser is refused rather than completed. Each link is single-use, and a deployment without linking configured answers 503.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsSlackLinkCallbackRequest
+	@return IntegrationAPIGetIntegrationSlackLinkCallbackRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsSlackLinkCallback(ctx context.Context) IntegrationsAPIGetIntegrationsSlackLinkCallbackRequest {
-	return IntegrationsAPIGetIntegrationsSlackLinkCallbackRequest{
+func (a *IntegrationAPIService) GetIntegrationSlackLinkCallback(ctx context.Context) IntegrationAPIGetIntegrationSlackLinkCallbackRequest {
+	return IntegrationAPIGetIntegrationSlackLinkCallbackRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) GetIntegrationsSlackLinkCallbackExecute(r IntegrationsAPIGetIntegrationsSlackLinkCallbackRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationSlackLinkCallbackExecute(r IntegrationAPIGetIntegrationSlackLinkCallbackRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsSlackLinkCallback")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationSlackLinkCallback")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/slack/link/callback"
+	localVarPath := localBasePath + "/v1/integration/slack/link/callback"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1834,17 +1834,17 @@ func (a *IntegrationsAPIService) GetIntegrationsSlackLinkCallbackExecute(r Integ
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsSlackLinkSlackRequest struct {
+type IntegrationAPIGetIntegrationSlackLinkSlackRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsSlackLinkSlackRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetIntegrationsSlackLinkSlackExecute(r)
+func (r IntegrationAPIGetIntegrationSlackLinkSlackRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetIntegrationSlackLinkSlackExecute(r)
 }
 
 /*
-GetIntegrationsSlackLinkSlack Slack sign-in return leg
+GetIntegrationSlackLinkSlack Slack sign-in return leg
 
 Where Slack returns the user after they sign in. It establishes the verified Slack workspace and user, confirms that workspace is connected to an org, and hands the browser on to the Hanzo sign-in that completes the link.
 
@@ -1853,29 +1853,29 @@ The verified pair is carried onward in a host-bound cookie rather than in the UR
 This is one leg of a three-leg flow, and the legs are not interchangeable: a browser is expected to arrive here only from the leg before it. The link URL's state proves the prompt was server-minted and carries the CHAT it started from — it is provenance only, and it never decides which account gets linked. The account identity always comes from the platform's own verified sign-in and a host-bound cookie, so forwarding a link to someone else cannot bind their account, and a session lifted into another browser is refused rather than completed. Each link is single-use, and a deployment without linking configured answers 503.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsSlackLinkSlackRequest
+	@return IntegrationAPIGetIntegrationSlackLinkSlackRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsSlackLinkSlack(ctx context.Context) IntegrationsAPIGetIntegrationsSlackLinkSlackRequest {
-	return IntegrationsAPIGetIntegrationsSlackLinkSlackRequest{
+func (a *IntegrationAPIService) GetIntegrationSlackLinkSlack(ctx context.Context) IntegrationAPIGetIntegrationSlackLinkSlackRequest {
+	return IntegrationAPIGetIntegrationSlackLinkSlackRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) GetIntegrationsSlackLinkSlackExecute(r IntegrationsAPIGetIntegrationsSlackLinkSlackRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationSlackLinkSlackExecute(r IntegrationAPIGetIntegrationSlackLinkSlackRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsSlackLinkSlack")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationSlackLinkSlack")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/slack/link/slack"
+	localVarPath := localBasePath + "/v1/integration/slack/link/slack"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1926,46 +1926,46 @@ func (a *IntegrationsAPIService) GetIntegrationsSlackLinkSlackExecute(r Integrat
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsTeamsLinkRequest struct {
+type IntegrationAPIGetIntegrationTeamsLinkRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsTeamsLinkRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetIntegrationsTeamsLinkExecute(r)
+func (r IntegrationAPIGetIntegrationTeamsLinkRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetIntegrationTeamsLinkExecute(r)
 }
 
 /*
-GetIntegrationsTeamsLink Begin linking a Hanzo account from Teams
+GetIntegrationTeamsLink Begin linking a Hanzo account from Teams
 
 The entry point behind the connect prompt Hanzo shows in Teams. It starts a link session and redirects to Microsoft sign-in addressed to the CHAT'S OWN tenant, not the common endpoint, so only a member of that tenant can complete it.
 
 This is one leg of a three-leg flow, and the legs are not interchangeable: a browser is expected to arrive here only from the leg before it. The link URL's state proves the prompt was server-minted and carries the CHAT it started from — it is provenance only, and it never decides which account gets linked. The account identity always comes from the platform's own verified sign-in and a host-bound cookie, so forwarding a link to someone else cannot bind their account, and a session lifted into another browser is refused rather than completed. Each link is single-use, and a deployment without linking configured answers 503.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsTeamsLinkRequest
+	@return IntegrationAPIGetIntegrationTeamsLinkRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsTeamsLink(ctx context.Context) IntegrationsAPIGetIntegrationsTeamsLinkRequest {
-	return IntegrationsAPIGetIntegrationsTeamsLinkRequest{
+func (a *IntegrationAPIService) GetIntegrationTeamsLink(ctx context.Context) IntegrationAPIGetIntegrationTeamsLinkRequest {
+	return IntegrationAPIGetIntegrationTeamsLinkRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) GetIntegrationsTeamsLinkExecute(r IntegrationsAPIGetIntegrationsTeamsLinkRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationTeamsLinkExecute(r IntegrationAPIGetIntegrationTeamsLinkRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsTeamsLink")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationTeamsLink")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/teams/link"
+	localVarPath := localBasePath + "/v1/integration/teams/link"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2016,17 +2016,17 @@ func (a *IntegrationsAPIService) GetIntegrationsTeamsLinkExecute(r IntegrationsA
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsTeamsLinkAadRequest struct {
+type IntegrationAPIGetIntegrationTeamsLinkAadRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsTeamsLinkAadRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetIntegrationsTeamsLinkAadExecute(r)
+func (r IntegrationAPIGetIntegrationTeamsLinkAadRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetIntegrationTeamsLinkAadExecute(r)
 }
 
 /*
-GetIntegrationsTeamsLinkAad Microsoft sign-in return leg
+GetIntegrationTeamsLinkAad Microsoft sign-in return leg
 
 Where Microsoft returns the user after sign-in. It resolves the verified directory identity and then re-checks the tenant: the signed-in user's tenant must equal the tenant of the chat the link started from, so a valid Microsoft sign-in from a different organization is refused here rather than accepted.
 
@@ -2035,29 +2035,29 @@ This is the leg Teams has and the other platforms do not, which is why the Teams
 This is one leg of a three-leg flow, and the legs are not interchangeable: a browser is expected to arrive here only from the leg before it. The link URL's state proves the prompt was server-minted and carries the CHAT it started from — it is provenance only, and it never decides which account gets linked. The account identity always comes from the platform's own verified sign-in and a host-bound cookie, so forwarding a link to someone else cannot bind their account, and a session lifted into another browser is refused rather than completed. Each link is single-use, and a deployment without linking configured answers 503.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsTeamsLinkAadRequest
+	@return IntegrationAPIGetIntegrationTeamsLinkAadRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsTeamsLinkAad(ctx context.Context) IntegrationsAPIGetIntegrationsTeamsLinkAadRequest {
-	return IntegrationsAPIGetIntegrationsTeamsLinkAadRequest{
+func (a *IntegrationAPIService) GetIntegrationTeamsLinkAad(ctx context.Context) IntegrationAPIGetIntegrationTeamsLinkAadRequest {
+	return IntegrationAPIGetIntegrationTeamsLinkAadRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) GetIntegrationsTeamsLinkAadExecute(r IntegrationsAPIGetIntegrationsTeamsLinkAadRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationTeamsLinkAadExecute(r IntegrationAPIGetIntegrationTeamsLinkAadRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsTeamsLinkAad")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationTeamsLinkAad")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/teams/link/aad"
+	localVarPath := localBasePath + "/v1/integration/teams/link/aad"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2108,46 +2108,46 @@ func (a *IntegrationsAPIService) GetIntegrationsTeamsLinkAadExecute(r Integratio
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsTeamsLinkCallbackRequest struct {
+type IntegrationAPIGetIntegrationTeamsLinkCallbackRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsTeamsLinkCallbackRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetIntegrationsTeamsLinkCallbackExecute(r)
+func (r IntegrationAPIGetIntegrationTeamsLinkCallbackRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetIntegrationTeamsLinkCallbackExecute(r)
 }
 
 /*
-GetIntegrationsTeamsLinkCallback Complete the Teams account link
+GetIntegrationTeamsLinkCallback Complete the Teams account link
 
 The final leg: it binds the verified directory identity to the Hanzo account that just signed in, and answers a short confirmation page telling them to return to Teams. The Hanzo credential is sealed into the connected org's KMS namespace.
 
 This is one leg of a three-leg flow, and the legs are not interchangeable: a browser is expected to arrive here only from the leg before it. The link URL's state proves the prompt was server-minted and carries the CHAT it started from — it is provenance only, and it never decides which account gets linked. The account identity always comes from the platform's own verified sign-in and a host-bound cookie, so forwarding a link to someone else cannot bind their account, and a session lifted into another browser is refused rather than completed. Each link is single-use, and a deployment without linking configured answers 503.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsTeamsLinkCallbackRequest
+	@return IntegrationAPIGetIntegrationTeamsLinkCallbackRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsTeamsLinkCallback(ctx context.Context) IntegrationsAPIGetIntegrationsTeamsLinkCallbackRequest {
-	return IntegrationsAPIGetIntegrationsTeamsLinkCallbackRequest{
+func (a *IntegrationAPIService) GetIntegrationTeamsLinkCallback(ctx context.Context) IntegrationAPIGetIntegrationTeamsLinkCallbackRequest {
+	return IntegrationAPIGetIntegrationTeamsLinkCallbackRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) GetIntegrationsTeamsLinkCallbackExecute(r IntegrationsAPIGetIntegrationsTeamsLinkCallbackRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationTeamsLinkCallbackExecute(r IntegrationAPIGetIntegrationTeamsLinkCallbackRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsTeamsLinkCallback")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationTeamsLinkCallback")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/teams/link/callback"
+	localVarPath := localBasePath + "/v1/integration/teams/link/callback"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2198,17 +2198,17 @@ func (a *IntegrationsAPIService) GetIntegrationsTeamsLinkCallbackExecute(r Integ
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsTelegramLinkRequest struct {
+type IntegrationAPIGetIntegrationTelegramLinkRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsTelegramLinkRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetIntegrationsTelegramLinkExecute(r)
+func (r IntegrationAPIGetIntegrationTelegramLinkRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetIntegrationTelegramLinkExecute(r)
 }
 
 /*
-GetIntegrationsTelegramLink Begin linking a Hanzo account from Telegram
+GetIntegrationTelegramLink Begin linking a Hanzo account from Telegram
 
 The entry point behind the connect prompt Hanzo sends in Telegram. Unlike the other platforms it answers an HTML PAGE rather than a redirect: Telegram has no OAuth flow, so the page hosts Telegram's Login Widget, and the browser is sent onward only after the user signs in through it.
 
@@ -2217,29 +2217,29 @@ The widget only appears on the domain registered for the bot, so a deployment wh
 This is one leg of a three-leg flow, and the legs are not interchangeable: a browser is expected to arrive here only from the leg before it. The link URL's state proves the prompt was server-minted and carries the CHAT it started from — it is provenance only, and it never decides which account gets linked. The account identity always comes from the platform's own verified sign-in and a host-bound cookie, so forwarding a link to someone else cannot bind their account, and a session lifted into another browser is refused rather than completed. Each link is single-use, and a deployment without linking configured answers 503.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsTelegramLinkRequest
+	@return IntegrationAPIGetIntegrationTelegramLinkRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsTelegramLink(ctx context.Context) IntegrationsAPIGetIntegrationsTelegramLinkRequest {
-	return IntegrationsAPIGetIntegrationsTelegramLinkRequest{
+func (a *IntegrationAPIService) GetIntegrationTelegramLink(ctx context.Context) IntegrationAPIGetIntegrationTelegramLinkRequest {
+	return IntegrationAPIGetIntegrationTelegramLinkRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) GetIntegrationsTelegramLinkExecute(r IntegrationsAPIGetIntegrationsTelegramLinkRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationTelegramLinkExecute(r IntegrationAPIGetIntegrationTelegramLinkRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsTelegramLink")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationTelegramLink")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/telegram/link"
+	localVarPath := localBasePath + "/v1/integration/telegram/link"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2290,17 +2290,17 @@ func (a *IntegrationsAPIService) GetIntegrationsTelegramLinkExecute(r Integratio
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsTelegramLinkAuthRequest struct {
+type IntegrationAPIGetIntegrationTelegramLinkAuthRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsTelegramLinkAuthRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetIntegrationsTelegramLinkAuthExecute(r)
+func (r IntegrationAPIGetIntegrationTelegramLinkAuthRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetIntegrationTelegramLinkAuthExecute(r)
 }
 
 /*
-GetIntegrationsTelegramLinkAuth Telegram Login Widget return leg
+GetIntegrationTelegramLinkAuth Telegram Login Widget return leg
 
 Where Telegram's Login Widget sends the user with its signed authentication data. That data is verified against the bot token — this is the identity source, and it is the widget's signature rather than a code exchange — and the chat is confirmed to be bound to an org before the browser is handed to the Hanzo sign-in.
 
@@ -2309,29 +2309,29 @@ Widget data is only accepted while it is fresh, so a captured sign-in blob canno
 This is one leg of a three-leg flow, and the legs are not interchangeable: a browser is expected to arrive here only from the leg before it. The link URL's state proves the prompt was server-minted and carries the CHAT it started from — it is provenance only, and it never decides which account gets linked. The account identity always comes from the platform's own verified sign-in and a host-bound cookie, so forwarding a link to someone else cannot bind their account, and a session lifted into another browser is refused rather than completed. Each link is single-use, and a deployment without linking configured answers 503.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsTelegramLinkAuthRequest
+	@return IntegrationAPIGetIntegrationTelegramLinkAuthRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsTelegramLinkAuth(ctx context.Context) IntegrationsAPIGetIntegrationsTelegramLinkAuthRequest {
-	return IntegrationsAPIGetIntegrationsTelegramLinkAuthRequest{
+func (a *IntegrationAPIService) GetIntegrationTelegramLinkAuth(ctx context.Context) IntegrationAPIGetIntegrationTelegramLinkAuthRequest {
+	return IntegrationAPIGetIntegrationTelegramLinkAuthRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) GetIntegrationsTelegramLinkAuthExecute(r IntegrationsAPIGetIntegrationsTelegramLinkAuthRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationTelegramLinkAuthExecute(r IntegrationAPIGetIntegrationTelegramLinkAuthRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsTelegramLinkAuth")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationTelegramLinkAuth")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/telegram/link/auth"
+	localVarPath := localBasePath + "/v1/integration/telegram/link/auth"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2382,46 +2382,46 @@ func (a *IntegrationsAPIService) GetIntegrationsTelegramLinkAuthExecute(r Integr
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsTelegramLinkCallbackRequest struct {
+type IntegrationAPIGetIntegrationTelegramLinkCallbackRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsTelegramLinkCallbackRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetIntegrationsTelegramLinkCallbackExecute(r)
+func (r IntegrationAPIGetIntegrationTelegramLinkCallbackRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetIntegrationTelegramLinkCallbackExecute(r)
 }
 
 /*
-GetIntegrationsTelegramLinkCallback Complete the Telegram account link
+GetIntegrationTelegramLinkCallback Complete the Telegram account link
 
 The final leg: it binds the verified Telegram user to the Hanzo account that just signed in, and answers a short confirmation page telling them to return to Telegram. The Hanzo credential is sealed into the connected org's KMS namespace.
 
 This is one leg of a three-leg flow, and the legs are not interchangeable: a browser is expected to arrive here only from the leg before it. The link URL's state proves the prompt was server-minted and carries the CHAT it started from — it is provenance only, and it never decides which account gets linked. The account identity always comes from the platform's own verified sign-in and a host-bound cookie, so forwarding a link to someone else cannot bind their account, and a session lifted into another browser is refused rather than completed. Each link is single-use, and a deployment without linking configured answers 503.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsTelegramLinkCallbackRequest
+	@return IntegrationAPIGetIntegrationTelegramLinkCallbackRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsTelegramLinkCallback(ctx context.Context) IntegrationsAPIGetIntegrationsTelegramLinkCallbackRequest {
-	return IntegrationsAPIGetIntegrationsTelegramLinkCallbackRequest{
+func (a *IntegrationAPIService) GetIntegrationTelegramLinkCallback(ctx context.Context) IntegrationAPIGetIntegrationTelegramLinkCallbackRequest {
+	return IntegrationAPIGetIntegrationTelegramLinkCallbackRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) GetIntegrationsTelegramLinkCallbackExecute(r IntegrationsAPIGetIntegrationsTelegramLinkCallbackRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationTelegramLinkCallbackExecute(r IntegrationAPIGetIntegrationTelegramLinkCallbackRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsTelegramLinkCallback")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationTelegramLinkCallback")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/telegram/link/callback"
+	localVarPath := localBasePath + "/v1/integration/telegram/link/callback"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2472,44 +2472,44 @@ func (a *IntegrationsAPIService) GetIntegrationsTelegramLinkCallbackExecute(r In
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIGetIntegrationsWhatsappWebhookRequest struct {
+type IntegrationAPIGetIntegrationWhatsappWebhookRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIGetIntegrationsWhatsappWebhookRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetIntegrationsWhatsappWebhookExecute(r)
+func (r IntegrationAPIGetIntegrationWhatsappWebhookRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetIntegrationWhatsappWebhookExecute(r)
 }
 
 /*
-GetIntegrationsWhatsappWebhook WhatsApp Cloud API subscription challenge
+GetIntegrationWhatsappWebhook WhatsApp Cloud API subscription challenge
 
 Meta calls this once when the webhook is subscribed, carrying the verify token this deployment was configured with and a challenge to echo. The token is compared in constant time before the echo — answering the challenge without checking it would let anyone point their own app at this address and have it confirm the subscription.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIGetIntegrationsWhatsappWebhookRequest
+	@return IntegrationAPIGetIntegrationWhatsappWebhookRequest
 */
-func (a *IntegrationsAPIService) GetIntegrationsWhatsappWebhook(ctx context.Context) IntegrationsAPIGetIntegrationsWhatsappWebhookRequest {
-	return IntegrationsAPIGetIntegrationsWhatsappWebhookRequest{
+func (a *IntegrationAPIService) GetIntegrationWhatsappWebhook(ctx context.Context) IntegrationAPIGetIntegrationWhatsappWebhookRequest {
+	return IntegrationAPIGetIntegrationWhatsappWebhookRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) GetIntegrationsWhatsappWebhookExecute(r IntegrationsAPIGetIntegrationsWhatsappWebhookRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) GetIntegrationWhatsappWebhookExecute(r IntegrationAPIGetIntegrationWhatsappWebhookRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodGet
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsWhatsappWebhook")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.GetIntegrationWhatsappWebhook")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/whatsapp/webhook"
+	localVarPath := localBasePath + "/v1/integration/whatsapp/webhook"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2560,24 +2560,24 @@ func (a *IntegrationsAPIService) GetIntegrationsWhatsappWebhookExecute(r Integra
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsByProviderConnectRequest struct {
+type IntegrationAPIPostIntegrationByProviderConnectRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 	provider   string
 	connectIn  *ConnectIn
 }
 
-func (r IntegrationsAPIPostIntegrationsByProviderConnectRequest) ConnectIn(connectIn ConnectIn) IntegrationsAPIPostIntegrationsByProviderConnectRequest {
+func (r IntegrationAPIPostIntegrationByProviderConnectRequest) ConnectIn(connectIn ConnectIn) IntegrationAPIPostIntegrationByProviderConnectRequest {
 	r.connectIn = &connectIn
 	return r
 }
 
-func (r IntegrationsAPIPostIntegrationsByProviderConnectRequest) Execute() (*ConnectOut, *http.Response, error) {
-	return r.ApiService.PostIntegrationsByProviderConnectExecute(r)
+func (r IntegrationAPIPostIntegrationByProviderConnectRequest) Execute() (*ConnectOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationByProviderConnectExecute(r)
 }
 
 /*
-PostIntegrationsByProviderConnect Acquires the org's credential for one provider.
+PostIntegrationByProviderConnect Acquires the org's credential for one provider.
 
 Acquires the org's credential for one provider. It has TWO paths and the
 REQUEST picks which: a "token" key in the body seals that credential directly
@@ -2592,10 +2592,10 @@ rather than dead-end at the callback).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param provider Provider is the connector's registry id, from the :provider path segment.
-	@return IntegrationsAPIPostIntegrationsByProviderConnectRequest
+	@return IntegrationAPIPostIntegrationByProviderConnectRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsByProviderConnect(ctx context.Context, provider string) IntegrationsAPIPostIntegrationsByProviderConnectRequest {
-	return IntegrationsAPIPostIntegrationsByProviderConnectRequest{
+func (a *IntegrationAPIService) PostIntegrationByProviderConnect(ctx context.Context, provider string) IntegrationAPIPostIntegrationByProviderConnectRequest {
+	return IntegrationAPIPostIntegrationByProviderConnectRequest{
 		ApiService: a,
 		ctx:        ctx,
 		provider:   provider,
@@ -2605,7 +2605,7 @@ func (a *IntegrationsAPIService) PostIntegrationsByProviderConnect(ctx context.C
 // Execute executes the request
 //
 //	@return ConnectOut
-func (a *IntegrationsAPIService) PostIntegrationsByProviderConnectExecute(r IntegrationsAPIPostIntegrationsByProviderConnectRequest) (*ConnectOut, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationByProviderConnectExecute(r IntegrationAPIPostIntegrationByProviderConnectRequest) (*ConnectOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -2613,12 +2613,12 @@ func (a *IntegrationsAPIService) PostIntegrationsByProviderConnectExecute(r Inte
 		localVarReturnValue *ConnectOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsByProviderConnect")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationByProviderConnect")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/{provider}/connect"
+	localVarPath := localBasePath + "/v1/integration/{provider}/connect"
 	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2684,18 +2684,18 @@ func (a *IntegrationsAPIService) PostIntegrationsByProviderConnectExecute(r Inte
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsByProviderDisconnectRequest struct {
+type IntegrationAPIPostIntegrationByProviderDisconnectRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 	provider   string
 }
 
-func (r IntegrationsAPIPostIntegrationsByProviderDisconnectRequest) Execute() (*DisconnectOut, *http.Response, error) {
-	return r.ApiService.PostIntegrationsByProviderDisconnectExecute(r)
+func (r IntegrationAPIPostIntegrationByProviderDisconnectRequest) Execute() (*DisconnectOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationByProviderDisconnectExecute(r)
 }
 
 /*
-PostIntegrationsByProviderDisconnect Revokes (best-effort) and forgets an org's connection: it deletes every custodied KMS secret and the connection row.
+PostIntegrationByProviderDisconnect Revokes (best-effort) and forgets an org's connection: it deletes every custodied KMS secret and the connection row.
 
 Revokes (best-effort) and forgets an org's connection: it deletes
 every custodied KMS secret and the connection row. Idempotent — disconnecting a
@@ -2703,11 +2703,11 @@ provider that was never connected still returns {disconnected:true}. Symmetric
 with connect: an AdminOnly connector needs the caller's own-org admin bit.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param provider Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves.
-	@return IntegrationsAPIPostIntegrationsByProviderDisconnectRequest
+	@param provider Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/integration/connectors) providers, which this surface never resolves.
+	@return IntegrationAPIPostIntegrationByProviderDisconnectRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsByProviderDisconnect(ctx context.Context, provider string) IntegrationsAPIPostIntegrationsByProviderDisconnectRequest {
-	return IntegrationsAPIPostIntegrationsByProviderDisconnectRequest{
+func (a *IntegrationAPIService) PostIntegrationByProviderDisconnect(ctx context.Context, provider string) IntegrationAPIPostIntegrationByProviderDisconnectRequest {
+	return IntegrationAPIPostIntegrationByProviderDisconnectRequest{
 		ApiService: a,
 		ctx:        ctx,
 		provider:   provider,
@@ -2717,7 +2717,7 @@ func (a *IntegrationsAPIService) PostIntegrationsByProviderDisconnect(ctx contex
 // Execute executes the request
 //
 //	@return DisconnectOut
-func (a *IntegrationsAPIService) PostIntegrationsByProviderDisconnectExecute(r IntegrationsAPIPostIntegrationsByProviderDisconnectRequest) (*DisconnectOut, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationByProviderDisconnectExecute(r IntegrationAPIPostIntegrationByProviderDisconnectRequest) (*DisconnectOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -2725,12 +2725,12 @@ func (a *IntegrationsAPIService) PostIntegrationsByProviderDisconnectExecute(r I
 		localVarReturnValue *DisconnectOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsByProviderDisconnect")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationByProviderDisconnect")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/{provider}/disconnect"
+	localVarPath := localBasePath + "/v1/integration/{provider}/disconnect"
 	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2791,18 +2791,18 @@ func (a *IntegrationsAPIService) PostIntegrationsByProviderDisconnectExecute(r I
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsByProviderVerifyRequest struct {
+type IntegrationAPIPostIntegrationByProviderVerifyRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 	provider   string
 }
 
-func (r IntegrationsAPIPostIntegrationsByProviderVerifyRequest) Execute() (*VerifyOut, *http.Response, error) {
-	return r.ApiService.PostIntegrationsByProviderVerifyExecute(r)
+func (r IntegrationAPIPostIntegrationByProviderVerifyRequest) Execute() (*VerifyOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationByProviderVerifyExecute(r)
 }
 
 /*
-PostIntegrationsByProviderVerify Re-checks a CONNECTED apikey connector's stored credential against the provider, live (`hanzo connector verify`).
+PostIntegrationByProviderVerify Re-checks a CONNECTED apikey connector's stored credential against the provider, live (`hanzo connector verify`).
 
 Re-checks a CONNECTED apikey connector's stored credential against the
 provider, live (`hanzo connector verify`). Org-scoped (any member may check
@@ -2812,11 +2812,11 @@ CLI renders it. Only apikey providers support verify (OAuth tokens are checked a
 use, not re-verified here).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param provider Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves.
-	@return IntegrationsAPIPostIntegrationsByProviderVerifyRequest
+	@param provider Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/integration/connectors) providers, which this surface never resolves.
+	@return IntegrationAPIPostIntegrationByProviderVerifyRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsByProviderVerify(ctx context.Context, provider string) IntegrationsAPIPostIntegrationsByProviderVerifyRequest {
-	return IntegrationsAPIPostIntegrationsByProviderVerifyRequest{
+func (a *IntegrationAPIService) PostIntegrationByProviderVerify(ctx context.Context, provider string) IntegrationAPIPostIntegrationByProviderVerifyRequest {
+	return IntegrationAPIPostIntegrationByProviderVerifyRequest{
 		ApiService: a,
 		ctx:        ctx,
 		provider:   provider,
@@ -2826,7 +2826,7 @@ func (a *IntegrationsAPIService) PostIntegrationsByProviderVerify(ctx context.Co
 // Execute executes the request
 //
 //	@return VerifyOut
-func (a *IntegrationsAPIService) PostIntegrationsByProviderVerifyExecute(r IntegrationsAPIPostIntegrationsByProviderVerifyRequest) (*VerifyOut, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationByProviderVerifyExecute(r IntegrationAPIPostIntegrationByProviderVerifyRequest) (*VerifyOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -2834,12 +2834,12 @@ func (a *IntegrationsAPIService) PostIntegrationsByProviderVerifyExecute(r Integ
 		localVarReturnValue *VerifyOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsByProviderVerify")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationByProviderVerify")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/{provider}/verify"
+	localVarPath := localBasePath + "/v1/integration/{provider}/verify"
 	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2900,18 +2900,18 @@ func (a *IntegrationsAPIService) PostIntegrationsByProviderVerifyExecute(r Integ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsConnectorsByIdRefreshRequest struct {
+type IntegrationAPIPostIntegrationConnectorsByIdRefreshRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 	id         string
 }
 
-func (r IntegrationsAPIPostIntegrationsConnectorsByIdRefreshRequest) Execute() (*RefreshOut, *http.Response, error) {
-	return r.ApiService.PostIntegrationsConnectorsByIdRefreshExecute(r)
+func (r IntegrationAPIPostIntegrationConnectorsByIdRefreshRequest) Execute() (*RefreshOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationConnectorsByIdRefreshExecute(r)
 }
 
 /*
-PostIntegrationsConnectorsByIdRefresh Forces a token rotation for a connected connector, ahead of the automatic rotation a token read would do inside the expiry window.
+PostIntegrationConnectorsByIdRefresh Forces a token rotation for a connected connector, ahead of the automatic rotation a token read would do inside the expiry window.
 
 Forces a token rotation for a connected connector, ahead of the
 automatic rotation a token read would do inside the expiry window. Only
@@ -2919,10 +2919,10 @@ providers that declare a Refresh support it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the connector id, provider + \":\" + label (\"openai:default\") — the auth-profile-id shape. Another user's id is simply no row, so 404.
-	@return IntegrationsAPIPostIntegrationsConnectorsByIdRefreshRequest
+	@return IntegrationAPIPostIntegrationConnectorsByIdRefreshRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsConnectorsByIdRefresh(ctx context.Context, id string) IntegrationsAPIPostIntegrationsConnectorsByIdRefreshRequest {
-	return IntegrationsAPIPostIntegrationsConnectorsByIdRefreshRequest{
+func (a *IntegrationAPIService) PostIntegrationConnectorsByIdRefresh(ctx context.Context, id string) IntegrationAPIPostIntegrationConnectorsByIdRefreshRequest {
+	return IntegrationAPIPostIntegrationConnectorsByIdRefreshRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -2932,7 +2932,7 @@ func (a *IntegrationsAPIService) PostIntegrationsConnectorsByIdRefresh(ctx conte
 // Execute executes the request
 //
 //	@return RefreshOut
-func (a *IntegrationsAPIService) PostIntegrationsConnectorsByIdRefreshExecute(r IntegrationsAPIPostIntegrationsConnectorsByIdRefreshRequest) (*RefreshOut, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationConnectorsByIdRefreshExecute(r IntegrationAPIPostIntegrationConnectorsByIdRefreshRequest) (*RefreshOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -2940,12 +2940,12 @@ func (a *IntegrationsAPIService) PostIntegrationsConnectorsByIdRefreshExecute(r 
 		localVarReturnValue *RefreshOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsConnectorsByIdRefresh")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationConnectorsByIdRefresh")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/connectors/{id}/refresh"
+	localVarPath := localBasePath + "/v1/integration/connectors/{id}/refresh"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3006,24 +3006,24 @@ func (a *IntegrationsAPIService) PostIntegrationsConnectorsByIdRefreshExecute(r 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsConnectorsByProviderCredentialRequest struct {
+type IntegrationAPIPostIntegrationConnectorsByProviderCredentialRequest struct {
 	ctx          context.Context
-	ApiService   *IntegrationsAPIService
+	ApiService   *IntegrationAPIService
 	provider     string
 	credentialIn *CredentialIn
 }
 
-func (r IntegrationsAPIPostIntegrationsConnectorsByProviderCredentialRequest) CredentialIn(credentialIn CredentialIn) IntegrationsAPIPostIntegrationsConnectorsByProviderCredentialRequest {
+func (r IntegrationAPIPostIntegrationConnectorsByProviderCredentialRequest) CredentialIn(credentialIn CredentialIn) IntegrationAPIPostIntegrationConnectorsByProviderCredentialRequest {
 	r.credentialIn = &credentialIn
 	return r
 }
 
-func (r IntegrationsAPIPostIntegrationsConnectorsByProviderCredentialRequest) Execute() (*CredentialOut, *http.Response, error) {
-	return r.ApiService.PostIntegrationsConnectorsByProviderCredentialExecute(r)
+func (r IntegrationAPIPostIntegrationConnectorsByProviderCredentialRequest) Execute() (*CredentialOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationConnectorsByProviderCredentialExecute(r)
 }
 
 /*
-PostIntegrationsConnectorsByProviderCredential Is the direct intake path: a customer-held token/setup-token (Verify) or an externally obtained OAuth bundle from the CLI's local PKCE (Adopt).
+PostIntegrationConnectorsByProviderCredential Is the direct intake path: a customer-held token/setup-token (Verify) or an externally obtained OAuth bundle from the CLI's local PKCE (Adopt).
 
 Is the direct intake path: a customer-held token/setup-token
 (Verify) or an externally obtained OAuth bundle from the CLI's local PKCE
@@ -3032,10 +3032,10 @@ is persisted (connectByCredential's fail-closed order).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param provider Provider is the user-scoped provider's registry id, from the path.
-	@return IntegrationsAPIPostIntegrationsConnectorsByProviderCredentialRequest
+	@return IntegrationAPIPostIntegrationConnectorsByProviderCredentialRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderCredential(ctx context.Context, provider string) IntegrationsAPIPostIntegrationsConnectorsByProviderCredentialRequest {
-	return IntegrationsAPIPostIntegrationsConnectorsByProviderCredentialRequest{
+func (a *IntegrationAPIService) PostIntegrationConnectorsByProviderCredential(ctx context.Context, provider string) IntegrationAPIPostIntegrationConnectorsByProviderCredentialRequest {
+	return IntegrationAPIPostIntegrationConnectorsByProviderCredentialRequest{
 		ApiService: a,
 		ctx:        ctx,
 		provider:   provider,
@@ -3045,7 +3045,7 @@ func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderCredential(
 // Execute executes the request
 //
 //	@return CredentialOut
-func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderCredentialExecute(r IntegrationsAPIPostIntegrationsConnectorsByProviderCredentialRequest) (*CredentialOut, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationConnectorsByProviderCredentialExecute(r IntegrationAPIPostIntegrationConnectorsByProviderCredentialRequest) (*CredentialOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3053,12 +3053,12 @@ func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderCredentialE
 		localVarReturnValue *CredentialOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsConnectorsByProviderCredential")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationConnectorsByProviderCredential")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/connectors/{provider}/credential"
+	localVarPath := localBasePath + "/v1/integration/connectors/{provider}/credential"
 	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3124,24 +3124,24 @@ func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderCredentialE
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceRequest struct {
+type IntegrationAPIPostIntegrationConnectorsByProviderDeviceRequest struct {
 	ctx           context.Context
-	ApiService    *IntegrationsAPIService
+	ApiService    *IntegrationAPIService
 	provider      string
 	deviceStartIn *DeviceStartIn
 }
 
-func (r IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceRequest) DeviceStartIn(deviceStartIn DeviceStartIn) IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceRequest {
+func (r IntegrationAPIPostIntegrationConnectorsByProviderDeviceRequest) DeviceStartIn(deviceStartIn DeviceStartIn) IntegrationAPIPostIntegrationConnectorsByProviderDeviceRequest {
 	r.deviceStartIn = &deviceStartIn
 	return r
 }
 
-func (r IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceRequest) Execute() (*DeviceStartOut, *http.Response, error) {
-	return r.ApiService.PostIntegrationsConnectorsByProviderDeviceExecute(r)
+func (r IntegrationAPIPostIntegrationConnectorsByProviderDeviceRequest) Execute() (*DeviceStartOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationConnectorsByProviderDeviceExecute(r)
 }
 
 /*
-PostIntegrationsConnectorsByProviderDevice Begins a device sign-in and returns the code to show the user plus how to poll for completion.
+PostIntegrationConnectorsByProviderDevice Begins a device sign-in and returns the code to show the user plus how to poll for completion.
 
 Begins a device sign-in and returns the code to show the user plus
 how to poll for completion. KMS readiness is checked NOW rather than dead-ending
@@ -3151,10 +3151,10 @@ only in the encrypted grants table and is NEVER returned.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param provider Provider is the user-scoped provider's registry id, from the path.
-	@return IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceRequest
+	@return IntegrationAPIPostIntegrationConnectorsByProviderDeviceRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderDevice(ctx context.Context, provider string) IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceRequest {
-	return IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceRequest{
+func (a *IntegrationAPIService) PostIntegrationConnectorsByProviderDevice(ctx context.Context, provider string) IntegrationAPIPostIntegrationConnectorsByProviderDeviceRequest {
+	return IntegrationAPIPostIntegrationConnectorsByProviderDeviceRequest{
 		ApiService: a,
 		ctx:        ctx,
 		provider:   provider,
@@ -3164,7 +3164,7 @@ func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderDevice(ctx 
 // Execute executes the request
 //
 //	@return DeviceStartOut
-func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderDeviceExecute(r IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceRequest) (*DeviceStartOut, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationConnectorsByProviderDeviceExecute(r IntegrationAPIPostIntegrationConnectorsByProviderDeviceRequest) (*DeviceStartOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3172,12 +3172,12 @@ func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderDeviceExecu
 		localVarReturnValue *DeviceStartOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsConnectorsByProviderDevice")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationConnectorsByProviderDevice")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/connectors/{provider}/device"
+	localVarPath := localBasePath + "/v1/integration/connectors/{provider}/device"
 	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3243,19 +3243,19 @@ func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderDeviceExecu
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceByFlowPollRequest struct {
+type IntegrationAPIPostIntegrationConnectorsByProviderDeviceByFlowPollRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 	provider   string
 	flow       string
 }
 
-func (r IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceByFlowPollRequest) Execute() (*DevicePollOut, *http.Response, error) {
-	return r.ApiService.PostIntegrationsConnectorsByProviderDeviceByFlowPollExecute(r)
+func (r IntegrationAPIPostIntegrationConnectorsByProviderDeviceByFlowPollRequest) Execute() (*DevicePollOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationConnectorsByProviderDeviceByFlowPollExecute(r)
 }
 
 /*
-PostIntegrationsConnectorsByProviderDeviceByFlowPoll Advances a device sign-in.
+PostIntegrationConnectorsByProviderDeviceByFlowPoll Advances a device sign-in.
 
 Advances a device sign-in. Terminal outcomes are DATA, not errors
 (verifyConn {active:false} discipline) — the status set is closed:
@@ -3265,10 +3265,10 @@ wire; the raised cadence rides interval.
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param provider Provider is the user-scoped provider's registry id, from the path.
 	@param flow Flow is the id deviceStartOut returned. Expired or another user's flow is indistinguishable from an unknown one: 404.
-	@return IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceByFlowPollRequest
+	@return IntegrationAPIPostIntegrationConnectorsByProviderDeviceByFlowPollRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderDeviceByFlowPoll(ctx context.Context, provider string, flow string) IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceByFlowPollRequest {
-	return IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceByFlowPollRequest{
+func (a *IntegrationAPIService) PostIntegrationConnectorsByProviderDeviceByFlowPoll(ctx context.Context, provider string, flow string) IntegrationAPIPostIntegrationConnectorsByProviderDeviceByFlowPollRequest {
+	return IntegrationAPIPostIntegrationConnectorsByProviderDeviceByFlowPollRequest{
 		ApiService: a,
 		ctx:        ctx,
 		provider:   provider,
@@ -3279,7 +3279,7 @@ func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderDeviceByFlo
 // Execute executes the request
 //
 //	@return DevicePollOut
-func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderDeviceByFlowPollExecute(r IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceByFlowPollRequest) (*DevicePollOut, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationConnectorsByProviderDeviceByFlowPollExecute(r IntegrationAPIPostIntegrationConnectorsByProviderDeviceByFlowPollRequest) (*DevicePollOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3287,12 +3287,12 @@ func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderDeviceByFlo
 		localVarReturnValue *DevicePollOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsConnectorsByProviderDeviceByFlowPoll")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationConnectorsByProviderDeviceByFlowPoll")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/connectors/{provider}/device/{flow}/poll"
+	localVarPath := localBasePath + "/v1/integration/connectors/{provider}/device/{flow}/poll"
 	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"flow"+"}", url.PathEscape(parameterValueToString(r.flow, "flow")), -1)
 
@@ -3354,17 +3354,17 @@ func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderDeviceByFlo
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsDiscordInteractionsRequest struct {
+type IntegrationAPIPostIntegrationDiscordInteractionsRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIPostIntegrationsDiscordInteractionsRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostIntegrationsDiscordInteractionsExecute(r)
+func (r IntegrationAPIPostIntegrationDiscordInteractionsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostIntegrationDiscordInteractionsExecute(r)
 }
 
 /*
-PostIntegrationsDiscordInteractions Discord interactions endpoint
+PostIntegrationDiscordInteractions Discord interactions endpoint
 
 The Interactions Endpoint URL for the Discord app. It answers Discord's PING with a PONG, and handles the `/hanzo` slash command by acknowledging with a deferred ephemeral reply and editing that reply with the answer once the agent has run. Any other interaction is acknowledged and ignored.
 
@@ -3375,29 +3375,29 @@ Discord does not retry, so this is the one channel where being at capacity is sh
 The caller here is the PLATFORM, not a Hanzo tenant, so there is no bearer and no principal. The signature check IS the authentication, and it fails closed. The tenant is never read from the payload either: it is resolved from the verified platform identifier through the connection map, so an event from a workspace nobody connected does nothing. Refusals are written with their own status rather than being flattened to a 500, so a rejected signature reads as 401 and a malformed body as 400.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIPostIntegrationsDiscordInteractionsRequest
+	@return IntegrationAPIPostIntegrationDiscordInteractionsRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsDiscordInteractions(ctx context.Context) IntegrationsAPIPostIntegrationsDiscordInteractionsRequest {
-	return IntegrationsAPIPostIntegrationsDiscordInteractionsRequest{
+func (a *IntegrationAPIService) PostIntegrationDiscordInteractions(ctx context.Context) IntegrationAPIPostIntegrationDiscordInteractionsRequest {
+	return IntegrationAPIPostIntegrationDiscordInteractionsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) PostIntegrationsDiscordInteractionsExecute(r IntegrationsAPIPostIntegrationsDiscordInteractionsRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationDiscordInteractionsExecute(r IntegrationAPIPostIntegrationDiscordInteractionsRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsDiscordInteractions")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationDiscordInteractions")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/discord/interactions"
+	localVarPath := localBasePath + "/v1/integration/discord/interactions"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3448,23 +3448,131 @@ func (a *IntegrationsAPIService) PostIntegrationsDiscordInteractionsExecute(r In
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsGithubClaimRequest struct {
+type IntegrationAPIPostIntegrationForgeWebhookRequest struct {
+	ctx        context.Context
+	ApiService *IntegrationAPIService
+	forgeJob   *ForgeJob
+}
+
+func (r IntegrationAPIPostIntegrationForgeWebhookRequest) ForgeJob(forgeJob ForgeJob) IntegrationAPIPostIntegrationForgeWebhookRequest {
+	r.forgeJob = &forgeJob
+	return r
+}
+
+func (r IntegrationAPIPostIntegrationForgeWebhookRequest) Execute() (*ForgeLaunched, *http.Response, error) {
+	return r.ApiService.PostIntegrationForgeWebhookExecute(r)
+}
+
+/*
+PostIntegrationForgeWebhook Forge workflow_job webhook
+
+Receives the forge's workflow_job delivery. The signature over the raw body is checked against the secret at KMS forge.WebhookRef before anything is decoded; a queued job becomes one ephemeral runner Job on the cluster, minted a registration token for exactly that job. Every other action is answered 200 and ignored.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IntegrationAPIPostIntegrationForgeWebhookRequest
+*/
+func (a *IntegrationAPIService) PostIntegrationForgeWebhook(ctx context.Context) IntegrationAPIPostIntegrationForgeWebhookRequest {
+	return IntegrationAPIPostIntegrationForgeWebhookRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ForgeLaunched
+func (a *IntegrationAPIService) PostIntegrationForgeWebhookExecute(r IntegrationAPIPostIntegrationForgeWebhookRequest) (*ForgeLaunched, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ForgeLaunched
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationForgeWebhook")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/integration/forge/webhook"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.forgeJob
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type IntegrationAPIPostIntegrationGithubClaimRequest struct {
 	ctx           context.Context
-	ApiService    *IntegrationsAPIService
+	ApiService    *IntegrationAPIService
 	githubClaimIn *GithubClaimIn
 }
 
-func (r IntegrationsAPIPostIntegrationsGithubClaimRequest) GithubClaimIn(githubClaimIn GithubClaimIn) IntegrationsAPIPostIntegrationsGithubClaimRequest {
+func (r IntegrationAPIPostIntegrationGithubClaimRequest) GithubClaimIn(githubClaimIn GithubClaimIn) IntegrationAPIPostIntegrationGithubClaimRequest {
 	r.githubClaimIn = &githubClaimIn
 	return r
 }
 
-func (r IntegrationsAPIPostIntegrationsGithubClaimRequest) Execute() (*GithubClaimOut, *http.Response, error) {
-	return r.ApiService.PostIntegrationsGithubClaimExecute(r)
+func (r IntegrationAPIPostIntegrationGithubClaimRequest) Execute() (*GithubClaimOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationGithubClaimExecute(r)
 }
 
 /*
-PostIntegrationsGithubClaim Binds installations the App ALREADY holds to the org the caller is acting in — the reconciliation for a grant that happened outside our connect flow.
+PostIntegrationGithubClaim Binds installations the App ALREADY holds to the org the caller is acting in — the reconciliation for a grant that happened outside our connect flow.
 
 Binds installations the App ALREADY holds to the org the caller is
 acting in — the reconciliation for a grant that happened outside our connect
@@ -3500,10 +3608,10 @@ Claiming an account another org holds ADDS this org's row and leaves theirs
 standing, so no org loses an integration it is using.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIPostIntegrationsGithubClaimRequest
+	@return IntegrationAPIPostIntegrationGithubClaimRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsGithubClaim(ctx context.Context) IntegrationsAPIPostIntegrationsGithubClaimRequest {
-	return IntegrationsAPIPostIntegrationsGithubClaimRequest{
+func (a *IntegrationAPIService) PostIntegrationGithubClaim(ctx context.Context) IntegrationAPIPostIntegrationGithubClaimRequest {
+	return IntegrationAPIPostIntegrationGithubClaimRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -3512,7 +3620,7 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubClaim(ctx context.Context
 // Execute executes the request
 //
 //	@return GithubClaimOut
-func (a *IntegrationsAPIService) PostIntegrationsGithubClaimExecute(r IntegrationsAPIPostIntegrationsGithubClaimRequest) (*GithubClaimOut, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationGithubClaimExecute(r IntegrationAPIPostIntegrationGithubClaimRequest) (*GithubClaimOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3520,12 +3628,12 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubClaimExecute(r Integratio
 		localVarReturnValue *GithubClaimOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsGithubClaim")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationGithubClaim")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/github/claim"
+	localVarPath := localBasePath + "/v1/integration/github/claim"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3590,23 +3698,23 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubClaimExecute(r Integratio
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsGithubForkRequest struct {
+type IntegrationAPIPostIntegrationGithubForkRequest struct {
 	ctx           context.Context
-	ApiService    *IntegrationsAPIService
+	ApiService    *IntegrationAPIService
 	githubForkReq *GithubForkReq
 }
 
-func (r IntegrationsAPIPostIntegrationsGithubForkRequest) GithubForkReq(githubForkReq GithubForkReq) IntegrationsAPIPostIntegrationsGithubForkRequest {
+func (r IntegrationAPIPostIntegrationGithubForkRequest) GithubForkReq(githubForkReq GithubForkReq) IntegrationAPIPostIntegrationGithubForkRequest {
 	r.githubForkReq = &githubForkReq
 	return r
 }
 
-func (r IntegrationsAPIPostIntegrationsGithubForkRequest) Execute() (*GithubForkOut, *http.Response, error) {
-	return r.ApiService.PostIntegrationsGithubForkExecute(r)
+func (r IntegrationAPIPostIntegrationGithubForkRequest) Execute() (*GithubForkOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationGithubForkExecute(r)
 }
 
 /*
-PostIntegrationsGithubFork Forks a granted repository.
+PostIntegrationGithubFork Forks a granted repository.
 
 Forks a granted repository.
 
@@ -3617,10 +3725,10 @@ that blocked until the clone finished would time out on a large repository and
 tell the caller nothing it does not already know.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIPostIntegrationsGithubForkRequest
+	@return IntegrationAPIPostIntegrationGithubForkRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsGithubFork(ctx context.Context) IntegrationsAPIPostIntegrationsGithubForkRequest {
-	return IntegrationsAPIPostIntegrationsGithubForkRequest{
+func (a *IntegrationAPIService) PostIntegrationGithubFork(ctx context.Context) IntegrationAPIPostIntegrationGithubForkRequest {
+	return IntegrationAPIPostIntegrationGithubForkRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -3629,7 +3737,7 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubFork(ctx context.Context)
 // Execute executes the request
 //
 //	@return GithubForkOut
-func (a *IntegrationsAPIService) PostIntegrationsGithubForkExecute(r IntegrationsAPIPostIntegrationsGithubForkRequest) (*GithubForkOut, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationGithubForkExecute(r IntegrationAPIPostIntegrationGithubForkRequest) (*GithubForkOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3637,12 +3745,12 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubForkExecute(r Integration
 		localVarReturnValue *GithubForkOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsGithubFork")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationGithubFork")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/github/fork"
+	localVarPath := localBasePath + "/v1/integration/github/fork"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3707,23 +3815,23 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubForkExecute(r Integration
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsGithubIssuesBackfillRequest struct {
+type IntegrationAPIPostIntegrationGithubIssuesBackfillRequest struct {
 	ctx              context.Context
-	ApiService       *IntegrationsAPIService
+	ApiService       *IntegrationAPIService
 	githubBackfillIn *GithubBackfillIn
 }
 
-func (r IntegrationsAPIPostIntegrationsGithubIssuesBackfillRequest) GithubBackfillIn(githubBackfillIn GithubBackfillIn) IntegrationsAPIPostIntegrationsGithubIssuesBackfillRequest {
+func (r IntegrationAPIPostIntegrationGithubIssuesBackfillRequest) GithubBackfillIn(githubBackfillIn GithubBackfillIn) IntegrationAPIPostIntegrationGithubIssuesBackfillRequest {
 	r.githubBackfillIn = &githubBackfillIn
 	return r
 }
 
-func (r IntegrationsAPIPostIntegrationsGithubIssuesBackfillRequest) Execute() (*GithubBackfillResult, *http.Response, error) {
-	return r.ApiService.PostIntegrationsGithubIssuesBackfillExecute(r)
+func (r IntegrationAPIPostIntegrationGithubIssuesBackfillRequest) Execute() (*GithubBackfillResult, *http.Response, error) {
+	return r.ApiService.PostIntegrationGithubIssuesBackfillExecute(r)
 }
 
 /*
-PostIntegrationsGithubIssuesBackfill Seeds the native todo with the EXISTING issues across the org's granted repos (default state=open); the webhook keeps them live thereafter.
+PostIntegrationGithubIssuesBackfill Seeds the native todo with the EXISTING issues across the org's granted repos (default state=open); the webhook keeps them live thereafter.
 
 Seeds the native todo with the EXISTING issues across the
 org's granted repos (default state=open); the webhook keeps them live thereafter.
@@ -3733,10 +3841,10 @@ counts directly; idempotent by ExtRef, so a re-run continues where a truncated
 pass left off and never duplicates.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIPostIntegrationsGithubIssuesBackfillRequest
+	@return IntegrationAPIPostIntegrationGithubIssuesBackfillRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsGithubIssuesBackfill(ctx context.Context) IntegrationsAPIPostIntegrationsGithubIssuesBackfillRequest {
-	return IntegrationsAPIPostIntegrationsGithubIssuesBackfillRequest{
+func (a *IntegrationAPIService) PostIntegrationGithubIssuesBackfill(ctx context.Context) IntegrationAPIPostIntegrationGithubIssuesBackfillRequest {
+	return IntegrationAPIPostIntegrationGithubIssuesBackfillRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -3745,7 +3853,7 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubIssuesBackfill(ctx contex
 // Execute executes the request
 //
 //	@return GithubBackfillResult
-func (a *IntegrationsAPIService) PostIntegrationsGithubIssuesBackfillExecute(r IntegrationsAPIPostIntegrationsGithubIssuesBackfillRequest) (*GithubBackfillResult, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationGithubIssuesBackfillExecute(r IntegrationAPIPostIntegrationGithubIssuesBackfillRequest) (*GithubBackfillResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3753,12 +3861,12 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubIssuesBackfillExecute(r I
 		localVarReturnValue *GithubBackfillResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsGithubIssuesBackfill")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationGithubIssuesBackfill")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/github/issues/backfill"
+	localVarPath := localBasePath + "/v1/integration/github/issues/backfill"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3823,24 +3931,24 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubIssuesBackfillExecute(r I
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsGithubReposByRepoPagesRequest struct {
+type IntegrationAPIPostIntegrationGithubReposByRepoPagesRequest struct {
 	ctx                  context.Context
-	ApiService           *IntegrationsAPIService
+	ApiService           *IntegrationAPIService
 	repo                 string
 	githubPagesEnableReq *GithubPagesEnableReq
 }
 
-func (r IntegrationsAPIPostIntegrationsGithubReposByRepoPagesRequest) GithubPagesEnableReq(githubPagesEnableReq GithubPagesEnableReq) IntegrationsAPIPostIntegrationsGithubReposByRepoPagesRequest {
+func (r IntegrationAPIPostIntegrationGithubReposByRepoPagesRequest) GithubPagesEnableReq(githubPagesEnableReq GithubPagesEnableReq) IntegrationAPIPostIntegrationGithubReposByRepoPagesRequest {
 	r.githubPagesEnableReq = &githubPagesEnableReq
 	return r
 }
 
-func (r IntegrationsAPIPostIntegrationsGithubReposByRepoPagesRequest) Execute() (*GithubPagesView, *http.Response, error) {
-	return r.ApiService.PostIntegrationsGithubReposByRepoPagesExecute(r)
+func (r IntegrationAPIPostIntegrationGithubReposByRepoPagesRequest) Execute() (*GithubPagesView, *http.Response, error) {
+	return r.ApiService.PostIntegrationGithubReposByRepoPagesExecute(r)
 }
 
 /*
-PostIntegrationsGithubReposByRepoPages Creates the repo's Pages site and answers 201 Created with it.
+PostIntegrationGithubReposByRepoPages Creates the repo's Pages site and answers 201 Created with it.
 
 Creates the repo's Pages site and answers 201 Created with it.
 With buildType "workflow" the site builds via GitHub Actions; otherwise it builds
@@ -3849,10 +3957,10 @@ given. Only "/" and "/docs" are legal source paths (GitHub's rule).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param repo Repo is the repository, from the :repo path segment.
-	@return IntegrationsAPIPostIntegrationsGithubReposByRepoPagesRequest
+	@return IntegrationAPIPostIntegrationGithubReposByRepoPagesRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsGithubReposByRepoPages(ctx context.Context, repo string) IntegrationsAPIPostIntegrationsGithubReposByRepoPagesRequest {
-	return IntegrationsAPIPostIntegrationsGithubReposByRepoPagesRequest{
+func (a *IntegrationAPIService) PostIntegrationGithubReposByRepoPages(ctx context.Context, repo string) IntegrationAPIPostIntegrationGithubReposByRepoPagesRequest {
+	return IntegrationAPIPostIntegrationGithubReposByRepoPagesRequest{
 		ApiService: a,
 		ctx:        ctx,
 		repo:       repo,
@@ -3862,7 +3970,7 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubReposByRepoPages(ctx cont
 // Execute executes the request
 //
 //	@return GithubPagesView
-func (a *IntegrationsAPIService) PostIntegrationsGithubReposByRepoPagesExecute(r IntegrationsAPIPostIntegrationsGithubReposByRepoPagesRequest) (*GithubPagesView, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationGithubReposByRepoPagesExecute(r IntegrationAPIPostIntegrationGithubReposByRepoPagesRequest) (*GithubPagesView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3870,12 +3978,12 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubReposByRepoPagesExecute(r
 		localVarReturnValue *GithubPagesView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsGithubReposByRepoPages")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationGithubReposByRepoPages")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/github/repos/{repo}/pages"
+	localVarPath := localBasePath + "/v1/integration/github/repos/{repo}/pages"
 	localVarPath = strings.Replace(localVarPath, "{"+"repo"+"}", url.PathEscape(parameterValueToString(r.repo, "repo")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3941,18 +4049,18 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubReposByRepoPagesExecute(r
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsGithubReposByRepoPagesBuildsRequest struct {
+type IntegrationAPIPostIntegrationGithubReposByRepoPagesBuildsRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 	repo       string
 }
 
-func (r IntegrationsAPIPostIntegrationsGithubReposByRepoPagesBuildsRequest) Execute() (*GithubPagesBuildOut, *http.Response, error) {
-	return r.ApiService.PostIntegrationsGithubReposByRepoPagesBuildsExecute(r)
+func (r IntegrationAPIPostIntegrationGithubReposByRepoPagesBuildsRequest) Execute() (*GithubPagesBuildOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationGithubReposByRepoPagesBuildsExecute(r)
 }
 
 /*
-PostIntegrationsGithubReposByRepoPagesBuilds Requests a Pages rebuild and returns the queued build's status.
+PostIntegrationGithubReposByRepoPagesBuilds Requests a Pages rebuild and returns the queued build's status.
 
 Requests a Pages rebuild and returns the queued build's status.
 The build is queued AT GITHUB, not completed here, so the answer is 202 Accepted
@@ -3961,10 +4069,10 @@ has no Pages site, or when the org's installation was not granted it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param repo Repo is the repository's short name within the org's installation, with no owner prefix (the owner is server-derived from the grant). A trailing \".git\" is stripped.
-	@return IntegrationsAPIPostIntegrationsGithubReposByRepoPagesBuildsRequest
+	@return IntegrationAPIPostIntegrationGithubReposByRepoPagesBuildsRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsGithubReposByRepoPagesBuilds(ctx context.Context, repo string) IntegrationsAPIPostIntegrationsGithubReposByRepoPagesBuildsRequest {
-	return IntegrationsAPIPostIntegrationsGithubReposByRepoPagesBuildsRequest{
+func (a *IntegrationAPIService) PostIntegrationGithubReposByRepoPagesBuilds(ctx context.Context, repo string) IntegrationAPIPostIntegrationGithubReposByRepoPagesBuildsRequest {
+	return IntegrationAPIPostIntegrationGithubReposByRepoPagesBuildsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		repo:       repo,
@@ -3974,7 +4082,7 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubReposByRepoPagesBuilds(ct
 // Execute executes the request
 //
 //	@return GithubPagesBuildOut
-func (a *IntegrationsAPIService) PostIntegrationsGithubReposByRepoPagesBuildsExecute(r IntegrationsAPIPostIntegrationsGithubReposByRepoPagesBuildsRequest) (*GithubPagesBuildOut, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationGithubReposByRepoPagesBuildsExecute(r IntegrationAPIPostIntegrationGithubReposByRepoPagesBuildsRequest) (*GithubPagesBuildOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3982,12 +4090,12 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubReposByRepoPagesBuildsExe
 		localVarReturnValue *GithubPagesBuildOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsGithubReposByRepoPagesBuilds")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationGithubReposByRepoPagesBuilds")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/github/repos/{repo}/pages/builds"
+	localVarPath := localBasePath + "/v1/integration/github/repos/{repo}/pages/builds"
 	localVarPath = strings.Replace(localVarPath, "{"+"repo"+"}", url.PathEscape(parameterValueToString(r.repo, "repo")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -4048,36 +4156,36 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubReposByRepoPagesBuildsExe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsGithubReposImportRequest struct {
+type IntegrationAPIPostIntegrationGithubReposImportRequest struct {
 	ctx            context.Context
-	ApiService     *IntegrationsAPIService
+	ApiService     *IntegrationAPIService
 	githubImportIn *GithubImportIn
 }
 
-func (r IntegrationsAPIPostIntegrationsGithubReposImportRequest) GithubImportIn(githubImportIn GithubImportIn) IntegrationsAPIPostIntegrationsGithubReposImportRequest {
+func (r IntegrationAPIPostIntegrationGithubReposImportRequest) GithubImportIn(githubImportIn GithubImportIn) IntegrationAPIPostIntegrationGithubReposImportRequest {
 	r.githubImportIn = &githubImportIn
 	return r
 }
 
-func (r IntegrationsAPIPostIntegrationsGithubReposImportRequest) Execute() (*GithubImportOut, *http.Response, error) {
-	return r.ApiService.PostIntegrationsGithubReposImportExecute(r)
+func (r IntegrationAPIPostIntegrationGithubReposImportRequest) Execute() (*GithubImportOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationGithubReposImportExecute(r)
 }
 
 /*
-PostIntegrationsGithubReposImport Imports the selected (or all) granted repos into git.hanzo.ai.
+PostIntegrationGithubReposImport Imports the selected (or all) granted repos into git.hanzo.ai.
 
 Imports the selected (or all) granted repos into git.hanzo.ai. The
 selection is intersected with the installation's GRANTED set, so a client can
 never import a repo the App was not granted (org isolation + a grant check). The
 import runs in a bounded background worker (don't block the request), so the
-answer is 202 Accepted; poll GET /v1/integrations/github/repos for the per-repo
+answer is 202 Accepted; poll GET /v1/integration/github/repos for the per-repo
 status to flip to imported.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIPostIntegrationsGithubReposImportRequest
+	@return IntegrationAPIPostIntegrationGithubReposImportRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsGithubReposImport(ctx context.Context) IntegrationsAPIPostIntegrationsGithubReposImportRequest {
-	return IntegrationsAPIPostIntegrationsGithubReposImportRequest{
+func (a *IntegrationAPIService) PostIntegrationGithubReposImport(ctx context.Context) IntegrationAPIPostIntegrationGithubReposImportRequest {
+	return IntegrationAPIPostIntegrationGithubReposImportRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -4086,7 +4194,7 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubReposImport(ctx context.C
 // Execute executes the request
 //
 //	@return GithubImportOut
-func (a *IntegrationsAPIService) PostIntegrationsGithubReposImportExecute(r IntegrationsAPIPostIntegrationsGithubReposImportRequest) (*GithubImportOut, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationGithubReposImportExecute(r IntegrationAPIPostIntegrationGithubReposImportRequest) (*GithubImportOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -4094,12 +4202,12 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubReposImportExecute(r Inte
 		localVarReturnValue *GithubImportOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsGithubReposImport")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationGithubReposImport")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/github/repos/import"
+	localVarPath := localBasePath + "/v1/integration/github/repos/import"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4164,23 +4272,23 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubReposImportExecute(r Inte
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsGithubSearchRequest struct {
+type IntegrationAPIPostIntegrationGithubSearchRequest struct {
 	ctx             context.Context
-	ApiService      *IntegrationsAPIService
+	ApiService      *IntegrationAPIService
 	githubSearchReq *GithubSearchReq
 }
 
-func (r IntegrationsAPIPostIntegrationsGithubSearchRequest) GithubSearchReq(githubSearchReq GithubSearchReq) IntegrationsAPIPostIntegrationsGithubSearchRequest {
+func (r IntegrationAPIPostIntegrationGithubSearchRequest) GithubSearchReq(githubSearchReq GithubSearchReq) IntegrationAPIPostIntegrationGithubSearchRequest {
 	r.githubSearchReq = &githubSearchReq
 	return r
 }
 
-func (r IntegrationsAPIPostIntegrationsGithubSearchRequest) Execute() (*GithubSearchOut, *http.Response, error) {
-	return r.ApiService.PostIntegrationsGithubSearchExecute(r)
+func (r IntegrationAPIPostIntegrationGithubSearchRequest) Execute() (*GithubSearchOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationGithubSearchExecute(r)
 }
 
 /*
-PostIntegrationsGithubSearch Finds repositories on GitHub.
+PostIntegrationGithubSearch Finds repositories on GitHub.
 
 Finds repositories on GitHub.
 
@@ -4190,10 +4298,10 @@ token is used only so the query is rate-limited against the installation
 rather than anonymously — the results are the same ones anyone would get.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIPostIntegrationsGithubSearchRequest
+	@return IntegrationAPIPostIntegrationGithubSearchRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsGithubSearch(ctx context.Context) IntegrationsAPIPostIntegrationsGithubSearchRequest {
-	return IntegrationsAPIPostIntegrationsGithubSearchRequest{
+func (a *IntegrationAPIService) PostIntegrationGithubSearch(ctx context.Context) IntegrationAPIPostIntegrationGithubSearchRequest {
+	return IntegrationAPIPostIntegrationGithubSearchRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -4202,7 +4310,7 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubSearch(ctx context.Contex
 // Execute executes the request
 //
 //	@return GithubSearchOut
-func (a *IntegrationsAPIService) PostIntegrationsGithubSearchExecute(r IntegrationsAPIPostIntegrationsGithubSearchRequest) (*GithubSearchOut, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationGithubSearchExecute(r IntegrationAPIPostIntegrationGithubSearchRequest) (*GithubSearchOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -4210,12 +4318,12 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubSearchExecute(r Integrati
 		localVarReturnValue *GithubSearchOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsGithubSearch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationGithubSearch")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/github/search"
+	localVarPath := localBasePath + "/v1/integration/github/search"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4280,19 +4388,19 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubSearchExecute(r Integrati
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsGithubWebhookRequest struct {
+type IntegrationAPIPostIntegrationGithubWebhookRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIPostIntegrationsGithubWebhookRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostIntegrationsGithubWebhookExecute(r)
+func (r IntegrationAPIPostIntegrationGithubWebhookRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostIntegrationGithubWebhookExecute(r)
 }
 
 /*
-PostIntegrationsGithubWebhook GitHub App webhook
+PostIntegrationGithubWebhook GitHub App webhook
 
-The address the GitHub App delivers events to. A push is handed to the repository sync engine, and an issue or issue-comment event is mirrored into the native todo — idempotently, so the same issue re-syncs to one row however many times it is edited, closed or reopened. A repository event that puts a repo INTO the granted set (created, transferred, unarchived) raises one todo offering to import it; accepting means POSTing that repo to /v1/integrations/github/import. It never imports on its own.
+The address the GitHub App delivers events to. A push is handed to the repository sync engine, and an issue or issue-comment event is mirrored into the native todo — idempotently, so the same issue re-syncs to one row however many times it is edited, closed or reopened. A repository event that puts a repo INTO the granted set (created, transferred, unarchived) raises one todo offering to import it; accepting means POSTing that repo to /v1/integration/github/import. It never imports on its own.
 
 It answers a benign 200 for everything it does not act on — the ping, other event types, an unknown installation — deliberately, so GitHub does not enter a retry storm over events that were never going to do anything. Only a bad signature and a genuine sync failure are non-200, and an oversized payload is refused outright.
 
@@ -4303,29 +4411,29 @@ The payload is verified by HMAC against the webhook secret before it is parsed.
 The caller here is the PLATFORM, not a Hanzo tenant, so there is no bearer and no principal. The signature check IS the authentication, and it fails closed. The tenant is never read from the payload either: it is resolved from the verified platform identifier through the connection map, so an event from a workspace nobody connected does nothing. Refusals are written with their own status rather than being flattened to a 500, so a rejected signature reads as 401 and a malformed body as 400.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIPostIntegrationsGithubWebhookRequest
+	@return IntegrationAPIPostIntegrationGithubWebhookRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsGithubWebhook(ctx context.Context) IntegrationsAPIPostIntegrationsGithubWebhookRequest {
-	return IntegrationsAPIPostIntegrationsGithubWebhookRequest{
+func (a *IntegrationAPIService) PostIntegrationGithubWebhook(ctx context.Context) IntegrationAPIPostIntegrationGithubWebhookRequest {
+	return IntegrationAPIPostIntegrationGithubWebhookRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) PostIntegrationsGithubWebhookExecute(r IntegrationsAPIPostIntegrationsGithubWebhookRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationGithubWebhookExecute(r IntegrationAPIPostIntegrationGithubWebhookRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsGithubWebhook")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationGithubWebhook")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/github/webhook"
+	localVarPath := localBasePath + "/v1/integration/github/webhook"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4376,23 +4484,23 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubWebhookExecute(r Integrat
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsLinearClaimRequest struct {
+type IntegrationAPIPostIntegrationLinearClaimRequest struct {
 	ctx           context.Context
-	ApiService    *IntegrationsAPIService
+	ApiService    *IntegrationAPIService
 	linearClaimIn *LinearClaimIn
 }
 
-func (r IntegrationsAPIPostIntegrationsLinearClaimRequest) LinearClaimIn(linearClaimIn LinearClaimIn) IntegrationsAPIPostIntegrationsLinearClaimRequest {
+func (r IntegrationAPIPostIntegrationLinearClaimRequest) LinearClaimIn(linearClaimIn LinearClaimIn) IntegrationAPIPostIntegrationLinearClaimRequest {
 	r.linearClaimIn = &linearClaimIn
 	return r
 }
 
-func (r IntegrationsAPIPostIntegrationsLinearClaimRequest) Execute() (*LinearClaimOut, *http.Response, error) {
-	return r.ApiService.PostIntegrationsLinearClaimExecute(r)
+func (r IntegrationAPIPostIntegrationLinearClaimRequest) Execute() (*LinearClaimOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationLinearClaimExecute(r)
 }
 
 /*
-PostIntegrationsLinearClaim Binds the caller's Linear organization to the org and seals the webhook secret.
+PostIntegrationLinearClaim Binds the caller's Linear organization to the org and seals the webhook secret.
 
 Binds the caller's Linear organization to the org and seals the
 webhook secret. The organization is READ from the caller's own key, never taken
@@ -4400,10 +4508,10 @@ from the body: a person can only bind an organization they are a member of. An
 organization another org already holds is refused.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIPostIntegrationsLinearClaimRequest
+	@return IntegrationAPIPostIntegrationLinearClaimRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsLinearClaim(ctx context.Context) IntegrationsAPIPostIntegrationsLinearClaimRequest {
-	return IntegrationsAPIPostIntegrationsLinearClaimRequest{
+func (a *IntegrationAPIService) PostIntegrationLinearClaim(ctx context.Context) IntegrationAPIPostIntegrationLinearClaimRequest {
+	return IntegrationAPIPostIntegrationLinearClaimRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -4412,7 +4520,7 @@ func (a *IntegrationsAPIService) PostIntegrationsLinearClaim(ctx context.Context
 // Execute executes the request
 //
 //	@return LinearClaimOut
-func (a *IntegrationsAPIService) PostIntegrationsLinearClaimExecute(r IntegrationsAPIPostIntegrationsLinearClaimRequest) (*LinearClaimOut, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationLinearClaimExecute(r IntegrationAPIPostIntegrationLinearClaimRequest) (*LinearClaimOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -4420,12 +4528,12 @@ func (a *IntegrationsAPIService) PostIntegrationsLinearClaimExecute(r Integratio
 		localVarReturnValue *LinearClaimOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsLinearClaim")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationLinearClaim")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/linear/claim"
+	localVarPath := localBasePath + "/v1/integration/linear/claim"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4490,33 +4598,33 @@ func (a *IntegrationsAPIService) PostIntegrationsLinearClaimExecute(r Integratio
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsLinearCommentsRequest struct {
+type IntegrationAPIPostIntegrationLinearCommentsRequest struct {
 	ctx             context.Context
-	ApiService      *IntegrationsAPIService
+	ApiService      *IntegrationAPIService
 	linearCommentIn *LinearCommentIn
 }
 
-func (r IntegrationsAPIPostIntegrationsLinearCommentsRequest) LinearCommentIn(linearCommentIn LinearCommentIn) IntegrationsAPIPostIntegrationsLinearCommentsRequest {
+func (r IntegrationAPIPostIntegrationLinearCommentsRequest) LinearCommentIn(linearCommentIn LinearCommentIn) IntegrationAPIPostIntegrationLinearCommentsRequest {
 	r.linearCommentIn = &linearCommentIn
 	return r
 }
 
-func (r IntegrationsAPIPostIntegrationsLinearCommentsRequest) Execute() (*LinearCommentOut, *http.Response, error) {
-	return r.ApiService.PostIntegrationsLinearCommentsExecute(r)
+func (r IntegrationAPIPostIntegrationLinearCommentsRequest) Execute() (*LinearCommentOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationLinearCommentsExecute(r)
 }
 
 /*
-PostIntegrationsLinearComments Posts a comment on a Linear issue with the caller's own key, so it carries their name.
+PostIntegrationLinearComments Posts a comment on a Linear issue with the caller's own key, so it carries their name.
 
 Posts a comment on a Linear issue with the caller's own key, so it
 carries their name. This is the op an agent is offered when it should answer in
 Linear rather than in chat.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIPostIntegrationsLinearCommentsRequest
+	@return IntegrationAPIPostIntegrationLinearCommentsRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsLinearComments(ctx context.Context) IntegrationsAPIPostIntegrationsLinearCommentsRequest {
-	return IntegrationsAPIPostIntegrationsLinearCommentsRequest{
+func (a *IntegrationAPIService) PostIntegrationLinearComments(ctx context.Context) IntegrationAPIPostIntegrationLinearCommentsRequest {
+	return IntegrationAPIPostIntegrationLinearCommentsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -4525,7 +4633,7 @@ func (a *IntegrationsAPIService) PostIntegrationsLinearComments(ctx context.Cont
 // Execute executes the request
 //
 //	@return LinearCommentOut
-func (a *IntegrationsAPIService) PostIntegrationsLinearCommentsExecute(r IntegrationsAPIPostIntegrationsLinearCommentsRequest) (*LinearCommentOut, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationLinearCommentsExecute(r IntegrationAPIPostIntegrationLinearCommentsRequest) (*LinearCommentOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -4533,12 +4641,12 @@ func (a *IntegrationsAPIService) PostIntegrationsLinearCommentsExecute(r Integra
 		localVarReturnValue *LinearCommentOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsLinearComments")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationLinearComments")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/linear/comments"
+	localVarPath := localBasePath + "/v1/integration/linear/comments"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4603,33 +4711,33 @@ func (a *IntegrationsAPIService) PostIntegrationsLinearCommentsExecute(r Integra
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsLinearIssuesBackfillRequest struct {
+type IntegrationAPIPostIntegrationLinearIssuesBackfillRequest struct {
 	ctx              context.Context
-	ApiService       *IntegrationsAPIService
+	ApiService       *IntegrationAPIService
 	linearBackfillIn *LinearBackfillIn
 }
 
-func (r IntegrationsAPIPostIntegrationsLinearIssuesBackfillRequest) LinearBackfillIn(linearBackfillIn LinearBackfillIn) IntegrationsAPIPostIntegrationsLinearIssuesBackfillRequest {
+func (r IntegrationAPIPostIntegrationLinearIssuesBackfillRequest) LinearBackfillIn(linearBackfillIn LinearBackfillIn) IntegrationAPIPostIntegrationLinearIssuesBackfillRequest {
 	r.linearBackfillIn = &linearBackfillIn
 	return r
 }
 
-func (r IntegrationsAPIPostIntegrationsLinearIssuesBackfillRequest) Execute() (*LinearBackfillResult, *http.Response, error) {
-	return r.ApiService.PostIntegrationsLinearIssuesBackfillExecute(r)
+func (r IntegrationAPIPostIntegrationLinearIssuesBackfillRequest) Execute() (*LinearBackfillResult, *http.Response, error) {
+	return r.ApiService.PostIntegrationLinearIssuesBackfillExecute(r)
 }
 
 /*
-PostIntegrationsLinearIssuesBackfill Seeds the native todo with the EXISTING Linear issues the caller's key can see (default state=open); the webhook keeps them live thereafter.
+PostIntegrationLinearIssuesBackfill Seeds the native todo with the EXISTING Linear issues the caller's key can see (default state=open); the webhook keeps them live thereafter.
 
 Seeds the native todo with the EXISTING Linear issues the
 caller's key can see (default state=open); the webhook keeps them live
 thereafter. Synchronous and bounded, idempotent by ExtRef.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIPostIntegrationsLinearIssuesBackfillRequest
+	@return IntegrationAPIPostIntegrationLinearIssuesBackfillRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsLinearIssuesBackfill(ctx context.Context) IntegrationsAPIPostIntegrationsLinearIssuesBackfillRequest {
-	return IntegrationsAPIPostIntegrationsLinearIssuesBackfillRequest{
+func (a *IntegrationAPIService) PostIntegrationLinearIssuesBackfill(ctx context.Context) IntegrationAPIPostIntegrationLinearIssuesBackfillRequest {
+	return IntegrationAPIPostIntegrationLinearIssuesBackfillRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -4638,7 +4746,7 @@ func (a *IntegrationsAPIService) PostIntegrationsLinearIssuesBackfill(ctx contex
 // Execute executes the request
 //
 //	@return LinearBackfillResult
-func (a *IntegrationsAPIService) PostIntegrationsLinearIssuesBackfillExecute(r IntegrationsAPIPostIntegrationsLinearIssuesBackfillRequest) (*LinearBackfillResult, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationLinearIssuesBackfillExecute(r IntegrationAPIPostIntegrationLinearIssuesBackfillRequest) (*LinearBackfillResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -4646,12 +4754,12 @@ func (a *IntegrationsAPIService) PostIntegrationsLinearIssuesBackfillExecute(r I
 		localVarReturnValue *LinearBackfillResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsLinearIssuesBackfill")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationLinearIssuesBackfill")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/linear/issues/backfill"
+	localVarPath := localBasePath + "/v1/integration/linear/issues/backfill"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4716,50 +4824,50 @@ func (a *IntegrationsAPIService) PostIntegrationsLinearIssuesBackfillExecute(r I
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsLinearWebhookRequest struct {
+type IntegrationAPIPostIntegrationLinearWebhookRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIPostIntegrationsLinearWebhookRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostIntegrationsLinearWebhookExecute(r)
+func (r IntegrationAPIPostIntegrationLinearWebhookRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostIntegrationLinearWebhookExecute(r)
 }
 
 /*
-PostIntegrationsLinearWebhook Linear webhook
+PostIntegrationLinearWebhook Linear webhook
 
 The address Linear delivers Issue and Comment events to. An issue event is mirrored into the native todo — idempotently by identifier, so ENG-123 is one row however many times it is edited, moved or closed — and every issue and comment event is handed to the automations engine as a verified trigger, which is how an org runs an agent when an issue is assigned to it or a comment mentions it. A remove is never propagated: the native side is canonical.
 
 It answers a benign 200 for what it does not act on — an unknown organization, other event types — so Linear does not retry-storm. A bad signature and a delivery older than a minute are 401; only a sink failure is 502.
 
-The delivery names its Linear organization; that organization's own webhook secret — sealed at /v1/integrations/linear/claim — verifies the HMAC over the raw body, so the tenant is the organization the signature proves, never a header.
+The delivery names its Linear organization; that organization's own webhook secret — sealed at /v1/integration/linear/claim — verifies the HMAC over the raw body, so the tenant is the organization the signature proves, never a header.
 
 The caller here is the PLATFORM, not a Hanzo tenant, so there is no bearer and no principal. The signature check IS the authentication, and it fails closed. The tenant is never read from the payload either: it is resolved from the verified platform identifier through the connection map, so an event from a workspace nobody connected does nothing. Refusals are written with their own status rather than being flattened to a 500, so a rejected signature reads as 401 and a malformed body as 400.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIPostIntegrationsLinearWebhookRequest
+	@return IntegrationAPIPostIntegrationLinearWebhookRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsLinearWebhook(ctx context.Context) IntegrationsAPIPostIntegrationsLinearWebhookRequest {
-	return IntegrationsAPIPostIntegrationsLinearWebhookRequest{
+func (a *IntegrationAPIService) PostIntegrationLinearWebhook(ctx context.Context) IntegrationAPIPostIntegrationLinearWebhookRequest {
+	return IntegrationAPIPostIntegrationLinearWebhookRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) PostIntegrationsLinearWebhookExecute(r IntegrationsAPIPostIntegrationsLinearWebhookRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationLinearWebhookExecute(r IntegrationAPIPostIntegrationLinearWebhookRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsLinearWebhook")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationLinearWebhook")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/linear/webhook"
+	localVarPath := localBasePath + "/v1/integration/linear/webhook"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4810,23 +4918,23 @@ func (a *IntegrationsAPIService) PostIntegrationsLinearWebhookExecute(r Integrat
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsOpenrouterWebhookRequest struct {
+type IntegrationAPIPostIntegrationOpenrouterWebhookRequest struct {
 	ctx         context.Context
-	ApiService  *IntegrationsAPIService
+	ApiService  *IntegrationAPIService
 	requestBody *map[string]interface{}
 }
 
-func (r IntegrationsAPIPostIntegrationsOpenrouterWebhookRequest) RequestBody(requestBody map[string]interface{}) IntegrationsAPIPostIntegrationsOpenrouterWebhookRequest {
+func (r IntegrationAPIPostIntegrationOpenrouterWebhookRequest) RequestBody(requestBody map[string]interface{}) IntegrationAPIPostIntegrationOpenrouterWebhookRequest {
 	r.requestBody = &requestBody
 	return r
 }
 
-func (r IntegrationsAPIPostIntegrationsOpenrouterWebhookRequest) Execute() (map[string]interface{}, *http.Response, error) {
-	return r.ApiService.PostIntegrationsOpenrouterWebhookExecute(r)
+func (r IntegrationAPIPostIntegrationOpenrouterWebhookRequest) Execute() (map[string]interface{}, *http.Response, error) {
+	return r.ApiService.PostIntegrationOpenrouterWebhookExecute(r)
 }
 
 /*
-PostIntegrationsOpenrouterWebhook Receive OpenRouter Broadcast traces as usage rows
+PostIntegrationOpenrouterWebhook Receive OpenRouter Broadcast traces as usage rows
 
 OpenRouter's spend is invisible to every Hanzo money lens because those lenses read hanzo.cloud_usage and OpenRouter meters keys of its own. Point a Broadcast destination (Settings ▸ Observability ▸ Webhook) at this endpoint and each generation span becomes ONE row in that same ledger with provider `openrouter`, so one query answers what we spend everywhere. Enable the Cost and Identity field categories: cost is the money and identity carries `openrouter.api_key_name`, which is what says WHICH key spent it — it lands in `account` as openrouter/<key name>.
 
@@ -4835,10 +4943,10 @@ AUTHENTICATION IS A HANZO KEY. Broadcast signs nothing; its only authentication 
 The body is OTLP/JSON — `{resourceSpans:[{scopeSpans:[{spans:[…]}]}]}` — exactly as OpenTelemetry defines it; the model, tokens and cost are read from each span's `gen_ai.*` attributes and the key name from `openrouter.api_key_name`. The answer is `{stored, dropped}`: how many generations became rows, and how many spans named no model. Those are OpenRouter's trace and span parents — they carry no cost to meter. An empty payload stores nothing and answers 200, which is what makes Test Connection pass. A warehouse that cannot take the rows answers 503 so the delivery shows red and can be replayed: a row is keyed by its span id, so a redelivery collapses rather than double-counting.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIPostIntegrationsOpenrouterWebhookRequest
+	@return IntegrationAPIPostIntegrationOpenrouterWebhookRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsOpenrouterWebhook(ctx context.Context) IntegrationsAPIPostIntegrationsOpenrouterWebhookRequest {
-	return IntegrationsAPIPostIntegrationsOpenrouterWebhookRequest{
+func (a *IntegrationAPIService) PostIntegrationOpenrouterWebhook(ctx context.Context) IntegrationAPIPostIntegrationOpenrouterWebhookRequest {
+	return IntegrationAPIPostIntegrationOpenrouterWebhookRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -4847,7 +4955,7 @@ func (a *IntegrationsAPIService) PostIntegrationsOpenrouterWebhook(ctx context.C
 // Execute executes the request
 //
 //	@return map[string]interface{}
-func (a *IntegrationsAPIService) PostIntegrationsOpenrouterWebhookExecute(r IntegrationsAPIPostIntegrationsOpenrouterWebhookRequest) (map[string]interface{}, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationOpenrouterWebhookExecute(r IntegrationAPIPostIntegrationOpenrouterWebhookRequest) (map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -4855,12 +4963,12 @@ func (a *IntegrationsAPIService) PostIntegrationsOpenrouterWebhookExecute(r Inte
 		localVarReturnValue map[string]interface{}
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsOpenrouterWebhook")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationOpenrouterWebhook")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/openrouter/webhook"
+	localVarPath := localBasePath + "/v1/integration/openrouter/webhook"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4922,17 +5030,17 @@ func (a *IntegrationsAPIService) PostIntegrationsOpenrouterWebhookExecute(r Inte
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsSlackCommandsRequest struct {
+type IntegrationAPIPostIntegrationSlackCommandsRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIPostIntegrationsSlackCommandsRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostIntegrationsSlackCommandsExecute(r)
+func (r IntegrationAPIPostIntegrationSlackCommandsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostIntegrationSlackCommandsExecute(r)
 }
 
 /*
-PostIntegrationsSlackCommands Slack slash command webhook
+PostIntegrationSlackCommands Slack slash command webhook
 
 The address Slack posts a slash command to, form-encoded. It acknowledges inside Slack's three-second budget and posts the answer afterwards to the command's own response URL, which is why the immediate reply is empty.
 
@@ -4943,29 +5051,29 @@ The caller here is the PLATFORM, not a Hanzo tenant, so there is no bearer and n
 The answer is acknowledged immediately and the work happens afterwards, because every one of these platforms times out a slow webhook. Duplicate deliveries are absorbed durably, so a platform retry of an event that already ran never runs it a second time or bills for it twice. When the agent pool is full nothing at all is recorded and the delivery is refused as retriable, so the message is re-delivered later rather than being lost or half-processed.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIPostIntegrationsSlackCommandsRequest
+	@return IntegrationAPIPostIntegrationSlackCommandsRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsSlackCommands(ctx context.Context) IntegrationsAPIPostIntegrationsSlackCommandsRequest {
-	return IntegrationsAPIPostIntegrationsSlackCommandsRequest{
+func (a *IntegrationAPIService) PostIntegrationSlackCommands(ctx context.Context) IntegrationAPIPostIntegrationSlackCommandsRequest {
+	return IntegrationAPIPostIntegrationSlackCommandsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) PostIntegrationsSlackCommandsExecute(r IntegrationsAPIPostIntegrationsSlackCommandsRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationSlackCommandsExecute(r IntegrationAPIPostIntegrationSlackCommandsRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsSlackCommands")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationSlackCommands")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/slack/commands"
+	localVarPath := localBasePath + "/v1/integration/slack/commands"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -5016,17 +5124,17 @@ func (a *IntegrationsAPIService) PostIntegrationsSlackCommandsExecute(r Integrat
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsSlackEventsRequest struct {
+type IntegrationAPIPostIntegrationSlackEventsRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIPostIntegrationsSlackEventsRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostIntegrationsSlackEventsExecute(r)
+func (r IntegrationAPIPostIntegrationSlackEventsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostIntegrationSlackEventsExecute(r)
 }
 
 /*
-PostIntegrationsSlackEvents Slack Events API webhook
+PostIntegrationSlackEvents Slack Events API webhook
 
 The address a Slack app posts workspace events to. It answers Slack's url_verification handshake with the challenge, and routes an @mention or a direct message to an agent turn that replies in the same thread. The turn holds the product's own tools, so a request to change code starts a sandbox run because the model chose to — there is no prefix and no second path.
 
@@ -5037,29 +5145,29 @@ The caller here is the PLATFORM, not a Hanzo tenant, so there is no bearer and n
 The answer is acknowledged immediately and the work happens afterwards, because every one of these platforms times out a slow webhook. Duplicate deliveries are absorbed durably, so a platform retry of an event that already ran never runs it a second time or bills for it twice. When the agent pool is full nothing at all is recorded and the delivery is refused as retriable, so the message is re-delivered later rather than being lost or half-processed.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIPostIntegrationsSlackEventsRequest
+	@return IntegrationAPIPostIntegrationSlackEventsRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsSlackEvents(ctx context.Context) IntegrationsAPIPostIntegrationsSlackEventsRequest {
-	return IntegrationsAPIPostIntegrationsSlackEventsRequest{
+func (a *IntegrationAPIService) PostIntegrationSlackEvents(ctx context.Context) IntegrationAPIPostIntegrationSlackEventsRequest {
+	return IntegrationAPIPostIntegrationSlackEventsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) PostIntegrationsSlackEventsExecute(r IntegrationsAPIPostIntegrationsSlackEventsRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationSlackEventsExecute(r IntegrationAPIPostIntegrationSlackEventsRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsSlackEvents")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationSlackEvents")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/slack/events"
+	localVarPath := localBasePath + "/v1/integration/slack/events"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -5110,17 +5218,17 @@ func (a *IntegrationsAPIService) PostIntegrationsSlackEventsExecute(r Integratio
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsSlackJoinRequest struct {
+type IntegrationAPIPostIntegrationSlackJoinRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIPostIntegrationsSlackJoinRequest) Execute() (*SlackJoinOut, *http.Response, error) {
-	return r.ApiService.PostIntegrationsSlackJoinExecute(r)
+func (r IntegrationAPIPostIntegrationSlackJoinRequest) Execute() (*SlackJoinOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationSlackJoinExecute(r)
 }
 
 /*
-PostIntegrationsSlackJoin Joins every public channel in the caller org's workspace.
+PostIntegrationSlackJoin Joins every public channel in the caller org's workspace.
 
 Joins every public channel in the caller org's workspace.
 
@@ -5128,10 +5236,10 @@ Org admin, because it changes what the whole workspace sees: after it the agent
 is a member of every public room and answers in all of them.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIPostIntegrationsSlackJoinRequest
+	@return IntegrationAPIPostIntegrationSlackJoinRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsSlackJoin(ctx context.Context) IntegrationsAPIPostIntegrationsSlackJoinRequest {
-	return IntegrationsAPIPostIntegrationsSlackJoinRequest{
+func (a *IntegrationAPIService) PostIntegrationSlackJoin(ctx context.Context) IntegrationAPIPostIntegrationSlackJoinRequest {
+	return IntegrationAPIPostIntegrationSlackJoinRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -5140,7 +5248,7 @@ func (a *IntegrationsAPIService) PostIntegrationsSlackJoin(ctx context.Context) 
 // Execute executes the request
 //
 //	@return SlackJoinOut
-func (a *IntegrationsAPIService) PostIntegrationsSlackJoinExecute(r IntegrationsAPIPostIntegrationsSlackJoinRequest) (*SlackJoinOut, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationSlackJoinExecute(r IntegrationAPIPostIntegrationSlackJoinRequest) (*SlackJoinOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -5148,12 +5256,12 @@ func (a *IntegrationsAPIService) PostIntegrationsSlackJoinExecute(r Integrations
 		localVarReturnValue *SlackJoinOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsSlackJoin")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationSlackJoin")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/slack/join"
+	localVarPath := localBasePath + "/v1/integration/slack/join"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -5213,17 +5321,17 @@ func (a *IntegrationsAPIService) PostIntegrationsSlackJoinExecute(r Integrations
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsTeamsEventsRequest struct {
+type IntegrationAPIPostIntegrationTeamsEventsRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIPostIntegrationsTeamsEventsRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostIntegrationsTeamsEventsExecute(r)
+func (r IntegrationAPIPostIntegrationTeamsEventsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostIntegrationTeamsEventsExecute(r)
 }
 
 /*
-PostIntegrationsTeamsEvents Microsoft Teams Bot Framework webhook
+PostIntegrationTeamsEvents Microsoft Teams Bot Framework webhook
 
 The messaging endpoint for the Teams bot. A message activity is routed to an agent turn and answered proactively through the Bot Connection; anything that is not a message with text is acknowledged and ignored.
 
@@ -5234,29 +5342,29 @@ The caller here is the PLATFORM, not a Hanzo tenant, so there is no bearer and n
 The answer is acknowledged immediately and the work happens afterwards, because every one of these platforms times out a slow webhook. Duplicate deliveries are absorbed durably, so a platform retry of an event that already ran never runs it a second time or bills for it twice. When the agent pool is full nothing at all is recorded and the delivery is refused as retriable, so the message is re-delivered later rather than being lost or half-processed.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIPostIntegrationsTeamsEventsRequest
+	@return IntegrationAPIPostIntegrationTeamsEventsRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsTeamsEvents(ctx context.Context) IntegrationsAPIPostIntegrationsTeamsEventsRequest {
-	return IntegrationsAPIPostIntegrationsTeamsEventsRequest{
+func (a *IntegrationAPIService) PostIntegrationTeamsEvents(ctx context.Context) IntegrationAPIPostIntegrationTeamsEventsRequest {
+	return IntegrationAPIPostIntegrationTeamsEventsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) PostIntegrationsTeamsEventsExecute(r IntegrationsAPIPostIntegrationsTeamsEventsRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationTeamsEventsExecute(r IntegrationAPIPostIntegrationTeamsEventsRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsTeamsEvents")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationTeamsEvents")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/teams/events"
+	localVarPath := localBasePath + "/v1/integration/teams/events"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -5307,17 +5415,17 @@ func (a *IntegrationsAPIService) PostIntegrationsTeamsEventsExecute(r Integratio
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsTelegramConnectRequest struct {
+type IntegrationAPIPostIntegrationTelegramConnectRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIPostIntegrationsTelegramConnectRequest) Execute() (*AuthorizeOut, *http.Response, error) {
-	return r.ApiService.PostIntegrationsTelegramConnectExecute(r)
+func (r IntegrationAPIPostIntegrationTelegramConnectRequest) Execute() (*AuthorizeOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationTelegramConnectExecute(r)
 }
 
 /*
-PostIntegrationsTelegramConnect Mints a short, single-use deep-link code bound to the caller's org and returns the t.me link the console navigates to.
+PostIntegrationTelegramConnect Mints a short, single-use deep-link code bound to the caller's org and returns the t.me link the console navigates to.
 
 Mints a short, single-use deep-link code bound to the caller's
 org and returns the t.me link the console navigates to. Org-authed: a caller with
@@ -5327,10 +5435,10 @@ bind chat→org. It is short (128-bit hex) so it fits Telegram's 64-char `start`
 payload limit.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIPostIntegrationsTelegramConnectRequest
+	@return IntegrationAPIPostIntegrationTelegramConnectRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsTelegramConnect(ctx context.Context) IntegrationsAPIPostIntegrationsTelegramConnectRequest {
-	return IntegrationsAPIPostIntegrationsTelegramConnectRequest{
+func (a *IntegrationAPIService) PostIntegrationTelegramConnect(ctx context.Context) IntegrationAPIPostIntegrationTelegramConnectRequest {
+	return IntegrationAPIPostIntegrationTelegramConnectRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -5339,7 +5447,7 @@ func (a *IntegrationsAPIService) PostIntegrationsTelegramConnect(ctx context.Con
 // Execute executes the request
 //
 //	@return AuthorizeOut
-func (a *IntegrationsAPIService) PostIntegrationsTelegramConnectExecute(r IntegrationsAPIPostIntegrationsTelegramConnectRequest) (*AuthorizeOut, *http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationTelegramConnectExecute(r IntegrationAPIPostIntegrationTelegramConnectRequest) (*AuthorizeOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -5347,12 +5455,12 @@ func (a *IntegrationsAPIService) PostIntegrationsTelegramConnectExecute(r Integr
 		localVarReturnValue *AuthorizeOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsTelegramConnect")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationTelegramConnect")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/telegram/connect"
+	localVarPath := localBasePath + "/v1/integration/telegram/connect"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -5412,17 +5520,17 @@ func (a *IntegrationsAPIService) PostIntegrationsTelegramConnectExecute(r Integr
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsTelegramWebhookRequest struct {
+type IntegrationAPIPostIntegrationTelegramWebhookRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIPostIntegrationsTelegramWebhookRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostIntegrationsTelegramWebhookExecute(r)
+func (r IntegrationAPIPostIntegrationTelegramWebhookRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostIntegrationTelegramWebhookExecute(r)
 }
 
 /*
-PostIntegrationsTelegramWebhook Telegram Bot API webhook
+PostIntegrationTelegramWebhook Telegram Bot API webhook
 
 The update webhook for the Telegram bot. It does two jobs: `/start <code>` or `/connect <code>` binds the chat it was sent from to an org, idempotently; anything else is treated as a possible agent trigger.
 
@@ -5435,29 +5543,29 @@ The caller here is the PLATFORM, not a Hanzo tenant, so there is no bearer and n
 The answer is acknowledged immediately and the work happens afterwards, because every one of these platforms times out a slow webhook. Duplicate deliveries are absorbed durably, so a platform retry of an event that already ran never runs it a second time or bills for it twice. When the agent pool is full nothing at all is recorded and the delivery is refused as retriable, so the message is re-delivered later rather than being lost or half-processed.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIPostIntegrationsTelegramWebhookRequest
+	@return IntegrationAPIPostIntegrationTelegramWebhookRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsTelegramWebhook(ctx context.Context) IntegrationsAPIPostIntegrationsTelegramWebhookRequest {
-	return IntegrationsAPIPostIntegrationsTelegramWebhookRequest{
+func (a *IntegrationAPIService) PostIntegrationTelegramWebhook(ctx context.Context) IntegrationAPIPostIntegrationTelegramWebhookRequest {
+	return IntegrationAPIPostIntegrationTelegramWebhookRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) PostIntegrationsTelegramWebhookExecute(r IntegrationsAPIPostIntegrationsTelegramWebhookRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationTelegramWebhookExecute(r IntegrationAPIPostIntegrationTelegramWebhookRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsTelegramWebhook")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationTelegramWebhook")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/telegram/webhook"
+	localVarPath := localBasePath + "/v1/integration/telegram/webhook"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -5508,17 +5616,17 @@ func (a *IntegrationsAPIService) PostIntegrationsTelegramWebhookExecute(r Integr
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPostIntegrationsWhatsappWebhookRequest struct {
+type IntegrationAPIPostIntegrationWhatsappWebhookRequest struct {
 	ctx        context.Context
-	ApiService *IntegrationsAPIService
+	ApiService *IntegrationAPIService
 }
 
-func (r IntegrationsAPIPostIntegrationsWhatsappWebhookRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostIntegrationsWhatsappWebhookExecute(r)
+func (r IntegrationAPIPostIntegrationWhatsappWebhookRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostIntegrationWhatsappWebhookExecute(r)
 }
 
 /*
-PostIntegrationsWhatsappWebhook WhatsApp Cloud API webhook
+PostIntegrationWhatsappWebhook WhatsApp Cloud API webhook
 
 One delivery from Meta. Authenticity is the X-Hub-Signature-256 HMAC over the raw body, and it is the whole of it: a message accepted here creates the reply route that authorises this org to answer, so an unsigned delivery would let anyone hand an org a conversation to answer under its own number.
 
@@ -5527,29 +5635,29 @@ Meta batches (entry × changes × messages) and sends status callbacks — sent/
 The answer is acknowledged immediately and the work happens afterwards, because every one of these platforms times out a slow webhook. Duplicate deliveries are absorbed durably, so a platform retry of an event that already ran never runs it a second time or bills for it twice. When the agent pool is full nothing at all is recorded and the delivery is refused as retriable, so the message is re-delivered later rather than being lost or half-processed.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IntegrationsAPIPostIntegrationsWhatsappWebhookRequest
+	@return IntegrationAPIPostIntegrationWhatsappWebhookRequest
 */
-func (a *IntegrationsAPIService) PostIntegrationsWhatsappWebhook(ctx context.Context) IntegrationsAPIPostIntegrationsWhatsappWebhookRequest {
-	return IntegrationsAPIPostIntegrationsWhatsappWebhookRequest{
+func (a *IntegrationAPIService) PostIntegrationWhatsappWebhook(ctx context.Context) IntegrationAPIPostIntegrationWhatsappWebhookRequest {
+	return IntegrationAPIPostIntegrationWhatsappWebhookRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *IntegrationsAPIService) PostIntegrationsWhatsappWebhookExecute(r IntegrationsAPIPostIntegrationsWhatsappWebhookRequest) (*http.Response, error) {
+func (a *IntegrationAPIService) PostIntegrationWhatsappWebhookExecute(r IntegrationAPIPostIntegrationWhatsappWebhookRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsWhatsappWebhook")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PostIntegrationWhatsappWebhook")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/whatsapp/webhook"
+	localVarPath := localBasePath + "/v1/integration/whatsapp/webhook"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -5600,24 +5708,24 @@ func (a *IntegrationsAPIService) PostIntegrationsWhatsappWebhookExecute(r Integr
 	return localVarHTTPResponse, nil
 }
 
-type IntegrationsAPIPutIntegrationsGithubReposByRepoPagesRequest struct {
+type IntegrationAPIPutIntegrationGithubReposByRepoPagesRequest struct {
 	ctx                  context.Context
-	ApiService           *IntegrationsAPIService
+	ApiService           *IntegrationAPIService
 	repo                 string
 	githubPagesUpdateReq *GithubPagesUpdateReq
 }
 
-func (r IntegrationsAPIPutIntegrationsGithubReposByRepoPagesRequest) GithubPagesUpdateReq(githubPagesUpdateReq GithubPagesUpdateReq) IntegrationsAPIPutIntegrationsGithubReposByRepoPagesRequest {
+func (r IntegrationAPIPutIntegrationGithubReposByRepoPagesRequest) GithubPagesUpdateReq(githubPagesUpdateReq GithubPagesUpdateReq) IntegrationAPIPutIntegrationGithubReposByRepoPagesRequest {
 	r.githubPagesUpdateReq = &githubPagesUpdateReq
 	return r
 }
 
-func (r IntegrationsAPIPutIntegrationsGithubReposByRepoPagesRequest) Execute() (*GithubPagesUpdatedOut, *http.Response, error) {
-	return r.ApiService.PutIntegrationsGithubReposByRepoPagesExecute(r)
+func (r IntegrationAPIPutIntegrationGithubReposByRepoPagesRequest) Execute() (*GithubPagesUpdatedOut, *http.Response, error) {
+	return r.ApiService.PutIntegrationGithubReposByRepoPagesExecute(r)
 }
 
 /*
-PutIntegrationsGithubReposByRepoPages Sets or clears the custom domain (cname) and updates HTTPS enforcement, build type, or source.
+PutIntegrationGithubReposByRepoPages Sets or clears the custom domain (cname) and updates HTTPS enforcement, build type, or source.
 
 Sets or clears the custom domain (cname) and updates HTTPS
 enforcement, build type, or source. ONLY the provided fields are sent to GitHub,
@@ -5625,10 +5733,10 @@ so an update never resets a setting the caller did not mention.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param repo Repo is the repository, from the :repo path segment.
-	@return IntegrationsAPIPutIntegrationsGithubReposByRepoPagesRequest
+	@return IntegrationAPIPutIntegrationGithubReposByRepoPagesRequest
 */
-func (a *IntegrationsAPIService) PutIntegrationsGithubReposByRepoPages(ctx context.Context, repo string) IntegrationsAPIPutIntegrationsGithubReposByRepoPagesRequest {
-	return IntegrationsAPIPutIntegrationsGithubReposByRepoPagesRequest{
+func (a *IntegrationAPIService) PutIntegrationGithubReposByRepoPages(ctx context.Context, repo string) IntegrationAPIPutIntegrationGithubReposByRepoPagesRequest {
+	return IntegrationAPIPutIntegrationGithubReposByRepoPagesRequest{
 		ApiService: a,
 		ctx:        ctx,
 		repo:       repo,
@@ -5638,7 +5746,7 @@ func (a *IntegrationsAPIService) PutIntegrationsGithubReposByRepoPages(ctx conte
 // Execute executes the request
 //
 //	@return GithubPagesUpdatedOut
-func (a *IntegrationsAPIService) PutIntegrationsGithubReposByRepoPagesExecute(r IntegrationsAPIPutIntegrationsGithubReposByRepoPagesRequest) (*GithubPagesUpdatedOut, *http.Response, error) {
+func (a *IntegrationAPIService) PutIntegrationGithubReposByRepoPagesExecute(r IntegrationAPIPutIntegrationGithubReposByRepoPagesRequest) (*GithubPagesUpdatedOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
@@ -5646,12 +5754,12 @@ func (a *IntegrationsAPIService) PutIntegrationsGithubReposByRepoPagesExecute(r 
 		localVarReturnValue *GithubPagesUpdatedOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PutIntegrationsGithubReposByRepoPages")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationAPIService.PutIntegrationGithubReposByRepoPages")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/integrations/github/repos/{repo}/pages"
+	localVarPath := localBasePath + "/v1/integration/github/repos/{repo}/pages"
 	localVarPath = strings.Replace(localVarPath, "{"+"repo"+"}", url.PathEscape(parameterValueToString(r.repo, "repo")), -1)
 
 	localVarHeaderParams := make(map[string]string)

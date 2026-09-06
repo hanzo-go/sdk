@@ -19,7 +19,7 @@ var _ MappedNullable = &AgentBinding{}
 
 // AgentBinding struct for AgentBinding
 type AgentBinding struct {
-	// AgentName is the cloud Agent (/v1/agents) this machine runs — the agent a message to the bot is actually run against. It is the one field that decides what the bot DOES.
+	// AgentName is the cloud Agent (/v1/agent) this machine runs — the agent a message to the bot is actually run against. It is the one field that decides what the bot DOES.
 	AgentName *string `json:"agentName,omitempty"`
 	// BotVersion pins the @hanzo/bot runtime version the machine runs. Empty means the machine took the default in force when it was bound.
 	BotVersion *string `json:"botVersion,omitempty"`

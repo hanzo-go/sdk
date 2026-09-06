@@ -1,54 +1,54 @@
-# \AgentsAPI
+# \AgentAPI
 
 All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteAgentsByRef**](AgentsAPI.md#DeleteAgentsByRef) | **Delete** /v1/agents/{ref} | Removes an agent and every run recorded against it.
-[**DeleteAgentsTargetsById**](AgentsAPI.md#DeleteAgentsTargetsById) | **Delete** /v1/agents/targets/{id} | Deregisters one machine.
-[**GetAgents**](AgentsAPI.md#GetAgents) | **Get** /v1/agents | Returns every agent defined in the caller&#39;s org, each with the number of runs recorded against it.
-[**GetAgentsActivity**](AgentsAPI.md#GetAgentsActivity) | **Get** /v1/agents/activity | Serves the org-wide recent-activity feed.
-[**GetAgentsBuilds**](AgentsAPI.md#GetAgentsBuilds) | **Get** /v1/agents/builds | Returns the public index of every published build, most recently updated first, so a gallery can link straight to the story behind each product.
-[**GetAgentsBuildsByOrgByProject**](AgentsAPI.md#GetAgentsBuildsByOrgByProject) | **Get** /v1/agents/builds/{org}/{project} | Returns the readable build of one product: the agent session that produced it, turn by turn — the prompts, the reasoning, the commits each turn produced — plus the exact &#x60;git log&#x60; that re-derives every commit binding from git itself, so nothing here has to be taken on trust.
-[**GetAgentsByRef**](AgentsAPI.md#GetAgentsByRef) | **Get** /v1/agents/{ref} | Returns one agent with its system prompt and its 20 most recent runs.
-[**GetAgentsByRefRuns**](AgentsAPI.md#GetAgentsByRefRuns) | **Get** /v1/agents/{ref}/runs | Returns one agent&#39;s execution history, newest first — each run&#39;s input, its output or its error, and how long it took.
-[**GetAgentsChatConversations**](AgentsAPI.md#GetAgentsChatConversations) | **Get** /v1/agents/chat/conversations | List the agent threads in your org
-[**GetAgentsChatConversationsById**](AgentsAPI.md#GetAgentsChatConversationsById) | **Get** /v1/agents/chat/conversations/{id} | Read one agent thread in full
-[**GetAgentsChatPresets**](AgentsAPI.md#GetAgentsChatPresets) | **Get** /v1/agents/chat/presets | List the agent presets available to a caller
-[**GetAgentsMetrics**](AgentsAPI.md#GetAgentsMetrics) | **Get** /v1/agents/metrics | Serves the invocations-over-time histogram for the org&#39;s Agents dashboard.
-[**GetAgentsRuns**](AgentsAPI.md#GetAgentsRuns) | **Get** /v1/agents/runs | Returns the org&#39;s agent runs across EVERY agent, newest first — what ran here, for whom, on which model, how long it took, and why it failed.
-[**GetAgentsSessions**](AgentsAPI.md#GetAgentsSessions) | **Get** /v1/agents/sessions | Returns the caller org&#39;s live sessions, newest first — each with its event count, its direct-child count and a one-line preview of its latest event.
-[**GetAgentsSessionsById**](AgentsAPI.md#GetAgentsSessionsById) | **Get** /v1/agents/sessions/{id} | Returns one session with its direct child sessions and its 50 most recent events, oldest of those first.
-[**GetAgentsSessionsByIdControl**](AgentsAPI.md#GetAgentsSessionsByIdControl) | **Get** /v1/agents/sessions/{id}/control | Returns the steering commands (pause/resume/stop/message) recorded against the caller&#39;s own session that are newer than the cursor, oldest first, with the cursor to poll from next.
-[**GetAgentsSessionsByIdProgress**](AgentsAPI.md#GetAgentsSessionsByIdProgress) | **Get** /v1/agents/sessions/{id}/progress | Returns how far along one run is: the share of its goal that is done, whether it is running, blocked or finished, and a line saying what it is doing right now.
-[**GetAgentsSessionsByIdTree**](AgentsAPI.md#GetAgentsSessionsByIdTree) | **Get** /v1/agents/sessions/{id}/tree | Returns the subagent-flow graph rooted at this session: the session, its children, their children, each node carrying its own event count.
-[**GetAgentsSessionsStream**](AgentsAPI.md#GetAgentsSessionsStream) | **Get** /v1/agents/sessions/stream | Live session and event updates for the caller&#39;s org, as Server-Sent Events.
-[**GetAgentsTargets**](AgentsAPI.md#GetAgentsTargets) | **Get** /v1/agents/targets | Returns every machine registered to the caller&#39;s org, newest first, each with its live session load.
-[**GetAgentsTargetsById**](AgentsAPI.md#GetAgentsTargetsById) | **Get** /v1/agents/targets/{id} | Returns one registered machine, with its live session load.
-[**PatchAgentsByRef**](AgentsAPI.md#PatchAgentsByRef) | **Patch** /v1/agents/{ref} | Changes an agent in place.
-[**PatchAgentsSessionsById**](AgentsAPI.md#PatchAgentsSessionsById) | **Patch** /v1/agents/sessions/{id} | Updates a session&#39;s surface-owned truth: its status, its title, the run-target it is dispatched to, and the product it built plus whether that build&#39;s story is public.
-[**PatchAgentsTargetsById**](AgentsAPI.md#PatchAgentsTargetsById) | **Patch** /v1/agents/targets/{id} | Updates one machine in place.
-[**PostAgents**](AgentsAPI.md#PostAgents) | **Post** /v1/agents | Defines an agent in the caller&#39;s org: a model, a system prompt (instructions) and a set of tool names.
-[**PostAgentsByRefRun**](AgentsAPI.md#PostAgentsByRefRun) | **Post** /v1/agents/{ref}/run | Run one of your org&#39;s agents and get the recorded run back.
-[**PostAgentsChat**](AgentsAPI.md#PostAgentsChat) | **Post** /v1/agents/chat | Run one tool-calling round against your org&#39;s own tools
-[**PostAgentsChatConversations**](AgentsAPI.md#PostAgentsChatConversations) | **Post** /v1/agents/chat/conversations | Record turns in a conversation
-[**PostAgentsCoding**](AgentsAPI.md#PostAgentsCoding) | **Post** /v1/agents/coding | Start one autonomous coding run against a repo in the caller&#39;s org
-[**PostAgentsSessions**](AgentsAPI.md#PostAgentsSessions) | **Post** /v1/agents/sessions | Opens a live agent session in the caller&#39;s org — the row every surface (the CLI&#39;s outer agent, hanzo.bot, the console, chat) hangs its activity off.
-[**PostAgentsSessionsByIdEvents**](AgentsAPI.md#PostAgentsSessionsByIdEvents) | **Post** /v1/agents/sessions/{id}/events | Records one turn of a session&#39;s transcript and answers 201 with it.
-[**PostAgentsSessionsByIdMessage**](AgentsAPI.md#PostAgentsSessionsByIdMessage) | **Post** /v1/agents/sessions/{id}/message | Sends a steering message to a running session — the endpoint a human or another agent interrupts through.
-[**PostAgentsSessionsByIdPause**](AgentsAPI.md#PostAgentsSessionsByIdPause) | **Post** /v1/agents/sessions/{id}/pause | Asks a running session to pause.
-[**PostAgentsSessionsByIdResume**](AgentsAPI.md#PostAgentsSessionsByIdResume) | **Post** /v1/agents/sessions/{id}/resume | Asks a paused session to continue, on the same terms as a pause.
-[**PostAgentsSessionsByIdStop**](AgentsAPI.md#PostAgentsSessionsByIdStop) | **Post** /v1/agents/sessions/{id}/stop | Ends a running session.
-[**PostAgentsTargets**](AgentsAPI.md#PostAgentsTargets) | **Post** /v1/agents/targets | Registers a machine as an agent target, or re-links one that is already registered.
-[**PostAgentsTargetsByIdClaim**](AgentsAPI.md#PostAgentsTargetsByIdClaim) | **Post** /v1/agents/targets/{id}/claim | ClaimRoutedRun is the machine&#39;s long poll for work: it authenticates the daemon, stamps the liveness the dispatch gate reads (the poll IS the proof a runner is listening), and waits up to 25 seconds for the next run addressed to THIS machine.
-[**PostAgentsTargetsByIdKey**](AgentsAPI.md#PostAgentsTargetsByIdKey) | **Post** /v1/agents/targets/{id}/key | Mints (or rotates) the claim key a &#x60;hanzo code --serve&#x60; daemon presents to claim work for this machine, and returns it ONCE: only its SHA-256 hash is stored.
-[**PostAgentsTargetsByIdRunsByRunidReport**](AgentsAPI.md#PostAgentsTargetsByIdRunsByRunidReport) | **Post** /v1/agents/targets/{id}/runs/{runId}/report | Completes a claimed run: it delivers the terminal result to the run&#39;s durable owner, which is what lets that workflow finish.
+[**DeleteAgentByRef**](AgentAPI.md#DeleteAgentByRef) | **Delete** /v1/agent/{ref} | Removes an agent and every run recorded against it.
+[**DeleteAgentTargetsById**](AgentAPI.md#DeleteAgentTargetsById) | **Delete** /v1/agent/targets/{id} | Deregisters one machine.
+[**GetAgent**](AgentAPI.md#GetAgent) | **Get** /v1/agent | Returns every agent defined in the caller&#39;s org, each with the number of runs recorded against it.
+[**GetAgentActivity**](AgentAPI.md#GetAgentActivity) | **Get** /v1/agent/activity | Serves the org-wide recent-activity feed.
+[**GetAgentBuilds**](AgentAPI.md#GetAgentBuilds) | **Get** /v1/agent/builds | Returns the public index of every published build, most recently updated first, so a gallery can link straight to the story behind each product.
+[**GetAgentBuildsByOrgByProject**](AgentAPI.md#GetAgentBuildsByOrgByProject) | **Get** /v1/agent/builds/{org}/{project} | Returns the readable build of one product: the agent session that produced it, turn by turn — the prompts, the reasoning, the commits each turn produced — plus the exact &#x60;git log&#x60; that re-derives every commit binding from git itself, so nothing here has to be taken on trust.
+[**GetAgentByRef**](AgentAPI.md#GetAgentByRef) | **Get** /v1/agent/{ref} | Returns one agent with its system prompt and its 20 most recent runs.
+[**GetAgentByRefRuns**](AgentAPI.md#GetAgentByRefRuns) | **Get** /v1/agent/{ref}/runs | Returns one agent&#39;s execution history, newest first — each run&#39;s input, its output or its error, and how long it took.
+[**GetAgentChatConversations**](AgentAPI.md#GetAgentChatConversations) | **Get** /v1/agent/chat/conversations | List the agent threads in your org
+[**GetAgentChatConversationsById**](AgentAPI.md#GetAgentChatConversationsById) | **Get** /v1/agent/chat/conversations/{id} | Read one agent thread in full
+[**GetAgentChatPresets**](AgentAPI.md#GetAgentChatPresets) | **Get** /v1/agent/chat/presets | List the agent presets available to a caller
+[**GetAgentMetrics**](AgentAPI.md#GetAgentMetrics) | **Get** /v1/agent/metrics | Serves the invocations-over-time histogram for the org&#39;s Agents dashboard.
+[**GetAgentRuns**](AgentAPI.md#GetAgentRuns) | **Get** /v1/agent/runs | Returns the org&#39;s agent runs across EVERY agent, newest first — what ran here, for whom, on which model, how long it took, and why it failed.
+[**GetAgentSessions**](AgentAPI.md#GetAgentSessions) | **Get** /v1/agent/sessions | Returns the caller org&#39;s live sessions, newest first — each with its event count, its direct-child count and a one-line preview of its latest event.
+[**GetAgentSessionsById**](AgentAPI.md#GetAgentSessionsById) | **Get** /v1/agent/sessions/{id} | Returns one session with its direct child sessions and its 50 most recent events, oldest of those first.
+[**GetAgentSessionsByIdControl**](AgentAPI.md#GetAgentSessionsByIdControl) | **Get** /v1/agent/sessions/{id}/control | Returns the steering commands (pause/resume/stop/message) recorded against the caller&#39;s own session that are newer than the cursor, oldest first, with the cursor to poll from next.
+[**GetAgentSessionsByIdProgress**](AgentAPI.md#GetAgentSessionsByIdProgress) | **Get** /v1/agent/sessions/{id}/progress | Returns how far along one run is: the share of its goal that is done, whether it is running, blocked or finished, and a line saying what it is doing right now.
+[**GetAgentSessionsByIdTree**](AgentAPI.md#GetAgentSessionsByIdTree) | **Get** /v1/agent/sessions/{id}/tree | Returns the subagent-flow graph rooted at this session: the session, its children, their children, each node carrying its own event count.
+[**GetAgentSessionsStream**](AgentAPI.md#GetAgentSessionsStream) | **Get** /v1/agent/sessions/stream | Live session and event updates for the caller&#39;s org, as Server-Sent Events.
+[**GetAgentTargets**](AgentAPI.md#GetAgentTargets) | **Get** /v1/agent/targets | Returns every machine registered to the caller&#39;s org, newest first, each with its live session load.
+[**GetAgentTargetsById**](AgentAPI.md#GetAgentTargetsById) | **Get** /v1/agent/targets/{id} | Returns one registered machine, with its live session load.
+[**PatchAgentByRef**](AgentAPI.md#PatchAgentByRef) | **Patch** /v1/agent/{ref} | Changes an agent in place.
+[**PatchAgentSessionsById**](AgentAPI.md#PatchAgentSessionsById) | **Patch** /v1/agent/sessions/{id} | Updates a session&#39;s surface-owned truth: its status, its title, the run-target it is dispatched to, and the product it built plus whether that build&#39;s story is public.
+[**PatchAgentTargetsById**](AgentAPI.md#PatchAgentTargetsById) | **Patch** /v1/agent/targets/{id} | Updates one machine in place.
+[**PostAgent**](AgentAPI.md#PostAgent) | **Post** /v1/agent | Defines an agent in the caller&#39;s org: a model, a system prompt (instructions) and a set of tool names.
+[**PostAgentByRefRun**](AgentAPI.md#PostAgentByRefRun) | **Post** /v1/agent/{ref}/run | Run one of your org&#39;s agents and get the recorded run back.
+[**PostAgentChat**](AgentAPI.md#PostAgentChat) | **Post** /v1/agent/chat | Run one tool-calling round against your org&#39;s own tools
+[**PostAgentChatConversations**](AgentAPI.md#PostAgentChatConversations) | **Post** /v1/agent/chat/conversations | Record turns in a conversation
+[**PostAgentCoding**](AgentAPI.md#PostAgentCoding) | **Post** /v1/agent/coding | Start one autonomous coding run against a repo in the caller&#39;s org
+[**PostAgentSessions**](AgentAPI.md#PostAgentSessions) | **Post** /v1/agent/sessions | Opens a live agent session in the caller&#39;s org — the row every surface (the CLI&#39;s outer agent, hanzo.bot, the console, chat) hangs its activity off.
+[**PostAgentSessionsByIdEvents**](AgentAPI.md#PostAgentSessionsByIdEvents) | **Post** /v1/agent/sessions/{id}/events | Records one turn of a session&#39;s transcript and answers 201 with it.
+[**PostAgentSessionsByIdMessage**](AgentAPI.md#PostAgentSessionsByIdMessage) | **Post** /v1/agent/sessions/{id}/message | Sends a steering message to a running session — the endpoint a human or another agent interrupts through.
+[**PostAgentSessionsByIdPause**](AgentAPI.md#PostAgentSessionsByIdPause) | **Post** /v1/agent/sessions/{id}/pause | Asks a running session to pause.
+[**PostAgentSessionsByIdResume**](AgentAPI.md#PostAgentSessionsByIdResume) | **Post** /v1/agent/sessions/{id}/resume | Asks a paused session to continue, on the same terms as a pause.
+[**PostAgentSessionsByIdStop**](AgentAPI.md#PostAgentSessionsByIdStop) | **Post** /v1/agent/sessions/{id}/stop | Ends a running session.
+[**PostAgentTargets**](AgentAPI.md#PostAgentTargets) | **Post** /v1/agent/targets | Registers a machine as an agent target, or re-links one that is already registered.
+[**PostAgentTargetsByIdClaim**](AgentAPI.md#PostAgentTargetsByIdClaim) | **Post** /v1/agent/targets/{id}/claim | ClaimRoutedRun is the machine&#39;s long poll for work: it authenticates the daemon, stamps the liveness the dispatch gate reads (the poll IS the proof a runner is listening), and waits up to 25 seconds for the next run addressed to THIS machine.
+[**PostAgentTargetsByIdKey**](AgentAPI.md#PostAgentTargetsByIdKey) | **Post** /v1/agent/targets/{id}/key | Mints (or rotates) the claim key a &#x60;hanzo code --serve&#x60; daemon presents to claim work for this machine, and returns it ONCE: only its SHA-256 hash is stored.
+[**PostAgentTargetsByIdRunsByRunidReport**](AgentAPI.md#PostAgentTargetsByIdRunsByRunidReport) | **Post** /v1/agent/targets/{id}/runs/{runId}/report | Completes a claimed run: it delivers the terminal result to the run&#39;s durable owner, which is what lets that workflow finish.
 
 
 
-## DeleteAgentsByRef
+## DeleteAgentByRef
 
-> DeleteAgentsByRef(ctx, ref).Execute()
+> DeleteAgentByRef(ctx, ref).Execute()
 
 Removes an agent and every run recorded against it.
 
@@ -71,9 +71,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.DeleteAgentsByRef(context.Background(), ref).Execute()
+	r, err := apiClient.AgentAPI.DeleteAgentByRef(context.Background(), ref).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.DeleteAgentsByRef``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.DeleteAgentByRef``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteAgentsByRefRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteAgentByRefRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -114,9 +114,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DeleteAgentsTargetsById
+## DeleteAgentTargetsById
 
-> TargetDeleted DeleteAgentsTargetsById(ctx, id).Execute()
+> TargetDeleted DeleteAgentTargetsById(ctx, id).Execute()
 
 Deregisters one machine.
 
@@ -139,13 +139,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.DeleteAgentsTargetsById(context.Background(), id).Execute()
+	resp, r, err := apiClient.AgentAPI.DeleteAgentTargetsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.DeleteAgentsTargetsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.DeleteAgentTargetsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteAgentsTargetsById`: TargetDeleted
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.DeleteAgentsTargetsById`: %v\n", resp)
+	// response from `DeleteAgentTargetsById`: TargetDeleted
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.DeleteAgentTargetsById`: %v\n", resp)
 }
 ```
 
@@ -159,7 +159,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteAgentsTargetsByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteAgentTargetsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -184,9 +184,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetAgents
+## GetAgent
 
-> AgentList GetAgents(ctx).Execute()
+> AgentList GetAgent(ctx).Execute()
 
 Returns every agent defined in the caller's org, each with the number of runs recorded against it.
 
@@ -208,13 +208,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.GetAgents(context.Background()).Execute()
+	resp, r, err := apiClient.AgentAPI.GetAgent(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgents``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgent``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAgents`: AgentList
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgents`: %v\n", resp)
+	// response from `GetAgent`: AgentList
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.GetAgent`: %v\n", resp)
 }
 ```
 
@@ -224,7 +224,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAgentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentRequest struct via the builder pattern
 
 
 ### Return type
@@ -245,9 +245,9 @@ Other parameters are passed through a pointer to a apiGetAgentsRequest struct vi
 [[Back to README]](../README.md)
 
 
-## GetAgentsActivity
+## GetAgentActivity
 
-> ActivityFeed GetAgentsActivity(ctx).Execute()
+> ActivityFeed GetAgentActivity(ctx).Execute()
 
 Serves the org-wide recent-activity feed.
 
@@ -269,13 +269,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.GetAgentsActivity(context.Background()).Execute()
+	resp, r, err := apiClient.AgentAPI.GetAgentActivity(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsActivity``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentActivity``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAgentsActivity`: ActivityFeed
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsActivity`: %v\n", resp)
+	// response from `GetAgentActivity`: ActivityFeed
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.GetAgentActivity`: %v\n", resp)
 }
 ```
 
@@ -285,7 +285,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAgentsActivityRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentActivityRequest struct via the builder pattern
 
 
 ### Return type
@@ -306,9 +306,9 @@ Other parameters are passed through a pointer to a apiGetAgentsActivityRequest s
 [[Back to README]](../README.md)
 
 
-## GetAgentsBuilds
+## GetAgentBuilds
 
-> BuildList GetAgentsBuilds(ctx).Limit(limit).Execute()
+> BuildList GetAgentBuilds(ctx).Limit(limit).Execute()
 
 Returns the public index of every published build, most recently updated first, so a gallery can link straight to the story behind each product.
 
@@ -331,13 +331,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.GetAgentsBuilds(context.Background()).Limit(limit).Execute()
+	resp, r, err := apiClient.AgentAPI.GetAgentBuilds(context.Background()).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsBuilds``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentBuilds``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAgentsBuilds`: BuildList
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsBuilds`: %v\n", resp)
+	// response from `GetAgentBuilds`: BuildList
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.GetAgentBuilds`: %v\n", resp)
 }
 ```
 
@@ -347,7 +347,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAgentsBuildsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentBuildsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -372,9 +372,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetAgentsBuildsByOrgByProject
+## GetAgentBuildsByOrgByProject
 
-> BuildView GetAgentsBuildsByOrgByProject(ctx, org, project).Execute()
+> BuildView GetAgentBuildsByOrgByProject(ctx, org, project).Execute()
 
 Returns the readable build of one product: the agent session that produced it, turn by turn — the prompts, the reasoning, the commits each turn produced — plus the exact `git log` that re-derives every commit binding from git itself, so nothing here has to be taken on trust.
 
@@ -398,13 +398,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.GetAgentsBuildsByOrgByProject(context.Background(), org, project).Execute()
+	resp, r, err := apiClient.AgentAPI.GetAgentBuildsByOrgByProject(context.Background(), org, project).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsBuildsByOrgByProject``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentBuildsByOrgByProject``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAgentsBuildsByOrgByProject`: BuildView
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsBuildsByOrgByProject`: %v\n", resp)
+	// response from `GetAgentBuildsByOrgByProject`: BuildView
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.GetAgentBuildsByOrgByProject`: %v\n", resp)
 }
 ```
 
@@ -419,7 +419,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAgentsBuildsByOrgByProjectRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentBuildsByOrgByProjectRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -445,9 +445,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetAgentsByRef
+## GetAgentByRef
 
-> AgentDetail GetAgentsByRef(ctx, ref).Execute()
+> AgentDetail GetAgentByRef(ctx, ref).Execute()
 
 Returns one agent with its system prompt and its 20 most recent runs.
 
@@ -470,13 +470,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.GetAgentsByRef(context.Background(), ref).Execute()
+	resp, r, err := apiClient.AgentAPI.GetAgentByRef(context.Background(), ref).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsByRef``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentByRef``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAgentsByRef`: AgentDetail
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsByRef`: %v\n", resp)
+	// response from `GetAgentByRef`: AgentDetail
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.GetAgentByRef`: %v\n", resp)
 }
 ```
 
@@ -490,7 +490,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAgentsByRefRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentByRefRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -515,9 +515,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetAgentsByRefRuns
+## GetAgentByRefRuns
 
-> RunList GetAgentsByRefRuns(ctx, ref).Limit(limit).Execute()
+> RunList GetAgentByRefRuns(ctx, ref).Limit(limit).Execute()
 
 Returns one agent's execution history, newest first — each run's input, its output or its error, and how long it took.
 
@@ -541,13 +541,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.GetAgentsByRefRuns(context.Background(), ref).Limit(limit).Execute()
+	resp, r, err := apiClient.AgentAPI.GetAgentByRefRuns(context.Background(), ref).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsByRefRuns``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentByRefRuns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAgentsByRefRuns`: RunList
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsByRefRuns`: %v\n", resp)
+	// response from `GetAgentByRefRuns`: RunList
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.GetAgentByRefRuns`: %v\n", resp)
 }
 ```
 
@@ -561,7 +561,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAgentsByRefRunsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentByRefRunsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -587,9 +587,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetAgentsChatConversations
+## GetAgentChatConversations
 
-> GetAgentsChatConversations(ctx).Execute()
+> GetAgentChatConversations(ctx).Execute()
 
 List the agent threads in your org
 
@@ -611,9 +611,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.GetAgentsChatConversations(context.Background()).Execute()
+	r, err := apiClient.AgentAPI.GetAgentChatConversations(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsChatConversations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentChatConversations``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -625,7 +625,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAgentsChatConversationsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentChatConversationsRequest struct via the builder pattern
 
 
 ### Return type
@@ -646,9 +646,9 @@ Other parameters are passed through a pointer to a apiGetAgentsChatConversations
 [[Back to README]](../README.md)
 
 
-## GetAgentsChatConversationsById
+## GetAgentChatConversationsById
 
-> GetAgentsChatConversationsById(ctx, id).Execute()
+> GetAgentChatConversationsById(ctx, id).Execute()
 
 Read one agent thread in full
 
@@ -671,9 +671,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.GetAgentsChatConversationsById(context.Background(), id).Execute()
+	r, err := apiClient.AgentAPI.GetAgentChatConversationsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsChatConversationsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentChatConversationsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -689,7 +689,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAgentsChatConversationsByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentChatConversationsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -714,9 +714,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetAgentsChatPresets
+## GetAgentChatPresets
 
-> GetAgentsChatPresets(ctx).Execute()
+> GetAgentChatPresets(ctx).Execute()
 
 List the agent presets available to a caller
 
@@ -738,9 +738,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.GetAgentsChatPresets(context.Background()).Execute()
+	r, err := apiClient.AgentAPI.GetAgentChatPresets(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsChatPresets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentChatPresets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -752,7 +752,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAgentsChatPresetsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentChatPresetsRequest struct via the builder pattern
 
 
 ### Return type
@@ -773,9 +773,9 @@ Other parameters are passed through a pointer to a apiGetAgentsChatPresetsReques
 [[Back to README]](../README.md)
 
 
-## GetAgentsMetrics
+## GetAgentMetrics
 
-> MetricsView GetAgentsMetrics(ctx).Range_(range_).Execute()
+> MetricsView GetAgentMetrics(ctx).Range_(range_).Execute()
 
 Serves the invocations-over-time histogram for the org's Agents dashboard.
 
@@ -798,13 +798,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.GetAgentsMetrics(context.Background()).Range_(range_).Execute()
+	resp, r, err := apiClient.AgentAPI.GetAgentMetrics(context.Background()).Range_(range_).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsMetrics``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentMetrics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAgentsMetrics`: MetricsView
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsMetrics`: %v\n", resp)
+	// response from `GetAgentMetrics`: MetricsView
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.GetAgentMetrics`: %v\n", resp)
 }
 ```
 
@@ -814,7 +814,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAgentsMetricsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentMetricsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -839,9 +839,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetAgentsRuns
+## GetAgentRuns
 
-> RunList GetAgentsRuns(ctx).Limit(limit).Status(status).Execute()
+> RunList GetAgentRuns(ctx).Limit(limit).Status(status).Execute()
 
 Returns the org's agent runs across EVERY agent, newest first — what ran here, for whom, on which model, how long it took, and why it failed.
 
@@ -865,13 +865,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.GetAgentsRuns(context.Background()).Limit(limit).Status(status).Execute()
+	resp, r, err := apiClient.AgentAPI.GetAgentRuns(context.Background()).Limit(limit).Status(status).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsRuns``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentRuns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAgentsRuns`: RunList
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsRuns`: %v\n", resp)
+	// response from `GetAgentRuns`: RunList
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.GetAgentRuns`: %v\n", resp)
 }
 ```
 
@@ -881,7 +881,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAgentsRunsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentRunsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -907,9 +907,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetAgentsSessions
+## GetAgentSessions
 
-> SessionList GetAgentsSessions(ctx).Root(root).Parent(parent).Status(status).Project(project).Room(room).Limit(limit).Execute()
+> SessionList GetAgentSessions(ctx).Root(root).Parent(parent).Status(status).Project(project).Room(room).Limit(limit).Execute()
 
 Returns the caller org's live sessions, newest first — each with its event count, its direct-child count and a one-line preview of its latest event.
 
@@ -937,13 +937,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.GetAgentsSessions(context.Background()).Root(root).Parent(parent).Status(status).Project(project).Room(room).Limit(limit).Execute()
+	resp, r, err := apiClient.AgentAPI.GetAgentSessions(context.Background()).Root(root).Parent(parent).Status(status).Project(project).Room(room).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsSessions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentSessions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAgentsSessions`: SessionList
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsSessions`: %v\n", resp)
+	// response from `GetAgentSessions`: SessionList
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.GetAgentSessions`: %v\n", resp)
 }
 ```
 
@@ -953,7 +953,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAgentsSessionsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentSessionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -983,9 +983,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetAgentsSessionsById
+## GetAgentSessionsById
 
-> SessionDetail GetAgentsSessionsById(ctx, id).Execute()
+> SessionDetail GetAgentSessionsById(ctx, id).Execute()
 
 Returns one session with its direct child sessions and its 50 most recent events, oldest of those first.
 
@@ -1008,13 +1008,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.GetAgentsSessionsById(context.Background(), id).Execute()
+	resp, r, err := apiClient.AgentAPI.GetAgentSessionsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsSessionsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentSessionsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAgentsSessionsById`: SessionDetail
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsSessionsById`: %v\n", resp)
+	// response from `GetAgentSessionsById`: SessionDetail
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.GetAgentSessionsById`: %v\n", resp)
 }
 ```
 
@@ -1028,7 +1028,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAgentsSessionsByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentSessionsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1053,9 +1053,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetAgentsSessionsByIdControl
+## GetAgentSessionsByIdControl
 
-> ControlDrain GetAgentsSessionsByIdControl(ctx, id).After(after).Execute()
+> ControlDrain GetAgentSessionsByIdControl(ctx, id).After(after).Execute()
 
 Returns the steering commands (pause/resume/stop/message) recorded against the caller's own session that are newer than the cursor, oldest first, with the cursor to poll from next.
 
@@ -1079,13 +1079,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.GetAgentsSessionsByIdControl(context.Background(), id).After(after).Execute()
+	resp, r, err := apiClient.AgentAPI.GetAgentSessionsByIdControl(context.Background(), id).After(after).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsSessionsByIdControl``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentSessionsByIdControl``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAgentsSessionsByIdControl`: ControlDrain
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsSessionsByIdControl`: %v\n", resp)
+	// response from `GetAgentSessionsByIdControl`: ControlDrain
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.GetAgentSessionsByIdControl`: %v\n", resp)
 }
 ```
 
@@ -1099,7 +1099,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAgentsSessionsByIdControlRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentSessionsByIdControlRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1125,9 +1125,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetAgentsSessionsByIdProgress
+## GetAgentSessionsByIdProgress
 
-> SessionProgress GetAgentsSessionsByIdProgress(ctx, id).Execute()
+> SessionProgress GetAgentSessionsByIdProgress(ctx, id).Execute()
 
 Returns how far along one run is: the share of its goal that is done, whether it is running, blocked or finished, and a line saying what it is doing right now.
 
@@ -1150,13 +1150,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.GetAgentsSessionsByIdProgress(context.Background(), id).Execute()
+	resp, r, err := apiClient.AgentAPI.GetAgentSessionsByIdProgress(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsSessionsByIdProgress``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentSessionsByIdProgress``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAgentsSessionsByIdProgress`: SessionProgress
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsSessionsByIdProgress`: %v\n", resp)
+	// response from `GetAgentSessionsByIdProgress`: SessionProgress
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.GetAgentSessionsByIdProgress`: %v\n", resp)
 }
 ```
 
@@ -1170,7 +1170,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAgentsSessionsByIdProgressRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentSessionsByIdProgressRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1195,9 +1195,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetAgentsSessionsByIdTree
+## GetAgentSessionsByIdTree
 
-> TreeNode GetAgentsSessionsByIdTree(ctx, id).Execute()
+> TreeNode GetAgentSessionsByIdTree(ctx, id).Execute()
 
 Returns the subagent-flow graph rooted at this session: the session, its children, their children, each node carrying its own event count.
 
@@ -1220,13 +1220,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.GetAgentsSessionsByIdTree(context.Background(), id).Execute()
+	resp, r, err := apiClient.AgentAPI.GetAgentSessionsByIdTree(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsSessionsByIdTree``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentSessionsByIdTree``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAgentsSessionsByIdTree`: TreeNode
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsSessionsByIdTree`: %v\n", resp)
+	// response from `GetAgentSessionsByIdTree`: TreeNode
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.GetAgentSessionsByIdTree`: %v\n", resp)
 }
 ```
 
@@ -1240,7 +1240,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAgentsSessionsByIdTreeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentSessionsByIdTreeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1265,9 +1265,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetAgentsSessionsStream
+## GetAgentSessionsStream
 
-> GetAgentsSessionsStream(ctx).Execute()
+> GetAgentSessionsStream(ctx).Execute()
 
 Live session and event updates for the caller's org, as Server-Sent Events.
 
@@ -1289,9 +1289,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.GetAgentsSessionsStream(context.Background()).Execute()
+	r, err := apiClient.AgentAPI.GetAgentSessionsStream(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsSessionsStream``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentSessionsStream``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1303,7 +1303,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAgentsSessionsStreamRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentSessionsStreamRequest struct via the builder pattern
 
 
 ### Return type
@@ -1324,9 +1324,9 @@ Other parameters are passed through a pointer to a apiGetAgentsSessionsStreamReq
 [[Back to README]](../README.md)
 
 
-## GetAgentsTargets
+## GetAgentTargets
 
-> TargetList GetAgentsTargets(ctx).Execute()
+> TargetList GetAgentTargets(ctx).Execute()
 
 Returns every machine registered to the caller's org, newest first, each with its live session load.
 
@@ -1348,13 +1348,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.GetAgentsTargets(context.Background()).Execute()
+	resp, r, err := apiClient.AgentAPI.GetAgentTargets(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsTargets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentTargets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAgentsTargets`: TargetList
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsTargets`: %v\n", resp)
+	// response from `GetAgentTargets`: TargetList
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.GetAgentTargets`: %v\n", resp)
 }
 ```
 
@@ -1364,7 +1364,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAgentsTargetsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentTargetsRequest struct via the builder pattern
 
 
 ### Return type
@@ -1385,9 +1385,9 @@ Other parameters are passed through a pointer to a apiGetAgentsTargetsRequest st
 [[Back to README]](../README.md)
 
 
-## GetAgentsTargetsById
+## GetAgentTargetsById
 
-> TargetView GetAgentsTargetsById(ctx, id).Execute()
+> TargetView GetAgentTargetsById(ctx, id).Execute()
 
 Returns one registered machine, with its live session load.
 
@@ -1410,13 +1410,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.GetAgentsTargetsById(context.Background(), id).Execute()
+	resp, r, err := apiClient.AgentAPI.GetAgentTargetsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsTargetsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentTargetsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAgentsTargetsById`: TargetView
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsTargetsById`: %v\n", resp)
+	// response from `GetAgentTargetsById`: TargetView
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.GetAgentTargetsById`: %v\n", resp)
 }
 ```
 
@@ -1430,7 +1430,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAgentsTargetsByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentTargetsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1455,9 +1455,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PatchAgentsByRef
+## PatchAgentByRef
 
-> AgentView PatchAgentsByRef(ctx, ref).UpdateAgentIn(updateAgentIn).Execute()
+> AgentView PatchAgentByRef(ctx, ref).UpdateAgentIn(updateAgentIn).Execute()
 
 Changes an agent in place.
 
@@ -1481,13 +1481,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.PatchAgentsByRef(context.Background(), ref).UpdateAgentIn(updateAgentIn).Execute()
+	resp, r, err := apiClient.AgentAPI.PatchAgentByRef(context.Background(), ref).UpdateAgentIn(updateAgentIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PatchAgentsByRef``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PatchAgentByRef``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PatchAgentsByRef`: AgentView
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PatchAgentsByRef`: %v\n", resp)
+	// response from `PatchAgentByRef`: AgentView
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.PatchAgentByRef`: %v\n", resp)
 }
 ```
 
@@ -1501,7 +1501,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPatchAgentsByRefRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchAgentByRefRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1527,9 +1527,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PatchAgentsSessionsById
+## PatchAgentSessionsById
 
-> SessionView PatchAgentsSessionsById(ctx, id).PatchSessionIn(patchSessionIn).Execute()
+> SessionView PatchAgentSessionsById(ctx, id).PatchSessionIn(patchSessionIn).Execute()
 
 Updates a session's surface-owned truth: its status, its title, the run-target it is dispatched to, and the product it built plus whether that build's story is public.
 
@@ -1553,13 +1553,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.PatchAgentsSessionsById(context.Background(), id).PatchSessionIn(patchSessionIn).Execute()
+	resp, r, err := apiClient.AgentAPI.PatchAgentSessionsById(context.Background(), id).PatchSessionIn(patchSessionIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PatchAgentsSessionsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PatchAgentSessionsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PatchAgentsSessionsById`: SessionView
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PatchAgentsSessionsById`: %v\n", resp)
+	// response from `PatchAgentSessionsById`: SessionView
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.PatchAgentSessionsById`: %v\n", resp)
 }
 ```
 
@@ -1573,7 +1573,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPatchAgentsSessionsByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchAgentSessionsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1599,9 +1599,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PatchAgentsTargetsById
+## PatchAgentTargetsById
 
-> TargetView PatchAgentsTargetsById(ctx, id).PatchTargetIn(patchTargetIn).Execute()
+> TargetView PatchAgentTargetsById(ctx, id).PatchTargetIn(patchTargetIn).Execute()
 
 Updates one machine in place.
 
@@ -1625,13 +1625,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.PatchAgentsTargetsById(context.Background(), id).PatchTargetIn(patchTargetIn).Execute()
+	resp, r, err := apiClient.AgentAPI.PatchAgentTargetsById(context.Background(), id).PatchTargetIn(patchTargetIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PatchAgentsTargetsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PatchAgentTargetsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PatchAgentsTargetsById`: TargetView
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PatchAgentsTargetsById`: %v\n", resp)
+	// response from `PatchAgentTargetsById`: TargetView
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.PatchAgentTargetsById`: %v\n", resp)
 }
 ```
 
@@ -1645,7 +1645,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPatchAgentsTargetsByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchAgentTargetsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1671,9 +1671,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostAgents
+## PostAgent
 
-> AgentView PostAgents(ctx).CreateAgentIn(createAgentIn).Execute()
+> AgentView PostAgent(ctx).CreateAgentIn(createAgentIn).Execute()
 
 Defines an agent in the caller's org: a model, a system prompt (instructions) and a set of tool names.
 
@@ -1696,13 +1696,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.PostAgents(context.Background()).CreateAgentIn(createAgentIn).Execute()
+	resp, r, err := apiClient.AgentAPI.PostAgent(context.Background()).CreateAgentIn(createAgentIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgents``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PostAgent``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAgents`: AgentView
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgents`: %v\n", resp)
+	// response from `PostAgent`: AgentView
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.PostAgent`: %v\n", resp)
 }
 ```
 
@@ -1712,7 +1712,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostAgentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1737,9 +1737,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostAgentsByRefRun
+## PostAgentByRefRun
 
-> PostAgentsByRefRun(ctx, ref).Execute()
+> PostAgentByRefRun(ctx, ref).Execute()
 
 Run one of your org's agents and get the recorded run back.
 
@@ -1762,9 +1762,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.PostAgentsByRefRun(context.Background(), ref).Execute()
+	r, err := apiClient.AgentAPI.PostAgentByRefRun(context.Background(), ref).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsByRefRun``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PostAgentByRefRun``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1780,7 +1780,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostAgentsByRefRunRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentByRefRunRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1805,9 +1805,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostAgentsChat
+## PostAgentChat
 
-> PostAgentsChat(ctx).Execute()
+> PostAgentChat(ctx).Execute()
 
 Run one tool-calling round against your org's own tools
 
@@ -1829,9 +1829,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.PostAgentsChat(context.Background()).Execute()
+	r, err := apiClient.AgentAPI.PostAgentChat(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsChat``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PostAgentChat``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1843,7 +1843,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostAgentsChatRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentChatRequest struct via the builder pattern
 
 
 ### Return type
@@ -1864,9 +1864,9 @@ Other parameters are passed through a pointer to a apiPostAgentsChatRequest stru
 [[Back to README]](../README.md)
 
 
-## PostAgentsChatConversations
+## PostAgentChatConversations
 
-> PostAgentsChatConversations(ctx).Execute()
+> PostAgentChatConversations(ctx).Execute()
 
 Record turns in a conversation
 
@@ -1888,9 +1888,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.PostAgentsChatConversations(context.Background()).Execute()
+	r, err := apiClient.AgentAPI.PostAgentChatConversations(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsChatConversations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PostAgentChatConversations``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1902,7 +1902,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostAgentsChatConversationsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentChatConversationsRequest struct via the builder pattern
 
 
 ### Return type
@@ -1923,9 +1923,9 @@ Other parameters are passed through a pointer to a apiPostAgentsChatConversation
 [[Back to README]](../README.md)
 
 
-## PostAgentsCoding
+## PostAgentCoding
 
-> CodingStarted PostAgentsCoding(ctx).CodingStartIn(codingStartIn).Execute()
+> CodingStarted PostAgentCoding(ctx).CodingStartIn(codingStartIn).Execute()
 
 Start one autonomous coding run against a repo in the caller's org
 
@@ -1946,13 +1946,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.PostAgentsCoding(context.Background()).CodingStartIn(codingStartIn).Execute()
+	resp, r, err := apiClient.AgentAPI.PostAgentCoding(context.Background()).CodingStartIn(codingStartIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsCoding``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PostAgentCoding``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAgentsCoding`: CodingStarted
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsCoding`: %v\n", resp)
+	// response from `PostAgentCoding`: CodingStarted
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.PostAgentCoding`: %v\n", resp)
 }
 ```
 
@@ -1962,7 +1962,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostAgentsCodingRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentCodingRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1987,9 +1987,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostAgentsSessions
+## PostAgentSessions
 
-> SessionView PostAgentsSessions(ctx).RegisterReq(registerReq).Execute()
+> SessionView PostAgentSessions(ctx).RegisterReq(registerReq).Execute()
 
 Opens a live agent session in the caller's org — the row every surface (the CLI's outer agent, hanzo.bot, the console, chat) hangs its activity off.
 
@@ -2012,13 +2012,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.PostAgentsSessions(context.Background()).RegisterReq(registerReq).Execute()
+	resp, r, err := apiClient.AgentAPI.PostAgentSessions(context.Background()).RegisterReq(registerReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsSessions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PostAgentSessions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAgentsSessions`: SessionView
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsSessions`: %v\n", resp)
+	// response from `PostAgentSessions`: SessionView
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.PostAgentSessions`: %v\n", resp)
 }
 ```
 
@@ -2028,7 +2028,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostAgentsSessionsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentSessionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2053,9 +2053,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostAgentsSessionsByIdEvents
+## PostAgentSessionsByIdEvents
 
-> EventView PostAgentsSessionsByIdEvents(ctx, id).EventIn(eventIn).Execute()
+> EventView PostAgentSessionsByIdEvents(ctx, id).EventIn(eventIn).Execute()
 
 Records one turn of a session's transcript and answers 201 with it.
 
@@ -2079,13 +2079,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdEvents(context.Background(), id).EventIn(eventIn).Execute()
+	resp, r, err := apiClient.AgentAPI.PostAgentSessionsByIdEvents(context.Background(), id).EventIn(eventIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsSessionsByIdEvents``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PostAgentSessionsByIdEvents``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAgentsSessionsByIdEvents`: EventView
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsSessionsByIdEvents`: %v\n", resp)
+	// response from `PostAgentSessionsByIdEvents`: EventView
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.PostAgentSessionsByIdEvents`: %v\n", resp)
 }
 ```
 
@@ -2099,7 +2099,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostAgentsSessionsByIdEventsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentSessionsByIdEventsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2125,9 +2125,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostAgentsSessionsByIdMessage
+## PostAgentSessionsByIdMessage
 
-> ControlResult PostAgentsSessionsByIdMessage(ctx, id).ControlIn(controlIn).Execute()
+> ControlResult PostAgentSessionsByIdMessage(ctx, id).ControlIn(controlIn).Execute()
 
 Sends a steering message to a running session — the endpoint a human or another agent interrupts through.
 
@@ -2151,13 +2151,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdMessage(context.Background(), id).ControlIn(controlIn).Execute()
+	resp, r, err := apiClient.AgentAPI.PostAgentSessionsByIdMessage(context.Background(), id).ControlIn(controlIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsSessionsByIdMessage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PostAgentSessionsByIdMessage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAgentsSessionsByIdMessage`: ControlResult
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsSessionsByIdMessage`: %v\n", resp)
+	// response from `PostAgentSessionsByIdMessage`: ControlResult
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.PostAgentSessionsByIdMessage`: %v\n", resp)
 }
 ```
 
@@ -2171,7 +2171,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostAgentsSessionsByIdMessageRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentSessionsByIdMessageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2197,9 +2197,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostAgentsSessionsByIdPause
+## PostAgentSessionsByIdPause
 
-> ControlResult PostAgentsSessionsByIdPause(ctx, id).ControlIn(controlIn).Execute()
+> ControlResult PostAgentSessionsByIdPause(ctx, id).ControlIn(controlIn).Execute()
 
 Asks a running session to pause.
 
@@ -2223,13 +2223,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdPause(context.Background(), id).ControlIn(controlIn).Execute()
+	resp, r, err := apiClient.AgentAPI.PostAgentSessionsByIdPause(context.Background(), id).ControlIn(controlIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsSessionsByIdPause``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PostAgentSessionsByIdPause``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAgentsSessionsByIdPause`: ControlResult
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsSessionsByIdPause`: %v\n", resp)
+	// response from `PostAgentSessionsByIdPause`: ControlResult
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.PostAgentSessionsByIdPause`: %v\n", resp)
 }
 ```
 
@@ -2243,7 +2243,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostAgentsSessionsByIdPauseRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentSessionsByIdPauseRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2269,9 +2269,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostAgentsSessionsByIdResume
+## PostAgentSessionsByIdResume
 
-> ControlResult PostAgentsSessionsByIdResume(ctx, id).ControlIn(controlIn).Execute()
+> ControlResult PostAgentSessionsByIdResume(ctx, id).ControlIn(controlIn).Execute()
 
 Asks a paused session to continue, on the same terms as a pause.
 
@@ -2295,13 +2295,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdResume(context.Background(), id).ControlIn(controlIn).Execute()
+	resp, r, err := apiClient.AgentAPI.PostAgentSessionsByIdResume(context.Background(), id).ControlIn(controlIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsSessionsByIdResume``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PostAgentSessionsByIdResume``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAgentsSessionsByIdResume`: ControlResult
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsSessionsByIdResume`: %v\n", resp)
+	// response from `PostAgentSessionsByIdResume`: ControlResult
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.PostAgentSessionsByIdResume`: %v\n", resp)
 }
 ```
 
@@ -2315,7 +2315,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostAgentsSessionsByIdResumeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentSessionsByIdResumeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2341,9 +2341,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostAgentsSessionsByIdStop
+## PostAgentSessionsByIdStop
 
-> ControlResult PostAgentsSessionsByIdStop(ctx, id).ControlIn(controlIn).Execute()
+> ControlResult PostAgentSessionsByIdStop(ctx, id).ControlIn(controlIn).Execute()
 
 Ends a running session.
 
@@ -2367,13 +2367,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdStop(context.Background(), id).ControlIn(controlIn).Execute()
+	resp, r, err := apiClient.AgentAPI.PostAgentSessionsByIdStop(context.Background(), id).ControlIn(controlIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsSessionsByIdStop``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PostAgentSessionsByIdStop``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAgentsSessionsByIdStop`: ControlResult
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsSessionsByIdStop`: %v\n", resp)
+	// response from `PostAgentSessionsByIdStop`: ControlResult
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.PostAgentSessionsByIdStop`: %v\n", resp)
 }
 ```
 
@@ -2387,7 +2387,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostAgentsSessionsByIdStopRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentSessionsByIdStopRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2413,9 +2413,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostAgentsTargets
+## PostAgentTargets
 
-> TargetView PostAgentsTargets(ctx).TargetReq(targetReq).Execute()
+> TargetView PostAgentTargets(ctx).TargetReq(targetReq).Execute()
 
 Registers a machine as an agent target, or re-links one that is already registered.
 
@@ -2438,13 +2438,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.PostAgentsTargets(context.Background()).TargetReq(targetReq).Execute()
+	resp, r, err := apiClient.AgentAPI.PostAgentTargets(context.Background()).TargetReq(targetReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsTargets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PostAgentTargets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAgentsTargets`: TargetView
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsTargets`: %v\n", resp)
+	// response from `PostAgentTargets`: TargetView
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.PostAgentTargets`: %v\n", resp)
 }
 ```
 
@@ -2454,7 +2454,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostAgentsTargetsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentTargetsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2479,9 +2479,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostAgentsTargetsByIdClaim
+## PostAgentTargetsByIdClaim
 
-> RoutedRunOut PostAgentsTargetsByIdClaim(ctx, id).Execute()
+> RoutedRunOut PostAgentTargetsByIdClaim(ctx, id).Execute()
 
 ClaimRoutedRun is the machine's long poll for work: it authenticates the daemon, stamps the liveness the dispatch gate reads (the poll IS the proof a runner is listening), and waits up to 25 seconds for the next run addressed to THIS machine.
 
@@ -2504,13 +2504,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.PostAgentsTargetsByIdClaim(context.Background(), id).Execute()
+	resp, r, err := apiClient.AgentAPI.PostAgentTargetsByIdClaim(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsTargetsByIdClaim``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PostAgentTargetsByIdClaim``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAgentsTargetsByIdClaim`: RoutedRunOut
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsTargetsByIdClaim`: %v\n", resp)
+	// response from `PostAgentTargetsByIdClaim`: RoutedRunOut
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.PostAgentTargetsByIdClaim`: %v\n", resp)
 }
 ```
 
@@ -2524,7 +2524,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostAgentsTargetsByIdClaimRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentTargetsByIdClaimRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2549,9 +2549,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostAgentsTargetsByIdKey
+## PostAgentTargetsByIdKey
 
-> ClaimKeyOut PostAgentsTargetsByIdKey(ctx, id).Execute()
+> ClaimKeyOut PostAgentTargetsByIdKey(ctx, id).Execute()
 
 Mints (or rotates) the claim key a `hanzo code --serve` daemon presents to claim work for this machine, and returns it ONCE: only its SHA-256 hash is stored.
 
@@ -2574,13 +2574,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.PostAgentsTargetsByIdKey(context.Background(), id).Execute()
+	resp, r, err := apiClient.AgentAPI.PostAgentTargetsByIdKey(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsTargetsByIdKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PostAgentTargetsByIdKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAgentsTargetsByIdKey`: ClaimKeyOut
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsTargetsByIdKey`: %v\n", resp)
+	// response from `PostAgentTargetsByIdKey`: ClaimKeyOut
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.PostAgentTargetsByIdKey`: %v\n", resp)
 }
 ```
 
@@ -2594,7 +2594,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostAgentsTargetsByIdKeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentTargetsByIdKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2619,9 +2619,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostAgentsTargetsByIdRunsByRunidReport
+## PostAgentTargetsByIdRunsByRunidReport
 
-> ReportOut PostAgentsTargetsByIdRunsByRunidReport(ctx, id, runId).ReportRunIn(reportRunIn).Execute()
+> ReportOut PostAgentTargetsByIdRunsByRunidReport(ctx, id, runId).ReportRunIn(reportRunIn).Execute()
 
 Completes a claimed run: it delivers the terminal result to the run's durable owner, which is what lets that workflow finish.
 
@@ -2646,13 +2646,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.PostAgentsTargetsByIdRunsByRunidReport(context.Background(), id, runId).ReportRunIn(reportRunIn).Execute()
+	resp, r, err := apiClient.AgentAPI.PostAgentTargetsByIdRunsByRunidReport(context.Background(), id, runId).ReportRunIn(reportRunIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsTargetsByIdRunsByRunidReport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PostAgentTargetsByIdRunsByRunidReport``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAgentsTargetsByIdRunsByRunidReport`: ReportOut
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsTargetsByIdRunsByRunidReport`: %v\n", resp)
+	// response from `PostAgentTargetsByIdRunsByRunidReport`: ReportOut
+	fmt.Fprintf(os.Stdout, "Response from `AgentAPI.PostAgentTargetsByIdRunsByRunidReport`: %v\n", resp)
 }
 ```
 
@@ -2667,7 +2667,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostAgentsTargetsByIdRunsByRunidReportRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentTargetsByIdRunsByRunidReportRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

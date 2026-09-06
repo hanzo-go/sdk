@@ -19,15 +19,19 @@ var _ MappedNullable = &MachineView{}
 
 // MachineView struct for MachineView
 type MachineView struct {
+	// Agent is the cloud Agent this machine runs, lifted out of the binding so a list reads without following one. Empty means nothing is bound — for a kind=bot machine that means it costs money and answers nothing.
+	Agent *string `json:"agent,omitempty"`
+	// Binding is the record joining this machine to that agent, carrying vm's own reconciled status and its reason. Absent means no runtime is bound, which is also what a stopped bot looks like: stopping unbinds and leaves the machine running.
+	Binding *AgentBinding `json:"binding,omitempty"`
 	// CreatedTime is when the machine came into being: the provider's own creation timestamp for a Visor machine, passed through in whatever form it states it, and for a BYO machine the RFC 3339 moment it first dialed in.
 	CreatedTime *string `json:"createdTime,omitempty"`
 	// GPU names the accelerators this machine holds (\"H100\", or \"2× NVIDIA GB10\" for a BYO machine reporting a matched pair). Empty means the machine is not a GPU machine — the size slug does not parse as one, or nvidia-smi found nothing.
 	Gpu *string `json:"gpu,omitempty"`
-	// ID addresses this machine on the /v1/visor/machines/:id routes: the org-scoped NAME Visor keys a machine by, falling back to the provider id for a machine that has no name. A BYO machine's is the id it dialed in under.
+	// ID addresses this machine on the /v1/compute/machines/:id routes: the org-scoped NAME Visor keys a machine by, falling back to the provider id for a machine that has no name. A BYO machine's is the id it dialed in under.
 	Id *string `json:"id,omitempty"`
 	// Image is the OS image the machine booted from, as the provider names it.
 	Image *string `json:"image,omitempty"`
-	// Mem is system RAM rendered for a human (\"8 GB\"), not a number to compute with. Empty when the provider's figure is ambiguous, or when the only figure available is a GPU slug's gb — that is VRAM, and reporting it as system RAM would be a fabrication. A BYO machine's RAM is on /v1/visor/fleet/workers.
+	// Mem is system RAM rendered for a human (\"8 GB\"), not a number to compute with. Empty when the provider's figure is ambiguous, or when the only figure available is a GPU slug's gb — that is VRAM, and reporting it as system RAM would be a fabrication. A BYO machine's RAM is on /v1/compute/fleet/workers.
 	Mem *string `json:"mem,omitempty"`
 	// Name is the label to show a human — Visor's displayName, or the machine name when it carries none. A BYO machine's is its hostname. It is not an address: ID is what the routes take.
 	Name *string `json:"name,omitempty"`
@@ -45,7 +49,7 @@ type MachineView struct {
 	Status *string `json:"status,omitempty"`
 	// Type is the provider SIZE SLUG the machine runs at (\"s-2vcpu-4gb\", \"gpu-h100x8-640gb\") — the value a launch asks for, and what Vcpu/Mem/GPU are read out of when the provider states them no other way. \"byo-gpu\" for a dialed-in machine, which was never bought from a size catalog.
 	Type *string `json:"type,omitempty"`
-	// Vcpu is logical cores — the provider's own cpuSize when that is a clean integer, else the count read out of the size slug (4 from \"s-4vcpu-8gb\"). ABSENT, never 0, when neither says. A BYO machine leaves it absent here; its real core count is on GET /v1/visor/fleet/workers.
+	// Vcpu is logical cores — the provider's own cpuSize when that is a clean integer, else the count read out of the size slug (4 from \"s-4vcpu-8gb\"). ABSENT, never 0, when neither says. A BYO machine leaves it absent here; its real core count is on GET /v1/compute/fleet/workers.
 	Vcpu *int64 `json:"vcpu,omitempty"`
 }
 
@@ -64,6 +68,70 @@ func NewMachineView() *MachineView {
 func NewMachineViewWithDefaults() *MachineView {
 	this := MachineView{}
 	return &this
+}
+
+// GetAgent returns the Agent field value if set, zero value otherwise.
+func (o *MachineView) GetAgent() string {
+	if o == nil || IsNil(o.Agent) {
+		var ret string
+		return ret
+	}
+	return *o.Agent
+}
+
+// GetAgentOk returns a tuple with the Agent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MachineView) GetAgentOk() (*string, bool) {
+	if o == nil || IsNil(o.Agent) {
+		return nil, false
+	}
+	return o.Agent, true
+}
+
+// HasAgent returns a boolean if a field has been set.
+func (o *MachineView) HasAgent() bool {
+	if o != nil && !IsNil(o.Agent) {
+		return true
+	}
+
+	return false
+}
+
+// SetAgent gets a reference to the given string and assigns it to the Agent field.
+func (o *MachineView) SetAgent(v string) {
+	o.Agent = &v
+}
+
+// GetBinding returns the Binding field value if set, zero value otherwise.
+func (o *MachineView) GetBinding() AgentBinding {
+	if o == nil || IsNil(o.Binding) {
+		var ret AgentBinding
+		return ret
+	}
+	return *o.Binding
+}
+
+// GetBindingOk returns a tuple with the Binding field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MachineView) GetBindingOk() (*AgentBinding, bool) {
+	if o == nil || IsNil(o.Binding) {
+		return nil, false
+	}
+	return o.Binding, true
+}
+
+// HasBinding returns a boolean if a field has been set.
+func (o *MachineView) HasBinding() bool {
+	if o != nil && !IsNil(o.Binding) {
+		return true
+	}
+
+	return false
+}
+
+// SetBinding gets a reference to the given AgentBinding and assigns it to the Binding field.
+func (o *MachineView) SetBinding(v AgentBinding) {
+	o.Binding = &v
 }
 
 // GetCreatedTime returns the CreatedTime field value if set, zero value otherwise.
@@ -524,6 +592,12 @@ func (o MachineView) MarshalJSON() ([]byte, error) {
 
 func (o MachineView) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Agent) {
+		toSerialize["agent"] = o.Agent
+	}
+	if !IsNil(o.Binding) {
+		toSerialize["binding"] = o.Binding
+	}
 	if !IsNil(o.CreatedTime) {
 		toSerialize["createdTime"] = o.CreatedTime
 	}
