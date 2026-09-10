@@ -114,9 +114,9 @@ func (c *Client) Left(ctx context.Context) (Allowance, error) {
 	return out, nil
 }
 
-// usd is the currency cloud's ledger answers in. It is stated on every Money
-// this package builds rather than assumed by whoever reads one.
-const usd = "usd"
+// usd is the currency cloud's ledger answers in, ISO 4217. It is stated on
+// every Money this package builds rather than assumed by whoever reads one.
+const usd = "USD"
 
 // Balance answers the wallet the metered calls draw on.
 func (c *Client) Balance(ctx context.Context) (Balance, error) {

@@ -71,6 +71,9 @@ type Denied struct {
 	Reason  string
 	Product string
 	Cures   []Cure
+	// Request is the x-request-id, carried on every arm so a refusal read out
+	// of an error chain still names the row the server wrote about it.
+	Request string
 }
 
 func (d *Denied) Error() string {
@@ -88,6 +91,8 @@ type Held struct {
 	ID     string
 	Clause string
 	Reason string
+	// Request is the x-request-id, carried on every arm.
+	Request string
 }
 
 func (h *Held) Error() string {
@@ -184,7 +189,7 @@ func Ask[T any](ctx context.Context, e *Endpoint, method, path string, query url
 	if err != nil {
 		return Failed[T](request, err)
 	}
-	if held := hold(status, raw); held != nil {
+	if held := hold(status, raw, request); held != nil {
 		return Failed[T](request, held)
 	}
 	if status < 300 {
@@ -196,7 +201,7 @@ func Ask[T any](ctx context.Context, e *Endpoint, method, path string, query url
 		}
 		return Answer[T]{Request: request, value: value}
 	}
-	if denied := denial(status, raw); denied != nil {
+	if denied := denial(status, raw, request); denied != nil {
 		return Failed[T](request, denied)
 	}
 	return Failed[T](request, fault(status, raw, request))
@@ -252,7 +257,7 @@ func send(ctx context.Context, e *Endpoint, method, path string, query url.Value
 // operations answer 202 for "accepted, working on it" and carry a real schema —
 // a deployment, a preview, a build. Reading the code alone turns every one of
 // those into an approval nobody is waiting on.
-func hold(status int, raw []byte) *Held {
+func hold(status int, raw []byte, request string) *Held {
 	if status != http.StatusAccepted {
 		return nil
 	}
@@ -265,7 +270,7 @@ func hold(status int, raw []byte) *Held {
 	if json.Unmarshal(raw, &body) != nil || body.Status != "held" {
 		return nil
 	}
-	return &Held{ID: body.ID, Clause: body.Clause, Reason: body.Reason}
+	return &Held{ID: body.ID, Clause: body.Clause, Reason: body.Reason, Request: request}
 }
 
 // refusals are the 403 codes that carry a decision. Cloud spells "no validated
@@ -283,7 +288,7 @@ var refusals = map[string]bool{
 // denial reads the denied arm out of either 402 body cloud writes: the RFC 9457
 // envelope errmap renders, whose `code` is the reason, and cloud.Refuse's
 // {error, product, reason, message, cure} shape, whose `error` is.
-func denial(status int, raw []byte) *Denied {
+func denial(status int, raw []byte, request string) *Denied {
 	var body struct {
 		Code    string `json:"code"`
 		Detail  string `json:"detail"`
@@ -306,7 +311,7 @@ func denial(status int, raw []byte) *Denied {
 	if code == "" {
 		code = "payment_required"
 	}
-	return &Denied{Code: code, Reason: reason, Product: body.Product, Cures: body.Cure}
+	return &Denied{Code: code, Reason: reason, Product: body.Product, Cures: body.Cure, Request: request}
 }
 
 // faultText bounds what a body contributes to an error message. An HTML error

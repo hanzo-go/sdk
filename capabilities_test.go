@@ -103,8 +103,8 @@ func TestCapabilities(t *testing.T) {
 		call:   func(c *Client) (any, error) { return c.Budget.Balance(ctx) },
 		method: "GET", path: "/v1/billing/balance",
 		want: budget.Balance{
-			Available: call.Money{Cents: 12345, Currency: "usd"},
-			Held:      call.Money{Cents: 0, Currency: "usd"},
+			Available: call.Money{Cents: 12345, Currency: "USD"},
+			Held:      call.Money{Cents: 0, Currency: "USD"},
 			Account:   "acme",
 		},
 	}, {
@@ -123,7 +123,7 @@ func TestCapabilities(t *testing.T) {
 		query: "product=inference&start=2026-09-10T12%3A00%3A00Z",
 		want: call.Page[budget.Charge]{
 			Total: 1,
-			Items: []budget.Charge{{ID: "tx_1", At: at, Model: "zen-1", Amount: call.Money{Cents: 42, Currency: "usd"}}},
+			Items: []budget.Charge{{ID: "tx_1", At: at, Model: "zen-1", Amount: call.Money{Cents: 42, Currency: "USD"}}},
 		},
 	}, {
 		// The arguments read as the sentence does; the body goes out in the
@@ -212,7 +212,7 @@ func TestCapabilities(t *testing.T) {
 		call:   func(c *Client) (any, error) { return c.KB.Links(ctx) },
 		method: "GET", path: "/v1/knowledge/graph",
 		want: kb.Links{
-			Nodes:   []kb.Node{{ID: "kb.page:runbook", Name: "runbook", Title: "Runbook", Type: "kb.page"}},
+			Nodes:   []kb.Node{{ID: "kb.page:runbook", Name: "runbook", Title: "Runbook", Kind: "kb.page"}},
 			Edges:   []kb.Edge{{From: "kb.page:runbook", To: "kb.page:index", Kind: "parent"}},
 			Partial: true,
 		},

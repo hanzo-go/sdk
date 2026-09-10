@@ -41,7 +41,7 @@ type Fact struct {
 	// assertion an edge. A walk reads only edges, so this is a decision, not a
 	// hint.
 	Names bool      `json:"names,omitempty"`
-	At    time.Time `json:"at"`
+	At    time.Time `json:"at,omitzero"`
 	Seen  time.Time `json:"seen,omitzero"`
 	// Source names who asserted. An assertion nobody is named for cannot be
 	// weighed against another.
@@ -134,7 +134,7 @@ type Source struct {
 	// Subject is the entity the text is about before any heading names one.
 	Subject string    `json:"subject"`
 	Text    string    `json:"text"`
-	At      time.Time `json:"at"`
+	At      time.Time `json:"at,omitzero"`
 }
 
 // Filter narrows a read by key.
@@ -173,7 +173,7 @@ type Opts struct {
 func (c *Client) Assert(ctx context.Context, facts []Fact) call.Answer[Wrote] {
 	in := struct {
 		Assertions []Fact `json:"assertions"`
-	}{facts}
+	}{asserted(facts)}
 
 	answer := call.Ask[Wrote](ctx, c.e, "POST", "/v1/graph", nil, in)
 	wrote, err := answer.Value()
@@ -264,6 +264,19 @@ func (c *Client) Vocabulary(ctx context.Context) (Vocabulary, error) {
 	var out Vocabulary
 	_, err := call.Do(ctx, c.e, "GET", "/v1/graph/vocabulary", nil, nil, &out)
 	return out, err
+}
+
+// asserted is the batch as an asserter states it. ID, By and Knowable are the
+// server's — it mints the content address, stamps the filer and derives when
+// the row became knowable — so a fact read back and asserted again sends the
+// nine members the route declares and none of the three it does not.
+func asserted(facts []Fact) []Fact {
+	out := make([]Fact, len(facts))
+	for i, fact := range facts {
+		fact.ID, fact.By, fact.Knowable = "", "", time.Time{}
+		out[i] = fact
+	}
+	return out
 }
 
 // assertions is the one decode both reads share: the two routes answer the same

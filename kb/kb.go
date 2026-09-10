@@ -124,10 +124,13 @@ type Links struct {
 
 // Node is one document, connector or unresolved link target.
 type Node struct {
-	ID      string `json:"id"`
-	Name    string `json:"name"`
-	Title   string `json:"title"`
-	Type    string `json:"type"`
+	ID    string `json:"id"`
+	Name  string `json:"name"`
+	Title string `json:"title"`
+	// Kind is what the node is: kb.page, kb.memory, kb.source, kb.connector or
+	// unresolved. The route spells it `type`; `kind` is the word this client
+	// uses for what a thing is, everywhere.
+	Kind    string `json:"type"`
 	Project string `json:"project"`
 }
 

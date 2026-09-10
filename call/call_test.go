@@ -70,7 +70,7 @@ func TestArms(t *testing.T) {
 			if !errors.As(err, &held) {
 				t.Fatalf("err = %v (%T), want *Held", err, err)
 			}
-			want := &Held{ID: "apr_1", Clause: "spend.large", Reason: "over the cap"}
+			want := &Held{ID: "apr_1", Clause: "spend.large", Reason: "over the cap", Request: "req-1"}
 			if !reflect.DeepEqual(held, want) {
 				t.Errorf("held = %+v, want %+v", held, want)
 			}
@@ -87,6 +87,9 @@ func TestArms(t *testing.T) {
 			}
 			if denied.Code != "spend_cap_exceeded" || denied.Reason != "Spend cap reached" {
 				t.Errorf("denied = %+v", denied)
+			}
+			if denied.Request != "req-1" {
+				t.Errorf("denied request = %q, want req-1 — every arm names the row", denied.Request)
 			}
 		},
 	}, {
