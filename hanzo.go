@@ -100,9 +100,9 @@ type Client struct {
 // is calling — which is the question every refusal in the estate exists to
 // answer.
 //
-// With no credentials it still calls: the operations that take none answer, and
-// everything else refuses, which is the truth about a client that cannot say
-// who it is.
+// Construction never fails on a missing credential; the first call does, and
+// says which environment variable is unset. There is nothing to exchange
+// without one, so nothing is sent.
 func New(o Options) *Client {
 	o = filled(o)
 	who := &identity{

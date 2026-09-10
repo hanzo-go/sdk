@@ -16,7 +16,9 @@ package kb
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"io"
+	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
@@ -43,8 +45,10 @@ const (
 type Doc struct {
 	// Kind is page, memory or source.
 	Kind string
-	// Name is the document's id within its kind. A page is named by its slug,
-	// so a page needs one; a memory and a source are named by the store.
+	// Name is the document's id within its kind. A page IS its name: the
+	// doctype is autonamed from the slug field, so writing a page names it. A
+	// memory and a source are named by the store and the name is what a later
+	// read or write addresses them by.
 	Name    string
 	Title   string
 	Body    string
@@ -53,10 +57,13 @@ type Doc struct {
 	URL string
 }
 
-// Filter narrows a listing.
+// Filter narrows a listing. The route pages by Limit alone — it publishes no
+// count and takes no page number — so these three are the whole of it.
 type Filter struct {
 	Project string
-	Limit   int
+	// Order is "<field> [asc|desc]". Empty is most-recently-updated first.
+	Order string
+	Limit int
 }
 
 // Connector is one provider and this org's connection to it.
@@ -83,16 +90,6 @@ type Link struct{ URL string }
 type Sync struct {
 	Provider string `json:"provider"`
 	Ingested int    `json:"ingested"`
-}
-
-// Export is an archive to import: an Obsidian or Notion vault zip, a Roam JSON,
-// an Evernote .enex.
-type Export struct {
-	// Format is obsidian, notion, roam or evernote. It picks the normalizer.
-	Format string
-	// Project narrows every imported page to one scope.
-	Project string
-	Body    io.Reader
 }
 
 // Import is what an export actually filed — what landed, never what was sent.
@@ -143,14 +140,32 @@ type Edge struct {
 
 // Put writes a document.
 //
-// A doc carrying a Name is written AT that name and replaces what stands there;
-// a doc without one is created and the store names it. A page is named by its
-// slug, so a page needs a Name.
+// A name that already stands is replaced; a name that does not is created. The
+// store decides which: the PUT goes out first and a 404 is the answer that the
+// document is not there yet, so the create follows. That is one round trip on a
+// revision — the common case for a corpus — and two on a first write.
+//
+// It cannot be decided from the name alone. A page IS its slug (the doctype is
+// autonamed from the field), so a page being created carries a name exactly as
+// a page being revised does; reading a present name as "it exists" would leave
+// no way to create one at all. A memory and a source are named by the store, so
+// they are created with no name and revised by the name it gave.
 func (c *Client) Put(ctx context.Context, doc Doc) call.Answer[Doc] {
-	if doc.Name == "" {
-		return call.Ask[Doc](ctx, c.e, "POST", doctype(doc.Kind), nil, doc)
+	if doc.Name != "" {
+		replaced := call.Ask[Doc](ctx, c.e, "PUT", doctype(doc.Kind)+"/"+url.PathEscape(doc.Name), nil, doc)
+		if !absent(replaced) {
+			return replaced
+		}
 	}
-	return call.Ask[Doc](ctx, c.e, "PUT", doctype(doc.Kind)+"/"+url.PathEscape(doc.Name), nil, doc)
+	return call.Ask[Doc](ctx, c.e, "POST", doctype(doc.Kind), nil, doc)
+}
+
+// absent answers whether the write failed because nothing stands at that name.
+// Every other outcome — a refusal, a hold, any other fault — is the answer.
+func absent(a call.Answer[Doc]) bool {
+	_, err := a.Value()
+	var fault *call.Fault
+	return errors.As(err, &fault) && fault.Status == http.StatusNotFound
 }
 
 // Get reads one document by kind and name.
@@ -170,6 +185,9 @@ func (c *Client) List(ctx context.Context, kind string, f Filter) (call.Page[Doc
 			return call.Page[Doc]{}, err
 		}
 		query.Set("filters", string(narrow))
+	}
+	if f.Order != "" {
+		query.Set("order_by", f.Order)
 	}
 	if f.Limit > 0 {
 		query.Set("limit", strconv.Itoa(f.Limit))
@@ -192,12 +210,17 @@ func (c *Client) Drop(ctx context.Context, kind, name string) call.Answer[struct
 }
 
 // Import files an export as a tree of pages with its link structure intact.
-func (c *Client) Import(ctx context.Context, export Export) call.Answer[Import] {
-	query := url.Values{"format": {export.Format}}
-	if export.Project != "" {
-		query.Set("project", export.Project)
+//
+// format is obsidian, notion, roam or evernote and picks the normalizer. data
+// is the export itself — a vault zip, a Roam JSON, an Evernote .enex — sent as
+// the request body. project narrows every imported page to one scope; empty
+// files them at the org.
+func (c *Client) Import(ctx context.Context, format string, data io.Reader, project string) call.Answer[Import] {
+	query := url.Values{"format": {format}}
+	if project != "" {
+		query.Set("project", project)
 	}
-	return call.Ask[Import](ctx, c.e, "POST", "/v1/knowledge/import", query, export.Body)
+	return call.Ask[Import](ctx, c.e, "POST", "/v1/knowledge/import", query, data)
 }
 
 // Reindex rebuilds the org's retrieval indexes over what it already holds.
@@ -255,10 +278,15 @@ func (c *Client) Revoke(ctx context.Context, provider string) call.Answer[struct
 	return call.Ask[struct{}](ctx, c.e, "DELETE", "/v1/knowledge/connectors/"+url.PathEscape(provider), nil, nil)
 }
 
-// Links reads the corpus's own graph of documents.
-func (c *Client) Links(ctx context.Context) (Links, error) {
+// Links reads the corpus's own graph of documents. An empty project reads the
+// whole org.
+func (c *Client) Links(ctx context.Context, project string) (Links, error) {
+	query := url.Values{}
+	if project != "" {
+		query.Set("project", project)
+	}
 	var links Links
-	_, err := call.Do(ctx, c.e, "GET", "/v1/knowledge/graph", nil, nil, &links)
+	_, err := call.Do(ctx, c.e, "GET", "/v1/knowledge/graph", query, nil, &links)
 	return links, err
 }
 
@@ -273,33 +301,54 @@ func (c *Client) Install(ctx context.Context) call.Answer[struct{}] {
 
 // doctype is the address of one kind. The kb module owns three doctypes and
 // this is the only place their spelling appears.
-func doctype(kind string) string { return "/v1/framework/kb." + kind }
+func doctype(kind string) string { return "/v1/framework/" + Doctype(kind) }
 
-// MarshalJSON writes a document as the kind's own doctype declares it: a page
-// keeps its text in `body` and its name in `slug`, a memory keeps it in
-// `content`, a source carries `url` beside `body`.
+// Doctype is the doctype a kind is stored under: page is kb.page. A caller who
+// already wrote the address keeps it, so this is safe to apply twice.
+//
+// It is exported because search filters and reports the same vocabulary and
+// this is where the vocabulary lives. A knowledge kind is one word — page,
+// memory, source — everywhere a caller says one.
+func Doctype(kind string) string {
+	if strings.Contains(kind, ".") {
+		return kind
+	}
+	return "kb." + kind
+}
+
+// Kind is the inverse: kb.page is page. A doctype from another corpus — a
+// lexical row carries its own — has no kb prefix and passes through unchanged.
+func Kind(doctype string) string { return strings.TrimPrefix(doctype, "kb.") }
+
+// MarshalJSON writes a document as the kind's own doctype declares it, and
+// writes nothing else: the body of a framework write is the document's field
+// data, and a member no doctype declares is dropped before the store sees it.
+//
+// A page keeps its text in `body` and IS its slug — the doctype is autonamed
+// from that field, which is why the name rides as `slug` and not as a name. A
+// memory keeps its text in `content`. Only a source declares a `url`.
+//
+// A field the caller left empty is left out. The doctype's own required fields
+// then refuse the write and say which one is missing, which is a better answer
+// than an empty string the store would have dropped anyway.
 func (d Doc) MarshalJSON() ([]byte, error) {
 	out := map[string]any{}
-	if d.Name != "" {
-		out["name"] = d.Name
+	set := func(field, value string) {
+		if value != "" {
+			out[field] = value
+		}
 	}
-	if d.Title != "" {
-		out["title"] = d.Title
-	}
-	if d.Project != "" {
-		out["project"] = d.Project
-	}
+	set("title", d.Title)
+	set("project", d.Project)
 	switch d.Kind {
 	case Memory:
-		out["content"] = d.Body
+		set("content", d.Body)
 	case Source:
-		out["body"] = d.Body
-		if d.URL != "" {
-			out["url"] = d.URL
-		}
+		set("body", d.Body)
+		set("url", d.URL)
 	default:
-		out["body"] = d.Body
-		out["slug"] = d.Name
+		set("body", d.Body)
+		set("slug", d.Name)
 	}
 	return json.Marshal(out)
 }
@@ -324,7 +373,7 @@ func (d *Doc) UnmarshalJSON(raw []byte) error {
 		body = wire.Content
 	}
 	*d = Doc{
-		Kind:    kindOf(wire.Doctype),
+		Kind:    Kind(wire.Doctype),
 		Name:    wire.Name,
 		Title:   wire.Title,
 		Body:    body,
@@ -333,6 +382,3 @@ func (d *Doc) UnmarshalJSON(raw []byte) error {
 	}
 	return nil
 }
-
-// kindOf takes the kind out of a doctype address: kb.page is page.
-func kindOf(doctype string) string { return strings.TrimPrefix(doctype, "kb.") }

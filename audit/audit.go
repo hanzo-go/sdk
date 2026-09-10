@@ -89,10 +89,10 @@ const pageSize = 100
 
 // List answers one page of the trail.
 //
-// Total is how many rows the filter matched across every page — except under a
-// Request filter, which the server does not apply: there Total counts what this
-// page held after the match, because a server total for a different filter is a
-// number about a different question.
+// Total is the server's own count for the filter the server applied. Under a
+// Request filter, which the route does not accept, Items are this page's
+// matches and Total still counts what the server was asked: a count the SDK
+// substituted would be a number nobody made.
 func (c *Client) List(ctx context.Context, f Filter) (call.Page[Event], error) {
 	var wire struct {
 		Data []struct {
@@ -133,9 +133,6 @@ func (c *Client) List(ctx context.Context, f Filter) (call.Page[Event], error) {
 			Agent: row.UserAgent, At: row.Time,
 		})
 	}
-	if f.Request != "" {
-		page.Total = int64(len(page.Items))
-	}
 	return page, nil
 }
 
@@ -144,18 +141,20 @@ func (c *Client) List(ctx context.Context, f Filter) (call.Page[Event], error) {
 // It asks for page 1 at the caller's size and stops when a page comes back
 // empty or the running count reaches the total. A read that fails yields its
 // error once and ends.
+//
+// The walk asks for the pages UNFILTERED by Request and matches here, so what
+// it counts against the total is what the server sent. Counting the survivors
+// of a narrowing the server never made would end the walk early or not at all.
 func (c *Client) All(ctx context.Context, f Filter) iter.Seq2[Event, error] {
 	return func(yield func(Event, error) bool) {
+		want := f.Request
+		f.Request = ""
 		if f.Size <= 0 {
 			f.Size = pageSize
 		}
 		if f.Page <= 0 {
 			f.Page = 1
 		}
-		// The total ends the walk where there is one to trust. A Request
-		// filter drops rows here, so the server's total counts a different
-		// question; a total of zero beside rows is a listing that published
-		// none. Both fall back to the empty page, which always ends it.
 		var seen int64
 		for {
 			page, err := c.List(ctx, f)
@@ -167,12 +166,17 @@ func (c *Client) All(ctx context.Context, f Filter) iter.Seq2[Event, error] {
 				return
 			}
 			for _, event := range page.Items {
+				if want != "" && event.Request != want {
+					continue
+				}
 				if !yield(event, nil) {
 					return
 				}
 			}
 			seen += int64(len(page.Items))
-			if f.Request == "" && page.Total > 0 && seen >= page.Total {
+			// A total of zero beside rows is a listing that published none, and
+			// falls back to the empty page, which always ends the walk.
+			if page.Total > 0 && seen >= page.Total {
 				return
 			}
 			f.Page++

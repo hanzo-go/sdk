@@ -2,11 +2,14 @@
 //
 // Asking is a question with an answer, so [Client.Check] hands back a
 // [Decision] carrying a boolean. Being stopped mid-call is the other half of
-// the same vocabulary: that arrives as call.Denied with code "policy_denied",
-// or as call.Held naming the clause a person was asked about. One clause
-// vocabulary across the pre-check, the hold and the denial — otherwise a caller
-// cannot tell which of its own checks it should have run, and the pre-check is
-// decoration.
+// the same vocabulary: that arrives as call.Held naming the clause a person was
+// asked about. One clause vocabulary across the pre-check, the hold and the
+// denial — otherwise a caller cannot tell which of its own checks it should
+// have run, and the pre-check is decoration.
+//
+// A policy refusal has no code of its own in cloud today, so a call a policy
+// stops mid-flight arrives with whatever code the response carried and this
+// package invents none.
 package policy
 
 import (

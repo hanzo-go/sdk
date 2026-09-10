@@ -51,7 +51,7 @@ func main() {
 		log.Fatalf("balance: %v", err)
 	}
 	fmt.Printf("wallet   %d %s available in %s\n",
-		balance.Available.Cents, balance.Available.Currency, balance.Account)
+		balance.Available.Minor, balance.Available.Currency, balance.Account)
 
 	// POLICY — may this subject write here? The object is org-scoped and the
 	// org is not something a client may assert, so it is read off the wallet
@@ -68,7 +68,7 @@ func main() {
 	// SEARCH — one ranked set over the whole corpus, kb included. Partial is
 	// the field that says a leg was down; an answer that ignores it reads a
 	// truncated corpus as a complete one.
-	answer := client.Search.Find(ctx, "runbook", search.Opts{Kinds: []string{"kb." + kb.Page}, Limit: 5})
+	answer := client.Search.Find(ctx, "runbook", search.Opts{Kinds: []string{kb.Page}, Limit: 5})
 	hits, err := answer.Value()
 	var denied *hanzoai.Denied
 	switch {

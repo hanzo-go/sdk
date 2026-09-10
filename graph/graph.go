@@ -121,8 +121,9 @@ type Triple struct {
 // that decides a conflict between two of them.
 type Vocabulary struct {
 	Relations []string `json:"relations"`
-	// Rule names the terms of the precedence order, in the order they apply.
-	Rule []string `json:"rule"`
+	// Rules names the terms of the precedence order, in the order they apply.
+	// The wire member is `rule`; this is plural because it is a list.
+	Rules []string `json:"rule"`
 	// Bound is the ceiling on one walk.
 	Bound int `json:"bound"`
 }

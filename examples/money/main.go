@@ -32,8 +32,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("balance: %v", err)
 	}
-	fmt.Printf("wallet   %s available, %s held, in %s\n",
-		cents(balance.Available), cents(balance.Held), balance.Account)
+	fmt.Printf("wallet   %s available, %s reserved, in %s\n",
+		usd(balance.Available), usd(balance.Reserved), balance.Account)
 
 	// The free-call allowance is a COUNT and the wallet is a SUM. They never
 	// stand in for each other: a funded org can still be out of free calls.
@@ -55,12 +55,14 @@ func main() {
 	fmt.Printf("charges  %d\n", spent.Total)
 	for _, charge := range spent.Items {
 		fmt.Printf("  %s  %-28s %s\n",
-			charge.At.Format("2006-01-02 15:04"), charge.Model, cents(charge.Amount))
+			charge.At.Format("2006-01-02 15:04"), charge.Model, usd(charge.Amount))
 	}
 }
 
-// cents renders integer minor units. Money is never a float, so the decimal
-// point is put back only to print it.
-func cents(m hanzoai.Money) string {
-	return fmt.Sprintf("%d.%02d %s", m.Cents/100, m.Cents%100, m.Currency)
+// usd renders a USD amount. Money counts the currency's minor units and is
+// never a float, so the decimal point is put back only to print it — and only
+// for a currency whose minor unit is a hundredth, which is why this reads the
+// currency rather than assuming one.
+func usd(m hanzoai.Money) string {
+	return fmt.Sprintf("%d.%02d %s", m.Minor/100, m.Minor%100, m.Currency)
 }

@@ -37,10 +37,12 @@ type Endpoint struct {
 	HTTP *http.Client
 }
 
-// Money is an amount in integer minor units. Money is never a float: a cent
-// that rounds is money that disappears.
+// Money is an amount in the currency's minor units, as ISO 4217 defines them:
+// hundredths for USD, whole yen for JPY, thousandths for KWD. Not "cents",
+// which is false for two of those three. Money is never a float: a unit that
+// rounds is money that disappears.
 type Money struct {
-	Cents    int64  `json:"cents"`
+	Minor    int64  `json:"minor"`
 	Currency string `json:"currency"`
 }
 
@@ -278,9 +280,11 @@ func hold(status int, raw []byte, request string) *Held {
 // and not a refusal of one — reading it as denied would tell an unauthenticated
 // caller their budget said no. The day cloud answers 401 for that, this set
 // goes and the rule collapses to 402 or 403 means denied.
+//
+// These are the two codes cloud emits on a 403 it means as a refusal. There is
+// no third: a policy refusal has no code of its own yet, and a code invented
+// here would be one no server sends.
 var refusals = map[string]bool{
-	"policy_denied":        true,
-	"entitlement_required": true,
 	"spend_cap_exceeded":   true,
 	"insufficient_balance": true,
 }
@@ -308,9 +312,9 @@ func denial(status int, raw []byte, request string) *Denied {
 	if status != http.StatusPaymentRequired && !(status == http.StatusForbidden && refusals[code]) {
 		return nil
 	}
-	if code == "" {
-		code = "payment_required"
-	}
+	// A body that named no code leaves Code empty. Substituting the status's own
+	// word would make "the spend gate refused" — which really does answer
+	// payment_required — indistinguishable from "the body would not parse".
 	return &Denied{Code: code, Reason: reason, Product: body.Product, Cures: body.Cure, Request: request}
 }
 

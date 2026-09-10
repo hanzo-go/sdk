@@ -151,24 +151,31 @@ func TestClientMintsFromItsOwnCredentials(t *testing.T) {
 	}
 }
 
-// A client holding no credentials presents nothing rather than failing. The
-// operations that take none still answer.
-func TestClientWithoutCredentialsPresentsNothing(t *testing.T) {
+// A client holding no credentials builds, and says so at the first call rather
+// than at construction. Nothing goes to IAM, because there is nothing to
+// exchange, and nothing goes to the gateway, because an unsigned call comes
+// back a bare 403 that reads as a refusal of the caller rather than the absence
+// of one.
+func TestClientWithoutCredentialsFailsAtTheFirstCall(t *testing.T) {
 	t.Setenv("HANZO_CLIENT_ID", "")
 	t.Setenv("HANZO_CLIENT_SECRET", "")
 	e := newEstate(t, mints{})
 
 	client := New(Options{Base: e.srv.URL, Issuer: e.srv.URL})
-	if err := keys(client); err != nil {
-		t.Fatalf("keys: %v", err)
+	err := keys(client)
+	if err == nil {
+		t.Fatal("keys succeeded with no credential")
+	}
+	if !strings.Contains(err.Error(), "HANZO_CLIENT_ID") {
+		t.Errorf("err = %v, want it to name the environment variable", err)
 	}
 	if got := e.oauth.Load(); got != 0 {
 		t.Errorf("exchanges = %d, want 0 — there was nothing to exchange", got)
 	}
 	e.mu.Lock()
 	defer e.mu.Unlock()
-	if len(e.bearers[0]) != 0 {
-		t.Errorf("Authorization = %q, want none", e.bearers[0])
+	if len(e.bearers) != 0 {
+		t.Errorf("the gateway saw %d requests, want 0", len(e.bearers))
 	}
 }
 

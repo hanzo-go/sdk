@@ -93,7 +93,10 @@ func TestArms(t *testing.T) {
 			}
 		},
 	}, {
-		name:   "402 with no readable body is still a denial",
+		// The status alone says money refused it. The code stays EMPTY: cloud
+		// really does answer payment_required, so writing that word here would
+		// make its refusal and an unreadable body the same value.
+		name:   "402 with no readable body is a denial with no code",
 		status: 402,
 		answer: `not json`,
 		check: func(t *testing.T, a Answer[map[string]any]) {
@@ -102,24 +105,32 @@ func TestArms(t *testing.T) {
 			if !errors.As(err, &denied) {
 				t.Fatalf("err = %v (%T), want *Denied", err, err)
 			}
-			if denied.Code != "payment_required" {
-				t.Errorf("code = %q, want payment_required", denied.Code)
+			if denied.Code != "" {
+				t.Errorf("code = %q, want empty — nothing said one", denied.Code)
 			}
 		},
 	}, {
 		name:   "403 with a refusal code is a denial",
 		status: 403,
-		answer: `{"detail":"the plan does not include graph","code":"entitlement_required"}`,
+		answer: `{"detail":"Spend cap reached","code":"spend_cap_exceeded"}`,
 		check: func(t *testing.T, a Answer[map[string]any]) {
 			_, err := a.Value()
 			var denied *Denied
 			if !errors.As(err, &denied) {
 				t.Fatalf("err = %v (%T), want *Denied", err, err)
 			}
-			if denied.Code != "entitlement_required" {
+			if denied.Code != "spend_cap_exceeded" {
 				t.Errorf("code = %q", denied.Code)
 			}
 		},
+	}, {
+		// insufficient_balance and spend_cap_exceeded are the two codes cloud
+		// emits on a 403 it means as a refusal. A code no server sends is a
+		// code nothing decided by.
+		name:   "403 with a code cloud does not emit is a fault",
+		status: 403,
+		answer: `{"detail":"the plan does not include graph","code":"entitlement_required"}`,
+		check:  wantFault(403, "the plan does not include graph"),
 	}, {
 		// Cloud spells "no validated principal" as 403 forbidden. Reading it as
 		// a denial would tell an unauthenticated caller their budget said no.

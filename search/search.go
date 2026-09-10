@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/hanzoai/go-sdk/v8/call"
+	"github.com/hanzoai/go-sdk/v8/kb"
 )
 
 // Client searches the caller's own org.
@@ -29,7 +30,10 @@ type Opts struct {
 	Mode string
 	// Project narrows to one project scope within the org.
 	Project string
-	// Kinds restricts retrieval to a subset of the indexed knowledge kinds.
+	// Kinds restricts retrieval to a subset of the indexed knowledge kinds:
+	// page, memory, source — the same word kb.Doc.Kind takes. The route filters
+	// on the doctype address and silently ignores anything that is not one, so
+	// the mapping happens here rather than in a caller's head.
 	Kinds []string
 	// Index names the lexical index to query.
 	Index string
@@ -57,7 +61,9 @@ type Hit struct {
 	// ID is the document's identity inside its corpus.
 	ID     string
 	Corpus string
-	// Kind is the knowledge kind that matched: kb.page, kb.memory, kb.source.
+	// Kind is the knowledge kind that matched: page, memory or source, the same
+	// word kb.Doc.Kind takes. A hit out of another corpus carries that corpus's
+	// own type and keeps it.
 	Kind    string
 	Title   string
 	URL     string
@@ -107,9 +113,23 @@ func (c *Client) Find(ctx context.Context, query string, o Opts) call.Answer[Hit
 		Index    string   `json:"index,omitempty"`
 		Limit    int      `json:"limit,omitempty"`
 		Offset   int      `json:"offset,omitempty"`
-	}{query, o.Mode, o.Project, o.Kinds, o.Index, o.Limit, o.Offset}
+	}{query, o.Mode, o.Project, doctypes(o.Kinds), o.Index, o.Limit, o.Offset}
 
 	return call.Ask[Hits](ctx, c.e, "POST", "/v1/search", nil, in)
+}
+
+// doctypes addresses the kinds a caller named. The route matches the doctype
+// address exactly and drops anything else, so a query narrowed to "page" would
+// come back narrowed to nothing at all.
+func doctypes(kinds []string) []string {
+	if len(kinds) == 0 {
+		return nil
+	}
+	out := make([]string, len(kinds))
+	for i, kind := range kinds {
+		out[i] = kb.Doctype(kind)
+	}
+	return out
 }
 
 // UnmarshalJSON reads the fusion answer. The wire spells the result set `hits`
@@ -151,7 +171,7 @@ func (h *Hits) UnmarshalJSON(raw []byte) error {
 	}
 	for _, hit := range wire.Hits {
 		h.Items = append(h.Items, Hit{
-			ID: hit.ID, Corpus: hit.Corpus, Kind: hit.Doctype, Title: hit.Title,
+			ID: hit.ID, Corpus: hit.Corpus, Kind: kb.Kind(hit.Doctype), Title: hit.Title,
 			URL: hit.URL, Project: hit.Project, Score: hit.Score, Matched: hit.Matched,
 		})
 	}

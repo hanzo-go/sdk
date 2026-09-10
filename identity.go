@@ -94,14 +94,18 @@ type identity struct {
 	held
 }
 
+// missing is what a client with no credentials answers, at the first call
+// rather than at construction. There is nothing to exchange, so no request goes
+// to IAM and none goes to the gateway: an unsigned call would come back a bare
+// 403, which reads as "your org may not do that" rather than "this process
+// never said who it is".
+var missing = errors.New(
+	"hanzoai: no IAM client credentials: pass ID and Secret, or set HANZO_CLIENT_ID and HANZO_CLIENT_SECRET")
+
 // RoundTrip presents a live token on every request.
-//
-// A client holding no credentials presents nothing rather than failing: the
-// operations that take none still answer, and a refusal from the rest is the
-// truth about a caller that cannot say who it is.
 func (i *identity) RoundTrip(req *http.Request) (*http.Response, error) {
 	if i.id == "" || i.secret == "" {
-		return i.next.RoundTrip(req)
+		return nil, missing
 	}
 	return signed(req, i.next, i.token)
 }

@@ -53,8 +53,10 @@ type Allowance struct {
 type Balance struct {
 	// Available is what can still be spent.
 	Available call.Money
-	// Held is what a reservation has claimed and not yet posted.
-	Held call.Money
+	// Reserved is what a reservation has claimed and not yet posted. The wire
+	// spells it `holds`; the SDK renames it because `held` is an arm of an
+	// answer, and one word for two facts is what the naming rule prevents.
+	Reserved call.Money
 	// Account is the wallet key the ledger resolved for this caller — the org's
 	// shared pool, or a personal account. It is echoed rather than guessed: a
 	// guess that disagrees with the server is how money lands in an account the
@@ -132,8 +134,8 @@ func (c *Client) Balance(ctx context.Context) (Balance, error) {
 		return Balance{}, err
 	}
 	return Balance{
-		Available: call.Money{Cents: wire.Available, Currency: usd},
-		Held:      call.Money{Cents: wire.Holds, Currency: usd},
+		Available: call.Money{Minor: wire.Available, Currency: usd},
+		Reserved:  call.Money{Minor: wire.Holds, Currency: usd},
 		Account:   wire.Account,
 	}, nil
 }
@@ -186,7 +188,7 @@ func (c *Client) Spent(ctx context.Context, f Filter) (call.Page[Charge], error)
 			ID:     row.ID,
 			At:     row.CreatedAt,
 			Model:  model,
-			Amount: call.Money{Cents: row.Amount, Currency: usd},
+			Amount: call.Money{Minor: row.Amount, Currency: usd},
 		})
 	}
 	return page, nil

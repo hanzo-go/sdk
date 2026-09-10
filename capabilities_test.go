@@ -103,8 +103,8 @@ func TestCapabilities(t *testing.T) {
 		call:   func(c *Client) (any, error) { return c.Budget.Balance(ctx) },
 		method: "GET", path: "/v1/billing/balance",
 		want: budget.Balance{
-			Available: call.Money{Cents: 12345, Currency: "USD"},
-			Held:      call.Money{Cents: 0, Currency: "USD"},
+			Available: call.Money{Minor: 12345, Currency: "USD"},
+			Reserved:  call.Money{Minor: 0, Currency: "USD"},
 			Account:   "acme",
 		},
 	}, {
@@ -123,7 +123,7 @@ func TestCapabilities(t *testing.T) {
 		query: "product=inference&start=2026-09-10T12%3A00%3A00Z",
 		want: call.Page[budget.Charge]{
 			Total: 1,
-			Items: []budget.Charge{{ID: "tx_1", At: at, Model: "zen-1", Amount: call.Money{Cents: 42, Currency: "USD"}}},
+			Items: []budget.Charge{{ID: "tx_1", At: at, Model: "zen-1", Amount: call.Money{Minor: 42, Currency: "USD"}}},
 		},
 	}, {
 		// The arguments read as the sentence does; the body goes out in the
@@ -154,14 +154,14 @@ func TestCapabilities(t *testing.T) {
 		name:   "search.find",
 		answer: `{"status":"partial","mode":"hybrid","took_ms":42,"hits":[{"id":"kb.page/runbook","corpus":"kb","doctype":"kb.page","title":"Runbook","url":"/kb/runbook","project":"ops","score":0.031,"matched":[{"backend":"index","rank":1,"score":8.2}]}],"backends":[{"name":"vector","status":"degraded","hits":0,"took_ms":5,"error":"collection cold"}]}`,
 		call: func(c *Client) (any, error) {
-			return value(c.Search.Find(ctx, "runbook", search.Opts{Mode: "hybrid", Kinds: []string{"kb.page"}, Limit: 5}))
+			return value(c.Search.Find(ctx, "runbook", search.Opts{Mode: "hybrid", Kinds: []string{kb.Page}, Limit: 5}))
 		},
 		method: "POST", path: "/v1/search",
 		body: `{"query":"runbook","mode":"hybrid","doctypes":["kb.page"],"limit":5}`,
 		want: search.Hits{
 			Status: "partial", Partial: true, Mode: "hybrid", Took: 42 * time.Millisecond,
 			Items: []search.Hit{{
-				ID: "kb.page/runbook", Corpus: "kb", Kind: "kb.page", Title: "Runbook",
+				ID: "kb.page/runbook", Corpus: "kb", Kind: "page", Title: "Runbook",
 				URL: "/kb/runbook", Project: "ops", Score: 0.031,
 				Matched: []search.Match{{Backend: "index", Rank: 1, Score: 8.2}},
 			}},
@@ -185,7 +185,7 @@ func TestCapabilities(t *testing.T) {
 			return value(c.KB.Put(ctx, kb.Doc{Kind: kb.Page, Name: "runbook", Title: "Runbook", Body: "the text"}))
 		},
 		method: "PUT", path: "/v1/framework/kb.page/runbook",
-		body: `{"body":"the text","name":"runbook","slug":"runbook","title":"Runbook"}`,
+		body: `{"body":"the text","slug":"runbook","title":"Runbook"}`,
 		want: kb.Doc{Kind: "page", Name: "runbook", Title: "Runbook", Body: "the text"},
 	}, {
 		name:   "kb.list",
@@ -209,7 +209,7 @@ func TestCapabilities(t *testing.T) {
 	}, {
 		name:   "kb.links",
 		answer: `{"nodes":[{"id":"kb.page:runbook","name":"runbook","title":"Runbook","type":"kb.page"}],"edges":[{"from":"kb.page:runbook","to":"kb.page:index","kind":"parent"}],"degraded":true}`,
-		call:   func(c *Client) (any, error) { return c.KB.Links(ctx) },
+		call:   func(c *Client) (any, error) { return c.KB.Links(ctx, "") },
 		method: "GET", path: "/v1/knowledge/graph",
 		want: kb.Links{
 			Nodes:   []kb.Node{{ID: "kb.page:runbook", Name: "runbook", Title: "Runbook", Kind: "kb.page"}},
@@ -275,7 +275,7 @@ func TestCapabilities(t *testing.T) {
 		method: "GET", path: "/v1/graph/vocabulary",
 		want: graph.Vocabulary{
 			Relations: []string{"owner", "depends"},
-			Rule:      []string{"seen", "confidence", "source"},
+			Rules:     []string{"seen", "confidence", "source"},
 			Bound:     500,
 		},
 	}, {
@@ -318,6 +318,49 @@ func TestCapabilities(t *testing.T) {
 				t.Errorf("value =\n  %#v\nwant\n  %#v", value, tc.want)
 			}
 		})
+	}
+}
+
+// A page IS its slug, so the name a caller writes is present whether the
+// document exists or not. The store decides: the replace goes first, a 404 says
+// nothing stands there, and the create follows.
+func TestKBPutCreatesWhatIsNotThere(t *testing.T) {
+	var asked []string
+	mux := http.NewServeMux()
+	mux.HandleFunc("/v1/iam/oauth/token", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(`{"access_token":"tok","expires_in":3600}`))
+	})
+	mux.HandleFunc("/v1/framework/kb.page/runbook", func(w http.ResponseWriter, r *http.Request) {
+		asked = append(asked, r.Method+" "+r.URL.Path)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusNotFound)
+		w.Write([]byte(`{"detail":"document not found","status":404}`))
+	})
+	mux.HandleFunc("/v1/framework/kb.page", func(w http.ResponseWriter, r *http.Request) {
+		asked = append(asked, r.Method+" "+r.URL.Path)
+		body, _ := io.ReadAll(r.Body)
+		if got, want := string(body), `{"body":"the text","slug":"runbook","title":"Runbook"}`; got != want {
+			t.Errorf("body = %s, want %s", got, want)
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusCreated)
+		w.Write([]byte(`{"doctype":"kb.page","name":"runbook","title":"Runbook","body":"the text"}`))
+	})
+	srv := httptest.NewServer(mux)
+	t.Cleanup(srv.Close)
+	client := New(Options{ID: "cid", Secret: "sec", Base: srv.URL, Issuer: srv.URL, Resource: srv.URL})
+
+	doc, err := client.KB.Put(context.Background(),
+		kb.Doc{Kind: kb.Page, Name: "runbook", Title: "Runbook", Body: "the text"}).Value()
+	if err != nil {
+		t.Fatalf("put: %v", err)
+	}
+	if doc.Name != "runbook" {
+		t.Errorf("doc = %+v, want the page the store named", doc)
+	}
+	want := []string{"PUT /v1/framework/kb.page/runbook", "POST /v1/framework/kb.page"}
+	if !reflect.DeepEqual(asked, want) {
+		t.Errorf("asked %v, want %v", asked, want)
 	}
 }
 
@@ -369,19 +412,23 @@ func TestRefusalsAreAnswers(t *testing.T) {
 		}
 	})
 
-	t.Run("denied by policy", func(t *testing.T) {
+	// A policy has no refusal code of its own in cloud, so a 403 a policy wrote
+	// is indistinguishable from the 403 cloud answers for "no validated
+	// principal". Both decided nothing a caller can act on, and both are faults.
+	// Reading one as denied would hand an unauthenticated caller a cure.
+	t.Run("a 403 outside the two money codes is a fault", func(t *testing.T) {
 		var got seen
 		client := serve(t, http.StatusForbidden,
-			`{"type":"about:blank","title":"Forbidden","status":403,"detail":"clause graph.write refuses usr_7","code":"policy_denied"}`, &got)
+			`{"type":"about:blank","title":"Forbidden","status":403,"detail":"clause graph.write refuses usr_7","code":"forbidden"}`, &got)
 
 		_, err := client.KB.Put(ctx, kb.Doc{Kind: kb.Page, Name: "runbook", Title: "Runbook"}).Value()
 
-		var denied *Denied
-		if !errors.As(err, &denied) {
-			t.Fatalf("err = %v (%T), want *Denied", err, err)
+		var fault *Fault
+		if !errors.As(err, &fault) {
+			t.Fatalf("err = %v (%T), want *Fault", err, err)
 		}
-		if denied.Code != "policy_denied" {
-			t.Errorf("code = %q, want policy_denied", denied.Code)
+		if fault.Status != http.StatusForbidden || fault.Code != "forbidden" {
+			t.Errorf("fault = %+v, want a 403 forbidden", fault)
 		}
 	})
 
@@ -499,8 +546,9 @@ func TestAuditAllWalksPages(t *testing.T) {
 		t.Errorf("asked %v, want %v", asked, want)
 	}
 
-	// A Request filter narrows client-side, so the server's total cannot end
-	// the walk: it runs until a page comes back empty.
+	// A Request filter narrows client-side. The walk still asks unfiltered and
+	// counts what the SERVER sent against the server's total, so it ends on the
+	// same page an unfiltered walk ends on rather than scanning the whole trail.
 	asked = nil
 	seqs = nil
 	for event, err := range client.Audit.All(context.Background(), audit.Filter{Size: 2, Request: "req-1"}) {
@@ -512,8 +560,8 @@ func TestAuditAllWalksPages(t *testing.T) {
 	if want := []int64{1, 3}; !reflect.DeepEqual(seqs, want) {
 		t.Errorf("seqs = %v, want %v — only the rows one request produced", seqs, want)
 	}
-	if len(asked) != 3 {
-		t.Errorf("asked %d pages, want 3 — the walk ends on an empty page", len(asked))
+	if len(asked) != 2 {
+		t.Errorf("asked %d pages, want 2 — the server's own count ends the walk", len(asked))
 	}
 
 	// A listing that publishes no total cannot end the walk on one, so it runs
