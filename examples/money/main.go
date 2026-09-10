@@ -1,57 +1,66 @@
 // money — what do I have, and what have I spent?
 //
 // Operations: GET /v1/billing/balance (get_billing_balance) and
-// GET /v1/billing/usage (get_billing_usage).
+// GET /v1/billing/usage (get_billing_usage), through the budget capability.
 //
-// Neither takes an org: both derive the tenant server-side from the JWT `owner`
-// claim, so a key can only read its own money.
+// Neither takes an org: both derive the tenant from the validated principal, so
+// a credential can only read its own money.
 //
-// Both declare the address and not the shape — two of the 716 operations the
-// document publishes with no `responses` — so the generated methods hand back
-// the raw *http.Response and there is nothing to unmarshal into. This decodes
-// the JSON body directly. When cloud's handlers declare their Out types, the
-// decode goes away and the typed value is returned instead.
+// Both declare the address and not the shape — the document publishes them with
+// no `responses` — so the generated methods hand back the raw *http.Response
+// with nothing to unmarshal into. budget models the two shapes in one place, so
+// this reads Money rather than a map. When cloud's handlers declare their Out
+// types, the modelling goes and the fields stay.
 //
-//	HANZO_API_KEY=sk-... go run ./examples/money
+//	HANZO_CLIENT_ID=... HANZO_CLIENT_SECRET=... go run ./examples/money
 package main
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
-	"net/http"
 
 	hanzoai "github.com/hanzoai/go-sdk/v8"
+	"github.com/hanzoai/go-sdk/v8/budget"
 )
 
 func main() {
 	ctx := context.Background()
-	client := hanzoai.NewClient("")
+	client := hanzoai.New(hanzoai.Options{})
 
-	balance, err := client.BillingAPI.GetBillingBalance(ctx).Execute()
+	balance, err := client.Budget.Balance(ctx)
 	if err != nil {
 		log.Fatalf("balance: %v", err)
 	}
-	fmt.Printf("balance  %s\n", decode(balance))
+	fmt.Printf("wallet   %s available, %s held, in %s\n",
+		cents(balance.Available), cents(balance.Held), balance.Account)
 
-	usage, err := client.BillingAPI.GetBillingUsage(ctx).Execute()
+	// The free-call allowance is a COUNT and the wallet is a SUM. They never
+	// stand in for each other: a funded org can still be out of free calls.
+	left, err := client.Budget.Left(ctx)
+	if err != nil {
+		log.Fatalf("allowance: %v", err)
+	}
+	if left.Left == nil {
+		fmt.Printf("calls    unbounded on %s\n", left.Plan)
+	} else {
+		fmt.Printf("calls    %d of %d left this %s on %s\n",
+			*left.Left, left.Limit, left.Window, left.Plan)
+	}
+
+	spent, err := client.Budget.Spent(ctx, budget.Filter{})
 	if err != nil {
 		log.Fatalf("usage: %v", err)
 	}
-	fmt.Printf("usage    %s\n", decode(usage))
+	fmt.Printf("charges  %d\n", spent.Total)
+	for _, charge := range spent.Items {
+		fmt.Printf("  %s  %-28s %s\n",
+			charge.At.Format("2006-01-02 15:04"), charge.Model, cents(charge.Amount))
+	}
 }
 
-// decode renders an untyped JSON response body.
-func decode(resp *http.Response) string {
-	defer resp.Body.Close()
-	var body any
-	if err := json.NewDecoder(resp.Body).Decode(&body); err != nil {
-		log.Fatalf("decode %s: %v", resp.Request.URL.Path, err)
-	}
-	out, err := json.Marshal(body)
-	if err != nil {
-		log.Fatalf("encode: %v", err)
-	}
-	return string(out)
+// cents renders integer minor units. Money is never a float, so the decimal
+// point is put back only to print it.
+func cents(m hanzoai.Money) string {
+	return fmt.Sprintf("%d.%02d %s", m.Cents/100, m.Cents%100, m.Currency)
 }

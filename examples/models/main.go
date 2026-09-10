@@ -29,7 +29,7 @@ import (
 )
 
 func main() {
-	catalogue, resp, err := hanzoai.NewClient("").AiAPI.GetModels(context.Background()).Execute()
+	catalogue, resp, err := hanzoai.New(hanzoai.Options{}).AiAPI.GetModels(context.Background()).Execute()
 	if err != nil {
 		log.Fatalf("models: %v", err)
 	}

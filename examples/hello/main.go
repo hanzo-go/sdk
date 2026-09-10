@@ -1,6 +1,6 @@
 // hello — prove the key works.
 //
-// Operation: GET /v1/keys (get_keys), the caller's own API keys.
+// Operation: GET /v1/account/keys (get_account_keys), the caller's own API keys.
 //
 // This flow's whole job is to FAIL on a bad key, so the route is chosen by
 // probing api.hanzo.ai rather than by reading the document. Three
@@ -19,7 +19,7 @@
 // cloud relays all of /v1/bot through one app.All("/v1/bot/*"), so the document
 // carries /v1/bot/{wildcard1} and no operation at that address.
 //
-//	HANZO_API_KEY=sk-... go run ./examples/hello
+//	HANZO_CLIENT_ID=... HANZO_CLIENT_SECRET=... go run ./examples/hello
 package main
 
 import (
@@ -31,7 +31,7 @@ import (
 )
 
 func main() {
-	client := hanzoai.NewClient("")
+	client := hanzoai.New(hanzoai.Options{})
 
 	listing, _, err := client.AccountAPI.GetAccountKeys(context.Background()).Execute()
 	if err != nil {

@@ -85,13 +85,21 @@ Hand-written, and safe from regeneration:
 
 | file | why |
 |---|---|
-| `hanzo.go` | `NewConfig` / `NewClient` — the authenticated constructor |
-| `grant.go` | `As` — acting as one subject, on IAM's act grant |
-| `result.go` | `Read` / `Result` — the answer a person was asked about |
-| `hanzo_test.go` | pins the six flows to their routes; asserts one bearer header |
-| `grant_test.go`, `result_test.go` | the whole round trip against an `httptest` estate |
-| `examples/` | the six flows, plus `models` and `errors` |
+| `hanzo.go` | `New` / `Options` / `Client` / `As` — the constructor and the six accessors |
+| `identity.go` | the IAM mints: client credentials, and the act grant `As` rides on |
+| `call/` | `Answer`, `Denied`, `Held`, `Fault`, `Money`, `Page`, and the one request path |
+| `budget/` `policy/` `audit/` `search/` `kb/` `graph/` | the six capabilities |
+| `hanzo_test.go`, `identity_test.go`, `capabilities_test.go` | the round trip against an `httptest` estate |
+| `examples/` | the six flows, plus `models`, `errors` and `six` |
 | `go.mod`, `README.md`, `LLM.md`, `hanzo.yml`, `.hanzo/`, `scripts/` | repo-owned |
+
+**The six live in their own packages, and that is forced.** The generated client
+already defines `Answer`, `Page`, `Hit`, `Backend`, `Wrote`, `Allowance`,
+`Charge`, `Policy`, `Audit`, `Graph` and `Link` as projections of unrelated
+operations, and a regeneration may add more. A hand-written type cannot share a
+package with a generated one of the same name, so `call.Answer[T]`,
+`audit.Filter` and `graph.Fact` are where they are — which also means a
+regeneration can never collide with them.
 
 **`.generated` is what makes that table a fact rather than a promise.** It names
 every path the driver wrote — the root `*.go` and `docs/*.md`, nothing else — so
@@ -101,7 +109,7 @@ in every Hanzo SDK, and it is why the client can live at the module root at all:
 ownership is a set of files, not a directory. Everything it names is generated —
 do not edit it, change the handler in `hanzoai/cloud`.
 
-## Auth, and why `hanzo.go` exists
+## Auth: IAM mints, the SDK never accepts a bearer
 
 The document declares it: one `securityScheme`, `bearer` (`type: http`,
 `scheme: bearer`), and a root `security: [{bearer: []}]` every operation
@@ -110,23 +118,24 @@ inherits. Four opt out with `security: []` — `GET /v1/models`,
 `/v1/models` says why in its own description: the catalogue takes no principal,
 so the route reads `Authorization` to annotate gated SKUs and never to admit.
 
-openapi-generator emits auth code from that declaration and nowhere else, so
-what it emits is now real: `configuration.go` defines
-`ContextAccessToken = contextKey("accesstoken")` and `client.go` writes
-`Authorization: Bearer <token>` from it in `prepareRequest`. Before the
-declaration landed the generated client held zero references to either.
+**The client mints its own token and never takes one.** `New(Options{})` reads
+`HANZO_CLIENT_ID` and `HANZO_CLIENT_SECRET` and exchanges them at
+`POST {issuer}/v1/iam/oauth/token` — `client_credentials` under
+`client_secret_basic`, scoped by the RFC 8707 `resource`, which defaults to the
+base URL (HIP-0111). The reference is `hanzoai/visor/egress_identity.go`. There
+is no `HANZO_API_KEY` and no way to hand the SDK a bearer: a credential an SDK
+is given is a credential nobody rotates and one that says nothing about who is
+calling, which is the question every refusal in the estate exists to answer.
 
-That reader takes the token **per call**, off the context. `NewConfig` puts it
-on the Configuration instead, once, because the credential belongs to the client
-and not to a call — and that is the whole reason a hand-written file exists in a
-generated package.
+The token is held until a minute before expiry and minted again on a 401, once —
+a second 401 is the server saying no. Both the mint and the 401 replay live on an
+`http.RoundTripper`, which is the one place a credential is presented: the
+generated surface and the six capabilities share the same `*http.Client`, so
+there is one header on a request and never two. `TestFlows` asserts
+`len(Header.Values("Authorization")) == 1` rather than just its value.
 
-**One place, and the reason is mechanical.** `prepareRequest` reads the context
-key and then `Add`s every default header, both under `Authorization`, so a token
-set in both places is sent twice. `TestFlows` asserts
-`len(Header.Values("Authorization")) == 1` rather than just its value, so the
-day someone wires the context path as well the test says so. A second identity
-is a second client.
+A client holding no credentials presents nothing rather than failing. The four
+operations that take none still answer.
 
 ## Acting as a subject
 
@@ -140,27 +149,56 @@ credential is the scope, and a caller cannot pass the wrong one.
 one question — is this request carrying a live token — asked at the one moment
 the answer is known.
 
-The mint is not a call to the platform. It is
+The act grant is not a call to the platform. It is
 `POST https://hanzo.id/v1/iam/tokens/issue?id=<subject>`, on IAM's own host,
-carrying the operator credential and nothing else; **`HANZO_ISSUER_URL`** moves
-it for a private estate, the way `HANZO_BASE_URL` moves the gateway. The
-generated `PostIamTokensIssue` cannot serve: the document states that operation
-as an address and not as a shape, so the method carries neither the `id` query
-nor the camelCase `{accessToken, expiresIn}` it answers with — the same reason
-`hanzo.go` exists.
+carrying the operator's own minted access token; **`HANZO_ISSUER_URL`** moves it
+for a private estate, the way `HANZO_BASE_URL` moves the gateway. The generated
+`PostIamTokensIssue` cannot serve: the document states that operation as an
+address and not as a shape, so the method carries neither the `id` query nor the
+camelCase `{accessToken, expiresIn}` it answers with — the same reason
+`identity.go` exists.
 
-The operator credential does not travel with the minted token. `As` takes
-`Authorization` off the scoped Configuration's default headers and the grant
-sets it per request, so a scoped call carries exactly one — the assertion
-`TestFlows` already makes for the unscoped client.
+A scoped client shares the operator's held token, so scoping costs one act grant
+and not a second exchange. The operator credential does not travel with the
+minted one: the subject-bound token is the whole identity of a scoped call.
 
-## The held answer
+**The two mints spell their answers differently** — `{access_token, expires_in}`
+from the OAuth endpoint, `{accessToken, expiresIn}` from the act grant — and
+`identity.go` is where that ends.
 
-`Read` takes the three values every generated `Execute` returns and gives a
-`Result[T]` whose value is reachable only through `Value()`, which answers a
-`*HeldError` when the platform stopped the call for a human decision. Go has no
-sum type; an ignored error return is loud where an exported field read is
-silent.
+## The six capabilities, and the answer they share
+
+`Budget`, `Policy`, `Audit`, `Search`, `KB` and `Graph` hang off the same client
+as the generated surface. One word each, the same word in the Go, Python and
+TypeScript SDKs; Go exports it capitalized because that is Go's rule, and `KB`
+is all-caps because that is Go's rule for an initialism. Method names carry no
+capability prefix: `client.Graph.Read`, never `client.Graph.ReadGraph`.
+
+**A refusal is a value, not an exception.** Every method a gate can refuse
+answers `call.Answer[T]`, whose value is reachable only through `Value()` — Go
+has no sum type, and an ignored error return is loud where an exported field
+read is silent. `Value()` hands back a `*call.Denied` where a budget or a policy
+said no (with `Code`, `Reason`, `Product` and the `Cures` that clear it), a
+`*call.Held` where a person was asked, and a `*call.Fault` where nothing decided
+anything. `Answer.Request` is the `x-request-id` on every arm, and it is the
+join to `audit.Event.Request`.
+
+**Pure reads answer their value directly.** `Budget.Left`, `Budget.Balance`,
+`Budget.Plan`, `Budget.Spent`, `Policy.Check`, `Audit.List`, `Audit.All`,
+`Graph.Read`, `Graph.Find`, `Graph.Resolve`, `Graph.Walk`, `Graph.Extract`,
+`Graph.Vocabulary`, `KB.Get`, `KB.List`, `KB.Connectors`, `KB.Connect` and
+`KB.Links` are not refused, so wrapping them in an `Answer` would be a branch
+with one arm.
+
+**One rule maps an HTTP answer to an arm**, in `call.Ask`, and no capability
+varies it. 2xx is the value; a 202 whose body says `held` is a hold; 402 is a
+denial whatever the code; a 403 carrying `policy_denied`,
+`entitlement_required`, `spend_cap_exceeded` or `insufficient_balance` is a
+denial; everything else is a fault. That last allow-list is a workaround for one
+cloud defect: cloud spells "no validated principal" as `403 forbidden`, and
+reading a bare forbidden as a denial would tell an unauthenticated caller their
+budget said no. The day cloud answers 401 for that, the list goes and the rule
+collapses to "402 or 403 means denied".
 
 **The body says whether a call was held, not the status code.** A dozen
 operations answer 202 for "accepted, working on it" and carry a real schema — a
@@ -170,9 +208,9 @@ answer from someone who was never asked. Only `"status":"held"` is a hold. That
 is the discriminator the other Hanzo clients use, so there is one contract
 rather than one per language.
 
-`Read` decides the hold before it looks at the error, because the hold is a
-property of the answer: a held body need not fit the operation's own schema, and
-the caller still has to learn a person was asked.
+`call.Ask` decides the hold before it decodes, because the hold is a property of
+the answer: a held body need not fit the operation's own schema, and the caller
+still has to learn a person was asked.
 
 ## Generation knobs
 
@@ -280,6 +318,24 @@ Every apparent survivor is correct and must not be "fixed":
 
 Never derive a name — read it off the generated client or the document.
 
+## What cloud has to change, measured
+
+Each of these was probed against `api.hanzo.ai` or read out of `hanzoai/cloud`.
+Each one removes a workaround the three SDKs otherwise write identically.
+
+| route | what it does | what it costs the SDK |
+|---|---|---|
+| every gated route | answers `403 forbidden` where there is no validated principal | `call.refusals` exists only to tell a refusal from an absent caller |
+| every 402 | two bodies: `errmap`'s RFC 9457 envelope with `code`, and `cloud.Refuse`'s `{error, product, reason, message, cure[]}` | `call.denial` reads both |
+| `POST /v1/authz/check` | binds `{subject, verb, path, grants}` and answers `{allow, subject, verb, path}`, where the document's own description says `{sub, obj, act}` | the SDK sends what the handler binds; the description is what the contract was written from |
+| `POST /v1/authz/check` | decides against grants carried IN THE REQUEST — `authz.Can` fails closed, so an empty grant set authorizes nothing | a three-argument check answers false for every question until cloud reads the caller's grants from IAM, as its description says it does |
+| `GET /v1/billing/balance`, `/usage` | declare an address and no shape | `budget` models `{balance, holds, available, account}` and the usage envelope by hand |
+| `GET /v1/audit` | no `requestId` filter, though every row carries one; `pageSize` and `p` are strings | `audit.Filter.Request` narrows client-side |
+| `/v1/framework/kb.*` | the elective middleware answers **404 with the problem envelope** to a caller whose org has not enabled the module | a 404 there is a refusal wearing an absence; only the plain-text 404 means unrouted |
+| `POST /v1/graph/ingest` | validates before it authenticates — an unauthenticated `POST {}` answers `400 timestamp "" is not RFC 3339`, measured | an unauthenticated caller learns the validation rules |
+| `/v1/approvals/{id}` | is not served | the `held` arm is terminal: a caller learns a person was asked and cannot poll |
+| every metered route | emits no per-call cost | spend is unattributable without a second read |
+
 ## Release state
 
 `v1.0.0` is the reverted experiment, is published, and outranks every
@@ -336,33 +392,42 @@ happened since July reads as fact. The tag list is the record.
 
 ## Testing
 
-`hanzo_test.go` stands up an `httptest` server, points the SDK at it with
-`HANZO_BASE_URL`, and asserts for each flow that the client sends the documented
-method and path plus `Authorization: Bearer`. If a regeneration moves an
-operation, that test fails instead of the examples silently calling a wrong
+`hanzo_test.go` stands up an `httptest` server answering both IAM's mint and the
+platform API, and asserts for each flow that the client sends the documented
+method and path plus exactly one `Authorization: Bearer`. If a regeneration moves
+an operation, that test fails instead of the examples silently calling a wrong
 endpoint.
 
+`capabilities_test.go` does the same for the six, a row per method, asserting the
+exact request — method, path, query and body — beside the decode. That half of a
+client contract is the half a decode cannot check: a method that posts the right
+shape to the wrong address passes every test that only reads the reply. It also
+walks each arm end to end: a 402 in both bodies cloud writes, a `policy_denied`
+403, a `held` 202, and a bare `forbidden` that must NOT read as a denial.
+
+`identity_test.go` is the credential: the `client_credentials` exchange with its
+`resource`, the held token, the single 401 replay with the body it carried, the
+act grant `As` rides on, and the assertion that concurrent first calls mint once
+between them.
+
 Two examples run to completion with no credential, and they are the pair that
-proves the auth contract from both ends against the live API:
+proves the auth contract from both ends against the live API: `models` is a
+public operation answering everyone, and `errors` is a gated route answering 403
+to a client that cannot say who it is. `errors` is also the way to check a base
+URL end to end.
 
 ```
-$ go run ./examples/models              # HANZO_API_KEY unset
+$ go run ./examples/models              # no credentials set
 200 OK  112 model(s)
-  all-mini-lm-l6-v2            do-ai
-  anthropic-claude-opus-5      do-ai
-  best                         hanzo
-  ...
-$ go run ./examples/errors              # a key the API refuses
+$ go run ./examples/errors
 status    403 Forbidden
-refused   {"status":403,"code":"forbidden","error":"sign in to manage API keys"}
-$ HANZO_API_KEY=sk-... go run ./examples/hello
-the key is accepted; this org holds 1 key(s)
+$ HANZO_CLIENT_ID=... HANZO_CLIENT_SECRET=... go run ./examples/six
 ```
 
-`models` is a public operation answering everyone; `errors`/`hello` are the same
-route answering 403 without a credential and 200 with one, which is what makes
-the credential load-bearing rather than decorative. `errors` is also the way to
-check a base URL end to end.
+`examples/six` is the five-step composition: what the wallet holds decides
+whether to ask, the wallet's own account names the org a policy question is
+scoped to, a search states its degradation, a graph write answers a request id,
+and that id finds the row the server wrote about it.
 
 This replaces the suite that shipped with that client, whose `ok` was 187 SKIP /
 25 PASS against a disabled mock server and asserted nothing about the API

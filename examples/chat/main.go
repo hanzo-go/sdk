@@ -18,7 +18,7 @@
 // client hands back as an opaque body, so demonstrating it here would teach the
 // wrong shape.
 //
-//	HANZO_API_KEY=sk-... go run ./examples/chat
+//	HANZO_CLIENT_ID=... HANZO_CLIENT_SECRET=... go run ./examples/chat
 package main
 
 import (
@@ -30,7 +30,7 @@ import (
 )
 
 func main() {
-	client := hanzoai.NewClient("")
+	client := hanzoai.New(hanzoai.Options{})
 
 	completion, resp, err := client.AiAPI.PostChatCompletions(context.Background()).Execute()
 	if err != nil {

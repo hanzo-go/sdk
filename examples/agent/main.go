@@ -1,8 +1,8 @@
 // agent — create an agent, run it, read the run back.
 //
-// Operations: POST /v1/agents (post_agents),
-// POST /v1/agents/{ref}/run (post_agents_by_ref_run),
-// GET /v1/agents/{ref}/runs (get_agents_by_ref_runs).
+// Operations: POST /v1/agent (post_agent),
+// POST /v1/agent/{ref}/run (post_agent_by_ref_run),
+// GET /v1/agent/{ref}/runs (get_agent_by_ref_runs).
 //
 // `ref` accepts the public id (agent_...) or the org-unique name, so run and
 // read both use the name just created without waiting for an id.
@@ -13,9 +13,10 @@
 // *http.Response and the run is identified by reading the list rather than
 // from the POST.
 //
-// Agents are org-scoped, so this needs X-Org-Id alongside the API key.
+// Agents are org-scoped. The org is the validated principal's own, read off
+// the credential rather than named in a request.
 //
-//	HANZO_API_KEY=sk-... HANZO_ORG_ID=my-org go run ./examples/agent
+//	HANZO_CLIENT_ID=... HANZO_CLIENT_SECRET=... go run ./examples/agent
 package main
 
 import (
@@ -36,17 +37,13 @@ func main() {
 		model = "zen-1"
 	}
 
-	cfg := hanzoai.NewConfig("")
-	if org := os.Getenv("HANZO_ORG_ID"); org != "" {
-		cfg.AddDefaultHeader("X-Org-Id", org)
-	}
-	client := hanzoai.NewAPIClient(cfg)
+	client := hanzoai.New(hanzoai.Options{})
 
 	// Names are org-unique, so a hardcoded one collides with the last run.
 	name := fmt.Sprintf("sdk-example-%d", os.Getpid())
 	instructions := "You answer in exactly one sentence."
 
-	created, _, err := client.AgentsAPI.PostAgents(ctx).
+	created, _, err := client.AgentAPI.PostAgent(ctx).
 		CreateAgentIn(hanzoai.CreateAgentIn{
 			Name:         &name,
 			Model:        &model,
@@ -57,7 +54,7 @@ func main() {
 	}
 	fmt.Printf("created  %s (%s)\n", created.GetName(), created.GetId())
 
-	if _, err := client.AgentsAPI.PostAgentsByRefRun(ctx, name).Execute(); err != nil {
+	if _, err := client.AgentAPI.PostAgentByRefRun(ctx, name).Execute(); err != nil {
 		log.Fatalf("run agent: %v", err)
 	}
 	fmt.Printf("started  a run on %s\n", name)
@@ -71,9 +68,9 @@ func main() {
 }
 
 // poll reads the run list until its newest run reaches a terminal status.
-func poll(ctx context.Context, client *hanzoai.APIClient, ref string) (*hanzoai.AgentRunView, error) {
+func poll(ctx context.Context, client *hanzoai.Client, ref string) (*hanzoai.AgentRunView, error) {
 	for deadline := time.Now().Add(2 * time.Minute); time.Now().Before(deadline); time.Sleep(2 * time.Second) {
-		list, _, err := client.AgentsAPI.GetAgentsByRefRuns(ctx, ref).Limit(1).Execute()
+		list, _, err := client.AgentAPI.GetAgentByRefRuns(ctx, ref).Limit(1).Execute()
 		if err != nil {
 			return nil, fmt.Errorf("list runs: %w", err)
 		}

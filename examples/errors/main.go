@@ -14,8 +14,10 @@
 //     transport failure, a cancelled context — and that is the case worth
 //     separating, because retrying it means something different.
 //
-// This calls GET /v1/keys with a key the API refuses, so it walks the failure
-// path rather than the happy one. It needs no credential of its own.
+// This calls GET /v1/keys. Run it with no credentials in the environment and
+// it walks the failure path: a client with nothing to present sends nothing,
+// and the route refuses, which is the truth about a caller that cannot say
+// who it is. Run it with credentials and it prints the count instead.
 //
 //	go run ./examples/errors
 package main
@@ -30,7 +32,7 @@ import (
 )
 
 func main() {
-	client := hanzoai.NewClient("sk-this-key-does-not-exist")
+	client := hanzoai.New(hanzoai.Options{})
 
 	listing, resp, err := client.AccountAPI.GetAccountKeys(context.Background()).Execute()
 	if err == nil {
