@@ -515,6 +515,21 @@ func TestAuditAllWalksPages(t *testing.T) {
 	if len(asked) != 3 {
 		t.Errorf("asked %d pages, want 3 — the walk ends on an empty page", len(asked))
 	}
+
+	// A listing that publishes no total cannot end the walk on one, so it runs
+	// to the empty page rather than truncating at the first.
+	asked = nil
+	seqs = nil
+	pages = []string{`{"data":[{"seq":1}]}`, `{"data":[{"seq":2}]}`}
+	for event, err := range client.Audit.All(context.Background(), audit.Filter{Size: 1}) {
+		if err != nil {
+			t.Fatalf("all: %v", err)
+		}
+		seqs = append(seqs, event.Seq)
+	}
+	if want := []int64{1, 2}; !reflect.DeepEqual(seqs, want) {
+		t.Errorf("seqs = %v, want %v", seqs, want)
+	}
 }
 
 // value is Answer.Value as a table row uses it: the value alone, boxed.

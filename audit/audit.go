@@ -152,8 +152,10 @@ func (c *Client) All(ctx context.Context, f Filter) iter.Seq2[Event, error] {
 		if f.Page <= 0 {
 			f.Page = 1
 		}
-		// A Request filter drops rows here, so the server's total counts a
-		// different question and cannot end the walk. An empty page does.
+		// The total ends the walk where there is one to trust. A Request
+		// filter drops rows here, so the server's total counts a different
+		// question; a total of zero beside rows is a listing that published
+		// none. Both fall back to the empty page, which always ends it.
 		var seen int64
 		for {
 			page, err := c.List(ctx, f)
@@ -170,7 +172,7 @@ func (c *Client) All(ctx context.Context, f Filter) iter.Seq2[Event, error] {
 				}
 			}
 			seen += int64(len(page.Items))
-			if f.Request == "" && seen >= page.Total {
+			if f.Request == "" && page.Total > 0 && seen >= page.Total {
 				return
 			}
 			f.Page++

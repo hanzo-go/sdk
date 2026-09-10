@@ -106,8 +106,10 @@ func (c *Client) Left(ctx context.Context) (Allowance, error) {
 	if wire.Limit > 0 {
 		left := max(wire.Limit-wire.Used, 0)
 		out.Left = &left
-		resets := time.Unix(wire.Resets, 0).UTC()
-		out.Resets = &resets
+		if wire.Resets > 0 {
+			resets := time.Unix(wire.Resets, 0).UTC()
+			out.Resets = &resets
+		}
 	}
 	return out, nil
 }
