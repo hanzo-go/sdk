@@ -89,6 +89,7 @@ Hand-written, and safe from regeneration:
 | `identity.go` | the IAM mints: client credentials, and the act grant `As` rides on |
 | `call/` | `Answer`, `Denied`, `Held`, `Fault`, `Money`, `Page`, and the one request path |
 | `budget/` `policy/` `audit/` `search/` `kb/` `graph/` | the six capabilities |
+| `secret/` | `Boot` — a service reads its own credentials out of KMS at startup |
 | `hanzo_test.go`, `identity_test.go`, `capabilities_test.go` | the round trip against an `httptest` estate |
 | `examples/` | the six flows, plus `models`, `errors` and `six` |
 | `go.mod`, `README.md`, `LLM.md`, `hanzo.yml`, `.hanzo/`, `scripts/` | repo-owned |
@@ -136,6 +137,50 @@ there is one header on a request and never two. `TestFlows` asserts
 
 A client holding no credentials presents nothing rather than failing. The four
 operations that take none still answer.
+
+## `secret.Boot`: where a service's own credentials come from
+
+A service needs values before it can serve: a signing key, a database URL, the
+client secret it mints with. `secret.Boot` reads them from KMS at startup, over
+the identity the pod already carries, and holds them in memory.
+
+```go
+import "github.com/hanzoai/go-sdk/v8/secret"
+
+values, err := secret.Boot(ctx, "hanzo/cloud", "HANZO_CLIENT_SECRET", "DB_URL")
+client := hanzoai.New(hanzoai.Options{Secret: values["HANZO_CLIENT_SECRET"]})
+```
+
+The projected ServiceAccount token is the assertion: IAM exchanges it at
+`POST /v1/iam/oauth/token` for a bearer (RFC 7523,
+`grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer`, which IAM serves from
+v1.34.99), and KMS answers `GET /v1/kms/secrets/<path>/<key>?env=<env>` under
+it. One mint per `Boot` and exactly one more on a 401 — a second 401 is a
+refusal, and retrying it is how a boot loop becomes a mint flood. Every key must
+resolve or the whole `Boot` fails naming the key, because a map one entry short
+is a service that starts, serves, and fails at the first request that needed the
+value. A key is a bare name — no separator, no `.` or `..` — so it can address a
+secret and nothing else.
+
+| environment | is | default |
+| --- | --- | --- |
+| `HANZO_SA_TOKEN` | the projected ServiceAccount token | `/var/run/secrets/hanzo/iam/token` |
+| `HANZO_IAM_URL` | where the assertion is exchanged | `https://hanzo.id` |
+| `KMS_URL` | where the values live | `http://cloud.hanzo.svc:8000` |
+| `HANZO_ENV` | which environment a name resolves in | `prod` |
+| `HANZO_DEV` | `1` with no token file: read the keys from the environment | — |
+
+These are the platform's own variable names, so a pod already carrying them
+needs nothing added; `HANZO_IAM_URL` is the same host `HANZO_ISSUER_URL` names
+for the client, under the name a pod is given it by. `HANZO_DEV=1` with no token
+file is the only path by which a secret reaches the process from the
+environment, and it says so in the log; it looks each key up under its own name,
+so `DB_URL` is `DB_URL` either way. In production an absent token is an error,
+never a fallback.
+
+The alternative this replaces is a Kubernetes Secret, which is a base64 field
+anyone holding get on the namespace reads, mounted where anything in the pod
+reads it again.
 
 ## Acting as a subject
 
