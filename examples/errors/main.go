@@ -46,8 +46,7 @@ func main() {
 
 	fmt.Printf("status    %s\n", resp.Status)
 
-	var apiErr *hanzoai.GenericOpenAPIError
-	if errors.As(err, &apiErr) {
+	if apiErr, ok := errors.AsType[*hanzoai.GenericOpenAPIError](err); ok {
 		fmt.Printf("refused   %s\n", apiErr.Body())
 		return
 	}

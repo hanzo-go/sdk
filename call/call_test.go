@@ -199,8 +199,7 @@ func TestDoAnswersTheRequestID(t *testing.T) {
 	if request != "req-1" {
 		t.Errorf("request = %q, want req-1 even on a failure", request)
 	}
-	var fault *Fault
-	if !errors.As(err, &fault) {
+	if _, ok := errors.AsType[*Fault](err); !ok {
 		t.Fatalf("err = %v (%T), want *Fault", err, err)
 	}
 }

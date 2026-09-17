@@ -268,8 +268,7 @@ func TestSecondUnauthorizedStops(t *testing.T) {
 	}})
 
 	_, res, err := e.client().AccountAPI.GetAccountKeys(context.Background()).Execute()
-	var apiErr *GenericOpenAPIError
-	if !errors.As(err, &apiErr) {
+	if _, ok := errors.AsType[*GenericOpenAPIError](err); !ok {
 		t.Fatalf("err = %v (%T), want *GenericOpenAPIError", err, err)
 	}
 	if res.StatusCode != http.StatusUnauthorized {
@@ -306,13 +305,11 @@ func TestConcurrentCallsMintOnce(t *testing.T) {
 	client := e.client()
 	var wg sync.WaitGroup
 	for range 8 {
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
+		wg.Go(func() {
 			if err := keys(client); err != nil {
 				t.Error(err)
 			}
-		}()
+		})
 	}
 	wg.Wait()
 	if got := e.oauth.Load(); got != 1 {

@@ -86,8 +86,8 @@ func TestCapabilities(t *testing.T) {
 		call:   func(c *Client) (any, error) { return c.Budget.Left(ctx) },
 		method: "GET", path: "/v1/allowance",
 		want: budget.Allowance{
-			Plan: "pro", Limit: 20, Used: 3, Left: left(17), Spent: false, Window: "day",
-			Resets: when(time.Unix(1757548800, 0).UTC()),
+			Plan: "pro", Limit: 20, Used: 3, Left: new(int64(17)), Spent: false, Window: "day",
+			Resets: new(time.Unix(1757548800, 0).UTC()),
 		},
 	}, {
 		// An unbounded plan has no remainder and no period to end, so neither
@@ -461,8 +461,7 @@ func TestRefusalsAreAnswers(t *testing.T) {
 
 		_, err := client.Search.Find(ctx, "anything", search.Opts{}).Value()
 
-		var denied *Denied
-		if errors.As(err, &denied) {
+		if denied, ok := errors.AsType[*Denied](err); ok {
 			t.Fatalf("a bare forbidden read as a denial: %+v", denied)
 		}
 		var fault *Fault
@@ -487,8 +486,7 @@ func TestRefusalsAreAnswers(t *testing.T) {
 		if err == nil {
 			t.Fatal("want an error when the counts do not account for the batch")
 		}
-		var denied *Denied
-		if errors.As(err, &denied) {
+		if _, ok := errors.AsType[*Denied](err); ok {
 			t.Fatal("an inconsistent count is not a refusal")
 		}
 	})
@@ -585,6 +583,3 @@ func value[T any](a call.Answer[T]) (any, error) {
 	v, err := a.Value()
 	return v, err
 }
-
-func left(n int64) *int64         { return &n }
-func when(t time.Time) *time.Time { return &t }

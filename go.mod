@@ -16,9 +16,6 @@
 // is the whole point of the suffix.
 module github.com/hanzoai/go-sdk/v8
 
-go 1.26.8
+go 1.27.1
 
-require (
-	golang.org/x/oauth2 v0.36.0
-	gopkg.in/validator.v2 v2.0.1
-)
+require gopkg.in/validator.v2 v2.0.1
