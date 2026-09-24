@@ -1,3 +1,8 @@
 # Generator scratch. The generated client itself IS committed — it is what
 # `go get` resolves — so nothing under the module root is ignored here.
 /openapi-generator-cli-*.jar
+
+# Local symlinks to LLM.md
+CLAUDE.md
+AGENTS.md
+GEMINI.md
