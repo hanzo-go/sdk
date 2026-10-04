@@ -8,7 +8,7 @@ own OpenAPI document.
 ## Install
 
 ```bash
-go get github.com/hanzoai/go-sdk/v8
+go get github.com/hanzoai/go-sdk/v8@v8.5.623
 ```
 
 Go 1.26 or newer. **v1.0.2 is the floor** — earlier versions spell the methods
@@ -134,6 +134,28 @@ if err != nil {
 }
 ```
 
+A plan or wallet refusal is also a `*hanzoai.UsageLimitError`, and each code
+has a sentinel. `ReadUsage` reads the `X-Hanzo-Usage*` headers off any response.
+
+```go
+_, resp, err := client.AiAPI.PostDecisions(ctx).AiDecisionsRequest(req).Execute()
+var limit *hanzoai.UsageLimitError
+switch {
+case errors.Is(err, hanzoai.ErrModelCap):
+	errors.As(err, &limit) // limit.Fallback answers instead; limit.Actions are the ways on
+case errors.As(err, &limit):
+	log.Printf("%d %s until %s", limit.Status, limit.Code, limit.ResetsAt)
+}
+if resp != nil {
+	fmt.Println(hanzoai.ReadUsage(resp.Header).Usage) // ok, near or limited
+}
+```
+
+Codes: `CodePlanAllowanceUsed`, `CodePaidPlanRequired`, `CodeFreePlanCap`,
+`CodeModelCap`, `CodeUsageCapExceeded`, `CodeInsufficientBalance`. Where every
+class stands is `client.AiAPI.AiLimits`; `AiSetLimits` turns credits after the
+allowance on or off.
+
 ## Examples
 
 Start with `models`. It calls a public operation, so it runs with nothing set up:
@@ -170,6 +192,7 @@ the key is accepted; this org holds 1 key(s)
 | [`agent`](examples/agent) | Create an agent, run it, poll the run | `POST /v1/agent`, `POST /v1/agent/{ref}/run`, `GET /v1/agent/{ref}/runs` | yes |
 | [`tools`](examples/tools) | List the tools this credential can reach | `GET /v1/tool` | yes |
 | [`errors`](examples/errors) | Read a refusal | `GET /v1/account/keys` | no |
+| [`limits`](examples/limits) | Where the plan stands, and a usage refusal | `GET /v1/ai/limits`, `POST /v1/decisions` | yes |
 | [`six`](examples/six) | Budget, policy, search, graph and the audit trail of what just happened | all six | yes |
 
 `hello`, `chat`, `money`, `store`, `agent` and `tools` are the flows

@@ -81,11 +81,12 @@ Hand-written, and safe from regeneration:
 |---|---|
 | `hanzo.go` | `New` / `Options` / `Client` / `As` — the constructor and the six accessors |
 | `identity.go` | the IAM mints: client credentials, and the act grant `As` rides on |
+| `usage.go` | `UsageLimitError`, the six `Code*` constants and `Err*` sentinels, `ReadUsage` |
 | `call/` | `Answer`, `Denied`, `Held`, `Fault`, `Money`, `Page`, and the one request path |
 | `budget/` `policy/` `audit/` `search/` `kb/` `graph/` | the six capabilities |
 | `secret/` | `Boot` — a service reads its own credentials out of KMS at startup |
-| `hanzo_test.go`, `identity_test.go`, `capabilities_test.go` | the round trip against an `httptest` estate |
-| `examples/` | the six flows, plus `models`, `errors` and `six` |
+| `hanzo_test.go`, `identity_test.go`, `capabilities_test.go`, `usage_test.go` | the round trip against an `httptest` estate |
+| `examples/` | the six flows, plus `models`, `errors`, `limits` and `six` |
 | `go.mod`, `README.md`, `LLM.md`, `hanzo.yml`, `.hanzo/`, `scripts/` | repo-owned |
 
 **The six live in their own packages, and that is forced.** The generated client
@@ -103,6 +104,26 @@ file it never wrote, whatever directory that file sits in. It is the same record
 in every Hanzo SDK, and it is why the client can live at the module root at all:
 ownership is a set of files, not a directory. Everything it names is generated —
 do not edit it, change the handler in `hanzoai/cloud`.
+
+## Usage limits
+
+`usage.go` adds an `Unwrap` method to the generated `GenericOpenAPIError`, so
+every generated method's error reaches a `*UsageLimitError` through `errors.As`,
+and its code's sentinel through `errors.Is`, when the body is the gateway's
+`{"error":{code,...}}` with one of the six codes (`hanzoai/ai`
+`routers/filter_balance.go` writes them). Anything else unwraps to nil. Status
+comes from the error's status line; an operation whose error schema is the
+problem envelope fails to decode a gateway body and drops that line, so the
+code's documented status (402 or 429) stands in. A generator release that adds
+its own `Unwrap` breaks the build, which is the gate catching it.
+
+`ReadUsage` reads `X-Hanzo-Usage`, `-Usage-Class`, `-Paid-By`, `-Fallback`,
+`-Served` and `-Usage-Reason`; absent reads "". Chat from a client credential is
+refused rather than answered by a fallback unless the client sends
+`X-Hanzo-Fallback: allow` (`client.GetConfig().AddDefaultHeader`).
+
+`TestLive` is the live smoke, gated on its own flag:
+`go test . -run TestLive -token="$(hanzo auth token)"`.
 
 ## Auth: IAM mints, the SDK never accepts a bearer
 
