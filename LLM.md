@@ -411,11 +411,27 @@ a bare one silently resolves to the previous tag until the index catches up,
 which is the whole failure this repo once had. Move that pin with every tag —
 v1.0.2 stays named in the prose as the floor, which is a different fact.
 
-Publishing a Go module is pushing the tag. `.hanzo/workflows/release.yml` proves
+Publishing a Go module is pushing the tag. `.github/workflows/release.yml` proves
 the tag compiles and warms the proxy; there is no registry and no token. The
 proxy reads github.com/hanzoai/go-sdk/v8, which GitHub redirects to hanzo-go/sdk,
-which the forge push-mirrors within seconds — so a tag pushed here is resolvable
-publicly without anything else being done.
+the canonical repo (the forge has no copy) — so a tag pushed to GitHub is
+resolvable publicly without anything else being done.
+
+The version is cloud's: cloud's fanout dispatches `cicd.yml` with `spec-ref` (the
+release commit) and `spec-version`, and the client lane regenerates from
+`https://api.hanzo.ai/v1/openapi.json` and cuts that version, the same number npm
+and PyPI `hanzoai` get. Run by hand, the lane is: write `.spec-lock` (ref = the
+release commit, sha256 = of the served JSON), then
+`SPEC=<served json> OPENAPI=<hanzoai/openapi at GitHub main> ./scripts/generate.sh`.
+
+**Every job here runs on `linux-amd64`, and a GitHub runner exists only for a
+bound App installation.** cloud's `apps/provider/github_runner.go` mints a JIT
+runner per queued job in the job's org, and ignores a delivery whose
+installation no Hanzo org has connected ("unknown installation"). The
+`hanzo-platform` installation on `hanzo-go` must be connected to org `hanzo`
+(it shows in `GET /v1/provider/github/installations` for that org); unbound,
+every run queues, the next dispatch cancels it, and the fanout still counts it
+started because the run has a job.
 
 Confirming that from a Hanzo machine takes care, because two settings route
 around the thing under test: `GOPRIVATE=github.com/hanzoai/*` makes the fetch
